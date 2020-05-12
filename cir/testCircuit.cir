@@ -1,0 +1,43 @@
+   "test circuit"
+
+ * Comment
+
+    R1 1  out {R_a }
+
+ R2 1   0    100 ;comment
+
+.model MyMOS M (cgs = { C_gs } cds = { C_ds })
+
+E1 1  3 ; comment
+* comment
+ + 10   11 
+ +    { 10 /( 1+s*tau_1)} ; comment
+L1 2 5 10
+L3 5 6 1
+K1 L1    L3 0.12
+R10 2 3 r dcvar=0.01 value = {alpha*5} ; comment
+X1 1 2 4 mySubCircuit
+X2 1 2 4 anotherCircuit params: value={5*pi}  ; comment
+X3 1 2 3 anotherCircuit ; params: 
++  ; comment
+
+.subckt + ++ myModel 1 2 3 a+ap R = 0
+L1 1 2 12.4
+C1 2 0 {c_p}
+R1 2 3 {R}
+R7 10 11 6
+
+.subckt myModel2 1 2
+L10 1 2 10
+K2 L1 L2 0.87
+L20 1 2 + 10
+R_67 1 2 3
+.ends
+
+R10 1 2 10
+
+.ends
+F2 2 3 4 5 {oops}
+H1 3 4 5 6 {exp(i*pi)}
+*.lib help.lib
+.end

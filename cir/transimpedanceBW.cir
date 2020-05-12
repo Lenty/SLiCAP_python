@@ -1,0 +1,11 @@
+TransimpedanceBW
+* file: transimpedanceBW.cir
+* SLiCAP circuit file
+I1 0 1 {I_s}
+C1 0 1 {C_s}
+C2 0 1 {C_d}
+R1 1 ell {R_f}
+R2 ell 0 {R_ell}
+E1 ell 0 0 1 EZ value={A_0/(1+s*A_0/2/pi/G_B)} zs={R_o}
+.param C_s=20p R_f=50k
+.end

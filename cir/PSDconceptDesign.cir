@@ -1,0 +1,11 @@
+"PSD concept"
+*.include SLiCAP.lib
+C1 1 outP {C_i}
+C2 2 outN {C_i}
+N1 outP 0 1 0
+N2 outN 0 2 0
+I1 3 0 I value={E_P*S_PSD} dc=0 dcvar=0 noise=0
+.param E_P=1n S_PSD=0.15 R_PSD=85k ell=6m
+R1 1 3 r value={R_PSD*(0.5-x/ell)} dcvar=0
+R2 3 2 r value={R_PSD*(0.5+x/ell)} dcvar=0
+.end

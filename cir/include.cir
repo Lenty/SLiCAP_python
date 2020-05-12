@@ -1,0 +1,8 @@
+blah
+.subckt anotherCircuit 1 2 3 value={alpha}
+R34 1 0 r value={value}
+Q1 1 2 3 0 Q2N3904 cpi=1p gpi={g_pi}
+.param alpha=3
+.model Q2N3904 QV gpi=1u
+.ends
+* blahblah

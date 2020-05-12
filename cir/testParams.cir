@@ -1,0 +1,15 @@
+"test parameter parsing"
+
+R1 1 0 myR value = {R_a}
+X1 pos neg myR myr = {10*R_b}
+.param R_a = 10 R_b = 2
+.model myR R
+
+.subckt myR 1 2 myr = 10
+R1 1 2 {myr}
+R2 1 2 R value = {30*s}
+R3 1 2 thisR
+.model thisR R value={4*myr}
+.ends
+
+.end

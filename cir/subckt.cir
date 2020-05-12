@@ -1,0 +1,10 @@
+testCircuit		
+.subckt myOpamp inP inN out GND A_0 = {A_1} tau={t} R_o = 0.5k
+E1 1 GND inP inN {A_0/(1+s*tau)}
+R1 1 out {R_o}
+C1 inP inN {C_i}
+.param C_i=10p
+.ends
+X1 1 2 3 0 myOpamp tau = {t_a}
+.param  t_a = 1m g_m=10m Z_t=100M
+.end

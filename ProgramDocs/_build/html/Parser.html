@@ -1,0 +1,1352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SLiCAP netlist parser &mdash; SLiCAP Programming 0.1.2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/myStyle.css" type="text/css" />
+  
+
+  
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
+        <link rel="next" title="Parsing method" href="parsingMethod.html"/>
+        <link rel="prev" title="SLiCAP configuration" href="configure.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="slicap-programming.html" class="icon icon-home"> SLiCAP Programming
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">SLiCAP open-source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure.html">SLiCAP configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SLiCAP netlist parser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-file">Input file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#type-and-order-of-file-lines">Type and order of file lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description-syntax">Description syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#circuit-title">Circuit title</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#element-definition-lines">Element definition lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sub-circuit-definition">Sub circuit definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#include-a-file">Include a file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#library-definition-line">Library definition line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-definition-line">Model definition line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-definition-line">parameter definition line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#end-of-the-netlist">end of the netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#element-identifiers">Element identifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#models">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stamp-models">Stamp models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expansion-models">Expansion models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parser-output">Parser output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="slicap-programming.html">SLiCAP Programming</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="slicap-programming.html">Docs</a> &raquo;</li>
+        
+      <li>SLiCAP netlist parser</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Parser.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="slicap-netlist-parser">
+<h1>SLiCAP netlist parser<a class="headerlink" href="#slicap-netlist-parser" title="Permalink to this headline">¶</a></h1>
+<p>Converts a SLiCAP (Spice compatible) netlist into:</p>
+<ul class="simple">
+<li>A circuit structure for Maxima</li>
+<li>A circuit object for MATLAB</li>
+<li>A circuit object for Python</li>
+</ul>
+<div class="section" id="input-file">
+<h2>Input file<a class="headerlink" href="#input-file" title="Permalink to this headline">¶</a></h2>
+<p>The input file consists of a title line, a collection of netlist lines and instructions. <strong>SLiCAP netlist input is case sensitive!</strong></p>
+<ul class="simple">
+<li>The first line of the input file is the <a class="reference internal" href="#title">title</a> of the circuit.</li>
+<li>The first non-whitespace character of an <a class="reference internal" href="#element-definition">element definition</a> line.</li>
+<li>The last line is the line with the ‘.end’ instruction.</li>
+</ul>
+<div class="section" id="type-and-order-of-file-lines">
+<h3>Type and order of file lines<a class="headerlink" href="#type-and-order-of-file-lines" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>The first line is a the <a class="reference internal" href="#title">title</a> of the circuit.</li>
+<li>A line starting with a dot ‘.’ is an instruction line.</li>
+<li>A ‘.end’. instruction line ends the circuit definition. Lines followinh this line will be ignored.</li>
+<li>Lines between a line that starts with the ‘.subckt’ instruction and a line that starts with ‘.ends’ instruction, describe a sub circuit within the circuit or a sub circuit. Such lines can be of any type except ‘.end’ ‘.inc…’ and ‘.lib …’.</li>
+<li>Lines starting with ‘*’ are comment lines.</li>
+<li>Parts of a line that follow ‘;’ are considered comment.</li>
+<li>Lines starting with ‘+’ are extensions of the previous line (without the ‘+”’ itself).</li>
+<li>Lines of which the first non-whitespace charachter is not ‘*’, ‘;’, ‘.’ or ‘+’ are <a class="reference internal" href="#element-definition">element definition</a> lines</li>
+</ol>
+</div>
+<div class="section" id="description-syntax">
+<h3>Description syntax<a class="headerlink" href="#description-syntax" title="Permalink to this headline">¶</a></h3>
+<p>The following syntax is used in the description of netlist lines:</p>
+<ul class="simple">
+<li>&lt; placeHolder &gt;</li>
+<li>( contents should be enclosed in brackets )</li>
+<li>{ contents should be enclosed in curly brackets }</li>
+<li>[ optional ]</li>
+<li>… more of the preceeding</li>
+</ul>
+</div>
+<div class="section" id="circuit-title">
+<span id="title"></span><h3>Circuit title<a class="headerlink" href="#circuit-title" title="Permalink to this headline">¶</a></h3>
+<p>The first line is a the <a class="reference internal" href="#title">title</a> of the circuit.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">valid</span> <span class="n">circuit</span> <span class="n">title</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="element-definition-lines">
+<span id="element-definition"></span><h3>Element definition lines<a class="headerlink" href="#element-definition-lines" title="Permalink to this headline">¶</a></h3>
+<p>Lines of which the first non-whitespace charachter is not ‘*’, ‘;’, ‘.’ or ‘+’ are <a class="reference internal" href="#element-definition">element definition</a> lines</p>
+<p>&lt; elementName &gt; [ &lt; node1 &gt; &lt; node2 &gt; [ &lt; node3 &gt; …] ] | [ &lt; ref1 &gt; [ &lt; ref2 &gt; … ] ] &lt; value &gt; | { &lt; expr &gt; } | modelName [ &lt; param1 &gt; = &lt; value1 &gt; | { &lt; expr1 &gt; } [ &lt; param2 &gt; = &lt; value2 &gt; | { &lt; expr2 &gt; } … ] ]</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">C_1</span> <span class="ow">in</span> <span class="n">out</span> <span class="mi">1</span><span class="n">p</span>                                       <span class="p">;</span> <span class="n">capacitor</span> <span class="n">C_1</span> <span class="k">with</span> <span class="n">a</span> <span class="n">capacitance</span> <span class="n">of</span> <span class="mi">1</span><span class="n">pF</span> <span class="n">between</span>
+                                                    <span class="p">;</span> <span class="n">node</span> <span class="ow">in</span> <span class="ow">and</span> <span class="n">out</span>
+<span class="n">Ra</span> <span class="n">out</span> <span class="mi">0</span> <span class="n">r</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">R_ell</span><span class="p">}</span> <span class="n">dcvar</span><span class="o">=</span><span class="p">{(</span><span class="n">sigma_R</span><span class="o">*</span><span class="n">R_ell</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">}</span>  <span class="p">;</span> <span class="n">resistor</span> <span class="n">Ra</span><span class="p">,</span> <span class="n">model</span> <span class="n">r</span> <span class="k">with</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="n">R_ell</span> <span class="n">Ohm</span><span class="p">,</span>
+                                                    <span class="p">;</span> <span class="ow">and</span> <span class="n">an</span> <span class="n">absolute</span> <span class="n">variance</span> <span class="n">of</span> <span class="p">(</span><span class="n">sigma_R</span><span class="o">*</span><span class="n">R_ell</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span> <span class="n">Ohm</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">R1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="p">{</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">C_i</span><span class="o">/</span><span class="n">f_max</span><span class="p">}</span>                           <span class="p">;</span> <span class="n">resistor</span> <span class="n">R1</span><span class="p">,</span> <span class="k">with</span> <span class="n">a</span> <span class="n">value</span> <span class="n">of</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">C_i</span><span class="o">/</span><span class="n">f_max</span> <span class="n">Ohm</span>
+<span class="n">Kc</span> <span class="n">L1</span> <span class="n">Lout</span> <span class="mf">0.95</span>                                     <span class="p">;</span> <span class="n">coupling</span> <span class="n">Kc</span> <span class="n">between</span> <span class="n">two</span> <span class="n">inductors</span> <span class="n">L1</span> <span class="ow">and</span> <span class="n">Lout</span> <span class="k">with</span>
+                                                    <span class="p">;</span> <span class="n">a</span> <span class="n">coupling</span> <span class="n">factor</span> <span class="n">of</span> <span class="mf">0.95</span>
+<span class="n">Na</span> <span class="n">outP</span> <span class="mi">0</span> <span class="n">in1</span> <span class="n">in2</span>                                   <span class="p">;</span> <span class="n">nullor</span><span class="p">:</span> <span class="n">nulator</span> <span class="n">between</span> <span class="n">nodes</span> <span class="n">in1</span> <span class="ow">and</span> <span class="n">in2</span><span class="p">,</span>
+                                                    <span class="p">;</span> <span class="n">norator</span> <span class="n">between</span> <span class="n">nodes</span> <span class="n">outP</span> <span class="ow">and</span> <span class="mi">0</span>
+<span class="n">Q1</span> <span class="n">c</span> <span class="n">b</span> <span class="n">e</span> <span class="n">s</span> <span class="n">BC547</span>                                    <span class="p">;</span> <span class="n">bipolar</span> <span class="n">transistor</span> <span class="n">Q1</span><span class="p">,</span> <span class="n">model</span> <span class="n">BC547</span> <span class="k">with</span> <span class="n">default</span>
+                                                    <span class="p">;</span> <span class="n">parameters</span>
+<span class="n">Q1</span> <span class="n">c</span> <span class="n">b</span> <span class="n">e</span> <span class="n">s</span> <span class="n">Q2N3904</span> <span class="n">gm</span> <span class="o">=</span> <span class="mi">40</span><span class="n">m</span> <span class="n">rpi</span> <span class="o">=</span> <span class="mf">2.5</span><span class="n">k</span>              <span class="p">;</span> <span class="n">bipolar</span> <span class="n">transistor</span> <span class="n">Q1</span><span class="p">,</span> <span class="n">model</span> <span class="n">Q2N3904</span> <span class="k">with</span> <span class="n">default</span>
+                                                    <span class="p">;</span> <span class="n">parameters</span> <span class="k">except</span> <span class="k">for</span> <span class="n">gm</span> <span class="ow">and</span> <span class="n">rpi</span><span class="p">,</span> <span class="n">these</span> <span class="n">are</span> <span class="mi">40</span><span class="n">m</span>
+                                                    <span class="p">;</span> <span class="ow">and</span> <span class="mf">2.5</span><span class="n">k</span><span class="p">,</span> <span class="n">respectively</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first"><strong>elementName</strong></p>
+<p>The first character is the element identifier (ID, see below), following characters constitute the instance identifier (alphanumeric and ‘_’ used for subscripts)</p>
+<p>A table with <a class="reference internal" href="#element-identifiers">element identifiers</a> is found below.</p>
+</li>
+<li><p class="first"><strong>node1 …</strong></p>
+<p>Alphanumeric characters</p>
+</li>
+<li><p class="first"><strong>value …</strong></p>
+<p>Numeric including scientific notation and postfixes (+, -, a, f, p, n, m, k, M, G, T, P)</p>
+<p>Only real numbers are accepted as input. Examples:</p>
+<ul class="simple">
+<li>-12345</li>
+<li>12345</li>
+<li>+12345</li>
+<li>+123450e-1</li>
+<li>1.2345e4</li>
+<li>1.2345E+4</li>
+<li>12.345k</li>
+<li>0.012345M</li>
+</ul>
+<p>Both ‘e’ and ‘E’ can be used for the exponent in scientific notations.</p>
+</li>
+<li><p class="first"><strong>expr …</strong></p>
+<p>An expression including functions, normal brackets (), real numbers in scientific notation or with postfixes (see above)</p>
+</li>
+<li><p class="first"><strong>modelName</strong></p>
+<p>Possible models for the element. The model name starts with a letter, following characters can be alphanumeric. Tables with built-in <a class="reference internal" href="#models">models</a> for elements are given below.</p>
+</li>
+<li><p class="first"><strong>ref1 …</strong></p>
+<p>Reference to another element. It must be the <em>elementName</em> of an element of the circuit and not one of its parent circuit or one of its child circuits.</p>
+</li>
+<li><p class="first"><strong>param1 …</strong></p>
+<p>Parameter name, starts with a letter, following characters can be alphanumeric  and ‘_’ used for subscripts.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="sub-circuit-definition">
+<h3>Sub circuit definition<a class="headerlink" href="#sub-circuit-definition" title="Permalink to this headline">¶</a></h3>
+<p>.subckt &lt; subcktName &gt; &lt; node1 &gt; &lt; node2 &gt; [ &lt; node3 &gt; … ]  [ params ]  [ &lt; param1 &gt; = &lt; value1 &gt; | {&lt; expr1 &gt;} [ &lt; param2 &gt; = &lt; value2 &gt; | { &lt; expr2 &gt; } … ] ]</p>
+<ul>
+<li><p class="first"><strong>subcktName</strong></p>
+<p>Starts with a letter, following characters can be alphanumeric</p>
+</li>
+</ul>
+<p>.ends</p>
+<blockquote>
+<div>End of a sub circuit definition</div></blockquote>
+</div>
+<div class="section" id="include-a-file">
+<h3>Include a file<a class="headerlink" href="#include-a-file" title="Permalink to this headline">¶</a></h3>
+<p>.include  &lt; FileName1 &gt; [ &lt; FileName2 &gt; … ]</p>
+<p>.inc &lt; FileName1 &gt;  [ &lt; FileName2 &gt; … ]</p>
+<ul>
+<li><p class="first"><strong>fileName1 …</strong></p>
+<p>Name of the file to be included, absolute or relative path. If there are spaces in the name, it should be placed within double quotes.</p>
+</li>
+</ul>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">inc</span> <span class="s2">&quot;my include file.txt&quot;</span> <span class="n">anotherIncludeFile</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="library-definition-line">
+<h3>Library definition line<a class="headerlink" href="#library-definition-line" title="Permalink to this headline">¶</a></h3>
+<p>.lib &lt; fileName1 &gt; [ &lt; fileName2 &gt; … ]</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">lib</span> <span class="s2">&quot;/home/me/my library file.lib&quot;</span> <span class="n">anotherLibFile</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="model-definition-line">
+<h3>Model definition line<a class="headerlink" href="#model-definition-line" title="Permalink to this headline">¶</a></h3>
+<p>.model &lt; modelName &gt; &lt; modelType &gt; ( &lt; param1 &gt; = &lt; value1 &gt; | {&lt; expr1 &gt;} [ &lt; param2 &gt; = &lt; value2 &gt; | {&lt; expr2 &gt;} … ] )</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">model</span> <span class="n">OPA211</span> <span class="n">OV</span> <span class="p">;</span> <span class="n">model</span> <span class="k">with</span> <span class="n">numeric</span> <span class="n">model</span> <span class="n">parameters</span>
+<span class="o">+</span> <span class="n">cd</span> <span class="o">=</span> <span class="mi">8</span><span class="n">p</span>  <span class="p">;</span> <span class="n">differential</span><span class="o">-</span><span class="n">mode</span> <span class="nb">input</span> <span class="n">capacitance</span>
+<span class="o">+</span> <span class="n">gd</span> <span class="o">=</span> <span class="mi">50</span><span class="n">u</span> <span class="p">;</span> <span class="n">differential</span><span class="o">-</span><span class="n">mode</span> <span class="nb">input</span> <span class="n">conductance</span>
+<span class="o">+</span> <span class="n">cc</span> <span class="o">=</span> <span class="mi">2</span><span class="n">p</span>  <span class="p">;</span> <span class="n">common</span><span class="o">-</span><span class="n">mode</span> <span class="nb">input</span> <span class="n">capacitance</span>
+<span class="o">+</span> <span class="n">av</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.67</span><span class="n">M</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="mi">40</span><span class="n">M</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="mi">120</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="n">M</span><span class="p">)}</span> <span class="p">;</span> <span class="n">voltage</span> <span class="n">gain</span>
+<span class="o">+</span> <span class="n">zo</span> <span class="o">=</span> <span class="p">{</span><span class="mf">3.6</span><span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="mf">3.6</span><span class="n">k</span><span class="o">*</span><span class="mi">8</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.7</span> <span class="o">+</span> <span class="n">s</span><span class="o">*</span><span class="mi">900</span><span class="n">n</span><span class="o">*</span><span class="mi">60</span><span class="o">/</span><span class="p">(</span><span class="mi">60</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="mi">900</span><span class="n">n</span><span class="p">)}</span>   <span class="p">;</span> <span class="n">output</span> <span class="n">impedance</span>
+
+<span class="o">.</span><span class="n">model</span> <span class="n">OPA211_A0</span> <span class="n">OV</span> <span class="n">model</span> <span class="k">with</span> <span class="n">numeric</span> <span class="n">model</span> <span class="n">parameters</span> <span class="k">except</span> <span class="k">for</span> <span class="n">the</span> <span class="n">DC</span> <span class="n">voltage</span> <span class="n">gain</span>
+<span class="o">+</span> <span class="n">cd</span> <span class="o">=</span> <span class="mi">8</span><span class="n">p</span>  <span class="p">;</span> <span class="n">differential</span><span class="o">-</span><span class="n">mode</span> <span class="nb">input</span> <span class="n">capacitance</span>
+<span class="o">+</span> <span class="n">gd</span> <span class="o">=</span> <span class="mi">50</span><span class="n">u</span> <span class="p">;</span> <span class="n">differential</span><span class="o">-</span><span class="n">mode</span> <span class="nb">input</span> <span class="n">conductance</span>
+<span class="o">+</span> <span class="n">cc</span> <span class="o">=</span> <span class="mi">2</span><span class="n">p</span>  <span class="p">;</span> <span class="n">common</span><span class="o">-</span><span class="n">mode</span> <span class="nb">input</span> <span class="n">capacitance</span>
+<span class="o">+</span> <span class="n">av</span> <span class="o">=</span> <span class="p">{</span><span class="n">A_0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="mi">40</span><span class="n">M</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="mi">120</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="n">M</span><span class="p">)}</span>   <span class="p">;</span> <span class="n">voltage</span> <span class="n">gain</span>
+<span class="o">+</span> <span class="n">zo</span> <span class="o">=</span> <span class="p">{</span><span class="mf">3.6</span><span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="mf">3.6</span><span class="n">k</span><span class="o">*</span><span class="mi">8</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.7</span> <span class="o">+</span> <span class="n">s</span><span class="o">*</span><span class="mi">900</span><span class="n">n</span><span class="o">*</span><span class="mi">60</span><span class="o">/</span><span class="p">(</span><span class="mi">60</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="mi">900</span><span class="n">n</span><span class="p">)}</span>   <span class="p">;</span> <span class="n">output</span> <span class="n">impedance</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameter-definition-line">
+<h3>parameter definition line<a class="headerlink" href="#parameter-definition-line" title="Permalink to this headline">¶</a></h3>
+<p>.param &lt; param1 &gt; = &lt; value1 &gt; | { &lt;expr1 &gt;}  [ &lt; param2 &gt; = &lt; value2 &gt; | { &lt; expr2 &gt; } … ] ]</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">param</span> <span class="n">A_0</span> <span class="o">=</span> <span class="mi">1</span><span class="n">M</span> <span class="n">tau_p</span> <span class="o">=</span> <span class="p">{</span><span class="n">GB</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">A_0</span><span class="p">}</span> <span class="n">GB</span> <span class="o">=</span> <span class="mi">50</span><span class="n">M</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="end-of-the-netlist">
+<h3>end of the netlist<a class="headerlink" href="#end-of-the-netlist" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="element-identifiers">
+<span id="id1"></span><h3>Element identifiers<a class="headerlink" href="#element-identifiers" title="Permalink to this headline">¶</a></h3>
+<p><strong>See SLiCAPprotos.py</strong></p>
+<p>If an element can have more models, the <strong>first</strong> one is the default model.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="17%" />
+<col width="7%" />
+<col width="8%" />
+<col width="11%" />
+<col width="11%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ID</th>
+<th class="head">Description</th>
+<th class="head">Nnodes</th>
+<th class="head">Nrefs</th>
+<th class="head">Nval/expr</th>
+<th class="head">Models</th>
+<th class="head">Note</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>C</td>
+<td>Capacitor</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>C</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>Diode</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>D</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>E</td>
+<td>VCVS</td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td><strong>E</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>EZ</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>CCCS</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>F</td>
+<td>Spice compatible, differs from current SLiCAP</td>
+</tr>
+<tr class="row-odd"><td>G</td>
+<td>VCCS</td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td><strong>G</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>g</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>H</td>
+<td>CCVS</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td><strong>H</strong></td>
+<td>Spice compatible, differs from current SLiCAP</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>HZ</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>I</td>
+<td>Current source</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>I</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>J</td>
+<td>JFET</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>J</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>K</td>
+<td>Coupling factor</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>K</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>L</td>
+<td>Inductor</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>L</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>M</td>
+<td>MOSFET</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td><strong>M</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>MD</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>N</td>
+<td>Nullor</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>N</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>O</td>
+<td>OpAmp</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td><strong>OV</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>OC</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Q</td>
+<td>BJT</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td><strong>QV</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>QL</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>QD</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>R</td>
+<td>Resistor</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td><strong>R</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>r</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>T</td>
+<td>Transformer</td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td>T</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>V</td>
+<td>Voltage source</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td><strong>V</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>VZ</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>W</td>
+<td>Gyrator</td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td>G</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>X</td>
+<td>Subcircuit</td>
+<td>x</td>
+<td>0</td>
+<td>0</td>
+<td>&lt; name &gt;</td>
+<td>x: arbitrary number of nodes</td>
+</tr>
+<tr class="row-even"><td>Z</td>
+<td>Impedance</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>Z</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="models">
+<span id="id2"></span><h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<p>SLiCAP has two different types of models: <a class="reference internal" href="#stamp-models">stamp models</a> and <a class="reference internal" href="#expansion-models">expansion models</a>. Stamp models have an associated matrix stamp for building the MNA matrix equiation. Expansion models are expanded into stamp models during the checking of the circuit.</p>
+<p><strong>See SLiCAPprotos.py</strong></p>
+<div class="section" id="stamp-models">
+<span id="id3"></span><h4>Stamp models<a class="headerlink" href="#stamp-models" title="Permalink to this headline">¶</a></h4>
+<p>The table below gives an overview of the built-in stamp models.</p>
+<p><strong>Nomenclature</strong></p>
+<ul>
+<li><p class="first">ID</p>
+<p>Model identifier</p>
+</li>
+<li><p class="first">description</p>
+<p>Description of the model</p>
+</li>
+<li><p class="first">params</p>
+<p>Names of model parameters</p>
+</li>
+<li><p class="first">Laplace:</p>
+<p>y: The LAPLACE variable is allowed in the expression of this parameter</p>
+<p>n: The LAPLACE variable ‘s’ is not allowed in the expression of this parameter</p>
+</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="59%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ID</th>
+<th class="head">description</th>
+<th class="head">params</th>
+<th class="head">Laplace</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>C</td>
+<td>Capacitor</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>E</td>
+<td>VCVS</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>EZ</td>
+<td>VCVS with series impedance</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>zs</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>F</td>
+<td>CCCS</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-odd"><td>G</td>
+<td>VCCS</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>g</td>
+<td>VCCS (dc only)</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>H</td>
+<td>CCVS</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>HZ</td>
+<td>CCVS with series impedance</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>zs</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>I</td>
+<td>Current source</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>dc</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>dcvar</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>noise</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>K</td>
+<td>Coupling factor</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>L</td>
+<td>Inductor</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>N</td>
+<td>Nullor</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>R</td>
+<td>Resistor ( resistance != 0)</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>r</td>
+<td>Resistor ( resistance != inf)</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>dcvar</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>T</td>
+<td>Transformer</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>V</td>
+<td>Voltage source</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>dc</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>dcvar</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>noise</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>VZ</td>
+<td>V source with series impedance</td>
+<td>value</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>dc</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>dcvar</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>noise</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>zs</td>
+<td>y</td>
+</tr>
+<tr class="row-even"><td>W</td>
+<td>Gyrator</td>
+<td>value</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>Z</td>
+<td>Impedance</td>
+<td>value</td>
+<td>y</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="expansion-models">
+<span id="id4"></span><h4>Expansion models<a class="headerlink" href="#expansion-models" title="Permalink to this headline">¶</a></h4>
+<p><strong>Nomenclature</strong></p>
+<ul>
+<li><p class="first">ID</p>
+<p>Model identifier</p>
+</li>
+<li><p class="first">description</p>
+<p>Description of the model</p>
+</li>
+<li><p class="first">params</p>
+<p>Names of model parameters</p>
+</li>
+<li><p class="first">Laplace:</p>
+<p>y: Laplace variable ‘s’ is allowed in the expression of this parameter</p>
+<p>n: Laplace variable ‘s’ is not allowed in the expression of this parameter</p>
+</li>
+<li><p class="first">defValue</p>
+<p>default parameter value</p>
+</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="31%" />
+<col width="8%" />
+<col width="39%" />
+<col width="8%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ID</th>
+<th class="head">description</th>
+<th class="head">params</th>
+<th class="head">Description</th>
+<th class="head">Laplace</th>
+<th class="head">defValue</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>D</td>
+<td>Diode</td>
+<td>gd</td>
+<td>Conductance</td>
+<td>n</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cd</td>
+<td>Capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>rs</td>
+<td>Series resistance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>J</td>
+<td>Junction FET</td>
+<td>gm</td>
+<td>Transconductance</td>
+<td>n</td>
+<td>1m</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>go</td>
+<td>Output conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cgs</td>
+<td>Gate-source capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cdg</td>
+<td>Drain-gate capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>M</td>
+<td>MOSFET</td>
+<td>gm</td>
+<td>Transconductance</td>
+<td>n</td>
+<td>1m</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>gb</td>
+<td>Bulk transconductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>go</td>
+<td>Output conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cgs</td>
+<td>Gate-source capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cgb</td>
+<td>Gate-bulk overlap capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cdg</td>
+<td>Drain-gate capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cdb</td>
+<td>Drain-bulk capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>csb</td>
+<td>Source-bulk capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>MD</td>
+<td>Differential-pair MOS</td>
+<td>gm</td>
+<td>Transconductance</td>
+<td>n</td>
+<td>1m</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>go</td>
+<td>Output conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cgg</td>
+<td>Input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cdd</td>
+<td>Output capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cdg</td>
+<td>Drain-gate capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>OC</td>
+<td>Current feedback OpAmp</td>
+<td>gp</td>
+<td>pos input to supply (ground) resistance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>gm</td>
+<td>Input stage transconductance</td>
+<td>n</td>
+<td>20m</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>gpn</td>
+<td>Differential input conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cp</td>
+<td>pos input to supply (ground) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cpn</td>
+<td>Differential input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>zt</td>
+<td>Output stage transimpedance</td>
+<td>y</td>
+<td>1M</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>Zo</td>
+<td>Output impedance</td>
+<td>Y</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>OV</td>
+<td>Voltage feedback OpAmp</td>
+<td>gd</td>
+<td>Differential input conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>gc</td>
+<td>Common-mode input conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cd</td>
+<td>Differential-mode input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cc</td>
+<td>Common-mode input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>av</td>
+<td>Volatge gain factor</td>
+<td>y</td>
+<td>1M</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>zo</td>
+<td>Output impedance</td>
+<td>y</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>QD</td>
+<td>Differential-pair BJT</td>
+<td>gbb</td>
+<td>Input conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>rb</td>
+<td>Base resistance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>gm</td>
+<td>Transconductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>gcc</td>
+<td>Output conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>gbc</td>
+<td>Collector-base conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbb</td>
+<td>Input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbc</td>
+<td>Collector-base (internal) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbx</td>
+<td>Collector-base (external) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>QL</td>
+<td>Lateral BJT</td>
+<td>gpi</td>
+<td>Input conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>rb</td>
+<td>Base resistance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>gm</td>
+<td>Transconductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>go</td>
+<td>Output conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>gbc</td>
+<td>Collector-base conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbe</td>
+<td>Input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbc</td>
+<td>Collector-base (internal) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbx</td>
+<td>Collector-base (external) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cs</td>
+<td>Substrate capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>QV</td>
+<td>Vertical BJT</td>
+<td>gpi</td>
+<td>Input conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>rb</td>
+<td>Base resistance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>gm</td>
+<td>Transconductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>go</td>
+<td>Output conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>gbc</td>
+<td>Collector-base conductance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbe</td>
+<td>Input capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbc</td>
+<td>Collector-base (internal) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+<td>cbx</td>
+<td>Collector-base (external) capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>cs</td>
+<td>Substrate capacitance</td>
+<td>n</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="parser-output">
+<h2>Parser output<a class="headerlink" href="#parser-output" title="Permalink to this headline">¶</a></h2>
+<p>The output of the parser is a circuit object of which all expansion models and sub circuits have been expanded into elements with stamp models.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="parsingMethod.html" class="btn btn-neutral float-right" title="Parsing method" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configure.html" class="btn btn-neutral" title="SLiCAP configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SLiCAP development team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.2020',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

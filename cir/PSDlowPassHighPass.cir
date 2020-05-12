@@ -1,0 +1,9 @@
+"PSD dynamic behavior"
+O1 0 1 out 0 opAmp 
+R1 1 0 {R_PSD}
+C1 1 out {C_i}
+I1 1 0 I value=0 dc=0 dcvar=0 noise=0
+.model opAmp OV av={A_0/(1+s*tau_1)} zo={R_o} cd={c_d}
+.param R_PSD=65k C_PSD=20p C_i=37.5p
+C2 1 0 {C_PSD/2}
+.end
