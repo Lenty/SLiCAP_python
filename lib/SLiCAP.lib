@@ -1,8 +1,7 @@
-* Sub circuits for corresponding gSchem and LTspice symbols
+"SLiCAP library"
 
-* Device models for operational amplifiers
-* Models with _A0 extension have symbolic parameter A_0 for DC gain
-* this to facilitate root locus plots
+* Device models
+***************
 
 .model AD8610 OV 
 + cd = 15p  ; differential-mode input capacitance
@@ -70,6 +69,9 @@
 
 .model STD7N80K5 M cgs=360p cdg=1p cdb=29p gm={2*sqrt(1.0*I_D)} go={2*sqrt(0.92*I_D)*2.5m}
 
+* Sub circuits
+**************
+
 .subckt ABCD 1 2 3 4 at={at} bt={bt} ct={ct} dt={dt}
 N1 1 5 3 7
 E1 7 8 1 2 {at}
@@ -120,9 +122,8 @@ N1 4 COMMON 3 2
 * Operating in forward saturation region
 * 
 M1 drain gate source bulk CMOS18N
-.model CMOS18N M
-+ gm      = {g_m} 
-+ go      = {g_o} 
+
+.model CMOS18N M gm      = {g_m} go      = {g_o} 
 + gb      = {g_b}
 + cgs     = {c_gs}
 + cdg     = {c_dg}
@@ -169,6 +170,7 @@ M1 drain gate source bulk CMOS18N
 * Assumes forward operation: VDS > 0
 * 
 M1 drain gate source bulk CMOS18N_V
+
 .model CMOS18N_V M
 + gm      = {g_m} 
 + go      = {g_o} 
@@ -227,6 +229,7 @@ M1 drain gate source bulk CMOS18N_V
 + N_s     = 1.35 ; substrate factor
 + VAL     = 40M  ; Early voltage per unit of length
 + u_0     = 42.2m; zero field carrier mobility
+
 .ends
 
 .subckt CMOS18ND drain1 drain2 gate1 gate2 W={W} L={L} ID={ID}
@@ -237,6 +240,7 @@ M1 drain gate source bulk CMOS18N_V
 * ID is operating current of single transistor: diff-pair
 * tail current is 2*ID
 M1 drain1 drain2 gate1 gate2 CMOS18ND
+
 .model CMOS18ND MD
 + cgg     = {c_gs/2+c_gb/2} 
 + gm      = {g_m/2} 
@@ -270,6 +274,7 @@ M1 drain1 drain2 gate1 gate2 CMOS18ND
 + VAL     = 40M  ; Early voltage per unit of length
 + u_0     = 42.2m; zero field carrier mobility
 + TOX     = 4.1n ; oxide thickness
+
 .ends
 
 .subckt CMOS18P drain gate source bulk W={W} L={L} ID={ID}
@@ -277,6 +282,7 @@ M1 drain1 drain2 gate1 gate2 CMOS18ND
 * Voltage dependency of bulk capacitances not modeled
 * Operating in forward saturation region
 M1 drain gate source bulk CMOS18P
+
 .model CMOS18P M
 + gm      = {g_m} 
 + go      = {g_o} 
@@ -317,6 +323,7 @@ M1 drain gate source bulk CMOS18P
 + N_s     = 1.35 ; substrate factor
 + VAL     = 40M  ; Early voltage per unit of length
 + u_0     = 8.92m; zero field carrier mobility
+
 .ends
 
 .subckt CMOS18P_V drain gate source bulk W={W} L={L} VD={VD} VG={VG} VS={VS}
@@ -384,6 +391,7 @@ M1 drain gate source bulk CMOS18P_V
 + N_s     = 1.35 ; substrate factor
 + VAL     = 40M  ; Early voltage per unit of length
 + u_0     = 8.92m; zero field carrier mobility
+
 .ends
 
 .subckt CMOS18PD drain gate source bulk W={W} L={L} ID={ID}
@@ -394,7 +402,8 @@ M1 drain gate source bulk CMOS18P_V
 * ID is operating current of single transistor: diff-pair
 * tail current is 2*ID
 M1 drain gate source bulk CMOS18PD
-.model CMOS18ND MD
+
+.model CMOS18PD MD
 + cgg     = {c_gs/2+c_gb/2} 
 + gm      = {g_m/2} 
 + go      = {g_o/2} 
@@ -427,6 +436,7 @@ M1 drain gate source bulk CMOS18PD
 + TOX     = 4.1n ; oxide thickness
 + VAL     = 40M  ; Early voltage per unit of length
 + u_0     = 8.92m; zero field carrier mobility
+
 .ends
 
 .subckt BJTV4 collector base emitter bulk IC={IC} VCE={VCE}
@@ -460,11 +470,13 @@ Q1 collector base emitter bulk BJTV4
 + CJC     = 1p    ; zero bias collector-base capacitance
 + CJE     = 5p    ; zero bias emitter-base capacitance
 + tau_F   = 1n    ; forward transit time
+
 .ends
 
 .subckt BJTL4 collector base emitter bulk IC={IC} VCE={VCE}
 * small-signal GP model of lateral BJT
 Q1 collector base emitter bulk BJTL4
+*
 .model BJTL4 QL
 * device small-signal parameters
 + gm  = {g_m}     ; transconductance
@@ -493,11 +505,13 @@ Q1 collector base emitter bulk BJTL4
 + CJC     = 1p    ; zero bias collector-base capacitance
 + CJE     = 5p    ; zero bias emitter-base capacitance
 + tau_F   = 1n    ; forward transit time
+
 .ends
 
 .subckt BJTD collector1 collector2 base1 base2 IC={IC} VCE={VCE}
 * small-signal GP model of differential pair BJT
 Q1 collector1 collector2 base1 base2 BJTD
+*
 .model BJTD QD
 * device small-signal parameters
 + gm  = {g_m}     ; transconductance
@@ -524,6 +538,7 @@ Q1 collector1 collector2 base1 base2 BJTD
 + CJC     = 1p
 + CJE     = 5p
 + tau_F   = 1n
+
 .ends
 
 .subckt NM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
@@ -640,3 +655,5 @@ I2 ext comm I value=0 noise={2*q*IC*(1+f_ell/F)/beta_DC} ; base shot noise
 + KF      = 0    ; KF=3.6e-19*FL with AF=1 and FL in [Hz], set to zero for f_ell=0
 + AF      = 1    ; Flicker noise exponent
 .ends
+
+.end

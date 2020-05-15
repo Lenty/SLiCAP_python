@@ -6,7 +6,6 @@ Basic user configuration
 ========================
 
 - Symbols for frequency, angular frequency and Laplace variable
-- Built-in constants
 - Number of recursive substitutions in expressions
 - Number of digits for float display
 - Frequency output in [Hz] or in [rad/s]

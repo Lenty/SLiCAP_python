@@ -1,4 +1,4 @@
-testCircuit		
+testSubCircuit		
 .subckt myOpamp inP inN out GND A_0 = {A_1} tau={t} R_o = 0.5k
 E1 1 GND inP inN {A_0/(1+s*tau)}
 R1 1 out {R_o}

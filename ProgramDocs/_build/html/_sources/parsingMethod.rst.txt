@@ -15,12 +15,12 @@ Tokenizing of the input file with `Python Lex <https://www.dabeaz.com/ply/>`_.
 Creation of a nested circuit object from the tokens
 ===================================================
 
-Conversion of the tokenized input into a circuit object. Sub circuit definitions are stored as circuit object in their parent circuit.
+Conversion of the tokenized input into a circuit object. Sub circuit definitions are stored as circuit object in their parent circuit. The procedure is found in ``SLiCAPyacc.py``:
 
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lines: 1-333
+       :lines: 1-402
 
 Expansion of the models and the sub circuits
 ============================================
@@ -32,34 +32,34 @@ This is the 'flattening' of the main circuit object
 
 #. Model type elements will be expanded into a number of stamp-type elements. Built-in expansion models are defined as (sub) circuit objects and will be treated as such. This makes it possible for the user to add other models to SLiCAP, without having to dive into the hard coded scripts. Model parameters defined with an element will be passed to the sub circuit. Other elements will be given the value of their .model definition. If no definition is given they will receive the default value from the prototype model. Since elements with expansion models can be part of a sub circuit, such elements will be expanded before the sub circuit elements are passed to the parent circuit. The suffix '_< elementID > will be added to the name of the elements of the expanded model, where **elementID**  is the name of the (parent) element to be expanded.
 
-      .. code::
+   .. code::
 
-          M1 d g s b MyMOS                  ; This is a MOSFET with gm=5m cgs=0.5p cdg=10f
-                                            ; other parameters have their default value
+       M1 d g s b MyMOS                  ; This is a MOSFET with gm=5m cgs=0.5p cdg=10f
+                                         ; other parameters have their default value
 
-          M2 d g s b MyMOS gm=10m cgs=1p    ; This is a MOSFET with gm=10m cgs=1p cdg=10f
-                                            ; other parameters have their default value
+       M2 d g s b MyMOS gm=10m cgs=1p    ; This is a MOSFET with gm=10m cgs=1p cdg=10f
+                                         ; other parameters have their default value
 
-          M3 d g s b M gm=1m cgs=0.05p      ; This is a MOSFET with gm=1m cgs=0.05p
-                                            ; other parameters have their default value
+       M3 d g s b M gm=1m cgs=0.05p      ; This is a MOSFET with gm=1m cgs=0.05p
+                                         ; other parameters have their default value
 
-         .model MyMOS M gm=5m cgs=0.5p cdg=10f
+       .model MyMOS M gm=5m cgs=0.5p cdg=10f
 
 
-      Below the built-in sub circuit object of expansion model 'M' (four-terminal MOSFET). Definitions of these circuits are found in ``SLiCAPexpansionModels.py``.
+   Below the built-in sub circuit object of expansion model 'M' (four-terminal MOSFET). Definitions of these circuits are found in the library ``SLiCAPmodels.lib``.
 
-      .. literalinclude:: ../SLiCAPexpansionModels.py
-          :language: python
-          :linenos:
-          :lines: 1-611
+   .. literalinclude:: ../lib/SLiCAPmodels.lib
+       :linenos:
+       :lineno-start: 36
+       :lines: 36-46
 
-      This is how the expansion of M2 would look in a netlist of the final circuit:
+   This is how the expansion of M2 would look in a netlist of the final circuit:
 
-      .. code::
+   .. code::
 
-         Gm_M2  d s g s g value=10m
-         Cgs_M2 g s     C value=1p
-         Cdg_M2 d g     C value=10f
+       Gm_M2  d s g s g value=10m
+       Cgs_M2 g s     C value=1p
+       Cdg_M2 d g     C value=10f
 
 #. Nested inclusion of (child) sub circuits into their parent (sub) circuit
 
@@ -101,9 +101,18 @@ This is the 'flattening' of the main circuit object
 
 #. Parameters used in expressions of the elements of the main circuit that have no associated definition in the .parDefs field of the main circuit are added to this .parDefs field with: .parDefs[< parName >] = False
 
-.. literalinclude:: ../SLiCAPexpandModelsCircuits.py
-    :language: python
-    :linenos:
+The procedure for flattening the circuit is found in ``SLiCAPyacc.py``:
+
+   .. literalinclude:: ../SLiCAPyacc.py
+       :language: python
+       :linenos:
+       :lineno-start: 404
+       :lines: 404-632
+
+Updating of circuit data
+========================
+
+This comprises:
 
 #. Creation of the circuit object attributes for:
 
@@ -121,3 +130,10 @@ This is the 'flattening' of the main circuit object
    #. Controlled sources (can be assigned as loop gain reference)
 
 
+The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
+
+   .. literalinclude:: ../SLiCAPyacc.py
+       :language: python
+       :linenos:
+       :lineno-start: 634
+       :lines: 634-656

@@ -20,9 +20,13 @@ Contents
    :maxdepth: 2
    
    introduction
+   ToDo
    configure
    Parser
    parsingMethod
+   library
+   modelParams
+   subCircuits
    errorHandling
    plot
    pythonMaximaInterface

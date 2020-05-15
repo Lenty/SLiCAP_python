@@ -12,6 +12,9 @@ Created on Mon May  4 12:32:13 2020
 from sympy import sympify, Symbol
 import ply.lex as lex
 import re
+from SLiCAPini import *
+
+global LAPLACE, FREQUENCY, OMEGA
 
 # list of token names
 
@@ -170,6 +173,15 @@ def tokenize(cirFileName):
     lexer.input(data)
     return lexer
 
+def tokenizeTxt(textString):
+    """
+    Reset the lexer, and create the tokens for the new data.
+    """
+    lexer.errCount = 0
+    lexer.lineno = 0
+    lexer.input(textString)
+    return lexer
+
 def printError(msg, line, pos):
     """
     Print the line with the error, an error message and show the position
@@ -182,16 +194,18 @@ def printError(msg, line, pos):
     print out
     
 if __name__ == '__main__':
+    """
     import os
     files = os.listdir('cir')
     for fi in files:
         [cirFileName, ext] = fi.split('.')
         if ext.lower() == 'cir':
-            #fi = 'PIVA.cir'
-            print fi
-            lexer = tokenize('cir/' + fi)
-            tok = lexer.token()
-            while tok:
-                print tok
-                tok = lexer.token()
-            print '\nnumber of errors =', lexer.errCount, '\n'
+    """
+    fi = 'testCircuit.cir'
+    print fi
+    lexer = tokenize('cir/' + fi)
+    tok = lexer.token()
+    while tok:
+        print tok
+        tok = lexer.token()
+    print '\nnumber of errors =', lexer.errCount, '\n'

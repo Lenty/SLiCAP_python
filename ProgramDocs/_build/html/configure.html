@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
         <link rel="next" title="SLiCAP netlist parser" href="Parser.html"/>
-        <link rel="prev" title="SLiCAP open-source" href="introduction.html"/> 
+        <link rel="prev" title="ToDo" href="ToDo.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -92,6 +92,7 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">SLiCAP open-source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ToDo.html">ToDo</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SLiCAP configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-user-configuration">Basic user configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#change-or-add-built-in-models-and-devices">Change or add built-in models and devices</a></li>
@@ -99,6 +100,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
@@ -171,7 +175,6 @@
 <h2>Basic user configuration<a class="headerlink" href="#basic-user-configuration" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Symbols for frequency, angular frequency and Laplace variable</li>
-<li>Built-in constants</li>
 <li>Number of recursive substitutions in expressions</li>
 <li>Number of digits for float display</li>
 <li>Frequency output in [Hz] or in [rad/s]</li>
@@ -209,42 +212,18 @@
 28
 29
 30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
 <span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings</span>
-<span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span> <span class="c1"># Numner of digits for floats in output</span>
-<span class="n">BUILT_IN_PARAMS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span>             <span class="s1">&#39;1.38064852e-23&#39;</span><span class="p">,</span> <span class="c1"># Bolzmann constant [J/K]</span>
-                   <span class="s1">&#39;q&#39;</span><span class="p">:</span>             <span class="s1">&#39;1.60217662e-19&#39;</span><span class="p">,</span> <span class="c1"># Electron charge [C]</span>
-                   <span class="s1">&#39;c&#39;</span><span class="p">:</span>             <span class="s1">&#39;2.99792458e+08&#39;</span><span class="p">,</span> <span class="c1"># Speed of light in vacuum [m/s]</span>
-                   <span class="s1">&#39;mu_0&#39;</span><span class="p">:</span>          <span class="s1">&#39;4*pi*1e-7&#39;</span><span class="p">,</span>      <span class="c1"># permeability of vacuum [H/m]</span>
-                   <span class="s1">&#39;epsilon_0&#39;</span><span class="p">:</span>     <span class="s1">&#39;1/c^2/mu_0&#39;</span><span class="p">,</span>     <span class="c1"># permittivity of vacuum [F/m]</span>
-                   <span class="s1">&#39;epsilon_SiO2&#39;</span><span class="p">:</span>  <span class="s1">&#39;3.9&#39;</span><span class="p">,</span>            <span class="c1"># relative permittivity of SiO2</span>
-                   <span class="s1">&#39;T&#39;</span><span class="p">:</span>             <span class="s1">&#39;300&#39;</span><span class="p">,</span>            <span class="c1"># simulation temperature [K]</span>
-                   <span class="s1">&#39;U_T&#39;</span><span class="p">:</span>           <span class="s1">&#39;k*T/q&#39;</span><span class="p">,</span>          <span class="c1"># Thermal voltage [V]</span>
-                   <span class="s1">&#39;e&#39;</span><span class="p">:</span>             <span class="s1">&#39;exp(1)&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;i&#39;</span><span class="p">:</span>             <span class="s1">&#39;1j&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;PI&#39;</span><span class="p">:</span>            <span class="s1">&#39;pi&#39;</span><span class="p">,</span>
-                  <span class="p">}</span>
-    
-<span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>     <span class="c1"># Laplace veriable</span>
-<span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>     <span class="c1"># Frequency in Hz</span>
-<span class="n">OMEGA</span>           <span class="o">=</span> <span class="s1">&#39;omega&#39;</span> <span class="c1"># Frequency in rad/s</span>
-<span class="n">MAXRECSUBST</span>     <span class="o">=</span> <span class="mi">10</span>      <span class="c1"># Maximum number of recursic=ve substitutions</span>
-<span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>    <span class="c1"># True if frequency output should be in Hz, else: False</span>
+<span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># Numner of digits for floats in output</span>
+
+<span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>       <span class="c1"># Laplace veriable</span>
+<span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>       <span class="c1"># Frequency in Hz</span>
+<span class="n">OMEGA</span>           <span class="o">=</span> <span class="s1">&#39;omega&#39;</span>   <span class="c1"># Frequency in rad/s</span>
+<span class="n">MAXRECSUBST</span>     <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># Maximum number of recursic=ve substitutions</span>
+<span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># True if frequency output in Hz, else: False</span>
 
 <span class="c1"># PATHS: relative to the project directory</span>
 <span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>      <span class="c1"># path for .asc, .net, .cir, .sch files</span>
@@ -710,14 +689,7 @@
 433
 434
 435
-436
-437
-438
-439
-440
-441
-442
-443</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+436</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">SLiCAPini</span> <span class="kn">as</span> <span class="nn">ini</span>
@@ -736,7 +708,6 @@
 <span class="n">DEVICES</span>     <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with SLiCAP built-in devices</span>
                                 <span class="c1">#   key   : device name</span>
                                 <span class="c1">#   value : associated device object</span>
-    
 <span class="k">class</span> <span class="nc">circuit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># Circuit object for main circuit and for sub circuits</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -804,7 +775,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Number of independent vars. in matrix stamp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model parameters</span>
                                 <span class="c1">#   key   : model parameter name</span>
-                                <span class="c1">#   value : [defaultValue, Laplace] </span>
+                                <span class="c1">#   value : True: if Laplace is allowed in the</span>
+                                <span class="c1">#           expression for this parameter,</span>
+                                <span class="c1">#           else: False</span>
 
 <span class="k">class</span> <span class="nc">modelDef</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># Protpotype for models that can be added to SLiCAP</span>
@@ -813,21 +786,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Must be a built-in model type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model parameters</span>
                                 <span class="c1">#   key   : model parameter name</span>
-                                <span class="c1">#   value : [defaultValue, Laplace] </span>
+                                <span class="c1">#   value : value or expression </span>
                                 
 <span class="k">def</span> <span class="nf">initAll</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Initializes the global parameters, the models and the devices.</span>
+<span class="sd">    Initializes the models and the devices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">CONSTANTS</span><span class="p">,</span> <span class="n">MODELS</span><span class="p">,</span> <span class="n">DEVICES</span>
-    <span class="c1"># generate the dictionary with global parameters</span>
-
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ini</span><span class="o">.</span><span class="n">BUILT_IN_PARAMS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">sympify</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">BUILT_IN_PARAMS</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s1">&#39;Error in SLiCAPini.py:&#39;</span><span class="p">,</span> <span class="n">ini</span><span class="o">.</span><span class="n">BUILT_IN_PARAMS</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="n">CONSTANTS</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> 
+    <span class="k">global</span> <span class="n">MODELS</span><span class="p">,</span> <span class="n">DEVICES</span>
 
     <span class="c1"># Generate the dictionary with SLiCAP models</span>
     <span class="c1"># Capacitor</span>
@@ -835,101 +800,101 @@
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;C&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Diode</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rs&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gd&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCVS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;E&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCVS with series impedance</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;EZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCCS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span> <span class="c1"># can be set to 1 if independent depVar is used</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCCS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;G&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCCS no Laplace</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;g&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCVS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">2</span> <span class="c1"># can be set to 2 if independent depVar is used</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCVS with source impedance</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;HZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span> <span class="c1"># can be set to 2 if independent depVar is used</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Independent current source</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;I&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># JFET</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;J&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgs&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Coupling factor</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Inductor</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># MOSFET</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;M&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cdb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;csb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cgb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgs&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cdb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;csb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cgb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># MOS differential pair</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;MD&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cdd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgg&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cdd&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Nullor</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
@@ -942,66 +907,66 @@
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;OC&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cpn&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gpn&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;zt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e6</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cp&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gp&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cpn&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gpn&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;zt&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Voltage feedback operational amplifier</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;OV&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;av&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e6</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">True</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gd&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;av&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Vertical BJT</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;QV&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cbx&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">40e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;rb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cbx&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Lateral BJT</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;QL&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cbx&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">40e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;rb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cbx&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># BJT differential pair</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;QD&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">False</span>          
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;cmu&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">200e-6</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">20e-3</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;gmu&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cbb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gbb&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Resistor (resistance cannot be zero)</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;R&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Resistor (resistance can be zero)</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Ideal transformer</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;T&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Independent voltage source</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;V&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">True</span><span class="p">],</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Gyrator</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;W&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     
     <span class="c1"># Generate the dictionary with SLiCAP devices</span>
@@ -1178,7 +1143,7 @@
         <a href="Parser.html" class="btn btn-neutral float-right" title="SLiCAP netlist parser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="introduction.html" class="btn btn-neutral" title="SLiCAP open-source" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ToDo.html" class="btn btn-neutral" title="ToDo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
