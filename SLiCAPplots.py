@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import matplotlib._pylab_helpers as plotHelp
 import numpy as np
 import SLiCAPini as ini
@@ -11,7 +11,7 @@ class trace(object):
         self.yData          = np.array(traceData[1])
         try:
             if len(self.xData) != len(self.yData):
-                print 'Error in plot data.'
+                print('Error in plot data.')
         except:
             pass
         self.xName          = 'x'           # Header for table
@@ -67,7 +67,7 @@ class figure(object):
         try:
             rows,cols = axes.shape
         except:
-            print 'Argument of the <figure>.plot() method must be a list of lists or a two-dimensional array.'
+            print('Argument of the <figure>.plot() method must be a list of lists or a two-dimensional array.')
             return False
         self.axes = []
         # Make a single list of plots to be plotted left -> right, then top -> bottom
@@ -75,7 +75,7 @@ class figure(object):
             for j in range(cols):
                 self.axes.append(axes[i][j])
         if not self.axes:
-            print 'Error: no plot data available; plotting skipped.'
+            print('Error: no plot data available; plotting skipped.')
             return False
         # Define the matplotlib figure object
         fig = plt.figure(figsize = (self.axisWidth*cols, rows*self.axisHeight))
@@ -119,7 +119,7 @@ class figure(object):
                     except:
                         pass
                 if len(self.axes[i].traces) == 0:
-                    print 'Error: Missing trace data for plotting!'
+                    print('Error: Missing trace data for plotting!')
                     return False
 
                 for j in range(len(self.axes[i].traces)):
@@ -147,7 +147,7 @@ class figure(object):
                         plt.plot(self.axes[i].traces[j].xData/scaleX, self.axes[i].traces[j].yData/scaleY, label = self.axes[i].traces[j].label, linewidth = self.axes[i].traces[j].lineWidth,
                                  color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = self.axes[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = 'none', linestyle = self.axes[i].traces[j].lineType)
                     except:
-                        print 'Error in plot data of %s.'%self.fileName
+                        print('Error in plot data of %s.'%self.fileName)
                         #return False
                     if self.axes[i].text:
                         X, Y, txt = self.axes[i].text
@@ -157,9 +157,9 @@ class figure(object):
         if self.save:
             try:
                 plt.savefig(self.fileName + '.' + self.fileType)
-                print '\tPlot \"%s.%s\" saved to disk.'%(self.fileName, self.fileType)
+                print('\tPlot \"%s.%s\" saved to disk.'%(self.fileName, self.fileType))
             except:
-                print 'Error: could not save the plot!'
+                print('Error: could not save the plot!')
         if self.show:
             plt.show()
         return True
@@ -202,6 +202,13 @@ def defaultsPlot():
                 tick.label.set_fontsize(9)
         
 if __name__=='__main__':
+    p = np.linspace(0, 1)
+    q = p*2
+    line = trace([p, q])
+    line = axis("Line of 2x")
+    line.traces = [line]
+    Figure = figure('test')
+    
     x = np.linspace(0,2*np.pi, endpoint = True)
     y1 = np.sin(x)
     y2 = np.cos(x)
@@ -223,4 +230,6 @@ if __name__=='__main__':
     testFig.axes = [[sincos, ""],["",sincos]]
     testFig.plot()
     plt.show()
+    
+    
     

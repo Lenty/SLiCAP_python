@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
+import os
 
 LOGFILE         = True
 LANGUAGE        = 'english' # Language for error and warnings
@@ -18,6 +19,13 @@ TXTPATH         = 'txt/'      # path for text files (text2html)
 CSVPATH         = 'csv/'      # path for CSV files (csv2html)
 LATEXPATH       = 'tex/'      # path for LaTeX output saveTeX()
 MATHMLPATH      = 'mathml/'   # path for mathML output saveMathML()
+
+CIRCUITPATH     =  os.path.join('cir','')      # path for .asc, .net, .cir, .sch files
+LIBRARYPATH     =  os.path.join('lib','')      # path for include and library files
+TXTPATH         =  os.path.join('txt','')      # path for text files (text2html)
+CSVPATH         =  os.path.join('csv','')      # path for CSV files (csv2html)
+LATEXPATH       =  os.path.join('tex','')      # path for LaTeX output saveTeX()
+MATHMLPATH      =  os.path.join('mathml','')   # path for mathML output saveMathML()
 
 # Default plot settings
 figureAxisHeight= 4

@@ -191,7 +191,7 @@ def printError(msg, line, pos):
     for i in range(pos-1):
         out += '.'
     out += '|\n' + msg
-    print out
+    print(out)
     
 if __name__ == '__main__':
     """
@@ -202,10 +202,10 @@ if __name__ == '__main__':
         if ext.lower() == 'cir':
     """
     fi = 'testCircuit.cir'
-    print fi
+    print(fi)
     lexer = tokenize('cir/' + fi)
     tok = lexer.token()
     while tok:
-        print tok
+        print(tok)
         tok = lexer.token()
-    print '\nnumber of errors =', lexer.errCount, '\n'
+    print('\nnumber of errors =', lexer.errCount, '\n')
