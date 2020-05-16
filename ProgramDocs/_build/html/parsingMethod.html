@@ -1968,6 +1968,7 @@
     <span class="k">for</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">parName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
+    <span class="c1"># Convert *char* keys in the .parDefs attribute into sympy symbols.</span>
     <span class="c1"># make the node list and check for the ground node</span>
     <span class="c1"># check the references (error)</span>
     <span class="c1"># make the list with IDs of independent variables</span>
@@ -1975,7 +1976,6 @@
     <span class="c1"># make the list with IDs of controlled sources</span>
     <span class="c1"># check for two connections per node (warning)</span>
     <span class="k">return</span> <span class="n">mainCircuit</span>
-
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
