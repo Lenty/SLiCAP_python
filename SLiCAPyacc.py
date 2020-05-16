@@ -660,11 +660,11 @@ def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
-    # fileName = 'lib/SLiCAPmodels.lib'
-    # LIB = circuit()
-    # LIB.file = fileName
-    # LIB.lexer = tokenize(fileName)
-    # LIB = makeCircuit(LIB)
+    fileName = 'lib/SLiCAPmodels.lib'
+    LIB = circuit()
+    LIB.file = fileName
+    LIB.lexer = tokenize(fileName)
+    LIB = makeCircuit(LIB)
     if LIB.errors != 0:
         print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
         return LIB
