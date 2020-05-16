@@ -20,13 +20,6 @@ CSVPATH         = 'csv/'      # path for CSV files (csv2html)
 LATEXPATH       = 'tex/'      # path for LaTeX output saveTeX()
 MATHMLPATH      = 'mathml/'   # path for mathML output saveMathML()
 
-CIRCUITPATH     =  os.path.join('cir','')      # path for .asc, .net, .cir, .sch files
-LIBRARYPATH     =  os.path.join('lib','')      # path for include and library files
-TXTPATH         =  os.path.join('txt','')      # path for text files (text2html)
-CSVPATH         =  os.path.join('csv','')      # path for CSV files (csv2html)
-LATEXPATH       =  os.path.join('tex','')      # path for LaTeX output saveTeX()
-MATHMLPATH      =  os.path.join('mathml','')   # path for mathML output saveMathML()
-
 # Default plot settings
 figureAxisHeight= 4
 figureAxisWidth = 6
@@ -37,3 +30,6 @@ figureFileType  = 'svg'
 axisXscale      = 'linear'    # Scale for the x-axis can be 'linear' or 'log'
 axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
 legendLoc       = 'best'
+SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
+                    'u':'-6','m':'-3','k':'3','M':'6','G':'9','T':'12','P':'15',
+                    'E':'18','Z':'21','Y':'24'}

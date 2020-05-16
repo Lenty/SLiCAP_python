@@ -144,6 +144,8 @@ class figure(object):
                             scaleY = 10**eval(ini.SCALEFACTORS[self.axes[i].yScaleFactor])
                         else:
                             scaleY = 1
+                        scaleX = 1
+                        scaleY = 1
                         plt.plot(self.axes[i].traces[j].xData/scaleX, self.axes[i].traces[j].yData/scaleY, label = self.axes[i].traces[j].label, linewidth = self.axes[i].traces[j].lineWidth,
                                  color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = self.axes[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = 'none', linestyle = self.axes[i].traces[j].lineType)
                     except:
@@ -205,9 +207,12 @@ if __name__=='__main__':
     p = np.linspace(0, 1)
     q = p*2
     line = trace([p, q])
-    line = axis("Line of 2x")
-    line.traces = [line]
-    Figure = figure('test')
+    lineAx = axis("Line of 2x")
+    lineAx.traces = [line]
+    testFigure = figure('test')
+    testFigure.axes = [[lineAx, ""],["",""]]
+    testFigure.plot()
+    plt.show()
     
     x = np.linspace(0,2*np.pi, endpoint = True)
     y1 = np.sin(x)
