@@ -442,7 +442,7 @@ def expandModelsCircuits(circuitObject):
     # Check if names of sub circuits and models are given and can be found
     # and parse parameter values
         
-    for refDes in circuitObject.elements.keys():
+    for refDes in list(circuitObject.elements):
         if circuitObject.elements[refDes].type != 'X':
             # Do this for all elements except sub circuits
             modelName = circuitObject.elements[refDes].model
