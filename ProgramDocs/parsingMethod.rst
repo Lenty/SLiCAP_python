@@ -127,7 +127,7 @@ This comprises:
       - The voltage at node <Nnnn> with be named V_<Nnnn>
       - A current through a branch of a current-controlled element with element ID <elID> will be named  I_<elID> for two-terminal elements, Ii_<elID> for controlled sources that have a current-controlled input port and Io_<elID> for controlled sources that have a current-controlled output port.
 
-   #. Controlled sources (can be assigned as loop gain reference)
+   #. Controlled sources (can be assigned as loop gain reference) 
 
 
 The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
