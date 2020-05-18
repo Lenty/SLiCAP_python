@@ -790,32 +790,42 @@ def addUserLibs(fileNames):
     return()
 
 if __name__ == '__main__':
+    from time import time
+    from sympy import N
+    t1=time()
     LIB = makeLibraries()
-     
+    t2=time()
+    """ 
     import os
     files = os.listdir('cir')
     
     for fi in files:
         [cirFileName, ext] = fi.split('.')
         if ext.lower() == 'cir':   
-            """
-            fi = 'PIVA.cir'
-            """
-            print "\nCheking:", fi
-            myCir = checkCircuit('cir/' + fi )
-            """
-            keys = myCir.elements.keys()
-            for key in keys:
-                el = myCir.elements[key]
-                print '\nElement    :', key
-                print 'Nodes      :', el.nodes
-                print 'Refs       :', el.refs
-                print 'Model      :', el.model
-                print 'Params     :'
-                for par in el.params.keys():
-                    print ' ', par, '=', el.params[par]
-            
-            print '\nCircuit parameter definitions:'
-            for par in myCir.parDefs.keys():
-                print ' ', par, '=', myCir.parDefs[par]          
     """
+    fi = 'MOSamp.cir'
+    
+    print "\nCheking:", fi
+    myCir = checkCircuit('cir/' + fi )
+    t3=time()
+    """
+    keys = myCir.elements.keys()
+    for key in keys:
+        el = myCir.elements[key]
+        print '\nElement    :', key
+        print 'Nodes      :', el.nodes
+        print 'Refs       :', el.refs
+        print 'Model      :', el.model
+        print 'Params     :'
+        for par in el.params.keys():
+            print ' ', par, '=', el.params[par]
+    """
+    print '\nCircuit parameter definitions:'
+    for par in myCir.parDefs.keys():
+        print ' ', par, '=', myCir.parDefs[par]          
+    t4=time()
+    for el in myCir.elements.keys():
+        for par in  myCir.elements[el].params.keys():
+            parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
+            print el,'\t', par, N(parNum, DISP)
+    t5=time()
