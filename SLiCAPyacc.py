@@ -133,7 +133,6 @@ def makeCircuit(cir):
         # Here we have the first token of the second line of the circuit 
         # definition. Further checking is identical as with the sub circuit,
         # except for a '.end' command token at the end.
-    CIRTITLES.append(cir.title) 
     #print cir.title, cir.nodes, tok
     while tok:
         if tok.type == 'ID' and tok.value[0].upper() in DEVICES.keys():
@@ -306,7 +305,7 @@ def makeCircuit(cir):
                 if subCircuit.errors !=0:
                     # Errors in sub circuit, this also raises an error in the parent circuit
                     print "Errors found in definition of sub circuit."
-                    cir.errors += 1                  
+                    cir.errors += 1
             elif tok.value == 'MODEL':
                 tok = cir.lexer.token()
                 if tok:
@@ -394,7 +393,12 @@ def makeCircuit(cir):
         for refDes in cir.elements.keys():
             if cir.elements[refDes].model not in MODELS.keys():
                 needExpansion = True
+            elif MODELS[cir.elements[refDes].model] == False:
+                needExpansion = True
         if needExpansion:
+            # First add the user libraries to the global library LIB
+            addUserLibs(cir.libs)
+            CIRTITLES.append(cir.title) 
             cir = expandModelsCircuits(cir)
         if cir.errors != 0:
             print """Errors found during expansion of '%s'.
@@ -438,9 +442,9 @@ def expandModelsCircuits(circuitObject):
     - Add all entries from the .parDefs dict of the childCircuit to
       circuitObject.
     """
+    global CIRTITLES
     # Check if names of sub circuits and models are given and can be found
     # and parse parameter values
-        
     for refDes in circuitObject.elements.keys():
         if circuitObject.elements[refDes].type != 'X':
             # Do this for all elements except sub circuits
@@ -500,9 +504,16 @@ def expandModelsCircuits(circuitObject):
                 if stamp == False:
                     protoCircuit = LIB.circuits[basicModel]
         else:  
+            # Now we have a sub circuit
             stamp = False
             # Do this for sub circuits
             modelName = circuitObject.elements[refDes].model
+            if modelName in CIRTITLES:
+                # We have an hierarchical loop
+                print "Error: hierarchical loop involving '%s'."%(modelName)
+                circuitObject.errors += 1
+                # No expansion
+                return circuitObject
             if modelName in circuitObject.circuits.keys() :
                 protoCircuit = circuitObject.circuits[modelName]
             elif modelName in LIB.circuits.keys():
@@ -511,9 +522,13 @@ def expandModelsCircuits(circuitObject):
                 print "Error cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes)
                 circuitObject.errors += 1                            
         if circuitObject.errors == 0:
-            if stamp == False or circuitObject.elements[refDes].type == 'X':
+            if stamp == False:
                 elmt = circuitObject.elements[refDes]
                 circuitObject = expandCircuit(elmt, circuitObject, protoCircuit)
+            elif  circuitObject.elements[refDes].type == 'X':
+                elmt = circuitObject.elements[refDes]
+                circuitObject = expandCircuit(elmt, circuitObject, protoCircuit)
+    CIRTITLES.pop(-1)
     return circuitObject
 
 def expandCircuit(elmt, parentCircuit, childCircuit):
@@ -563,6 +578,8 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
         # Create element with new refdes
         childElement = childCircuit.elements[elName]
         newElement = element()
+        newElement.model = childCircuit.elements[elName].model
+        newElement.type = elName[0].upper()
         newElement.refDes = elName + suffix
         # Connect it to the parent circuit
         for node in childElement.nodes:
@@ -600,7 +617,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     for key in newParDefs.keys():
         newKey = fullSubs(Symbol(key), substDict)
         newValue = fullSubs(newParDefs[key], substDict)
-        parentCircuit.parDefs[newKey] = newValue
+        parentCircuit.parDefs[str(newKey)] = newValue
     # Delete elmt from the parent circuit, it has now been replaced with
     # elements of the child
     del parentCircuit.elements[elmt.refDes]
@@ -647,12 +664,46 @@ def updateCirData(mainCircuit):
         if parName not in mainCircuit.parDefs.keys():
             mainCircuit.parDefs[parName] = LIB.parDefs[parName]
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
+    for key in mainCircuit.parDefs.keys():
+        mainCircuit.parDefs[Symbol(key)] = mainCircuit.parDefs[key]
+        del(mainCircuit.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
-    # make the list with IDs of dependend variables
     # make the list with IDs of controlled sources
+    # make the list with IDs of dependend variables
+    mainCircuit.nodes = []
+    varIndexPos = 0
+    for elmt in mainCircuit.elements.keys():
+        mainCircuit.nodes += mainCircuit.elements[elmt].nodes
+        for refID in mainCircuit.elements[elmt].refs:
+            if refID not in mainCircuit.elements.keys():
+                print "Error: Could not find referenced element '%s'."%(refID)
+                mainCircuit.errors += 1
+        if mainCircuit.elements[elmt].type in INDEPSCRCS:
+            mainCircuit.indepVars.append(elmt)
+        elif mainCircuit.elements[elmt].type in CONTROLLED:
+            mainCircuit.controlled.append(elmt)
+        for i in range(len(MODELS[mainCircuit.elements[elmt].type].depVars)):
+            depVar = MODELS[mainCircuit.elements[elmt].type].depVars[i]
+            mainCircuit.depVars.append(depVar + '_' + elmt)
+            mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
+            varIndexPos += 1
     # check for two connections per node (warning)
+    connections = {i:mainCircuit.nodes.count(i) for i in mainCircuit.nodes}
+    for key in connections.keys():
+        if connections[key] < 2:
+            print "Warning less than two connections at node: '%s'."%(key)
+    # Remove duplicate entries from node list and sort the list."
+    mainCircuit.nodes = list(set(mainCircuit.nodes))
+    mainCircuit.nodes.sort()
+    if '0' not in mainCircuit.nodes:
+        mainCircuit.errors += 1
+        print "Error: could not find ground node '0'."
+    for i in range(len(mainCircuit.nodes))  :
+        mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
+        mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
+        varIndexPos += 1
     return mainCircuit
 
 def makeLibraries():
@@ -685,19 +736,71 @@ def makeLibraries():
             print "Errors found in library: '%s'. SLiCAP will not work!"%(fileName)
             LIB.errors = cir.errors
             return LIB
+        CIRTITLES = []
         return cir
+    
+def addUserLibs(fileNames):
+    """ 
+    Adds pre compiled user libraries to LIB. Overwrites existing keys in LIB.
+    """
+    global CIRTITLES, LIB
+    for fi in fileNames:
+        # Do not include the standard library "SLiCAP.lib"
+        libFile = fi.split('.')
+        try:
+            if libFile[0] != 'SLiCAP' and libFile[1].upper() != 'LIB':
+                try:
+                    # first libraries in circuit directory
+                    f = open(CIRPATH + fi, "r")
+                    fileName = CIRPATH + fi
+                    f.close()
+                except:
+                    try:
+                        # then libraries in user library directory
+                        f = open(LIBRARYPATH + fi, "r")
+                        fileName = LIBRARYPATH + fi
+                        f.close()
+                    except:
+                        try:
+                            # then absolute path
+                            f = open(fi, "r")
+                            fileName = fi
+                            f.close()
+                        except:
+                            print "Error: cannot find library file: '%s'."%(fi)
+                            fileName = False
+                if fileName != False:
+                    cir = circuit()
+                    cir.file = fileName
+                    cir.lexer = tokenize(fileName)
+                    cir = makeCircuit(cir)
+                    if cir.errors != 0:
+                        print "Errors found in library: '%s'. Library will not be added!"%(fileName)
+                    else:
+                        for newCircuit in cir.circuits:
+                            LIB.circuits[newCircuit.title] = newCircuit
+                        for newModelDef in cir.modelDefs:
+                            LIB.modelDefs[cir.modelDefs[newModelDef]] = cir.modelDefs[newModelDef]
+                        for newParDef in cir.parDefs:
+                            LIB.parDefs[newPardef] = cir.parDefs[newParDef]
+                        for newLib in cir.libs:
+                            LIB.libs.append(newLib)
+        except:
+            pass
+    return()
 
 if __name__ == '__main__':
     LIB = makeLibraries()
-    
+     
     import os
     files = os.listdir('cir')
     
     for fi in files:
         [cirFileName, ext] = fi.split('.')
         if ext.lower() == 'cir':   
-    
-            #fi = 'MOSamp.cir'
+            """
+            fi = 'PIVA.cir'
+            """
             print "\nCheking:", fi
             myCir = checkCircuit('cir/' + fi )
             """
@@ -715,4 +818,4 @@ if __name__ == '__main__':
             print '\nCircuit parameter definitions:'
             for par in myCir.parDefs.keys():
                 print ' ', par, '=', myCir.parDefs[par]          
-            """
+    """

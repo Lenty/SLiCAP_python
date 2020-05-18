@@ -17,6 +17,9 @@ MODELS      = {}                # Dictionary with SLiCAP built-in models
 DEVICES     = {}                # Dictionary with SLiCAP built-in devices
                                 #   key   : device name
                                 #   value : associated device object
+CONTROLLED  = ['E', 'F', 'G', 'H']  # Types of controlled sources
+INDEPSCRCS  = ['I', 'V']            # Types of independent sources
+
 class circuit(object):
     # Circuit object for main circuit and for sub circuits
     def __init__(self):
@@ -51,6 +54,11 @@ class circuit(object):
                                 # can be used as detector
         self.controlled = []    # List with controlles sources;
                                 # can be used as loop gain reference
+        self.varIndex   = {}    # Dictionary with index of node or dependent
+                                # current (speeds up the building of the matrix)
+                                #   key   : node name of current name
+                                #   value : position in the vactor with
+                                #           dependent variables
 class element(object):
     # Circuit element object
     def __init__(self):
@@ -81,7 +89,7 @@ class model(object):
         self.name       = ''    # Model name
         self.stamp      = True  # True if model has associated matrix stamp, 
                                 # False if it requires expansion
-        self.depVars    = 0     # Number of independent vars. in matrix stamp
+        self.depVars    = []    # Namens of dependent vars. in matrix stamp
         self.params     = {}    # Dictionary with model parameters
                                 #   key   : model parameter name
                                 #   value : True: if Laplace is allowed in the
@@ -108,7 +116,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'C'
     newModel.stamp          = True
-    newModel.depVars        = 0
+    newModel.depVars        = []
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # Diode
@@ -121,42 +129,42 @@ def initAll():
     newModel                = model()
     newModel.name           = 'E'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I_o']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # VCVS with series impedance
     newModel                = model()
     newModel.name           = 'EZ'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I_o']
     newModel.params         = {'value': True, 'zs': True}
     MODELS[newModel.name]   = newModel
     # CCCS
     newModel                = model()
     newModel.name           = 'F'
     newModel.stamp          = True
-    newModel.depVars        = 0 # can be set to 1 if independent depVar is used
+    newModel.depVars        = ['I_i']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # VCCS
     newModel                = model()
     newModel.name           = 'G'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I_o']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # VCCS no Laplace
     newModel                = model()
     newModel.name           = 'g'
     newModel.stamp          = True
-    newModel.depVars        = 0
+    newModel.depVars        = []
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # CCVS
     newModel                = model()
     newModel.name           = 'H'
     newModel.stamp          = True
-    newModel.depVars        = 2 # can be set to 2 if independent depVar is used
+    newModel.depVars        = ['I_o', 'I_i']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # CCVS with source impedance
@@ -170,7 +178,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'I'
     newModel.stamp          = True
-    newModel.depVars        = 0
+    newModel.depVars        = []
     newModel.params         = {'value': True, 'dc': False, 'dcvar': False, 'noise': False}
     MODELS[newModel.name]   = newModel
     # JFET
@@ -183,14 +191,14 @@ def initAll():
     newModel                = model()
     newModel.name           = 'K'
     newModel.stamp          = True
-    newModel.depVars        = 0
+    newModel.depVars        = []
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # Inductor
     newModel                = model()
     newModel.name           = 'L'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I']
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # MOSFET
@@ -209,7 +217,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'N'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I_o']
     newModel.params         = {}
     MODELS[newModel.name]   = newModel
     # Current feedback operational amplifier
@@ -246,35 +254,35 @@ def initAll():
     newModel                = model()
     newModel.name           = 'R'
     newModel.stamp          = True
-    newModel.depVars        = 0
+    newModel.depVars        = []
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # Resistor (resistance can be zero)
     newModel                = model()
     newModel.name           = 'r'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I']
     newModel.params         = {'value': False, 'dcvar': False, 'noise': False}
     MODELS[newModel.name]   = newModel
     # Ideal transformer
     newModel                = model()
     newModel.name           = 'T'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I_o']
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # Independent voltage source
     newModel                = model()
     newModel.name           = 'V'
     newModel.stamp          = True
-    newModel.depVars        = 1
+    newModel.depVars        = ['I']
     newModel.params         = {'value': True, 'dc': False, 'dcvar': False, 'noise': False}
     MODELS[newModel.name]   = newModel
     # Gyrator
     newModel                = model()
     newModel.name           = 'W'
     newModel.stamp          = True
-    newModel.depVars        = 0
+    newModel.depVars        = []
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     
