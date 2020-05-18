@@ -20,7 +20,7 @@ Conversion of the tokenized input into a circuit object. Sub circuit definitions
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lines: 1-402
+       :lines: 1-406
 
 Expansion of the models and the sub circuits
 ============================================
@@ -106,8 +106,8 @@ The procedure for flattening the circuit is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 404
-       :lines: 404-632
+       :lineno-start: 408
+       :lines: 408-651
 
 Updating of circuit data
 ========================
@@ -135,5 +135,5 @@ The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 634
-       :lines: 634-656
+       :lineno-start: 651
+       :lines: 651-707
