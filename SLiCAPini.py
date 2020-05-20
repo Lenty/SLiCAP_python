@@ -1,5 +1,12 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
+import re
+import sympy as sp
+import numpy as np
+from time import time
+from IPython import display
+import ply.lex as lex
+import subprocess
 
 LOGFILE         = True
 LANGUAGE        = 'english' # Language for error and warnings
@@ -29,3 +36,8 @@ figureFileType  = 'svg'
 axisXscale      = 'linear'    # Scale for the x-axis can be 'linear' or 'log'
 axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
 legendLoc       = 'best'
+
+# Type conversions
+LAPLACE         = sp.Symbol(LAPLACE)
+FREQUENCY       = sp.Symbol(FREQUENCY)
+OMEGA           = sp.Symbol(OMEGA)

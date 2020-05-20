@@ -11,7 +11,7 @@ The language can be set in the file ``SLiCAPini.py``:
 
 .. literalinclude:: ../SLiCAPini.py
     :language: python
-    :lines: 5
+    :lines: 12
 
 **errorCode**
 
@@ -32,6 +32,6 @@ During circuit checking
 
 .. literalinclude:: ../SLiCAPini.py
     :language: python
-    :lines: 4
+    :lines: 11
 
 #. Messages do not stop the checking. The circuit.errors attribute will be set to the number of errors.

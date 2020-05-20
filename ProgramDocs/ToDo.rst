@@ -5,6 +5,7 @@ ToDo
 General
 =======
 
+#. Include HTMl report functions
 #. Define systems library names in ``SLiCAPprotos.py``. Now they are hard-coded in the ``addUserLibs()`` function.
 #. Update the readme.md on github
 #. Convert everything available now to Python 3

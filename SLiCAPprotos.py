@@ -1,13 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-import SLiCAPini as ini
-from sympy import sympify
+from SLiCAPlex import *
 
 # Globals
-LAPLACE     = ini.LAPLACE       # Laplace variable as defined in the ini file
-FREQUENCY   = ini.FREQUENCY     # Laplace variable as defined in the ini file
-OMEGA       = ini.OMEGA         # Natural frequency as defined in the ini file
 HIERARCHY   = []                # Check list for hierarchical loops
 CONSTANTS   = {}                # Dictionary with global parameters taken from
                                 # the ini file

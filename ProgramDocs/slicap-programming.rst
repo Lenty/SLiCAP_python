@@ -28,5 +28,6 @@ Contents
    modelParams
    subCircuits
    errorHandling
-   plot
+   matrices
    pythonMaximaInterface
+   plot

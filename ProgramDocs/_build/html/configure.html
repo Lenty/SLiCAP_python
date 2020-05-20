@@ -104,8 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
             
@@ -212,8 +213,27 @@
 28
 29
 30
-31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
 
 <span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
 <span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings</span>
@@ -243,6 +263,11 @@
 <span class="n">axisXscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the x-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">axisYscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the y-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">legendLoc</span>       <span class="o">=</span> <span class="s1">&#39;best&#39;</span>
+
+<span class="c1"># Type conversions</span>
+<span class="n">LAPLACE</span>         <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span>
+<span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">FREQUENCY</span><span class="p">)</span>
+<span class="n">OMEGA</span>           <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">OMEGA</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -693,20 +718,12 @@
 437
 438
 439
-440
-441
-442
-443
-444</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+440</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">SLiCAPini</span> <span class="kn">as</span> <span class="nn">ini</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">sympify</span>
+<span class="kn">from</span> <span class="nn">SLiCAPlex</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Globals</span>
-<span class="n">LAPLACE</span>     <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">LAPLACE</span>       <span class="c1"># Laplace variable as defined in the ini file</span>
-<span class="n">FREQUENCY</span>   <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">FREQUENCY</span>     <span class="c1"># Laplace variable as defined in the ini file</span>
-<span class="n">OMEGA</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">OMEGA</span>         <span class="c1"># Natural frequency as defined in the ini file</span>
 <span class="n">HIERARCHY</span>   <span class="o">=</span> <span class="p">[]</span>                <span class="c1"># Check list for hierarchical loops</span>
 <span class="n">CONSTANTS</span>   <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with global parameters taken from</span>
                                 <span class="c1"># the ini file</span>

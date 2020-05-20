@@ -10,12 +10,7 @@ Created on Mon May  4 12:32:13 2020
 @author: anton
 """
 
-from SLiCAPlex import *
-from SLiCAPprotos import *    
-
-LAPLACE = Symbol(LAPLACE)
-FREQUENCY = Symbol(FREQUENCY)
-OMEGA = Symbol(OMEGA)
+from SLiCAPprotos import *
 
 # Composite tokens
 NODES      = ['NODEID', 'ID', 'INT']
@@ -31,7 +26,7 @@ CIRTITLES = []
 LIB = circuit()
 
 def checkCircuit(fileName):
-    global CIRTITLES, LIB
+    global CIRTITLES
     cir = circuit()
     cir.file = fileName
     if LIB.errors == 0:
@@ -437,12 +432,12 @@ def expandModelsCircuits(circuitObject):
       - For all other (local)parameters add the suffix:
         _< parent element refDes > to their name (key) and substitute them in
         all value value fields with: 
-        sympy.Symbol(< parameter name >_< parent element refDes >)
+        sympy.sp.Symbol(< parameter name >_< parent element refDes >)
     - Add all elements from the childCircuit to circuitObject
     - Add all entries from the .parDefs dict of the childCircuit to
       circuitObject.
     """
-    global CIRTITLES
+    global CIRTITLES, LIB
     # Check if names of sub circuits and models are given and can be found
     # and parse parameter values
     for refDes in circuitObject.elements.keys():
@@ -519,7 +514,7 @@ def expandModelsCircuits(circuitObject):
             elif modelName in LIB.circuits.keys():
                 protoCircuit = LIB.circuits[modelName]
             else:
-                print "Error cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes)
+                print "Error: cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes)
                 circuitObject.errors += 1                            
         if circuitObject.errors == 0:
             if stamp == False:
@@ -560,19 +555,19 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     # Put the names and values of the parameters of the parent element in this 
     # dictionary
     for key in elmt.params.keys():
-        substDict[Symbol(key)] = elmt.params[key]
+        substDict[sp.Symbol(key)] = elmt.params[key]
     # If they are not yet in, put the default values of the child circuit 
     # parameters in this dictionary
     for key in childCircuit.params.keys():
-        if Symbol(key) not in substDict.keys():
-            substDict[Symbol(key)] = childCircuit.params[key]
+        if sp.Symbol(key) not in substDict.keys():
+            substDict[sp.Symbol(key)] = childCircuit.params[key]
     # Copy the parameter definitions of the child circuit to a new dict
     # The keys and entries of this dictionary will be modified
     newParDefs= {} # Temporary storage for new parameter definitions
     for key in childCircuit.parDefs.keys():
         newParDefs[key] = childCircuit.parDefs[key]
-        if key not in LIB.parDefs.keys() and Symbol(key) not in substDict.keys():
-            substDict[Symbol(key)] = Symbol(key + suffix)
+        if key not in LIB.parDefs.keys() and sp.Symbol(key) not in substDict.keys():
+            substDict[sp.Symbol(key)] = sp.Symbol(key + suffix)
     newElements = {} # Temp storage for all the new elements
     for elName in childCircuit.elements.keys():
         # Create element with new refdes
@@ -603,7 +598,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
             newParams = newElement.params[key].free_symbols
             for newParam in newParams:
                 if str(newParam) not in LIB.parDefs.keys() and newParam not in substDict.keys():
-                    substDict[newParam] = Symbol(str(newParam) + suffix)
+                    substDict[newParam] = sp.Symbol(str(newParam) + suffix)
         # Store the element, we still need to update its parameters and values
         newElements[newElement.refDes] = newElement
     # Update parameters and values of new elements
@@ -615,7 +610,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     # Update parameters and values of circuit parameter definitions
     # Pass all the updated child circuit parameter definitions to the parent circuit
     for key in newParDefs.keys():
-        newKey = fullSubs(Symbol(key), substDict)
+        newKey = fullSubs(sp.Symbol(key), substDict)
         newValue = fullSubs(newParDefs[key], substDict)
         parentCircuit.parDefs[str(newKey)] = newValue
     # Delete elmt from the parent circuit, it has now been replaced with
@@ -665,7 +660,7 @@ def updateCirData(mainCircuit):
             mainCircuit.parDefs[parName] = LIB.parDefs[parName]
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in mainCircuit.parDefs.keys():
-        mainCircuit.parDefs[Symbol(key)] = mainCircuit.parDefs[key]
+        mainCircuit.parDefs[sp.Symbol(key)] = mainCircuit.parDefs[key]
         del(mainCircuit.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
@@ -684,7 +679,7 @@ def updateCirData(mainCircuit):
             mainCircuit.indepVars.append(elmt)
         elif mainCircuit.elements[elmt].type in CONTROLLED:
             mainCircuit.controlled.append(elmt)
-        for i in range(len(MODELS[mainCircuit.elements[elmt].type].depVars)):
+        for i in range(len(MODELS[mainCircuit.elements[elmt].model].depVars)):
             depVar = MODELS[mainCircuit.elements[elmt].type].depVars[i]
             mainCircuit.depVars.append(depVar + '_' + elmt)
             mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
@@ -732,12 +727,14 @@ def makeLibraries():
         for modDef in LIB.modelDefs.keys():
             cir.modelDefs[parDef] = LIB.modelDefs[modDef]
         cir = makeCircuit(cir)
+        
         if cir.errors != 0:
             print "Errors found in library: '%s'. SLiCAP will not work!"%(fileName)
             LIB.errors = cir.errors
             return LIB
         CIRTITLES = []
-        return cir
+        LIB = cir
+        return LIB
     
 def addUserLibs(fileNames):
     """ 
@@ -790,8 +787,6 @@ def addUserLibs(fileNames):
     return()
 
 if __name__ == '__main__':
-    from time import time
-    from sympy import N
     t1=time()
     LIB = makeLibraries()
     t2=time()
@@ -819,7 +814,7 @@ if __name__ == '__main__':
         print 'Params     :'
         for par in el.params.keys():
             print ' ', par, '=', el.params[par]
-    """
+    
     print '\nCircuit parameter definitions:'
     for par in myCir.parDefs.keys():
         print ' ', par, '=', myCir.parDefs[par]          
@@ -829,3 +824,4 @@ if __name__ == '__main__':
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
             print el,'\t', par, N(parNum, DISP)
     t5=time()
+    """

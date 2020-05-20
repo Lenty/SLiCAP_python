@@ -9,12 +9,7 @@ Created on Mon May  4 12:32:13 2020
 
 @author: anton
 """
-from sympy import sympify, Symbol
-import ply.lex as lex
-import re
 from SLiCAPini import *
-
-global LAPLACE, FREQUENCY, OMEGA
 
 # list of token names
 
@@ -60,7 +55,7 @@ def t_PARDEF(t):
         except:
             pass
     try:
-        t.value[1] = sympify(t.value[1])
+        t.value[1] = sp.sympify(t.value[1])
     except:
         printError("Error in expression.", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
         lexer.errCount += 1
@@ -116,7 +111,7 @@ def t_EXPR(t):
     out += t.value[pos:-1]
     t.value = out
     try:
-        t.value = sympify(out)
+        t.value = sp.sympify(out)
     except:
         lexer.errCount += 1
         printError("Error in expression:", lexer.lexdata.splitlines[lexer.lineno], find_column(t))
@@ -192,7 +187,7 @@ def printError(msg, line, pos):
         out += '.'
     out += '|\n' + msg
     print out
-    
+   
 if __name__ == '__main__':
     """
     import os

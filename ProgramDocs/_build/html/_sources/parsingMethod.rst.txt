@@ -10,7 +10,7 @@ Tokenizing of the input file with `Python Lex <https://www.dabeaz.com/ply/>`_.
    .. literalinclude:: ../SLiCAPlex.py
        :language: python
        :linenos:
-       :lines: 1-183
+       :lines: 1-189
 
 Creation of a nested circuit object from the tokens
 ===================================================
@@ -106,8 +106,8 @@ The procedure for flattening the circuit is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 408
-       :lines: 408-651
+       :lineno-start: 403
+       :lines: 403-644
 
 Updating of circuit data
 ========================
@@ -135,5 +135,5 @@ The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 651
-       :lines: 651-707
+       :lineno-start: 646
+       :lines: 646-702
