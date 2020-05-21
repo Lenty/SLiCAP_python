@@ -26,14 +26,17 @@ CIRTITLES = []
 LIB = circuit()
 
 def checkCircuit(fileName):
-    global CIRTITLES
+    global CIRTITLES, HTMLPREFIX
     cir = circuit()
-    cir.file = fileName
+    cir.file = CIRCUITPATH + fileName
     if LIB.errors == 0:
-        cir.lexer = tokenize(fileName)
+        cir.lexer = tokenize(CIRCUITPATH + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:
             cir = updateCirData(cir)
+            HTMLprefix('-'.join(cir.title.split()) + '_')
+            HTMLcircuit(cir)
+            htmlPage(cir.title, True)
             if cir.errors != 0:
                 print """Errors found during updating of circuit data from '%s'.
     Instructions with this circuit will not be executed."""%(cir.title)
@@ -62,6 +65,9 @@ def makeCircuit(cir):
     if tok and tok.type in TITLE and cir.subCKT==False:
         # In this case, we a dealing with the main circuit
         cir.title = tok.value
+        if tok.type == 'QSTRING':
+            # Remove the double quotes, this conflicts with HTML files
+            cir.title = cir.title[1:-1]
         tok = lexer.token()
     elif cir.subCKT == True:
         # In this case, we a dealing with a sub circuit
@@ -72,7 +78,10 @@ def makeCircuit(cir):
                 if not tok:
                     break
             if tok and tok.type in TITLE:
-                cir.title = tok.value       
+                cir.title = tok.value
+                if tok.type == 'QSRTING':
+                    # Remove the double quotes, this conflicts with HTML files
+                    cir.title = cir.title[1:-1]
                 if tok.value in CIRTITLES:
                     print "Error: circuit '%s' has already been defined."%(cir.title)
                     cir.errors += 1
@@ -618,31 +627,6 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     del parentCircuit.elements[elmt.refDes]
     return(parentCircuit)
     
-def fullSubs(valExpr, parDefs):
-    """
-    Returns the valExpr after all parameters of parDefs have been substituted
-    recursively into valExpr.
-    parDefs is a dictionary in which the keys are sympy symbols. The type of 
-    the value fields may be any sympy type, integer or float.
-    """
-    strValExpr = str(valExpr)
-    i = 0
-    newvalExpr = 0
-    while valExpr != newvalExpr and i < MAXRECSUBST and type(valExpr) != int and type(valExpr) != float:
-        # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
-        substDict = {}
-        params = valExpr.free_symbols
-        for param in params:
-            if param in parDefs.keys():
-                substDict[param] = parDefs[param]
-        # perform the substitution
-        newvalExpr = valExpr
-        valExpr = newvalExpr.subs(substDict)
-        i += 1
-    if i == MAXRECSUBST:
-        print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
-    return valExpr
-    
 def updateCirData(mainCircuit):
     """
     - Updates the lists with dependent variables (detectors), sources 
@@ -660,13 +644,16 @@ def updateCirData(mainCircuit):
             mainCircuit.parDefs[parName] = LIB.parDefs[parName]
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in mainCircuit.parDefs.keys():
-        mainCircuit.parDefs[sp.Symbol(key)] = mainCircuit.parDefs[key]
+        newKey = sp.Symbol(key)
+        mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
         del(mainCircuit.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
     # make the list with IDs of controlled sources
     # make the list with IDs of dependend variables
+    # convert mainCircuit.params to list and put undefined params in it
+    mainCircuit.params =[]
     mainCircuit.nodes = []
     varIndexPos = 0
     for elmt in mainCircuit.elements.keys():
@@ -684,6 +671,18 @@ def updateCirData(mainCircuit):
             mainCircuit.depVars.append(depVar + '_' + elmt)
             mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
             varIndexPos += 1
+        # Add parameters used in expressions to circuit.params
+        for par in mainCircuit.elements[elmt].params:
+            try:
+                mainCircuit.params += mainCircuit.elements[elmt].params[par].free_symbols
+            except:
+                pass
+    mainCircuit.params = list(set(mainCircuit.params))
+    undefined = []
+    for par in mainCircuit.params:
+        if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in mainCircuit.parDefs.keys():
+            undefined.append(par)
+    mainCircuit.params = undefined
     # check for two connections per node (warning)
     connections = {i:mainCircuit.nodes.count(i) for i in mainCircuit.nodes}
     for key in connections.keys():
@@ -705,7 +704,7 @@ def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
-    fileName = 'lib/SLiCAPmodels.lib'
+    fileName = LIBRARYPATH + 'SLiCAPmodels.lib'
     LIB = circuit()
     LIB.file = fileName
     LIB.lexer = tokenize(fileName)
@@ -716,7 +715,7 @@ def makeLibraries():
     else:
         # Do this also for other libs
         CIRTITLES = []
-        fileName = 'lib/SLiCAP.lib'
+        fileName = LIBRARYPATH + 'SLiCAP.lib'
         cir = circuit()
         cir.file = fileName
         cir.lexer = tokenize(fileName)
@@ -801,7 +800,7 @@ if __name__ == '__main__':
     fi = 'MOSamp.cir'
     
     print "\nCheking:", fi
-    myCir = checkCircuit('cir/' + fi )
+    myCir = checkCircuit(fi)
     t3=time()
     """
     keys = myCir.elements.keys()

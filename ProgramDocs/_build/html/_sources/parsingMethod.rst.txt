@@ -20,7 +20,7 @@ Conversion of the tokenized input into a circuit object. Sub circuit definitions
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lines: 1-406
+       :lines: 1-410
 
 Expansion of the models and the sub circuits
 ============================================
@@ -50,8 +50,8 @@ This is the 'flattening' of the main circuit object
 
    .. literalinclude:: ../lib/SLiCAPmodels.lib
        :linenos:
-       :lineno-start: 36
-       :lines: 36-46
+       :lineno-start: 37
+       :lines: 37-47
 
    This is how the expansion of M2 would look in a netlist of the final circuit:
 
@@ -106,8 +106,8 @@ The procedure for flattening the circuit is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 403
-       :lines: 403-644
+       :lineno-start: 412
+       :lines: 412-628
 
 Updating of circuit data
 ========================
@@ -132,8 +132,19 @@ This comprises:
 
 The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
 
-   .. literalinclude:: ../SLiCAPyacc.py
-       :language: python
-       :linenos:
-       :lineno-start: 646
-       :lines: 646-702
+.. literalinclude:: ../SLiCAPyacc.py
+    :language: python
+    :linenos:
+    :lineno-start: 630
+    :lines: 630-701
+
+Recursive substitution
+======================
+
+Recursive substitution is performed by the function ``fullSubs``. It is located in ``SLiCAPhtml.py``. It is used during the flattening of the circuit and in some HTML functions. 
+
+.. literalinclude:: ../SLiCAPhtml.py
+    :language: python
+    :linenos:
+    :lineno-start: 362
+    :lines: 362-385

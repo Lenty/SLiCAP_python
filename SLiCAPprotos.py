@@ -133,7 +133,7 @@ def initAll():
     newModel.name           = 'EZ'
     newModel.stamp          = True
     newModel.depVars        = ['I_o']
-    newModel.params         = {'value': True, 'zs': True}
+    newModel.params         = {'value': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # CCCS
     newModel                = model()
@@ -168,7 +168,7 @@ def initAll():
     newModel.name           = 'HZ'
     newModel.stamp          = True
     newModel.depVars        = 1 # can be set to 2 if independent depVar is used
-    newModel.params         = {'value': True, 'zs': True}
+    newModel.params         = {'value': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # Independent current source
     newModel                = model()

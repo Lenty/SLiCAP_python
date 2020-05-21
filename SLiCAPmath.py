@@ -145,7 +145,7 @@ def numRoots(expr, var):
     using sympy.roots(expr, var)
     numpy.roots: 
         https://docs.scipy.org/doc/numpy/reference/generated/numpy.polynomial.polynomial.polyroots.html
-        The root estimates are obtained as the eigenvalues of the companion matrix, 
+        The root estimates are obtained as the eigenvalues of the companion matrix.
         Roots far from the origin of the complex plane may have large errors due to 
         the numerical instability of the power series for such values. Roots with 
         multiplicity greater than 1 will also show larger errors as the value of 
@@ -160,7 +160,7 @@ def numRoots(expr, var):
         coeffs.append(coeffDict[order-1-i])
     coeffs = np.array(coeffs)
     roots = np.roots(coeffs)
-    return roots
+    return np.flip(roots, 0)
 
 if __name__ == "__main__":
     s = sp.Symbol('s')

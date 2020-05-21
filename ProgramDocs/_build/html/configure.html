@@ -106,6 +106,7 @@
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
@@ -225,7 +226,13 @@
 40
 41
 42
-43</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+43
+44
+45
+46
+47
+48
+49</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
@@ -234,10 +241,12 @@
 <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
 <span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
 <span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings</span>
 <span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># Numner of digits for floats in output</span>
+<span class="n">MATHJAXLOCAL</span>    <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Local version of MathJax will be used if True</span>
 
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>       <span class="c1"># Laplace veriable</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>       <span class="c1"># Frequency in Hz</span>
@@ -245,13 +254,14 @@
 <span class="n">MAXRECSUBST</span>     <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># Maximum number of recursic=ve substitutions</span>
 <span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># True if frequency output in Hz, else: False</span>
 
-<span class="c1"># PATHS: relative to the project directory</span>
-<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>      <span class="c1"># path for .asc, .net, .cir, .sch files</span>
-<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>      <span class="c1"># path for include and library files</span>
-<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>      <span class="c1"># path for text files (text2html)</span>
-<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>      <span class="c1"># path for CSV files (csv2html)</span>
-<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>      <span class="c1"># path for LaTeX output saveTeX()</span>
-<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span>   <span class="c1"># path for mathML output saveMathML()</span>
+<span class="c1"># PATHS: relative to the SLiCAP directory</span>
+<span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;Project/html/&#39;</span>   <span class="c1"># path for html output</span>
+<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;Project/cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
+<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>            <span class="c1"># path for include and library files</span>
+<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
+<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
+<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;Project/tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
+<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;Project/mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
 
 <span class="c1"># Default plot settings</span>
 <span class="n">figureAxisHeight</span><span class="o">=</span> <span class="mi">4</span>
@@ -268,6 +278,9 @@
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">FREQUENCY</span><span class="p">)</span>
 <span class="n">OMEGA</span>           <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">OMEGA</span><span class="p">)</span>
+
+<span class="c1"># Where is it installed? </span>
+<span class="n">INSTALLPATH</span>     <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -853,7 +866,7 @@
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;EZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCCS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
@@ -888,7 +901,7 @@
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;HZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span> <span class="c1"># can be set to 2 if independent depVar is used</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Independent current source</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>

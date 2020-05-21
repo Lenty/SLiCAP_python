@@ -51,7 +51,7 @@ def makeMatrices(cir, numeric=False):
             M[pos1][pos0] -= value * LAPLACE
             M[pos1][pos1] += value * LAPLACE
         elif elmt.model == 'L':
-            dVarPos = varIndex['I_'+elmt.refDes]
+            dVarPos = varIndex['I_'+ elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)

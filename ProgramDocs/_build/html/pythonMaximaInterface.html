@@ -36,7 +36,7 @@
   
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
-        <link rel="next" title="Plotting" href="plot.html"/>
+        <link rel="next" title="HTML reports" href="html.html"/>
         <link rel="prev" title="Building the MNA matrices" href="matrices.html"/> 
 
   
@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
@@ -251,7 +252,16 @@
 72
 73
 74
-75</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Fri May  1 13:57:02 2020</span>
@@ -326,6 +336,15 @@
     <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;result:bfloat(ilt(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Fs</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,t));&#39;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">maxDet</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the determinant of matrix &#39;M&#39; in Sympy format, calculated by Maxima.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;m:&#39;</span> <span class="o">+</span> <span class="n">M</span> <span class="o">+</span> <span class="s1">&#39;;result:bfloat(expand(newdet(m)));&#39;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -340,7 +359,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="plot.html" class="btn btn-neutral float-right" title="Plotting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="html.html" class="btn btn-neutral float-right" title="HTML reports" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="matrices.html" class="btn btn-neutral" title="Building the MNA matrices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

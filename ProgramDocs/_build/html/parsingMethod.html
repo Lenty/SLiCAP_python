@@ -100,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#creation-of-a-nested-circuit-object-from-the-tokens">Creation of a nested circuit object from the tokens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#expansion-of-the-models-and-the-sub-circuits">Expansion of the models and the sub circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#updating-of-circuit-data">Updating of circuit data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recursive-substitution">Recursive substitution</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
@@ -108,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
@@ -377,7 +379,7 @@
 
 <span class="sd">@author: anton</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">SLiCAPini</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">SLiCAPhtml</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># list of token names</span>
 
@@ -968,7 +970,11 @@
 403
 404
 405
-406</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+406
+407
+408
+409
+410</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">SLiCAPyacc.py</span>
@@ -996,14 +1002,17 @@
 <span class="n">LIB</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">checkCircuit</span><span class="p">(</span><span class="n">fileName</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">CIRTITLES</span>
+    <span class="k">global</span> <span class="n">CIRTITLES</span><span class="p">,</span> <span class="n">HTMLPREFIX</span>
     <span class="n">cir</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">()</span>
-    <span class="n">cir</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">fileName</span>
+    <span class="n">cir</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">CIRCUITPATH</span> <span class="o">+</span> <span class="n">fileName</span>
     <span class="k">if</span> <span class="n">LIB</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+        <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">(</span><span class="n">CIRCUITPATH</span> <span class="o">+</span> <span class="n">fileName</span><span class="p">)</span>
         <span class="n">cir</span> <span class="o">=</span> <span class="n">makeCircuit</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">cir</span> <span class="o">=</span> <span class="n">updateCirData</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
+            <span class="n">HTMLprefix</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            <span class="n">HTMLcircuit</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
+            <span class="n">htmlPage</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">print</span> <span class="s2">&quot;&quot;&quot;Errors found during updating of circuit data from &#39;</span><span class="si">%s</span><span class="s2">&#39;.</span>
 <span class="s2">    Instructions with this circuit will not be executed.&quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
@@ -1032,6 +1041,9 @@
     <span class="k">if</span> <span class="n">tok</span> <span class="ow">and</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">TITLE</span> <span class="ow">and</span> <span class="n">cir</span><span class="o">.</span><span class="n">subCKT</span><span class="o">==</span><span class="bp">False</span><span class="p">:</span>
         <span class="c1"># In this case, we a dealing with the main circuit</span>
         <span class="n">cir</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;QSTRING&#39;</span><span class="p">:</span>
+            <span class="c1"># Remove the double quotes, this conflicts with HTML files</span>
+            <span class="n">cir</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">tok</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
     <span class="k">elif</span> <span class="n">cir</span><span class="o">.</span><span class="n">subCKT</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
         <span class="c1"># In this case, we a dealing with a sub circuit</span>
@@ -1042,7 +1054,10 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span>
                     <span class="k">break</span>
             <span class="k">if</span> <span class="n">tok</span> <span class="ow">and</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">TITLE</span><span class="p">:</span>
-                <span class="n">cir</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span>       
+                <span class="n">cir</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span>
+                <span class="k">if</span> <span class="n">tok</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;QSRTING&#39;</span><span class="p">:</span>
+                    <span class="c1"># Remove the double quotes, this conflicts with HTML files</span>
+                    <span class="n">cir</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="n">CIRTITLES</span><span class="p">:</span>
                     <span class="k">print</span> <span class="s2">&quot;Error: circuit &#39;</span><span class="si">%s</span><span class="s2">&#39; has already been defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
                     <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1369,11 +1384,6 @@
             <span class="k">print</span> <span class="s2">&quot;&quot;&quot;Errors found during expansion of &#39;</span><span class="si">%s</span><span class="s2">&#39;.</span>
 <span class="s2">Instructions with this circuit will not be executed.&quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cir</span>
-
-<span class="k">def</span> <span class="nf">expandModelsCircuits</span><span class="p">(</span><span class="n">circuitObject</span><span class="p">):</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    - For each element of which the element type differs from &#39;X&#39;, check</span>
-<span class="s2">      if the model parameters can be obtained from the element definition. </span>
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
@@ -1398,8 +1408,7 @@
 </pre></div>
 </div>
 <p>Below the built-in sub circuit object of expansion model ‘M’ (four-terminal MOSFET). Definitions of these circuits are found in the library <code class="docutils literal"><span class="pre">SLiCAPmodels.lib</span></code>.</p>
-<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>36
-37
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>37
 38
 39
 40
@@ -1408,8 +1417,8 @@
 43
 44
 45
-46</pre></div></td><td class="code"><div class="highlight"><pre><span></span>
-<span class="o">*</span> <span class="n">MOSFET</span>
+46
+47</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">MOSFET</span>
 <span class="o">.</span><span class="n">subckt</span> <span class="n">M</span> <span class="n">d</span> <span class="n">g</span> <span class="n">s</span> <span class="n">b</span> <span class="n">gm</span><span class="o">=</span><span class="mi">1</span><span class="n">m</span> <span class="n">gb</span><span class="o">=</span><span class="mi">0</span> <span class="n">go</span><span class="o">=</span><span class="mi">0</span> <span class="n">cgs</span><span class="o">=</span><span class="mi">0</span> <span class="n">cdg</span><span class="o">=</span><span class="mi">0</span> <span class="n">cgb</span><span class="o">=</span><span class="mi">0</span> <span class="n">cdb</span><span class="o">=</span><span class="mi">0</span> <span class="n">csb</span><span class="o">=</span><span class="mi">0</span> <span class="p">;</span> <span class="n">default</span> <span class="n">values</span>
 <span class="n">Gm</span> <span class="n">d</span> <span class="n">s</span> <span class="n">g</span> <span class="n">s</span> <span class="n">g</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">gm</span><span class="p">}</span>
 <span class="n">Gb</span> <span class="n">d</span> <span class="n">s</span> <span class="n">b</span> <span class="n">s</span> <span class="n">g</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">gb</span><span class="p">}</span>
@@ -1417,8 +1426,9 @@
 <span class="n">Cgs</span> <span class="n">g</span> <span class="n">s</span> <span class="p">{</span><span class="n">cgs</span><span class="p">}</span>
 <span class="n">Cdg</span> <span class="n">d</span> <span class="n">g</span> <span class="p">{</span><span class="n">cdg</span><span class="p">}</span>
 <span class="n">Cgb</span> <span class="n">g</span> <span class="n">b</span> <span class="p">{</span><span class="n">cgb</span><span class="p">}</span>
-<span class="n">cdb</span> <span class="n">d</span> <span class="n">b</span> <span class="p">{</span><span class="n">cdb</span><span class="p">}</span>
-<span class="n">csb</span> <span class="n">s</span> <span class="n">b</span> <span class="p">{</span><span class="n">csb</span><span class="p">}</span>
+<span class="n">Cdb</span> <span class="n">d</span> <span class="n">b</span> <span class="p">{</span><span class="n">cdb</span><span class="p">}</span>
+<span class="n">Csb</span> <span class="n">s</span> <span class="n">b</span> <span class="p">{</span><span class="n">csb</span><span class="p">}</span>
+<span class="o">.</span><span class="n">ends</span>
 </pre></div>
 </td></tr></table></div>
 <p>This is how the expansion of M2 would look in a netlist of the final circuit:</p>
@@ -1468,16 +1478,7 @@
 </ol>
 <p>The procedure for flattening the circuit is found in <code class="docutils literal"><span class="pre">SLiCAPyacc.py</span></code>:</p>
 <blockquote>
-<div><div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>403
-404
-405
-406
-407
-408
-409
-410
-411
-412
+<div><div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>412
 413
 414
 415
@@ -1693,23 +1694,7 @@
 625
 626
 627
-628
-629
-630
-631
-632
-633
-634
-635
-636
-637
-638
-639
-640
-641
-642
-643
-644</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expandModelsCircuits</span><span class="p">(</span><span class="n">circuitObject</span><span class="p">):</span>
+628</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">expandModelsCircuits</span><span class="p">(</span><span class="n">circuitObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    - For each element of which the element type differs from &#39;X&#39;, check</span>
 <span class="sd">      if the model parameters can be obtained from the element definition. </span>
@@ -1926,31 +1911,6 @@
     <span class="c1"># elements of the child</span>
     <span class="k">del</span> <span class="n">parentCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="o">.</span><span class="n">refDes</span><span class="p">]</span>
     <span class="k">return</span><span class="p">(</span><span class="n">parentCircuit</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">fullSubs</span><span class="p">(</span><span class="n">valExpr</span><span class="p">,</span> <span class="n">parDefs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the valExpr after all parameters of parDefs have been substituted</span>
-<span class="sd">    recursively into valExpr.</span>
-<span class="sd">    parDefs is a dictionary in which the keys are sympy symbols. The type of </span>
-<span class="sd">    the value fields may be any sympy type, integer or float.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">strValExpr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">valExpr</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">newvalExpr</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">valExpr</span> <span class="o">!=</span> <span class="n">newvalExpr</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAXRECSUBST</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">valExpr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">valExpr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="c1"># create a substitution dictionary with the smallest number of entries (this speeds up the substitution)</span>
-        <span class="n">substDict</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">valExpr</span><span class="o">.</span><span class="n">free_symbols</span>
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">substDict</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">parDefs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
-        <span class="c1"># perform the substitution</span>
-        <span class="n">newvalExpr</span> <span class="o">=</span> <span class="n">valExpr</span>
-        <span class="n">valExpr</span> <span class="o">=</span> <span class="n">newvalExpr</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">substDict</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">MAXRECSUBST</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s2">&quot;Warning: reached maximum number of substitutions for expression &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">strValExpr</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">valExpr</span>
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
@@ -1977,8 +1937,23 @@
 </li>
 </ol>
 <p>The procedure for updating the circuit data is found in <code class="docutils literal"><span class="pre">SLiCAPyacc.py</span></code>:</p>
-<blockquote>
-<div><div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>646
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
 647
 648
 649
@@ -2033,8 +2008,7 @@
 698
 699
 700
-701
-702</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">updateCirData</span><span class="p">(</span><span class="n">mainCircuit</span><span class="p">):</span>
+701</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">updateCirData</span><span class="p">(</span><span class="n">mainCircuit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    - Updates the lists with dependent variables (detectors), sources </span>
 <span class="sd">      (independent variables) and controlled sources (possible loop gain </span>
@@ -2051,13 +2025,16 @@
             <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
     <span class="c1"># Convert *char* keys in the .parDefs attribute into sympy symbols.</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">newKey</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">newKey</span><span class="p">]</span> <span class="o">=</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="k">del</span><span class="p">(</span><span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
     <span class="c1"># make the node list and check for the ground node</span>
     <span class="c1"># check the references (error)</span>
     <span class="c1"># make the list with IDs of independent variables</span>
     <span class="c1"># make the list with IDs of controlled sources</span>
     <span class="c1"># make the list with IDs of dependend variables</span>
+    <span class="c1"># convert mainCircuit.params to list and put undefined params in it</span>
+    <span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
     <span class="n">mainCircuit</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">varIndexPos</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -2075,6 +2052,18 @@
             <span class="n">mainCircuit</span><span class="o">.</span><span class="n">depVars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">depVar</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="p">)</span>
             <span class="n">mainCircuit</span><span class="o">.</span><span class="n">varIndex</span><span class="p">[</span><span class="n">depVar</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="p">]</span> <span class="o">=</span> <span class="n">varIndexPos</span>
             <span class="n">varIndexPos</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Add parameters used in expressions to circuit.params</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+    <span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
+    <span class="n">undefined</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">LAPLACE</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">FREQUENCY</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">OMEGA</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">undefined</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+    <span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">undefined</span>
     <span class="c1"># check for two connections per node (warning)</span>
     <span class="n">connections</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">mainCircuit</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">nodes</span><span class="p">}</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">connections</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -2093,7 +2082,59 @@
     <span class="k">return</span> <span class="n">mainCircuit</span>
 </pre></div>
 </td></tr></table></div>
-</div></blockquote>
+</div>
+<div class="section" id="recursive-substitution">
+<h2>Recursive substitution<a class="headerlink" href="#recursive-substitution" title="Permalink to this headline">¶</a></h2>
+<p>Recursive substitution is performed by the function <code class="docutils literal"><span class="pre">fullSubs</span></code>. It is located in <code class="docutils literal"><span class="pre">SLiCAPhtml.py</span></code>. It is used during the flattening of the circuit and in some HTML functions.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    
+<span class="k">def</span> <span class="nf">fullSubs</span><span class="p">(</span><span class="n">valExpr</span><span class="p">,</span> <span class="n">parDefs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the valExpr after all parameters of parDefs have been substituted</span>
+<span class="sd">    recursively into valExpr.</span>
+<span class="sd">    parDefs is a dictionary in which the keys are sympy symbols. The type of </span>
+<span class="sd">    the value fields may be any sympy type, integer or float.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">strValExpr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">valExpr</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newvalExpr</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">valExpr</span> <span class="o">!=</span> <span class="n">newvalExpr</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAXRECSUBST</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">valExpr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">valExpr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="c1"># create a substitution dictionary with the smallest number of entries (this speeds up the substitution)</span>
+        <span class="n">substDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">valExpr</span><span class="o">.</span><span class="n">free_symbols</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">substDict</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">parDefs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+        <span class="c1"># perform the substitution</span>
+        <span class="n">newvalExpr</span> <span class="o">=</span> <span class="n">valExpr</span>
+        <span class="n">valExpr</span> <span class="o">=</span> <span class="n">newvalExpr</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">substDict</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">MAXRECSUBST</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">&quot;Warning: reached maximum number of substitutions for expression &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">strValExpr</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
 </div>
 </div>
 
