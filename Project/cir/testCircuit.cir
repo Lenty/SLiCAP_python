@@ -6,7 +6,7 @@
 
  R2 1   0    100 ;comment
 
-.model MyMOS M (cgs = { C_gs } cds = { C_ds })
+.model MyMOS M (cgs = { C_gs*1a} cds = {10E*2})
 
 E1 1  3 ; comment
 * comment
@@ -21,23 +21,23 @@ X2 1 2 4 anotherCircuit params: value={5*pi}  ; comment
 X3 1 2 3 anotherCircuit ; params: 
 +  ; comment
 
-.subckt myModel 1 2 3 a + g=1
-L1 1 2 12.4
+.subckt myModel 1 2 3 a + g=1E
+L1 1 2 12.4E
 C1 2 0 {c_p}
 R1 2 3 {R}
 R7 10 11 6
 
 .subckt myModel2 1 2
 L10 1 2 10
-K2 L1 L2 0.87
-L20 1 2 + 10
+K2 L1 L2 0.87e5
+L20 1 2 + 10E
 R_67 1 2 3
 .ends
 
 R10 1 2 10
 
 .ends
-F2 2 3 4 5 {oops}
+F2 2 3 4 5 {oops*1p+1E}
 H1 3 4 5 6 {exp(i*pi)}
 *.lib help.lib
 .end
