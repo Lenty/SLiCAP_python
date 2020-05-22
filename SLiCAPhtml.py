@@ -51,6 +51,8 @@ def startHTML(projectName):
 def insertHTML(html):
     """
     Inserts html in the current html page.
+    
+    ToDo: check if this file exists.
     """
     global HTMLPAGE
     f = open(HTMLPATH + HTMLPAGE)
@@ -64,7 +66,7 @@ def insertHTML(html):
 
 def HTMLprefix(prefix):
     """
-    Defines the prefix for HTML file names
+    Defines the prefix for HTML file names.
     """
     global HTMLPREFIX
     HTMLPREFIX = prefix
@@ -72,7 +74,9 @@ def HTMLprefix(prefix):
 
 def HTMLindex(indexPage):
     """
-    Defines active HTML index page
+    Defines active HTML index page.
+    
+    ToDo: check if this page exists.
     """
     global HTMLINDEX
     HTMLINDEX = indexPage
@@ -81,6 +85,8 @@ def HTMLindex(indexPage):
 def HTMLpage(pageName):
     """
     Defines the active HTML page.
+    
+    ToDo: check if this page exists.
     """
     global HTMLPAGE
     HTMLPAGE = pageName
@@ -89,6 +95,8 @@ def HTMLpage(pageName):
 def HTMLcircuit(circuitObject):
     """
     Defines the circuit for HTML reports.
+    
+    ToDo: check if th argument is a circuit object.
     """
     global HTMLCIRCUIT
     HTMLCIRCUIT = circuitObject
@@ -97,6 +105,8 @@ def HTMLcircuit(circuitObject):
 def readFile(fileName):
     """
     Returns the contents of a file as a string.
+    
+    ToDo: check if this file exists.
     """
     f = open(fileName, 'r')
     txt = f.read()
@@ -106,6 +116,8 @@ def readFile(fileName):
 def writeFile(fileName, txt):
     """
     Writes a text string to a file.
+    
+    ToDo: check if this file exists.
     """
     f = open(fileName, 'w')
     f.write(txt)
@@ -116,6 +128,8 @@ def insertHTML(fileName, html):
     """
     Inserts html in the file specified by fileName at the location of
     HTMLINSERT.
+    
+    ToDo: check if this file exists.
     """
     HTML = readFile(fileName)
     HTML = HTML.replace(HTMLINSERT, html + HTMLINSERT)
