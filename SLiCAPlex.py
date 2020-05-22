@@ -27,6 +27,8 @@ t_ID      = r'[a-zA-Z]\w*'
 t_QSTRING = r'"(.*)"'
 t_PLUS    = r'\+'
 
+
+
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
     |([+-]?\d+\.?\d*[eE][+-]?\d+)
@@ -99,7 +101,12 @@ def t_EXPR(t):
 
 def t_SCI(t):
     r'[+-]?\d+\.?\d*[eE][+-]?\d+'
-    return t   
+    try:
+        t.value = float(t.value)
+        t.type = 'FLT'
+    except:
+        printError('Cannot convert number to float.', lexer.lexdata.splitlines[lexer.lineno], find_column(t))
+    return t  
           
 # Define a rule so we can track line numbers
 def t_newline(t):
@@ -132,7 +139,7 @@ def t_SCALE(t):
         t.value = float(replaceScaleFactors(t.value))
         t.type = 'FLT'
     except:
-        print t.value
+
         printError('Cannot convert number to float.', lexer.lexdata.splitlines[lexer.lineno], find_column(t))
         lexer.errCount += 1
     return t 
