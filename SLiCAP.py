@@ -5,7 +5,7 @@ Created on Thu May 21 20:29:52 2020
 
 @author: anton
 """
-from SLiCAPpythonMaxima import *
+from SLiCAPinstruction import *
 
 def initProject(projectName):
     makeLibraries()
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     initProject('Test project')
     t2=time()
     #### Select file #########################################################
-    fi = 'MOSamp.cir'
+    fi = 'PIVA.cir'
     #### checkCircuit() ######################################################
     print "\nCheking:", fi
     myCir = checkCircuit(fi )
@@ -27,16 +27,16 @@ if __name__ == '__main__':
         #### HTML circuit data ###############################################
         htmlPage('Circuit data')
         netlist2html()
-        #elementData2html()
-        #params2html()
+        elementData2html()
+        params2html()
         t4 = time()
         #### MNA symbolic ####################################################
-        MNA = makeMatrices(myCir, False)
+        MNA = makeMatrices(myCir, numeric = False)
         htmlPage('Symbolic matrix equation')
         matrices2html(MNA)
         t5 = time()
         #### MNA numeric #####################################################
-        MNA = makeMatrices(myCir, True)
+        MNA = makeMatrices(myCir, numeric = True)
         htmlPage('Numeric matrix equation')
         matrices2html(MNA)
         t6=time()
@@ -58,8 +58,8 @@ if __name__ == '__main__':
         text2html('The inverse Laplace Transform is found as:')
         eqn2html('F(s)', ft)
         t10=time()
-        
-        print "\ninit project                 : %fs."%(t2-t1)
+        ######################################################################
+        print "init project                 : %fs."%(t2-t1)
         print "checkCircuit                 : %fs."%(t3-t2)
         print "circuit data on HTML         : %fs."%(t4-t3)
         print "makeMatrices symbolic        : %fs."%(t5-t4)

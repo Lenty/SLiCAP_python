@@ -157,11 +157,17 @@ def htmlPage(pageTitle, index = False):
     return(HTML)
 
 def head2html(headText):
+    """
+    Placed a level-2 heading on the active HTML page.
+    """
     html = '<h2>' + headText + '</h2>'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
 def head3html(headText):
+    """
+    Placed a level-3 heading on the active HTML page.
+    """
     html = '<h3>' + headText + '</h3>'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
