@@ -20,13 +20,15 @@ SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
                     'u':'-6','m':'-3','k':'3','M':'6','G':'9','T':'12','P':'15',
                     'E':'18','Z':'21','Y':'24'}
 
-t_SCI     = r'[+-]?\d+\.?\d*[eE][+-]?\d+'
+
 t_FLT     = r'[+-]?\d+\.\d*'
 t_INT     = r'[+-]?\d+'
 t_FNAME   = r'/?[^\s]+\.[a-zA-Z]+'
 t_ID      = r'[a-zA-Z]\w*'
 t_QSTRING = r'"(.*)"'
 t_PLUS    = r'\+'
+
+
 
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
@@ -116,6 +118,11 @@ def t_EXPR(t):
         lexer.errCount += 1
         printError("Error in expression:", lexer.lexdata.splitlines[lexer.lineno], find_column(t))
     return t        
+
+def t_SCI(t):
+    r'[+-]?\d+\.?\d*[eE][+-]?\d+'
+    return t
+
                 
 # Define a rule so we can track line numbers
 def t_newline(t):
@@ -198,7 +205,7 @@ if __name__ == '__main__':
     """
     fi = 'testCircuit.cir'
     print fi
-    lexer = tokenize('cir/' + fi)
+    lexer = tokenize('project/cir/' + fi)
     tok = lexer.token()
     while tok:
         print tok
