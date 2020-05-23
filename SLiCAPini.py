@@ -8,6 +8,7 @@ from IPython import display
 import ply.lex as lex
 import subprocess
 import os
+from datetime import datetime
 
 LOGFILE         = True
 LANGUAGE        = 'english' # Language for error and warnings
