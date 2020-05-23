@@ -36,6 +36,7 @@ def checkCircuit(fileName):
             cir = updateCirData(cir)
             HTMLprefix('-'.join(cir.title.split()) + '_')
             HTMLcircuit(cir)
+            HTMLindex('index.html')
             htmlPage(cir.title, True)
             if cir.errors != 0:
                 print """Errors found during updating of circuit data from '%s'.
@@ -475,8 +476,8 @@ def expandModelsCircuits(circuitObject):
                         # expression and if this is allowed.
                         valExpr = circuitObject.elements[refDes].params[parName]
                         # valExpr is either an integer or a float of a sympy object
-                        if type(valExpr) != float and type(valExpr) != int and type(valExpr) != str:
-                            exprParams = circuitObject.elements[refDes].params[parName].free_symbols
+                        if isinstance(valExpr, tuple(sp.core.all_classes)):
+                            exprParams = list(circuitObject.elements[refDes].params[parName].free_symbols)
                             if LAPLACE in exprParams and MODELS[basicModel].params[parName] == False:
                                 circuitObject.errors += 1
                                 print "Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes)
@@ -674,7 +675,7 @@ def updateCirData(mainCircuit):
         # Add parameters used in expressions to circuit.params
         for par in mainCircuit.elements[elmt].params:
             try:
-                mainCircuit.params += mainCircuit.elements[elmt].params[par].free_symbols
+                mainCircuit.params += list(mainCircuit.elements[elmt].params[par].free_symbols)
             except:
                 pass
     mainCircuit.params = list(set(mainCircuit.params))

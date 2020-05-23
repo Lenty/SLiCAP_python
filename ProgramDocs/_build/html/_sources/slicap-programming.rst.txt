@@ -30,5 +30,6 @@ Contents
    errorHandling
    matrices
    pythonMaximaInterface
+   documents
    html
    plot

@@ -10,7 +10,7 @@ The SLiCAP math library contains a matrix class which is a sub class of the Symp
 .. literalinclude:: ../SLiCAPmath.py
     :language: python
     :linenos: 
-    :lines: 1-163
+    :lines: 1-215
     :lineno-start: 1
 
 MNA matrices

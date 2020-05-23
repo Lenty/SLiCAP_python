@@ -27,8 +27,6 @@ t_ID      = r'[a-zA-Z]\w*'
 t_QSTRING = r'"(.*)"'
 t_PLUS    = r'\+'
 
-
-
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
     |([+-]?\d+\.?\d*[eE][+-]?\d+)

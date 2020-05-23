@@ -56,7 +56,7 @@ if __name__ == '__main__':
         #### inverse Laplace Transform #######################################
         ft = maxILT(Fs)
         text2html('The inverse Laplace Transform is found as:')
-        eqn2html('F(s)', ft)
+        eqn2html('F(t)', ft)
         t10=time()
         ######################################################################
         print "init project                 : %fs."%(t2-t1)

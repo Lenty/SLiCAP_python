@@ -55,6 +55,41 @@ class circuit(object):
                                 #   key   : node name of current name
                                 #   value : position in the vactor with
                                 #           dependent variables
+    
+    def delPar(self, parName):
+        # single params and multiple.
+        self.updateParams()
+        return
+        
+    def defPar(self, parName):
+        # single params and multiple.
+        self.updateParams()
+        return
+        
+    def getParValue(self, parName):
+        # single params and multiple.
+        return
+    
+    def updateParams(self):
+        """
+        Updates self.params (undefined parameters) after modification of 
+        parameter definitions in self.parDefs or in elements: 
+        self.elements[<refDes>].params[<parName>].
+        """    
+        self.params =[]
+        for elmt in self.elements.keys():
+            for par in self.elements[elmt].params:
+                try:
+                    self.params += list(self.elements[elmt].params[par].free_symbols)
+                except:
+                    pass
+        self.params = list(set(self.params))
+        undefined = []
+        for par in self.params:
+            if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in self.parDefs.keys():
+                self.append(par)
+        self.params = undefined
+    
 class element(object):
     # Circuit element object
     def __init__(self):

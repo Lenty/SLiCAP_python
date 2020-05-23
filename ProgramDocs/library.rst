@@ -10,7 +10,7 @@ Each library will be compiled into a circuit object (as defined in ``SLiCAPproto
     :language: python
     :linenos:
     :lines: 19-57
-    :lineno-start: 29
+    :lineno-start: 19
 
 
 The library file has the format of a SLiCAP netlist file and contains:
@@ -38,8 +38,8 @@ Compilation of standard SLiCAP libraries is performed with the ``makeLibraries f
 .. literalinclude:: ../SLiCAPyacc.py
     :language: python
     :linenos:
-    :lines: 703 - 736
-    :lineno-start: 703
+    :lines: 704 - 737
+    :lineno-start: 704
 
 After compilation, the circuit object ``LIB`` holds all the data in a way that it can be used by the SLiCAP netlist parser.
 
@@ -53,5 +53,5 @@ Compilation of user libraries is performed before the expansion of the circuit i
 .. literalinclude:: ../SLiCAPyacc.py
     :language: python
     :linenos:
-    :lines: 738 - 786
-    :lineno-start: 738
+    :lines: 739 - 787
+    :lineno-start: 739

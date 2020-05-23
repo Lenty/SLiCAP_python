@@ -118,26 +118,28 @@ def polyDict(expr ,var):
     Two to 25 times faster than sympy's Poly(expr, var).as_dict().
     Should only be used with expressions that can be written as poly.
     """
-    expr = sp.collect(expr, var)     # collect power terms
-    terms = expr.as_coeff_add(var)   # write them as a sum of terms
-    exprDict = {}
-    exprDict[0] = terms[0]           # zero order coefficient
-    coeffList = [0]                  # initialize list for coefficients
-    expr = terms[1]                  # tuple with coefficients of nonzero order
-    for coeff in expr:              
-        coeff = coeff.as_independent(var)
-        if coeff[1] == var:          # first order coefficient
-            exprDict[1] = coeff[0]
-            coeffList.append(1)
-        else:                        # higher order coefficients
-            order = int(str(coeff[1]).split(str(var)+'**')[1])
-            exprDict[order] = coeff[0]
-            coeffList.append(order)
-        coeffList.sort()
-    for i in range(coeffList[len(coeffList)-1]):
-        if i not in coeffList:
-            exprDict[i] = 0
-    return exprDict
+    if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
+        expr = sp.collect(expr, var)     # collect power terms
+        terms = expr.as_coeff_add(var)   # write them as a sum of terms
+        exprDict = {}
+        exprDict[0] = terms[0]           # zero order coefficient
+        coeffList = [0]                  # initialize list for coefficients
+        expr = terms[1]                  # tuple with coefficients of nonzero order
+        for coeff in expr:              
+            coeff = coeff.as_independent(var)
+            if coeff[1] == var:          # first order coefficient
+                exprDict[1] = coeff[0]
+                coeffList.append(1)
+            else:                        # higher order coefficients
+                order = int(str(coeff[1]).split(str(var)+'**')[1])
+                exprDict[order] = coeff[0]
+                coeffList.append(order)
+            coeffList.sort()
+        for i in range(coeffList[len(coeffList)-1]):
+            if i not in coeffList:
+                exprDict[i] = 0
+        return exprDict
+    return {}
     
 def numRoots(expr, var):
     """ 
@@ -153,15 +155,66 @@ def numRoots(expr, var):
         Isolated roots near the origin can be improved by a few iterations of 
         Newton's method.
     """
-    coeffs = []
-    coeffDict = polyDict(expr, var)
-    order = len(coeffDict.keys())
-    for i in range(order):
-        coeffs.append(coeffDict[order-1-i])
-    coeffs = np.array(coeffs)
-    roots = np.roots(coeffs)
-    return np.flip(roots, 0)
-
+    if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
+        params = list(expr.free_symbols)
+        try:
+            params.remove(var)
+            if len(params) != 0:
+                print "Error: symbolic variables found, cannot determine roots."
+                return []
+        except:
+            return []
+        coeffs = []
+        coeffDict = polyDict(expr, var)
+        order = len(coeffDict.keys())
+        for i in range(order):
+            coeffs.append(coeffDict[order-1-i])
+        coeffs = np.array(coeffs)
+        roots = np.roots(coeffs)
+        return np.flip(roots, 0)
+    return []
+    
+def makeLaplaceRational(gain, zeros, poles):
+    """
+    Creates a Laplace rational from a gain factor, a list of zeros and a list
+    of poles:
+        
+        F(s) = gain * product_j(s-z_j) / product_i(s-p_i)
+        
+    Terms with complex conjugated poles or zeros will be combined into 
+    quadratic terms.
+    
+    The gain factor should be taken as the ratio of the coefficients of the 
+    highest order of the Laplace variable of the numerator and the denominator.
+    """
+    Fs = gain
+    for z in zeros:
+        if sp.im(z) == 0:
+            Fs *= (LAPLACE-z)
+        elif sp.im(z) > 0:
+            Fs *= (LAPLACE**2 - 2*sp.re(z) + sp.re(z)**2 + sp.im(z)**2)
+    for p in poles:
+        if sp.im(p) == 0:
+            Fs /= (LAPLACE-p)
+        elif sp.im(p) > 0:
+            Fs /= (LAPLACE**2 - 2*sp.re(p)*LAPLACE + sp.re(p)**2 + sp.im(p)**2)
+    return(Fs)
+    
+def checkNumber(var):
+    """
+    Returns a number with its value represented by var, or False if var
+    does not represent a number.
+    """
+    if type(var) == str:
+        var = replaceScaleFactors(var)
+    else:
+        var = str(var)
+    if var.isnumeric():
+        number = eval(var)
+        return number
+    else:
+        return False
+    
 if __name__ == "__main__":
     s = sp.Symbol('s')
     

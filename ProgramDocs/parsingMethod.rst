@@ -10,7 +10,7 @@ Tokenizing of the input file with `Python Lex <https://www.dabeaz.com/ply/>`_.
    .. literalinclude:: ../SLiCAPlex.py
        :language: python
        :linenos:
-       :lines: 1-189
+       :lines: 1-191
 
 Creation of a nested circuit object from the tokens
 ===================================================
@@ -20,7 +20,7 @@ Conversion of the tokenized input into a circuit object. Sub circuit definitions
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lines: 1-410
+       :lines: 1-411
 
 Expansion of the models and the sub circuits
 ============================================
@@ -106,8 +106,8 @@ The procedure for flattening the circuit is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 412
-       :lines: 412-628
+       :lineno-start: 413
+       :lines: 413-629
 
 Updating of circuit data
 ========================
@@ -135,8 +135,8 @@ The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
 .. literalinclude:: ../SLiCAPyacc.py
     :language: python
     :linenos:
-    :lineno-start: 630
-    :lines: 630-701
+    :lineno-start: 631
+    :lines: 631-702
 
 Recursive substitution
 ======================
@@ -146,5 +146,5 @@ Recursive substitution is performed by the function ``fullSubs``. It is located 
 .. literalinclude:: ../SLiCAPhtml.py
     :language: python
     :linenos:
-    :lineno-start: 362
-    :lines: 362-385
+    :lineno-start: 386
+    :lines: 386-412

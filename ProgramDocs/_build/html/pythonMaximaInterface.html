@@ -36,7 +36,7 @@
   
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
-        <link rel="next" title="HTML reports" href="html.html"/>
+        <link rel="next" title="SLiCAP output documents" href="documents.html"/>
         <link rel="prev" title="Building the MNA matrices" href="matrices.html"/> 
 
   
@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documents.html">SLiCAP output documents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
@@ -231,37 +232,7 @@
 51
 52
 53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Fri May  1 13:57:02 2020</span>
@@ -299,52 +270,22 @@
     <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;%j&#39;</span><span class="p">,</span><span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
     <span class="c1"># Convert &#39;e&#39; (natural base) notation:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="si">%e</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="c1"># Convert &#39;pi&#39; notation:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;%pi&#39;</span><span class="p">,</span><span class="s1">&#39;pi&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
     <span class="c1"># ToDo</span>
     <span class="c1"># Other conversions</span>
     <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">makeLaplaceRational</span><span class="p">(</span><span class="n">gain</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">poles</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a Laplace rational from a gain factor, a list of zeros and a list</span>
-<span class="sd">    of poles:</span>
-<span class="sd">        </span>
-<span class="sd">        F(s) = gain * product_j(s-z_j) / product_i(s-p_i)</span>
-<span class="sd">        </span>
-<span class="sd">    Terms with complex conjugated poles or zeros will be combined into </span>
-<span class="sd">    quadratic terms.</span>
-<span class="sd">    </span>
-<span class="sd">    The gain factor should be taken as the ratio of the coefficients of the </span>
-<span class="sd">    highest order of the Laplace variable of the numerator and the denominator.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">Fs</span> <span class="o">=</span> <span class="n">gain</span>
-    <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zeros</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Fs</span> <span class="o">*=</span> <span class="p">(</span><span class="n">LAPLACE</span><span class="o">-</span><span class="n">z</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">sp</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Fs</span> <span class="o">*=</span> <span class="p">(</span><span class="n">LAPLACE</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">poles</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Fs</span> <span class="o">/=</span> <span class="p">(</span><span class="n">LAPLACE</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">sp</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Fs</span> <span class="o">/=</span> <span class="p">(</span><span class="n">LAPLACE</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">LAPLACE</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">Fs</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">maxILT</span><span class="p">(</span><span class="n">Fs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the inverse Laplace transform of  &#39;Fs&#39; using Maxima.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;result:bfloat(ilt(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Fs</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,t));&#39;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">result</span>
-
-<span class="k">def</span> <span class="nf">maxDet</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the determinant of matrix &#39;M&#39; in Sympy format, calculated by Maxima.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
-    <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;m:&#39;</span> <span class="o">+</span> <span class="n">M</span> <span class="o">+</span> <span class="s1">&#39;;result:bfloat(expand(newdet(m)));&#39;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Fs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">all_classes</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">LAPLACE</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Fs</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">):</span>
+            <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;result:bfloat(ilt(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Fs</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,t));&#39;</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="s1">&#39;ft&#39;</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -359,7 +300,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="html.html" class="btn btn-neutral float-right" title="HTML reports" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="documents.html" class="btn btn-neutral float-right" title="SLiCAP output documents" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="matrices.html" class="btn btn-neutral" title="Building the MNA matrices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

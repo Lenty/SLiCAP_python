@@ -222,9 +222,9 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     ToDo:
         Add HTML label.
     """
-    if type(arg1) == str or type(arg1) == float or type(arg1)== int:
+    if not isinstance(arg1, tuple(sp.core.all_classes)):
         arg1 = sp.sympify(arg1)
-    if type(arg2) == str or type(arg2) == float or type(arg2)== int:
+    if not isinstance(arg2, tuple(sp.core.all_classes)):
         arg2 = sp.sympify(arg2)
     html = '$$' + sp.latex(sp.N(arg1, DISP)) + '=' + sp.latex(sp.N(arg2, DISP)) +'$$'
     insertHTML(HTMLPATH + HTMLPAGE, html)
@@ -253,11 +253,14 @@ def expr2html(expr, units = ''):
     """
     Inline display of an expression optional with units.
     """
-    if units != '':
-        units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
-    html = '$' + sp.latex(sp.N(expr, DISP)) + units + '$'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
-    return
+    if isinstance(expr, tuple(sp.core.all_classes)):
+        if units != '':
+            units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
+        html = '$' + sp.latex(sp.N(expr, DISP)) + units + '$'
+        insertHTML(HTMLPATH + HTMLPAGE, html)
+        return
+    else:
+        print "Error: expr2html, expected a Sympy expression."
 
 def elementData2html(label = ''):
     """
@@ -390,10 +393,10 @@ def fullSubs(valExpr, parDefs):
     strValExpr = str(valExpr)
     i = 0
     newvalExpr = 0
-    while valExpr != newvalExpr and i < MAXRECSUBST and type(valExpr) != int and type(valExpr) != float:
+    while valExpr != newvalExpr and i < MAXRECSUBST and isinstance(valExpr, tuple(sp.core.all_classes)):
         # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
         substDict = {}
-        params = valExpr.free_symbols
+        params = list(valExpr.free_symbols)
         for param in params:
             if param in parDefs.keys():
                 substDict[param] = parDefs[param]

@@ -36,43 +36,22 @@ def maxEval(maxExpr):
     result = re.sub(r'%j','j', result)
     # Convert 'e' (natural base) notation:
     result = re.sub(r'%e','e', result)
+    # Convert 'pi' notation:
+    result = re.sub(r'%pi','pi', result)
     # ToDo
     # Other conversions
     return(result)
-    
-def makeLaplaceRational(gain, zeros, poles):
-    """
-    Creates a Laplace rational from a gain factor, a list of zeros and a list
-    of poles:
-        
-        F(s) = gain * product_j(s-z_j) / product_i(s-p_i)
-        
-    Terms with complex conjugated poles or zeros will be combined into 
-    quadratic terms.
-    
-    The gain factor should be taken as the ratio of the coefficients of the 
-    highest order of the Laplace variable of the numerator and the denominator.
-    """
-    Fs = gain
-    for z in zeros:
-        if sp.im(z) == 0:
-            Fs *= (LAPLACE-z)
-        elif sp.im(z) > 0:
-            Fs *= (LAPLACE**2 - 2*sp.re(z) + sp.re(z)**2 + sp.im(z)**2)
-    for p in poles:
-        if sp.im(p) == 0:
-            Fs /= (LAPLACE-p)
-        elif sp.im(p) > 0:
-            Fs /= (LAPLACE**2 - 2*sp.re(p)*LAPLACE + sp.re(p)**2 + sp.im(p)**2)
-    return(Fs)
 
 def maxILT(Fs):
     """
     Calculates the inverse Laplace transform of  'Fs' using Maxima.
     """
-    maxExpr = 'result:bfloat(ilt(' + str(Fs) + ',' + str(LAPLACE) + ',t));'
-    result = sp.sympify(maxEval(maxExpr))
-    return result
+    if isinstance(Fs, tuple(sp.core.all_classes)):
+        if LAPLACE in list(Fs.free_symbols):
+            maxExpr = 'result:bfloat(ilt(' + str(Fs) + ',' + str(LAPLACE) + ',t));'
+            result = sp.sympify(maxEval(maxExpr))
+            return result
+    return 'ft'
 
 def maxDet(M):
     """
