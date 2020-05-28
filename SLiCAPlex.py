@@ -10,6 +10,7 @@ Created on Mon May  4 12:32:13 2020
 @author: anton
 """
 from sympy import sympify, Symbol
+from sympy import *
 import ply.lex as lex
 import re
 from SLiCAPini import *
@@ -208,7 +209,7 @@ if __name__ == '__main__':
     """
     fi = 'testCircuit.cir'
     print(fi)
-    lexer = tokenize('cir/' + fi)
+    lexer = tokenize('Project/cir/' + fi)
     tok = lexer.token()
     while tok:
         print(tok)

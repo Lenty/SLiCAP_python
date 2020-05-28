@@ -11,6 +11,7 @@ Created on Mon May  4 12:32:13 2020
 """
 
 from SLiCAPlex import *
+from SLiCAPprotos import *
 
 # Composite tokens
 NODES      = ['NODEID', 'ID', 'INT']
@@ -38,12 +39,12 @@ def checkCircuit(fileName):
             HTMLindex('index.html')
             htmlPage(cir.title, True)
             if cir.errors != 0:
-                print """Errors found during updating of circuit data from '%s'.
-    Instructions with this circuit will not be executed."""%(cir.title)
+                print("""Errors found during updating of circuit data from '%s'.
+    Instructions with this circuit will not be executed."""%(cir.title))
             else:
-                print "No errors found for circuit: '%s' from file: '%s'.\n"%(cir.title, fileName)
+                print("No errors found for circuit: '%s' from file: '%s'.\n"%(cir.title, fileName))
     else:
-        print "Errors found in library. Circuit '%s' will not be ckecked."%(fileName)
+        print("Errors found in library. Circuit '%s' will not be ckecked."%(fileName))
     return cir
 
 def makeCircuit(cir):
@@ -83,14 +84,14 @@ def makeCircuit(cir):
                     # Remove the double quotes, this conflicts with HTML files
                     cir.title = cir.title[1:-1]
                 if tok.value in CIRTITLES:
-                    print "Error: circuit '%s' has already been defined."%(cir.title)
+                    print("Error: circuit '%s' has already been defined."%(cir.title))
                     cir.errors += 1
             else:
                 printError("Error: expected a circuit title.", 
                            lines[cir.lexer.lineno], find_column(tok))
                 cir.errors += 1
         else:
-            print "Missing circuit title."
+            print("Missing circuit title.")
             cir.errors += 1
         tok = cir.lexer.token()
         # The number of nodes needs to be detected automatically. This is as 
@@ -167,7 +168,7 @@ def makeCircuit(cir):
                                 cir.errors += 1
                         else:
                             # Wrong token!
-                            print "Error: missing node."
+                            print("Error: missing node.")
                             cir.errors += 1
                 else:
                     # nNodes == -1, means we have a sub circuit, the number of
@@ -288,7 +289,7 @@ def makeCircuit(cir):
             if tok.value in END:
                 cir.errors += cir.lexer.errCount
                 if cir.errors != 0:
-                    print "Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file)
+                    print("Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file))
                 break
             elif tok.value[0:3] in INC:
                 tok = cir.lexer.token()
@@ -308,7 +309,7 @@ def makeCircuit(cir):
                 cir.circuits[subCircuit.title] = subCircuit
                 if subCircuit.errors !=0:
                     # Errors in sub circuit, this also raises an error in the parent circuit
-                    print "Errors found in definition of sub circuit."
+                    print("Errors found in definition of sub circuit.")
                     cir.errors += 1
             elif tok.value == 'MODEL':
                 tok = cir.lexer.token()
@@ -350,7 +351,7 @@ def makeCircuit(cir):
                                 break
                     cir.modelDefs[newModel.name] = newModel
                 else:
-                    print "Error: missing model dedinition."
+                    print("Error: missing model dedinition.")
             elif tok.value == 'PARAM':
                 tok = cir.lexer.token()
                 if tok:
@@ -380,7 +381,7 @@ def makeCircuit(cir):
                         if not tok:
                             break
                 else:
-                    print "Error: missing a parameter definition."
+                    print("Error: missing a parameter definition.")
         else:
             # All what's left are tokens we don't expect at this position
             printError("Error: unexpected input.", lines[cir.lexer.lineno], 
@@ -391,7 +392,7 @@ def makeCircuit(cir):
                 break
     cir.errors += cir.lexer.errCount
     if cir.errors != 0:
-        print "Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file)
+        print("Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file))
     else:
         needExpansion = False
         for refDes in cir.elements.keys():
@@ -405,8 +406,8 @@ def makeCircuit(cir):
             CIRTITLES.append(cir.title) 
             cir = expandModelsCircuits(cir)
         if cir.errors != 0:
-            print """Errors found during expansion of '%s'.
-Instructions with this circuit will not be executed."""%(cir.title)
+            print("""Errors found during expansion of '%s'.
+Instructions with this circuit will not be executed."""%(cir.title))
     return cir
 
 def expandModelsCircuits(circuitObject):
@@ -461,14 +462,14 @@ def expandModelsCircuits(circuitObject):
                 basicModel = modelName
             else:
                 basicModel = ''
-                print "Cannot find basic model for '%s'"%(refDes)
+                print("Cannot find basic model for '%s'"%(refDes))
                 circuitObject.errors += 1
             if circuitObject.errors == 0:
                 # Check for valid parameter names
                 modelParams = MODELS[basicModel].params.keys()
                 for parName in circuitObject.elements[refDes].params.keys():
                     if parName not in modelParams:
-                        print "Invalid parameter name '%s' for '%s'."%(parName, refDes)
+                        print("Invalid parameter name '%s' for '%s'."%(parName, refDes))
                         circuitObject.errors += 1
                     else:
                         # Check if the LAPLACE parameter is used in the
@@ -479,7 +480,7 @@ def expandModelsCircuits(circuitObject):
                             exprParams = list(circuitObject.elements[refDes].params[parName].free_symbols)
                             if LAPLACE in exprParams and MODELS[basicModel].params[parName] == False:
                                 circuitObject.errors += 1
-                                print "Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes)
+                                print("Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes))
             if circuitObject.errors == 0:
                 # Change the model name to the basic model name
                 circuitObject.elements[refDes].model = basicModel
@@ -514,7 +515,7 @@ def expandModelsCircuits(circuitObject):
             modelName = circuitObject.elements[refDes].model
             if modelName in CIRTITLES:
                 # We have an hierarchical loop
-                print "Error: hierarchical loop involving '%s'."%(modelName)
+                print("Error: hierarchical loop involving '%s'."%(modelName))
                 circuitObject.errors += 1
                 # No expansion
                 return circuitObject
@@ -523,7 +524,7 @@ def expandModelsCircuits(circuitObject):
             elif modelName in LIB.circuits.keys():
                 protoCircuit = LIB.circuits[modelName]
             else:
-                print "Error: cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes)
+                print("Error: cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes))
                 circuitObject.errors += 1                            
         if circuitObject.errors == 0:
             if stamp == False:
@@ -660,7 +661,7 @@ def updateCirData(mainCircuit):
         mainCircuit.nodes += mainCircuit.elements[elmt].nodes
         for refID in mainCircuit.elements[elmt].refs:
             if refID not in mainCircuit.elements.keys():
-                print "Error: Could not find referenced element '%s'."%(refID)
+                print("Error: Could not find referenced element '%s'."%(refID))
                 mainCircuit.errors += 1
         if mainCircuit.elements[elmt].type in INDEPSCRCS:
             mainCircuit.indepVars.append(elmt)
@@ -687,13 +688,13 @@ def updateCirData(mainCircuit):
     connections = {i:mainCircuit.nodes.count(i) for i in mainCircuit.nodes}
     for key in connections.keys():
         if connections[key] < 2:
-            print "Warning less than two connections at node: '%s'."%(key)
+            print("Warning less than two connections at node: '%s'."%(key))
     # Remove duplicate entries from node list and sort the list."
     mainCircuit.nodes = list(set(mainCircuit.nodes))
     mainCircuit.nodes.sort()
     if '0' not in mainCircuit.nodes:
         mainCircuit.errors += 1
-        print "Error: could not find ground node '0'."
+        print("Error: could not find ground node '0'.")
     for i in range(len(mainCircuit.nodes))  :
         mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
         mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
@@ -710,7 +711,7 @@ def makeLibraries():
     LIB.lexer = tokenize(fileName)
     LIB = makeCircuit(LIB)
     if LIB.errors != 0:
-        print "Errors found in library: '%s'. SLiCAP will not work!"%(fileName)
+        print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
         return LIB
     else:
         # Do this also for other libs
@@ -728,7 +729,7 @@ def makeLibraries():
         cir = makeCircuit(cir)
         
         if cir.errors != 0:
-            print "Errors found in library: '%s'. SLiCAP will not work!"%(fileName)
+            print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
             LIB.errors = cir.errors
             return LIB
         CIRTITLES = []
@@ -763,7 +764,7 @@ def addUserLibs(fileNames):
                             fileName = fi
                             f.close()
                         except:
-                            print "Error: cannot find library file: '%s'."%(fi)
+                            print("Error: cannot find library file: '%s'."%(fi))
                             fileName = False
                 if fileName != False:
                     cir = circuit()
@@ -771,7 +772,7 @@ def addUserLibs(fileNames):
                     cir.lexer = tokenize(fileName)
                     cir = makeCircuit(cir)
                     if cir.errors != 0:
-                        print "Errors found in library: '%s'. Library will not be added!"%(fileName)
+                        print("Errors found in library: '%s'. Library will not be added!"%(fileName))
                     else:
                         for newCircuit in cir.circuits:
                             LIB.circuits[newCircuit.title] = newCircuit
@@ -799,7 +800,7 @@ if __name__ == '__main__':
     """
     fi = 'MOSamp.cir'
     
-    print "\nCheking:", fi
+    print("\nCheking:", fi)
     myCir = checkCircuit(fi)
     t3=time()
     """

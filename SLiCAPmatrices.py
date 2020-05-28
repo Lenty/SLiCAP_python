@@ -268,7 +268,7 @@ if __name__ == '__main__':
     """
     fi = 'PIVA.cir'
     
-    print "\nCheking:", fi
+    print("\nCheking:", fi)
     myCir = checkCircuit(fi )
     t3=time()
     """
@@ -302,9 +302,9 @@ if __name__ == '__main__':
     charPoly = M.determinant()
     t8=time()
     display.display(charPoly)
-    print "\nmakeLibraries         : %fs."%(t2-t1)
-    print "checkCircuit          : %fs."%(t3-t2)
-    print "makeMatrices symbolic : %fs."%(t6-t3)
-    print "makeMatrices numeric  : %fs."%(t7-t6)
-    print "determinant()         : %fs."%(t8-t7)
+    print("\nmakeLibraries         : %fs."%(t2-t1))
+    print("checkCircuit          : %fs."%(t3-t2))
+    print("makeMatrices symbolic : %fs."%(t6-t3))
+    print("makeMatrices numeric  : %fs."%(t7-t6))
+    print("determinant()         : %fs."%(t8-t7))
     

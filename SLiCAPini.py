@@ -44,7 +44,9 @@ figureFileType  = 'svg'
 axisXscale      = 'linear'    # Scale for the x-axis can be 'linear' or 'log'
 axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
 legendLoc       = 'best'
-
+SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
+                    'u':'-6','m':'-3','k':'3','M':'6','G':'9','T':'12','P':'15',
+                    'E':'18','Z':'21','Y':'24'} 
 # Type conversions
 LAPLACE         = sp.Symbol(LAPLACE)
 FREQUENCY       = sp.Symbol(FREQUENCY)

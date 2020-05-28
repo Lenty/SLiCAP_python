@@ -75,7 +75,7 @@ def HTMLhead(pageTitle):
     HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
     HTML += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
     if MATHJAXLOCAL == True:
-        print 'MathJax version 3 is not installed. Only web access is supported!'
+        print('MathJax version 3 is not installed. Only web access is supported!')
         # see http://docs.mathjax.org/en/latest/web/hosting.html
     return(HTML)
     
@@ -205,7 +205,7 @@ def netlist2html(fileName, label=''):
         html = '<h2>' + label + 'Netlist: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
         insertHTML(HTMLPATH + HTMLPAGE, html)
     except:
-        print "Error: could not open netlist file: '%s'."%(fileName)
+        print("Error: could not open netlist file: '%s'."%(fileName))
     return
 
 def elementData2html(circuitObject, label = '', caption = ''):
@@ -336,7 +336,7 @@ def expr2html(expr, units = ''):
         insertHTML(HTMLPATH + HTMLPAGE, html)
         return
     else:
-        print "Error: expr2html, expected a Sympy expression."
+        print("Error: expr2html, expected a Sympy expression.")
 
 def eqn2html(arg1, arg2, units = '', label = ''):
     """
@@ -389,7 +389,7 @@ def matrices2html(MNA, label = ''):
         html += '\\end{equation}\n'
         insertHTML(HTMLPATH + HTMLPAGE, html)
     except:
-        print "Error: unexpected input for 'matrices2html'."
+        print("Error: unexpected input for 'matrices2html'.")
     return
 
 def pz2html(pzData, label = ''):
@@ -527,7 +527,7 @@ def fullSubs(valExpr, parDefs):
         valExpr = newvalExpr.subs(substDict)
         i += 1
     if i == MAXRECSUBST:
-        print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
+        print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
     return valExpr
 
 if __name__ == '__main__':
