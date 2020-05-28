@@ -10,7 +10,7 @@ Created on Mon May  4 12:32:13 2020
 @author: anton
 """
 
-from SLiCAPprotos import *
+from SLiCAPlex import *
 
 # Composite tokens
 NODES      = ['NODEID', 'ID', 'INT']
@@ -28,14 +28,13 @@ LIB = circuit()
 def checkCircuit(fileName):
     global CIRTITLES, HTMLPREFIX
     cir = circuit()
-    cir.file = CIRCUITPATH + fileName
+    cir.file = fileName
     if LIB.errors == 0:
         cir.lexer = tokenize(CIRCUITPATH + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:
             cir = updateCirData(cir)
             HTMLprefix('-'.join(cir.title.split()) + '_')
-            HTMLcircuit(cir)
             HTMLindex('index.html')
             htmlPage(cir.title, True)
             if cir.errors != 0:

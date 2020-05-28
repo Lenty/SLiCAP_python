@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-from SLiCAPlex import *
+from SLiCAPini import *
 
 # Globals
 HIERARCHY   = []                # Check list for hierarchical loops

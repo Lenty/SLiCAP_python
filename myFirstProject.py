@@ -7,28 +7,28 @@ Created on Sat May 23 10:47:15 2020
 """
 
 from SLiCAP import *
-initProject('My first SLiCAP project') # Creates the SLiCAP libraries and the
+prj = initProject('My first SLiCAP project') # Creates the SLiCAP libraries and the
                           # project HTML index page
 
 fileName = 'PIVA.cir'
-i1 = instruction()        # Creates an instance of an instruction object
-i1.checkCircuit(fileName) # Checks and defines the local circuit object and
-                          # resets the index page to the project index page
-htmlPage('Circuit data')  # Creates an HTML page and a link on the index page
-                          # of this circuit
-netlist2html()            # Netlist of the last circuit checked
-elementData2html()        # Element data of the last circuit checked
-params2html()             # Parameters of the last circuit checked
+i1 = instruction()           # Creates an instance of an instruction object
+i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
+                             # resets the index page to the project index page
+htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
+                             # of this circuit
+netlist2html(fileName)       # Netlist of the circuit
+elementData2html(i1.circuit) # Element data of a circuit
+params2html(i1.circuit)      # Parameters of the last circuit checked
 
 fileName = 'MOSamp.cir'
-i2 = instruction()        # Creates an instance of an instruction object
-i2.checkCircuit(fileName) # Checks and defines the local circuit object and
-                          # resets the index page to the project index page
-htmlPage('Circuit data')  # Creates an HTML page and a link on the index page
-                          # of this circuit
-netlist2html()            # Netlist of the last circuit checked
-elementData2html()        # Element data of the last circuit checked
-params2html()             # Parameters of the last circuit checked
+i2 = instruction()           # Creates an instance of an instruction object
+i2.checkCircuit(fileName)    # Checks and defines the local circuit object and
+                             # resets the index page to the project index page
+htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
+                             # of this circuit
+netlist2html(fileName)       # Netlist of the circuit
+elementData2html(i2.circuit) # Element data of the last circuit checked
+params2html(i2.circuit)      # Parameters of the last circuit checked
 
 print i1.circuit.title
 print i1.circuit.elements.keys()
@@ -54,3 +54,5 @@ htmlPage('Another MOSamp page') # Creates a new HTML page with a link on the
                           # active index page
 HTMLpage('PIVA_Circuit-data.html') # Makes this page the active HTML page
 text2html('This concludes the PIVA circuit data section.')             
+
+prj.close()

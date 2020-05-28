@@ -1,14 +1,17 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-import re
+
 import sympy as sp
 import numpy as np
+import ply.lex as lex
+from shutil import copy2 as cp
 from time import time
 from IPython import display
-import ply.lex as lex
+from datetime import datetime
+import re
 import subprocess
 import os
-from datetime import datetime
+import getpass
 
 LOGFILE         = True
 LANGUAGE        = 'english' # Language for error and warnings
@@ -29,6 +32,7 @@ TXTPATH         = 'Project/txt/'    # path for text files (text2html)
 CSVPATH         = 'Project/csv/'    # path for CSV files (csv2html)
 LATEXPATH       = 'Project/tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH      = 'Project/mathml/' # path for mathML output saveMathML()
+IMGPATH         = 'Project/img/'    # path for image files
 
 # Default plot settings
 figureAxisHeight= 4

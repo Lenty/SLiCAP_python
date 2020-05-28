@@ -146,5 +146,5 @@ Recursive substitution is performed by the function ``fullSubs``. It is located 
 .. literalinclude:: ../SLiCAPhtml.py
     :language: python
     :linenos:
-    :lineno-start: 386
-    :lines: 386-412
+    :lineno-start: 372
+    :lines: 372-398

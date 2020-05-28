@@ -234,17 +234,24 @@
 47
 48
 49
-50</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">re</span>
+
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
 
 <span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
 <span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings</span>
@@ -265,6 +272,7 @@
 <span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
 <span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;Project/tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
 <span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;Project/mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
+<span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/img/&#39;</span>    <span class="c1"># path for image files</span>
 
 <span class="c1"># Default plot settings</span>
 <span class="n">figureAxisHeight</span><span class="o">=</span> <span class="mi">4</span>
@@ -772,7 +780,7 @@
 475</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">SLiCAPlex</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">SLiCAPini</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Globals</span>
 <span class="n">HIERARCHY</span>   <span class="o">=</span> <span class="p">[]</span>                <span class="c1"># Check list for hierarchical loops</span>

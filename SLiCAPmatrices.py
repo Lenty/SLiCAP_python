@@ -269,7 +269,7 @@ if __name__ == '__main__':
     fi = 'PIVA.cir'
     
     print "\nCheking:", fi
-    myCir = checkCircuit('cir/' + fi )
+    myCir = checkCircuit(fi )
     t3=time()
     """
     keys = myCir.elements.keys()

@@ -6,70 +6,32 @@ Created on Wed May 20 17:36:05 2020
 @author: anton
 """
 
-from SLiCAPini import *
+from SLiCAPprotos import *
 
-HTMLINSERT  = '<!-- INSERT -->' # pattern to be replaced in html files
-HTMLINDEX   = 'index.html'      # will be set by initProject()
-HTMLPREFIX  = ''                # will be set by checkCircuit()
-HTMLPAGE    = ''                # will be set by htmlPage()
-HTMLCIRCUIT = False             # will be set by checkCircuit()
-
-def HTMLhead(pageTitle):
-    """
-    Returns head for an html page with MathJax settings accoring to ini file.
-    """
-    HTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/><meta name="Language" content="English"/><title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">'
-    if MATHJAXLOCAL == True:
-        HTML += '<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [[''$'',''$'']]}});</script> <script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: {equationNumbers: {autoNumber: \all"}}});</script><script type="text/javascript" src="' + INSTALLPATH + 'MathJax-latest"/MathJax.js?config=TeX-AMS_HTML"></script>'
-        HTML += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>'
-    else:
-        HTML += """<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script> <script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: {equationNumbers: {autoNumber: "all"}}});</script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>"""
-        HTML += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>'
-    return(HTML)
-    
-def HTMLfoot(indexFile):
-    """
-    Return footer for html pages with link to 'indexFile'.
-    """
-    idx = indexFile.split('.')[0]
-    HTML = '<div id="footnote"><p>Go to <a href="' + indexFile + '">' + idx + '</a></p><p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p><p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p></div></body></html>'
-    return(HTML)
-    
+HTMLINSERT   = '<!-- INSERT -->' # pattern to be replaced in html files
+HTMLINDEX    = 'index.html'      # will be set by initProject()
+HTMLPREFIX   = ''                # will be set by checkCircuit()
+HTMLPAGE     = ''                # will be set by htmlPage()
+HTMLLABELS   = {}                # label dictionary:
+                                 #      key = label
+                                 #      value = page
+HTMLEQLABELS = {}                # equation label dictionary:
+                                 #      key   = label
+                                 #      value = page
+HTMLPAGES    = []                # list with file names of html pages
+ 
 def startHTML(projectName):
     """
     Creates main project index page.
     """
-    global HTMLINDEX
+    global HTMLINDEX, HTMLPAGES
     HTMLINDEX = 'index.html'
     toc = '<h2>Table of contents</h2>'
     HTML = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
     f = open(HTMLPATH + HTMLINDEX, 'w')
     f.write(HTML)
     f.close()
-    return
-
-def insertHTML(html):
-    """
-    Inserts html in the current html page.
-    
-    ToDo: check if this file exists.
-    """
-    global HTMLPAGE
-    f = open(HTMLPATH + HTMLPAGE)
-    HTML = f.read()
-    f.close()
-    HTML.replace(HTMLINSERT, html + HTMLINSERT)
-    f = open(HTMLPATH + HTMLPAGE, 'w')
-    f.write(HTML)
-    f.close()
-    return
-
-def HTMLprefix(prefix):
-    """
-    Defines the prefix for HTML file names.
-    """
-    global HTMLPREFIX
-    HTMLPREFIX = prefix
+    HTMLPAGES.append(HTMLINDEX)
     return
 
 def HTMLindex(indexPage):
@@ -82,6 +44,14 @@ def HTMLindex(indexPage):
     HTMLINDEX = indexPage
     return
 
+def HTMLprefix(prefix):
+    """
+    Defines the prefix for HTML file names.
+    """
+    global HTMLPREFIX
+    HTMLPREFIX = prefix
+    return
+
 def HTMLpage(pageName):
     """
     Defines the active HTML page.
@@ -92,14 +62,45 @@ def HTMLpage(pageName):
     HTMLPAGE = pageName
     return
 
-def HTMLcircuit(circuitObject):
+def HTMLhead(pageTitle):
     """
-    Defines the circuit for HTML reports.
+    Returns the html page head, ignores MathJax settings in SLiCAPini.py
+    """
+    HTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n'
+    HTML += '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n'
+    HTML += '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n'
+    HTML += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
+    HTML += '<meta name="Language" content="English"/>\n'
+    HTML += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
+    HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
+    HTML += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
+    if MATHJAXLOCAL == True:
+        print 'MathJax version 3 is not installed. Only web access is supported!'
+        # see http://docs.mathjax.org/en/latest/web/hosting.html
+    return(HTML)
     
-    ToDo: check if th argument is a circuit object.
+def HTMLfoot(indexFile):
     """
-    global HTMLCIRCUIT
-    HTMLCIRCUIT = circuitObject
+    Returns html page footer with link to 'indexFile'.
+    """
+    idx = indexFile.split('.')[0]
+    HTML = '\n<div id="footnote">\n'
+    HTML += '<p>Go to <a href="' + indexFile + '">' + idx + '</a></p>\n'
+    HTML += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>\n'
+    HTML += '<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>\n'
+    HTML += '</div></body></html>'
+    return(HTML)
+
+def insertHTML(fileName, html):
+    """
+    Inserts html in the file specified by 'fileName' at the location of
+    HTMLINSERT.
+    
+    ToDo: check if this file exists.
+    """
+    HTML = readFile(fileName)
+    HTML = HTML.replace(HTMLINSERT, html + HTMLINSERT)
+    writeFile(fileName, HTML)
     return
 
 def readFile(fileName):
@@ -124,17 +125,7 @@ def writeFile(fileName, txt):
     f.close()
     return
 
-def insertHTML(fileName, html):
-    """
-    Inserts html in the file specified by fileName at the location of
-    HTMLINSERT.
-    
-    ToDo: check if this file exists.
-    """
-    HTML = readFile(fileName)
-    HTML = HTML.replace(HTMLINSERT, html + HTMLINSERT)
-    writeFile(fileName, HTML)
-    return
+### User Functions ###########################################################
 
 def htmlPage(pageTitle, index = False):
     """
@@ -143,7 +134,7 @@ def htmlPage(pageTitle, index = False):
     be placed on the current index page.
     The global HTMLINDEX holds the name of the current index page.
     """
-    global HTMLINDEX, HTMLPAGE
+    global HTMLINDEX, HTMLPAGE, HTMLPAGES
     if index == True:
         # The page is a new index page
         fileName = HTMLPREFIX + 'index.html'
@@ -156,8 +147,6 @@ def htmlPage(pageTitle, index = False):
         writeFile(HTMLPATH + fileName, HTML)
         # Make this page the new index page
         HTMLindex(fileName)
-        # Make this page the active HTML page
-        HTMLpage(fileName)
     else:
         fileName = HTMLPREFIX + '-'.join(pageTitle.split()) + '.html'
         # Place link on the current index page
@@ -166,23 +155,32 @@ def htmlPage(pageTitle, index = False):
         # Create the new HTML page
         HTML = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(HTMLINDEX)
         writeFile(HTMLPATH + fileName, HTML)
-        # Make this page the active HTML page
-        HTMLpage(fileName)
+    # Make this page the active HTML page
+    HTMLpage(fileName)
+    HTMLPAGES.append(fileName)
+    # Remove double entries in HTMLPAGES
+    getPages()
     return(HTML)
-
-def head2html(headText):
+    
+def head2html(headText, label=''):
     """
     Placed a level-2 heading on the active HTML page.
     """
-    html = '<h2>' + headText + '</h2>'
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
+    html = '<h2>' + label + headText + '</h2>\n'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
-def head3html(headText):
+def head3html(headText, label=''):
     """
     Placed a level-3 heading on the active HTML page.
     """
-    html = '<h3>' + headText + '</h3>'
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
+    html = '<h3>' + label + headText + '</h3>\n'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
@@ -190,63 +188,141 @@ def text2html(txt):
     """
     Places txt on the active HTML page.
     """
-    html = '<p>' + txt + '</p>'
+    html = '<p>' + txt + '</p>\n'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
-def netlist2html():
+def netlist2html(fileName, label=''):
+    global HTMLLABELS
     """
     Places the netlist of HTMLCIRCUIT on HTMLPAGE
     """
-    if HTMLCIRCUIT == False:
-        print "Error: no circuit has been defined yet."
-    else:
-        try:
-            netlist = readFile(HTMLCIRCUIT.file)
-            html = '<h2>Netlist: ' + HTMLCIRCUIT.file + '</h2><pre>' + netlist + '</pre>'
-            insertHTML(HTMLPATH + HTMLPAGE, html)
-        except:
-            print "Error: could not open netlist file: '%s'."%(HTMLCIRCUIT.file)
+    try:
+        if label != '':
+            HTMLLABELS[label] = HTMLPAGE
+            label = '<a id="' + label + '"></a>'
+        netlist = readFile(CIRCUITPATH + fileName)
+        html = '<h2>' + label + 'Netlist: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
+        insertHTML(HTMLPATH + HTMLPAGE, html)
+    except:
+        print "Error: could not open netlist file: '%s'."%(fileName)
     return
 
-def csv2html(fileName, label = ''):
-    return
-
-def img2html(fileName, width, label = ''):
-    return
-
-def eqn2html(arg1, arg2, units = '', label = ''):
+def elementData2html(circuitObject, label = '', caption = ''):
     """
-    Displays an equation on the active HTML page'.
-    
+    Displays element data on the active html page:
+        - refDes
+        - nodes
+        - referenced elements
+        - parameters with symbolic and numeric values
     ToDo:
         Add HTML label.
     """
-    if not isinstance(arg1, tuple(sp.core.all_classes)):
-        arg1 = sp.sympify(arg1)
-    if not isinstance(arg2, tuple(sp.core.all_classes)):
-        arg2 = sp.sympify(arg2)
-    html = '$$' + sp.latex(sp.N(arg1, DISP)) + '=' + sp.latex(sp.N(arg2, DISP)) +'$$'
+    global HTMLLABELS
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
+    caption = "<caption>Table: Element data of expanded netlist '%s'<br>%s</caption>\n"%(circuitObject.title, caption)
+    html = '%s<table>%s\n'%(label, caption)
+    html += '<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
+    elementNames = circuitObject.elements.keys()
+    for el in sorted(elementNames):
+        elmt = circuitObject.elements[el]
+        html += '<tr><td class="left">' + elmt.refDes + '</td><td class = "left">'
+        for node in elmt.nodes:
+            html += node + ' '
+        html += '</td><td class = "left">'
+        for ref in elmt.refs:
+            html += ref + ' '
+        html += '</td><td class = "left">' + elmt.model +'</td>\n'
+        parNames = elmt.params.keys()
+        if len(parNames) == 0:
+            html += '<td></td><td></td><td></td><tr>'
+        else:
+            i = 0
+            for param in parNames:
+                symValue = '$' + sp.latex(sp.N(elmt.params[param], DISP)) +'$'
+                numValue = '$' + sp.latex(sp.N(fullSubs(elmt.params[param], circuitObject.parDefs), DISP)) + '$'
+                if i == 0:
+                    html += '<td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
+                else:
+                    html += '<tr><td></td><td></td><td></td><td></td><td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
+                i += 1
+    html += '</table>\n'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
-def matrices2html(MNA, label = ''):
+def params2html(circuitObject, label = '', caption = ''):
     """
-    Displays the MNA equation on the active HTML page.
-    
-    ToDo:
-        Add HTML label.
+    Displays all parameters with definitions and numeric value.
     """
+    global HTMLLABELS
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
+    caption = "<caption>Table: Parameter definitions in '%s'.<br>%s</caption>\n"%(circuitObject.title, caption)
+    html = '%s<table>%s\n'%(label, caption)
+    html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
+    for par in circuitObject.parDefs.keys():
+        parName = '$' + sp.latex(par) + '$'
+        symValue = '$' + sp.latex(sp.N(circuitObject.parDefs[par], DISP)) + '$'
+        numValue = '$' + sp.latex(sp.N(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs), DISP)) + '$'
+        html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
+    html += '</table>\n'
+    if len(circuitObject.params) > 0:
+        caption = "<caption>Table: Parameters without definition in '%s.<br>%s</caption>\n"%(HTMLCIRCUIT.title, caption)
+        html += '<table>%s\n'%(caption)
+        html += '<table><tr><th class="left">Name</th></tr>\n'
+        for par in circuitObject.params:
+            parName = '$' + sp.latex(par) + '$'
+            html += '<tr><td class="left">' + parName +'</td></tr>\n'
+        html += '</table>\n'
+    insertHTML(HTMLPATH + HTMLPAGE, html)
+    return
+
+def img2html(fileName, width, label = '', caption = ''):
+    """
+    Copies the image file to the 'img.' subdirectory of the 'html/' directory
+    set by HTMLPATH in SLiCAPini.py and creates a link to this file on the 
+    active html page.
+    """
+    global HTMLLABELS
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
     try:
-        (Iv, M, Vv) = MNA
-        Iv = sp.latex(sp.N(Iv, DISP))
-        M  = sp.latex(sp.N(M,  DISP))
-        Vv = sp.latex(sp.N(Vv, DISP))
-        html = '<h3>Matrix equation:</h3>'
-        html += '$$' + Iv + '=' + M + '\\cdot' + Vv + '$$'
-        insertHTML(HTMLPATH + HTMLPAGE, html)
+        cp(IMGPATH + fileName, HTMLPATH + 'img/' + fileName)
     except:
-        print "Error: unexpected input for 'matrices2html'."
+        print("Error: could not copy: '%s'."%(fileName))
+    html = '<figure>%s<img src="img/%s" alt="%s" style="width:%spx">\n'%(label, fileName, caption, width)
+    if caption != '':
+        html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(fileName, caption)
+    insertHTML(HTMLPATH + HTMLPAGE, html)
+    return
+
+def csv2html(fileName, label = '', separator = ',', caption = ''):
+    """
+    Displays the contents of a csv file as a table on the active HTML page.
+    """
+    global HTMLLABELS
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
+    caption = '<caption>Table: %s<br>%s.</caption>'%(fileName, caption)
+    html = '%s<table>%s'%(label, caption)
+    csvLines = readFile(CSVPATH + fileName).splitlines()
+    for i in range(len(csvLines)):
+        cells = csvLines[i].split(separator)
+        html += '<tr>'
+        if i == 0:
+            for cell in cells:
+                html += '<th>%s</th>'%(cell)
+        else:
+            for cell in cells:
+                html += '<td>%s</td>'%(cell)
+        html += '</tr>\n'
+    html += '</table>\n'
+    insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
 def expr2html(expr, units = ''):
@@ -262,68 +338,58 @@ def expr2html(expr, units = ''):
     else:
         print "Error: expr2html, expected a Sympy expression."
 
-def elementData2html(label = ''):
+def eqn2html(arg1, arg2, units = '', label = ''):
     """
-    Displays element data on the active html page:
-        - refDes
-        - nodes
-        - referenced elements
-        - parameters with symbolic and numeric values
+    Displays an equation on the active HTML page'.
+    
     ToDo:
         Add HTML label.
     """
-    if HTMLCIRCUIT == False:
-        print "Error: no circuit has been defined yet."
-    else:
-        html = '<h2>' + HTMLCIRCUIT.title + ' element data of expanded netlist</h2><table><tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>'
-        elementNames = HTMLCIRCUIT.elements.keys()
-        for el in sorted(elementNames):
-            elmt = HTMLCIRCUIT.elements[el]
-            html += '<tr><td class="left">' + elmt.refDes + '</td><td class = "left">'
-            for node in elmt.nodes:
-                html += node + ' '
-            html += '</td><td class = "left">'
-            for ref in elmt.refs:
-                html += ref + ' '
-            html += '</td><td class = "left">' + elmt.model +'</td>'
-            parNames = elmt.params.keys()
-            if len(parNames) == 0:
-                html += '<td></td><td></td><td></td><tr>'
-            else:
-                i = 0
-                for param in parNames:
-                    symValue = '$' + sp.latex(sp.N(elmt.params[param], DISP)) +'$'
-                    numValue = '$' + sp.latex(sp.N(fullSubs(elmt.params[param], HTMLCIRCUIT.parDefs), DISP)) + '$'
-                    if i == 0:
-                        html += '<td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>'
-                    else:
-                        html += '<tr><td></td><td></td><td></td><td></td><td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>'
-                    i += 1
-        html += '</table>'
-        insertHTML(HTMLPATH + HTMLPAGE, html)
+    eqlabel = label
+    global HTMLLABELS, HTMLEQLABELS
+    if not isinstance(arg1, tuple(sp.core.all_classes)):
+        arg1 = sp.sympify(arg1)
+    if not isinstance(arg2, tuple(sp.core.all_classes)):
+        arg2 = sp.sympify(arg2)
+    if units != '':
+        units = '\\,\\left[ \\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        HTMLEQLABELS[label]= HTMLPAGE
+        eqlabel = '\\label{' + label + '}\n'
+        label   = '<a id="'+ label +'"></a>\n'
+    html = label + '\\begin{equation}\n' + sp.latex(sp.N(arg1, DISP)) + '=' + sp.latex(sp.N(arg2, DISP)) + units + '\n'
+    html += eqlabel
+    html += '\\end{equation}\n'
+    insertHTML(HTMLPATH + HTMLPAGE, html)
     return
 
-def params2html():
+def matrices2html(MNA, label = ''):
     """
-    Displays all parameters with definitions and numeric value.
+    Displays the MNA equation on the active HTML page.
+    
+    ToDo:
+        Add HTML label.
     """
-    if HTMLCIRCUIT == False:
-        print "Error: no circuit has been defined yet."
-    else:
-        html = '<h2>' + HTMLCIRCUIT.title + ': parameter definitions</h2><table><tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>'
-        for par in HTMLCIRCUIT.parDefs.keys():
-            parName = '$' + sp.latex(par) + '$'
-            symValue = '$' + sp.latex(sp.N(HTMLCIRCUIT.parDefs[par], DISP)) + '$'
-            numValue = '$' + sp.latex(sp.N(fullSubs(HTMLCIRCUIT.parDefs[par], HTMLCIRCUIT.parDefs), DISP)) + '$'
-            html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>'
-        html += '</table>'
-        if len(HTMLCIRCUIT.params) > 0:
-            html += '<h2>' + HTMLCIRCUIT.title + ': undefined parameters</h2><table><tr><th class="left">Name</th></tr>'
-            for par in HTMLCIRCUIT.params:
-                parName = '$' + sp.latex(par) + '$'
-                html += '<tr><td class="left">' + parName +'</td></tr>'
-            html += '</table>'
+    global HTMLLABELS, HTMLEQLABELS
+    eqlabel = ''
+    try:
+        (Iv, M, Vv) = MNA
+        Iv = sp.latex(sp.N(Iv, DISP))
+        M  = sp.latex(sp.N(M,  DISP))
+        Vv = sp.latex(sp.N(Vv, DISP))
+        if label != '':
+            HTMLLABELS[label] = HTMLPAGE
+            HTMLEQLABELS[label]= HTMLPAGE
+            eqlabel = '\\label{' + label + '}\n'
+            label = '<a id="' + label + '"></a>'
+        html = '<h3>' + label + 'Matrix equation:</h3>\n'
+        html += '\\begin{equation}\n' + Iv + '=' + M + '\\cdot' + Vv + '\n'
+        html += eqlabel
+        html += '\\end{equation}\n'
         insertHTML(HTMLPATH + HTMLPAGE, html)
+    except:
+        print "Error: unexpected input for 'matrices2html'."
     return
 
 def pz2html(pzData, label = ''):
@@ -332,18 +398,22 @@ def pz2html(pzData, label = ''):
     HTML page.
     
     ToDo:
-        Change this routing with INSTRUCTION object as argument.
+        Change the argument 'pzData' to an INSTRUCTION object.
         This version is only for debug purposes!
         Add HTML label.
     """
+    global HTMLLABELS
+    if label != '':
+        HTMLLABELS[label] = HTMLPAGE
+        label = '<a id="' + label + '"></a>'
     (poles, zeros, DCgain) = pzData
-    html = '<h2>Pole-zero analysis results</h2>'
+    html = '<h2>' + label + 'Pole-zero analysis results</h2>\n'
     if DCgain != False:
-        html += '<h3>DC gain</h3>' + '<p>DC gain = ' + sp.latex(sp.N(DCgain, DISP)) + '</p>'
+        html += '<h3>DC gain</h3>\n' + '<p>DC gain = ' + sp.latex(sp.N(DCgain, DISP)) + '</p>\n'
     else:
-        html += '<p>DC gain could not be determined.</p>'
+        html += '<p>DC gain could not be determined.</p>\n'
     if len(poles) > 0:
-        html += '<h3>Poles</h3><table><tr><th>#</th><th>Re</th><th>Im</th><th>f [Hz]</th><th>Q</th></tr>'
+        html += '<h3>Poles</h3><table><tr><th>#</th><th>Re</th><th>Im</th><th>f [Hz]</th><th>Q</th></tr>\n'
         for i in range(len(poles)):
             p  = poles[i]/2/sp.pi
             Re = sp.re(p)
@@ -357,12 +427,12 @@ def pz2html(pzData, label = ''):
             Re = '$' + sp.latex(sp.N(Re, DISP)) + '$'
             Im = '$' + sp.latex(sp.N(Im, DISP)) + '$'
             name = '$p_{' + str(i + 1) + '}$'
-            html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>'
-        html += '</table>'
+            html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
+        html += '</table>\n'
     else:
-        html += '<p>No poles found.</p>'
+        html += '<p>No poles found.</p>\n'
     if len(zeros) > 0:
-        html += '<h3>Zeros</h3><table><tr><th>#</th><th>Re</th><th>Im</th><th>f [Hz]</th><th>Q</th></tr>'
+        html += '<h3>Zeros</h3><table><tr><th>#</th><th>Re</th><th>Im</th><th>f [Hz]</th><th>Q</th></tr>\n'
         for i in range(len(poles)):
             p  = poles[i]/2/sp.pi
             Re = sp.re(p)
@@ -376,12 +446,64 @@ def pz2html(pzData, label = ''):
             Re = '$' + sp.latex(sp.N(Re, DISP)) + '$'
             Im = '$' + sp.latex(sp.N(Im, DISP)) + '$'
             name = '$z_{' + str(i + 1) + '}$'
-            html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>'
-        html += '</table>'
+            html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
+        html += '</table>\n'
     else:
-        html += '<p>No zeros found.</p>'
+        html += '<p>No zeros found.</p>\n'
     insertHTML(HTMLPATH + HTMLPAGE, html)
     return
+
+### HTML links and labels
+    
+def getPages():
+    """
+    Returns a list of pages that have been generated. This list will be cleared
+    if the project is closed.
+    """
+    global HTMLPAGES
+    HTMLPAGES = list(set(HTMLPAGES))
+    return HTMLPAGES
+
+def getLabels():
+    return HTMLLABELS
+
+def getEqLabels():
+    return HTMLEQLABELS
+
+def clearPages():
+    global HTMLPAGES
+    HTMLPAGES = []
+    
+def clearLabels():
+    global HTMLLABELS
+    HTMLLABELS = {}
+    
+def clearEqLabels():
+    global HTMLEQLABELS
+    HTMLEQLABELS = {}
+
+def eqref(label):
+    """
+    Returns the html code for a jump to an equation with label 'labelName'.
+    This works for references to MathJax equations on the same page.
+    """
+    return '\\eqref{' + label + '}'
+    
+def href(label, linkText, fileName = ''):
+    """
+    Returns the html code for a jump to a label 'labelName'.
+    This label can be on any page. If referring backwards 'fileName' can be
+    detected automatically. When referring forward 'fileName' must be the 
+    name of the file that will be created later. Run a project 2 times without
+    closing it after the first run, automaitcally detects all labels.
+    """
+    if fileName == '':
+        fileName = HTMLLABELS[label]
+    if fileName == HTMLPAGE:
+        html = '<a href="#' +label+'">'+linkText+'</a>'
+    else:
+        html = '<a href="' + fileName + '#' +label+'">'+linkText+'</a>'
+    return html
     
 def fullSubs(valExpr, parDefs):
     """
@@ -409,4 +531,4 @@ def fullSubs(valExpr, parDefs):
     return valExpr
 
 if __name__ == '__main__':
-    startHTML('Test project')
+    startHTML('Test project') 

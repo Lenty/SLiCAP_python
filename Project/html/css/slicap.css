@@ -62,6 +62,7 @@ font-weight: normal;
 table
 {
 margin-left: 20px;
+margin-right: auto;
 border-collapse: collaps;
 padding: 0px;
 }
@@ -106,9 +107,20 @@ text-align:center;
 width: 1em;
 }
 
-figure{
-margin-left: 50%;
-margin-left: 0px;
+figcaption {
+  font-style: italic;
+  color: #00458a;
+  padding: 10px;
+  text-align: center;
+}
+
+caption {
+  display: table-caption;
+  color: #00458a;
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+  caption-side: top;
 }
 
 img{
@@ -128,32 +140,4 @@ color: #0066cc;
 
 a:hover {
 color: red;
-}
-
-p.answer {
-color: green;
-}
-
-p.question {
-color: black;
-}
-
-p.error {
-color: red;
-}
-
-p.help {
-color: blue;
-}
-
-p.script {
-color: black;
-}
-
-p.comment {
-color: green;
-}
-
-.string {
-color: magenta;
 }
