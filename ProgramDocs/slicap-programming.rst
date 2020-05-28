@@ -28,5 +28,8 @@ Contents
    modelParams
    subCircuits
    errorHandling
-   plot
+   matrices
    pythonMaximaInterface
+   documents
+   html
+   plot

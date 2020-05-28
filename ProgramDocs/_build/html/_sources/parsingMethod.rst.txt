@@ -10,7 +10,7 @@ Tokenizing of the input file with `Python Lex <https://www.dabeaz.com/ply/>`_.
    .. literalinclude:: ../SLiCAPlex.py
        :language: python
        :linenos:
-       :lines: 1-183
+       :lines: 1-191
 
 Creation of a nested circuit object from the tokens
 ===================================================
@@ -20,7 +20,7 @@ Conversion of the tokenized input into a circuit object. Sub circuit definitions
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lines: 1-402
+       :lines: 1-411
 
 Expansion of the models and the sub circuits
 ============================================
@@ -50,8 +50,8 @@ This is the 'flattening' of the main circuit object
 
    .. literalinclude:: ../lib/SLiCAPmodels.lib
        :linenos:
-       :lineno-start: 36
-       :lines: 36-46
+       :lineno-start: 37
+       :lines: 37-47
 
    This is how the expansion of M2 would look in a netlist of the final circuit:
 
@@ -106,8 +106,8 @@ The procedure for flattening the circuit is found in ``SLiCAPyacc.py``:
    .. literalinclude:: ../SLiCAPyacc.py
        :language: python
        :linenos:
-       :lineno-start: 404
-       :lines: 404-632
+       :lineno-start: 413
+       :lines: 413-629
 
 Updating of circuit data
 ========================
@@ -127,13 +127,24 @@ This comprises:
       - The voltage at node <Nnnn> with be named V_<Nnnn>
       - A current through a branch of a current-controlled element with element ID <elID> will be named  I_<elID> for two-terminal elements, Ii_<elID> for controlled sources that have a current-controlled input port and Io_<elID> for controlled sources that have a current-controlled output port.
 
-   #. Controlled sources (can be assigned as loop gain reference)
+   #. Controlled sources (can be assigned as loop gain reference) 
 
 
 The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
 
-   .. literalinclude:: ../SLiCAPyacc.py
-       :language: python
-       :linenos:
-       :lineno-start: 634
-       :lines: 634-656
+.. literalinclude:: ../SLiCAPyacc.py
+    :language: python
+    :linenos:
+    :lineno-start: 631
+    :lines: 631-702
+
+Recursive substitution
+======================
+
+Recursive substitution is performed by the function ``fullSubs``. It is located in ``SLiCAPhtml.py``. It is used during the flattening of the circuit and in some HTML functions. 
+
+.. literalinclude:: ../SLiCAPhtml.py
+    :language: python
+    :linenos:
+    :lineno-start: 372
+    :lines: 372-398

@@ -104,8 +104,11 @@
 <li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documents.html">SLiCAP output documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
             
@@ -212,12 +215,48 @@
 28
 29
 30
-31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
 
 <span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
 <span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings</span>
 <span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># Numner of digits for floats in output</span>
+<span class="n">MATHJAXLOCAL</span>    <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Local version of MathJax will be used if True</span>
 
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>       <span class="c1"># Laplace veriable</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>       <span class="c1"># Frequency in Hz</span>
@@ -225,13 +264,15 @@
 <span class="n">MAXRECSUBST</span>     <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># Maximum number of recursic=ve substitutions</span>
 <span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># True if frequency output in Hz, else: False</span>
 
-<span class="c1"># PATHS: relative to the project directory</span>
-<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>      <span class="c1"># path for .asc, .net, .cir, .sch files</span>
-<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>      <span class="c1"># path for include and library files</span>
-<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>      <span class="c1"># path for text files (text2html)</span>
-<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>      <span class="c1"># path for CSV files (csv2html)</span>
-<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>      <span class="c1"># path for LaTeX output saveTeX()</span>
-<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span>   <span class="c1"># path for mathML output saveMathML()</span>
+<span class="c1"># PATHS: relative to the SLiCAP directory</span>
+<span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;Project/html/&#39;</span>   <span class="c1"># path for html output</span>
+<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;Project/cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
+<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>            <span class="c1"># path for include and library files</span>
+<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
+<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
+<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;Project/tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
+<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;Project/mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
+<span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/img/&#39;</span>    <span class="c1"># path for image files</span>
 
 <span class="c1"># Default plot settings</span>
 <span class="n">figureAxisHeight</span><span class="o">=</span> <span class="mi">4</span>
@@ -243,6 +284,14 @@
 <span class="n">axisXscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the x-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">axisYscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the y-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">legendLoc</span>       <span class="o">=</span> <span class="s1">&#39;best&#39;</span>
+
+<span class="c1"># Type conversions</span>
+<span class="n">LAPLACE</span>         <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span>
+<span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">FREQUENCY</span><span class="p">)</span>
+<span class="n">OMEGA</span>           <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">OMEGA</span><span class="p">)</span>
+
+<span class="c1"># Where is it installed? </span>
+<span class="n">INSTALLPATH</span>     <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -689,16 +738,51 @@
 433
 434
 435
-436</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">SLiCAPini</span> <span class="kn">as</span> <span class="nn">ini</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">sympify</span>
+<span class="kn">from</span> <span class="nn">SLiCAPini</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Globals</span>
-<span class="n">LAPLACE</span>     <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">LAPLACE</span>       <span class="c1"># Laplace variable as defined in the ini file</span>
-<span class="n">FREQUENCY</span>   <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">FREQUENCY</span>     <span class="c1"># Laplace variable as defined in the ini file</span>
-<span class="n">OMEGA</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">OMEGA</span>         <span class="c1"># Natural frequency as defined in the ini file</span>
 <span class="n">HIERARCHY</span>   <span class="o">=</span> <span class="p">[]</span>                <span class="c1"># Check list for hierarchical loops</span>
 <span class="n">CONSTANTS</span>   <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with global parameters taken from</span>
                                 <span class="c1"># the ini file</span>
@@ -708,6 +792,9 @@
 <span class="n">DEVICES</span>     <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with SLiCAP built-in devices</span>
                                 <span class="c1">#   key   : device name</span>
                                 <span class="c1">#   value : associated device object</span>
+<span class="n">CONTROLLED</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">]</span>  <span class="c1"># Types of controlled sources</span>
+<span class="n">INDEPSCRCS</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">]</span>            <span class="c1"># Types of independent sources</span>
+
 <span class="k">class</span> <span class="nc">circuit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># Circuit object for main circuit and for sub circuits</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -742,6 +829,46 @@
                                 <span class="c1"># can be used as detector</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controlled</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List with controlles sources;</span>
                                 <span class="c1"># can be used as loop gain reference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span>   <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with index of node or dependent</span>
+                                <span class="c1"># current (speeds up the building of the matrix)</span>
+                                <span class="c1">#   key   : node name of current name</span>
+                                <span class="c1">#   value : position in the vactor with</span>
+                                <span class="c1">#           dependent variables</span>
+    
+    <span class="k">def</span> <span class="nf">delPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
+        <span class="c1"># single params and multiple.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">return</span>
+        
+    <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
+        <span class="c1"># single params and multiple.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">return</span>
+        
+    <span class="k">def</span> <span class="nf">getParValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
+        <span class="c1"># single params and multiple.</span>
+        <span class="k">return</span>
+    
+    <span class="k">def</span> <span class="nf">updateParams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates self.params (undefined parameters) after modification of </span>
+<span class="sd">        parameter definitions in self.parDefs or in elements: </span>
+<span class="sd">        self.elements[&lt;refDes&gt;].params[&lt;parName&gt;].</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
+        <span class="n">undefined</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">LAPLACE</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">FREQUENCY</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">OMEGA</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">undefined</span>
+    
 <span class="k">class</span> <span class="nc">element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># Circuit element object</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -772,7 +899,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span>      <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># True if model has associated matrix stamp, </span>
                                 <span class="c1"># False if it requires expansion</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Number of independent vars. in matrix stamp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Namens of dependent vars. in matrix stamp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model parameters</span>
                                 <span class="c1">#   key   : model parameter name</span>
                                 <span class="c1">#   value : True: if Laplace is allowed in the</span>
@@ -799,7 +926,7 @@
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;C&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Diode</span>
@@ -812,42 +939,42 @@
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;E&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCVS with series impedance</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;EZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCCS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span> <span class="c1"># can be set to 1 if independent depVar is used</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_i&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCCS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;G&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># VCCS no Laplace</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;g&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCVS</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">2</span> <span class="c1"># can be set to 2 if independent depVar is used</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">,</span> <span class="s1">&#39;I_i&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># CCVS with source impedance</span>
@@ -855,13 +982,13 @@
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;HZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span> <span class="c1"># can be set to 2 if independent depVar is used</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zs&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Independent current source</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;I&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># JFET</span>
@@ -874,14 +1001,14 @@
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Inductor</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># MOSFET</span>
@@ -900,7 +1027,7 @@
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Current feedback operational amplifier</span>
@@ -937,35 +1064,35 @@
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;R&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Resistor (resistance can be zero)</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Ideal transformer</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;T&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Independent voltage source</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;V&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Gyrator</span>
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;W&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     

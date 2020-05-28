@@ -14,6 +14,7 @@
 + e             = {exp(1)}          ; Natural base
 + i             = {1j}              ; Imaginary unit
 + PI            = {pi}              ; 3.14......
++ epsilon_0     = {1/mu_0/c^2}        ; permittivity of vacuum
 
 * Expansion model prototypes
 ****************************
@@ -29,7 +30,7 @@ Cd 1 c {cd}
 .subckt J d g s gm=1m go=0 cgs=0 cdg=0 ; default values
 Gm d s g s g value={gm}
 Cgs g s {cgs}
-Cdg d g {cgd}
+Cdg d g {cdg}
 Go d s d s g value={go}
 .ends
 
@@ -39,10 +40,10 @@ Gm d s g s g value={gm}
 Gb d s b s g value={gb}
 Go d s d s g value={go}
 Cgs g s {cgs}
-Cdg d g {cgd}
+Cdg d g {cdg}
 Cgb g b {cgb}
-cdb d b {cdb}
-csb s b {csb}
+Cdb d b {cdb}
+Csb s b {csb}
 .ends
 
 * MOSFET Differential pair

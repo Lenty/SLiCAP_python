@@ -11,12 +11,6 @@ Created on Mon May  4 12:32:13 2020
 """
 
 from SLiCAPlex import *
-from SLiCAPprotos import *  
-import os  
-
-LAPLACE = Symbol(LAPLACE)
-FREQUENCY = Symbol(FREQUENCY)
-OMEGA = Symbol(OMEGA)
 
 # Composite tokens
 NODES      = ['NODEID', 'ID', 'INT']
@@ -32,21 +26,24 @@ CIRTITLES = []
 LIB = circuit()
 
 def checkCircuit(fileName):
-    global CIRTITLES, LIB
+    global CIRTITLES, HTMLPREFIX
     cir = circuit()
     cir.file = fileName
     if LIB.errors == 0:
-        cir.lexer = tokenize(fileName)
+        cir.lexer = tokenize(CIRCUITPATH + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:
             cir = updateCirData(cir)
+            HTMLprefix('-'.join(cir.title.split()) + '_')
+            HTMLindex('index.html')
+            htmlPage(cir.title, True)
             if cir.errors != 0:
-                print( """Errors found during updating of circuit data from '%s'.
-    Instructions with this circuit will not be executed."""%(cir.title))
+                print """Errors found during updating of circuit data from '%s'.
+    Instructions with this circuit will not be executed."""%(cir.title)
             else:
-                print("No errors found for circuit: '%s' from file: '%s'.\n"%(cir.title, fileName))
+                print "No errors found for circuit: '%s' from file: '%s'.\n"%(cir.title, fileName)
     else:
-        print("Errors found in library. Circuit '%s' will not be ckecked."%(fileName))
+        print "Errors found in library. Circuit '%s' will not be ckecked."%(fileName)
     return cir
 
 def makeCircuit(cir):
@@ -68,6 +65,9 @@ def makeCircuit(cir):
     if tok and tok.type in TITLE and cir.subCKT==False:
         # In this case, we a dealing with the main circuit
         cir.title = tok.value
+        if tok.type == 'QSTRING':
+            # Remove the double quotes, this conflicts with HTML files
+            cir.title = cir.title[1:-1]
         tok = lexer.token()
     elif cir.subCKT == True:
         # In this case, we a dealing with a sub circuit
@@ -78,16 +78,19 @@ def makeCircuit(cir):
                 if not tok:
                     break
             if tok and tok.type in TITLE:
-                cir.title = tok.value       
+                cir.title = tok.value
+                if tok.type == 'QSRTING':
+                    # Remove the double quotes, this conflicts with HTML files
+                    cir.title = cir.title[1:-1]
                 if tok.value in CIRTITLES:
-                    print("Error: circuit '%s' has already been defined."%(cir.title))
+                    print "Error: circuit '%s' has already been defined."%(cir.title)
                     cir.errors += 1
             else:
                 printError("Error: expected a circuit title.", 
                            lines[cir.lexer.lineno], find_column(tok))
                 cir.errors += 1
         else:
-            print("Missing circuit title.")
+            print "Missing circuit title."
             cir.errors += 1
         tok = cir.lexer.token()
         # The number of nodes needs to be detected automatically. This is as 
@@ -134,7 +137,6 @@ def makeCircuit(cir):
         # Here we have the first token of the second line of the circuit 
         # definition. Further checking is identical as with the sub circuit,
         # except for a '.end' command token at the end.
-    CIRTITLES.append(cir.title) 
     #print cir.title, cir.nodes, tok
     while tok:
         if tok.type == 'ID' and tok.value[0].upper() in DEVICES.keys():
@@ -165,7 +167,7 @@ def makeCircuit(cir):
                                 cir.errors += 1
                         else:
                             # Wrong token!
-                            print("Error: missing node.")
+                            print "Error: missing node."
                             cir.errors += 1
                 else:
                     # nNodes == -1, means we have a sub circuit, the number of
@@ -286,7 +288,7 @@ def makeCircuit(cir):
             if tok.value in END:
                 cir.errors += cir.lexer.errCount
                 if cir.errors != 0:
-                    print("Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file))
+                    print "Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file)
                 break
             elif tok.value[0:3] in INC:
                 tok = cir.lexer.token()
@@ -306,8 +308,8 @@ def makeCircuit(cir):
                 cir.circuits[subCircuit.title] = subCircuit
                 if subCircuit.errors !=0:
                     # Errors in sub circuit, this also raises an error in the parent circuit
-                    print("Errors found in definition of sub circuit.")
-                    cir.errors += 1                  
+                    print "Errors found in definition of sub circuit."
+                    cir.errors += 1
             elif tok.value == 'MODEL':
                 tok = cir.lexer.token()
                 if tok:
@@ -348,7 +350,7 @@ def makeCircuit(cir):
                                 break
                     cir.modelDefs[newModel.name] = newModel
                 else:
-                    print("Error: missing model dedinition.")
+                    print "Error: missing model dedinition."
             elif tok.value == 'PARAM':
                 tok = cir.lexer.token()
                 if tok:
@@ -378,7 +380,7 @@ def makeCircuit(cir):
                         if not tok:
                             break
                 else:
-                    print("Error: missing a parameter definition.")
+                    print "Error: missing a parameter definition."
         else:
             # All what's left are tokens we don't expect at this position
             printError("Error: unexpected input.", lines[cir.lexer.lineno], 
@@ -389,17 +391,22 @@ def makeCircuit(cir):
                 break
     cir.errors += cir.lexer.errCount
     if cir.errors != 0:
-        print("Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file))
+        print "Errors found in '%s'. Instructions with it not be executed.\n"%(cir.file)
     else:
         needExpansion = False
         for refDes in cir.elements.keys():
             if cir.elements[refDes].model not in MODELS.keys():
                 needExpansion = True
+            elif MODELS[cir.elements[refDes].model] == False:
+                needExpansion = True
         if needExpansion:
+            # First add the user libraries to the global library LIB
+            addUserLibs(cir.libs)
+            CIRTITLES.append(cir.title) 
             cir = expandModelsCircuits(cir)
         if cir.errors != 0:
-            print("""Errors found during expansion of '%s'.
-                  Instructions with this circuit will not be executed.""" %(cir.title))
+            print """Errors found during expansion of '%s'.
+Instructions with this circuit will not be executed."""%(cir.title)
     return cir
 
 def expandModelsCircuits(circuitObject):
@@ -434,15 +441,15 @@ def expandModelsCircuits(circuitObject):
       - For all other (local)parameters add the suffix:
         _< parent element refDes > to their name (key) and substitute them in
         all value value fields with: 
-        sympy.Symbol(< parameter name >_< parent element refDes >)
+        sympy.sp.Symbol(< parameter name >_< parent element refDes >)
     - Add all elements from the childCircuit to circuitObject
     - Add all entries from the .parDefs dict of the childCircuit to
       circuitObject.
     """
+    global CIRTITLES, LIB
     # Check if names of sub circuits and models are given and can be found
     # and parse parameter values
-        
-    for refDes in list(circuitObject.elements):
+    for refDes in circuitObject.elements.keys():
         if circuitObject.elements[refDes].type != 'X':
             # Do this for all elements except sub circuits
             modelName = circuitObject.elements[refDes].model
@@ -454,25 +461,25 @@ def expandModelsCircuits(circuitObject):
                 basicModel = modelName
             else:
                 basicModel = ''
-                print("Cannot find basic model for '%s'"%(refDes))
+                print "Cannot find basic model for '%s'"%(refDes)
                 circuitObject.errors += 1
             if circuitObject.errors == 0:
                 # Check for valid parameter names
                 modelParams = MODELS[basicModel].params.keys()
                 for parName in circuitObject.elements[refDes].params.keys():
                     if parName not in modelParams:
-                        print("Invalid parameter name '%s' for '%s'."%(parName, refDes))
+                        print "Invalid parameter name '%s' for '%s'."%(parName, refDes)
                         circuitObject.errors += 1
                     else:
                         # Check if the LAPLACE parameter is used in the
                         # expression and if this is allowed.
                         valExpr = circuitObject.elements[refDes].params[parName]
                         # valExpr is either an integer or a float of a sympy object
-                        if type(valExpr) != float and type(valExpr) != int and type(valExpr) != str:
-                            exprParams = circuitObject.elements[refDes].params[parName].free_symbols
+                        if isinstance(valExpr, tuple(sp.core.all_classes)):
+                            exprParams = list(circuitObject.elements[refDes].params[parName].free_symbols)
                             if LAPLACE in exprParams and MODELS[basicModel].params[parName] == False:
                                 circuitObject.errors += 1
-                                print("Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes))
+                                print "Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes)
             if circuitObject.errors == 0:
                 # Change the model name to the basic model name
                 circuitObject.elements[refDes].model = basicModel
@@ -501,20 +508,31 @@ def expandModelsCircuits(circuitObject):
                 if stamp == False:
                     protoCircuit = LIB.circuits[basicModel]
         else:  
+            # Now we have a sub circuit
             stamp = False
             # Do this for sub circuits
             modelName = circuitObject.elements[refDes].model
+            if modelName in CIRTITLES:
+                # We have an hierarchical loop
+                print "Error: hierarchical loop involving '%s'."%(modelName)
+                circuitObject.errors += 1
+                # No expansion
+                return circuitObject
             if modelName in circuitObject.circuits.keys() :
                 protoCircuit = circuitObject.circuits[modelName]
             elif modelName in LIB.circuits.keys():
                 protoCircuit = LIB.circuits[modelName]
             else:
-                print("Error cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes))
+                print "Error: cannot find sub circuit definition '%s' for '%s'."%(modelName, refDes)
                 circuitObject.errors += 1                            
         if circuitObject.errors == 0:
-            if stamp == False or circuitObject.elements[refDes].type == 'X':
+            if stamp == False:
                 elmt = circuitObject.elements[refDes]
                 circuitObject = expandCircuit(elmt, circuitObject, protoCircuit)
+            elif  circuitObject.elements[refDes].type == 'X':
+                elmt = circuitObject.elements[refDes]
+                circuitObject = expandCircuit(elmt, circuitObject, protoCircuit)
+    CIRTITLES.pop(-1)
     return circuitObject
 
 def expandCircuit(elmt, parentCircuit, childCircuit):
@@ -546,24 +564,26 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     # Put the names and values of the parameters of the parent element in this 
     # dictionary
     for key in elmt.params.keys():
-        substDict[Symbol(key)] = elmt.params[key]
+        substDict[sp.Symbol(key)] = elmt.params[key]
     # If they are not yet in, put the default values of the child circuit 
     # parameters in this dictionary
     for key in childCircuit.params.keys():
-        if Symbol(key) not in substDict.keys():
-            substDict[Symbol(key)] = childCircuit.params[key]
+        if sp.Symbol(key) not in substDict.keys():
+            substDict[sp.Symbol(key)] = childCircuit.params[key]
     # Copy the parameter definitions of the child circuit to a new dict
     # The keys and entries of this dictionary will be modified
     newParDefs= {} # Temporary storage for new parameter definitions
     for key in childCircuit.parDefs.keys():
         newParDefs[key] = childCircuit.parDefs[key]
-        if key not in LIB.parDefs.keys() and Symbol(key) not in substDict.keys():
-            substDict[Symbol(key)] = Symbol(key + suffix)
+        if key not in LIB.parDefs.keys() and sp.Symbol(key) not in substDict.keys():
+            substDict[sp.Symbol(key)] = sp.Symbol(key + suffix)
     newElements = {} # Temp storage for all the new elements
     for elName in childCircuit.elements.keys():
         # Create element with new refdes
         childElement = childCircuit.elements[elName]
         newElement = element()
+        newElement.model = childCircuit.elements[elName].model
+        newElement.type = elName[0].upper()
         newElement.refDes = elName + suffix
         # Connect it to the parent circuit
         for node in childElement.nodes:
@@ -587,7 +607,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
             newParams = newElement.params[key].free_symbols
             for newParam in newParams:
                 if str(newParam) not in LIB.parDefs.keys() and newParam not in substDict.keys():
-                    substDict[newParam] = Symbol(str(newParam) + suffix)
+                    substDict[newParam] = sp.Symbol(str(newParam) + suffix)
         # Store the element, we still need to update its parameters and values
         newElements[newElement.refDes] = newElement
     # Update parameters and values of new elements
@@ -599,38 +619,13 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     # Update parameters and values of circuit parameter definitions
     # Pass all the updated child circuit parameter definitions to the parent circuit
     for key in newParDefs.keys():
-        newKey = fullSubs(Symbol(key), substDict)
+        newKey = fullSubs(sp.Symbol(key), substDict)
         newValue = fullSubs(newParDefs[key], substDict)
-        parentCircuit.parDefs[newKey] = newValue
+        parentCircuit.parDefs[str(newKey)] = newValue
     # Delete elmt from the parent circuit, it has now been replaced with
     # elements of the child
     del parentCircuit.elements[elmt.refDes]
     return(parentCircuit)
-    
-def fullSubs(valExpr, parDefs):
-    """
-    Returns the valExpr after all parameters of parDefs have been substituted
-    recursively into valExpr.
-    parDefs is a dictionary in which the keys are sympy symbols. The type of 
-    the value fields may be any sympy type, integer or float.
-    """
-    strValExpr = str(valExpr)
-    i = 0
-    newvalExpr = 0
-    while valExpr != newvalExpr and i < MAXRECSUBST and type(valExpr) != int and type(valExpr) != float:
-        # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
-        substDict = {}
-        params = valExpr.free_symbols
-        for param in params:
-            if param in parDefs.keys():
-                substDict[param] = parDefs[param]
-        # perform the substitution
-        newvalExpr = valExpr
-        valExpr = newvalExpr.subs(substDict)
-        i += 1
-    if i == MAXRECSUBST:
-        print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
-    return valExpr
     
 def updateCirData(mainCircuit):
     """
@@ -648,30 +643,79 @@ def updateCirData(mainCircuit):
         if parName not in mainCircuit.parDefs.keys():
             mainCircuit.parDefs[parName] = LIB.parDefs[parName]
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
+    for key in mainCircuit.parDefs.keys():
+        newKey = sp.Symbol(key)
+        mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
+        del(mainCircuit.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
-    # make the list with IDs of dependend variables
     # make the list with IDs of controlled sources
+    # make the list with IDs of dependend variables
+    # convert mainCircuit.params to list and put undefined params in it
+    mainCircuit.params =[]
+    mainCircuit.nodes = []
+    varIndexPos = 0
+    for elmt in mainCircuit.elements.keys():
+        mainCircuit.nodes += mainCircuit.elements[elmt].nodes
+        for refID in mainCircuit.elements[elmt].refs:
+            if refID not in mainCircuit.elements.keys():
+                print "Error: Could not find referenced element '%s'."%(refID)
+                mainCircuit.errors += 1
+        if mainCircuit.elements[elmt].type in INDEPSCRCS:
+            mainCircuit.indepVars.append(elmt)
+        elif mainCircuit.elements[elmt].type in CONTROLLED:
+            mainCircuit.controlled.append(elmt)
+        for i in range(len(MODELS[mainCircuit.elements[elmt].model].depVars)):
+            depVar = MODELS[mainCircuit.elements[elmt].type].depVars[i]
+            mainCircuit.depVars.append(depVar + '_' + elmt)
+            mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
+            varIndexPos += 1
+        # Add parameters used in expressions to circuit.params
+        for par in mainCircuit.elements[elmt].params:
+            try:
+                mainCircuit.params += list(mainCircuit.elements[elmt].params[par].free_symbols)
+            except:
+                pass
+    mainCircuit.params = list(set(mainCircuit.params))
+    undefined = []
+    for par in mainCircuit.params:
+        if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in mainCircuit.parDefs.keys():
+            undefined.append(par)
+    mainCircuit.params = undefined
     # check for two connections per node (warning)
+    connections = {i:mainCircuit.nodes.count(i) for i in mainCircuit.nodes}
+    for key in connections.keys():
+        if connections[key] < 2:
+            print "Warning less than two connections at node: '%s'."%(key)
+    # Remove duplicate entries from node list and sort the list."
+    mainCircuit.nodes = list(set(mainCircuit.nodes))
+    mainCircuit.nodes.sort()
+    if '0' not in mainCircuit.nodes:
+        mainCircuit.errors += 1
+        print "Error: could not find ground node '0'."
+    for i in range(len(mainCircuit.nodes))  :
+        mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
+        mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
+        varIndexPos += 1
     return mainCircuit
 
 def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
-    fileName = 'lib/SLiCAPmodels.lib'
+    fileName = LIBRARYPATH + 'SLiCAPmodels.lib'
     LIB = circuit()
     LIB.file = fileName
     LIB.lexer = tokenize(fileName)
     LIB = makeCircuit(LIB)
     if LIB.errors != 0:
-        print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
+        print "Errors found in library: '%s'. SLiCAP will not work!"%(fileName)
         return LIB
     else:
         # Do this also for other libs
         CIRTITLES = []
-        fileName = 'lib/SLiCAP.lib'
+        fileName = LIBRARYPATH + 'SLiCAP.lib'
         cir = circuit()
         cir.file = fileName
         cir.lexer = tokenize(fileName)
@@ -682,38 +726,101 @@ def makeLibraries():
         for modDef in LIB.modelDefs.keys():
             cir.modelDefs[parDef] = LIB.modelDefs[modDef]
         cir = makeCircuit(cir)
+        
         if cir.errors != 0:
-            print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
+            print "Errors found in library: '%s'. SLiCAP will not work!"%(fileName)
             LIB.errors = cir.errors
             return LIB
-        return cir
+        CIRTITLES = []
+        LIB = cir
+        return LIB
+    
+def addUserLibs(fileNames):
+    """ 
+    Adds pre compiled user libraries to LIB. Overwrites existing keys in LIB.
+    """
+    global CIRTITLES, LIB
+    for fi in fileNames:
+        # Do not include the standard library "SLiCAP.lib"
+        libFile = fi.split('.')
+        try:
+            if libFile[0] != 'SLiCAP' and libFile[1].upper() != 'LIB':
+                try:
+                    # first libraries in circuit directory
+                    f = open(CIRPATH + fi, "r")
+                    fileName = CIRPATH + fi
+                    f.close()
+                except:
+                    try:
+                        # then libraries in user library directory
+                        f = open(LIBRARYPATH + fi, "r")
+                        fileName = LIBRARYPATH + fi
+                        f.close()
+                    except:
+                        try:
+                            # then absolute path
+                            f = open(fi, "r")
+                            fileName = fi
+                            f.close()
+                        except:
+                            print "Error: cannot find library file: '%s'."%(fi)
+                            fileName = False
+                if fileName != False:
+                    cir = circuit()
+                    cir.file = fileName
+                    cir.lexer = tokenize(fileName)
+                    cir = makeCircuit(cir)
+                    if cir.errors != 0:
+                        print "Errors found in library: '%s'. Library will not be added!"%(fileName)
+                    else:
+                        for newCircuit in cir.circuits:
+                            LIB.circuits[newCircuit.title] = newCircuit
+                        for newModelDef in cir.modelDefs:
+                            LIB.modelDefs[cir.modelDefs[newModelDef]] = cir.modelDefs[newModelDef]
+                        for newParDef in cir.parDefs:
+                            LIB.parDefs[newPardef] = cir.parDefs[newParDef]
+                        for newLib in cir.libs:
+                            LIB.libs.append(newLib)
+        except:
+            pass
+    return()
 
 if __name__ == '__main__':
+    t1=time()
     LIB = makeLibraries()
-    
+    t2=time()
+    """ 
     import os
     files = os.listdir('cir')
     
     for fi in files:
         [cirFileName, ext] = fi.split('.')
         if ext.lower() == 'cir':   
+    """
+    fi = 'MOSamp.cir'
     
-            #fi = 'MOSamp.cir'
-            print("\nCheking:", fi)
-            myCir = checkCircuit('cir/' + fi )
-            """
-            keys = myCir.elements.keys()
-            for key in keys:
-                el = myCir.elements[key]
-                print '\nElement    :', key
-                print 'Nodes      :', el.nodes
-                print 'Refs       :', el.refs
-                print 'Model      :', el.model
-                print 'Params     :'
-                for par in el.params.keys():
-                    print ' ', par, '=', el.params[par]
-            
-            print '\nCircuit parameter definitions:'
-            for par in myCir.parDefs.keys():
-                print ' ', par, '=', myCir.parDefs[par]          
-            """
+    print "\nCheking:", fi
+    myCir = checkCircuit(fi)
+    t3=time()
+    """
+    keys = myCir.elements.keys()
+    for key in keys:
+        el = myCir.elements[key]
+        print '\nElement    :', key
+        print 'Nodes      :', el.nodes
+        print 'Refs       :', el.refs
+        print 'Model      :', el.model
+        print 'Params     :'
+        for par in el.params.keys():
+            print ' ', par, '=', el.params[par]
+    
+    print '\nCircuit parameter definitions:'
+    for par in myCir.parDefs.keys():
+        print ' ', par, '=', myCir.parDefs[par]          
+    t4=time()
+    for el in myCir.elements.keys():
+        for par in  myCir.elements[el].params.keys():
+            parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
+            print el,'\t', par, N(parNum, DISP)
+    t5=time()
+    """

@@ -16,7 +16,7 @@ O3 0 10 11 0 AD8610
 O2 0 1 5 2 AD8610 
 O1 0 7 4 0 AD8610 
 M1 9 11 6 6 NDD03N80Z
-F2 1 0 12 0 2
+F2 1 0 12 0 5m
 F1 0 10 3 12 5m
 C_9 13 0 {C_d}
 C8 Out 0 {C_p}
@@ -27,9 +27,5 @@ C4 1 0 {2*C_pin}
 C3 1 5 {C_f}
 C2 7 9 {C_ph}
 C1 7 4 {C_i}
-.param R_i=80.6k C_i=10p C_ph=1.95p R_f=2M
-+ C_pin=22p 
-+ R_vi=51k 
-+ C_f={4.7p*sqrt(10k)} C_led=80p R_led=25 R_se=300 C_c=3.9p R_b=51k R_a=510 R_m=150 C_d=220p R_d=1k C_p=1n I_D=1m
-.INCLUDE SLiCAP.lib
+.param R_i=80.6k C_i=10p C_ph=1.95p R_f=2M C_pin=22p R_vi=51k C_f=4.7p C_led=80p R_led=25 R_se=300 C_c=3.9p R_b=51k R_a=510 R_m=150 C_d=220p R_d=1k C_p=1n I_D=1m
 .end
