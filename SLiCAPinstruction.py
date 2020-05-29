@@ -208,6 +208,12 @@ class instruction(object):
         return
     
     def checkDetector(self):
+        """
+        The tyoe of self.detector can be:
+            bool: no detector has been defined
+            str:  a single detector, nodal voltage or branch current
+            list: either two nodat voltages or two branch currents
+        """
         if type(self.detector) != bool:
             # detector has two nodes or two voltage sources
             if type(self.detector) == str:

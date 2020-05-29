@@ -9,7 +9,7 @@ class matrix(sp.Matrix):
     
     def minor(self, i, j):
         # Returns determinant of M after deleting row i and column j
-        return matrix(self.minorMatrix(i, j)).determinant()
+        return matrix(self.minor_submatrix(i, j)).determinant()
 
     def coFactor(self, i, j):
         # Returns cofactor C(i,j) 
@@ -236,4 +236,3 @@ if __name__ == "__main__":
     MOD = MNA.Cramer([0,0,0,1,0,-1,0,0,0],3)
     roots = sp.roots(DET,s)
     print roots
-
