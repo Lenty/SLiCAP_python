@@ -10,7 +10,6 @@ Created on Mon May  4 12:32:13 2020
 @author: anton
 """
 from sympy import sympify, Symbol
-from sympy import *
 import ply.lex as lex
 import re
 from SLiCAPini import *

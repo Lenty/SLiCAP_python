@@ -26,6 +26,32 @@ END        = ['END', 'ENDS']
 CIRTITLES = []
 LIB = circuit()
 
+def fullSubs(valExpr, parDefs):
+    """
+    Returns the valExpr after all parameters of parDefs have been substituted
+    recursively into valExpr.
+    parDefs is a dictionary in which the keys are sympy symbols. The type of 
+    the value fields may be any sympy type, integer or float.
+    """
+    strValExpr = str(valExpr)
+    i = 0
+    newvalExpr = 0
+    while valExpr != newvalExpr and i < MAXRECSUBST and isinstance(valExpr, tuple(sp.core.all_classes)):
+        # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
+        substDict = {}
+        params = list(valExpr.free_symbols)
+        for param in params:
+            if param in parDefs.keys():
+                substDict[param] = parDefs[param]
+        # perform the substitution
+        newvalExpr = valExpr
+        valExpr = newvalExpr.subs(substDict)
+        i += 1
+    if i == MAXRECSUBST:
+        print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
+    return valExpr
+
+
 def checkCircuit(fileName):
     global CIRTITLES, HTMLPREFIX
     cir = circuit()
