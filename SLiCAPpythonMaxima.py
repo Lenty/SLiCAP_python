@@ -61,3 +61,77 @@ def maxDet(M):
     maxExpr = 'm:' + M + ';result:bfloat(expand(newdet(m)));'
     result = sp.sympify(maxEval(maxExpr))
     return(result)
+    
+def maxNumer(M, detP, detN, srcP, srcN):
+    """
+    Returns the numerator of a transfer function:
+        
+    M = MNA matrix
+    detP = position of positive detector in vector with dependent variables.
+           This can be a nodal voltage or a current through a voltage source or
+           False if the positive node is the ground node or a positive current
+           is not used.
+    detN = position of positive detector in vector with dependent variables
+           This can be a nodal voltage or a current through a voltage source or
+           False if the negative node is the ground node or a negative current
+           is not used.
+    srcP:
+        Current source:
+            = position of positive node in vector with dependent variables.
+        Voltage source:
+            = position of current through this source in the vector with
+              dependent variables.
+    srcN:
+        Current source:
+            = position of positive node in vector with dependent variables.
+        Voltage source:
+            = False
+    
+    Note: In Sympy a minor is defined as the determinant of the minor matrix;
+          use .minor_submatrix to get the matrix only.
+          
+          In Maxima a minor is the minor matrix itself.
+          
+    GCalculation method:
+        
+        numer = + cofactor(srcP, detP) - cofactor(srcN, detP) 
+                - cofactor(srcP, detN) + cofactor(srcN, detN)
+    cofactor(i,j = (-1)^(i+j)*det(minor(i,j))
+    
+    The minor matrices and the multiplication factors are determined with Sympy,
+    the determinants are calculated with Maxima.
+    """
+    # Create a list of matrices of which the determinant needt to be calculated
+    matrices = []
+    if type(detP) != bool:
+        if type(srcP) != bool:
+            if (detP + srcP)%2 == 0:
+                matrices.append(M.minor_submatrix(detP, srcP))
+            else:
+                matrices.append(-M.minor_submatrix(detP, srcP))
+        if type(srcN) != bool:
+            if (detP + srcP)%2 == 0:
+                matrices.append(-M.minor_submatrix(detP, srcN))
+            else:
+                matrices.append(M.minor_submatrix(detP, srcN))
+    if type(detN) != bool:
+        if type(srcP) != bool:
+            if (detN + srcP)%2 == 0:
+                matrices.append(-M.minor_submatrix(detN, srcP))
+            else:
+                matrices.append(M.minor_submatrix(detN, srcP))
+        if type(srcN) != bool:
+            if (detP + srcP)%2 == 0:
+                matrices.append(M.minor_submatrix(detN, srcN))
+            else:
+                matrices.append(-M.minor_submatrix(detN, srcN))
+    # Create the Maxima instruction
+    maxExpr = 'result:bfloat(expand('
+    for M in matrices:
+        maxExpr += 'newdet(',+ sympy2maximaMatrix(M) + ')+'
+    maxExpr = '0));'
+    result = sp.sympify(maxEval(maxExpr))
+    return(result)
+    
+def maxCramer():
+    return
