@@ -476,7 +476,7 @@ def expandModelsCircuits(circuitObject):
     global CIRTITLES, LIB
     # Check if names of sub circuits and models are given and can be found
     # and parse parameter values
-    for refDes in circuitObject.elements.keys():
+    for refDes in list(circuitObject.elements):
         if circuitObject.elements[refDes].type != 'X':
             # Do this for all elements except sub circuits
             modelName = circuitObject.elements[refDes].model
@@ -666,11 +666,11 @@ def updateCirData(mainCircuit):
     - Checks if the referenced elements exist.
     """
     # Add global parameters
-    for parName in LIB.parDefs.keys():
+    for parName in list(LIB.parDefs):
         if parName not in mainCircuit.parDefs.keys():
             mainCircuit.parDefs[parName] = LIB.parDefs[parName]
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
-    for key in mainCircuit.parDefs.keys():
+    for key in list(mainCircuit.parDefs):
         newKey = sp.Symbol(key)
         mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
         del(mainCircuit.parDefs[key])

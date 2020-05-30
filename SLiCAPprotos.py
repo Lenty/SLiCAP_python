@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from SLiCAPini import *
+from SLiCAPhtml import *
 
 # Globals
 HIERARCHY   = []                # Check list for hierarchical loops

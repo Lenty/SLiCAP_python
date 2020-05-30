@@ -99,7 +99,7 @@ class matrix(sp.Matrix):
                     mult[i,j] = self.dotV(self[i,:],M2[:,j])
             return mult
         else:
-            print 'Incompatible matrix dimensions'
+            print('Incompatible matrix dimensions')
             
     def Cramer(self, colVector, colNumber):
         # Returns matrix with colVector substituted in column colNumber
@@ -160,7 +160,7 @@ def numRoots(expr, var):
         try:
             params.remove(var)
             if len(params) != 0:
-                print "Error: symbolic variables found, cannot determine roots."
+                print("Error: symbolic variables found, cannot determine roots.")
                 return []
         except:
             return []
@@ -232,7 +232,7 @@ if __name__ == "__main__":
     t1=time()
     roots = numRoots(DET,s)
     t2=time()
-    print roots, t2-t1
+    print(roots, t2-t1)
     MOD = MNA.Cramer([0,0,0,1,0,-1,0,0,0],3)
     roots = sp.roots(DET,s)
-    print roots
+    print(roots)
