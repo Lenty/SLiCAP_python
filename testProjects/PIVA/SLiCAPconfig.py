@@ -42,7 +42,7 @@ axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
 legendLoc       = 'best'
 
 # Project information
-PROJECT    = 'Test project'
+PROJECT    = 'PIVA'
 AUTHOR     = 'anton'
-CREATED    = '2020-06-04 21:29:12.336597'
-LASTUPDATE = '2020-06-04 21:30:55.081251'
+CREATED    = '2020-06-05 12:49:06.979405'
+LASTUPDATE = '2020-06-05 19:31:01.539009'

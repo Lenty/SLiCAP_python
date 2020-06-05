@@ -9,7 +9,7 @@ Created on Mon May  4 12:32:13 2020
 
 @author: anton
 """
-from SLiCAPhtml import *
+from SLiCAPprotos import *
 
 # list of token names
 
@@ -191,18 +191,11 @@ lexer = lex.lex()
 lexer.errCount = 0   
    
 if __name__ == '__main__':
-    """
-    files = os.listdir(PROJECTPATH + CIRCUITPATH)
-    for fi in files:
-        [cirFileName, ext] = fi.split('.')
-        if ext.lower() == 'cir':"""
-    fi = 'PIVA.cir'
+    fi = ini.installPath + 'testProjects/PIVA/cir/PIVA.cir'
     print fi
-    lexer = tokenize(PROJECTPATH + CIRCUITPATH + fi)
+    lexer = tokenize(fi)
     tok = lexer.token()
-    
     while tok:
         print tok
-        tok = lexer.token()
-    
+        tok = lexer.token() 
     print '\nnumber of errors =', lexer.errCount, '\n'

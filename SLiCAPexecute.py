@@ -387,3 +387,6 @@ def checkNumeric(expr, stepVar = None):
             elif par != stepVar and par != LAPLACE and par != FREQUENCY and par != OMEGA:
                 numeric = False
     return numeric
+
+if __name__ == '__main__':
+    pass

@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from SLiCAPprotos import *
+from SLiCAPlex import *
 
 class matrix(sp.Matrix):
     """SLiCAP matrix class for faster symbolic calculations.
@@ -274,7 +274,7 @@ def fullSubs(valExpr, parDefs):
     return valExpr
     
 if __name__ == "__main__":
-    s = sp.Symbol('s')
+    s = LAPLACE
     
     MNA = matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
                   [0, 1.98e-11*s + 0.0001, -1.2e-11*s, -1.8e-12*s - 1.0e-5, 0, 0, 0, 0, 0],

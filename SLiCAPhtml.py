@@ -20,46 +20,26 @@ HTMLEQLABELS = {}                # equation label dictionary:
                                  #      value = page
 HTMLPAGES    = []                # list with file names of html pages# Get the project path 
 
+# Initialize HTML globals
+ini.htmlIndex    = ''
+ini.htmlPrefix   = ''
+ini.htmlPage     = ''
+ini.htmlLabels   = {}
+ini.htmlEqLabels = {}
+ini.htmlPages    = []
+
 def startHTML(projectName):
     """
     Creates main project index page.
     """
     global HTMLINDEX, HTMLPAGES
-    HTMLINDEX = 'index.html'
+    ini.htmlIndex = 'index.html'
     toc = '<h2>Table of contents</h2>'
     HTML = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
-    f = open(PROJECTPATH + HTMLPATH + HTMLINDEX, 'w')
+    f = open(ini.htmlPath + ini.htmlIndex, 'w')
     f.write(HTML)
     f.close()
-    HTMLPAGES.append(HTMLINDEX)
-    return
-
-def changeIndex(indexPage):
-    """
-    Defines active HTML index page.
-    
-    ToDo: check if this page exists.
-    """
-    global HTMLINDEX
-    HTMLINDEX = indexPage
-    return
-
-def HTMLprefix(prefix):
-    """
-    Defines the prefix for HTML file names.
-    """
-    global HTMLPREFIX
-    HTMLPREFIX = prefix
-    return
-
-def changePage(pageName):
-    """
-    Defines the active HTML page.
-    
-    ToDo: check if this page exists.
-    """
-    global HTMLPAGE
-    HTMLPAGE = pageName
+    ini.htmlPages.append(ini.htmlIndex)
     return
 
 def HTMLhead(pageTitle):
@@ -135,32 +115,31 @@ def htmlPage(pageTitle, index = False):
     be placed on the current index page.
     The global HTMLINDEX holds the name of the current index page.
     """
-    global HTMLINDEX, HTMLPAGE, HTMLPAGES
     if index == True:
         # The page is a new index page
-        fileName = HTMLPREFIX + 'index.html'
+        fileName = ini.htmlPrefix + 'index.html'
         # Place link on old index page
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
-        insertHTML(PROJECTPATH + HTMLPATH + HTMLINDEX, href)
+        insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML file
         toc = '<h2>Table of contents</h2>'
         HTML = HTMLhead(pageTitle) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
-        writeFile(PROJECTPATH + HTMLPATH + fileName, HTML)
+        writeFile(ini.htmlPath + fileName, HTML)
         # Make this page the new index page
-        changeIndex(fileName)
+        ini.htmlIndex = fileName
     else:
-        fileName = HTMLPREFIX + '-'.join(pageTitle.split()) + '.html'
+        fileName = ini.htmlPrefix + '-'.join(pageTitle.split()) + '.html'
         # Place link on the current index page
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
-        insertHTML(PROJECTPATH + HTMLPATH + HTMLINDEX, href)
+        insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML page
         HTML = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(HTMLINDEX)
-        writeFile(PROJECTPATH + HTMLPATH + fileName, HTML)
+        writeFile(ini.htmlPath + fileName, HTML)
     # Make this page the active HTML page
-    changePage(fileName)
-    HTMLPAGES.append(fileName)
-    # Remove double entries in HTMLPAGES
-    getPages()
+    ini.htmlPage = fileName
+    ini.htmlPages.append(fileName)
+    # Remove double entries in ini.htmlPages
+    ini.htmlPages = list(set(ini.htmlPages))
     return(HTML)
     
 def head2html(headText, label=''):
@@ -168,10 +147,10 @@ def head2html(headText, label=''):
     Placed a level-2 heading on the active HTML page.
     """
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     html = '<h2>' + label + headText + '</h2>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def head3html(headText, label=''):
@@ -179,10 +158,10 @@ def head3html(headText, label=''):
     Placed a level-3 heading on the active HTML page.
     """
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     html = '<h3>' + label + headText + '</h3>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def text2html(txt):
@@ -190,21 +169,20 @@ def text2html(txt):
     Places txt on the active HTML page.
     """
     html = '<p>' + txt + '</p>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def netlist2html(fileName, label=''):
-    global HTMLLABELS
     """
     Places the netlist of HTMLCIRCUIT on HTMLPAGE
     """
     try:
         if label != '':
-            HTMLLABELS[label] = HTMLPAGE
+            ini.htmlLabels[label] = ini.htmlPage
             label = '<a id="' + label + '"></a>'
-        netlist = readFile(PROJECTPATH + CIRCUITPATH + fileName)
+        netlist = readFile(ini.circuitPath + fileName)
         html = '<h2>' + label + 'Netlist: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
-        insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+        insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print "Error: could not open netlist file: '%s'."%(fileName)
     return
@@ -219,9 +197,8 @@ def elementData2html(circuitObject, label = '', caption = ''):
     ToDo:
         Add HTML label.
     """
-    global HTMLLABELS
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     caption = "<caption>Table: Element data of expanded netlist '%s'<br>%s</caption>\n"%(circuitObject.title, caption)
     html = '%s<table>%s\n'%(label, caption)
@@ -250,16 +227,15 @@ def elementData2html(circuitObject, label = '', caption = ''):
                     html += '<tr><td></td><td></td><td></td><td></td><td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
                 i += 1
     html += '</table>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def params2html(circuitObject, label = '', caption = ''):
     """
     Displays all parameters with definitions and numeric value.
     """
-    global HTMLLABELS
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     caption = "<caption>Table: Parameter definitions in '%s'.<br>%s</caption>\n"%(circuitObject.title, caption)
     html = '%s<table>%s\n'%(label, caption)
@@ -278,7 +254,7 @@ def params2html(circuitObject, label = '', caption = ''):
             parName = '$' + sp.latex(par) + '$'
             html += '<tr><td class="left">' + parName +'</td></tr>\n'
         html += '</table>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def img2html(fileName, width, label = '', caption = ''):
@@ -287,31 +263,29 @@ def img2html(fileName, width, label = '', caption = ''):
     set by HTMLPATH in SLiCAPini.py and creates a link to this file on the 
     active html page.
     """
-    global HTMLLABELS
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     try:
-        cp(PROJECTPATH +IMGPATH + fileName, PROJECTPATH + HTMLPATH + 'img/' + fileName)
+        cp(ini.imgPath + fileName, ini.htmlPath + 'img/' + fileName)
     except:
         print("Error: could not copy: '%s'."%(fileName))
     html = '<figure>%s<img src="img/%s" alt="%s" style="width:%spx">\n'%(label, fileName, caption, width)
     if caption != '':
         html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(fileName, caption)
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def csv2html(fileName, label = '', separator = ',', caption = ''):
     """
     Displays the contents of a csv file as a table on the active HTML page.
     """
-    global HTMLLABELS
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     caption = '<caption>Table: %s<br>%s.</caption>'%(fileName, caption)
     html = '%s<table>%s'%(label, caption)
-    csvLines = readFile(PROJECTPATH + CSVPATH + fileName).splitlines()
+    csvLines = readFile(ini.csvPath + fileName).splitlines()
     for i in range(len(csvLines)):
         cells = csvLines[i].split(separator)
         html += '<tr>'
@@ -323,7 +297,7 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
                 html += '<td>%s</td>'%(cell)
         html += '</tr>\n'
     html += '</table>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def expr2html(expr, units = ''):
@@ -334,7 +308,7 @@ def expr2html(expr, units = ''):
         if units != '':
             units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
         html = '$' + sp.latex(sp.N(expr, DISP)) + units + '$'
-        insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+        insertHTML(ini.htmlPath + ini.htmlPage, html)
         return
     else:
         print "Error: expr2html, expected a Sympy expression."
@@ -349,7 +323,6 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     if arg1 == None or arg2 == None:
         return
     eqlabel = label
-    global HTMLLABELS, HTMLEQLABELS
     if not isinstance(arg1, tuple(sp.core.all_classes)):
         arg1 = sp.sympify(arg1)
     if not isinstance(arg2, tuple(sp.core.all_classes)):
@@ -357,14 +330,14 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     if units != '':
         units = '\\,\\left[ \\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
-        HTMLEQLABELS[label]= HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
+        ini.htmlEqLabels[label]= ini.htmlPage
         eqlabel = '\\label{' + label + '}\n'
         label   = '<a id="'+ label +'"></a>\n'
     html = label + '\\begin{equation}\n' + sp.latex(sp.N(arg1, DISP)) + '=' + sp.latex(sp.N(arg2, DISP)) + units + '\n'
     html += eqlabel
     html += '\\end{equation}\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 def matrices2html(instrObj, label = ''):
@@ -374,7 +347,6 @@ def matrices2html(instrObj, label = ''):
     ToDo:
         Add HTML label.
     """
-    global HTMLLABELS, HTMLEQLABELS
     eqlabel = ''
     if instrObj.errors != 0:
         print "Errors found during executeion."
@@ -388,15 +360,15 @@ def matrices2html(instrObj, label = ''):
         M  = sp.latex(sp.N(M,  DISP))
         Dv = sp.latex(sp.N(Dv, DISP))
         if label != '':
-            HTMLLABELS[label] = HTMLPAGE
-            HTMLEQLABELS[label]= HTMLPAGE
+            ini.htmlLabels[label] = ini.htmlPage
+            ini.htmlEqLabels[label]= ini.htmlPage
             eqlabel = '\\label{' + label + '}\n'
             label = '<a id="' + label + '"></a>'
         html = '<h3>' + label + 'Matrix equation:</h3>\n'
         html += '\\begin{equation}\n' + Iv + '=' + M + '\\cdot' + Dv + '\n'
         html += eqlabel
         html += '\\end{equation}\n'
-        insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+        insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print "Error: unexpected input for 'matrices2html()'."
     return
@@ -406,7 +378,6 @@ def pz2html(instObj, label = ''):
     Displays the DC transfer, and tables with poles and zeros on the active 
     HTML page.
     """
-    global HTMLLABELS
     if instObj.errors != 0:
         print "Errors found in instruction."
         return
@@ -417,7 +388,7 @@ def pz2html(instObj, label = ''):
         print "Error: parameter stepping not yet implemented for 'pz2html()'."
         return  
     if label != '':
-        HTMLLABELS[label] = HTMLPAGE
+        ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     (poles, zeros, DCgain) = (instObj.results.poles, instObj.results.zeros, instObj.results.DCvalue)
     if instObj.dataType == 'poles':
@@ -488,37 +459,10 @@ def pz2html(instObj, label = ''):
         html += '</table>\n'
     elif instObj.dataType == 'zeros' or instObj.dataType == 'pz':
         html += '<p>No zeros found.</p>\n'
-    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
 ### HTML links and labels
-    
-def getPages():
-    """
-    Returns a list of pages that have been generated. This list will be cleared
-    if the project is closed.
-    """
-    global HTMLPAGES
-    HTMLPAGES = list(set(HTMLPAGES))
-    return HTMLPAGES
-
-def getLabels():
-    return HTMLLABELS
-
-def getEqLabels():
-    return HTMLEQLABELS
-
-def clearPages():
-    global HTMLPAGES
-    HTMLPAGES = []
-    
-def clearLabels():
-    global HTMLLABELS
-    HTMLLABELS = {}
-    
-def clearEqLabels():
-    global HTMLEQLABELS
-    HTMLEQLABELS = {}
 
 def eqref(label):
     """
@@ -536,13 +480,14 @@ def href(label, linkText, fileName = ''):
     closing it after the first run, automaitcally detects all labels.
     """
     if fileName == '':
-        fileName = HTMLLABELS[label]
-    if fileName == HTMLPAGE:
+        fileName = ini.htmlLabels[label]
+    if fileName == ini.htmlPage:
         html = '<a href="#' +label+'">'+linkText+'</a>'
     else:
         html = '<a href="' + fileName + '#' +label+'">'+linkText+'</a>'
     return html
 
 if __name__ == '__main__':
-    setProjectPath('Project/')
+    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.htmlPath    = ini.projectPath + 'html/'
     startHTML('Test project') 

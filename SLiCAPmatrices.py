@@ -299,23 +299,18 @@ def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
     return (Iv, M, Vv)
 
 if __name__ == '__main__':
+    ini.projectPath = ini.installPath + 'testProjects/PIVA/'
+    ini.circuitPath = ini.projectPath + 'cir/'
+    ini.htmlPath    = ini.projectPath + 'html/'
+    ini.htmlIndex   = 'index.html'
+    ini.htmlPages = []
     t1=time()
     LIB = makeLibraries()
     t2=time()
-    """ 
-    import os
-    files = os.listdir('cir')
-    
-    for fi in files:
-        [cirFileName, ext] = fi.split('.')
-        if ext.lower() == 'cir':   
-    """
     fi = 'PIVA.cir'
-    
     print "\nCheking:", fi
     myCir = checkCircuit(fi )
     t3=time()
-    """
     keys = myCir.elements.keys()
     for key in keys:
         el = myCir.elements[key]
@@ -334,18 +329,17 @@ if __name__ == '__main__':
     for el in myCir.elements.keys():
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print el,'\t', par, N(parNum, DISP)
+            print el,'\t', par, sp.N(parNum, DISP)
     t5=time()
-    """
     (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, False)
     t6=time()
-    display.display(M)
+    print M
     (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, True)
     t7=time()
     #display.display(M)
     charPoly = M.determinant()
     t8=time()
-    display.display(charPoly)
+    print charPoly
     print "\nmakeLibraries         : %fs."%(t2-t1)
     print "checkCircuit          : %fs."%(t3-t2)
     print "makeMatrices symbolic : %fs."%(t6-t3)

@@ -8,7 +8,7 @@ Created on Sat May 23 10:47:15 2020
 
 from SLiCAP import *
 t1 = time()
-prj = initProject('My first SLiCAP project') # Creates the SLiCAP libraries and the
+prj = initProject('PIVA') # Creates the SLiCAP libraries and the
                           # project HTML index page
 
 fileName = 'PIVA.cir'
@@ -51,7 +51,6 @@ i1.dataType = 'laplace'
 Fs = i1.execute().results.laplace
 eqn2html('F_s', Fs, label = 'eq_gain')
 
-prj.close()
 t2=time()
 print t2-t1
 #os.system('firefox html/index.html')

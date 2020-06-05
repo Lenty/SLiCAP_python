@@ -10,7 +10,7 @@ Created on Mon May  4 12:32:13 2020
 @author: anton
 """
 
-from SLiCAPlex import *
+from SLiCAPhtml import *
 
 # Composite tokens
 NODES      = ['NODEID', 'ID', 'INT']
@@ -27,16 +27,15 @@ LIB = circuit()
 
 def checkCircuit(fileName):
     # fileName relative to PROJECTPATH + CIRCUITPATH
-    global CIRTITLES, HTMLPREFIX
     cir = circuit()
     cir.file = fileName
     if LIB.errors == 0:
-        cir.lexer = tokenize(PROJECTPATH + CIRCUITPATH + fileName)
+        cir.lexer = tokenize(ini.circuitPath + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:
             cir = updateCirData(cir)
-            HTMLprefix('-'.join(cir.title.split()) + '_')
-            changeIndex('index.html')
+            ini.htmlPrefix = ('-'.join(cir.title.split()) + '_')
+            ini.htmlIndex = 'index.html'
             htmlPage(cir.title, True)
             if cir.errors != 0:
                 print """Errors found during updating of circuit data from '%s'.
@@ -705,7 +704,7 @@ def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
-    fileName = INSTALLPATH + '/lib/SLiCAPmodels.lib'
+    fileName = ini.installPath + 'lib/SLiCAPmodels.lib'
     LIB = circuit()
     LIB.file = fileName
     LIB.lexer = tokenize(fileName)
@@ -716,7 +715,7 @@ def makeLibraries():
     else:
         # Do this also for other libs
         CIRTITLES = []
-        fileName = INSTALLPATH + '/lib/SLiCAP.lib'
+        fileName = ini.installPath + 'lib/SLiCAP.lib'
         cir = circuit()
         cir.file = fileName
         cir.lexer = tokenize(fileName)
@@ -788,27 +787,19 @@ def addUserLibs(fileNames):
 
 if __name__ == '__main__':
     """
-    Running this file will set 'PROJECTPATH' to the path of this file.
+    Since we are not running a project, we need to define the project directories.
     """
-    global PROJECTPATH
-    PROJECTPATH = INSTALLPATH + 'testProjects/MOSamp/'
+    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.circuitPath = ini.projectPath + 'cir/'
+    ini.htmlPath    = ini.projectPath + 'html/'
+    ini.htmlIndex   = 'index.html'
     t1=time()
     LIB = makeLibraries()
-    t2=time()
-    """ 
-    import os
-    files = os.listdir(PROJECTPATH + CIRCUITPATH)
-    
-    for fi in files:
-        [cirFileName, ext] = fi.split('.')
-        if ext.lower() == 'cir':   
-    """
+    t2=time()  
     fi = 'MOSamp.cir'
-    
     print "\nCheking:", fi
     myCir = checkCircuit(fi)
     t3=time()
-    """
     keys = myCir.elements.keys()
     for key in keys:
         el = myCir.elements[key]
@@ -827,6 +818,5 @@ if __name__ == '__main__':
     for el in myCir.elements.keys():
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print el,'\t', par, N(parNum, DISP)
+            print el,'\t', par, sp.N(parNum, DISP)
     t5=time()
-    """
