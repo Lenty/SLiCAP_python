@@ -7,11 +7,9 @@ Created on Sat May 30 11:10:18 2020
 """
 
 LOGFILE         = True
-LANGUAGE        = 'english' # Language for error and warnings:
-                            # not yet implemented
+LANGUAGE        = 'english' # Language for error and warnings
 DISP            = 4         # Numner of digits for floats in output
-MATHJAXLOCAL    = False     # Will be ignored, later it will be replaced with
-                            # a selection between mathml and MatJax cloud
+MATHJAXLOCAL    = False     # Local version of MathJax will be used if True
 
 LAPLACE         = 's'       # Laplace veriable
 FREQUENCY       = 'f'       # Frequency in Hz
@@ -42,7 +40,7 @@ axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
 legendLoc       = 'best'
 
 # Project information
-PROJECT    = 'Test project'
+PROJECT    = 'My first SLiCAP project'
 AUTHOR     = 'anton'
-CREATED    = '2020-06-04 21:24:40.979087'
-LASTUPDATE = '2020-06-04 21:24:40.979087'
+CREATED    = '2020-06-04 16:17:06.407070'
+LASTUPDATE = '2020-06-04 21:23:08.083773'
