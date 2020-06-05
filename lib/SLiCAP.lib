@@ -6,39 +6,39 @@
 .model AD8610 OV 
 + cd = 15p  ; differential-mode input capacitance
 + cc = 8p   ; common-mode input capacitance
-+ av = {300k*(1-s/2/PI/120M)/(1+s*300k/2/PI/20M)/(1+s/2/PI/120M)} ; voltage gain
++ av = {300k*(1-s/2/pi/120M)/(1+s*300k/2/pi/20M)/(1+s/2/pi/120M)} ; voltage gain
 + zo = 20   ; output impedance
 
 .model AD8610_A0 OV 
 + cd = 15p  ; differential-mode input capacitance 
 + cc = 8p   ; common-mode input capacitance
-+ av = {A_0*(1-s/2/PI/120M)/(1+s*300k/2/PI/20M)/(1+s/2/PI/120M)} ; voltage gain 
++ av = {A_0*(1-s/2/pi/120M)/(1+s*300k/2/pi/20M)/(1+s/2/pi/120M)} ; voltage gain 
 + zo = 20   ; output impedance
 
 .model AD8065 OV 
 + cd = 4.5p ; differential-mode input capacitance 
 + cc = 2.1p ; common-mode input capacitance 
-+ av = {300k*(1-s/2/PI/250M)/(1+s*300k/2/PI/60M)/(1+s/2/PI/250M)} ; voltage gain 
++ av = {300k*(1-s/2/pi/250M)/(1+s*300k/2/pi/60M)/(1+s/2/pi/250M)} ; voltage gain 
 + zo = 3k   ; output impedance
 
 .model AD8065_A0 OV 
 + cd = 4.5p ; differential-mode input capacitance 
 + cc = 2.1p ; common-mode input capacitance 
-+ av = {A_0*(1-s/2/PI/250M)/(1+s*300k/2/PI/60M)/(1+s/2/PI/250M)} ; voltage gain 
++ av = {A_0*(1-s/2/pi/250M)/(1+s*300k/2/pi/60M)/(1+s/2/pi/250M)} ; voltage gain 
 + zo = 3k   ; output impedance
 
 .model OPA211 OV 
 + cd = 8p  ; differential-mode input capacitance 
 + gd = 50u ; differential-mode input conductance 
 + cc = 2p  ; common-mode input capacitance 
-+ av = {0.67M*(1+s/2/PI/40M)/(1+s/2/PI/120)/(1+s/2/PI/20M)} ; voltage gain 
++ av = {0.67M*(1+s/2/pi/40M)/(1+s/2/pi/120)/(1+s/2/pi/20M)} ; voltage gain 
 + zo = {3.6k/(1+s*3.6k*8u) + 0.7 + s*900n*60/(60+s*900n)}   ; output impedance
 
 .model OPA211_A0 OV 
 + cd = 8p  ; differential-mode input capacitance 
 + gd = 50u ; differential-mode input conductance 
 + cc = 2p  ; common-mode input capacitance 
-+ av = {A_0*(1+s/2/PI/40M)/(1+s/2/PI/120)/(1+s/2/PI/20M)}   ; voltage gain 
++ av = {A_0*(1+s/2/pi/40M)/(1+s/2/pi/120)/(1+s/2/pi/20M)}   ; voltage gain 
 + zo = {3.6k/(1+s*3.6k*8u) + 0.7 + s*900n*60/(60+s*900n)}   ; output impedance
 
 .model OPA300_A0 OV
@@ -147,7 +147,7 @@ M1 drain gate source bulk CMOS18N
 + I_0     = {2*N_s*u_0*C_OX*U_T^2}
 + C_OX    = {epsilon_0*epsilon_SiO2/TOX}
 + V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC))-1)+Vth}
-+ f_T     = {g_m/2/PI/c_iss}
++ f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 * technology parameters (SI units)
 + Vth     = 0.36 ; threshold voltage
@@ -216,7 +216,7 @@ M1 drain gate source bulk CMOS18N_V
 + c_db    = {(N_s-1)*c_dgi+C_db0}
 + c_sb    = {(N_s-1)*c_gsi+C_sb0}
 + c_iss   = {c_gs+c_dg+c_gb}
-+ f_T     = {g_m/2/PI/c_iss}
++ f_T     = {g_m/2/pi/c_iss}
 * technology parameters (SI units)
 + Vth     = 0.36 ; threshold voltage
 + CGBO    = 1p   ; gate-bulk overlap capacitance
@@ -309,7 +309,7 @@ M1 drain gate source bulk CMOS18P
 + I_0     = {2*N_s*u_0*C_OX*U_T^2}
 + C_OX    = {epsilon_0*epsilon_SiO2/TOX}
 + V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC))-1)+Vth}
-+ f_T     = {g_m/2/PI/c_iss}
++ f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 * technology parameters (SI units)
 + Vth     = 0.36 ; threshold voltage
@@ -378,7 +378,7 @@ M1 drain gate source bulk CMOS18P_V
 + c_db    = {(N_s-1)*c_dgi+C_db0}
 + c_sb    = {(N_s-1)*c_gsi+C_sb0}
 + c_iss   = {c_gs+c_dg+c_gb}
-+ f_T     = {g_m/2/PI/c_iss}
++ f_T     = {g_m/2/pi/c_iss}
 * technology parameters (SI units)
 + Vth     = 0.36; threshold voltage
 + CGBO    = 1p   ; gate-bulk overlap capacitance
@@ -546,7 +546,7 @@ Q1 collector1 collector2 base1 base2 BJTD
 * CMOS18 N device: copy and modify this model for other devices
 I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/F^AF)} ; channel noise current
 H1 ext int 1 10 {1/g_m}       ; equivalent-input voltage noise
-F1 ext comm 10 0 {s/2/PI/f_T} ; gate-induced noise
+F1 ext comm 10 0 {s/2/pi/f_T} ; gate-induced noise
 I2 ext comm I value=0 noise={2*q*IG} ; gate shot noise
 .param
 * device equations MKV model saturated region
@@ -557,7 +557,7 @@ I2 ext comm I value=0 noise={2*q*IG} ; gate shot noise
 + c_dg    = {CGSO*W}
 + c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
 + c_db    = {CJB0*W*LDS}
-+ f_T     = {g_m/2/PI/c_iss}
++ f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC      = {ID*L/W/I_0}
 + I_0     = {2*N_s*u_0*C_OX*U_T^2}
@@ -582,7 +582,7 @@ I2 ext comm I value=0 noise={2*q*IG} ; gate shot noise
 * CMOS18 P device: copy and modify this model for other devices
 I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/F^AF)}     ; channel noise current
 H1 ext int 1 10 {1/g_m}                               ; equivalent-input voltage noise
-F1 ext comm 10 0 {s/2/PI/f_T}                         ; gate-induced input current noise
+F1 ext comm 10 0 {s/2/pi/f_T}                         ; gate-induced input current noise
 I2 ext comm I value=0 noise={2*q*IG}                  ; gate shot noise
 .param
 * device equations MKV model saturated region
@@ -593,7 +593,7 @@ I2 ext comm I value=0 noise={2*q*IG}                  ; gate shot noise
 + c_dg    = {CGSO*W}
 + c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
 + c_db    = {CJB0*W*LDS}
-+ f_T     = {g_m/2/PI/c_iss}
++ f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC      = {ID*L/W/I_0}
 + I_0     = {2*N_s*u_0*C_OX*U_T^2}

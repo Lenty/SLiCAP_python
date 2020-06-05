@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from SLiCAPyacc import *
+from SLiCAPprotos import *
 
 class matrix(sp.Matrix):
     """SLiCAP matrix class for faster symbolic calculations.
@@ -110,37 +110,17 @@ class matrix(sp.Matrix):
         newMatrix[:,colNumber] = colVector
         return newMatrix
 
-def polyDict(expr ,var):
+def polyCoeffs(expr, var):
     """
-    Returns a dictionary with coefficients of 's'. They keys represent the
-    corresponding order of the coefficient. To be used for circuit expansion
-    of polynomials.
-    Two to 25 times faster than sympy's Poly(expr, var).as_dict().
-    Should only be used with expressions that can be written as poly.
+    Returns a list with coefficients of 'var' in descending order.
     """
     if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
-        expr = sp.collect(expr, var)     # collect power terms
-        terms = expr.as_coeff_add(var)   # write them as a sum of terms
-        exprDict = {}
-        exprDict[0] = terms[0]           # zero order coefficient
-        coeffList = [0]                  # initialize list for coefficients
-        expr = terms[1]                  # tuple with coefficients of nonzero order
-        for coeff in expr:              
-            coeff = coeff.as_independent(var)
-            if coeff[1] == var:          # first order coefficient
-                exprDict[1] = coeff[0]
-                coeffList.append(1)
-            else:                        # higher order coefficients
-                order = int(str(coeff[1]).split(str(var)+'**')[1])
-                exprDict[order] = coeff[0]
-                coeffList.append(order)
-            coeffList.sort()
-        for i in range(coeffList[len(coeffList)-1]):
-            if i not in coeffList:
-                exprDict[i] = 0
-        return exprDict
-    return {}
-    
+        #print expr.expand(basic = True)
+        exprPoly = sp.poly(expr, LAPLACE)
+        coeffs = exprPoly.all_coeffs()
+        return coeffs
+    return []
+
 def numRoots(expr, var):
     """ 
     Using numpy for calculation of numeric roots is about 60 times faster than 
@@ -164,13 +144,8 @@ def numRoots(expr, var):
                 return []
         except:
             return []
-        coeffs = []
-        coeffDict = polyDict(expr, var)
-        order = len(coeffDict.keys())
-        for i in range(order):
-            coeffs.append(coeffDict[order-1-i])
-        coeffs = np.array(coeffs)
-        roots = np.roots(coeffs)
+        exprPoly = sp.Poly(expr, LAPLACE)
+        roots = np.roots(np.array(exprPoly.all_coeffs()))
         return np.flip(roots, 0)
     return []
     
@@ -199,21 +174,104 @@ def makeLaplaceRational(gain, zeros, poles):
         elif sp.im(p) > 0:
             Fs /= (LAPLACE**2 - 2*sp.re(p)*LAPLACE + sp.re(p)**2 + sp.im(p)**2)
     return(Fs)
+
+def normalizeLaplaceRational(numer, denom):
+    """
+    Normalizes a Laplace rational:
+        
+        F(s) = gain * s^l (1+b_1*s + ... + b_m*s^m)/ (1+a_1*s + ... + a_n*s^n)
+
+        with l zero if there is a finite nonzero zero-frequency value, else
+        positive or negative
+        
+    """
+    coeffsNumer = polyCoeffs(numer, LAPLACE)
+    nNumer = len(coeffsNumer)
+    coeffsDenom = polyCoeffs(denom, LAPLACE)
+    nDenom = len(coeffsDenom)
+    # find coefficient of LAPLACE of the lowest order of the denominator:
+    i = 0
+    coeffD = 1 # Just a nonzero startvalue
+    while coeffD != 0.:
+        coeffD = coeffsDenom[i]
+        i += 1
+        if i == nDenom:
+            break
+    i = 0
+    coeffN = 1 # Just a nonzero startvalue
+    while coeffN != 0.:
+        coeffN = coeffsNumer[i]
+        i += 1
+        if i == nNumer:
+            break
+    numer = 0
+    denom = 0
+    # normalize coefficients and construct the rational
+    gain = sp.simplify(coeffN/coeffD)
+    for j in range(len(coeffsNumer)):
+        numer += sp.simplify(coeffsNumer[j]/coeffD/gain)*LAPLACE**(nNumer-j-1)
+    for j in range(len(coeffsDenom)):
+        denom += sp.simplify(coeffsDenom[j]/coeffD)*LAPLACE**(nDenom-j-1)
+    return gain*(numer/denom)
+
+def cancelPZ(poles,zeros):
+    """
+    Cancels poles and zeros that coincide within the displayed accuracy.
+    """
+    newPoles = []
+    newZeros = []
+    # make a copy of the lists of poles and zeros, this one will be modified
+    for i in range(len(poles)):
+        newPoles.append(poles[i])
+    for i in range(len(zeros)):
+        newZeros.append(zeros[i])
+    for i in range(len(poles)):
+        for j in range(len(zeros)):
+            if abs(sp.re(poles[i]) - sp.re(zeros[j])) <= 10**(-DISP)*abs(sp.re(poles[i]) + sp.re(zeros[j]))/2 \
+            and abs(sp.im(poles[i]) - sp.im(zeros[j])) <= 10**(-DISP)*abs(sp.im(poles[i]) + sp.im(zeros[j]))/2:
+                newPoles.remove(poles[i])
+                newZeros.remove(zeros[j])             
+    return(newPoles, newZeros)
     
 def checkNumber(var):
     """
-    Returns a number with its value represented by var, or False if var
+    Returns a number with its value represented by var, or None if var
     does not represent a number.
     """
     if type(var) == str:
         var = replaceScaleFactors(var)
     else:
         var = str(var)
-    if var.isnumeric():
+    try:
         number = eval(var)
         return number
-    else:
-        return False
+    except:
+        return None
+
+def fullSubs(valExpr, parDefs):
+    """
+    Returns the valExpr after all parameters of parDefs have been substituted
+    recursively into valExpr.
+    parDefs is a dictionary in which the keys are sympy symbols. The type of 
+    the value fields may be any sympy type, integer or float.
+    """
+    strValExpr = str(valExpr)
+    i = 0
+    newvalExpr = 0
+    while valExpr != newvalExpr and i < MAXRECSUBST and isinstance(valExpr, tuple(sp.core.all_classes)):
+        # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
+        substDict = {}
+        params = list(valExpr.free_symbols)
+        for param in params:
+            if param in parDefs.keys():
+                substDict[param] = parDefs[param]
+        # perform the substitution
+        newvalExpr = valExpr
+        valExpr = newvalExpr.subs(substDict)
+        i += 1
+    if i == MAXRECSUBST:
+        print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
+    return valExpr
     
 if __name__ == "__main__":
     s = sp.Symbol('s')

@@ -1,4 +1,0 @@
-"Settling time"
-V1 1 0 1
-E1 2 0 1 0 {1/(1+s/2/pi/B)}
-.end

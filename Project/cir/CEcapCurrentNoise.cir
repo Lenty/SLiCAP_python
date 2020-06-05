@@ -1,9 +1,0 @@
-"CE-stage noise"
-V1 2 1 V noise = {4*K_B*T_N*r_b} 
-C1 2 0 {C_s}
-I2 out 0 I noise = {2*q_e*I_c/beta_DC*(1+f_ell/F)} 
-I1 2 0 0
-.param T_N=300 K_B=1.38e-23 q_e=1.6E-19 beta_DC=100 r_b=30 C_s=50p f_ell=1k
-V2 3 out V noise = {2*(K_B*T_N)^2/q_e/I_c}
-R1 1 3 {r_b}
-.end

@@ -9,19 +9,70 @@ from SLiCAPinstruction import *
 
 class SLiCAPproject(object):
     """
-    Prototype of a SLiCAPproject.
+    Prototype of a SLiCAPproject:
     
-    ToDo:
-    
-        Try to open a file in which all the project information is stored:
-        If it doens't exist create it with a method after the project data
-        has been updated manually
+    - Copies the directory structure from the templates subdirectory to the
+      project directory in the case it has not yet been created.
+    - Creates index.html in the html directory
+    - Creates the system libraries
+    - Updates 'SLiCAPconfig.py'
     """
     def __init__(self, name):
         self.name = name
         self.lastUpdate = datetime.now()
-        self.created = self.lastUpdate
         self.author = getpass.getuser()
+        try:
+            ct(INSTALLPATH + 'templates/html', PROJECTPATH + 'html')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/cir', PROJECTPATH + 'cir')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/csv', PROJECTPATH + 'csv')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/img', PROJECTPATH + 'img')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/lib', PROJECTPATH + 'lib')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/mathml', PROJECTPATH + 'mathml')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/tex', PROJECTPATH + 'tex')
+        except:
+            pass
+        try:
+            ct(INSTALLPATH + 'templates/txt', PROJECTPATH + 'txt')
+        except:
+            pass
+        if not os.path.exists(PROJECTPATH + 'SLiCAPconfig.py'):
+            f = open(INSTALLPATH + 'SLiCAPconfig.py', 'r')
+            txt = f.read()
+            f.close()
+            txt += '\n\n# Project information'
+            txt += '\nPROJECT    = ' + '\'' + self.name + '\'' 
+            txt += '\nAUTHOR     = ' + '\'' + self.author + '\'' 
+            txt += '\nCREATED    = ' + '\'' + str(self.lastUpdate) + '\'' 
+            txt += '\nLASTUPDATE = ' + '\'' + str(self.lastUpdate) + '\'' 
+            f = open(PROJECTPATH + 'SLiCAPconfig.py', 'w')
+            f.write(txt)
+            f.close()
+        else:
+            f = open(PROJECTPATH + 'SLiCAPconfig.py', 'r')
+            lines = f.readlines()[0:-1]
+            f.close()
+            lines.append('LASTUPDATE = ' + '\'' + str(self.lastUpdate) + '\'')
+            f = open(PROJECTPATH + 'SLiCAPconfig.py', 'w')
+            f.writelines(lines)
+            f.close()
         startHTML(name)
         makeLibraries()
     def close(self):
@@ -35,7 +86,7 @@ class SLiCAPproject(object):
 def initProject(name):
     prj = SLiCAPproject(name)
     return prj
-  
+
 if __name__ == '__main__':
     t1 = time()
     #### initProject #########################################################
@@ -51,12 +102,12 @@ if __name__ == '__main__':
         #### HTML circuit data ###############################################
         htmlPage('Circuit data')
         img2html('PIVA.svg', 1000, caption='Schematic diagram of the PIVA')
-        netlist2html()
-        elementData2html(label='elData')
-        params2html()
+        netlist2html('PIVA.cir')
+        elementData2html(myCir, label='elData')
+        params2html(myCir, label = 'params')
         t4 = time()
         #### MNA symbolic ####################################################
-        MNA = makeMatrices(myCir, numeric = False)
+        MNA = makeMatrices(myCir, myCir.parDefs, numeric = False)
         htmlPage('Symbolic matrix equation')
         matrices2html(MNA)
         csv2html('opAmpSpec.csv', caption = 'Some opamp spec', label='tab-spec')

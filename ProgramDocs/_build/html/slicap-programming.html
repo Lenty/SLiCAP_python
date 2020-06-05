@@ -93,16 +93,17 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">SLiCAP open-source</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ToDo.html">ToDo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configure.html">SLiCAP configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">SLiCAP math library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">SLiCAP output documents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
@@ -189,7 +190,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configure.html">SLiCAP configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="configure.html#basic-user-configuration">Basic user configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure.html#basic-slicap-configuration">Basic SLiCAP configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configure.html#change-or-add-built-in-models-and-devices">Change or add built-in models and devices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">SLiCAP math library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="html.html#html-head-foot-and-insert">HTML head, foot and insert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html.html#user-functions">User functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html.html#working-with-labels-and-links">Working with labels and links</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a><ul>
@@ -202,11 +213,6 @@
 <li class="toctree-l2"><a class="reference internal" href="parsingMethod.html#creation-of-a-nested-circuit-object-from-the-tokens">Creation of a nested circuit object from the tokens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parsingMethod.html#expansion-of-the-models-and-the-sub-circuits">Expansion of the models and the sub circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parsingMethod.html#updating-of-circuit-data">Updating of circuit data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parsingMethod.html#recursive-substitution">Recursive substitution</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="library.html#user-libraries">User libraries</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a><ul>
@@ -218,27 +224,14 @@
 <li class="toctree-l2"><a class="reference internal" href="subCircuits.html#parsing-of-the-parameters">Parsing of the parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="errorHandling.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="errorHandling.html#during-circuit-checking">During circuit checking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library.html#user-libraries">User libraries</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="matrices.html#slicap-math-library">SLiCAP math library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="matrices.html#mna-matrices">MNA matrices</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">SLiCAP output documents</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#the-project-data-dictionary">The project data dictionary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#the-report-list">The report list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#generating-reports-from-the-report-list">Generating reports from the report list</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="html.html#html-head-foot-and-insert">HTML head, foot and insert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="html.html#user-functions">User functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="html.html#working-with-labels-and-links">Working with labels and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="execute.html#execute-without-stepping">Execute without stepping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="execute.html#stepping-of-parameters">Stepping of parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>

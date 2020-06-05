@@ -26,16 +26,17 @@ CIRTITLES = []
 LIB = circuit()
 
 def checkCircuit(fileName):
+    # fileName relative to PROJECTPATH + CIRCUITPATH
     global CIRTITLES, HTMLPREFIX
     cir = circuit()
     cir.file = fileName
     if LIB.errors == 0:
-        cir.lexer = tokenize(CIRCUITPATH + fileName)
+        cir.lexer = tokenize(PROJECTPATH + CIRCUITPATH + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:
             cir = updateCirData(cir)
             HTMLprefix('-'.join(cir.title.split()) + '_')
-            HTMLindex('index.html')
+            changeIndex('index.html')
             htmlPage(cir.title, True)
             if cir.errors != 0:
                 print """Errors found during updating of circuit data from '%s'.
@@ -667,7 +668,7 @@ def updateCirData(mainCircuit):
         elif mainCircuit.elements[elmt].type in CONTROLLED:
             mainCircuit.controlled.append(elmt)
         for i in range(len(MODELS[mainCircuit.elements[elmt].model].depVars)):
-            depVar = MODELS[mainCircuit.elements[elmt].type].depVars[i]
+            depVar = MODELS[mainCircuit.elements[elmt].model].depVars[i]
             mainCircuit.depVars.append(depVar + '_' + elmt)
             mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
             varIndexPos += 1
@@ -694,7 +695,7 @@ def updateCirData(mainCircuit):
     if '0' not in mainCircuit.nodes:
         mainCircuit.errors += 1
         print "Error: could not find ground node '0'."
-    for i in range(len(mainCircuit.nodes))  :
+    for i in range(len(mainCircuit.nodes)):
         mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
         mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
         varIndexPos += 1
@@ -704,7 +705,7 @@ def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
-    fileName = LIBRARYPATH + 'SLiCAPmodels.lib'
+    fileName = INSTALLPATH + '/lib/SLiCAPmodels.lib'
     LIB = circuit()
     LIB.file = fileName
     LIB.lexer = tokenize(fileName)
@@ -715,7 +716,7 @@ def makeLibraries():
     else:
         # Do this also for other libs
         CIRTITLES = []
-        fileName = LIBRARYPATH + 'SLiCAP.lib'
+        fileName = INSTALLPATH + '/lib/SLiCAP.lib'
         cir = circuit()
         cir.file = fileName
         cir.lexer = tokenize(fileName)
@@ -741,20 +742,20 @@ def addUserLibs(fileNames):
     """
     global CIRTITLES, LIB
     for fi in fileNames:
-        # Do not include the standard library "SLiCAP.lib"
+        # The standard library "SLiCAP.lib" has already been included.
         libFile = fi.split('.')
         try:
             if libFile[0] != 'SLiCAP' and libFile[1].upper() != 'LIB':
                 try:
                     # first libraries in circuit directory
-                    f = open(CIRPATH + fi, "r")
-                    fileName = CIRPATH + fi
+                    f = open(PROJECTPATH + CIRPATH + fi, "r")
+                    fileName = PROJECTPATH + CIRPATH + fi
                     f.close()
                 except:
                     try:
-                        # then libraries in user library directory
-                        f = open(LIBRARYPATH + fi, "r")
-                        fileName = LIBRARYPATH + fi
+                        # then libraries in the user library directory
+                        f = open(PROJECTPATH + LIBRARYPATH + fi, "r")
+                        fileName = PROJECTPATH + LIBRARYPATH + fi
                         f.close()
                     except:
                         try:
@@ -767,7 +768,7 @@ def addUserLibs(fileNames):
                             fileName = False
                 if fileName != False:
                     cir = circuit()
-                    cir.file = fileName
+                    cir.file = fi
                     cir.lexer = tokenize(fileName)
                     cir = makeCircuit(cir)
                     if cir.errors != 0:
@@ -786,12 +787,17 @@ def addUserLibs(fileNames):
     return()
 
 if __name__ == '__main__':
+    """
+    Running this file will set 'PROJECTPATH' to the path of this file.
+    """
+    global PROJECTPATH
+    PROJECTPATH = INSTALLPATH + 'testProjects/MOSamp/'
     t1=time()
     LIB = makeLibraries()
     t2=time()
     """ 
     import os
-    files = os.listdir('cir')
+    files = os.listdir(PROJECTPATH + CIRCUITPATH)
     
     for fi in files:
         [cirFileName, ext] = fi.split('.')

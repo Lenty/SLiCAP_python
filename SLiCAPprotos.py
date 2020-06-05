@@ -52,8 +52,8 @@ class circuit(object):
                                 # can be used as loop gain reference
         self.varIndex   = {}    # Dictionary with index of node or dependent
                                 # current (speeds up the building of the matrix)
-                                #   key   : node name of current name
-                                #   value : position in the vactor with
+                                #   key   : node name or current name
+                                #   value : position in the vector with
                                 #           dependent variables
     
     def delPar(self, parName):
@@ -66,10 +66,35 @@ class circuit(object):
         self.updateParams()
         return
         
-    def getParValue(self, parName):
+    def getParValue(self, parNames, numeric = False):
         # single params and multiple.
-        return
-    
+        if type(parNames) == list:
+            parValues = {}
+            for par in parNames:
+                if type(par) == str:
+                    par = sp.Symbol(par)
+                for key in self.parDefs.keys():
+                    if par == key:
+                        if numeric == True:
+                            parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
+                        else:
+                           parValues[par] = self.parDefs[key]          
+            return parValues
+        elif type(parNames) == str:
+            parNames = sp.Symbol(parNames)
+        if isinstance(parNames, tuple(sp.core.all_classes)):
+            try:
+                if numeric:
+                    parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
+                else:
+                    parValue = self.parDefs[parNames]
+            except:
+                print "Error: parameter '%s' has not beed defined."%(str(parNames))
+                parValue = None
+        else:
+            parValue = None
+        return parValue
+
     def updateParams(self):
         """
         Updates self.params (undefined parameters) after modification of 
@@ -78,7 +103,7 @@ class circuit(object):
         """    
         self.params =[]
         for elmt in self.elements.keys():
-            for par in self.elements[elmt].params:
+            for par in self.elements[elmt].params.keys():
                 try:
                     self.params += list(self.elements[elmt].params[par].free_symbols)
                 except:
@@ -89,7 +114,27 @@ class circuit(object):
             if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in self.parDefs.keys():
                 self.append(par)
         self.params = undefined
-    
+        return
+        
+    def updateMdata(self):
+        """
+        Updates data for building matrices: self.depVars and self.varIndex
+        """
+        self.depVars = []
+        self.varIndex = {}
+        varIndexPos = 0
+        for elmt in self.elements.keys():
+            for i in range(len(MODELS[self.elements[elmt].model].depVars)):
+                depVar = MODELS[self.elements[elmt].model].depVars[i]
+                self.depVars.append(depVar + '_' + elmt)
+                self.varIndex[depVar + '_' + elmt] = varIndexPos
+                varIndexPos += 1
+        for i in range(len(self.nodes)):
+            self.depVars.append('V_' + self.nodes[i])
+            self.varIndex[self.nodes[i]] = varIndexPos
+            varIndexPos += 1
+        return
+
 class element(object):
     # Circuit element object
     def __init__(self):

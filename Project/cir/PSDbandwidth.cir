@@ -1,9 +1,0 @@
-"Bandwidth verification"
-.include SLiCAP.lib
-O1 0 1 out 0 AD8610 
-R1 1 0 {R_PSD}
-I1 1 0 I value=150p dc=0 dcvar=0 noise=0
-.param C_PSD=20p R_PSD=85k C_i=37.5p
-C1 1 0 {C_PSD/2}
-C2 1 out {C_i}
-.end

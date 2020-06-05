@@ -96,42 +96,55 @@ def maxNumer(M, detP, detN, srcP, srcN):
         
         numer = + cofactor(srcP, detP) - cofactor(srcN, detP) 
                 - cofactor(srcP, detN) + cofactor(srcN, detN)
-    cofactor(i,j = (-1)^(i+j)*det(minor(i,j))
+    cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))
     
     The minor matrices and the multiplication factors are determined with Sympy,
     the determinants are calculated with Maxima.
     """
     # Create a list of matrices of which the determinant needt to be calculated
     matrices = []
-    if type(detP) != bool:
-        if type(srcP) != bool:
+    if detP != None:
+        if srcP != None:
             if (detP + srcP)%2 == 0:
-                matrices.append(M.minor_submatrix(detP, srcP))
+                matrices.append(M.minor_submatrix(srcP, detP))
             else:
-                matrices.append(-M.minor_submatrix(detP, srcP))
-        if type(srcN) != bool:
-            if (detP + srcP)%2 == 0:
-                matrices.append(-M.minor_submatrix(detP, srcN))
+                matrices.append(-M.minor_submatrix(srcP, detP))
+        if srcN != None:
+            if (detP + srcN)%2 == 0:
+                matrices.append(-M.minor_submatrix(srcN, detP))
             else:
-                matrices.append(M.minor_submatrix(detP, srcN))
-    if type(detN) != bool:
-        if type(srcP) != bool:
+                matrices.append(M.minor_submatrix(srcN, detP))
+    if detN != None:
+        if srcP != None:
             if (detN + srcP)%2 == 0:
-                matrices.append(-M.minor_submatrix(detN, srcP))
+                matrices.append(-M.minor_submatrix(srcP, detN))
             else:
-                matrices.append(M.minor_submatrix(detN, srcP))
-        if type(srcN) != bool:
-            if (detP + srcP)%2 == 0:
-                matrices.append(M.minor_submatrix(detN, srcN))
+                matrices.append(M.minor_submatrix(srcP, detN))
+        if srcN != None:
+            if (detN + srcN)%2 == 0:
+                matrices.append(M.minor_submatrix(srcN, detN))
             else:
-                matrices.append(-M.minor_submatrix(detN, srcN))
+                matrices.append(-M.minor_submatrix(srcN, detN))
     # Create the Maxima instruction
     maxExpr = 'result:bfloat(expand('
     for M in matrices:
-        maxExpr += 'newdet(',+ sympy2maximaMatrix(M) + ')+'
-    maxExpr = '0));'
-    result = sp.sympify(maxEval(maxExpr))
-    return(result)
+        maxExpr += 'newdet(' + sympy2maximaMatrix(M) + ') +'
+    maxExpr += '0));'
+    return sp.sympify(maxEval(maxExpr))
     
+def maxLimit(expr, var, val, pm):
+    """
+    Calculated the limit of an expression for 'var' approaches 'val' from 'pm'.
+    expr: sympy expression or string
+    var:  string representing the variable
+    val:  string representing the limit value of the variable
+    pm:   'plus' or 'minus'
+    """
+    maxExpr = 'result:bfloat(limit(' + str(expr) + ',' + var + ',' + val + ',' + pm +' ));'
+    return sp.sympify(maxEval(maxExpr))
+
 def maxCramer():
+    """
+    ToDo
+    """
     return

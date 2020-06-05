@@ -6,7 +6,7 @@ Created on Wed May 20 17:36:05 2020
 @author: anton
 """
 
-from SLiCAPprotos import *
+from SLiCAPpythonMaxima import *
 
 HTMLINSERT   = '<!-- INSERT -->' # pattern to be replaced in html files
 HTMLINDEX    = 'index.html'      # will be set by initProject()
@@ -18,8 +18,8 @@ HTMLLABELS   = {}                # label dictionary:
 HTMLEQLABELS = {}                # equation label dictionary:
                                  #      key   = label
                                  #      value = page
-HTMLPAGES    = []                # list with file names of html pages
- 
+HTMLPAGES    = []                # list with file names of html pages# Get the project path 
+
 def startHTML(projectName):
     """
     Creates main project index page.
@@ -28,13 +28,13 @@ def startHTML(projectName):
     HTMLINDEX = 'index.html'
     toc = '<h2>Table of contents</h2>'
     HTML = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
-    f = open(HTMLPATH + HTMLINDEX, 'w')
+    f = open(PROJECTPATH + HTMLPATH + HTMLINDEX, 'w')
     f.write(HTML)
     f.close()
     HTMLPAGES.append(HTMLINDEX)
     return
 
-def HTMLindex(indexPage):
+def changeIndex(indexPage):
     """
     Defines active HTML index page.
     
@@ -52,7 +52,7 @@ def HTMLprefix(prefix):
     HTMLPREFIX = prefix
     return
 
-def HTMLpage(pageName):
+def changePage(pageName):
     """
     Defines the active HTML page.
     
@@ -74,6 +74,7 @@ def HTMLhead(pageTitle):
     HTML += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
     HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
     HTML += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
+    HTML += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'
     if MATHJAXLOCAL == True:
         print 'MathJax version 3 is not installed. Only web access is supported!'
         # see http://docs.mathjax.org/en/latest/web/hosting.html
@@ -140,23 +141,23 @@ def htmlPage(pageTitle, index = False):
         fileName = HTMLPREFIX + 'index.html'
         # Place link on old index page
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
-        insertHTML (HTMLPATH + HTMLINDEX, href)
+        insertHTML(PROJECTPATH + HTMLPATH + HTMLINDEX, href)
         # Create the new HTML file
         toc = '<h2>Table of contents</h2>'
         HTML = HTMLhead(pageTitle) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
-        writeFile(HTMLPATH + fileName, HTML)
+        writeFile(PROJECTPATH + HTMLPATH + fileName, HTML)
         # Make this page the new index page
-        HTMLindex(fileName)
+        changeIndex(fileName)
     else:
         fileName = HTMLPREFIX + '-'.join(pageTitle.split()) + '.html'
         # Place link on the current index page
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
-        insertHTML(HTMLPATH + HTMLINDEX, href)
+        insertHTML(PROJECTPATH + HTMLPATH + HTMLINDEX, href)
         # Create the new HTML page
         HTML = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(HTMLINDEX)
-        writeFile(HTMLPATH + fileName, HTML)
+        writeFile(PROJECTPATH + HTMLPATH + fileName, HTML)
     # Make this page the active HTML page
-    HTMLpage(fileName)
+    changePage(fileName)
     HTMLPAGES.append(fileName)
     # Remove double entries in HTMLPAGES
     getPages()
@@ -170,7 +171,7 @@ def head2html(headText, label=''):
         HTMLLABELS[label] = HTMLPAGE
         label = '<a id="' + label + '"></a>'
     html = '<h2>' + label + headText + '</h2>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def head3html(headText, label=''):
@@ -181,7 +182,7 @@ def head3html(headText, label=''):
         HTMLLABELS[label] = HTMLPAGE
         label = '<a id="' + label + '"></a>'
     html = '<h3>' + label + headText + '</h3>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def text2html(txt):
@@ -189,7 +190,7 @@ def text2html(txt):
     Places txt on the active HTML page.
     """
     html = '<p>' + txt + '</p>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def netlist2html(fileName, label=''):
@@ -201,9 +202,9 @@ def netlist2html(fileName, label=''):
         if label != '':
             HTMLLABELS[label] = HTMLPAGE
             label = '<a id="' + label + '"></a>'
-        netlist = readFile(CIRCUITPATH + fileName)
+        netlist = readFile(PROJECTPATH + CIRCUITPATH + fileName)
         html = '<h2>' + label + 'Netlist: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
-        insertHTML(HTMLPATH + HTMLPAGE, html)
+        insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     except:
         print "Error: could not open netlist file: '%s'."%(fileName)
     return
@@ -249,7 +250,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
                     html += '<tr><td></td><td></td><td></td><td></td><td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
                 i += 1
     html += '</table>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def params2html(circuitObject, label = '', caption = ''):
@@ -277,7 +278,7 @@ def params2html(circuitObject, label = '', caption = ''):
             parName = '$' + sp.latex(par) + '$'
             html += '<tr><td class="left">' + parName +'</td></tr>\n'
         html += '</table>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def img2html(fileName, width, label = '', caption = ''):
@@ -291,13 +292,13 @@ def img2html(fileName, width, label = '', caption = ''):
         HTMLLABELS[label] = HTMLPAGE
         label = '<a id="' + label + '"></a>'
     try:
-        cp(IMGPATH + fileName, HTMLPATH + 'img/' + fileName)
+        cp(PROJECTPATH +IMGPATH + fileName, PROJECTPATH + HTMLPATH + 'img/' + fileName)
     except:
         print("Error: could not copy: '%s'."%(fileName))
     html = '<figure>%s<img src="img/%s" alt="%s" style="width:%spx">\n'%(label, fileName, caption, width)
     if caption != '':
         html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(fileName, caption)
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def csv2html(fileName, label = '', separator = ',', caption = ''):
@@ -310,7 +311,7 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
         label = '<a id="' + label + '"></a>'
     caption = '<caption>Table: %s<br>%s.</caption>'%(fileName, caption)
     html = '%s<table>%s'%(label, caption)
-    csvLines = readFile(CSVPATH + fileName).splitlines()
+    csvLines = readFile(PROJECTPATH + CSVPATH + fileName).splitlines()
     for i in range(len(csvLines)):
         cells = csvLines[i].split(separator)
         html += '<tr>'
@@ -322,7 +323,7 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
                 html += '<td>%s</td>'%(cell)
         html += '</tr>\n'
     html += '</table>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 def expr2html(expr, units = ''):
@@ -333,7 +334,7 @@ def expr2html(expr, units = ''):
         if units != '':
             units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
         html = '$' + sp.latex(sp.N(expr, DISP)) + units + '$'
-        insertHTML(HTMLPATH + HTMLPAGE, html)
+        insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
         return
     else:
         print "Error: expr2html, expected a Sympy expression."
@@ -345,6 +346,8 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     ToDo:
         Add HTML label.
     """
+    if arg1 == None or arg2 == None:
+        return
     eqlabel = label
     global HTMLLABELS, HTMLEQLABELS
     if not isinstance(arg1, tuple(sp.core.all_classes)):
@@ -361,10 +364,10 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     html = label + '\\begin{equation}\n' + sp.latex(sp.N(arg1, DISP)) + '=' + sp.latex(sp.N(arg2, DISP)) + units + '\n'
     html += eqlabel
     html += '\\end{equation}\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
-def matrices2html(MNA, label = ''):
+def matrices2html(instrObj, label = ''):
     """
     Displays the MNA equation on the active HTML page.
     
@@ -373,84 +376,119 @@ def matrices2html(MNA, label = ''):
     """
     global HTMLLABELS, HTMLEQLABELS
     eqlabel = ''
+    if instrObj.errors != 0:
+        print "Errors found during executeion."
+        return
+    elif instrObj.dataType != 'matrix':
+        print "Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType)
+        return
     try:
-        (Iv, M, Vv) = MNA
+        (Iv, M, Dv) = (instrObj.results.Iv, instrObj.results.M, instrObj.results.Dv)
         Iv = sp.latex(sp.N(Iv, DISP))
         M  = sp.latex(sp.N(M,  DISP))
-        Vv = sp.latex(sp.N(Vv, DISP))
+        Dv = sp.latex(sp.N(Dv, DISP))
         if label != '':
             HTMLLABELS[label] = HTMLPAGE
             HTMLEQLABELS[label]= HTMLPAGE
             eqlabel = '\\label{' + label + '}\n'
             label = '<a id="' + label + '"></a>'
         html = '<h3>' + label + 'Matrix equation:</h3>\n'
-        html += '\\begin{equation}\n' + Iv + '=' + M + '\\cdot' + Vv + '\n'
+        html += '\\begin{equation}\n' + Iv + '=' + M + '\\cdot' + Dv + '\n'
         html += eqlabel
         html += '\\end{equation}\n'
-        insertHTML(HTMLPATH + HTMLPAGE, html)
+        insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     except:
-        print "Error: unexpected input for 'matrices2html'."
+        print "Error: unexpected input for 'matrices2html()'."
     return
 
-def pz2html(pzData, label = ''):
+def pz2html(instObj, label = ''):
     """
     Displays the DC transfer, and tables with poles and zeros on the active 
     HTML page.
-    
-    ToDo:
-        Change the argument 'pzData' to an INSTRUCTION object.
-        This version is only for debug purposes!
-        Add HTML label.
     """
     global HTMLLABELS
+    if instObj.errors != 0:
+        print "Errors found in instruction."
+        return
+    elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
+        print "Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType)
+        return
+    elif instObj.step == True :
+        print "Error: parameter stepping not yet implemented for 'pz2html()'."
+        return  
     if label != '':
         HTMLLABELS[label] = HTMLPAGE
         label = '<a id="' + label + '"></a>'
-    (poles, zeros, DCgain) = pzData
-    html = '<h2>' + label + 'Pole-zero analysis results</h2>\n'
-    if DCgain != False:
-        html += '<h3>DC gain</h3>\n' + '<p>DC gain = ' + sp.latex(sp.N(DCgain, DISP)) + '</p>\n'
-    else:
+    (poles, zeros, DCgain) = (instObj.results.poles, instObj.results.zeros, instObj.results.DCvalue)
+    if instObj.dataType == 'poles':
+        headTxt = 'Poles '
+    elif instObj.dataType == 'zeros':
+        headTxt = 'Zeros '
+    elif instObj.dataType == 'pz':
+        headTxt = 'PZ '
+    html = '<h2>' + label + headTxt + ' analysis results</h2>\n'
+    html += '<h3>Gain type: %s</h3>'%(instObj.gainType)
+    if DCgain != None and instObj.dataType =='pz':
+        html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, DISP)) + '</p>\n'
+    elif instObj.dataType =='pz':
         html += '<p>DC gain could not be determined.</p>\n'
-    if len(poles) > 0:
-        html += '<h3>Poles</h3><table><tr><th>#</th><th>Re</th><th>Im</th><th>f [Hz]</th><th>Q</th></tr>\n'
+    if HZ == True:
+        unitsM = 'Mag [Hz]'
+        unitsR = 'Re [Hz]'
+        unitsI = 'Im [Hz]'
+    else:
+        unitsM = 'Mag [rad/s]'
+        unitsR = 'Re [rad/s]'
+        unitsI = 'Im [rad/s]'
+    if len(poles) > 0 and instObj.dataType == 'poles' or instObj.dataType == 'pz':
+        html += '<table><tr><th>pole</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
         for i in range(len(poles)):
-            p  = poles[i]/2/sp.pi
+            p = poles[i]
+            if HZ == True:
+                p  = p/2/sp.pi
             Re = sp.re(p)
             Im = sp.im(p)
             F  = sp.sqrt(Re**2+Im**2)
             if Im != 0:
-                Q = '$' + sp.latex(sp.N(F/2/abs(Re), DISP)) + '$'
+                Q = str(sp.N(F/2/abs(Re), DISP))
             else:
                 Q = ''
-            F  = '$' + sp.latex(sp.N(F, DISP)) + '$'
-            Re = '$' + sp.latex(sp.N(Re, DISP)) + '$'
-            Im = '$' + sp.latex(sp.N(Im, DISP)) + '$'
-            name = '$p_{' + str(i + 1) + '}$'
+            F  = str(sp.N(F, DISP))
+            Re = str(sp.N(Re, DISP))
+            if Im != 0.:
+                Im = str(sp.N(Im, DISP))
+            else:
+                Im = ''
+            name = 'p<sub>' + str(i + 1) + '</sub>'
             html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
         html += '</table>\n'
-    else:
+    elif instObj.dataType == 'poles' or instObj.dataType == 'pz':
         html += '<p>No poles found.</p>\n'
-    if len(zeros) > 0:
-        html += '<h3>Zeros</h3><table><tr><th>#</th><th>Re</th><th>Im</th><th>f [Hz]</th><th>Q</th></tr>\n'
-        for i in range(len(poles)):
-            p  = poles[i]/2/sp.pi
-            Re = sp.re(p)
-            Im = sp.im(p)
+    if len(zeros) > 0 and instObj.dataType == 'zeros' or instObj.dataType == 'pz':
+        html += '<table><tr><th>zero</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
+        for i in range(len(zeros)):
+            z = zeros[i]
+            if HZ == True:
+                z = z/2/sp.pi
+            Re = sp.re(z)
+            Im = sp.im(z)
             F  = sp.sqrt(Re**2+Im**2)
             if Im != 0:
-                Q = '$' + sp.latex(sp.N(F/2/abs(Re), DISP)) + '$'
+                Q = str(sp.N(F/2/abs(Re), DISP))
             else:
                 Q = ''
-            F  = '$' + sp.latex(sp.N(F, DISP)) + '$'
-            Re = '$' + sp.latex(sp.N(Re, DISP)) + '$'
-            Im = '$' + sp.latex(sp.N(Im, DISP)) + '$'
-            name = '$z_{' + str(i + 1) + '}$'
+            F  = str(sp.N(F, DISP))
+            Re = str(sp.N(Re, DISP))
+            if Im != 0.:
+                Im = str(sp.N(Im, DISP))
+            else:
+                Im = ''
+            name = 'z<sub>' + str(i + 1) + '</sub>'
             html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
         html += '</table>\n'
-    else:
+    elif instObj.dataType == 'zeros' or instObj.dataType == 'pz':
         html += '<p>No zeros found.</p>\n'
-    insertHTML(HTMLPATH + HTMLPAGE, html)
+    insertHTML(PROJECTPATH + HTMLPATH + HTMLPAGE, html)
     return
 
 ### HTML links and labels
@@ -504,31 +542,7 @@ def href(label, linkText, fileName = ''):
     else:
         html = '<a href="' + fileName + '#' +label+'">'+linkText+'</a>'
     return html
-    
-def fullSubs(valExpr, parDefs):
-    """
-    Returns the valExpr after all parameters of parDefs have been substituted
-    recursively into valExpr.
-    parDefs is a dictionary in which the keys are sympy symbols. The type of 
-    the value fields may be any sympy type, integer or float.
-    """
-    strValExpr = str(valExpr)
-    i = 0
-    newvalExpr = 0
-    while valExpr != newvalExpr and i < MAXRECSUBST and isinstance(valExpr, tuple(sp.core.all_classes)):
-        # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
-        substDict = {}
-        params = list(valExpr.free_symbols)
-        for param in params:
-            if param in parDefs.keys():
-                substDict[param] = parDefs[param]
-        # perform the substitution
-        newvalExpr = valExpr
-        valExpr = newvalExpr.subs(substDict)
-        i += 1
-    if i == MAXRECSUBST:
-        print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
-    return valExpr
 
 if __name__ == '__main__':
+    setProjectPath('Project/')
     startHTML('Test project') 

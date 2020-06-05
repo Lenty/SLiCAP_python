@@ -192,13 +192,13 @@ lexer.errCount = 0
    
 if __name__ == '__main__':
     """
-    files = os.listdir('Project/cir')
+    files = os.listdir(PROJECTPATH + CIRCUITPATH)
     for fi in files:
         [cirFileName, ext] = fi.split('.')
         if ext.lower() == 'cir':"""
-    fi = 'testCircuit.cir'
+    fi = 'PIVA.cir'
     print fi
-    lexer = tokenize('Project/cir/' + fi)
+    lexer = tokenize(PROJECTPATH + CIRCUITPATH + fi)
     tok = lexer.token()
     
     while tok:
