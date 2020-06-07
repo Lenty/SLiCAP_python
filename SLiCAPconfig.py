@@ -10,9 +10,15 @@ LOGFILE         = True
 LANGUAGE        = 'english' # Language for error and warnings:
                             # not yet implemented
 DISP            = 4         # Numner of digits for floats in output
-MATHJAXLOCAL    = False     # Will be ignored, later it will be replaced with
-                            # a selection between mathml and MatJax cloud
-
+MATHML          = False     # If True: MathML, else MathJaX cloud for rendering
+                            # math
+STEPFUNCTION    = True      # Method for parameter stepping:
+                            # True:  substitution of step variable(s) after 
+                            #        calculation of numerator/denominator
+                            #        Laplace functions
+                            # False: substitution of step values in the matrix
+DISPMAXRESULT   = False     # Displays result from Maxima CAS before it is
+                            # converted to a sympy expression.
 LAPLACE         = 's'       # Laplace veriable
 FREQUENCY       = 'f'       # Frequency in Hz
 OMEGA           = 'omega'   # Frequency in rad/s
@@ -39,4 +45,3 @@ tableFileType   = 'csv'
 figureFileType  = 'svg'
 axisXscale      = 'linear'    # Scale for the x-axis can be 'linear' or 'log'
 axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
-LASTUPDATE = '2020-06-05 19:17:10.058305'

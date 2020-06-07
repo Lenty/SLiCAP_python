@@ -52,12 +52,12 @@ def HTMLhead(pageTitle):
     HTML += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
     HTML += '<meta name="Language" content="English"/>\n'
     HTML += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
-    HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
-    HTML += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
-    HTML += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'
-    if MATHJAXLOCAL == True:
-        print 'MathJax version 3 is not installed. Only web access is supported!'
-        # see http://docs.mathjax.org/en/latest/web/hosting.html
+    if MATHML == True:
+        print 'MathML is not (yet) supported. Only MathJaX cloud is supported!'
+    else:
+        HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
+        HTML += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
+    HTML += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'  
     return(HTML)
     
 def HTMLfoot(indexFile):
@@ -355,7 +355,7 @@ def matrices2html(instrObj, label = ''):
         print "Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType)
         return
     try:
-        (Iv, M, Dv) = (instrObj.results.Iv, instrObj.results.M, instrObj.results.Dv)
+        (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
         Iv = sp.latex(sp.N(Iv, DISP))
         M  = sp.latex(sp.N(M,  DISP))
         Dv = sp.latex(sp.N(Dv, DISP))
@@ -390,7 +390,7 @@ def pz2html(instObj, label = ''):
     if label != '':
         ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
-    (poles, zeros, DCgain) = (instObj.results.poles, instObj.results.zeros, instObj.results.DCvalue)
+    (poles, zeros, DCgain) = (instObj.poles, instObj.zeros, instObj.DCvalue)
     if instObj.dataType == 'poles':
         headTxt = 'Poles '
     elif instObj.dataType == 'zeros':

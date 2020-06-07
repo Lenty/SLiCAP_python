@@ -32,6 +32,8 @@ class instruction(object):
         self.source     = None
         self.detector   = None
         self.lgRef      = None
+        self.parDefs    = None
+        self.numeric    = None
         self.results    = None
         self.Iv         = None # Vector with independent variables, adjusted for instruction.gainType
         self.M          = None # MNA matrix, adjusted for instruction.gainType
@@ -86,6 +88,10 @@ class instruction(object):
             print "Error: unknown simType: '%s'."%(self.simType)
         else:
             self.simType = self.simType.lower()
+            if self.simType == 'numeric':
+                self.numeric = True
+            elif self.simType == 'symbolic':
+                self.numeric = False
         if self.errors == 0:
             if self.gainType == 'vi':
                 if self.dataType == 'laplace':
@@ -286,7 +292,7 @@ class instruction(object):
         if self.stepVar == None:
             print "Error: missing step variable."
         else:
-            if not isinstance(stepVar, tuple(sp.core.all_classes)):
+            if not isinstance(self.stepVar, tuple(sp.core.all_classes)):
                 self.stepVar = sp.Symbol(self.stepVar)
             if self.stepVar not in self.circuit.parDefs.keys() and \
             self.stepVar not in self.circuit.params:
@@ -352,8 +358,12 @@ class instruction(object):
             if len(self.stepVars) == 0:
                 self.errors += 1
                 print "Error: empty stepVars."
-            for stepVar in self.stepVars:
-                self.checkStepVar(stepVar)
+            for i in range(len(self.stepVars)):     
+                if not isinstance(self.stepVars[i], tuple(sp.core.all_classes)):
+                    self.stepVars[i] = sp.Symbol(self.stepVars[i])
+                if self.stepVars[i] not in self.circuit.parDefs.keys() and \
+                self.stepVars[i] not in self.circuit.params:
+                    print "Warning: unknown step parameter '%s'."%(self.stepVars[i])
         else:
             self.errors += 1
             print "Error: expected a list type for 'stepVar'."
@@ -382,9 +392,10 @@ class instruction(object):
     def checkStepArray(self):
         """
         The step array is a list of lists. The number of lists must equal the
-        number of step variables. All lists should have equal lengths.
+        number of step variables. Each entry in a list is a step value of the
+        associated step variable. All lists should have equal lengths.
         """
-        if tself.stepArray == None:
+        if self.stepArray == None:
             self.errors += 1
             print "Error: missing stepArray."
         elif type(self.stepArray) == list:
@@ -393,28 +404,54 @@ class instruction(object):
                 self.errors += 1
                 print "Error: mismatch between dimensions of stepArray and stepVars."
             else:
-                numsteps = len(stepArray[0])
-                for i in range(len(stepArray)):
-                    if len(stepArray[i]) != numSteps:
+                numSteps = len(self.stepArray[0])
+                for i in range(numVars):
+                    if len(self.stepArray[i]) != numSteps:
                         self.errors += 1
                         print "Error: unequal number of steps for step variables."
-                        if self.errors == 0:
-                            for j in range(len(stepArray[i])):
-                                value = checkNumber(stepArray[i][j])
-                                if value == None:
-                                    self.errors += 1
-                                    print "Error: cannot determine numeric value of stepArray[%s, %s]."%(i, j)
-                                else:
-                                    stepList[i][j] = value   
+                    if self.errors == 0:
+                        for j in range(numSteps):
+                            value = checkNumber(self.stepArray[i][j])
+                            if value == None:
+                                self.errors += 1
+                                print "Error: cannot determine numeric value of stepArray[%s, %s]."%(i, j)
+                            else:
+                                self.stepArray[i][j] = value   
         return
     
     def execute(self):
         self.check()
         if self.errors != 0:
             print "Errors found. Instruction will not be executed."
-            return(self)
+            return(allResults())
         else: 
-            return doInstruction(self)
+            # Create an instance of allResults() and copy instruction data.
+            # This keeps the correct instruction information with the result
+            # in cases that the instruction is modified at a later stage.
+            r = allResults()
+            r.simType        = self.simType
+            r.gainType       = self.gainType
+            r.dataType       = self.dataType
+            r.step           = self.step
+            r.stepVar        = self.stepVar
+            r.stepVars       = self.stepVars
+            r.stepMethod     = self.stepMethod
+            r.stepStart      = self.stepStart
+            r.stepStop       = self.stepStop
+            r.stepNum        = self.stepNum
+            r.stepList       = self.stepList
+            r.stepArray      = self.stepArray
+            r.source         = self.source
+            r.detector       = self.detector
+            r.lgRef          = self.lgRef
+            r.circuit        = self.circuit
+            r.parDefs        = self.parDefs
+            r.errors         = self.errors
+            if r.simType == 'numeric':
+                r.numeric = True
+            else:
+                r.numeric = False
+            return doInstruction(r)
     
     def delPar(self, parName):
         # single params and multiple.

@@ -189,44 +189,79 @@
 <h2>Technology<a class="headerlink" href="#technology" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Python<ul>
-<li>sympy</li>
-<li>numpy</li>
-<li>matplotlib or pyqtgraph (faster)</li>
-<li>Cypy (faster than sympy)</li>
-<li>Jupyter notebooks</li>
-<li>ipython</li>
+<li>sympy: basic symbolic math operations, such as:<ul>
+<li>Converting a textstring that represents an expression into an expression</li>
+<li>Substitutions</li>
+<li>Building matrices</li>
+<li>Construction of numerator and denominator Polys from Laplace expressions</li>
 </ul>
 </li>
-<li>Maxima CAS<ul>
-<li>fast symbolic math (LISP based)</li>
+<li>numpy: fast numeric calculations<ul>
+<li>Determination of poles and zeros (roots of polynomials)</li>
 </ul>
 </li>
-<li>HTML + CSS</li>
-<li>LaTeX + MathJax</li>
+<li>scipy: special functions<ul>
+<li>Numeric calculation of residues for construction of the Inverse Laplace Transform of Laplace (numeric) rationals.</li>
+</ul>
+</li>
+<li>matplotlib: plotting</li>
+</ul>
+</li>
+<li>Maxima CAS: fast symbolic math (LISP based)<ul>
+<li>Symbolic calculation of the determinant of a matrix using the fast Johnson-Gentleman tree minor algorithm.</li>
+<li>Comined symbolic and numerical integration</li>
+<li>Solving equations</li>
+<li>Determination of the real and the imaginary part of an expression</li>
+<li>Calculation of the Inverse Laplace Transform of symbolic Laplace expressions</li>
+<li>Setting assumtions for variables</li>
+</ul>
+</li>
+<li>HTML + CSS: reporting</li>
+<li>LaTeX + MathJax + MathML: reporting and export equationa</li>
 </ol>
 </div>
 <div class="section" id="functionality">
 <h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
 <p>As the current MATLAB version of SLiCAP but with improvements:</p>
-<ol class="arabic simple">
-<li>Labels for equations, figures and headings</li>
-<li>Units for expressions and equations</li>
-<li>Free to write to any HTML page</li>
-<li>saveTeX(): write equation or expression in LaTeX format to a file</li>
-<li>saveMathML(): write equation or expression in mathML format to a file</li>
-<li>Change device values from the script (defVal(&lt; deviceName &gt;))</li>
-<li>Import java scripts for live updates of variables and/or plots in html pages</li>
-<li>Compile the SLiCAP library, this speeds up circuit checking. Models are compiled into a dictionary with SLiCAP model objects and sub circuits into a dictionary with SLiCAP circuit objects. When SLiCAP is started, automatic recompilation will be done if the library is newer than the precompiled version.</li>
-<li>Select and generate circuit objects for instruction</li>
-<li>Live scripts with jupyter or ipython</li>
-</ol>
-<p>OR?? Make the instructions more Python like …</p>
+<ol class="arabic">
+<li><p class="first">User options:</p>
+<ul class="simple">
+<li>Use <span class="math">\(f\)</span> [Hz] or <span class="math">\(\omega\)</span> [rad/s] for frequency</li>
+<li>Select stepping method:<ul>
+<li>Substitute the step variables while building the matrices</li>
+<li>Substitufe the step variables after calculation of the determinant and/or the cofactors</li>
+</ul>
+</li>
+<li>Display the output from Maxima before converting it to a Sympy expression.</li>
+<li>Use MathML of MathJaX cloud rendering of math in HTML pages</li>
+<li>Set the number of digits for displaying numeric values on HTML pages</li>
+</ul>
+</li>
+<li><p class="first">Labels for equations, figures and headings</p>
+</li>
+<li><p class="first">Units for expressions and equations</p>
+</li>
+<li><p class="first">Free to write to any HTML page or HTML index page</p>
+</li>
+<li><p class="first">saveTeX(): write equation or expression in LaTeX format to a file</p>
+</li>
+<li><p class="first">saveMathML(): write equation or expression in mathML format to a file</p>
+</li>
+<li><p class="first">Import java scripts for live updates of variables and/or plots in html pages</p>
+</li>
+<li><p class="first">Compilation of the SLiCAP libraries at the initialization of a project.</p>
+</li>
+<li><p class="first">Select or generate circuit objects for an instruction</p>
+</li>
+<li><p class="first">Python like instructions:</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">myCircuit</span>
 <span class="n">instr</span><span class="o">.</span><span class="n">source</span>  <span class="o">=</span> <span class="s1">&#39;V1&#39;</span>
 <span class="c1"># etc.</span>
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 <div class="section" id="community-for-development-and-maintenance">
 <h2>Community for development and maintenance<a class="headerlink" href="#community-for-development-and-maintenance" title="Permalink to this headline">¶</a></h2>

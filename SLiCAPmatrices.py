@@ -30,7 +30,7 @@ def getValue(elmt, param, numeric, parDefs):
         value = elmt.params[param]
     return value
         
-def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
+def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     """
     Modifications in the circuit object, necessary for calculation different
     gain types need to be temporary. The circuit data before and after

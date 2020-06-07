@@ -231,7 +231,12 @@ Once created it can be modified and modifications will not be overwritten by ini
 39
 40
 41
-42</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+42
+43
+44
+45
+46
+47</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Sat May 30 11:10:18 2020</span>
@@ -243,9 +248,15 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings:</span>
                             <span class="c1"># not yet implemented</span>
 <span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># Numner of digits for floats in output</span>
-<span class="n">MATHJAXLOCAL</span>    <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Will be ignored, later it will be replaced with</span>
-                            <span class="c1"># a selection between mathml and MatJax cloud</span>
-
+<span class="n">MATHML</span>          <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># If True: MathML, else MathJaX cloud for rendering</span>
+                            <span class="c1"># math</span>
+<span class="n">STEPFUNCTION</span>    <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># Method for parameter stepping:</span>
+                            <span class="c1"># True:  substitution of step variable(s) after </span>
+                            <span class="c1">#        calculation of numerator/denominator</span>
+                            <span class="c1">#        Laplace functions</span>
+                            <span class="c1"># False: substitution of step values in the matrix</span>
+<span class="n">DISPMAXRESULT</span>   <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Displays result from Maxima CAS before it is</span>
+                            <span class="c1"># converted to a sympy expression.</span>
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>       <span class="c1"># Laplace veriable</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>       <span class="c1"># Frequency in Hz</span>
 <span class="n">OMEGA</span>           <span class="o">=</span> <span class="s1">&#39;omega&#39;</span>   <span class="c1"># Frequency in rad/s</span>
@@ -272,7 +283,6 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="n">figureFileType</span>  <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
 <span class="n">axisXscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the x-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">axisYscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the y-axis can be &#39;linear&#39; or &#39;log&#39;</span>
-<span class="n">legendLoc</span>       <span class="o">=</span> <span class="s1">&#39;best&#39;</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -315,15 +325,56 @@ Once created it can be modified and modifications will not be overwritten by ini
 28
 29
 30
-31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPconfig</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">residue</span>
 <span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
-<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copytree</span> <span class="k">as</span> <span class="n">ct</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -332,20 +383,61 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="kn">import</span> <span class="nn">getpass</span>
 
 <span class="c1"># Type conversions</span>
+<span class="c1"># These are the only globals. Read only!</span>
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">FREQUENCY</span><span class="p">)</span>
 <span class="n">OMEGA</span>           <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">OMEGA</span><span class="p">)</span>
 
+<span class="k">class</span> <span class="nc">settings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class with global variables that can be modified from within other modules.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">installPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP python script files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP project script files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPath</span>     <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP HTML output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuitPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP project circuit files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libraryPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP user libraries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPath</span>      <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with text files for HTML output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csvPath</span>      <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with csv files for HTML tables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latexPath</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory for LaTeX output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathmlPath</span>   <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory fro mathML output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imgPath</span>      <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with images for HTML output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlIndex</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Active HTML index page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPage</span>     <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Active HTML page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPrefix</span>   <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Active HTML prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlLabels</span>   <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Dict with HTML labels:</span>
+                                 <span class="c1">#    key   = labelName</span>
+                                 <span class="c1">#    value = pageName</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlEqLabels</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Dict with HTML equation labels:</span>
+                                 <span class="c1">#    key   = labelName</span>
+                                 <span class="c1">#    value = pageName</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPages</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># List with names of HTML pages</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepFunction</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Stepping method:</span>
+                                 <span class="c1">#    True : function substitution </span>
+                                 <span class="c1">#    False: matrix substitution</span>
+        <span class="c1"># Add plot globals here!</span>
+
+<span class="c1"># Create an instance of globals</span>
+<span class="n">ini</span> <span class="o">=</span> <span class="n">settings</span><span class="p">()</span>
 <span class="c1"># Automatic detection of install and project paths</span>
 <span class="c1"># Get the installation path</span>
-<span class="n">INSTALLPATH</span>     <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">installPath</span>  <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
 <span class="c1"># Get the project path (the path of the script that imported SLiCAP.ini)</span>
-<span class="n">PROJECTPATH</span>     <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
-<span class="c1"># For test purposes there is a testproject directory:</span>
-<span class="k">if</span>  <span class="n">PROJECTPATH</span> <span class="o">==</span> <span class="n">INSTALLPATH</span><span class="p">:</span>
-    <span class="c1"># This is the case when running:</span>
-    <span class="c1"># if __name__ == &#39;__main__&#39; sections in SLICAP script files.</span>
-    <span class="n">PROJECTPATH</span> <span class="o">+=</span> <span class="s1">&#39;testProjects/PIVA/&#39;</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+<span class="c1"># Copy path settings from user configuration. These settings can be modified</span>
+<span class="c1"># from the SLiCAP environment without editing &#39;SLiCAPconfig.py&#39;</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">htmlPath</span>      <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">HTMLPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">circuitPath</span>   <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">CIRCUITPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">libraryPath</span>   <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">LIBRARYPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">txtPath</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">TXTPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">csvPath</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">CSVPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">latexPath</span>     <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">LATEXPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">mathmlPath</span>    <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">MATHMLPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">imgPath</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">IMGPATH</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">stepFunction</span>  <span class="o">=</span> <span class="n">STEPFUNCTION</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">dispMaxResult</span> <span class="o">=</span> <span class="n">DISPMAXRESULT</span>
+<span class="c1"># Copy plot globals here!</span>
 </pre></div>
 </td></tr></table></div>
 <p>After this file has been copied to the project directory, product data will be added.

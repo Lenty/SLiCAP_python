@@ -116,9 +116,7 @@ def polyCoeffs(expr, var):
     """
     if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
         #print expr.expand(basic = True)
-        exprPoly = sp.poly(expr, LAPLACE)
-        coeffs = exprPoly.all_coeffs()
-        return coeffs
+        return sp.poly(expr, LAPLACE).all_coeffs()
     return []
 
 def numRoots(expr, var):
@@ -144,8 +142,7 @@ def numRoots(expr, var):
                 return []
         except:
             return []
-        exprPoly = sp.Poly(expr, LAPLACE)
-        roots = np.roots(np.array(exprPoly.all_coeffs()))
+        roots = np.roots(np.array(sp.Poly(expr, LAPLACE).all_coeffs()))
         return np.flip(roots, 0)
     return []
     
@@ -272,7 +269,34 @@ def fullSubs(valExpr, parDefs):
     if i == MAXRECSUBST:
         print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
     return valExpr
-    
+
+def invLaplace(numer, denom):
+    """
+    Calculates the Inverse Laplace Transform of a numerical rational expression
+    of which the sympy numerator and the denominator polynomials are passed as 
+    arguments, respecively.
+    """
+    numer = np.poly1d(polyCoeffs(numer, LAPLACE))
+    numerCoeffs = []
+    for coeff in numer.c:
+        numerCoeffs.append(np.float(coeff))
+    denom = np.poly1d(polyCoeffs(denom, LAPLACE))
+    denomCoeffs = []
+    for coeff in denom.c:
+        denomCoeffs.append(np.float(coeff))
+    (r, p, k) = residue(numerCoeffs, denomCoeffs, tol=10**(-DISP))
+    t = sp.Symbol('t')
+    ft = 0
+    m = 1
+    for i in range(len(r)):
+        if i:
+            if abs(p[i] - p[i - 1]) < DISP * abs(p[i]):
+                m += 1
+            else:
+                m = 1
+        ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.exp(p[i]*t)
+    return ft
+ 
 if __name__ == "__main__":
     s = LAPLACE
     

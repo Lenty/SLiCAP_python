@@ -35,16 +35,20 @@ def maxEval(maxExpr):
     # Convert complex number notation:
     result = re.sub(r'%j','j', result)
     # Convert 'e' (natural base) notation:
-    result = re.sub(r'%e','e', result)
+    result = re.sub(r'%e','exp(1)', result)
     # Convert 'pi' notation:
     result = re.sub(r'%pi','pi', result)
     # ToDo
     # Other conversions
+    # Display the result (for debug purposes, e.g. studying assumptions)
+    if ini.dispMaxResult:
+        print result
     return(result)
 
 def maxILT(Fs):
     """
     Calculates the inverse Laplace transform of  'Fs' using Maxima.
+    Tricky to use because Maxima can ask for assumtions.
     """
     if isinstance(Fs, tuple(sp.core.all_classes)):
         if LAPLACE in list(Fs.free_symbols):

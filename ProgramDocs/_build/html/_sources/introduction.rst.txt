@@ -16,20 +16,35 @@ Technology
 
 #. Python
 
-   - sympy
-   - numpy
-   - matplotlib or pyqtgraph (faster)
-   - Cypy (faster than sympy)
-   - Jupyter notebooks
-   - ipython
+   - sympy: basic symbolic math operations, such as:
 
-#. Maxima CAS
+     - Converting a textstring that represents an expression into an expression
+     - Substitutions
+     - Building matrices
+     - Construction of numerator and denominator Polys from Laplace expressions
 
-   - fast symbolic math (LISP based)
+   - numpy: fast numeric calculations
 
-#. HTML + CSS
+     - Determination of poles and zeros (roots of polynomials)
 
-#. LaTeX + MathJax
+   - scipy: special functions
+
+     - Numeric calculation of residues for construction of the Inverse Laplace Transform of Laplace (numeric) rationals.
+
+   - matplotlib: plotting
+
+#. Maxima CAS: fast symbolic math (LISP based)
+
+   - Symbolic calculation of the determinant of a matrix using the fast Johnson-Gentleman tree minor algorithm.
+   - Comined symbolic and numerical integration
+   - Solving equations
+   - Determination of the real and the imaginary part of an expression
+   - Calculation of the Inverse Laplace Transform of symbolic Laplace expressions
+   - Setting assumtions for variables
+
+#. HTML + CSS: reporting
+
+#. LaTeX + MathJax + MathML: reporting and export equationa
 
 -------------
 Functionality
@@ -37,25 +52,34 @@ Functionality
 
 As the current MATLAB version of SLiCAP but with improvements:
 
+#. User options:
+
+   - Use :math:`f` [Hz] or :math:`\omega` [rad/s] for frequency
+   - Select stepping method: 
+
+     - Substitute the step variables while building the matrices
+     - Substitufe the step variables after calculation of the determinant and/or the cofactors
+
+   - Display the output from Maxima before converting it to a Sympy expression.
+   - Use MathML of MathJaX cloud rendering of math in HTML pages 
+   - Set the number of digits for displaying numeric values on HTML pages
+
 #. Labels for equations, figures and headings
 #. Units for expressions and equations
-#. Free to write to any HTML page
+#. Free to write to any HTML page or HTML index page
 #. saveTeX(): write equation or expression in LaTeX format to a file
 #. saveMathML(): write equation or expression in mathML format to a file
-#. Change device values from the script (defVal(< deviceName >))
 #. Import java scripts for live updates of variables and/or plots in html pages
-#. Compile the SLiCAP library, this speeds up circuit checking. Models are compiled into a dictionary with SLiCAP model objects and sub circuits into a dictionary with SLiCAP circuit objects. When SLiCAP is started, automatic recompilation will be done if the library is newer than the precompiled version.
-#. Select and generate circuit objects for instruction
-#. Live scripts with jupyter or ipython
+#. Compilation of the SLiCAP libraries at the initialization of a project.
+#. Select or generate circuit objects for an instruction
+#. Python like instructions:
 
-OR?? Make the instructions more Python like ...
+   .. code::
 
-.. code::
-
-   instr = instruction()
-   instr.circuit = myCircuit
-   instr.source  = 'V1'
-   # etc.
+      instr = instruction()
+      instr.circuit = myCircuit
+      instr.source  = 'V1'
+      # etc.
 
 -----------------------------------------
 Community for development and maintenance

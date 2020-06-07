@@ -12,107 +12,252 @@ from SLiCAPyacc import *
         
 class allResults(object):
     """
-    Return  structure for results, has attributes for all data types
+    Return  structure for results, has attributes for all data types and
+    instruction data.
     """
     def __init__(self):
-        self.DCvalue     = None # Zero-frequency value in case of 
+        self.DCvalue     = []   # Zero-frequency value in case of 
                                 # dataType 'pz'
-        self.poles       = None # Complex frequencies in [rad/s] or [Hz]
-        self.zeros       = None # Complex frequencies in [rad/s] or [Hz]
-        self.sources     = None # Names of the sources with dc variance or noise
-        self.srcTerms    = None # Dict with respective variance or noise
-        self.ivarTerms   = None # Dict with respective contributions to 
+        self.poles       = []   # Complex frequencies in [rad/s] or [Hz]
+        self.zeros       = []   # Complex frequencies in [rad/s] or [Hz]
+        self.sources     = []   # Names of the sources with dc variance or noise
+        self.srcTerms    = []   # Dict with respective variance or noise
+        self.ivarTerms   = []   # Dict with respective contributions to 
                                 # source-referred variance
-        self.ovarTerms   = None # Dict with respective contributions to 
+        self.ovarTerms   = []   # Dict with respective contributions to 
                                 # detector-referred variance
-        self.ivar        = None # Total source-referred variance
-        self.ovar        = None # Total detector-referred variance
-        self.dcSolve     = None # DC solution of the network
-        self.inoiseTerms = None # Dict with respective spectral contributions
+        self.ivar        = []   # Total source-referred variance
+        self.ovar        = []   # Total detector-referred variance
+        self.dcSolve     = []   # DC solution of the network
+        self.inoiseTerms = []   # Dict with respective spectral contributions
                                 # to source-referred noise
-        self.onoiseTerms = None # Dict with espective spectral contributions
+        self.onoiseTerms = []   # Dict with espective spectral contributions
                                 # to detector-referred noise
-        self.inoise      = None # Total source-referred noise spectral density
-        self.onoise      = None # Total detector-referred noise spectral 
+        self.inoise      = []   # Total source-referred noise spectral density
+        self.onoise      = []   # Total detector-referred noise spectral 
         self.Iv          = None # Vector with independent variables
         self.M           = None # MNA matrix
         self.Dv          = None # Vector with dependent variables
-        self.laplace     = None # Laplace transfer functions
-        self.time        = None # Time-domain responses
-        self.impulse     = None # Unit impulse responses
-        self.step        = None # Unit step responses
-        self.denom       = None # Laplace poly of denominator
-        self.numer       = None # Laplace poly of numerator
-    
-        
+        self.denom       = []   # Laplace poly of denominator
+        self.numer       = []   # Laplace poly of numerator
+        self.laplace     = []   # Laplace transfer functions
+        self.time        = []   # Time-domain responses
+        self.impulse     = []   # Unit impulse responses
+        self.stepResp    = []   # Unit step responses
+        # instruction settings
+        self.simType     = None
+        self.gainType    = None
+        self.dataType    = None
+        self.step        = None
+        self.stepVar     = None
+        self.stepVars    = None
+        self.stepMethod  = None
+        self.stepStart   = None
+        self.stepStop    = None
+        self.stepNum     = None
+        self.stepList    = []
+        self.stepArray   = []
+        self.source      = None
+        self.detector    = None
+        self.lgRef       = None
+        self.circuit     = None
+        self.parDefs     = None
+        self.numeric     = None
+        self.errors      = 0
+       
 def doInstruction(instObj):
-    # In this case we need substitution and things get different with 
-    # parameter stepping:
-    if instObj.step == True and instObj.stepMethod != 'array':
-        try:
-            del instObj.parDefs[instObj.stepVar]
-        except:
-            pass
-    elif instObj.step == True and instObj.stepMethod == 'array':
-        # In this case we build the matrix for every step
-        pass
-    else:
-        pass
-    if instObj.errors == 0:
-        if instObj.simType == 'numeric':
-            numeric = True
+    """
+    Execution of the instruction with parameter stepping.
+    """
+    if instObj.step:
+        if ini.stepFunction:
+            # Create a substitution dictionary that does not contain step parameters
+            subsDict = {}
+            if instObj.stepMethod == 'array':
+                for key in instObj.circuit.parDefs.keys():
+                    if key not in instObj.stepVars:
+                        subsDict[key] = instObj.circuit.parDefs[key]
+            else:
+                for key in instObj.circuit.parDefs.keys():
+                    if key != instObj.stepVar:
+                        subsDict[key] = instObj.circuit.parDefs[key]
+            instObj.parDefs = subsDict
+            # Do the instruction
+            (instObj.Iv, instObj.M, instObj.Dv) = makeMatrices(instObj.circuit, instObj.parDefs, instObj.numeric, instObj.gainType, instObj.lgRef)
+            # Do stepping by means of substitution in the numerator and denominator
+            if instObj.dataType == 'poles':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                for poly in denoms:
+                    instObj.poles.append(numRoots(poly, LAPLACE))
+                instObj.zeros = []
+            elif instObj.dataType == 'zeros':
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                for poly in numers:
+                    instObj.zeros.append(numRoots(poly, LAPLACE))
+                instObj.poles = []
+            elif instObj.dataType == 'pz':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                instObj.poles = []
+                instObj.zeros = []
+                instObj.DCvalue = []
+                for i in range(len(denoms)):
+                    poles = numRoots(denoms[i], LAPLACE)
+                    zeros = numRoots(numers[i], LAPLACE)
+                    (poles, zeros) = cancelPZ(poles, zeros)
+                    instObj.poles.append(poles)
+                    instObj.zeros.append(zeros)
+                    try:
+                        # Lets try a real limit with Maxima CAS
+                        instObj.DCvalue.append(maxLimit(numers[i]/denoms[i], str(LAPLACE), '0', 'plus'))
+                    except:
+                        # If not just substitute s=0 with Sympy
+                        instObj.DCvalue.append(sp.Subs(numers[i]/denoms[i], LAPLACE, 0))
+            elif instObj.dataType == 'step':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                for i in range(len(denoms)):
+                    try:
+                        instObj.stepResp.append(invLaplace(numers[i], denoms[i]*LAPLACE))
+                    except:
+                        print "Warning: could not calculate the unit step response."
+            elif instObj.dataType == 'impulse':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                for i in range(len(denoms)):
+                    try:
+                        instObj.stepResp.append(invLaplace(numers[i], denoms[i]))
+                    except:
+                        print "Warning: could not calculate the unit impulse response."
+            elif instObj.dataType == 'time':
+                pass
+            elif instObj.dataType == 'numer':
+                numer = doNumer(instObj)
+                instObj.numer = stepFunctions(instObj, numer)
+            elif instObj.dataType == 'denom':
+                denom = doDenom(instObj)
+                instObj.denom = stepFunctions(instObj, denom)
+            elif instObj.dataType == 'laplace':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                instObj.laplace = []
+                for i in range(len(denoms)):
+                    instObj.laplace.append(normalizeLaplaceRational(numers[i], denoms[i]))
+            elif instObj.dataType == 'solve':
+                pass
         else:
-            numeric = False
-        (instObj.Iv, instObj.M, instObj.Dv) = makeGainType(instObj, numeric)
-        if instObj.dataType == 'matrix':
-            instObj.results.Iv = instObj.Iv
-            instObj.results.M = instObj.M
-            instObj.results.Dv = instObj.Dv
-        elif instObj.dataType == 'poles':
-            instObj.results.poles = doPoles(instObj)  
-            instObj.results.zeros = []
-            instObj.DCvalue = None
-        elif instObj.dataType == 'zeros':
-            instObj.results.zeros = doZeros(instObj)
-            instObj.results.poles == []
-            instObj.DCvalue = None
-        elif instObj.dataType == 'pz':
-            (poles, zeros, DCvalue) = doPZ(instObj)
-            instObj.results.poles = poles
-            instObj.results.zeros = zeros
-            instObj.results.DCvalue = DCvalue
-        elif instObj.dataType == 'denom':
-            denom = doDenom(instObj)
-            instObj.results.denom = denom
-        elif instObj.dataType == 'numer':
-            numer = doNumer(instObj)
-            instObj.results.numer = numer
-        elif instObj.dataType == 'laplace':
-            laplace = doLaplace(instObj)
-            instObj.results.laplace = laplace           
+            # Create a deep copy of the substitution dictionary
+            subsDict = {}
+            for key in instObj.circuit.parDefs.keys():
+                subsDict[key] = instObj.circuit.parDefs[key]
+            instObj.parDefs = subsDict
+            # For each set of step variable create the numeric substitution
+            # dictionary, make the matrices and do the non-stepped instruction.
+            if instObj.stepMethod != 'array':
+                for stepVal in instObj.stepList:
+                    instObj.parDefs[instObj.stepVar] = stepVal
+                    doDataType(instObj)
+            else:
+                # array stepping, number of steps is length of lists in stepArray
+                for i in range(len(instObj.stepArray[0])):
+                    # substitute the i-th value for each step variable in the
+                    # .parDefs dictionary.
+                    for j in range(len(instObj.stepVars)):
+                        instObj.parDefs[instObj.stepVars[j]] = instObj.stepArray[j][i]
+                    doDataType(instObj)
+    else:
+        # No parameter stepping, just do the non-stepped instruction.
+        instObj.parDefs = instObj.circuit.parDefs
+        doDataType(instObj)
     return instObj
 
-def makeGainType(instObj, numeric, subsDict = None):
+def stepFunctions(instObj, function):
     """
-    Adds the matrices (Iv, M and Dv) to the instruction object 'instObj.
-    When single-parameter stepping is enabled, the step variable is kept
-    symbolic in the matrix. Single-parameter stepping will then be done after 
-    the transfer, a numerator or a denominator has been calculated.
-    Multi-parameter stepping is done by creating the matrix with each step.
+    Substitutes step values for step parameters in functions and returns a list
+    of functions with these substitutions.
     """
-    if instObj.step == True and instObj.stepMethod != 'array':
-        # make a copy of the parameter definitions, but do not include the
-        # step variable
-        parDefs = {}
-        stepVar = sp.Symbol(instObj.stepVar)
-        for key in instObj.circuit.parDefs.keys():
-            if key != stepVar:
-                parDefs[key] = instObj.circuit.parDefs[key]
-    elif instObj.step == True and instObj.stepMethod == 'array' and subsDict != None:
-        parDefs = subsDict
+    functions = []
+    if instObj.stepMethod == 'array':
+        for i in range(len(instObj.stepArray[0])):
+            subsList = []
+            for j in range(len(instObj.stepVars)):
+                subsList.append((instObj.stepVars[j], instObj.stepArray[j][i]))
+            functions.append(function.subs(subsList))
     else:
-        parDefs = instObj.circuit.parDefs
-    return makeMatrices(instObj.circuit, parDefs, numeric, gainType = instObj.gainType, lgRef = instObj.lgRef)
+        for stepVal in instObj.stepList:
+            functions.append(function.subs(instObj.stepVar, stepVal))
+    return functions
+
+def doDataType(instObj):
+    """
+    Returns the instruction object with the result of the execution without 
+    parameter stepping
+    """
+    (instObj.Iv, instObj.M, instObj.Dv) = makeMatrices(instObj.circuit, instObj.parDefs, instObj.numeric, instObj.gainType, instObj.lgRef)
+    if instObj.dataType == 'matrix':
+        pass
+    elif instObj.dataType == 'poles':
+        if instObj.step:
+            instObj.poles.append(doPoles(instObj))
+        else:
+            instObj.poles = doPoles(instObj)  
+            instObj.DCvalue = None
+    elif instObj.dataType == 'zeros':
+        if instObj.step:
+            instObj.zeros.append(doZeros(instObj))
+        else:
+            instObj.zeros = doZeros(instObj)
+            instObj.DCvalue = None
+    elif instObj.dataType == 'pz':
+        (poles, zeros, DCvalue) = doPZ(instObj)
+        if instObj.step:
+            instObj.poles.append(poles)
+            instObj.zeros.append(zeros)
+            instObj.DCvalue.append(DCvalue)
+        else:    
+            instObj.poles = poles
+            instObj.zeros = zeros
+            instObj.DCvalue = DCvalue
+    elif instObj.dataType == 'denom':
+        if instObj.step:
+            instObj.denom.append(doDenom(instObj))
+        else:
+            instObj.denom = doDenom(instObj)
+    elif instObj.dataType == 'numer':
+        if instObj.step:
+            instObj.numer.append(doNumer(instObj))
+        else:
+            instObj.numer = doNumer(instObj)
+    elif instObj.dataType == 'laplace':
+        if instObj.step:
+            instObj.laplace.append(doLaplace(instObj))
+        else:
+            instObj.laplace = doLaplace(instObj)
+    elif instObj.dataType == 'step':
+        try:
+            instObj.stepResp = invLaplace(doNumer(instObj), doDenom(instObj)*LAPLACE)
+        except:
+            print "Warning: could not calculate the unit step response."
+    elif instObj.dataType == 'impulse':
+        try:
+            instObj.stepResp = invLaplace(doNumer(instObj), doDenom(instObj))
+        except:
+            print "Warning: could not calculate the unit impulse response."
+    elif instObj.dataType == 'time':
+        pass 
+    elif instObj.dataType == 'solve':
+        pass            
+    return instObj
 
 def doDenom(instObj):
     """
