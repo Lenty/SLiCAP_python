@@ -6,6 +6,7 @@ Created on Fri May  1 13:57:02 2020
 @author: anton
 """
 from SLiCAPmatrices import *
+import platform
 
 def sympy2maximaMatrix(M):
     """
@@ -25,10 +26,16 @@ def maxEval(maxExpr):
     # LISP command for a  a single-line output in text format:
     maxStringConv = ":lisp (mfuncall '$string $result);"
     maxInput = maxExpr + maxStringConv
-    output = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
+    if platform.system() =='Linux' or platform.system() =='Darwin':
+        output = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
                                maxInput], stdout=subprocess.PIPE).stdout
+        result = output.readlines()[-1]
+    if platform.system() =='Windows':
+        output = subprocess.Popen(['C:\\maxima-5.42.2\\bin\\maxima.bat', '--very-quiet', '-batch-string', \
+                               maxInput], stdout=subprocess.PIPE).stdout
+        result = output.readlines()[-1].decode("utf-8")
     # The last line of the output stream is the result                              
-    result = output.readlines()[-1]
+    
     output.close()
     # Convert big float notation '12345b+123' to float notation '12345e+123':
     result = re.sub(r'(([+-]?)(\d+)(\.?)(\d*))b(([+-]?)(\d+))', r'\1e\6', result)
