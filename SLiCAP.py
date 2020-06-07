@@ -67,12 +67,12 @@ if __name__ == '__main__':
         matrices2html(MNA, label='numMat')
         t6=time()
         #### determinant #####################################################
-        # charpolyM = maxDet(MNA[1])
-        # htmlPage('Dynamic system analysis')
-        # text2html('The characteristic equation of the network is:')
-        # eqn2html(0, charpolyM)
+        charpolyM = maxDet(MNA[1])
+        htmlPage('Dynamic system analysis')
+        text2html('The characteristic equation of the network is:')
+        eqn2html(0, charpolyM)
         t7=time()
-        # text2html('The time function is given by: ' + eqref('eq:ft') +'.')
+        text2html('The time function is given by: ' + eqref('eq:ft') +'.')
         # #### poles ###########################################################
         # roots = numRoots(charpolyM, LAPLACE)
         # pz2html((roots, [], False)) # arg = (poles, zeros, DC gain)
