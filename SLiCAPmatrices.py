@@ -316,26 +316,26 @@ if __name__ == '__main__':
     keys = myCir.elements.keys()
     for key in keys:
         el = myCir.elements[key]
-        print '\nElement    :', key
-        print 'Nodes      :', el.nodes
-        print 'Refs       :', el.refs
-        print 'Model      :', el.model
-        print 'Params     :'
+        print('\nElement    :', key)
+        print('Nodes      :', el.nodes)
+        print('Refs       :', el.refs)
+        print('Model      :', el.model)
+        print('Params     :')
         for par in el.params.keys():
-            print ' ', par, '=', el.params[par]
+            print(' ', par, '=', el.params[par])
     
-    print '\nCircuit parameter definitions:'
+    print('\nCircuit parameter definitions:')
     for par in myCir.parDefs.keys():
-        print ' ', par, '=', myCir.parDefs[par]          
+        print(' ', par, '=', myCir.parDefs[par])
     t4=time()
     for el in myCir.elements.keys():
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print el,'\t', par, sp.N(parNum, DISP)
+            print(el,'\t', par, sp.N(parNum, DISP))
     t5=time()
     (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, False)
     t6=time()
-    print M
+    print(M)
     (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, True)
     t7=time()
     #display.display(M)

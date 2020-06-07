@@ -349,10 +349,10 @@ def matrices2html(instrObj, label = ''):
     """
     eqlabel = ''
     if instrObj.errors != 0:
-        print "Errors found during executeion."
+        print("Errors found during executeion.")
         return
     elif instrObj.dataType != 'matrix':
-        print "Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType)
+        print("Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType))
         return
     try:
         (Iv, M, Dv) = (instrObj.results.Iv, instrObj.results.M, instrObj.results.Dv)
@@ -380,13 +380,13 @@ def pz2html(instObj, label = ''):
     HTML page.
     """
     if instObj.errors != 0:
-        print "Errors found in instruction."
+        print("Errors found in instruction.")
         return
     elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
-        print "Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType)
+        print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print "Error: parameter stepping not yet implemented for 'pz2html()'."
+        print("Error: parameter stepping not yet implemented for 'pz2html()'.")
         return  
     if label != '':
         ini.htmlLabels[label] = ini.htmlPage

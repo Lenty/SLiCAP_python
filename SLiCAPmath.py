@@ -270,7 +270,7 @@ def fullSubs(valExpr, parDefs):
         valExpr = newvalExpr.subs(substDict)
         i += 1
     if i == MAXRECSUBST:
-        print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
+        print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
     return valExpr
     
 if __name__ == "__main__":

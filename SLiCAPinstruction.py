@@ -171,10 +171,10 @@ class instruction(object):
         if self.step == True:
             if self.simType == 'symbolic':
                 self.errors += 1
-                print "Error: symbolic stepping has not been implemented, use substitution instead."
+                print("Error: symbolic stepping has not been implemented, use substitution instead.")
             elif self.dataType == 'matrix':
                 self.errors += 1
-                print "Error: parameter stepping with dataType 'matrix' has not been implemented."
+                print("Error: parameter stepping with dataType 'matrix' has not been implemented.")
             else:
                 # Check step parameters
                 self.checkStep()

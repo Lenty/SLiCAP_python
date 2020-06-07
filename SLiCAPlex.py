@@ -56,7 +56,7 @@ def t_PARDEF(t):
         except:
             pass
     try:
-        t.value[1] = sympify(t.value[1])
+        t.value[1] = sp.sympify(t.value[1])
     except:
         printError("Error in expression.", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
         lexer.errCount += 1
@@ -112,7 +112,7 @@ def t_EXPR(t):
     out += t.value[pos:-1]
     t.value = out
     try:
-        t.value = sympify(out)
+        t.value = sp.sympify(out)
     except:
         lexer.errCount += 1
         printError("Error in expression:", lexer.lexdata.splitlines[lexer.lineno], find_column(t))

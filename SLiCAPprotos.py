@@ -90,7 +90,7 @@ class circuit(object):
                 else:
                     parValue = self.parDefs[parNames]
             except:
-                print "Error: parameter '%s' has not beed defined."%(str(parNames))
+                print("Error: parameter '%s' has not beed defined."%(str(parNames)))
                 parValue = None
         else:
             parValue = None
