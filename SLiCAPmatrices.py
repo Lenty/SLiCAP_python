@@ -1,6 +1,10 @@
 from SLiCAPmath import *
 
 def getValues(elmt, param, numeric, parDefs):
+    """
+    Returns the symbolic or numeric value of numerator and the denominator
+    of a parameter of an element.
+    """
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
@@ -17,15 +21,50 @@ def getValues(elmt, param, numeric, parDefs):
     return (numer, denom)
 
 def getValue(elmt, param, numeric, parDefs):
+    """
+    Returns the symbolic or numeric value of a parameter of an element.
+    """
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
         value = elmt.params[param]
     return value
         
-def makeMatrices(cir, numeric=False):
-    """Makes matrices"""
-    parDefs = cir.parDefs
+def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
+    """
+    Modifications in the circuit object, necessary for calculation different
+    gain types need to be temporary. The circuit data before and after
+    running 'makeMatrices' should be the same!
+    
+    1. If gainType == 'asymptotic':
+        store the model of lgRef
+        modify the model of lgRef to 'N'
+        update depVars and varIndex
+        create the matrices
+        restore the model of lgRef
+        update depVars and varIndex
+        
+    2. If gainType == 'direct', 'loopgain' or 'servo':
+        store value of lgRef
+        set value of lgRef element to zero
+        create the matrices
+        restore the value of lgRef
+        
+        loopgain and servo will be calculated with the output of lgRef 
+        as source and the input of lgRef as detector.
+        
+    3. If gainType == 'vi' or 'gain':
+        no alterations of the circuit need to be made
+    """
+    if gainType == 'vi' or gainType == 'gain':
+        pass
+    elif gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
+        lgValue = cir.elements[lgRef].params['value']
+        cir.elements[lgRef].params['value'] = 0
+    elif gainType == 'asymptotic':
+        lgRefModel = cir.elements[lgRef].model
+        cir.elements[lgRef].model = 'N'
+        cir.updateMdata()
     varIndex = cir.varIndex
     dim = len(cir.varIndex.keys())
     Iv = [0 for i in range(dim)]
@@ -252,26 +291,28 @@ def makeMatrices(cir, numeric=False):
     Iv.row_del(gndPos)
     Vv = matrix(Vv)
     Vv.row_del(gndPos)
-    return Iv,M,Vv
+    if gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
+        cir.elements[lgRef].params['value'] = lgValue
+    elif gainType == 'asymptotic':
+        cir.elements[lgRef].model = lgRefModel
+        cir.updateMdata()
+    return (Iv, M, Vv)
 
 if __name__ == '__main__':
+    ini.projectPath = ini.installPath + 'testProjects/PIVA/'
+    ini.circuitPath = ini.projectPath + 'cir/'
+    ini.htmlPath    = ini.projectPath + 'html/'
+    ini.htmlIndex   = 'index.html'
+    ini.htmlPages = []
     t1=time()
     LIB = makeLibraries()
     t2=time()
-    """ 
-    import os
-    files = os.listdir('cir')
-    
-    for fi in files:
-        [cirFileName, ext] = fi.split('.')
-        if ext.lower() == 'cir':   
-    """
     fi = 'PIVA.cir'
-    
+
     print("\nCheking:", fi)
+
     myCir = checkCircuit(fi )
     t3=time()
-    """
     keys = myCir.elements.keys()
     for key in keys:
         el = myCir.elements[key]
@@ -290,18 +331,18 @@ if __name__ == '__main__':
     for el in myCir.elements.keys():
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print el,'\t', par, N(parNum, DISP)
+            print el,'\t', par, sp.N(parNum, DISP)
     t5=time()
-    """
-    (Iv, M, Vv) = makeMatrices(myCir, False)
+    (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, False)
     t6=time()
-    display.display(M)
-    (Iv, M, Vv) = makeMatrices(myCir, True)
+    print M
+    (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, True)
     t7=time()
     #display.display(M)
     charPoly = M.determinant()
     t8=time()
-    display.display(charPoly)
+
+    print(charPoly)
     print("\nmakeLibraries         : %fs."%(t2-t1))
     print("checkCircuit          : %fs."%(t3-t2))
     print("makeMatrices symbolic : %fs."%(t6-t3))

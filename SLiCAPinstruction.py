@@ -16,51 +16,53 @@ class instruction(object):
     Prototype Instruction object, with execute and check methods.
     """
     def __init__(self):
-        self.circuit    = False
-        self.simType    = False
-        self.gainType   = False
-        self.dataType   = False
-        self.step       = False
-        self.stepVar    = False
-        self.stepVars   = False
-        self.stepMethod = False
-        self.stepStart  = False
-        self.stepStop   = False
-        self.stepNum    = False
+        self.circuit    = None
+        self.simType    = None
+        self.gainType   = None
+        self.dataType   = None
+        self.step       = None
+        self.stepVar    = None
+        self.stepVars   = None
+        self.stepMethod = None
+        self.stepStart  = None
+        self.stepStop   = None
+        self.stepNum    = None
         self.stepList   = []
         self.stepArray  = []
-        self.source     = False
-        self.detector   = False
-        self.lgRef      = False
-        self.results    = False
-        self.MNA_I      = False # Vector with independent variables, adjusted for instruction.gainType
-        self.MNA_V      = False # Vector with dependent variables, adjusted for instruction.gainType
-        self.MNA_M      = False # MNA matrix, adjusted for instruction.gainType
-        self.G          = False # Conductance matrix (not implemented)
-        self.C          = False # Capacitance matrix (not implemented)
-        self.R          = False # Inverse of the conductance matrix (not implemented)
-        self.TAU        = False # dot porduct of self.R and self.C
+        self.source     = None
+        self.detector   = None
+        self.lgRef      = None
+        self.results    = None
+        self.Iv         = None # Vector with independent variables, adjusted for instruction.gainType
+        self.M          = None # MNA matrix, adjusted for instruction.gainType
+        self.Dv         = None # Vector with dependent variables, adjusted for instruction.gainType
+        self.G          = None # Conductance matrix (not implemented)
+        self.C          = None # Capacitance matrix (not implemented)
+        self.R          = None # Inverse of the conductance matrix (not implemented)
+        self.TAU        = None # dot porduct of self.R and self.C
         self.errors     = 0
-        self.results    = False
+        self.results    = allResults()
+        
     def checkCircuit(self, fileName):
         """
         Checks the circuit and makes it the (local) ciruit object for this
         instruction.
         """
         self.circuit = checkCircuit(fileName)
+        
     def check(self):
         """
         Check the completeness and consistancy of the instruction data before
         it can be executed.
         """
         self.errors = 0
-        if self.circuit == False:
+        if self.circuit == None:
             self.errors += 1
             print("Error: missing circuit definition.")
         elif type(self.circuit) != type(circuit()):
             self.errors += 1
             print("Error: not SLiCAP a circuit object.")
-        if self.gainType == False:
+        if self.gainType == None:
             self.errors += 1
             print("Error: missing gainType specification.")
         elif self.gainType.lower() not in GAINTYPES:
@@ -68,7 +70,7 @@ class instruction(object):
             print("Error: unknown gainType: '%s'."%(self.gainType))
         else:
             self.gainType = self.gainType.lower()
-        if self.dataType == False:
+        if self.dataType == None:
             self.errors += 1
             print("Error: missing dataType specification.")
         elif self.dataType.lower() not in DATATYPES:
@@ -76,7 +78,7 @@ class instruction(object):
             print("Error: unknown dataType: '%s'."%(self.dataType))
         else:
             self.dataType = self.dataType.lower()
-        if self.simType == False:
+        if self.simType == None:
             self.errors += 1
             print("Error: missing simType specification.")
         elif self.simType.lower() != 'numeric' and self.simType != 'symbolic':
@@ -89,35 +91,30 @@ class instruction(object):
                 if self.dataType == 'laplace':
                     # need detector
                     self.checkDetector()
-                    result = functionResult()
                 elif self.dataType == 'numer':
                     # need detector
                     self.checkDetector()
-                    result = lfunctionResult()
                 elif self.dataType == 'denom':
                     # need nothing
-                    result = functionResult()
+                    pass
                 elif self.dataType == 'noise':
                     # need detector
                     self.checkDetector()
-                    result = noiseResult()
                 elif self.dataType == 'matrix':
                     # need nothing
-                    result = matrixResult()
+                    pass
                 elif self.dataType == 'solve':
                     # need nothing
-                    result = functionResult()
+                    pass
                 elif self.dataType == 'time':
                     # need detector
                     self.checkDetector()
-                    result = functionResult()
                 elif self.dataType == 'dcvar':
                     # need detector
                     self.checkDetector()
-                    result = dcVarResult()
                 elif self.dataType == 'dcsolve':
                     # need nothing
-                    result = functionResult()
+                    pass
                 else:
                     self.errors += 1
                     print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
@@ -126,12 +123,10 @@ class instruction(object):
                     # need source and detector
                     self.checkDetector()
                     self.checkSource()
-                    result = functionResult()
                 elif self.dataType == 'numer':
                     # need source and detector
                     self.checkDetector()
                     self.checkSource()
-                    result = functionResult()
                 elif self.dataType == 'denom':
                     # need nothing
                     pass
@@ -139,28 +134,23 @@ class instruction(object):
                     # need source and detector
                     self.checkDetector()
                     self.checkSource()
-                    result = functionResult()
                 elif self.dataType == 'step':
                     # need source and detector
                     self.checkDetector()
                     self.checkSource()
-                    result = functionResult()
                 elif self.dataType == 'poles':
                     # need numeric
                     self.checkNumeric()
-                    result = pzResult()
                 elif self.dataType == 'zeros':
                     # need numeric, source and detector
                     self.checkNumeric()
                     self.checkDetector()
                     self.checkSource()
-                    result = pzResult()
                 elif self.dataType == 'pz':
                     # need numeric source and detector
                     self.checkNumeric()
                     self.checkDetector()
                     self.checkSource()
-                    result = pzResult()
                 else:
                     self.errors += 1
                     print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
@@ -179,8 +169,15 @@ class instruction(object):
                 else:
                     pass
         if self.step == True:
-            # Check step parameters
-            self.checkStep()
+            if self.simType == 'symbolic':
+                self.errors += 1
+                print "Error: symbolic stepping has not been implemented, use substitution instead."
+            elif self.dataType == 'matrix':
+                self.errors += 1
+                print "Error: parameter stepping with dataType 'matrix' has not been implemented."
+            else:
+                # Check step parameters
+                self.checkStep()
         return
     
     def checkNumeric(self):
@@ -202,7 +199,7 @@ class instruction(object):
         if type(self.lgRef) == bool:
             self.errors += 1
             print("Error: missing loop gain reference definition.")
-        elif self.source not in self.circuit.controlled:
+        elif self.lgRef not in self.circuit.controlled:
             self.errors += 1
             print("Error: unkown loop gain reference: '%s'."%(self.lgRef))
         return
@@ -214,25 +211,37 @@ class instruction(object):
             str:  a single detector, nodal voltage or branch current
             list: either two nodat voltages or two branch currents
         """
-        if type(self.detector) != bool:
+        if self.detector != None:
             # detector has two nodes or two voltage sources
             if type(self.detector) == str:
                 # Change the detector definition
-                self.detector = [self.detector, False]
+                self.detector = [self.detector, None]
             detP = self.detector[0]
             detN = self.detector[1]
             # detectors must be of the same type
-            if detP == False or detN == False:
+            if detP == None or detN == None:
                 pass
             elif detP[0] != detN[0]:
                 self.errors += 1
                 print("Error: two detectors must be of the same type.")
-            if detP != False and detP not in self.circuit.depVars:
+            if detP != None and detP not in self.circuit.depVars:
                 self.errors += 1
                 print("Error: unkown detector: '%s'."%(detP))
-            if detN != False and detN not in self.circuit.depVars:
+            if detN != None and detN not in self.circuit.depVars:
                 self.errors += 1
                 print("Error: unkown detector: '%s'."%(detN))
+            if self.lgRef != None:
+                # Impossible to calculate the asymptotic gain with these values
+                forbidden = 'I_i_' + self.lgRef
+                if detP == forbidden or detN == forbidden:
+                    self.errors += 1
+                    print("Error: forbidden combination of lgRef and detector.")
+            # Node zero does not exist in the matrix. It is the reference node.
+            if detP == 'V_0':
+                self.detector[0] = None
+            if detN == 'V_0':
+                self.detector[1] = None
+
         else:
             self.errors += 1
             print("Error: missing detector definition.")
@@ -240,7 +249,7 @@ class instruction(object):
     
     def checkStep(self):
         # Check stepMethod
-        if type(self.stepMethod) == bool:
+        if self.stepMethod == None:
             self.errors += 1
             print("Error: missing stepMethod.")
         else:
@@ -275,7 +284,7 @@ class instruction(object):
         return
     
     def checkStepVar(self):
-        if type(self.stepVar) == bool:
+        if self.stepVar == None:
             print("Error: missing step variable.")
         else:
             if not isinstance(stepVar, tuple(sp.core.all_classes)):
@@ -287,14 +296,14 @@ class instruction(object):
     
     def checkStepStart(self):
         """
-        Assuming: False, float, int or str as input type.
+        Assuming: None, float, int or str as input type.
         """
-        if type(self.stepStart) == bool:
+        if self.stepStart == None:
             self.errors += 1
             print("Error: missing stepStart value.")
         else:
             value = checkNumber(self.stepStart)
-            if type(value) == bool:
+            if value == None:
                 self.errors += 1
                 print("Error: cannot determine numeric value of stepStart.")
             else:
@@ -303,14 +312,14 @@ class instruction(object):
         
     def checkStepStop(self):
         """
-        Assuming: False, float, int or str as input type.
+        Assuming: None, float, int or str as input type.
         """
-        if type(self.stepStop) == bool:
+        if self.stepStop == None:
             self.errors += 1
             print("Error: missing stepStop value.")
         else:
             value = checkNumber(self.stepStop)
-            if type(value) == bool:
+            if value == None:
                 self.errors += 1
                 print("Error: cannot determine numeric value of stepStop.")
             else:
@@ -319,22 +328,25 @@ class instruction(object):
     
     def checkStepNum(self):
         """
-        Assuming: False, float, int or str as input type.
+        Assuming: None, float, int or str as input type.
         """
-        if type(self.stepNum) == bool:
+        if self.stepNum == None:
             self.errors += 1
             print("Error: missing stepNum value.")
         else:
             value = checkNumber(self.stepNum)
-            if type(value) == bool:
+            if value == None:
                 self.errors += 1
                 print("Error: cannot determine numeric value of stepSNum.")
+            elif value < 1:
+                print("Warning: number of steps = 0.")
+                self.stepNum = int(value)
             else:
-                self.stepNumt = value
+                self.stepNum = int(value)
         return
     
     def checkStepVars(self):
-        if type(self.stepVars) == bool:
+        if self.stepVars == None:
             self.errors += 1
             print("Error: missing list stepVars.")
         elif type(self.stepVars) == list:
@@ -349,7 +361,7 @@ class instruction(object):
         return
     
     def checkStepList(self):
-        if type(self.stepList) == bool:
+        if self.stepList == None:
             self.errors += 1
             print("Error: missing stepList.")
         elif type(self.stepList) == list:
@@ -358,7 +370,7 @@ class instruction(object):
                 print("Error: empty stepList.")
             for i in range(len(self.stepList)):
                 value = checkNumber(stepVal)
-                if type(value) == bool:
+                if value == None:
                     self.errors += 1
                     print("Error: cannot determine numeric value of stepList[%s]."%(i))
                 else:
@@ -373,7 +385,7 @@ class instruction(object):
         The step array is a list of lists. The number of lists must equal the
         number of step variables. All lists should have equal lengths.
         """
-        if type(self.stepArray) == bool:
+        if tself.stepArray == None:
             self.errors += 1
             print("Error: missing stepArray.")
         elif type(self.stepArray) == list:
@@ -390,7 +402,7 @@ class instruction(object):
                         if self.errors == 0:
                             for j in range(len(stepArray[i])):
                                 value = checkNumber(stepArray[i][j])
-                                if type(value) == bool:
+                                if value == None:
                                     self.errors += 1
                                     print("Error: cannot determine numeric value of stepArray[%s, %s]."%(i, j))
                                 else:
@@ -401,8 +413,9 @@ class instruction(object):
         self.check()
         if self.errors != 0:
             print("Errors found. Instruction will not be executed.")
-        else:
-            doInstruction(self)
+            return(self)
+        else: 
+            return doInstruction(self)
     
     def delPar(self, parName):
         # single params and multiple.
@@ -416,8 +429,11 @@ class instruction(object):
         
     def getParValue(self, parName):
         # single params and multiple.
-        self.circuit.getParValue(parName)
-        
+        if self.simType == 'numeric':
+            numeric = True
+        else:
+            numeric = False
+        return self.circuit.getParValue(parName, numeric)
     
     def indepVars(self):
         print(self.circuit.indepVars)
@@ -432,68 +448,9 @@ class instruction(object):
         return
     
     def stepParams(self):
-        print("to be implemented")
+        # Returns the values of all parameters, while one or more are stepped.
         return
-    
-#### Return structures depend on data type
-        
-class functionResult(object):
-    """
-    Return structure for dataType 'solve', 'Laplace', 'impulse', 'step',
-    'time'.
-    """
-    def __init__(self):
-        self.results     = False # Solution vector
-        
-class matrixResult(object):
-    """
-    Return structure for dataType 'matrix'
-    """
-    def __init__(self):
-        self.Iv          = False # Vector with independent variables
-        self.M           = False # MNA matrix
-        self.Dv          = False # Vector with dependent variables
-        
-class noiseResult(object):
-    """
-    Return structure for dataType 'noise'
-    """
-    def __init__(self):
-        self.sources     = False # Names of the noise sources
-        self.srcTerms    = False # Dict with respective noise spectra
-        self.inoiseTerms = False # Dict with respective spectral contributions
-                                 # to source-referred noise
-        self.onoiseTerms = False # Dict with espective spectral contributions
-                                 # to detector-referred noise
-        self.inoise      = False # Total source-referred noise spectral density
-        self.onoise      = False # Total detector-referred noise spectral 
-                                 # density
-        
-class dcVarResult(object):
-    """
-    Return structure for dataType 'dcVar'
-    """
-    def __init__(self):
-        self.sources     = False # Names of the sources with dc variance
-        self.srcTerms    = False # Dict with respective variance
-        self.ivarTerms   = False # Dict with respective contributions to 
-                                 # source-referred variance
-        self.ovarTerms   = False # Dict with respective contributions to 
-                                 # detector-referred variance
-        self.ivar        = False # Total source-referred variance
-        self.ovar        = False # Total detector-referred variance
-        self.dcSolve     = False # DC solution of the network
-
-class pzResult(object):
-    """
-    Return structure for pole-zero analysis.
-    """
-    def __init__(self):
-        self.DCvalue     = False # Zero-frequency value in case of 
-                                 # dataType 'pz'
-        self.poles       = False # Complex frequencies in [rad/s] or [Hz]
-        self.zeros       = False # Complex frequencies in [rad/s] or [Hz]
-        
+       
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dcvar', 'dcsolve', 'numer',
              'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 'step']
 
@@ -508,4 +465,5 @@ if __name__ == '__main__':
     i.lgRef = 'G1'
     i.step = True
     i.stepMethod = 'lin'
+    i.stepNum = '5a'
     i.execute()

@@ -22,14 +22,15 @@ Contents
    introduction
    ToDo
    configure
-   Parser
-   parsingMethod
-   library
-   modelParams
-   subCircuits
-   errorHandling
+   math
    matrices
    pythonMaximaInterface
-   documents
    html
+   Parser
+   parsingMethod
+   modelParams
+   subCircuits
+   library
+   instruction
+   execute
    plot

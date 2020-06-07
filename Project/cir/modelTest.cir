@@ -1,7 +1,0 @@
-modelTest
-I_1 0 b 1u
-R_1 c 0 1k
-Q_1 c b 0 0 Q2N3904 gm={I_c*q_e/(k_B*T_A)} gpi={I_c*q_e/(k_B*T_A)/beta_AC}
-.param I_c=2m beta_AC={beta_DC} beta_DC=100
-.model Q2N3904 QV
-.end

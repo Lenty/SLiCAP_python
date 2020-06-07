@@ -10,8 +10,8 @@ Created on Mon May  4 12:32:13 2020
 @author: anton
 """
 
-from SLiCAPlex import *
-from SLiCAPprotos import *
+
+from SLiCAPhtml import *
 
 # Composite tokens
 NODES      = ['NODEID', 'ID', 'INT']
@@ -53,16 +53,16 @@ def fullSubs(valExpr, parDefs):
 
 
 def checkCircuit(fileName):
-    global CIRTITLES, HTMLPREFIX
+    # fileName relative to PROJECTPATH + CIRCUITPATH
     cir = circuit()
     cir.file = fileName
     if LIB.errors == 0:
-        cir.lexer = tokenize(CIRCUITPATH + fileName)
+        cir.lexer = tokenize(ini.circuitPath + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:
             cir = updateCirData(cir)
-            HTMLprefix('-'.join(cir.title.split()) + '_')
-            HTMLindex('index.html')
+            ini.htmlPrefix = ('-'.join(cir.title.split()) + '_')
+            ini.htmlIndex = 'index.html'
             htmlPage(cir.title, True)
             if cir.errors != 0:
                 print("""Errors found during updating of circuit data from '%s'.
@@ -694,7 +694,7 @@ def updateCirData(mainCircuit):
         elif mainCircuit.elements[elmt].type in CONTROLLED:
             mainCircuit.controlled.append(elmt)
         for i in range(len(MODELS[mainCircuit.elements[elmt].model].depVars)):
-            depVar = MODELS[mainCircuit.elements[elmt].type].depVars[i]
+            depVar = MODELS[mainCircuit.elements[elmt].model].depVars[i]
             mainCircuit.depVars.append(depVar + '_' + elmt)
             mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
             varIndexPos += 1
@@ -731,7 +731,7 @@ def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
-    fileName = LIBRARYPATH + 'SLiCAPmodels.lib'
+    fileName = ini.installPath + 'lib/SLiCAPmodels.lib'
     LIB = circuit()
     LIB.file = fileName
     LIB.lexer = tokenize(fileName)
@@ -742,7 +742,7 @@ def makeLibraries():
     else:
         # Do this also for other libs
         CIRTITLES = []
-        fileName = LIBRARYPATH + 'SLiCAP.lib'
+        fileName = ini.installPath + 'lib/SLiCAP.lib'
         cir = circuit()
         cir.file = fileName
         cir.lexer = tokenize(fileName)
@@ -768,20 +768,20 @@ def addUserLibs(fileNames):
     """
     global CIRTITLES, LIB
     for fi in fileNames:
-        # Do not include the standard library "SLiCAP.lib"
+        # The standard library "SLiCAP.lib" has already been included.
         libFile = fi.split('.')
         try:
             if libFile[0] != 'SLiCAP' and libFile[1].upper() != 'LIB':
                 try:
                     # first libraries in circuit directory
-                    f = open(CIRPATH + fi, "r")
-                    fileName = CIRPATH + fi
+                    f = open(PROJECTPATH + CIRPATH + fi, "r")
+                    fileName = PROJECTPATH + CIRPATH + fi
                     f.close()
                 except:
                     try:
-                        # then libraries in user library directory
-                        f = open(LIBRARYPATH + fi, "r")
-                        fileName = LIBRARYPATH + fi
+                        # then libraries in the user library directory
+                        f = open(PROJECTPATH + LIBRARYPATH + fi, "r")
+                        fileName = PROJECTPATH + LIBRARYPATH + fi
                         f.close()
                     except:
                         try:
@@ -794,7 +794,7 @@ def addUserLibs(fileNames):
                             fileName = False
                 if fileName != False:
                     cir = circuit()
-                    cir.file = fileName
+                    cir.file = fi
                     cir.lexer = tokenize(fileName)
                     cir = makeCircuit(cir)
                     if cir.errors != 0:
@@ -813,23 +813,22 @@ def addUserLibs(fileNames):
     return()
 
 if __name__ == '__main__':
+    """
+    Since we are not running a project, we need to define the project directories.
+    """
+    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.circuitPath = ini.projectPath + 'cir/'
+    ini.htmlPath    = ini.projectPath + 'html/'
+    ini.htmlIndex   = 'index.html'
     t1=time()
     LIB = makeLibraries()
-    t2=time()
-    """ 
-    import os
-    files = os.listdir('cir')
-    
-    for fi in files:
-        [cirFileName, ext] = fi.split('.')
-        if ext.lower() == 'cir':   
-    """
+    t2=time()  
     fi = 'MOSamp.cir'
-    
+ 
     print("\nCheking:", fi)
+
     myCir = checkCircuit(fi)
     t3=time()
-    """
     keys = myCir.elements.keys()
     for key in keys:
         el = myCir.elements[key]
@@ -848,6 +847,5 @@ if __name__ == '__main__':
     for el in myCir.elements.keys():
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print el,'\t', par, N(parNum, DISP)
+            print el,'\t', par, sp.N(parNum, DISP)
     t5=time()
-    """

@@ -13,6 +13,4 @@ The Python-Maxima interface is defined in the file: ``SLiCAPpythonMaxima.py``:
 
 .. literalinclude:: ../SLiCAPpythonMaxima.py
     :language: python
-    :linenos: 
-    :lines: 1-54
-    :lineno-start: 1
+    :linenos:

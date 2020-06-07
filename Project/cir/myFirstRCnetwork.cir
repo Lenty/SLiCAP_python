@@ -1,6 +1,0 @@
-myFirstRCnetwork
-V1 1 0 1
-R1 1 2 {R_a}
-C1 2 0 {C_a}
-.param R_a=1k C_a=1n
-.end

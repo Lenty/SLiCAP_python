@@ -36,7 +36,7 @@
   
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
-        <link rel="next" title="SLiCAP netlist parser" href="Parser.html"/>
+        <link rel="next" title="SLiCAP math library" href="math.html"/>
         <link rel="prev" title="ToDo" href="ToDo.html"/> 
 
   
@@ -95,19 +95,21 @@
 <li class="toctree-l1"><a class="reference internal" href="ToDo.html">ToDo</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SLiCAP configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-user-configuration">Basic user configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-slicap-configuration">Basic SLiCAP configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#change-or-add-built-in-models-and-devices">Change or add built-in models and devices</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">SLiCAP math library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">SLiCAP output documents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
@@ -174,8 +176,11 @@
             
   <div class="section" id="slicap-configuration">
 <h1>SLiCAP configuration<a class="headerlink" href="#slicap-configuration" title="Permalink to this headline">¶</a></h1>
+<p>SLiCAP uses several configuration files.</p>
 <div class="section" id="basic-user-configuration">
 <h2>Basic user configuration<a class="headerlink" href="#basic-user-configuration" title="Permalink to this headline">¶</a></h2>
+<p>A user configuration file will be created in the project directory by initPtoject().
+Once created it can be modified and modifications will not be overwritten by initProject().</p>
 <ul class="simple">
 <li>Symbols for frequency, angular frequency and Laplace variable</li>
 <li>Number of recursive substitutions in expressions</li>
@@ -184,7 +189,7 @@
 <li>Path settings</li>
 <li>Plot settings</li>
 </ul>
-<p>These settings are in the file: <code class="docutils literal"><span class="pre">SLiCAPini.py</span></code>:</p>
+<p>These settings are in the file: <code class="docutils literal"><span class="pre">SLiCAPconfig.py</span></code>:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -226,53 +231,37 @@
 39
 40
 41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+42</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Sat May 30 11:10:18 2020</span>
 
-<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
-<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
-<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="sd">@author: anton</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
-<span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings</span>
+<span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings:</span>
+                            <span class="c1"># not yet implemented</span>
 <span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># Numner of digits for floats in output</span>
-<span class="n">MATHJAXLOCAL</span>    <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Local version of MathJax will be used if True</span>
+<span class="n">MATHJAXLOCAL</span>    <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Will be ignored, later it will be replaced with</span>
+                            <span class="c1"># a selection between mathml and MatJax cloud</span>
 
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>       <span class="c1"># Laplace veriable</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>       <span class="c1"># Frequency in Hz</span>
 <span class="n">OMEGA</span>           <span class="o">=</span> <span class="s1">&#39;omega&#39;</span>   <span class="c1"># Frequency in rad/s</span>
 <span class="n">MAXRECSUBST</span>     <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># Maximum number of recursic=ve substitutions</span>
-<span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># True if frequency output in Hz, else: False</span>
+<span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># Display method for frequency on HTML pages:</span>
+                            <span class="c1"># True if frequency in Hz, else: False</span>
 
-<span class="c1"># PATHS: relative to the SLiCAP directory</span>
-<span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;Project/html/&#39;</span>   <span class="c1"># path for html output</span>
-<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;Project/cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
-<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>            <span class="c1"># path for include and library files</span>
-<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
-<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
-<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;Project/tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
-<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;Project/mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
-<span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;Project/img/&#39;</span>    <span class="c1"># path for image files</span>
+<span class="c1"># PATHS: relative to the project path</span>
+<span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
+<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
+<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>    <span class="c1"># path for include and library files</span>
+<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
+<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
+<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
+<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
+<span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
 
 <span class="c1"># Default plot settings</span>
 <span class="n">figureAxisHeight</span><span class="o">=</span> <span class="mi">4</span>
@@ -284,16 +273,90 @@
 <span class="n">axisXscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the x-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">axisYscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the y-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 <span class="n">legendLoc</span>       <span class="o">=</span> <span class="s1">&#39;best&#39;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="basic-slicap-configuration">
+<h2>Basic SLiCAP configuration<a class="headerlink" href="#basic-slicap-configuration" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Import of python modules</li>
+<li>Detection of install path</li>
+<li>Detection of project path</li>
+<li>Some type conversions for user-defined constants</li>
+</ul>
+<p>These settings are in the file: <code class="docutils literal"><span class="pre">SLiCAPini.py</span></code>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">SLiCAPconfig</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copytree</span> <span class="k">as</span> <span class="n">ct</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
 
 <span class="c1"># Type conversions</span>
 <span class="n">LAPLACE</span>         <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span>
 <span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">FREQUENCY</span><span class="p">)</span>
 <span class="n">OMEGA</span>           <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">OMEGA</span><span class="p">)</span>
 
-<span class="c1"># Where is it installed? </span>
-<span class="n">INSTALLPATH</span>     <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="c1"># Automatic detection of install and project paths</span>
+<span class="c1"># Get the installation path</span>
+<span class="n">INSTALLPATH</span>     <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+<span class="c1"># Get the project path (the path of the script that imported SLiCAP.ini)</span>
+<span class="n">PROJECTPATH</span>     <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+<span class="c1"># For test purposes there is a testproject directory:</span>
+<span class="k">if</span>  <span class="n">PROJECTPATH</span> <span class="o">==</span> <span class="n">INSTALLPATH</span><span class="p">:</span>
+    <span class="c1"># This is the case when running:</span>
+    <span class="c1"># if __name__ == &#39;__main__&#39; sections in SLICAP script files.</span>
+    <span class="n">PROJECTPATH</span> <span class="o">+=</span> <span class="s1">&#39;testProjects/PIVA/&#39;</span>
 </pre></div>
 </td></tr></table></div>
+<p>After this file has been copied to the project directory, product data will be added.
+An example of product data is shown below. The variable LASTUPDATE will be updated by initProject().</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Project information</span>
+<span class="n">PROJECT</span>    <span class="o">=</span> <span class="s1">&#39;My first SLiCAP project&#39;</span>
+<span class="n">AUTHOR</span>     <span class="o">=</span> <span class="s1">&#39;anton&#39;</span>
+<span class="n">CREATED</span>    <span class="o">=</span> <span class="s1">&#39;2020-06-04 16:17:06.407070&#39;</span>
+<span class="n">LASTUPDATE</span> <span class="o">=</span> <span class="s1">&#39;2020-06-04 17:02:35.948693&#39;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="change-or-add-built-in-models-and-devices">
 <h2>Change or add built-in models and devices<a class="headerlink" href="#change-or-add-built-in-models-and-devices" title="Permalink to this headline">¶</a></h2>
@@ -777,7 +840,52 @@
 472
 473
 474
-475</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPini</span> <span class="kn">import</span> <span class="o">*</span>
@@ -831,8 +939,8 @@
                                 <span class="c1"># can be used as loop gain reference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span>   <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with index of node or dependent</span>
                                 <span class="c1"># current (speeds up the building of the matrix)</span>
-                                <span class="c1">#   key   : node name of current name</span>
-                                <span class="c1">#   value : position in the vactor with</span>
+                                <span class="c1">#   key   : node name or current name</span>
+                                <span class="c1">#   value : position in the vector with</span>
                                 <span class="c1">#           dependent variables</span>
     
     <span class="k">def</span> <span class="nf">delPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
@@ -845,10 +953,35 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
         <span class="k">return</span>
         
-    <span class="k">def</span> <span class="nf">getParValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getParValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parNames</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
         <span class="c1"># single params and multiple.</span>
-        <span class="k">return</span>
-    
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">parNames</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                    <span class="n">par</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">par</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">numeric</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                            <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>          
+            <span class="k">return</span> <span class="n">parValues</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">parNames</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parNames</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">all_classes</span><span class="p">)):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">numeric</span><span class="p">:</span>
+                    <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">parValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s2">&quot;Error: parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has not beed defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">parValue</span>
+
     <span class="k">def</span> <span class="nf">updateParams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates self.params (undefined parameters) after modification of </span>
@@ -857,7 +990,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
                 <span class="k">except</span><span class="p">:</span>
@@ -868,7 +1001,27 @@
             <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">LAPLACE</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">FREQUENCY</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">OMEGA</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">undefined</span>
-    
+        <span class="k">return</span>
+        
+    <span class="k">def</span> <span class="nf">updateMdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates data for building matrices: self.depVars and self.varIndex</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">varIndexPos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">MODELS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">depVars</span><span class="p">)):</span>
+                <span class="n">depVar</span> <span class="o">=</span> <span class="n">MODELS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">depVars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">depVar</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span><span class="p">[</span><span class="n">depVar</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="p">]</span> <span class="o">=</span> <span class="n">varIndexPos</span>
+                <span class="n">varIndexPos</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;V_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">varIndexPos</span>
+            <span class="n">varIndexPos</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span>
+
 <span class="k">class</span> <span class="nc">element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># Circuit element object</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1267,7 +1420,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Parser.html" class="btn btn-neutral float-right" title="SLiCAP netlist parser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="math.html" class="btn btn-neutral float-right" title="SLiCAP math library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ToDo.html" class="btn btn-neutral" title="ToDo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

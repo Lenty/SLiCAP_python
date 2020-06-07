@@ -137,14 +137,3 @@ The procedure for updating the circuit data is found in ``SLiCAPyacc.py``:
     :linenos:
     :lineno-start: 631
     :lines: 631-702
-
-Recursive substitution
-======================
-
-Recursive substitution is performed by the function ``fullSubs``. It is located in ``SLiCAPhtml.py``. It is used during the flattening of the circuit and in some HTML functions. 
-
-.. literalinclude:: ../SLiCAPhtml.py
-    :language: python
-    :linenos:
-    :lineno-start: 372
-    :lines: 372-398

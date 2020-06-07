@@ -36,7 +36,7 @@
   
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
-        <link rel="next" title="SLiCAP output documents" href="documents.html"/>
+        <link rel="next" title="HTML reports" href="html.html"/>
         <link rel="prev" title="Building the MNA matrices" href="matrices.html"/> 
 
   
@@ -94,16 +94,17 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">SLiCAP open-source</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ToDo.html">ToDo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configure.html">SLiCAP configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="errorHandling.html">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">SLiCAP math library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Python-Maxima interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">SLiCAP output documents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 </ul>
 
@@ -179,60 +180,156 @@
 </li>
 </ol>
 <p>The Python-Maxima interface is defined in the file: <code class="docutils literal"><span class="pre">SLiCAPpythonMaxima.py</span></code>:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Fri May  1 13:57:02 2020</span>
@@ -286,6 +383,102 @@
             <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">result</span>
     <span class="k">return</span> <span class="s1">&#39;ft&#39;</span>
+
+<span class="k">def</span> <span class="nf">maxDet</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the determinant of matrix &#39;M&#39; in Sympy format, calculated by Maxima.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;m:&#39;</span> <span class="o">+</span> <span class="n">M</span> <span class="o">+</span> <span class="s1">&#39;;result:bfloat(expand(newdet(m)));&#39;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">maxNumer</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">detP</span><span class="p">,</span> <span class="n">detN</span><span class="p">,</span> <span class="n">srcP</span><span class="p">,</span> <span class="n">srcN</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the numerator of a transfer function:</span>
+<span class="sd">        </span>
+<span class="sd">    M = MNA matrix</span>
+<span class="sd">    detP = position of positive detector in vector with dependent variables.</span>
+<span class="sd">           This can be a nodal voltage or a current through a voltage source or</span>
+<span class="sd">           False if the positive node is the ground node or a positive current</span>
+<span class="sd">           is not used.</span>
+<span class="sd">    detN = position of positive detector in vector with dependent variables</span>
+<span class="sd">           This can be a nodal voltage or a current through a voltage source or</span>
+<span class="sd">           False if the negative node is the ground node or a negative current</span>
+<span class="sd">           is not used.</span>
+<span class="sd">    srcP:</span>
+<span class="sd">        Current source:</span>
+<span class="sd">            = position of positive node in vector with dependent variables.</span>
+<span class="sd">        Voltage source:</span>
+<span class="sd">            = position of current through this source in the vector with</span>
+<span class="sd">              dependent variables.</span>
+<span class="sd">    srcN:</span>
+<span class="sd">        Current source:</span>
+<span class="sd">            = position of positive node in vector with dependent variables.</span>
+<span class="sd">        Voltage source:</span>
+<span class="sd">            = False</span>
+<span class="sd">    </span>
+<span class="sd">    Note: In Sympy a minor is defined as the determinant of the minor matrix;</span>
+<span class="sd">          use .minor_submatrix to get the matrix only.</span>
+<span class="sd">          </span>
+<span class="sd">          In Maxima a minor is the minor matrix itself.</span>
+<span class="sd">          </span>
+<span class="sd">    GCalculation method:</span>
+<span class="sd">        </span>
+<span class="sd">        numer = + cofactor(srcP, detP) - cofactor(srcN, detP) </span>
+<span class="sd">                - cofactor(srcP, detN) + cofactor(srcN, detN)</span>
+<span class="sd">    cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))</span>
+<span class="sd">    </span>
+<span class="sd">    The minor matrices and the multiplication factors are determined with Sympy,</span>
+<span class="sd">    the determinants are calculated with Maxima.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a list of matrices of which the determinant needt to be calculated</span>
+    <span class="n">matrices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">detP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">srcP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detP</span> <span class="o">+</span> <span class="n">srcP</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">srcN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detP</span> <span class="o">+</span> <span class="n">srcN</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">detN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">srcP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detN</span> <span class="o">+</span> <span class="n">srcP</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">srcN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detN</span> <span class="o">+</span> <span class="n">srcN</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
+    <span class="c1"># Create the Maxima instruction</span>
+    <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;result:bfloat(expand(&#39;</span>
+    <span class="k">for</span> <span class="n">M</span> <span class="ow">in</span> <span class="n">matrices</span><span class="p">:</span>
+        <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) +&#39;</span>
+    <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;0));&#39;</span>
+    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
+    
+<span class="k">def</span> <span class="nf">maxLimit</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">pm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculated the limit of an expression for &#39;var&#39; approaches &#39;val&#39; from &#39;pm&#39;.</span>
+<span class="sd">    expr: sympy expression or string</span>
+<span class="sd">    var:  string representing the variable</span>
+<span class="sd">    val:  string representing the limit value of the variable</span>
+<span class="sd">    pm:   &#39;plus&#39; or &#39;minus&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;result:bfloat(limit(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="n">var</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="n">val</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="n">pm</span> <span class="o">+</span><span class="s1">&#39; ));&#39;</span>
+    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">maxCramer</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ToDo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -300,7 +493,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="documents.html" class="btn btn-neutral float-right" title="SLiCAP output documents" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="html.html" class="btn btn-neutral float-right" title="HTML reports" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="matrices.html" class="btn btn-neutral" title="Building the MNA matrices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

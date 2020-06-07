@@ -9,12 +9,8 @@ Created on Mon May  4 12:32:13 2020
 
 @author: anton
 """
-from sympy import sympify, Symbol
-import ply.lex as lex
-import re
-from SLiCAPini import *
 
-global LAPLACE, FREQUENCY, OMEGA
+from SLiCAPprotos import *
 
 # list of token names
 
@@ -199,18 +195,12 @@ def printError(msg, line, pos):
     print(out)
     
 if __name__ == '__main__':
-    """
-    import os
-    files = os.listdir('cir')
-    for fi in files:
-        [cirFileName, ext] = fi.split('.')
-        if ext.lower() == 'cir':
-    """
-    fi = 'testCircuit.cir'
+    fi = ini.installPath + 'testProjects/PIVA/cir/PIVA.cir'
     print(fi)
-    lexer = tokenize('Project/cir/' + fi)
+    lexer = tokenize(fi)
     tok = lexer.token()
     while tok:
         print(tok)
-        tok = lexer.token()
+        tok = lexer.token() 
     print('\nnumber of errors =', lexer.errCount, '\n')
+
