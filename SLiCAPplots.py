@@ -211,7 +211,7 @@ def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     dBmag.xScale = 'log'
     dBmag.yScale = 'lin'
     dBmag.xLabel = 'frequency [' + xscale + 'Hz]'
-    dBmag.yLabel = 'mag [' + xscale + 'dB]'
+    dBmag.yLabel = 'mag [' + yscale + 'dB]'
     if result.dataType == 'numer':
         yData = result.numer
     if result.dataType == 'denom':
@@ -237,7 +237,7 @@ def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     fig.plot()
     return fig
                 
-def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' ', yunits = ''):
     """
     """
     fig = figure(title)
@@ -248,7 +248,7 @@ def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale =
     mag.xScale = 'log'
     mag.yScale = 'log'
     mag.xLabel = 'frequency [' + xscale + 'Hz]'
-    mag.yLabel = 'mag ' + yscale
+    mag.yLabel = 'mag [' + yscale + yunits +']'
     if result.dataType == 'numer':
         yData = result.numer
     if result.dataType == 'denom':
@@ -337,7 +337,8 @@ def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     if not result.step:
         x = np.geomspace(fStart, fStop, fNum)
         y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
-        x = x[0:-1]
+        # y one point less than x after differentiation so remove last point x
+        x = x[0:-1] 
         delayTrace = trace([x, y])
         delayTrace.color = ini.gainColors[result.gainType]
         delayTrace.label = result.gainType
@@ -349,7 +350,7 @@ def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     fig.plot()
     return fig
                
-def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale = ' '):
+def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale = ' ', yunits = ''):
     """
     """
     fig = figure(title)
@@ -360,7 +361,7 @@ def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale 
     time.xScale = 'lin'
     time.yScale = 'lin'
     time.xLabel = 'time [' + xscale + 's]'
-    time.yLabel = 'value ' + yscale
+    time.yLabel = '[' + yscale + yunits + ']'
     if result.dataType == 'time':
         yData = result.time
     if result.dataType == 'impulse':

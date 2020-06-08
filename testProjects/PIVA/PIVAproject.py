@@ -46,13 +46,13 @@ result              = i1.execute()
 Fs                  = result.laplace
 
 plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k')
-plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k')
+plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-')
 plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k')
 plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u')
 
 i1.dataType         = 'step'
 result              = i1.execute()
-plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u')
+plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u', yunits = 'V')
 #ini.dispMaxResult   = False
 
 i1.stepVar          = 'I_D'
@@ -94,7 +94,7 @@ eqn2html('f_t', mu_t, label = 'eq_step')
 
 head2html('Plots')
 img2html('magdB.svg', 600, caption='dB magnitude plot of the PIVA transfer.')
-img2html('Mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
+img2html('mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
 img2html('phase.svg', 600, caption='Phase plot of the PIVA transfer.')
 img2html('step.svg', 600, caption='Unit step response of the PIVA.')
 
