@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from SLiCAPlex import *
+from SLiCAPplots import *
 
 class matrix(sp.Matrix):
     """SLiCAP matrix class for faster symbolic calculations.
@@ -289,8 +289,8 @@ def invLaplace(numer, denom):
     ft = 0
     m = 1
     for i in range(len(r)):
-        if i:
-            if abs(p[i] - p[i - 1]) < DISP * abs(p[i]):
+        if i > 0:
+            if abs(p[i] - p[i - 1]) < 10**(-DISP) * abs(p[i]):
                 m += 1
             else:
                 m = 1

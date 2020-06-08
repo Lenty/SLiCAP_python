@@ -1,8 +1,6 @@
 #!/usr/bin/python
-from matplotlib import pyplot as plt
-import matplotlib._pylab_helpers as plotHelp
-import numpy as np
-import SLiCAPini as ini
+from SLiCAPlex import *
+
 class trace(object):
     def __init__(self, traceData):
         """
@@ -136,12 +134,12 @@ class figure(object):
                     else:
                         MarkerColor = ini.defaultColors[j % len(ini.defaultColors)]
                     try:
-                        if self.axes[i].xScaleFactor in ini.SCALEFACTORS.keys():
-                            scaleX = 10**eval(ini.SCALEFACTORS[self.axes[i].xScaleFactor])
+                        if self.axes[i].xScaleFactor in SCALEFACTORS.keys():
+                            scaleX = 10**eval(SCALEFACTORS[self.axes[i].xScaleFactor])
                         else:
                             scaleX = 1
-                        if self.axes[i].yScaleFactor in ini.SCALEFACTORS.keys():
-                            scaleY = 10**eval(ini.SCALEFACTORS[self.axes[i].yScaleFactor])
+                        if self.axes[i].yScaleFactor in SCALEFACTORS.keys():
+                            scaleY = 10**eval(SCALEFACTORS[self.axes[i].yScaleFactor])
                         else:
                             scaleY = 1
                         plt.plot(self.axes[i].traces[j].xData/scaleX, self.axes[i].traces[j].yData/scaleY, label = self.axes[i].traces[j].label, linewidth = self.axes[i].traces[j].lineWidth,
@@ -151,15 +149,16 @@ class figure(object):
                         #return False
                     if self.axes[i].text:
                         X, Y, txt = self.axes[i].text
-                        plt.text(X, Y, txt, fontsize = 11)  
+                        plt.text(X, Y, txt, fontsize = ini.plotFontSize)  
                     # Set default font sizes and grid
                     defaultsPlot()
         if self.save:
             try:
-                plt.savefig(self.fileName + '.' + self.fileType)
-                print '\tPlot \"%s.%s\" saved to disk.'%(self.fileName, self.fileType)
+                plt.savefig(ini.imgPath + self.fileName + '.' + self.fileType)
+                print 'Plot \"%s.%s\" saved to disk.'%(self.fileName, self.fileType)
             except:
                 print 'Error: could not save the plot!'
+            # ToDo save CSV all traces??
         if self.show:
             plt.show()
         return True
@@ -172,16 +171,16 @@ def defaultsPlot():
     for fig in figures:
         plt.tight_layout()
         for i in range(len(fig.axes)):
-            fig.axes[i].title.set_fontsize(11)
+            fig.axes[i].title.set_fontsize(ini.plotFontSize)
             fig.axes[i].grid(b=True, which='major', color='0.5',linestyle='-')
             fig.axes[i].grid(b=True, which='minor', color='0.5',linestyle=':')
             t = fig.axes[i].xaxis.get_offset_text()
-            t.set_fontsize(9)
+            t.set_fontsize(ini.plotFontSize)
             t = fig.axes[i].yaxis.get_offset_text()
-            t.set_fontsize(9)
+            t.set_fontsize(ini.plotFontSize)
             try:
-                fig.axes[i].xaxis.label.set_fontsize(11)
-                fig.axes[i].yaxis.label.set_fontsize(11)
+                fig.axes[i].xaxis.label.set_fontsize(ini.plotFontSize)
+                fig.axes[i].yaxis.label.set_fontsize(ini.plotFontSize)
             except:
                 pass
             try:
@@ -193,16 +192,201 @@ def defaultsPlot():
                                 scatterpoints = 1,
                                 numpoints = 1)
                 for t in leg.get_texts():
-                    t.set_fontsize(9)
+                    t.set_fontsize(ini.plotFontSize)
             except:
                 pass
             for tick in fig.axes[i].xaxis.get_major_ticks():
-                tick.label.set_fontsize(9)
+                tick.label.set_fontsize(ini.plotFontSize)
             for tick in fig.axes[i].yaxis.get_major_ticks():
-                tick.label.set_fontsize(9)
-        
+                tick.label.set_fontsize(ini.plotFontSize)
+                
+def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+    """
+    """
+    fig = figure(title)
+    fig.fileName = fileName
+    dBmag = axis(title)
+    dBmag.xScaleFactor = xscale
+    dBmag.yScaleFactor = yscale
+    dBmag.xScale = 'log'
+    dBmag.yScale = 'lin'
+    dBmag.xLabel = 'frequency [' + xscale + 'Hz]'
+    dBmag.yLabel = 'mag [' + xscale + 'dB]'
+    if result.dataType == 'numer':
+        yData = result.numer
+    if result.dataType == 'denom':
+        yData = result.denom
+    if result.dataType == 'laplace':
+        yData = result.laplace
+    else:
+        print "Error: wrong data type '%s' for 'plotdBmag()'."%(result.dataType)
+        return fig
+    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+    func = sp.lambdify(FREQUENCY, 20*sp.log(abs(yData),10))
+    if not result.step:
+        x = np.geomspace(fStart, fStop, fNum)
+        y = func(x)
+        dBmagTrace = trace([x, y])
+        dBmagTrace.color = ini.gainColors[result.gainType]
+        dBmagTrace.label = result.gainType
+        dBmag.traces = [dBmagTrace]
+    else:
+        pass
+    fig.axes = [[dBmag]]
+    fig.save = True
+    fig.plot()
+    return fig
+                
+def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+    """
+    """
+    fig = figure(title)
+    fig.fileName = fileName
+    mag = axis(title)
+    mag.xScaleFactor = xscale
+    mag.yScaleFactor = yscale
+    mag.xScale = 'log'
+    mag.yScale = 'log'
+    mag.xLabel = 'frequency [' + xscale + 'Hz]'
+    mag.yLabel = 'mag ' + yscale
+    if result.dataType == 'numer':
+        yData = result.numer
+    if result.dataType == 'denom':
+        yData = result.denom
+    if result.dataType == 'laplace':
+        yData = result.laplace
+    else:
+        print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
+        return fig
+    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+    func = sp.lambdify(FREQUENCY, abs(yData))
+    if not result.step:
+        x = np.geomspace(fStart, fStop, fNum)
+        y = func(x)
+        magTrace = trace([x, y])
+        magTrace.color = ini.gainColors[result.gainType]
+        magTrace.label = result.gainType
+        mag.traces = [magTrace]
+    else:
+        pass
+    fig.axes = [[mag]]
+    fig.save = True
+    fig.plot()
+    return fig
+                
+def plotPhase(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+    """
+    """
+    fig = figure(title)
+    fig.fileName = fileName
+    phase = axis(title)
+    phase.xScaleFactor = xscale
+    phase.yScaleFactor = yscale
+    phase.xScale = 'log'
+    phase.yScale = 'lin'
+    phase.xLabel = 'frequency [' + xscale + 'Hz]'
+    phase.yLabel = 'phase [' + yscale + 'deg]'
+    if result.dataType == 'numer':
+        yData = result.numer
+    if result.dataType == 'denom':
+        yData = result.denom
+    if result.dataType == 'laplace':
+        yData = result.laplace
+    else:
+        print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
+        return fig
+    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+    func = sp.lambdify(FREQUENCY, yData)
+    if not result.step:
+        x = np.geomspace(fStart, fStop, fNum)
+        y = 180*np.unwrap(np.angle(func(x)))/np.pi
+        phaseTrace = trace([x, y])
+        phaseTrace.color = ini.gainColors[result.gainType]
+        phaseTrace.label = result.gainType
+        phase.traces = [phaseTrace]
+    else:
+        pass
+    fig.axes = [[phase]]
+    fig.save = True
+    fig.plot()
+    return fig
+                
+def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+    """
+    """
+    fig = figure(title)
+    fig.fileName = fileName
+    delay = axis(title)
+    delay.xScaleFactor = xscale
+    delay.yScaleFactor = yscale
+    delay.xScale = 'log'
+    delay.yScale = 'lin'
+    delay.xLabel = 'frequency [' + xscale + 'Hz]'
+    delay.yLabel = 'delay [' + yscale + 's]'
+    if result.dataType == 'numer':
+        yData = result.numer
+    if result.dataType == 'denom':
+        yData = result.denom
+    if result.dataType == 'laplace':
+        yData = result.laplace
+    else:
+        print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
+        return fig
+    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+    func = sp.lambdify(FREQUENCY, yData)
+    if not result.step:
+        x = np.geomspace(fStart, fStop, fNum)
+        y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
+        x = x[0:-1]
+        delayTrace = trace([x, y])
+        delayTrace.color = ini.gainColors[result.gainType]
+        delayTrace.label = result.gainType
+        delay.traces = [delayTrace]
+    else:
+        pass
+    fig.axes = [[delay]]
+    fig.save = True
+    fig.plot()
+    return fig
+               
+def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale = ' '):
+    """
+    """
+    fig = figure(title)
+    fig.fileName = fileName
+    time = axis(title)
+    time.xScaleFactor = xscale
+    time.yScaleFactor = yscale
+    time.xScale = 'lin'
+    time.yScale = 'lin'
+    time.xLabel = 'time [' + xscale + 's]'
+    time.yLabel = 'value ' + yscale
+    if result.dataType == 'time':
+        yData = result.time
+    if result.dataType == 'impulse':
+        yData = result.impulse
+    if result.dataType == 'step':
+        yData = result.stepResp
+    else:
+        print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
+        return fig
+    func = sp.lambdify(sp.Symbol('t'), yData)
+    if not result.step:
+        x = np.linspace(tStart, tStop, tNum)
+        y = func(x)
+        timeTrace = trace([x, y])
+        timeTrace.color = ini.gainColors[result.gainType]
+        timeTrace.label = result.gainType
+        time.traces = [timeTrace]
+    else:
+        pass
+    fig.axes = [[time]]
+    fig.save = True
+    fig.plot()
+    return fig
+
 if __name__=='__main__':
-    x = np.linspace(0,2*np.pi, endpoint = True)
+    x = np.linspace(0, 2*np.pi, endpoint = True)
     y1 = np.sin(x)
     y2 = np.cos(x)
     sine = trace([x, y1])

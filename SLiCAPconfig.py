@@ -37,11 +37,15 @@ MATHMLPATH      = 'mathml/' # path for mathML output saveMathML()
 IMGPATH         = 'img/'    # path for image files
 
 # Default plot settings
-figureAxisHeight= 4
-figureAxisWidth = 6
+figureAxisHeight= 5
+figureAxisWidth = 7
+plotFontSize    = 10
 defaultColors   = ('r','b','g','c','m','y','k')
+gainColors      = {'gain': 'b', 'asymptotic': 'r', 'loopgain': 'k',
+                   'direct': 'g', 'servo': 'c', 'vi': 'm'}
 defaultMarkers  = ['']
 tableFileType   = 'csv'
 figureFileType  = 'svg'
 axisXscale      = 'linear'    # Scale for the x-axis can be 'linear' or 'log'
 axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
+legendLoc       = 'best'

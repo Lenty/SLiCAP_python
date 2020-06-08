@@ -13,6 +13,8 @@ import re
 import subprocess
 import os
 import getpass
+from matplotlib import pyplot as plt
+import matplotlib._pylab_helpers as plotHelp
 
 # Type conversions
 # These are the only globals. Read only!
@@ -48,6 +50,17 @@ class settings(object):
         self.stepFunction = None # Stepping method:
                                  #    True : function substitution 
                                  #    False: matrix substitution
+        self.figureAxisHeight = None
+        self.figureAxisWidth  = None
+        self.defaultColors    = None
+        self.gainColors       = None
+        self.defaultMarkers   = None
+        self.tableFileType    = None
+        self.figureFileType   = None
+        self.axisXscale       = None
+        self.axisYscale       = None
+        self.legendLoc        = None
+        self.plotFontSize     = None
         # Add plot globals here!
 
 # Create an instance of globals
@@ -59,14 +72,25 @@ ini.installPath  = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
 ini.projectPath  = os.path.abspath('.') + '/'
 # Copy path settings from user configuration. These settings can be modified
 # from the SLiCAP environment without editing 'SLiCAPconfig.py'
-ini.htmlPath      = ini.projectPath + HTMLPATH
-ini.circuitPath   = ini.projectPath + CIRCUITPATH
-ini.libraryPath   = ini.projectPath + LIBRARYPATH
-ini.txtPath       = ini.projectPath + TXTPATH
-ini.csvPath       = ini.projectPath + CSVPATH
-ini.latexPath     = ini.projectPath + LATEXPATH
-ini.mathmlPath    = ini.projectPath + MATHMLPATH
-ini.imgPath       = ini.projectPath + IMGPATH
-ini.stepFunction  = STEPFUNCTION
-ini.dispMaxResult = DISPMAXRESULT
+ini.htmlPath         = ini.projectPath + HTMLPATH
+ini.circuitPath      = ini.projectPath + CIRCUITPATH
+ini.libraryPath      = ini.projectPath + LIBRARYPATH
+ini.txtPath          = ini.projectPath + TXTPATH
+ini.csvPath          = ini.projectPath + CSVPATH
+ini.latexPath        = ini.projectPath + LATEXPATH
+ini.mathmlPath       = ini.projectPath + MATHMLPATH
+ini.imgPath          = ini.projectPath + IMGPATH
+ini.stepFunction     = STEPFUNCTION
+ini.dispMaxResult    = DISPMAXRESULT
+ini.figureAxisHeight = figureAxisHeight
+ini.figureAxisWidth  = figureAxisWidth
+ini.defaultColors    = defaultColors
+ini.gainColors       = gainColors
+ini.defaultMarkers   = defaultMarkers
+ini.tableFileType    = tableFileType
+ini.figureFileType   = figureFileType
+ini.axisXscale       = axisXscale
+ini.axisYscale       = axisYscale
+ini.legendLoc        = legendLoc
+ini.plotFontSize     = plotFontSize
 # Copy plot globals here!

@@ -32,16 +32,28 @@ i1.dataType         = 'zeros'
 zerosResult         = i1.execute()
 i1.dataType         = 'pz'
 pzResult            = i1.execute()
+
 i1.dataType         = 'step'
 mu_t                = i1.execute().stepResp
+
 i1.dataType         = 'denom'
 denom               = i1.execute().denom
 i1.dataType         = 'numer'
 numer               = i1.execute().numer
 i1.dataType         = 'laplace'
-ini.dispMaxResult   = True
-Fs                  = i1.execute().laplace
-ini.dispMaxResult   = False
+#ini.dispMaxResult   = True
+result              = i1.execute()
+Fs                  = result.laplace
+
+plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k')
+plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k')
+plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k')
+plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u')
+
+i1.dataType         = 'step'
+result              = i1.execute()
+plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u')
+#ini.dispMaxResult   = False
 
 i1.stepVar          = 'I_D'
 i1.stepMethod       = 'lin'
@@ -74,10 +86,17 @@ pz2html(polesResult, label = 'tab_poles')
 pz2html(zerosResult, label = 'tab_zeros')
 pz2html(pzResult, label = 'tab_pz')
 
-htmlPage('Denominator, nominator and transfer function')
+htmlPage('Denominator, nominator and transfer function and step response')
 eqn2html('D_s', denom, label = 'eq_denom')
 eqn2html('N_s', numer, label = 'eq_numer')
 eqn2html('F_s', Fs, label = 'eq_gain')
+eqn2html('f_t', mu_t, label = 'eq_step')
+
+head2html('Plots')
+img2html('magdB.svg', 600, caption='dB magnitude plot of the PIVA transfer.')
+img2html('Mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
+img2html('phase.svg', 600, caption='Phase plot of the PIVA transfer.')
+img2html('step.svg', 600, caption='Unit step response of the PIVA.')
 
 t2=time()
 print '\nTotal time: %3.1fs'%(t2-t1)
