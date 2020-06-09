@@ -501,16 +501,6 @@ def doLaplace(instObj):
     denom = doDenom(instObj)
     return normalizeLaplaceRational(numer, denom)
 
-def doImpulse(instrObj):
-    numer = doNumer(instObj)
-    denom = doDenom(instObj)
-    Fs = numer/denom
-    try:
-        impulse = maxILT(Fs)
-    except:
-        pass
-    return impulse
-
 def checkNumeric(expr, stepVar = None):
     """
     Checks if the expressions does not contain parameters other then stepVar',

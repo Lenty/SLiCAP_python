@@ -64,9 +64,9 @@ def HTMLfoot(indexFile):
     """
     Returns html page footer with link to 'indexFile'.
     """
-    idx = indexFile.split('.')[0]
+    idx = ini.htmlIndex.split('.')[0]
     HTML = '\n<div id="footnote">\n'
-    HTML += '<p>Go to <a href="' + indexFile + '">' + idx + '</a></p>\n'
+    HTML += '<p>Go to <a href="' + ini.htmlIndex + '">' + idx + '</a></p>\n'
     HTML += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>\n'
     HTML += '<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>\n'
     HTML += '</div></body></html>'
@@ -219,8 +219,8 @@ def elementData2html(circuitObject, label = '', caption = ''):
         else:
             i = 0
             for param in parNames:
-                symValue = '$' + sp.latex(sp.N(elmt.params[param], DISP)) +'$'
-                numValue = '$' + sp.latex(sp.N(fullSubs(elmt.params[param], circuitObject.parDefs), DISP)) + '$'
+                symValue = '$' + sp.latex(roundN(elmt.params[param])) +'$'
+                numValue = '$' + sp.latex(roundN(fullSubs(elmt.params[param], circuitObject.parDefs))) + '$'
                 if i == 0:
                     html += '<td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
                 else:
@@ -242,8 +242,8 @@ def params2html(circuitObject, label = '', caption = ''):
     html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
     for par in circuitObject.parDefs.keys():
         parName = '$' + sp.latex(par) + '$'
-        symValue = '$' + sp.latex(sp.N(circuitObject.parDefs[par], DISP)) + '$'
-        numValue = '$' + sp.latex(sp.N(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs), DISP)) + '$'
+        symValue = '$' + sp.latex(roundN(circuitObject.parDefs[par])) + '$'
+        numValue = '$' + sp.latex(roundN(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs))) + '$'
         html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
     html += '</table>\n'
     if len(circuitObject.params) > 0:
@@ -307,7 +307,7 @@ def expr2html(expr, units = ''):
     if isinstance(expr, tuple(sp.core.all_classes)):
         if units != '':
             units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
-        html = '$' + sp.latex(sp.N(expr, DISP)) + units + '$'
+        html = '$' + sp.latex(roundN(expr)) + units + '$'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
         return
     else:
@@ -334,7 +334,7 @@ def eqn2html(arg1, arg2, units = '', label = ''):
         ini.htmlEqLabels[label]= ini.htmlPage
         eqlabel = '\\label{' + label + '}\n'
         label   = '<a id="'+ label +'"></a>\n'
-    html = label + '\\begin{equation}\n' + sp.latex(sp.N(arg1, DISP)) + '=' + sp.latex(sp.N(arg2, DISP)) + units + '\n'
+    html = label + '\\begin{equation}\n' + sp.latex(roundN(arg1)) + '=' + sp.latex(roundN(arg2)) + units + '\n'
     html += eqlabel
     html += '\\end{equation}\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
@@ -356,9 +356,9 @@ def matrices2html(instrObj, label = ''):
         return
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
-        Iv = sp.latex(sp.N(Iv, DISP))
-        M  = sp.latex(sp.N(M,  DISP))
-        Dv = sp.latex(sp.N(Dv, DISP))
+        Iv = sp.latex(roundN(Iv))
+        M  = sp.latex(roundN(M))
+        Dv = sp.latex(roundN(Dv))
         if label != '':
             ini.htmlLabels[label] = ini.htmlPage
             ini.htmlEqLabels[label]= ini.htmlPage
@@ -486,6 +486,15 @@ def href(label, linkText, fileName = ''):
     else:
         html = '<a href="' + fileName + '#' +label+'">'+linkText+'</a>'
     return html
+
+def roundN(expr):
+    """
+    Rounds all number atoms in an expression to DISP digits
+    """
+    try:
+        return expr.xreplace({n : sp.N(n, DISP) for n in expr.atoms()})
+    except:
+        return sp.N(expr, DISP)
 
 if __name__ == '__main__':
     ini.projectPath = ini.installPath + 'testProjects/MOSamp/'

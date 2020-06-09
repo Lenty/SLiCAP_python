@@ -26,34 +26,36 @@ matrixResult        = i1.execute()
 i1.simType          = 'numeric'
 i1.gainType         = 'gain'
 i1.lgRef            = 'F1'
+
 i1.dataType         = 'poles'
 polesResult         = i1.execute()
+
 i1.dataType         = 'zeros'
 zerosResult         = i1.execute()
+
 i1.dataType         = 'pz'
 pzResult            = i1.execute()
 
-i1.dataType         = 'step'
-mu_t                = i1.execute().stepResp
-
 i1.dataType         = 'denom'
 denom               = i1.execute().denom
+
 i1.dataType         = 'numer'
 numer               = i1.execute().numer
+
 i1.dataType         = 'laplace'
-#ini.dispMaxResult   = True
 result              = i1.execute()
 Fs                  = result.laplace
-
-plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k')
-plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-')
-plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k')
-plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u')
+# Frequency-domain plots
+plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k', show = False)
+plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-', show = False)
+plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k', show = False)
+plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u', show = False)
 
 i1.dataType         = 'step'
 result              = i1.execute()
-plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u', yunits = 'V')
-#ini.dispMaxResult   = False
+mu_t                = result.stepResp
+# Time-domain plot
+plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u', yunits = 'V', show = False)
 
 i1.stepVar          = 'I_D'
 i1.stepMethod       = 'lin'
@@ -73,7 +75,7 @@ mu_tStepped         = i1.execute().stepResp
 # Generate HTML report. Run this section twice if you use forward references.                             
 htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
                              # of this circuit
-img2html('PIVA.svg', 1000, label = 'figPIVA', caption = 'Schematic diagram of the PIVA')
+img2html('PIVA.svg', 1200, label = 'figPIVA', caption = 'Schematic diagram of the PIVA')
 netlist2html(fileName)       # Netlist of the circuit
 elementData2html(i1.circuit) # Element data of a circuit
 params2html(i1.circuit)      # Parameters of the last circuit checked
@@ -93,10 +95,11 @@ eqn2html('F_s', Fs, label = 'eq_gain')
 eqn2html('f_t', mu_t, label = 'eq_step')
 
 head2html('Plots')
-img2html('magdB.svg', 600, caption='dB magnitude plot of the PIVA transfer.')
-img2html('mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
-img2html('phase.svg', 600, caption='Phase plot of the PIVA transfer.')
-img2html('step.svg', 600, caption='Unit step response of the PIVA.')
+img2html('magdB.svg', 500, caption='dB magnitude plot of the PIVA transfer.')
+img2html('mag.svg', 500, caption='Magnitude plot of the PIVA transfer.')
+img2html('phase.svg', 500, caption='Phase plot of the PIVA transfer.')
+img2html('delay.svg', 500, caption='Group delay of the PIVA transfer.')
+img2html('step.svg', 500, caption='Unit step response of the PIVA.')
 
 t2=time()
 print '\nTotal time: %3.1fs'%(t2-t1)

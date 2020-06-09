@@ -13,8 +13,9 @@ import re
 import subprocess
 import os
 import getpass
-from matplotlib import pyplot as plt
 import matplotlib._pylab_helpers as plotHelp
+from matplotlib import pyplot as plt
+plt.ioff() # Turn of interactive mode for plotting
 
 # Type conversions
 # These are the only globals. Read only!

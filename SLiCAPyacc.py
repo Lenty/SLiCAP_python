@@ -36,7 +36,7 @@ def checkCircuit(fileName):
             cir = updateCirData(cir)
             ini.htmlPrefix = ('-'.join(cir.title.split()) + '_')
             ini.htmlIndex = 'index.html'
-            htmlPage(cir.title, True)
+            htmlPage(cir.title, index = True)
             if cir.errors != 0:
                 print """Errors found during updating of circuit data from '%s'.
     Instructions with this circuit will not be executed."""%(cir.title)

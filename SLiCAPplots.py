@@ -161,6 +161,7 @@ class figure(object):
             # ToDo save CSV all traces??
         if self.show:
             plt.show()
+        plt.close(fig)
         return True
 
 def defaultsPlot():
@@ -200,11 +201,13 @@ def defaultsPlot():
             for tick in fig.axes[i].yaxis.get_major_ticks():
                 tick.label.set_fontsize(ini.plotFontSize)
                 
-def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', show = True, save = True):
     """
     """
     fig = figure(title)
     fig.fileName = fileName
+    fig.show = show
+    fig.save = save
     dBmag = axis(title)
     dBmag.xScaleFactor = xscale
     dBmag.yScaleFactor = yscale
@@ -233,15 +236,16 @@ def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     else:
         pass
     fig.axes = [[dBmag]]
-    fig.save = True
     fig.plot()
     return fig
                 
-def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' ', yunits = ''):
+def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', yunits = '', show = True, save = True):
     """
     """
     fig = figure(title)
     fig.fileName = fileName
+    fig.show = show
+    fig.save = save
     mag = axis(title)
     mag.xScaleFactor = xscale
     mag.yScaleFactor = yscale
@@ -270,15 +274,16 @@ def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale =
     else:
         pass
     fig.axes = [[mag]]
-    fig.save = True
     fig.plot()
     return fig
                 
-def plotPhase(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+def plotPhase(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', show = True, save = True):
     """
     """
     fig = figure(title)
     fig.fileName = fileName
+    fig.show = show
+    fig.save = save
     phase = axis(title)
     phase.xScaleFactor = xscale
     phase.yScaleFactor = yscale
@@ -307,15 +312,16 @@ def plotPhase(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     else:
         pass
     fig.axes = [[phase]]
-    fig.save = True
     fig.plot()
     return fig
                 
-def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale = ' '):
+def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', show = True, save = True):
     """
     """
     fig = figure(title)
     fig.fileName = fileName
+    fig.show = show
+    fig.save = save
     delay = axis(title)
     delay.xScaleFactor = xscale
     delay.yScaleFactor = yscale
@@ -336,7 +342,7 @@ def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     func = sp.lambdify(FREQUENCY, yData)
     if not result.step:
         x = np.geomspace(fStart, fStop, fNum)
-        y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
+        y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)/(2*np.pi)
         # y one point less than x after differentiation so remove last point x
         x = x[0:-1] 
         delayTrace = trace([x, y])
@@ -346,15 +352,16 @@ def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = ' ', yscale
     else:
         pass
     fig.axes = [[delay]]
-    fig.save = True
     fig.plot()
     return fig
                
-def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale = ' ', yunits = ''):
+def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = '', yscale = '', yunits = '', show = True, save = True):
     """
     """
     fig = figure(title)
     fig.fileName = fileName
+    fig.show = show
+    fig.save = save
     time = axis(title)
     time.xScaleFactor = xscale
     time.yScaleFactor = yscale
@@ -374,7 +381,7 @@ def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale 
     func = sp.lambdify(sp.Symbol('t'), yData)
     if not result.step:
         x = np.linspace(tStart, tStop, tNum)
-        y = func(x)
+        y = np.real(func(x))
         timeTrace = trace([x, y])
         timeTrace.color = ini.gainColors[result.gainType]
         timeTrace.label = result.gainType
@@ -382,7 +389,6 @@ def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = ' ', yscale 
     else:
         pass
     fig.axes = [[time]]
-    fig.save = True
     fig.plot()
     return fig
 
