@@ -458,9 +458,9 @@ class instruction(object):
         self.circuit.delPar(parName)
         return
         
-    def defPar(self, parName):
+    def defPar(self, parName, parValue):
         # single params and multiple.
-        self.circuit.defPar(parName)
+        self.circuit.defPar(parName, parValue)
         return
         
     def getParValue(self, parName):

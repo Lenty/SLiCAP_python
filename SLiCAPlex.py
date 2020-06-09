@@ -9,7 +9,7 @@ Created on Mon May  4 12:32:13 2020
 
 @author: anton
 """
-from SLiCAPprotos import *
+from SLiCAPini import *
 
 # list of token names
 

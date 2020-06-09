@@ -285,7 +285,7 @@ def invLaplace(numer, denom):
     for coeff in denom.c:
         denomCoeffs.append(np.float(coeff))
     (r, p, k) = residue(numerCoeffs, denomCoeffs, tol=10**(-DISP))
-    t = sp.Symbol('t')
+    t = sp.Symbol('t', real=True)
     ft = 0
     m = 1
     for i in range(len(r)):

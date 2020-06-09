@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-from SLiCAPini import *
+from SLiCAPlex import *
 
 # Globals
 HIERARCHY   = []                # Check list for hierarchical loops
@@ -61,8 +61,9 @@ class circuit(object):
         self.updateParams()
         return
         
-    def defPar(self, parName):
+    def defPar(self, parName, parValue):
         # single params and multiple.
+        self.parDefs[sp.Symbol(parName)] = sp.sympify(replaceScaleFactors(parValue))
         self.updateParams()
         return
         

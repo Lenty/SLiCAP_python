@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from SLiCAPlex import *
+from SLiCAPprotos import *
 
 class trace(object):
     def __init__(self, traceData):
@@ -378,7 +378,7 @@ def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = '', yscale =
     else:
         print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
         return fig
-    func = sp.lambdify(sp.Symbol('t'), yData)
+    func = sp.lambdify(sp.Symbol('t', real=True), yData)
     if not result.step:
         x = np.linspace(tStart, tStop, tNum)
         y = np.real(func(x))

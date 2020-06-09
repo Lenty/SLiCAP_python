@@ -15,6 +15,8 @@ fileName = 'PIVA.cir'
 i1 = instruction()           # Creates an instance of an instruction object
 i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
                              # resets the index page to the project index page
+                             
+i1.defPar('C_ph', '2.95p')
 
 i1.gainType         = 'vi'
 i1.simType          = 'symbolic'
@@ -95,11 +97,11 @@ eqn2html('F_s', Fs, label = 'eq_gain')
 eqn2html('f_t', mu_t, label = 'eq_step')
 
 head2html('Plots')
-img2html('magdB.svg', 500, caption='dB magnitude plot of the PIVA transfer.')
-img2html('mag.svg', 500, caption='Magnitude plot of the PIVA transfer.')
-img2html('phase.svg', 500, caption='Phase plot of the PIVA transfer.')
-img2html('delay.svg', 500, caption='Group delay of the PIVA transfer.')
-img2html('step.svg', 500, caption='Unit step response of the PIVA.')
+img2html('magdB.svg', 600, caption='dB magnitude plot of the PIVA transfer.')
+img2html('mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
+img2html('phase.svg', 600, caption='Phase plot of the PIVA transfer.')
+img2html('delay.svg', 600, caption='Group delay of the PIVA transfer.')
+img2html('step.svg', 600, caption='Unit step response of the PIVA.')
 
 t2=time()
 print '\nTotal time: %3.1fs'%(t2-t1)
