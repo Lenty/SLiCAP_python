@@ -26,10 +26,11 @@ def maxEval(maxExpr):
     # LISP command for a  a single-line output in text format:
     maxStringConv = ":lisp (mfuncall '$string $result);"
     maxInput = maxExpr + maxStringConv
+
     if platform.system() =='Linux' or platform.system() =='Darwin':
         output = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
                                maxInput], stdout=subprocess.PIPE).stdout
-        result = output.readlines()[-1]
+        result = output.readlines()[-1].decode("utf-8")
     if platform.system() =='Windows':
         output = subprocess.Popen(['C:\\maxima-5.42.2\\bin\\maxima.bat', '--very-quiet', '-batch-string', \
                                maxInput], stdout=subprocess.PIPE).stdout
