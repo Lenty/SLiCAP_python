@@ -12,6 +12,7 @@ import re
 import subprocess
 import os
 import getpass
+import platform
 
 
 # Type conversions
@@ -54,7 +55,11 @@ class settings(object):
 ini = settings()
 # Automatic detection of install and project paths
 # Get the installation path
-ini.installPath = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
+if platform.system() =='Linux' or platform.system() =='Darwin':
+        ini.installPath = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
+if platform.system() =='Windows':
+        ini.installPath = ''.join(os.path.realpath(__file__).split('/')[0:-1]) + ''
+
 # Get the project path (the path of the script that imported SLiCAP.ini)
 ini.projectPath = os.path.abspath('.') + '/'
 # Copy path settings from user configuration
