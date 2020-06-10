@@ -52,5 +52,5 @@ Fs = i1.execute().results.laplace
 eqn2html('F_s', Fs, label = 'eq_gain')
 
 t2=time()
-print t2-t1
+print (t2-t1)
 #os.system('firefox html/index.html')
