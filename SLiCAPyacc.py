@@ -732,7 +732,6 @@ def makeLibraries():
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
     fileName = ini.installPath + 'lib/SLiCAPmodels.lib'
-    fileName = "C://Users//luc_e//Documents//git//SLiCAP_python//lib/SLiCAPmodels.lib"
     LIB = circuit()
     LIB.file = fileName
     LIB.lexer = tokenize(fileName)
