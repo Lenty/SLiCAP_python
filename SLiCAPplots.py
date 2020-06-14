@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from SLiCAPprotos import *
+from SLiCAPmath import *
 
 class trace(object):
     def __init__(self, traceData):
@@ -392,18 +392,63 @@ def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = '', yscale =
     fig.plot()
     return fig
 
+def plotPZ(fileName, title, result, xmin = None, xmax = None, ymin = None, ymax = None, xscale = '', yscale = '', show = True, save = True):
+    """
+    """
+    fig = figure(title)
+    fig.fileName = fileName
+    fig.show = show
+    fig.save = save
+    fig.axisHeight = fig.axisWidth
+    pz = axis(title)
+    pz.xScaleFactor = xscale
+    pz.yScaleFactor = yscale
+    pz.xScale = 'lin'
+    pz.yScale = 'lin'
+    pz.xLabel = 'Re [' + xscale + 'Hz]'
+    pz.yLabel = 'Im [' + yscale + 'Hz]'
+    pzTraces = []
+    if xmin != None and xmax != None:
+        pz.xLim = [checkNumber(xmin), checkNumber(xmax)]
+    if ymin != None and xmax != None:
+        pz.yLim = [checkNumber(ymin), checkNumber(ymax)]
+    if result.dataType == 'poles' or result.dataType == 'pz':
+        polesTrace = trace([np.real(result.poles)/2/np.pi, np.imag(result.poles)/2/np.pi])
+        polesTrace.markerColor = ini.gainColors[result.gainType]
+        polesTrace.color = ''
+        polesTrace.marker = 'x'
+        polesTrace.lineWidth = '0'
+        polesTrace.label = 'poles ' + result.gainType
+        pzTraces.append(polesTrace)
+    if result.dataType == 'zeros' or result.dataType == 'pz':
+        zerosTrace = trace([np.real(result.zeros)/2/np.pi, np.imag(result.zeros)/2/np.pi])
+        zerosTrace.color = ''
+        zerosTrace.markerColor = ini.gainColors[result.gainType]
+        zerosTrace.marker = 'o'
+        zerosTrace.lineWidth = '0'
+        zerosTrace.label = 'zeros ' + result.gainType
+        pzTraces.append(zerosTrace)
+    if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
+        print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
+        return fig
+    pz.traces = pzTraces
+    fig.axes = [[pz]]
+    fig.plot()
+    return fig
+
 if __name__=='__main__':
     x = np.linspace(0, 2*np.pi, endpoint = True)
     y1 = np.sin(x)
     y2 = np.cos(x)
     sine = trace([x, y1])
     sine.label = 'sine'
-    sine.color = 'b'
+    sine.color = ''
+    sine.lineWidth = '0'
     sine.marker = 'o'
     sine.markerColor = 'r'
     cosine = trace([x, y2])
     cosine.label = 'cosine'
-    cosine.color = 'k'
+    cosine.color = ''
     cosine.marker = 'x'
     cosine.markerColor = 'b'
     sincos = axis('sine and cosine')
@@ -412,6 +457,7 @@ if __name__=='__main__':
     sincos.traces = [sine, cosine]
     testFig = figure('testFig')
     testFig.axes = [[sincos, ""],["",sincos]]
+    testFig.show = True
     testFig.plot()
     plt.show()
     

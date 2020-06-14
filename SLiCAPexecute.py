@@ -88,6 +88,7 @@ def doInstruction(instObj):
             if instObj.dataType == 'poles':
                 denom = doDenom(instObj)
                 denoms = stepFunctions(instObj, denom)
+                # pz analysis is numeric so better lambdify!
                 for poly in denoms:
                     instObj.poles.append(numRoots(poly, LAPLACE))
                 instObj.zeros = []
@@ -186,16 +187,25 @@ def stepFunctions(instObj, function):
     Substitutes step values for step parameters in functions and returns a list
     of functions with these substitutions.
     """
-    functions = []
+    """
+    # The lambdify method was not faster
     if instObj.stepMethod == 'array':
+        func = sp.lambdify(instObj.stepVars, function)
+        functions = [func(instObj.stepArray[i]) for i in range(len(instObj.stepArray))]
+    else:
+        func = sp.lambdify(instObj.stepVar, function)
+        functions = [func(instObj.stepList[i]) for i in range(len(instObj.stepList))]
+    """
+    # One by one substitition
+    if instObj.stepMethod == 'array':
+        functions = []
         for i in range(len(instObj.stepArray[0])):
             subsList = []
             for j in range(len(instObj.stepVars)):
                 subsList.append((instObj.stepVars[j], instObj.stepArray[j][i]))
             functions.append(function.subs(subsList))
     else:
-        for stepVal in instObj.stepList:
-            functions.append(function.subs(instObj.stepVar, stepVal))
+        functions = [function.subs(instObj.stepVar, instObj.stepList[i]) for i in range(len(instObj.stepList))]
     return functions
 
 def doDataType(instObj):

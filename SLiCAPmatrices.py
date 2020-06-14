@@ -1,4 +1,4 @@
-from SLiCAPmath import *
+from SLiCAPplots import *
 
 def getValues(elmt, param, numeric, parDefs):
     """

@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from SLiCAPplots import *
+from SLiCAPprotos import *
 
 class matrix(sp.Matrix):
     """SLiCAP matrix class for faster symbolic calculations.
@@ -277,13 +277,9 @@ def invLaplace(numer, denom):
     arguments, respecively.
     """
     numer = np.poly1d(polyCoeffs(numer, LAPLACE))
-    numerCoeffs = []
-    for coeff in numer.c:
-        numerCoeffs.append(np.float(coeff))
+    numerCoeffs = [np.float(coeff) for coeff in numer.c]
     denom = np.poly1d(polyCoeffs(denom, LAPLACE))
-    denomCoeffs = []
-    for coeff in denom.c:
-        denomCoeffs.append(np.float(coeff))
+    denomCoeffs = [np.float(coeff) for coeff in denom.c]
     (r, p, k) = residue(numerCoeffs, denomCoeffs, tol=10**(-DISP))
     t = sp.Symbol('t', real=True)
     ft = 0

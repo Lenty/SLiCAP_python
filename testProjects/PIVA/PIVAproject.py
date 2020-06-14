@@ -47,11 +47,14 @@ numer               = i1.execute().numer
 i1.dataType         = 'laplace'
 result              = i1.execute()
 Fs                  = result.laplace
+
 # Frequency-domain plots
 plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k', show = False)
 plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-', show = False)
 plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k', show = False)
 plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u', show = False)
+plotPZ('pz', 'Poles and Zeros', pzResult, xmin = -100, xscale = 'M', yscale = 'M', show = False, save = True)
+plotPZ('pzDominant', 'Poles and Zeros', pzResult, xmin = -100, xmax = 0, ymin = -50, ymax = 50, xscale = 'k', yscale = 'k', show = False, save = True)
 
 i1.dataType         = 'step'
 result              = i1.execute()
@@ -102,6 +105,8 @@ img2html('mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
 img2html('phase.svg', 600, caption='Phase plot of the PIVA transfer.')
 img2html('delay.svg', 600, caption='Group delay of the PIVA transfer.')
 img2html('step.svg', 600, caption='Unit step response of the PIVA.')
+img2html('pz.svg', 600, caption='Poles and zeros of the gain of the PIVA.')
+img2html('pzDominant.svg', 600, caption='Dominant poles of the gain of the PIVA.')
 
 t2=time()
 print '\nTotal time: %3.1fs'%(t2-t1)
