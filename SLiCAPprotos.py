@@ -519,3 +519,61 @@ def initAll():
     return
 
 initAll()
+
+#### Return structure for instruction
+        
+class allResults(object):
+    """
+    Return  structure for results, has attributes for all data types and
+    instruction data.
+    """
+    def __init__(self):
+        self.DCvalue     = []   # Zero-frequency value in case of 
+                                # dataType 'pz'
+        self.poles       = []   # Complex frequencies in [rad/s] or [Hz]
+        self.zeros       = []   # Complex frequencies in [rad/s] or [Hz]
+        self.sources     = []   # Names of the sources with dc variance or noise
+        self.srcTerms    = []   # Dict with respective variance or noise
+        self.ivarTerms   = []   # Dict with respective contributions to 
+                                # source-referred variance
+        self.ovarTerms   = []   # Dict with respective contributions to 
+                                # detector-referred variance
+        self.ivar        = []   # Total source-referred variance
+        self.ovar        = []   # Total detector-referred variance
+        self.dcSolve     = []   # DC solution of the network
+        self.inoiseTerms = []   # Dict with respective spectral contributions
+                                # to source-referred noise
+        self.onoiseTerms = []   # Dict with espective spectral contributions
+                                # to detector-referred noise
+        self.inoise      = []   # Total source-referred noise spectral density
+        self.onoise      = []   # Total detector-referred noise spectral 
+        self.Iv          = None # Vector with independent variables
+        self.M           = None # MNA matrix
+        self.Dv          = None # Vector with dependent variables
+        self.denom       = []   # Laplace poly of denominator
+        self.numer       = []   # Laplace poly of numerator
+        self.laplace     = []   # Laplace transfer functions
+        self.solve       = []   # Laplace solutions of the network
+        self.time        = []   # Time-domain responses
+        self.impulse     = []   # Unit impulse responses
+        self.stepResp    = []   # Unit step responses
+        # instruction settings
+        self.simType     = None
+        self.gainType    = None
+        self.dataType    = None
+        self.step        = None
+        self.stepVar     = None
+        self.stepVars    = None
+        self.stepMethod  = None
+        self.stepStart   = None
+        self.stepStop    = None
+        self.stepNum     = None
+        self.stepList    = []
+        self.stepArray   = []
+        self.source      = None
+        self.detector    = None
+        self.lgRef       = None
+        self.circuit     = None
+        self.parDefs     = None
+        self.numeric     = None
+        self.errors      = 0

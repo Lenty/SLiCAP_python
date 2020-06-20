@@ -103,7 +103,7 @@ class matrix(sp.Matrix):
             
     def Cramer(self, colVector, colNumber):
         # Returns matrix with colVector substituted in column colNumber
-        newMatrix = matrix(sp.zeros(self.rows))
+        newMatrix = matrix(sp.zeros(self.rows, self.cols))
         for i in range(self.rows):
             for j in range(self.cols):
                 newMatrix[i,j] = self[i,j]
@@ -171,6 +171,19 @@ def makeLaplaceRational(gain, zeros, poles):
         elif sp.im(p) > 0:
             Fs /= (LAPLACE**2 - 2*sp.re(p)*LAPLACE + sp.re(p)**2 + sp.im(p)**2)
     return(Fs)
+
+def coeffsTransfer(LaplaceRational):
+    """
+    Returns a nested list with the coefficients of the Laplace variable of the 
+    numerator and of the denominator of LpalaceRational.
+    The coefficients are in ascending order.
+    """
+    (numer, denom) = sp.fraction(sp.simplify(LaplaceRational))
+    coeffsNumer = polyCoeffs(numer, LAPLACE)
+    coeffsDenom = polyCoeffs(denom, LAPLACE)
+    coeffsNumer.reverse()
+    coeffsDenom.reverse()
+    return (coeffsNumer, coeffsDenom)
 
 def normalizeLaplaceRational(numer, denom):
     """
@@ -273,8 +286,8 @@ def fullSubs(valExpr, parDefs):
 def invLaplace(numer, denom):
     """
     Calculates the Inverse Laplace Transform of a numerical rational expression
-    of which the sympy numerator and the denominator polynomials are passed as 
-    arguments, respecively.
+    of which the sympy polynomials of the numerator and the denominator are 
+    passed as arguments, respecively.
     """
     numer = np.poly1d(polyCoeffs(numer, LAPLACE))
     numerCoeffs = [np.float(coeff) for coeff in numer.c]
@@ -308,9 +321,10 @@ if __name__ == "__main__":
     
     DET = MNA.determinant()
     t1=time()
-    roots = numRoots(DET,s)
+    roots1 = numRoots(DET,s)
     t2=time()
-    print roots, t2-t1
+    print roots1, t2-t1
     MOD = MNA.Cramer([0,0,0,1,0,-1,0,0,0],3)
-    roots = sp.roots(DET,s)
-    print roots
+    DET = MOD.determinant()
+    roots2 = numRoots(DET,s)
+    print roots2

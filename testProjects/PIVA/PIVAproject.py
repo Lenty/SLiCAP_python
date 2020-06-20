@@ -8,6 +8,7 @@ Created on Sat May 23 10:47:15 2020
 
 from SLiCAP import *
 t1 = time()
+
 prj = initProject('My first SLiCAP project') # Creates the SLiCAP libraries and the
                           # project HTML index page
 
@@ -47,34 +48,59 @@ numer               = i1.execute().numer
 i1.dataType         = 'laplace'
 result              = i1.execute()
 Fs                  = result.laplace
+transferCoeffs      = coeffsTransfer(Fs)
 
 # Frequency-domain plots
-plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k', show = False)
-plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-', show = False)
+plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k')
+plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-')
 plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k', show = False)
-plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u', show = False)
-plotPZ('pz', 'Poles and Zeros', pzResult, xmin = -100, xscale = 'M', yscale = 'M', show = False, save = True)
-plotPZ('pzDominant', 'Poles and Zeros', pzResult, xmin = -100, xmax = 0, ymin = -50, ymax = 50, xscale = 'k', yscale = 'k', show = False, save = True)
+plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u')
+plotPZ('pz', 'Poles and zeros', pzResult, xmin = -100, xscale = 'M', yscale = 'M')
+plotPZ('pzDominant', 'Dominant poles and zeros', pzResult, xmin = -100, xmax = 0, ymin = -50, ymax = 50, xscale = 'k', yscale = 'k')
+
+i1.gainType         = 'asymptotic'
+asymptotic          = i1.execute()
+i1.gainType         = 'loopgain'
+loopgain            = i1.execute()
+i1.gainType         = 'servo'
+servo               = i1.execute()
+i1.gainType         = 'direct'
+direct              = i1.execute()
+plotdBmag('magdBfeedbackModel', 'dB magnitude feedback model', [result, asymptotic, loopgain, servo, direct], 1e3, 1e6, 100, xscale = 'k')
 
 i1.dataType         = 'step'
+i1.gainType         = 'gain'
 result              = i1.execute()
 mu_t                = result.stepResp
 # Time-domain plot
-plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u', yunits = 'V', show = False)
+plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u', yunits = 'V')
 
+# Find the network solution
+i1.gainType         = 'vi'
+i1.dataType         = 'solve'
+result              = i1.execute()
+solution            = result.solve
+Dv                  = result.Dv
+
+i1.gainType         = 'gain'
+i1.dataType         = 'laplace'
 i1.stepVar          = 'I_D'
-i1.stepMethod       = 'lin'
-i1.stepNum          = 10
-i1.stepStart        = '0.1m'
-i1.stepStop         = '1m'
+i1.stepMethod       = 'log'
+i1.stepNum          = 7
+i1.stepStart        = '1p'
+i1.stepStop         = '1u'
 i1.step             = True
 ini.stepFunction    = True
-FsStepped           = i1.execute().laplace
-i1.dataType         = 'pz'
-polesStepped        = i1.execute().poles
-zerosStepped        = i1.execute().zeros
-dcValStepped        = i1.execute().DCvalue
+#FsStepped           = i1.execute().laplace
+plotdBmag('magdBstepped', 'dB magnitude step I_D', i1.execute(), 1e3, 1e6, 100, xscale = 'k')
+
+i1.dataType         = 'poles'
+i1.stepNum          = 200
+polesStepped        = i1.execute()
+plotPZ('polesStepped', 'Root Locus I_D', polesStepped, xmin = -180, xmax = 20, ymin = -100, ymax = 100, xscale = 'k', yscale = 'k')
+
 i1.dataType         = 'step'
+i1.stepNum          = 7
 mu_tStepped         = i1.execute().stepResp
 
 # Generate HTML report. Run this section twice if you use forward references.                             
@@ -93,13 +119,17 @@ pz2html(polesResult, label = 'tab_poles')
 pz2html(zerosResult, label = 'tab_zeros')
 pz2html(pzResult, label = 'tab_pz')
 
-htmlPage('Denominator, nominator and transfer function and step response')
+htmlPage('Denominator, nominator, transfer function and step response')
 eqn2html('D_s', denom, label = 'eq_denom')
 eqn2html('N_s', numer, label = 'eq_numer')
 eqn2html('F_s', Fs, label = 'eq_gain')
+coeffsTransfer2html(transferCoeffs)
 eqn2html('f_t', mu_t, label = 'eq_step')
 
-head2html('Plots')
+htmlPage('Network solution')
+eqn2html(Dv, solution)
+
+htmlPage('Plots')
 img2html('magdB.svg', 600, caption='dB magnitude plot of the PIVA transfer.')
 img2html('mag.svg', 600, caption='Magnitude plot of the PIVA transfer.')
 img2html('phase.svg', 600, caption='Phase plot of the PIVA transfer.')
@@ -107,6 +137,9 @@ img2html('delay.svg', 600, caption='Group delay of the PIVA transfer.')
 img2html('step.svg', 600, caption='Unit step response of the PIVA.')
 img2html('pz.svg', 600, caption='Poles and zeros of the gain of the PIVA.')
 img2html('pzDominant.svg', 600, caption='Dominant poles of the gain of the PIVA.')
+img2html('magdBfeedbackModel.svg', 600, caption='dB magnitude plots of the of feedback model transfer functions of the PIVA.')
+img2html('magdBstepped.svg', 600, caption='dB magnitude plot of the PIVA transfer for different values of the drain current.')
+img2html('polesStepped.svg', 600, caption='Poles of the gain for different values of the drain current.')
 
 t2=time()
 print '\nTotal time: %3.1fs'%(t2-t1)

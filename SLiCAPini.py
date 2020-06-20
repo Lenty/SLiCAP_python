@@ -15,7 +15,7 @@ import os
 import getpass
 import matplotlib._pylab_helpers as plotHelp
 from matplotlib import pyplot as plt
-plt.ioff() # Turn of interactive mode for plotting
+plt.ioff() # Turn off the interactive mode for plotting
 
 # Type conversions
 # These are the only globals. Read only!
@@ -94,4 +94,5 @@ ini.axisXscale       = axisXscale
 ini.axisYscale       = axisYscale
 ini.legendLoc        = legendLoc
 ini.plotFontSize     = plotFontSize
+ini.HZ               = HZ
 # Copy plot globals here!

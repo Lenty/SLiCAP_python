@@ -18,6 +18,7 @@ class trace(object):
         self.color          = False         # trace color
         self.marker         = False         # trace marker
         self.markerColor    = False         # trace marker color
+        self.markerFaceColor = 'none'        # trace marker face color
         self.markerSize     = 7             # trace marker size
         self.lineWidth      = 2
         self.lineType       = '-'
@@ -143,7 +144,7 @@ class figure(object):
                         else:
                             scaleY = 1
                         plt.plot(self.axes[i].traces[j].xData/scaleX, self.axes[i].traces[j].yData/scaleY, label = self.axes[i].traces[j].label, linewidth = self.axes[i].traces[j].lineWidth,
-                                 color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = self.axes[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = 'none', linestyle = self.axes[i].traces[j].lineType)
+                                 color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = self.axes[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = self.axes[i].traces[j].markerFaceColor, linestyle = self.axes[i].traces[j].lineType)
                     except:
                         print 'Error in plot data of %s.'%self.fileName
                         #return False
@@ -200,8 +201,8 @@ def defaultsPlot():
                 tick.label.set_fontsize(ini.plotFontSize)
             for tick in fig.axes[i].yaxis.get_major_ticks():
                 tick.label.set_fontsize(ini.plotFontSize)
-                
-def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', show = True, save = True):
+
+def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False, save = True):
     """
     """
     fig = figure(title)
@@ -213,33 +214,65 @@ def plotdBmag(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale 
     dBmag.yScaleFactor = yscale
     dBmag.xScale = 'log'
     dBmag.yScale = 'lin'
-    dBmag.xLabel = 'frequency [' + xscale + 'Hz]'
+    if ini.HZ == True:
+        dBmag.xLabel = 'frequency [' + xscale + 'Hz]'
+    else:
+        dBmag.xLabel = 'frequency [' + xscale + 'rad/s]'
     dBmag.yLabel = 'mag [' + yscale + 'dB]'
-    if result.dataType == 'numer':
-        yData = result.numer
-    if result.dataType == 'denom':
-        yData = result.denom
-    if result.dataType == 'laplace':
-        yData = result.laplace
-    else:
-        print "Error: wrong data type '%s' for 'plotdBmag()'."%(result.dataType)
-        return fig
-    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-    func = sp.lambdify(FREQUENCY, 20*sp.log(abs(yData),10))
-    if not result.step:
-        x = np.geomspace(fStart, fStop, fNum)
-        y = func(x)
-        dBmagTrace = trace([x, y])
-        dBmagTrace.color = ini.gainColors[result.gainType]
-        dBmagTrace.label = result.gainType
-        dBmag.traces = [dBmagTrace]
-    else:
-        pass
+    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    dBmag.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'numer':
+            yData = result.numer
+        if result.dataType == 'denom':
+            yData = result.denom
+        if result.dataType == 'laplace':
+            yData = result.laplace
+        else:
+            print "Error: wrong data type '%s' for 'plotdBmag()'."%(result.dataType)
+            return fig
+        if not result.step:
+            if ini.HZ == True:
+                yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+                func = sp.lambdify(FREQUENCY, 20*sp.log(abs(yData),10))
+            else:
+                yData = yData.subs(LAPLACE, sp.I*OMEGA)
+                func = sp.lambdify(OMEGA, 20*sp.log(abs(yData),10))
+            y = func(x)
+            dBmagTrace = trace([x, y])
+            try:
+                dBmagTrace.color = ini.gainColors[result.gainType]
+            except:
+                dBmagTrace.color = ini.defaultColors[colNum % numColors]
+            dBmagTrace.label = result.gainType
+            dBmag.traces.append(dBmagTrace)
+        elif type(yData) == list:
+            for i in range(len(yData)):
+                if ini.HZ == True:
+                    y = yData[i].subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+                    func = sp.lambdify(FREQUENCY, 20*sp.log(abs(y),10))
+                else:
+                    y = yData[i].subs(LAPLACE, sp.I*OMEGA)
+                    func = sp.lambdify(OMEGA, 20*sp.log(abs(y),10))
+                y = func(x)
+                dBmagTrace = trace([x, y])
+                dBmagTrace.color = ini.defaultColors[i % numColors]
+                dBmagTrace.label = result.gainType
+                if result.stepMethod == 'array':
+                    dBmagTrace.label += 'run: %s'%(i+1)
+                else:
+                    dBmagTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                dBmag.traces.append(dBmagTrace)   
+        colNum += 1
     fig.axes = [[dBmag]]
     fig.plot()
     return fig
-                
-def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', yunits = '', show = True, save = True):
+   
+def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', yunits = '', show = False, save = True):
     """
     """
     fig = figure(title)
@@ -251,33 +284,65 @@ def plotMag(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = 
     mag.yScaleFactor = yscale
     mag.xScale = 'log'
     mag.yScale = 'log'
-    mag.xLabel = 'frequency [' + xscale + 'Hz]'
+    if ini.HZ == True:
+        mag.xLabel = 'frequency [' + xscale + 'Hz]'
+    else:
+        mag.xLabel = 'frequency [' + xscale + 'rad/s]'
     mag.yLabel = 'mag [' + yscale + yunits +']'
-    if result.dataType == 'numer':
-        yData = result.numer
-    if result.dataType == 'denom':
-        yData = result.denom
-    if result.dataType == 'laplace':
-        yData = result.laplace
-    else:
-        print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
-        return fig
-    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-    func = sp.lambdify(FREQUENCY, abs(yData))
-    if not result.step:
-        x = np.geomspace(fStart, fStop, fNum)
-        y = func(x)
-        magTrace = trace([x, y])
-        magTrace.color = ini.gainColors[result.gainType]
-        magTrace.label = result.gainType
-        mag.traces = [magTrace]
-    else:
-        pass
+    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    mag.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'numer':
+            yData = result.numer
+        if result.dataType == 'denom':
+            yData = result.denom
+        if result.dataType == 'laplace':
+            yData = result.laplace
+        else:
+            print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
+            return fig
+        if not result.step:
+            if ini.HZ == True:
+                yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+                func = sp.lambdify(FREQUENCY, abs(yData))
+            else:
+                yData = yData.subs(LAPLACE, sp.I*OMEGA)
+                func = sp.lambdify(OMEGA, abs(yData))
+            y = func(x)
+            magTrace = trace([x, y])
+            try:
+                magTrace.color = ini.gainColors[result.gainType]
+            except:
+                magTrace.color = ini.defaultColors[colNum % numColors]
+            magTrace.label = result.gainType
+            mag.traces.append(magTrace)
+        elif type(yData) == list:
+            for i in range(len(yData)):
+                if ini.HZ == True:
+                    y = yData[i].subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+                    func = sp.lambdify(FREQUENCY, 20*sp.log(abs(y),10))
+                else:
+                    y = yData[i].subs(LAPLACE, sp.I*OMEGA)
+                    func = sp.lambdify(OMEGA, 20*sp.log(abs(y),10))
+                y = func(x)
+                magTrace = trace([x, y])
+                magTrace.color = ini.defaultColors[i % numColors]
+                magTrace.label = result.gainType
+                if result.stepMethod == 'array':
+                    magTrace.label += 'run: %s'%(i+1)
+                else:
+                    magTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                mag.traces.append(magTrace)  
+        colNum += 1   
     fig.axes = [[mag]]
     fig.plot()
     return fig
                 
-def plotPhase(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', show = True, save = True):
+def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False, save = True):
     """
     """
     fig = figure(title)
@@ -289,33 +354,68 @@ def plotPhase(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale 
     phase.yScaleFactor = yscale
     phase.xScale = 'log'
     phase.yScale = 'lin'
-    phase.xLabel = 'frequency [' + xscale + 'Hz]'
-    phase.yLabel = 'phase [' + yscale + 'deg]'
-    if result.dataType == 'numer':
-        yData = result.numer
-    if result.dataType == 'denom':
-        yData = result.denom
-    if result.dataType == 'laplace':
-        yData = result.laplace
+    if ini.HZ == True:
+        phase.xLabel = 'frequency [' + xscale + 'Hz]'
+        phase.yLabel = 'phase [' + yscale + 'deg]'
     else:
-        print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
-        return fig
-    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-    func = sp.lambdify(FREQUENCY, yData)
-    if not result.step:
-        x = np.geomspace(fStart, fStop, fNum)
-        y = 180*np.unwrap(np.angle(func(x)))/np.pi
-        phaseTrace = trace([x, y])
-        phaseTrace.color = ini.gainColors[result.gainType]
-        phaseTrace.label = result.gainType
-        phase.traces = [phaseTrace]
-    else:
-        pass
+        phase.xLabel = 'frequency [' + xscale + 'rad/s]'
+        phase.yLabel = 'phase [' + yscale + 'rad]'
+    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    phase.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'numer':
+            yData = result.numer
+        if result.dataType == 'denom':
+            yData = result.denom
+        if result.dataType == 'laplace':
+            yData = result.laplace
+        else:
+            print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
+            return fig
+        if not result.step:
+            if ini.HZ == True:
+                yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+                func = sp.lambdify(FREQUENCY, yData)
+                y = 180*np.unwrap(np.angle(func(x)))/np.pi
+            else:
+                yData = yData.subs(LAPLACE, sp.I*OMEGA)
+                func = sp.lambdify(OMEGA, yData)
+                y = np.unwrap(np.angle(func(x)))
+            phaseTrace = trace([x, y])
+            try:
+                phaseTrace.color = ini.gainColors[result.gainType]
+            except:
+                phaseTrace.color = ini.defaultColors[colNum % numColors]
+            phaseTrace.label = result.gainType
+            phase.traces.append(phaseTrace)
+        elif type(yData) == list:
+            for i in range(len(yData)):
+                if ini.HZ == True:
+                    y = yData[i].subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
+                    func = sp.lambdify(FREQUENCY, y)
+                    y = 180*np.unwrap(np.angle(func(x)))/np.pi
+                else:
+                    y = yData[i].subs(LAPLACE, sp.I*OMEGA)
+                    func = sp.lambdify(OMEGA, y)
+                    y = np.unwrap(np.angle(func(x)))
+                phaseTrace = trace([x, y])
+                phaseTrace.color = ini.defaultColors[i % numColors]
+                phaseTrace.label = result.gainType
+                if result.stepMethod == 'array':
+                    magTrace.label += 'run: %s'%(i+1)
+                else:
+                    magTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                phase.traces.append(phaseTrace)
+        colNum += 1
     fig.axes = [[phase]]
     fig.plot()
     return fig
                 
-def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale = '', show = True, save = True):
+def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False, save = True):
     """
     """
     fig = figure(title)
@@ -327,35 +427,61 @@ def plotDelay(fileName, title, result, fStart, fStop, fNum, xscale = '', yscale 
     delay.yScaleFactor = yscale
     delay.xScale = 'log'
     delay.yScale = 'lin'
-    delay.xLabel = 'frequency [' + xscale + 'Hz]'
+    if ini.HZ == True:
+        delay.xLabel = 'frequency [' + xscale + 'Hz]'
+    else:
+        delay.xLabel = 'frequency [' + xscale + 'rad/s]'
     delay.yLabel = 'delay [' + yscale + 's]'
-    if result.dataType == 'numer':
-        yData = result.numer
-    if result.dataType == 'denom':
-        yData = result.denom
-    if result.dataType == 'laplace':
-        yData = result.laplace
-    else:
-        print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
-        return fig
-    yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-    func = sp.lambdify(FREQUENCY, yData)
-    if not result.step:
-        x = np.geomspace(fStart, fStop, fNum)
-        y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)/(2*np.pi)
-        # y one point less than x after differentiation so remove last point x
-        x = x[0:-1] 
-        delayTrace = trace([x, y])
-        delayTrace.color = ini.gainColors[result.gainType]
-        delayTrace.label = result.gainType
-        delay.traces = [delayTrace]
-    else:
-        pass
+    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    delay.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'numer':
+            yData = result.numer
+        if result.dataType == 'denom':
+            yData = result.denom
+        if result.dataType == 'laplace':
+            yData = result.laplace
+        else:
+            print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
+            return fig
+        if not result.step:
+            yData = yData.subs(LAPLACE, sp.I*OMEGA)
+            func = sp.lambdify(OMEGA, yData)
+            y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
+            # y one point less than x after differentiation so remove last point x
+            x = x[0:-1] 
+            delayTrace = trace([x, y])
+            try:
+                delayTrace.color = ini.gainColors[result.gainType]
+            except:
+                delayTrace.color = ini.defaultColors[colNum % numColors]
+            delayTrace.label = result.gainType
+            delay.traces.append(delayTrace)
+        elif type(yData) == list:
+            for i in range(len(yData)):
+                y = yData[i].subs(LAPLACE, sp.I*OMEGA)
+                func = sp.lambdify(OMEGA, y)
+                y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
+                # y one point less than x after differentiation so remove last point x
+                x = x[0:-1] 
+                delayTrace = trace([x, y])
+                delayTrace.color = ini.gainColors[i % numColors]
+                delayTrace.label = result.gainType
+                if result.stepMethod == 'array':
+                    delayTrace.label += 'run: %s'%(i+1)
+                else:
+                    delayTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                delay.traces.append(delayTrace)
+        colNum += 1
     fig.axes = [[delay]]
     fig.plot()
     return fig
                
-def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = '', yscale = '', yunits = '', show = True, save = True):
+def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale = '', yunits = '', show = False, save = True):
     """
     """
     fig = figure(title)
@@ -369,30 +495,49 @@ def plotTime(fileName, title, result, tStart, tStop, tNum, xscale = '', yscale =
     time.yScale = 'lin'
     time.xLabel = 'time [' + xscale + 's]'
     time.yLabel = '[' + yscale + yunits + ']'
-    if result.dataType == 'time':
-        yData = result.time
-    if result.dataType == 'impulse':
-        yData = result.impulse
-    if result.dataType == 'step':
-        yData = result.stepResp
-    else:
-        print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
-        return fig
-    func = sp.lambdify(sp.Symbol('t', real=True), yData)
-    if not result.step:
-        x = np.linspace(tStart, tStop, tNum)
-        y = np.real(func(x))
-        timeTrace = trace([x, y])
-        timeTrace.color = ini.gainColors[result.gainType]
-        timeTrace.label = result.gainType
-        time.traces = [timeTrace]
-    else:
-        pass
+    x = np.linspace(checkNumber(tStart), checkNumber(tStop), checkNumber(tNum))
+    time.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'time':
+            yData = result.time
+        if result.dataType == 'impulse':
+            yData = result.impulse
+        if result.dataType == 'step':
+            yData = result.stepResp
+        else:
+            print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
+            return fig
+        if not result.step:
+            func = sp.lambdify(sp.Symbol('t', real=True), yData)
+            y = np.real(func(x))
+            timeTrace = trace([x, y])
+            try:
+                timeTrace.color = ini.gainColors[result.gainType]
+            except:
+                timeTrace.color = ini.defaultColors[colNum % numColors]
+            timeTrace.label = result.gainType
+            time.traces.append(timeTrace)
+        elif type(yData) == list:
+            for i in range(len(yData)):
+                func = sp.lambdify(sp.Symbol('t', real=True), yData[i])
+                y = np.real(func(x))
+                timeTrace = trace([x, y])
+                timeTrace.color = ini.defaultColors[i, numColors]
+                if result.stepMethod == 'array':
+                    timeTrace.label += 'run: %s'%(i+1)
+                else:
+                    timeTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                time.traces.append(timeTrace)
+        colNum += 1
     fig.axes = [[time]]
     fig.plot()
     return fig
 
-def plotPZ(fileName, title, result, xmin = None, xmax = None, ymin = None, ymax = None, xscale = '', yscale = '', show = True, save = True):
+def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax = None, xscale = '', yscale = '', show = False, save = True):
     """
     """
     fig = figure(title)
@@ -405,32 +550,180 @@ def plotPZ(fileName, title, result, xmin = None, xmax = None, ymin = None, ymax 
     pz.yScaleFactor = yscale
     pz.xScale = 'lin'
     pz.yScale = 'lin'
-    pz.xLabel = 'Re [' + xscale + 'Hz]'
-    pz.yLabel = 'Im [' + yscale + 'Hz]'
+    if ini.HZ == True:
+        pz.xLabel = 'Re [' + xscale + 'Hz]'
+        pz.yLabel = 'Im [' + yscale + 'Hz]'
+    else:
+        pz.xLabel = 'Re [' + xscale + 'rad/s]'
+        pz.yLabel = 'Im [' + yscale + 'rad/s]'
     pzTraces = []
     if xmin != None and xmax != None:
         pz.xLim = [checkNumber(xmin), checkNumber(xmax)]
     if ymin != None and xmax != None:
         pz.yLim = [checkNumber(ymin), checkNumber(ymax)]
-    if result.dataType == 'poles' or result.dataType == 'pz':
-        polesTrace = trace([np.real(result.poles)/2/np.pi, np.imag(result.poles)/2/np.pi])
-        polesTrace.markerColor = ini.gainColors[result.gainType]
-        polesTrace.color = ''
-        polesTrace.marker = 'x'
-        polesTrace.lineWidth = '0'
-        polesTrace.label = 'poles ' + result.gainType
-        pzTraces.append(polesTrace)
-    if result.dataType == 'zeros' or result.dataType == 'pz':
-        zerosTrace = trace([np.real(result.zeros)/2/np.pi, np.imag(result.zeros)/2/np.pi])
-        zerosTrace.color = ''
-        zerosTrace.markerColor = ini.gainColors[result.gainType]
-        zerosTrace.marker = 'o'
-        zerosTrace.lineWidth = '0'
-        zerosTrace.label = 'zeros ' + result.gainType
-        pzTraces.append(zerosTrace)
-    if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
-        print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
-        return fig
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if not result.step:
+            if result.dataType == 'poles' or result.dataType == 'pz':
+                if ini.HZ == True:
+                    polesTrace = trace([np.real(result.poles)/2/np.pi, np.imag(result.poles)/2/np.pi])
+                else:
+                    polesTrace = trace([np.real(result.poles), np.imag(result.poles)])
+                try:
+                    polesTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    polesTrace.markerColor = ini.defaultColors[colNum % numColors]
+                polesTrace.color = ''
+                polesTrace.marker = 'x'
+                polesTrace.lineWidth = '0'
+                polesTrace.label = 'poles ' + result.gainType
+                pzTraces.append(polesTrace)
+            if result.dataType == 'zeros' or result.dataType == 'pz':
+                if ini.HZ == True:
+                    zerosTrace = trace([np.real(result.zeros)/2/np.pi, np.imag(result.zeros)/2/np.pi])
+                else:
+                    zerosTrace = trace([np.real(result.zeros), np.imag(result.zeros)])
+                zerosTrace.color = ''
+                try:
+                    zerosTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    zerosTrace.markerColor = ini.defaultColors[colNum % numColors]
+                zerosTrace.marker = 'o'
+                zerosTrace.lineWidth = '0'
+                zerosTrace.label = 'zeros ' + result.gainType
+                pzTraces.append(zerosTrace)
+            if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
+                print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
+                return fig
+        elif result.dataType == 'poles' or result.dataType == 'pz':
+            poles = result.poles
+            if len(poles) != 0:
+                # start of root locus
+                if ini.HZ == True:
+                    polesTrace = trace([np.real(result.poles[0])/2/np.pi, np.imag(result.poles[0])/2/np.pi])
+                else:
+                    polesTrace = trace([np.real(result.poles[0]), np.imag(result.poles[0])])
+                try:
+                    polesTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    polesTrace.markerColor = ini.defaultColors[colNum % numColors]
+                polesTrace.color = ''
+                polesTrace.marker = 'x'
+                polesTrace.lineWidth = '0'
+                polesTrace.label = 'poles ' + result.gainType
+                if result.stepMethod == 'array':
+                    polesTrace.label += ', run: 1'
+                else:
+                    polesTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[0])
+                pzTraces.append(polesTrace)
+                # end of root locus
+                if ini.HZ == True:
+                    polesTrace = trace([np.real(result.poles[-1])/2/np.pi, np.imag(result.poles[-1])/2/np.pi])
+                else:
+                    polesTrace = trace([np.real(result.poles[-1]), np.imag(result.poles[-1])])
+                try:
+                    polesTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    polesTrace.markerColor = ini.defaultColors[colNum % numColors]
+                polesTrace.color = ''
+                polesTrace.marker = '+'
+                polesTrace.markerSize = 10
+                polesTrace.lineWidth = '0'
+                polesTrace.label = 'poles ' + result.gainType
+                if result.stepMethod == 'array':
+                    polesTrace.label += ', run: %s'%(len(poles))
+                else:
+                    polesTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[-1])
+                pzTraces.append(polesTrace)
+                # root locus
+                allPoles = np.array([])
+                for i in range(len(poles)):
+                    allPoles = np.concatenate((allPoles, poles[i]), axis = None)
+                if ini.HZ == True:
+                    polesTrace = trace([np.real(allPoles)/2/np.pi, np.imag(allPoles)/2/np.pi])
+                else:
+                    polesTrace = trace([np.real(allPoles), np.imag(allPoles)])
+                try:
+                    polesTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    polesTrace.markerColor = ini.defaultColors[colNum % numColors]
+                polesTrace.color = ''
+                polesTrace.marker = '.'
+                polesTrace.lineWidth = '0'
+                polesTrace.markerSize = 2
+                polesTrace.markerFaceColor = polesTrace.markerColor
+                polesTrace.label = 'poles ' + result.gainType
+                if result.stepMethod == 'array':
+                    polesTrace.label += ', run: 1 ... %s'%(len(poles))
+                else:
+                    polesTrace.label += ', %s = %8.1e ... %8.1e'%(result.stepVar, result.stepList[0], result.stepList[-1])
+                pzTraces.append(polesTrace)
+        elif result.dataType == 'zeros' or result.dataType == 'pz':
+            zeros = result.zeros
+            if len(zeros) != 0:
+                # start of zeros locus
+                if ini.HZ == True:
+                    zerosTrace = trace([np.real(result.zeros[0])/2/np.pi, np.imag(result.zeros[0])/2/np.pi])
+                else:
+                    zerosTrace = trace([np.real(result.zeros[0]), np.imag(result.zeros[0])])
+                try:
+                    zerosTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    zerosTrace.markerColor = ini.defaultColors[colNum % numColors]
+                zerosTrace.color = ''
+                zerosTrace.marker = 'o'
+                zerosTrace.lineWidth = '0'
+                zerosTrace.label = 'zeros ' + result.gainType
+                if result.stepMethod == 'array':
+                    zerosTrace.label += ', run: 1'
+                else:
+                    zerosTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[0])
+                pzTraces.append(zerosTrace)
+                # end of zeros locus
+                if ini.HZ == True:
+                    zerosTrace = trace([np.real(result.zeros[-1])/2/np.pi, np.imag(result.zeros[-1])/2/np.pi])
+                else:
+                    zerosTrace = trace([np.real(result.zeros[-1]), np.imag(result.zeros[-1])])
+                try:
+                    zerosTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    zerosTrace.markerColor = ini.defaultColors[colNum % numColors]
+                zerosTrace.color = ''
+                zerosTrace.marker = 's'
+                zerosTrace.lineWidth = '0'
+                zerosTrace.label = 'zeros ' + result.gainType
+                if result.stepMethod == 'array':
+                    zerosTrace.label += ', run: %s'%(len(zeros))
+                else:
+                    zerosTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[-1])
+                pzTraces.append(zerosTrace)
+                # zeros locus
+                allZeros = np.array([])
+                for i in range(len(zeros)):
+                    allZeros = np.concatenate((allZeros, result.zeros[i]), axis = None)
+                if ini.HZ == True:
+                    zerosTrace = trace([np.real(allZeros)/2/np.pi, np.imag(allZeros)/2/np.pi])
+                else:
+                    zerosTrace = trace([np.real(allZeros), np.imag(allZeros)])
+                try:
+                    zerosTrace.markerColor = ini.gainColors[result.gainType]
+                except:
+                    zerosTrace.markerColor = ini.defaultColors[colNum % numColors]
+                zerosTrace.color = ''
+                zerosTrace.marker = '.'
+                zerosTrace.lineWidth = '0'
+                zerosTrace.markerSize = 2
+                zerosTrace.markerFaceColor = zerosTrace.markerColor
+                zerosTrace.label = 'zeros ' + result.gainType
+                if result.stepMethod == 'array':
+                    zerosTrace.label += ', run: 1 ... %s'%(len(zeros))
+                else:
+                    zerosTrace.label += ', %s = %8.1e ... %8.1e'%(result.stepVar, result.stepList[0], result.stepList[-1])
+                pzTraces.append(zerosTrace)    
+        colNum += 1                  
     pz.traces = pzTraces
     fig.axes = [[pz]]
     fig.plot()
@@ -444,7 +737,8 @@ if __name__=='__main__':
     sine.label = 'sine'
     sine.color = ''
     sine.lineWidth = '0'
-    sine.marker = 'o'
+    sine.marker = '.'
+    sine.markerFaceColor = 'r'
     sine.markerColor = 'r'
     cosine = trace([x, y2])
     cosine.label = 'cosine'
@@ -460,4 +754,3 @@ if __name__=='__main__':
     testFig.show = True
     testFig.plot()
     plt.show()
-    

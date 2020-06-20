@@ -7,63 +7,6 @@ Created on Fri May 22 17:41:46 2020
 """
 
 from SLiCAPyacc import *
-
-#### Return structures depend on data type
-        
-class allResults(object):
-    """
-    Return  structure for results, has attributes for all data types and
-    instruction data.
-    """
-    def __init__(self):
-        self.DCvalue     = []   # Zero-frequency value in case of 
-                                # dataType 'pz'
-        self.poles       = []   # Complex frequencies in [rad/s] or [Hz]
-        self.zeros       = []   # Complex frequencies in [rad/s] or [Hz]
-        self.sources     = []   # Names of the sources with dc variance or noise
-        self.srcTerms    = []   # Dict with respective variance or noise
-        self.ivarTerms   = []   # Dict with respective contributions to 
-                                # source-referred variance
-        self.ovarTerms   = []   # Dict with respective contributions to 
-                                # detector-referred variance
-        self.ivar        = []   # Total source-referred variance
-        self.ovar        = []   # Total detector-referred variance
-        self.dcSolve     = []   # DC solution of the network
-        self.inoiseTerms = []   # Dict with respective spectral contributions
-                                # to source-referred noise
-        self.onoiseTerms = []   # Dict with espective spectral contributions
-                                # to detector-referred noise
-        self.inoise      = []   # Total source-referred noise spectral density
-        self.onoise      = []   # Total detector-referred noise spectral 
-        self.Iv          = None # Vector with independent variables
-        self.M           = None # MNA matrix
-        self.Dv          = None # Vector with dependent variables
-        self.denom       = []   # Laplace poly of denominator
-        self.numer       = []   # Laplace poly of numerator
-        self.laplace     = []   # Laplace transfer functions
-        self.time        = []   # Time-domain responses
-        self.impulse     = []   # Unit impulse responses
-        self.stepResp    = []   # Unit step responses
-        # instruction settings
-        self.simType     = None
-        self.gainType    = None
-        self.dataType    = None
-        self.step        = None
-        self.stepVar     = None
-        self.stepVars    = None
-        self.stepMethod  = None
-        self.stepStart   = None
-        self.stepStop    = None
-        self.stepNum     = None
-        self.stepList    = []
-        self.stepArray   = []
-        self.source      = None
-        self.detector    = None
-        self.lgRef       = None
-        self.circuit     = None
-        self.parDefs     = None
-        self.numeric     = None
-        self.errors      = 0
        
 def doInstruction(instObj):
     """
@@ -155,7 +98,11 @@ def doInstruction(instObj):
                 for i in range(len(denoms)):
                     instObj.laplace.append(normalizeLaplaceRational(numers[i], denoms[i]))
             elif instObj.dataType == 'solve':
-                pass
+                sol = doSolve(instObj)
+                sols = stepFunctions(instObj. sol)
+                instObj.solve = []
+                for i in range(len(sols)):
+                    instObj.solve.append(sp.simplify(sols[i]))
         else:
             # Create a deep copy of the substitution dictionary
             subsDict = {}
@@ -187,8 +134,9 @@ def stepFunctions(instObj, function):
     Substitutes step values for step parameters in functions and returns a list
     of functions with these substitutions.
     """
+    
     """
-    # The lambdify method was not faster
+    # The lambdify method was not faster then one-by-one substitution
     if instObj.stepMethod == 'array':
         func = sp.lambdify(instObj.stepVars, function)
         functions = [func(instObj.stepArray[i]) for i in range(len(instObj.stepArray))]
@@ -196,7 +144,7 @@ def stepFunctions(instObj, function):
         func = sp.lambdify(instObj.stepVar, function)
         functions = [func(instObj.stepList[i]) for i in range(len(instObj.stepList))]
     """
-    # One by one substitition
+    # One-by-one substitition
     if instObj.stepMethod == 'array':
         functions = []
         for i in range(len(instObj.stepArray[0])):
@@ -266,7 +214,10 @@ def doDataType(instObj):
     elif instObj.dataType == 'time':
         pass 
     elif instObj.dataType == 'solve':
-        pass            
+        if instObj.step:
+            instObj.solve.append(doSolve(instObj))
+        else:
+            instObj.solve = doSolve(instObj)            
     return instObj
 
 def doDenom(instObj):
@@ -332,7 +283,7 @@ def lgValue(instObj):
 def makeSrcDetPos(instObj):
     """
     Returns the number of the source rows and detector colums for calculation
-    of the cofactors.
+    of the cofactors or application of Cramer's rule.
     """
     detectors = []
     for var in instObj.circuit.depVars:
@@ -448,18 +399,22 @@ def makeSrcDetPos(instObj):
     
 def doNumer(instObj):
     """
-    Calculates the numerator of a transfer by evaluating cofactors.
+    Calculates the numerator of a transfer by evaluating cofactors or the 
+    numerator of the detector response using Cramer's rule.
     
     instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
     return value: Sympy expression.
     """
     (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
-    numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
-    if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
-        (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-        numer *= lgNumer
-    elif instObj.gainType == 'servo':
-        numer *= -lgNumer
+    if instObj.gainType == 'vi':
+        numer = maxCramerNumer(instObj.M, instObj.Iv, detP, detN)
+    else:
+        numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
+        if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
+            (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+            numer *= lgNumer
+        elif instObj.gainType == 'servo':
+            numer *= -lgNumer
     return numer
 
 def doZeros(instObj):
@@ -510,6 +465,12 @@ def doLaplace(instObj):
     numer = doNumer(instObj)
     denom = doDenom(instObj)
     return normalizeLaplaceRational(numer, denom)
+
+def doSolve(instObj):
+    """
+    Calculates the solution of a network.
+    """
+    return maxSolve(instObj.M, instObj.Iv)
 
 def checkNumeric(expr, stepVar = None):
     """

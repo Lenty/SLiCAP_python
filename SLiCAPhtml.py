@@ -403,7 +403,7 @@ def pz2html(instObj, label = ''):
         html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, DISP)) + '</p>\n'
     elif instObj.dataType =='pz':
         html += '<p>DC gain could not be determined.</p>\n'
-    if HZ == True:
+    if ini.HZ == True:
         unitsM = 'Mag [Hz]'
         unitsR = 'Re [Hz]'
         unitsI = 'Im [Hz]'
@@ -415,7 +415,7 @@ def pz2html(instObj, label = ''):
         html += '<table><tr><th>pole</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
         for i in range(len(poles)):
             p = poles[i]
-            if HZ == True:
+            if ini.HZ == True:
                 p  = p/2/sp.pi
             Re = sp.re(p)
             Im = sp.im(p)
@@ -439,7 +439,7 @@ def pz2html(instObj, label = ''):
         html += '<table><tr><th>zero</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
         for i in range(len(zeros)):
             z = zeros[i]
-            if HZ == True:
+            if ini.HZ == True:
                 z = z/2/sp.pi
             Re = sp.re(z)
             Im = sp.im(z)
@@ -461,6 +461,38 @@ def pz2html(instObj, label = ''):
         html += '<p>No zeros found.</p>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
+
+def coeffsTransfer2html(transferCoeffs):
+    """
+    Displays the coefficients of the numerator and the denominator of a transfer function on the active html page.
+    """
+    (numerCoeffs, denomCoeffs) = transferCoeffs
+    html = '<h3>Coefficients of the numerator:</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
+    for i in range(len(numerCoeffs)):
+        value = sp.latex(roundN(numerCoeffs[i]))
+        html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
+    html += '</table>\n'
+    html += '<h3>Coefficients of the denominator:\n</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
+    for i in range(len(denomCoeffs)):
+        value = sp.latex(roundN(denomCoeffs[i]))
+        html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
+    html += '</table>\n'
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    return
+
+def roundN(expr):
+    """
+    Rounds all number atoms in an expression to DISP digits
+    """
+    try:
+        return expr.xreplace({n : sp.N(n, DISP) for n in expr.atoms()})
+    except:
+        return sp.N(expr, DISP)
+
+if __name__ == '__main__':
+    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.htmlPath    = ini.projectPath + 'html/'
+    startHTML('Test project') 
 
 ### HTML links and labels
 
@@ -486,17 +518,3 @@ def href(label, linkText, fileName = ''):
     else:
         html = '<a href="' + fileName + '#' +label+'">'+linkText+'</a>'
     return html
-
-def roundN(expr):
-    """
-    Rounds all number atoms in an expression to DISP digits
-    """
-    try:
-        return expr.xreplace({n : sp.N(n, DISP) for n in expr.atoms()})
-    except:
-        return sp.N(expr, DISP)
-
-if __name__ == '__main__':
-    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
-    ini.htmlPath    = ini.projectPath + 'html/'
-    startHTML('Test project') 

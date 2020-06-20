@@ -42,7 +42,7 @@ figureAxisWidth = 7
 plotFontSize    = 10
 defaultColors   = ('r','b','g','c','m','y','k')
 gainColors      = {'gain': 'b', 'asymptotic': 'r', 'loopgain': 'k',
-                   'direct': 'g', 'servo': 'c', 'vi': 'm'}
+                   'direct': 'g', 'servo': 'm', 'vi': 'c'}
 defaultMarkers  = ['']
 tableFileType   = 'csv'
 figureFileType  = 'svg'

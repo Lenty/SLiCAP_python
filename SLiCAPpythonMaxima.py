@@ -38,6 +38,9 @@ def maxEval(maxExpr):
     result = re.sub(r'%e','exp(1)', result)
     # Convert 'pi' notation:
     result = re.sub(r'%pi','pi', result)
+    # Convert Maxima matrix to sympy matrix:
+    result = result.replace('matrix(', 'Matrix([')
+    result = result.replace('])', ']])')
     # ToDo
     # Other conversions
     # Display the result (for debug purposes, e.g. studying assumptions)
@@ -138,7 +141,7 @@ def maxNumer(M, detP, detN, srcP, srcN):
     
 def maxLimit(expr, var, val, pm):
     """
-    Calculated the limit of an expression for 'var' approaches 'val' from 'pm'.
+    Calculates the limit of an expression for 'var' approaches 'val' from 'pm'.
     expr: sympy expression or string
     var:  string representing the variable
     val:  string representing the limit value of the variable
@@ -147,8 +150,48 @@ def maxLimit(expr, var, val, pm):
     maxExpr = 'result:bfloat(limit(' + str(expr) + ',' + var + ',' + val + ',' + pm +' ));'
     return sp.sympify(maxEval(maxExpr))
 
-def maxCramer():
+def maxCramerNumer(M, Iv, detP, detN):
     """
-    ToDo
+    
+    Returns the numerator of the response at the detector as a result of
+    excitations from one or more sources.
+        
+    M = MNA matrix
+    detP = position of positive detector in vector with dependent variables.
+           This can be a nodal voltage or a current through a voltage source or
+           False if the positive node is the ground node or a positive current
+           is not used.
+    detN = position of positive detector in vector with dependent variables
+           This can be a nodal voltage or a current through a voltage source or
+           False if the negative node is the ground node or a negative current
+           is not used.
+             
+    Calculation method:
+        
+        numer = + determinant(subs(M, col(detP) = Iv))
+                - determinant(subs(M, col(detN) = Iv))
+    
+    The subsititutions are made with Sympy,
+    the determinants are calculated with Maxima.
     """
-    return
+    maxExpr = 'result:bfloat(expand('
+    if detP != None:
+        maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
+    if detN != None:
+        maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
+    maxExpr += '));'
+    return sp.sympify(maxEval(maxExpr))
+
+def maxSolve(M, Iv):
+    """
+    Calculates M^(-1).Dv
+    
+    M:  Matrix
+    Iv: Vector with independent variables
+    """
+    # To be implemented
+    maxExpr = 'M:' + sympy2maximaMatrix(M) + ';'
+    maxExpr += 'Iv:' + sympy2maximaMatrix(Iv) + ';'
+    maxExpr += 'result:bfloat(invert(M).Iv);'
+    result = maxEval(maxExpr)
+    return sp.sympify(result)
