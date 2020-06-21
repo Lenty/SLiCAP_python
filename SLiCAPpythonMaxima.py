@@ -195,3 +195,80 @@ def maxSolve(M, Iv):
     maxExpr += 'result:bfloat(invert(M).Iv);'
     result = maxEval(maxExpr)
     return sp.sympify(result)
+
+def equateCoeffs(protoType, transfer, noSolve = []):
+    """
+    Returns the solutions of transfer = protoType.
+    Both transfer and prototype should be Laplace rational functions.
+    Their numerators should be polynomials of the Laplace variable of equal 
+    order and their denominators should be polynomials of the Laplace variable
+    of equal order.
+    """
+    params      = list(set(list(protoType.free_symbols) + list(transfer.free_symbols)))
+    noSolve.append(LAPLACE)
+    for param in noSolve:
+        if param in params:
+            params.remove(param)
+    values = {}
+    
+    for param in params:
+        values[sp.sympify(param)] = None
+        
+    pN, pD      = coeffsTransfer(protoType)
+    tN, tD      = coeffsTransfer(transfer)
+    
+    # normalize lowest order coeff
+    gain        = tN[0]/pN[0]
+    for i in range(len(tN)):
+        tN[i] = tN[i]/gain
+    for i in range(len(tD)):
+        tD[i] = tD[i]/gain
+    
+    if len(pN) != len(tN) or len(pD) != len(tD):
+        print 'Error: unequal orders of prototype and target.'
+        return values
+    
+    if ini.maxSolve:
+        equations = ''
+        for i in range(len(pN)):
+            eqn = sp.Eq(sp.N(pN[i]),sp.N(tN[i]))
+            if eqn != True:
+                equations += str(pN[i]) + '=' + str(tN[i]) + ','
+        for i in range(len(pD)):
+            eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
+            if eqn != True:
+                equations += str(pD[i]) + '=' + str(tD[i]) + ','
+        equations = '[' + equations[0:-1] + ']'
+        params = str(params)
+        maxExpr = 'result:(float(solve(' + equations + ',' + params + ')))[1];'
+        result = maxEval(maxExpr)
+        result = result[1:-1].split(',')
+        try:
+            for i in range(len(result)):
+                name, value = result[i].split('=')
+                values[sp.sympify(name)] = sp.N(sp.sympify(value))
+        except:
+            print 'Error: could not solve equations.'
+    else:
+        equations = []
+        for i in range(len(pN)):
+            eqn = sp.Eq(sp.N(pN[i]),sp.N(tN[i]))
+            if eqn != True:
+                equations.append(eqn)
+        for i in range(len(pD)):
+            eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
+            if eqn != True:
+                equations.append(eqn)
+        try:
+            solution = sp.solve(equations, (params))[0]
+            if type(solution) == dict:
+                values = solution
+            else:
+                values = {}
+                for i in range(len(params)):
+                    values[params[i]] = solution[i]
+        except:
+            print 'Error: could not solve equations.'
+    return values
+        
+    return values

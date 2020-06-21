@@ -273,6 +273,7 @@ def img2html(fileName, width, label = '', caption = ''):
     html = '<figure>%s<img src="img/%s" alt="%s" style="width:%spx">\n'%(label, fileName, caption, width)
     if caption != '':
         html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(fileName, caption)
+    html += '</figure>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 

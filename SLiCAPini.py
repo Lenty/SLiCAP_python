@@ -95,4 +95,5 @@ ini.axisYscale       = axisYscale
 ini.legendLoc        = legendLoc
 ini.plotFontSize     = plotFontSize
 ini.HZ               = HZ
+ini.maxSolve         = MAXSOLVE
 # Copy plot globals here!

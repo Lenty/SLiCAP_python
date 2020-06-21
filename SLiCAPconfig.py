@@ -23,8 +23,9 @@ LAPLACE         = 's'       # Laplace veriable
 FREQUENCY       = 'f'       # Frequency in Hz
 OMEGA           = 'omega'   # Frequency in rad/s
 MAXRECSUBST     = 10        # Maximum number of recursic=ve substitutions
-HZ              = True      # Display method for frequency on HTML pages:
-                            # True if frequency in Hz, else: False
+HZ              = True      # If true: frequency in Hz, else rad/s
+MAXSOLVE        = True      # If true: Maxima CAS is used as default solver, 
+                            # else: Sympy
 
 # PATHS: relative to the project path
 HTMLPATH        = 'html/'   # path for html output

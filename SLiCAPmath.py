@@ -305,7 +305,7 @@ def invLaplace(numer, denom):
                 m = 1
         ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.E**(p[i]*t)
     return ft
- 
+
 if __name__ == "__main__":
     s = LAPLACE
     
