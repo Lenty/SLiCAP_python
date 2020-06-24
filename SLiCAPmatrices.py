@@ -10,7 +10,7 @@ def getValues(elmt, param, numeric, parDefs):
     else:
         value = elmt.params[param]
     try:
-        if LAPLACE in value.free_symbols:
+        if ini.Laplace in value.atoms(sp.Symbol):
             (numer, denom) = sp.fraction(value)
         else:
             numer = value
@@ -24,7 +24,7 @@ def getValue(elmt, param, numeric, parDefs):
     """
     Returns the symbolic or numeric value of a parameter of an element.
     """
-    if numeric == True:
+    if numeric == True:        
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
         value = elmt.params[param]
@@ -85,10 +85,10 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][pos0] += value * LAPLACE
-            M[pos0][pos1] -= value * LAPLACE
-            M[pos1][pos0] -= value * LAPLACE
-            M[pos1][pos1] += value * LAPLACE
+            M[pos0][pos0] += value * ini.Laplace
+            M[pos0][pos1] -= value * ini.Laplace
+            M[pos1][pos0] -= value * ini.Laplace
+            M[pos1][pos1] += value * ini.Laplace
         elif elmt.model == 'L':
             dVarPos = varIndex['I_'+ elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -98,7 +98,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[pos1][dVarPos] -= 1
             M[dVarPos][pos0] += 1
             M[dVarPos][pos1] -= 1
-            M[dVarPos][dVarPos] -= value * LAPLACE
+            M[dVarPos][dVarPos] -= value * ini.Laplace
         elif elmt.model == 'R':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
@@ -282,7 +282,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             ind0    = getValue(cir.elements[elmt.refs[0]].params['value'])
             ind1    = getValue(cir.elements[elmt.refs[1]].params['value'])
             value = getValue(elmt, 'value', numeric, parDefs)
-            value = value * LAPLACE * sqrt(ind0 * ind1)
+            value = value * ini.Laplace * sqrt(ind0 * ind1)
     M = matrix(M)
     gndPos = varIndex['0']
     M.row_del(gndPos)
@@ -297,6 +297,37 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
         cir.elements[lgRef].model = lgRefModel
         cir.updateMdata()
     return (Iv, M, Vv)
+
+def makeSrcVector(cir, elID):
+    """
+    Creates the vector with independent variables with only the
+    source with refdes 'elID'. The value will be equal to the
+    refdes of that source.
+    This can be used for determination of a transfer using Cramer's rule.
+    Just substitute this vector in the detector col, calculate the transfer
+    with Cramer's rule and divide the result by the refDes.
+    It is an alternative for using cofactors.
+    This method is used for determination of gain factors for noise sources
+    and for DC variance sources.
+    """
+    varIndex = cir.varIndex
+    dim = len(cir.varIndex.keys())
+    Iv = [0 for i in range(dim)]
+    elmt = cir.elements[elID]
+    if elmt.model == 'I':
+        value = sp.Symbol(elmt.refDes)
+        pos0 = varIndex[elmt.nodes[0]]
+        pos1 = varIndex[elmt.nodes[1]]
+        Iv[pos0] += value
+        Iv[pos1] += -value
+    elif elmt.model == 'V':
+        value = sp.Symbol(elmt.refDes)
+        dVarPos = varIndex['I_' + elmt.refDes]
+        Iv[dVarPos] += value
+    gndPos = varIndex['0']
+    Iv = matrix(Iv)
+    Iv.row_del(gndPos)
+    return Iv
 
 if __name__ == '__main__':
     ini.projectPath = ini.installPath + 'testProjects/PIVA/'

@@ -292,8 +292,7 @@ class instruction(object):
         if self.stepVar == None:
             print "Error: missing step variable."
         else:
-            if not isinstance(self.stepVar, tuple(sp.core.all_classes)):
-                self.stepVar = sp.Symbol(self.stepVar)
+            self.stepVar = sp.Symbol(str(self.stepVar))
             if self.stepVar not in self.circuit.parDefs.keys() and \
             self.stepVar not in self.circuit.params:
                 print "Warning: unknown step parameter '%s'."%(self.stepVar)
@@ -454,15 +453,20 @@ class instruction(object):
             return doInstruction(r)
     
     def delPar(self, parName):
-        # single params and multiple.
+        # delete a parameter definition
         self.circuit.delPar(parName)
         return
         
     def defPar(self, parName, parValue):
-        # single params and multiple.
-        self.circuit.defPar(parName, parValue)
+        # define a parameter
+        self.circuit.defPar(str(parName), parValue)
         return
-        
+    
+    def defPars(self, parDict):
+        # define multiple parameters.
+        self.circuit.defPars(parDict)
+        return
+    
     def getParValue(self, parName):
         # single params and multiple.
         if self.simType == 'numeric':

@@ -21,6 +21,7 @@ class SLiCAPproject(object):
         self.name = name
         self.lastUpdate = datetime.now()
         self.author = getpass.getuser()
+        ini.lastUpdate = self.lastUpdate
         if not os.path.exists(ini.projectPath + 'SLiCAPconfig.py'):
             f = open(ini.installPath + 'SLiCAPconfig.py', 'r')
             txt = f.read()
@@ -79,4 +80,20 @@ def initProject(name):
     return prj
 
 if __name__ == '__main__':
-    pass
+    """
+    Here is how to redefine symbols with assumption 'real'. 
+    
+    This cannot be added to the tokenizer, because parameter names ar modified 
+    during circuit expansion. 
+    
+    The best place is to add it in SLiCAPyacc.updateCirData() and
+    in SLiCAPprotos.circuit.defPar() and in SLiCAPprotos.circuit.defPars().
+    See ToDos in these files.
+    """
+    a = sp.Symbol('a')
+    b = sp.Symbol('b')
+    c = a+sp.I*b
+    print sp.re(c), sp.im(c)
+    c = c.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in c.atoms(sp.Symbol)})
+    print sp.re(c), sp.im(c)
+    print c.as_real_imag()

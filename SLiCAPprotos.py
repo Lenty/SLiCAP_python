@@ -3,77 +3,161 @@
 
 from SLiCAPlex import *
 
-# Globals
+# Globals used by this script and by SLiCAPyacc.py:
+
 HIERARCHY   = []                # Check list for hierarchical loops
-CONSTANTS   = {}                # Dictionary with global parameters taken from
-                                # the ini file
 MODELS      = {}                # Dictionary with SLiCAP built-in models
                                 #   key   : model name
                                 #   value : associated model object
 DEVICES     = {}                # Dictionary with SLiCAP built-in devices
                                 #   key   : device name
                                 #   value : associated device object
-CONTROLLED  = ['E', 'F', 'G', 'H']  # Types of controlled sources
-INDEPSCRCS  = ['I', 'V']            # Types of independent sources
-
 class circuit(object):
-    # Circuit object for main circuit and for sub circuits
+    """
+    Prototype (sub)circuit object. It has the following attributes with their
+    default values:
+        
+    title      = ''    # Title of (sub) circuit
+    file       = []    # Name of the netlist file
+    lexer      = None  # Tokenized input file
+    subCKT     = False # True if sub circuit
+    elements   = {}    # Dictionary with the circuit's element  objects
+                       #   key (str)  : element refDes
+                       #   value (obj): associated element object
+    nodes      = []    # Connecting nodes to parent circuit
+    params     = {}    # Before expansion: Parameters that can be be passed 
+                       # from parent circuit (sub circuit only)
+                       # key (sympy.Symbol)                  : model parameter 
+                       #                                       name
+                       # value (sympy expression, int, float): parameter value 
+                       #                                       or expression
+                       # After expansion: List with undefined parameters 
+                       # (sympy.Symbol) 
+    parDefs    = {}    # Dictionary with paremeter definitions
+                       # key (sympy.Symbol)                  : parameter name
+                       # value (sympy expression, int, float): parameter value 
+                       #                                       or expression                                      
+    modelDefs  = {}    # Dictionary with model definitions found in 
+                       # the circuit:
+                       #   key (str)  : model name
+                       #   value (obj): modelDef object
+    circuits   = {}    # Dict with sub circuit definitions found in
+                       # the netlist (before expansion)
+                       #   key (str)  : sub circuit name
+                       #   value (obj): circuit object
+    errors     = 0     # Number of errors found during checking (int)
+    libs       = []    # List with library files
+    indepVars  = []    # List with sources that can be used as signal source
+    depVars    = []    # List with dependent variables that can be used as 
+                       # detector
+    controlled = []    # List with controlles sources that can be used as loop
+                       # gain reference
+    varIndex   = {}    # Dictionary with index of node or dependent
+                       # current (speeds up the building of the matrix)
+                       #   key (str)  : node name or current name
+                       #   value (int): row position in the vector with
+                       #                dependent variables, before removal of
+                       #                row with reference node
+    """
     def __init__(self):
-        self.title      = ''    # Title of (sub) circuit
-        self.file       = []    # Name of the netlist file
-        self.lexer      = None  # Tokenized input file
-        self.subCKT     = False # True if sub circuit
-        self.elements   = {}    # Dictionary withthe circuit's element  objects
-                                #   key   : element refDes
-                                #   value : associated element object
-        self.nodes      = []    # Connecting nodes to parent circuit
-        self.params     = {}    # Parameters tat can be be passed from parent
-                                # circuit (sub circuit only)
-                                #   key   : model parameter name
-                                #   value : parameter value or expression 
-        self.parDefs    = {}    # Dictionary with paremeter definitions
-                                #   key   : model parameter name
-                                #   value : parameter value or expression
-        self.modelDefs  = {}    # Dictionary with model definitions found in 
-                                # the circuit:
-                                #   key   : model name
-                                #   value : modelDef object
-        self.circuits   = {}    # Dict with sub circuit definitions found in
-                                # the netlist (before expansion)
-                                #   key   : sub circuit name
-                                #   value : circuit object
-        self.errors     = 0     # Number of errors found during checking
-        self.libs       = []    # List with library files
-        self.indepVars  = []    # List with independent sources;
-                                # can be used as signal source
-        self.depVars    = []    # List with dependent variables;
-                                # can be used as detector
-        self.controlled = []    # List with controlles sources;
-                                # can be used as loop gain reference
-        self.varIndex   = {}    # Dictionary with index of node or dependent
-                                # current (speeds up the building of the matrix)
-                                #   key   : node name or current name
-                                #   value : position in the vector with
-                                #           dependent variables
+        """
+        Initialization of the circuit object, see description above.
+        """
+        self.title      = '' 
+        self.file       = []
+        self.lexer      = None
+        self.subCKT     = False
+        self.elements   = {}
+        self.nodes      = []
+        self.params     = {}
+        self.parDefs    = {}
+        self.modelDefs  = {}
+        self.circuits   = {}
+        self.errors     = 0
+        self.libs       = []
+        self.indepVars  = []
+        self.depVars    = []
+        self.controlled = []
+        self.varIndex   = {}
     
     def delPar(self, parName):
-        # single params and multiple.
+        """
+        Delete a parameter definition from self.parDefs.
+        
+        The list self.params with undefined parameters is updated.
+        
+        parName (str or sympy.Symbol): name of the parameter.
+        """
+        self.parDefs.pop(sp.Symbol(str(parName)), None)
         self.updateParams()
         return
         
     def defPar(self, parName, parValue):
-        # single params and multiple.
-        self.parDefs[sp.Symbol(parName)] = sp.sympify(replaceScaleFactors(parValue))
+        """
+        Defines a parameter: it either add its definition to self.parDefs or 
+        changes it if it already exists.
+        
+        The list self.params with undefined parameters is updated.
+        
+        parName (str or sympy.Symbol)         : name of the parameter.
+        parValue (str, float, int, sp.Symbol) : value or expression of the 
+                                                parameter, may include scale 
+                                                factors
+                                                
+        example: myCir.defPar('myPar', 'sin(2*pi*1M)')
+        
+        note: 
+            Do not enter a number as parameter name, this will not be checked!
+        """
+        parName = sp.Symbol(str(parName))
+        parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+        self.parDefs[parName] = parValue
+        self.updateParams()
+        return
+    
+    def defPars(self, parDict):
+        """
+        Defines multiple parameters, this either adds definitions to 
+        self.parDefs or changes existing definitions.
+        
+        The list self.params with undefined parameters is updated.
+        
+        parDict (dict): dictionary with key-value pairs:
+            
+        key: parName (str or sympy.Symbol)           : name of the parameter.
+        value: parValue (str, float, int, sp.Symbol) : value or expression of 
+                                                       the parameter, may 
+                                                       include scale factors
+        note: 
+            Do not enter a number as parameter name, this will not be checked!
+        """
+        for key in parDict.keys():
+            parName = sp.Symbol(str(key))
+            parValue = str(parDict[key])
+            parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+            self.parDefs[parName] = parValue    
         self.updateParams()
         return
         
     def getParValue(self, parNames, numeric = False):
-        # single params and multiple.
+        """
+        Returns the value or expression of one or more parameters.
+        If numeric == True it will perform a full recursive substitution of
+        all circuit parameter definitions.
+        
+        parNames (str, sympy.Symbol, list): name(s) of the parameter(s)
+        return value:
+            if type(parNames) == list:
+                return value = dict with key-value pairs:
+                    key (sympy.Symbol)             : name of the parameter
+                    value (int, float, expression) : value of the parameter
+        note: 
+            Do not enter a number as parameter name, this will not be checked!
+        """
         if type(parNames) == list:
             parValues = {}
             for par in parNames:
-                if type(par) == str:
-                    par = sp.Symbol(par)
+                par = sp.Symbol(str(par))
                 for key in self.parDefs.keys():
                     if par == key:
                         if numeric == True:
@@ -98,28 +182,37 @@ class circuit(object):
 
     def updateParams(self):
         """
-        Updates self.params (undefined parameters) after modification of 
-        parameter definitions in self.parDefs or in elements: 
-        self.elements[<refDes>].params[<parName>].
+        Updates self.params (list with undefined parameters) after modification 
+        of parameter definitions in self.parDefs.
+            
+            return: None
         """    
         self.params =[]
         for elmt in self.elements.keys():
             for par in self.elements[elmt].params.keys():
                 try:
-                    self.params += list(self.elements[elmt].params[par].free_symbols)
+                    self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
                 except:
                     pass
         self.params = list(set(self.params))
         undefined = []
         for par in self.params:
-            if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in self.parDefs.keys():
-                self.append(par)
+            if par != ini.Laplace and par != ini.frequency and par not in self.parDefs.keys():
+                undefined.append(par)
+            else:
+                self.params.remove(par)
         self.params = undefined
         return
         
     def updateMdata(self):
         """
-        Updates data for building matrices: self.depVars and self.varIndex
+        Updates data for building matrices: self.depVars and self.varIndex.
+        
+        self.depVars    : vector with dependent variables
+        self.varIndex   : dict with key-value pairs:
+            key (str)   : name of the dependent variable
+            value (int) : row position in the matrices before removing
+                          the row and column that corresponds with node '0'.
         """
         self.depVars = []
         self.varIndex = {}
@@ -137,7 +230,9 @@ class circuit(object):
         return
 
 class element(object):
-    # Circuit element object
+    """
+    Prototye circuit element object.
+    """
     def __init__(self):
         self.refDes     = ''    # Element reference designator (refdes)
         self.type       = ''    # First letter of refdes

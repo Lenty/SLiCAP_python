@@ -115,8 +115,7 @@ def polyCoeffs(expr, var):
     Returns a list with coefficients of 'var' in descending order.
     """
     if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
-        #print expr.expand(basic = True)
-        return sp.poly(expr, LAPLACE).all_coeffs()
+        return sp.poly(expr, ini.Laplace).all_coeffs()
     return []
 
 def numRoots(expr, var):
@@ -134,7 +133,7 @@ def numRoots(expr, var):
         Newton's method.
     """
     if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
-        params = list(expr.free_symbols)
+        params = list(expr.atoms(sp.Symbol))
         try:
             params.remove(var)
             if len(params) != 0:
@@ -142,7 +141,8 @@ def numRoots(expr, var):
                 return []
         except:
             return []
-        roots = np.roots(np.array(sp.Poly(expr, LAPLACE).all_coeffs()))
+        coeffs = polyCoeffs(expr, ini.Laplace)
+        roots = np.roots(np.array(coeffs))
         return np.flip(roots, 0)
     return []
     
@@ -162,14 +162,14 @@ def makeLaplaceRational(gain, zeros, poles):
     Fs = gain
     for z in zeros:
         if sp.im(z) == 0:
-            Fs *= (LAPLACE-z)
+            Fs *= (ini.Laplace-z)
         elif sp.im(z) > 0:
-            Fs *= (LAPLACE**2 - 2*sp.re(z) + sp.re(z)**2 + sp.im(z)**2)
+            Fs *= (ini.Laplace**2 - 2*sp.re(z) + sp.re(z)**2 + sp.im(z)**2)
     for p in poles:
         if sp.im(p) == 0:
-            Fs /= (LAPLACE-p)
+            Fs /= (ini.Laplace-p)
         elif sp.im(p) > 0:
-            Fs /= (LAPLACE**2 - 2*sp.re(p)*LAPLACE + sp.re(p)**2 + sp.im(p)**2)
+            Fs /= (ini.Laplace**2 - 2*sp.re(p)*ini.Laplace + sp.re(p)**2 + sp.im(p)**2)
     return(Fs)
 
 def coeffsTransfer(LaplaceRational):
@@ -179,8 +179,8 @@ def coeffsTransfer(LaplaceRational):
     The coefficients are in ascending order.
     """
     (numer, denom) = sp.fraction(sp.simplify(LaplaceRational))
-    coeffsNumer = polyCoeffs(numer, LAPLACE)
-    coeffsDenom = polyCoeffs(denom, LAPLACE)
+    coeffsNumer = polyCoeffs(numer, ini.Laplace)
+    coeffsDenom = polyCoeffs(denom, ini.Laplace)
     coeffsNumer.reverse()
     coeffsDenom.reverse()
     return (coeffsNumer, coeffsDenom)
@@ -195,11 +195,11 @@ def normalizeLaplaceRational(numer, denom):
         positive or negative
         
     """
-    coeffsNumer = polyCoeffs(numer, LAPLACE)
+    coeffsNumer = polyCoeffs(numer, ini.Laplace)
     nNumer = len(coeffsNumer)
-    coeffsDenom = polyCoeffs(denom, LAPLACE)
+    coeffsDenom = polyCoeffs(denom, ini.Laplace)
     nDenom = len(coeffsDenom)
-    # find coefficient of LAPLACE of the lowest order of the denominator:
+    # find coefficient of ini.Laplace of the lowest order of the denominator:
     i = 0
     coeffD = 1 # Just a nonzero startvalue
     while coeffD != 0.:
@@ -219,10 +219,10 @@ def normalizeLaplaceRational(numer, denom):
     # normalize coefficients and construct the rational
     gain = sp.simplify(coeffN/coeffD)
     for j in range(len(coeffsNumer)):
-        numer += sp.simplify(coeffsNumer[j]/coeffD/gain)*LAPLACE**(nNumer-j-1)
+        numer += sp.simplify(coeffsNumer[j]/coeffD/gain)*ini.Laplace**(nNumer-j-1)
     for j in range(len(coeffsDenom)):
-        denom += sp.simplify(coeffsDenom[j]/coeffD)*LAPLACE**(nDenom-j-1)
-    return gain*(numer/denom)
+        denom += sp.simplify(coeffsDenom[j]/coeffD)*ini.Laplace**(nDenom-j-1)
+    return gain*numer/denom
 
 def cancelPZ(poles,zeros):
     """
@@ -237,8 +237,8 @@ def cancelPZ(poles,zeros):
         newZeros.append(zeros[i])
     for i in range(len(poles)):
         for j in range(len(zeros)):
-            if abs(sp.re(poles[i]) - sp.re(zeros[j])) <= 10**(-DISP)*abs(sp.re(poles[i]) + sp.re(zeros[j]))/2 \
-            and abs(sp.im(poles[i]) - sp.im(zeros[j])) <= 10**(-DISP)*abs(sp.im(poles[i]) + sp.im(zeros[j]))/2:
+            if abs(sp.re(poles[i]) - sp.re(zeros[j])) <= 10**(-ini.disp)*abs(sp.re(poles[i]) + sp.re(zeros[j]))/2 \
+            and abs(sp.im(poles[i]) - sp.im(zeros[j])) <= 10**(-ini.disp)*abs(sp.im(poles[i]) + sp.im(zeros[j]))/2:
                 newPoles.remove(poles[i])
                 newZeros.remove(zeros[j])             
     return(newPoles, newZeros)
@@ -268,20 +268,21 @@ def fullSubs(valExpr, parDefs):
     strValExpr = str(valExpr)
     i = 0
     newvalExpr = 0
-    while valExpr != newvalExpr and i < MAXRECSUBST and isinstance(valExpr, tuple(sp.core.all_classes)):
+    while valExpr != newvalExpr and i < ini.maxRecSubst and isinstance(valExpr, tuple(sp.core.all_classes)):
         # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
         substDict = {}
-        params = list(valExpr.free_symbols)
+        params = list(valExpr.atoms(sp.Symbol))
         for param in params:
             if param in parDefs.keys():
                 substDict[param] = parDefs[param]
         # perform the substitution
         newvalExpr = valExpr
-        valExpr = newvalExpr.subs(substDict)
+        valExpr = newvalExpr.xreplace(substDict)
         i += 1
-    if i == MAXRECSUBST:
+    if i == ini.maxRecSubst:
         print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
     return valExpr
+
 
 def invLaplace(numer, denom):
     """
@@ -289,17 +290,17 @@ def invLaplace(numer, denom):
     of which the sympy polynomials of the numerator and the denominator are 
     passed as arguments, respecively.
     """
-    numer = np.poly1d(polyCoeffs(numer, LAPLACE))
+    numer = np.poly1d(polyCoeffs(numer, ini.Laplace))
     numerCoeffs = [np.float(coeff) for coeff in numer.c]
-    denom = np.poly1d(polyCoeffs(denom, LAPLACE))
+    denom = np.poly1d(polyCoeffs(denom, ini.Laplace))
     denomCoeffs = [np.float(coeff) for coeff in denom.c]
-    (r, p, k) = residue(numerCoeffs, denomCoeffs, tol=10**(-DISP))
+    (r, p, k) = residue(numerCoeffs, denomCoeffs, tol=10**(-ini.disp))
     t = sp.Symbol('t', real=True)
     ft = 0
     m = 1
     for i in range(len(r)):
         if i > 0:
-            if abs(p[i] - p[i - 1]) < 10**(-DISP) * abs(p[i]):
+            if abs(p[i] - p[i - 1]) < 10**(-ini.disp) * abs(p[i]):
                 m += 1
             else:
                 m = 1
@@ -307,7 +308,7 @@ def invLaplace(numer, denom):
     return ft
 
 if __name__ == "__main__":
-    s = LAPLACE
+    s = ini.Laplace
     
     MNA = matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
                   [0, 1.98e-11*s + 0.0001, -1.2e-11*s, -1.8e-12*s - 1.0e-5, 0, 0, 0, 0, 0],

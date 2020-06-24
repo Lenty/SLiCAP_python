@@ -33,13 +33,13 @@ def doInstruction(instObj):
                 denoms = stepFunctions(instObj, denom)
                 # pz analysis is numeric so better lambdify!
                 for poly in denoms:
-                    instObj.poles.append(numRoots(poly, LAPLACE))
+                    instObj.poles.append(numRoots(poly, ini.Laplace))
                 instObj.zeros = []
             elif instObj.dataType == 'zeros':
                 numer = doNumer(instObj)
                 numers = stepFunctions(instObj, numer)
                 for poly in numers:
-                    instObj.zeros.append(numRoots(poly, LAPLACE))
+                    instObj.zeros.append(numRoots(poly, ini.Laplace))
                 instObj.poles = []
             elif instObj.dataType == 'pz':
                 denom = doDenom(instObj)
@@ -50,17 +50,17 @@ def doInstruction(instObj):
                 instObj.zeros = []
                 instObj.DCvalue = []
                 for i in range(len(denoms)):
-                    poles = numRoots(denoms[i], LAPLACE)
-                    zeros = numRoots(numers[i], LAPLACE)
+                    poles = numRoots(denoms[i], ini.Laplace)
+                    zeros = numRoots(numers[i], ini.Laplace)
                     (poles, zeros) = cancelPZ(poles, zeros)
                     instObj.poles.append(poles)
                     instObj.zeros.append(zeros)
                     try:
                         # Lets try a real limit with Maxima CAS
-                        instObj.DCvalue.append(maxLimit(numers[i]/denoms[i], str(LAPLACE), '0', 'plus'))
+                        instObj.DCvalue.append(maxLimit(numers[i]/denoms[i], str(ini.Laplace), '0', 'plus'))
                     except:
                         # If not just substitute s=0 with Sympy
-                        instObj.DCvalue.append(sp.Subs(numers[i]/denoms[i], LAPLACE, 0))
+                        instObj.DCvalue.append(sp.Subs(numers[i]/denoms[i], ini.Laplace, 0))
             elif instObj.dataType == 'step':
                 denom = doDenom(instObj)
                 denoms = stepFunctions(instObj, denom)
@@ -68,7 +68,7 @@ def doInstruction(instObj):
                 numers = stepFunctions(instObj, numer)
                 for i in range(len(denoms)):
                     try:
-                        instObj.stepResp.append(invLaplace(numers[i], denoms[i]*LAPLACE))
+                        instObj.stepResp.append(invLaplace(numers[i], denoms[i]*ini.Laplace))
                     except:
                         print "Warning: could not calculate the unit step response."
             elif instObj.dataType == 'impulse':
@@ -153,7 +153,7 @@ def stepFunctions(instObj, function):
                 subsList.append((instObj.stepVars[j], instObj.stepArray[j][i]))
             functions.append(function.subs(subsList))
     else:
-        functions = [function.subs(instObj.stepVar, instObj.stepList[i]) for i in range(len(instObj.stepList))]
+        functions = [function.xreplace({instObj.stepVar: instObj.stepList[i]}) for i in range(len(instObj.stepList))]
     return functions
 
 def doDataType(instObj):
@@ -161,7 +161,7 @@ def doDataType(instObj):
     Returns the instruction object with the result of the execution without 
     parameter stepping
     """
-    (instObj.Iv, instObj.M, instObj.Dv) = makeMatrices(instObj.circuit, instObj.parDefs, instObj.numeric, instObj.gainType, instObj.lgRef)
+    (instObj.Iv, instObj.M, instObj.Dv) = makeMatrices(instObj.circuit, instObj.parDefs, instObj.numeric, instObj.gainType, instObj.lgRef)  
     if instObj.dataType == 'matrix':
         pass
     elif instObj.dataType == 'poles':
@@ -203,7 +203,7 @@ def doDataType(instObj):
             instObj.laplace = doLaplace(instObj)
     elif instObj.dataType == 'step':
         try:
-            instObj.stepResp = invLaplace(doNumer(instObj), doDenom(instObj)*LAPLACE)
+            instObj.stepResp = invLaplace(doNumer(instObj), doDenom(instObj)*ini.Laplace)
         except:
             print "Warning: could not calculate the unit step response."
     elif instObj.dataType == 'impulse':
@@ -249,8 +249,8 @@ def doPoles(instObj):
     instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
     return value: List with zeros, empty list if no zeros are found.
     """
-    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), LAPLACE))
-    return numRoots(denom, LAPLACE)
+    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), ini.Laplace))
+    return numRoots(denom, ini.Laplace)
 
 def lgValue(instObj):
     """
@@ -425,8 +425,8 @@ def doZeros(instObj):
     instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
     return value: List with zeros, empty list if no zeros are found.
     """
-    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), LAPLACE))
-    return numRoots(numer, LAPLACE)
+    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), ini.Laplace))
+    return numRoots(numer, ini.Laplace)
     
 def doPZ(instObj):
     """
@@ -436,17 +436,17 @@ def doPZ(instObj):
     instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
     return value: List with poles, list with zeros, DCvalue.
     """
-    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), LAPLACE))
-    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), LAPLACE))
-    poles = numRoots(denom, LAPLACE)
-    zeros = numRoots(numer, LAPLACE)
+    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), ini.Laplace))
+    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), ini.Laplace))
+    poles = numRoots(denom, ini.Laplace)
+    zeros = numRoots(numer, ini.Laplace)
     (poles, zeros) = cancelPZ(poles, zeros)
     try:
         # Lets try a real limit with maxima
-        DCvalue = maxLimit(numer/denom, str(LAPLACE), '0', 'plus')
+        DCvalue = maxLimit(numer/denom, str(ini.Laplace), '0', 'plus')
     except:
         # If not just substitute s=0
-        DCvalue = sp.Subs(numer/denom, LAPLACE, 0)
+        DCvalue = sp.Subs(numer/denom, ini.Laplace, 0)
     return(poles, zeros, DCvalue)
 
 def doLaplace(instObj):
@@ -475,7 +475,7 @@ def doSolve(instObj):
 def checkNumeric(expr, stepVar = None):
     """
     Checks if the expressions does not contain parameters other then stepVar',
-    'LAPLACE', 'FREQUECY' or 'OMEGA'.
+    'ini.Laplace', 'FREQUECY' or 'OMEGA'.
     
     expr:         Sympy expression
     stepVar:      str or Sympy.Symbol
@@ -488,16 +488,16 @@ def checkNumeric(expr, stepVar = None):
         expr = sp.N(expr)
         params = list(expr.free_symbols)
         for par in params:
-            if stepVar == None and par != LAPLACE and par != FREQUENCY and par != OMEGA:
+            if stepVar == None and par != ini.Laplace and par != ini.frequency:
                 numeric = False
-            elif par != stepVar and par != LAPLACE and par != FREQUENCY and par != OMEGA:
+            elif par != stepVar and par != ini.Laplace and par != ini.frequency:
                 numeric = False
     return numeric
 
 def findServoBandwidth(loopgainRational):
     """
     Determines the intersection points of the asymptotes of the magnitude of
-    the loopgain with unity. It returns a dict with key-value pairs:
+    the loopgain with unity. It returns a dictionary with key-value pairs:
         
         - hpf: frequency of high-pass intersection
         - hpo: order at high-pass intersection
@@ -508,10 +508,10 @@ def findServoBandwidth(loopgainRational):
         
     """
     numer, denom    = sp.fraction(loopgainRational)
-    numer           = sp.expand(sp.collect(numer.evalf(), LAPLACE))
-    denom           = sp.expand(sp.collect(denom.evalf(), LAPLACE))
-    poles           = numRoots(denom, LAPLACE)
-    zeros           = numRoots(numer, LAPLACE)
+    numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
+    denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
+    poles           = numRoots(denom, ini.Laplace)
+    zeros           = numRoots(numer, ini.Laplace)
     (poles, zeros)  = cancelPZ(poles, zeros)
     numPoles        = len(poles)
     numZeros        = len(zeros)
@@ -524,7 +524,7 @@ def findServoBandwidth(loopgainRational):
     startOrder      = firstNonZeroN - firstNonZeroD
     startValue      = np.abs(coeffsN[firstNonZeroN]/coeffsD[firstNonZeroD])    
     freqsOrders     = np.zeros((numCornerFreqs, 6))
-    mbv             = sp.N(sp.Subs(loopgainRational, LAPLACE, 0))
+    mbv             = sp.N(sp.Subs(loopgainRational, ini.Laplace, 0))
     mbf             = 0
     for i in range(numZeros):
         freqsOrders[i, 0] = np.abs(zeros[i])

@@ -51,10 +51,10 @@ Fs                  = result.laplace
 transferCoeffs      = coeffsTransfer(Fs)
 
 # Frequency-domain plots
-plotdBmag('magdB', 'dB magnitude', result, 1e3, 1e6, 100, xscale = 'k')
-plotMag('mag', 'Magnitude', result, 1e3, 1e6, 100, xscale = 'k', yunits = '-')
-plotPhase('phase', 'Phase', result, 1e3, 1e6, 100, xscale = 'k', show = False)
-plotDelay('delay', 'Delay', result, 1e3, 1e6, 100, xscale = 'k', yscale = 'u')
+plotdBmag('magdB', 'dB magnitude', result, 1, 1e3, 100, xscale = 'k')
+plotMag('mag', 'Magnitude', result, 1, 1e3, 100, xscale = 'k', yunits = '-')
+plotPhase('phase', 'Phase', result, 1, 1e3, 100, xscale = 'k')
+plotDelay('delay', 'Delay', result, 1, 1e3, 100, xscale = 'k', yscale = 'u')
 plotPZ('pz', 'Poles and zeros', pzResult, xmin = -100, xscale = 'M', yscale = 'M')
 plotPZ('pzDominant', 'Dominant poles and zeros', pzResult, xmin = -100, xmax = 0, ymin = -50, ymax = 50, xscale = 'k', yscale = 'k')
 
@@ -66,14 +66,14 @@ i1.gainType         = 'servo'
 servo               = i1.execute()
 i1.gainType         = 'direct'
 direct              = i1.execute()
-plotdBmag('magdBfeedbackModel', 'dB magnitude feedback model', [result, asymptotic, loopgain, servo, direct], 1e3, 1e6, 100, xscale = 'k')
+plotdBmag('magdBfeedbackModel', 'dB magnitude feedback model', [result, asymptotic, loopgain, servo, direct], 1, 1e3, 100, xscale = 'k')
 
 i1.dataType         = 'step'
 i1.gainType         = 'gain'
 result              = i1.execute()
 mu_t                = result.stepResp
 # Time-domain plot
-plotTime('step', 'Unit step response', result, 0, 50e-6, 100, xscale = 'u', yunits = 'V')
+plotTime('step', 'Unit step response', result, 0, 50, 100, xscale = 'u', yunits = 'V')
 
 # Find the network solution
 i1.gainType         = 'vi'
@@ -91,8 +91,9 @@ i1.stepStart        = '1p'
 i1.stepStop         = '1u'
 i1.step             = True
 ini.stepFunction    = True
-#FsStepped           = i1.execute().laplace
-plotdBmag('magdBstepped', 'dB magnitude step I_D', i1.execute(), 1e3, 1e6, 100, xscale = 'k')
+FsStepped           = i1.execute()
+
+plotdBmag('magdBstepped', 'dB magnitude step I_D', FsStepped, 1, 1e3, 100, xscale = 'k')
 
 i1.dataType         = 'poles'
 i1.stepNum          = 200

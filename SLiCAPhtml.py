@@ -7,8 +7,7 @@ Created on Wed May 20 17:36:05 2020
 """
 
 from SLiCAPpythonMaxima import *
-
-HTMLINSERT   = '<!-- INSERT -->' # pattern to be replaced in html files
+"""
 HTMLINDEX    = 'index.html'      # will be set by initProject()
 HTMLPREFIX   = ''                # will be set by checkCircuit()
 HTMLPAGE     = ''                # will be set by htmlPage()
@@ -19,7 +18,7 @@ HTMLEQLABELS = {}                # equation label dictionary:
                                  #      key   = label
                                  #      value = page
 HTMLPAGES    = []                # list with file names of html pages# Get the project path 
-
+"""
 # Initialize HTML globals
 ini.htmlIndex    = ''
 ini.htmlPrefix   = ''
@@ -27,6 +26,7 @@ ini.htmlPage     = ''
 ini.htmlLabels   = {}
 ini.htmlEqLabels = {}
 ini.htmlPages    = []
+HTMLINSERT   = '<!-- INSERT -->' # pattern to be replaced in html files
 
 def startHTML(projectName):
     """
@@ -35,7 +35,7 @@ def startHTML(projectName):
     global HTMLINDEX, HTMLPAGES
     ini.htmlIndex = 'index.html'
     toc = '<h2>Table of contents</h2>'
-    HTML = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
+    HTML = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)
     f = open(ini.htmlPath + ini.htmlIndex, 'w')
     f.write(HTML)
     f.close()
@@ -52,7 +52,7 @@ def HTMLhead(pageTitle):
     HTML += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
     HTML += '<meta name="Language" content="English"/>\n'
     HTML += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
-    if MATHML == True:
+    if ini.mathml == True:
         print 'MathML is not (yet) supported. Only MathJaX cloud is supported!'
     else:
         HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
@@ -69,6 +69,7 @@ def HTMLfoot(indexFile):
     HTML += '<p>Go to <a href="' + ini.htmlIndex + '">' + idx + '</a></p>\n'
     HTML += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>\n'
     HTML += '<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>\n'
+    HTML += '<p>Last project update: %s</p>\n'%(ini.lastUpdate)
     HTML += '</div></body></html>'
     return(HTML)
 
@@ -123,7 +124,7 @@ def htmlPage(pageTitle, index = False):
         insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML file
         toc = '<h2>Table of contents</h2>'
-        HTML = HTMLhead(pageTitle) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(HTMLINDEX)
+        HTML = HTMLhead(pageTitle) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)
         writeFile(ini.htmlPath + fileName, HTML)
         # Make this page the new index page
         ini.htmlIndex = fileName
@@ -133,7 +134,7 @@ def htmlPage(pageTitle, index = False):
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
         insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML page
-        HTML = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(HTMLINDEX)
+        HTML = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(ini.htmlIndex)
         writeFile(ini.htmlPath + fileName, HTML)
     # Make this page the active HTML page
     ini.htmlPage = fileName
@@ -247,7 +248,7 @@ def params2html(circuitObject, label = '', caption = ''):
         html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
     html += '</table>\n'
     if len(circuitObject.params) > 0:
-        caption = "<caption>Table: Parameters without definition in '%s.<br>%s</caption>\n"%(HTMLCIRCUIT.title, caption)
+        caption = "<caption>Table: Parameters without definition in '%s.<br>%s</caption>\n"%(circuitObject.title, caption)
         html += '<table>%s\n'%(caption)
         html += '<table><tr><th class="left">Name</th></tr>\n'
         for par in circuitObject.params:
@@ -401,10 +402,10 @@ def pz2html(instObj, label = ''):
     html = '<h2>' + label + headTxt + ' analysis results</h2>\n'
     html += '<h3>Gain type: %s</h3>'%(instObj.gainType)
     if DCgain != None and instObj.dataType =='pz':
-        html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, DISP)) + '</p>\n'
+        html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, ini.disp)) + '</p>\n'
     elif instObj.dataType =='pz':
         html += '<p>DC gain could not be determined.</p>\n'
-    if ini.HZ == True:
+    if ini.Hz == True:
         unitsM = 'Mag [Hz]'
         unitsR = 'Re [Hz]'
         unitsI = 'Im [Hz]'
@@ -416,19 +417,19 @@ def pz2html(instObj, label = ''):
         html += '<table><tr><th>pole</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
         for i in range(len(poles)):
             p = poles[i]
-            if ini.HZ == True:
+            if ini.Hz == True:
                 p  = p/2/sp.pi
             Re = sp.re(p)
             Im = sp.im(p)
             F  = sp.sqrt(Re**2+Im**2)
             if Im != 0:
-                Q = str(sp.N(F/2/abs(Re), DISP))
+                Q = str(sp.N(F/2/abs(Re), ini.disp))
             else:
                 Q = ''
-            F  = str(sp.N(F, DISP))
-            Re = str(sp.N(Re, DISP))
+            F  = str(sp.N(F, ini.disp))
+            Re = str(sp.N(Re, ini.disp))
             if Im != 0.:
-                Im = str(sp.N(Im, DISP))
+                Im = str(sp.N(Im, ini.disp))
             else:
                 Im = ''
             name = 'p<sub>' + str(i + 1) + '</sub>'
@@ -440,19 +441,19 @@ def pz2html(instObj, label = ''):
         html += '<table><tr><th>zero</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
         for i in range(len(zeros)):
             z = zeros[i]
-            if ini.HZ == True:
+            if ini.Hz == True:
                 z = z/2/sp.pi
             Re = sp.re(z)
             Im = sp.im(z)
             F  = sp.sqrt(Re**2+Im**2)
             if Im != 0:
-                Q = str(sp.N(F/2/abs(Re), DISP))
+                Q = str(sp.N(F/2/abs(Re), ini.disp))
             else:
                 Q = ''
-            F  = str(sp.N(F, DISP))
-            Re = str(sp.N(Re, DISP))
+            F  = str(sp.N(F, ini.disp))
+            Re = str(sp.N(Re, ini.disp))
             if Im != 0.:
-                Im = str(sp.N(Im, DISP))
+                Im = str(sp.N(Im, ini.disp))
             else:
                 Im = ''
             name = 'z<sub>' + str(i + 1) + '</sub>'
@@ -483,12 +484,13 @@ def coeffsTransfer2html(transferCoeffs):
 
 def roundN(expr):
     """
-    Rounds all number atoms in an expression to DISP digits
+    Rounds all number atoms in an expression to ini.disp digits
     """
+    expr = sp.N(expr, ini.disp)
     try:
-        return expr.xreplace({n : sp.N(n, DISP) for n in expr.atoms()})
+        return expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
     except:
-        return sp.N(expr, DISP)
+        return expr
 
 if __name__ == '__main__':
     ini.projectPath = ini.installPath + 'testProjects/MOSamp/'

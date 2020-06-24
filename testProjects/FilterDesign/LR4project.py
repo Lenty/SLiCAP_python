@@ -22,14 +22,30 @@ i1.detector = 'V_out'
 i1.simType  = 'symbolic'
 i1.gainType = 'gain'
 i1.dataType = 'laplace'
-transfer    = i1.execute().laplace
+resultLapl  = i1.execute()
+transfer    = resultLapl.laplace
+i1.gainType = 'vi'
+i1.dataType = 'solve'
+resultSolve = i1.execute()
+solution    = resultSolve.solve
+Dv          = resultSolve.Dv
 
 f_o         = sp.Symbol('f_o')
 protoType   = sp.sympify('1/(1 + sqrt(2)*s/2/pi/f_o + (s/2/pi/f_o)^2)^2')
 
-#protoType   = protoType.subs(f_o, 2000)
+protoType   = protoType.subs(f_o, 2000)
 
 compValues  = equateCoeffs(protoType, transfer, noSolve = [f_o])
+
+i1.defPars(compValues)
+  
+i1.simType  = 'numeric'
+i1.gainType = 'gain'
+i1.dataType = 'laplace'
+result      = i1.execute()
+ 
+figdBmag    = plotdBmag('LR4dBmag', 'dB magnitude characteristic', result, 20, 20e3, 100, xscale='k')
+figPgase    = plotPhase('LR4phase', 'phase characteristic', result, 20, 20e3, 100, xscale='k')
 
 htmlPage('Report')
 
@@ -45,6 +61,13 @@ eqn2html('T_s', transfer)
 head2html('Component values')
 for key in compValues.keys():
     eqn2html(key, compValues[key])
-    
+elementData2html(i1.circuit)  
+params2html(i1.circuit)
+head2html('solution of the network')
+eqn2html(Dv, solution)
+
+head2html('Plots')
+img2html('LR4dBmag.svg', 600, caption='dB magnitude of the LR4 filter transfer.')  
+img2html('LR4phase.svg', 600, caption='phase plot of the LR4 filter transfer.')    
 t2 = time()
 print t2-t1, 's'

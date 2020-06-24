@@ -214,12 +214,16 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     dBmag.yScaleFactor = yscale
     dBmag.xScale = 'log'
     dBmag.yScale = 'lin'
-    if ini.HZ == True:
+    if ini.Hz == True:
         dBmag.xLabel = 'frequency [' + xscale + 'Hz]'
     else:
         dBmag.xLabel = 'frequency [' + xscale + 'rad/s]'
-    dBmag.yLabel = 'mag [' + yscale + 'dB]'
-    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    dBmag.yLabel = 'magnitude [' + yscale + 'dB]'
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    x = np.geomspace(checkNumber(fStart)*xScaleFactor, checkNumber(fStop)*xScaleFactor, checkNumber(fNum))
     dBmag.traces = []
     if type(results) == type(allResults()):
         results = [results]
@@ -236,12 +240,12 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             print "Error: wrong data type '%s' for 'plotdBmag()'."%(result.dataType)
             return fig
         if not result.step:
-            if ini.HZ == True:
-                yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-                func = sp.lambdify(FREQUENCY, 20*sp.log(abs(yData),10))
+            if ini.Hz == True:
+                yData = yData.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, 20*sp.log(abs(yData),10))
             else:
-                yData = yData.subs(LAPLACE, sp.I*OMEGA)
-                func = sp.lambdify(OMEGA, 20*sp.log(abs(yData),10))
+                yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, 20*sp.log(abs(yData),10))
             y = func(x)
             dBmagTrace = trace([x, y])
             try:
@@ -252,12 +256,12 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             dBmag.traces.append(dBmagTrace)
         elif type(yData) == list:
             for i in range(len(yData)):
-                if ini.HZ == True:
-                    y = yData[i].subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-                    func = sp.lambdify(FREQUENCY, 20*sp.log(abs(y),10))
+                if ini.Hz == True:
+                    y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
                 else:
-                    y = yData[i].subs(LAPLACE, sp.I*OMEGA)
-                    func = sp.lambdify(OMEGA, 20*sp.log(abs(y),10))
+                    y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
+                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
                 y = func(x)
                 dBmagTrace = trace([x, y])
                 dBmagTrace.color = ini.defaultColors[i % numColors]
@@ -284,12 +288,16 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
     mag.yScaleFactor = yscale
     mag.xScale = 'log'
     mag.yScale = 'log'
-    if ini.HZ == True:
+    if ini.Hz == True:
         mag.xLabel = 'frequency [' + xscale + 'Hz]'
     else:
         mag.xLabel = 'frequency [' + xscale + 'rad/s]'
-    mag.yLabel = 'mag [' + yscale + yunits +']'
-    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    mag.yLabel = 'magnitude [' + yscale + yunits +']'
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    x = np.geomspace(checkNumber(fStart)*xScaleFactor, checkNumber(fStop)*xScaleFactor, checkNumber(fNum))
     mag.traces = []
     if type(results) == type(allResults()):
         results = [results]
@@ -306,12 +314,12 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
             print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
             return fig
         if not result.step:
-            if ini.HZ == True:
-                yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-                func = sp.lambdify(FREQUENCY, abs(yData))
+            if ini.Hz == True:
+                yData = yData.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, abs(yData))
             else:
-                yData = yData.subs(LAPLACE, sp.I*OMEGA)
-                func = sp.lambdify(OMEGA, abs(yData))
+                yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, abs(yData))
             y = func(x)
             magTrace = trace([x, y])
             try:
@@ -322,12 +330,12 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
             mag.traces.append(magTrace)
         elif type(yData) == list:
             for i in range(len(yData)):
-                if ini.HZ == True:
-                    y = yData[i].subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-                    func = sp.lambdify(FREQUENCY, 20*sp.log(abs(y),10))
+                if ini.Hz == True:
+                    y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
                 else:
-                    y = yData[i].subs(LAPLACE, sp.I*OMEGA)
-                    func = sp.lambdify(OMEGA, 20*sp.log(abs(y),10))
+                    y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
+                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
                 y = func(x)
                 magTrace = trace([x, y])
                 magTrace.color = ini.defaultColors[i % numColors]
@@ -354,13 +362,17 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     phase.yScaleFactor = yscale
     phase.xScale = 'log'
     phase.yScale = 'lin'
-    if ini.HZ == True:
+    if ini.Hz == True:
         phase.xLabel = 'frequency [' + xscale + 'Hz]'
         phase.yLabel = 'phase [' + yscale + 'deg]'
     else:
         phase.xLabel = 'frequency [' + xscale + 'rad/s]'
         phase.yLabel = 'phase [' + yscale + 'rad]'
-    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    x = np.geomspace(checkNumber(fStart)*xScaleFactor, checkNumber(fStop)*xScaleFactor, checkNumber(fNum))
     phase.traces = []
     if type(results) == type(allResults()):
         results = [results]
@@ -377,13 +389,13 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
             return fig
         if not result.step:
-            if ini.HZ == True:
-                yData = yData.subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-                func = sp.lambdify(FREQUENCY, yData)
+            if ini.Hz == True:
+                yData = yData.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, yData)
                 y = 180*np.unwrap(np.angle(func(x)))/np.pi
             else:
-                yData = yData.subs(LAPLACE, sp.I*OMEGA)
-                func = sp.lambdify(OMEGA, yData)
+                yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, yData)
                 y = np.unwrap(np.angle(func(x)))
             phaseTrace = trace([x, y])
             try:
@@ -394,13 +406,13 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             phase.traces.append(phaseTrace)
         elif type(yData) == list:
             for i in range(len(yData)):
-                if ini.HZ == True:
-                    y = yData[i].subs(LAPLACE, 2*sp.pi*sp.I*FREQUENCY)
-                    func = sp.lambdify(FREQUENCY, y)
+                if ini.Hz == True:
+                    y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+                    func = sp.lambdify(ini.frequency, y)
                     y = 180*np.unwrap(np.angle(func(x)))/np.pi
                 else:
-                    y = yData[i].subs(LAPLACE, sp.I*OMEGA)
-                    func = sp.lambdify(OMEGA, y)
+                    y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
+                    func = sp.lambdify(ini.frequency, y)
                     y = np.unwrap(np.angle(func(x)))
                 phaseTrace = trace([x, y])
                 phaseTrace.color = ini.defaultColors[i % numColors]
@@ -427,12 +439,16 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     delay.yScaleFactor = yscale
     delay.xScale = 'log'
     delay.yScale = 'lin'
-    if ini.HZ == True:
+    if ini.Hz == True:
         delay.xLabel = 'frequency [' + xscale + 'Hz]'
     else:
         delay.xLabel = 'frequency [' + xscale + 'rad/s]'
     delay.yLabel = 'delay [' + yscale + 's]'
-    x = np.geomspace(checkNumber(fStart), checkNumber(fStop), checkNumber(fNum))
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    x = np.geomspace(checkNumber(fStart)*xScaleFactor, checkNumber(fStop)*xScaleFactor, checkNumber(fNum))
     delay.traces = []
     if type(results) == type(allResults()):
         results = [results]
@@ -449,8 +465,8 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
             return fig
         if not result.step:
-            yData = yData.subs(LAPLACE, sp.I*OMEGA)
-            func = sp.lambdify(OMEGA, yData)
+            yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
+            func = sp.lambdify(ini.frequency, yData)
             y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
             # y one point less than x after differentiation so remove last point x
             x = x[0:-1] 
@@ -463,8 +479,8 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             delay.traces.append(delayTrace)
         elif type(yData) == list:
             for i in range(len(yData)):
-                y = yData[i].subs(LAPLACE, sp.I*OMEGA)
-                func = sp.lambdify(OMEGA, y)
+                y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
+                func = sp.lambdify(ini.frequency, y)
                 y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
                 # y one point less than x after differentiation so remove last point x
                 x = x[0:-1] 
@@ -495,7 +511,11 @@ def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale 
     time.yScale = 'lin'
     time.xLabel = 'time [' + xscale + 's]'
     time.yLabel = '[' + yscale + yunits + ']'
-    x = np.linspace(checkNumber(tStart), checkNumber(tStop), checkNumber(tNum))
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    x = np.linspace(checkNumber(tStart)*xScaleFactor, checkNumber(tStop)*xScaleFactor, checkNumber(tNum))
     time.traces = []
     if type(results) == type(allResults()):
         results = [results]
@@ -550,7 +570,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     pz.yScaleFactor = yscale
     pz.xScale = 'lin'
     pz.yScale = 'lin'
-    if ini.HZ == True:
+    if ini.Hz == True:
         pz.xLabel = 'Re [' + xscale + 'Hz]'
         pz.yLabel = 'Im [' + yscale + 'Hz]'
     else:
@@ -568,7 +588,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     for result in results:
         if not result.step:
             if result.dataType == 'poles' or result.dataType == 'pz':
-                if ini.HZ == True:
+                if ini.Hz == True:
                     polesTrace = trace([np.real(result.poles)/2/np.pi, np.imag(result.poles)/2/np.pi])
                 else:
                     polesTrace = trace([np.real(result.poles), np.imag(result.poles)])
@@ -582,7 +602,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 polesTrace.label = 'poles ' + result.gainType
                 pzTraces.append(polesTrace)
             if result.dataType == 'zeros' or result.dataType == 'pz':
-                if ini.HZ == True:
+                if ini.Hz == True:
                     zerosTrace = trace([np.real(result.zeros)/2/np.pi, np.imag(result.zeros)/2/np.pi])
                 else:
                     zerosTrace = trace([np.real(result.zeros), np.imag(result.zeros)])
@@ -602,7 +622,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
             poles = result.poles
             if len(poles) != 0:
                 # start of root locus
-                if ini.HZ == True:
+                if ini.Hz == True:
                     polesTrace = trace([np.real(result.poles[0])/2/np.pi, np.imag(result.poles[0])/2/np.pi])
                 else:
                     polesTrace = trace([np.real(result.poles[0]), np.imag(result.poles[0])])
@@ -620,7 +640,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                     polesTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[0])
                 pzTraces.append(polesTrace)
                 # end of root locus
-                if ini.HZ == True:
+                if ini.Hz == True:
                     polesTrace = trace([np.real(result.poles[-1])/2/np.pi, np.imag(result.poles[-1])/2/np.pi])
                 else:
                     polesTrace = trace([np.real(result.poles[-1]), np.imag(result.poles[-1])])
@@ -642,7 +662,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 allPoles = np.array([])
                 for i in range(len(poles)):
                     allPoles = np.concatenate((allPoles, poles[i]), axis = None)
-                if ini.HZ == True:
+                if ini.Hz == True:
                     polesTrace = trace([np.real(allPoles)/2/np.pi, np.imag(allPoles)/2/np.pi])
                 else:
                     polesTrace = trace([np.real(allPoles), np.imag(allPoles)])
@@ -665,7 +685,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
             zeros = result.zeros
             if len(zeros) != 0:
                 # start of zeros locus
-                if ini.HZ == True:
+                if ini.Hz == True:
                     zerosTrace = trace([np.real(result.zeros[0])/2/np.pi, np.imag(result.zeros[0])/2/np.pi])
                 else:
                     zerosTrace = trace([np.real(result.zeros[0]), np.imag(result.zeros[0])])
@@ -683,7 +703,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                     zerosTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[0])
                 pzTraces.append(zerosTrace)
                 # end of zeros locus
-                if ini.HZ == True:
+                if ini.Hz == True:
                     zerosTrace = trace([np.real(result.zeros[-1])/2/np.pi, np.imag(result.zeros[-1])/2/np.pi])
                 else:
                     zerosTrace = trace([np.real(result.zeros[-1]), np.imag(result.zeros[-1])])
@@ -704,7 +724,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 allZeros = np.array([])
                 for i in range(len(zeros)):
                     allZeros = np.concatenate((allZeros, result.zeros[i]), axis = None)
-                if ini.HZ == True:
+                if ini.Hz == True:
                     zerosTrace = trace([np.real(allZeros)/2/np.pi, np.imag(allZeros)/2/np.pi])
                 else:
                     zerosTrace = trace([np.real(allZeros), np.imag(allZeros)])

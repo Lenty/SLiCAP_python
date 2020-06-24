@@ -14,7 +14,7 @@ fileName = 'MOSamp.cir'
 i1 = instruction()           # Creates an instance of an instruction object
 i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
                              # resets the index page to the project index page
-                             
+                  
 i1.gainType = 'vi'
 i1.simType  = 'symbolic'
 i1.dataType = 'matrix'

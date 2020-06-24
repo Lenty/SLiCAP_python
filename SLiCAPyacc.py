@@ -13,20 +13,24 @@ Created on Mon May  4 12:32:13 2020
 from SLiCAPhtml import *
 
 # Composite tokens
-NODES      = ['NODEID', 'ID', 'INT']
-VALEXPR    = ['FLT', 'EXPR', 'SCI', 'INT']
-TITLE      = ['ID', 'QSTRING']
+NODES       = ['NODEID', 'ID', 'INT']
+VALEXPR     = ['FLT', 'EXPR', 'SCI', 'INT']
+TITLE       = ['ID', 'QSTRING']
 
 # Commands with identical action
-INC        = ['INC', 'LIB']
-END        = ['END', 'ENDS']
+INC         = ['INC', 'LIB']
+END         = ['END', 'ENDS']
+
+# Lists with constrolled and independent sources
+CONTROLLED  = ['E', 'F', 'G', 'H']  # Controlled sources
+INDEPSCRCS  = ['I', 'V']            # Independent sources
 
 # list with (sub)circuit titles
 CIRTITLES = []
 LIB = circuit()
 
 def checkCircuit(fileName):
-    # fileName relative to PROJECTPATH + CIRCUITPATH
+    # fileName relative to ini.projectPath + CIRCUITPATH
     cir = circuit()
     cir.file = fileName
     if LIB.errors == 0:
@@ -471,13 +475,13 @@ def expandModelsCircuits(circuitObject):
                         print "Invalid parameter name '%s' for '%s'."%(parName, refDes)
                         circuitObject.errors += 1
                     else:
-                        # Check if the LAPLACE parameter is used in the
+                        # Check if the ini.Laplace parameter is used in the
                         # expression and if this is allowed.
                         valExpr = circuitObject.elements[refDes].params[parName]
                         # valExpr is either an integer or a float of a sympy object
                         if isinstance(valExpr, tuple(sp.core.all_classes)):
                             exprParams = list(circuitObject.elements[refDes].params[parName].free_symbols)
-                            if LAPLACE in exprParams and MODELS[basicModel].params[parName] == False:
+                            if ini.Laplace in exprParams and MODELS[basicModel].params[parName] == False:
                                 circuitObject.errors += 1
                                 print "Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes)
             if circuitObject.errors == 0:
@@ -637,16 +641,21 @@ def updateCirData(mainCircuit):
     - Checks if the global ground node '0' is used in the circuit.
     - Checks if the circuit has at least two nodes.
     - Checks if the referenced elements exist.
-    """
-    # Add global parameters
+    
+    # Add global parameter definitions for mainCircuit.parDefs
     for parName in LIB.parDefs.keys():
         if parName not in mainCircuit.parDefs.keys():
             mainCircuit.parDefs[parName] = LIB.parDefs[parName]
+    """
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in mainCircuit.parDefs.keys():
         newKey = sp.Symbol(key)
         mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
         del(mainCircuit.parDefs[key])
+    for key in LIB.parDefs.keys():
+        newKey = sp.Symbol(key)
+        LIB.parDefs[newKey] = LIB.parDefs[key]
+        del(LIB.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
@@ -671,17 +680,29 @@ def updateCirData(mainCircuit):
             mainCircuit.depVars.append(depVar + '_' + elmt)
             mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
             varIndexPos += 1
-        # Add parameters used in expressions to circuit.params
-        for par in mainCircuit.elements[elmt].params:
+        # Add parameters used in element expressions to circuit.params
+        for par in mainCircuit.elements[elmt].params.keys():
             try:
-                mainCircuit.params += list(mainCircuit.elements[elmt].params[par].free_symbols)
+                mainCircuit.params += list(mainCircuit.elements[elmt].params[par].atoms(sp.Symbol))
             except:
                 pass
+    
+    # Add parameters used in parDef expressions to circuit.params
+    for par in mainCircuit.parDefs.keys():
+        try:
+            mainCircuit.params += list(mainCircuit.parDefs[par].atoms(sp.Symbol))
+        except:
+            pass
+            
     mainCircuit.params = list(set(mainCircuit.params))
+    # Try to find required global parameter definitions for undefined params
     undefined = []
-    for par in mainCircuit.params:
-        if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in mainCircuit.parDefs.keys():
-            undefined.append(par)
+    for par in mainCircuit.params:        
+        if par != ini.Laplace and par != ini.frequency and par not in mainCircuit.parDefs.keys():
+            if par in LIB.parDefs.keys():
+                mainCircuit.parDefs = addGlobals(mainCircuit.parDefs, par)
+            else:
+                undefined.append(par)
     mainCircuit.params = undefined
     # check for two connections per node (warning)
     connections = {i:mainCircuit.nodes.count(i) for i in mainCircuit.nodes}
@@ -700,6 +721,16 @@ def updateCirData(mainCircuit):
         varIndexPos += 1
     return mainCircuit
 
+def addGlobals(parDefs, par):
+    """
+    """
+    parDefs[par] = LIB.parDefs[par]
+    params = LIB.parDefs[par].atoms(sp.Symbol)
+    for param in params:
+        if param in LIB.parDefs.keys() and param != ini.Laplace and param != ini.frequency:
+            addGlobals(parDefs, param)
+    return parDefs
+    
 def makeLibraries():
     global CIRTITLES, LIB
     CIRTITLES = []
@@ -747,14 +778,14 @@ def addUserLibs(fileNames):
             if libFile[0] != 'SLiCAP' and libFile[1].upper() != 'LIB':
                 try:
                     # first libraries in circuit directory
-                    f = open(PROJECTPATH + CIRPATH + fi, "r")
-                    fileName = PROJECTPATH + CIRPATH + fi
+                    f = open(ini.projectPath + CIRPATH + fi, "r")
+                    fileName = ini.projectPath + CIRPATH + fi
                     f.close()
                 except:
                     try:
                         # then libraries in the user library directory
-                        f = open(PROJECTPATH + LIBRARYPATH + fi, "r")
-                        fileName = PROJECTPATH + LIBRARYPATH + fi
+                        f = open(ini.projectPath + LIBRARYPATH + fi, "r")
+                        fileName = ini.projectPath + LIBRARYPATH + fi
                         f.close()
                     except:
                         try:
@@ -818,5 +849,5 @@ if __name__ == '__main__':
     for el in myCir.elements.keys():
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print el,'\t', par, sp.N(parNum, DISP)
+            print el,'\t', par, sp.N(parNum, ini.disp)
     t5=time()
