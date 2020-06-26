@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from SLiCAPmath import *
+from SLiCAPprotos import *
 
 class trace(object):
     def __init__(self, traceData):
@@ -267,7 +267,7 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 dBmagTrace.color = ini.defaultColors[i % numColors]
                 dBmagTrace.label = result.gainType
                 if result.stepMethod == 'array':
-                    dBmagTrace.label += 'run: %s'%(i+1)
+                    dBmagTrace.label += ', run: %s'%(i+1)
                 else:
                     dBmagTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
                 dBmag.traces.append(dBmagTrace)   
@@ -332,16 +332,16 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
             for i in range(len(yData)):
                 if ini.Hz == True:
                     y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
+                    func = sp.lambdify(ini.frequency, abs(y))
                 else:
                     y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
+                    func = sp.lambdify(ini.frequency, abs(y))
                 y = func(x)
                 magTrace = trace([x, y])
                 magTrace.color = ini.defaultColors[i % numColors]
                 magTrace.label = result.gainType
                 if result.stepMethod == 'array':
-                    magTrace.label += 'run: %s'%(i+1)
+                    magTrace.label += ', run: %s'%(i+1)
                 else:
                     magTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
                 mag.traces.append(magTrace)  
@@ -418,9 +418,9 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 phaseTrace.color = ini.defaultColors[i % numColors]
                 phaseTrace.label = result.gainType
                 if result.stepMethod == 'array':
-                    magTrace.label += 'run: %s'%(i+1)
+                    phaseTrace.label += ', run: %s'%(i+1)
                 else:
-                    magTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                    phaseTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
                 phase.traces.append(phaseTrace)
         colNum += 1
     fig.axes = [[phase]]
@@ -485,10 +485,10 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 # y one point less than x after differentiation so remove last point x
                 x = x[0:-1] 
                 delayTrace = trace([x, y])
-                delayTrace.color = ini.gainColors[i % numColors]
+                delayTrace.color = ini.defaultColors[i % numColors]
                 delayTrace.label = result.gainType
                 if result.stepMethod == 'array':
-                    delayTrace.label += 'run: %s'%(i+1)
+                    delayTrace.label += ', run: %s'%(i+1)
                 else:
                     delayTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
                 delay.traces.append(delayTrace)
@@ -532,7 +532,7 @@ def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale 
             print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
             return fig
         if not result.step:
-            func = sp.lambdify(sp.Symbol('t', real=True), yData)
+            func = sp.lambdify(sp.Symbol('t'), yData)
             y = np.real(func(x))
             timeTrace = trace([x, y])
             try:
@@ -543,12 +543,12 @@ def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale 
             time.traces.append(timeTrace)
         elif type(yData) == list:
             for i in range(len(yData)):
-                func = sp.lambdify(sp.Symbol('t', real=True), yData[i])
+                func = sp.lambdify(sp.Symbol('t',), yData[i])
                 y = np.real(func(x))
                 timeTrace = trace([x, y])
-                timeTrace.color = ini.defaultColors[i, numColors]
+                timeTrace.color = ini.defaultColors[i % numColors]
                 if result.stepMethod == 'array':
-                    timeTrace.label += 'run: %s'%(i+1)
+                    timeTrace.label += ' run: %s'%(i+1)
                 else:
                     timeTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
                 time.traces.append(timeTrace)

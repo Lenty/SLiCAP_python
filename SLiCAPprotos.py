@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-from SLiCAPlex import *
+from SLiCAPmath import *
 
 # Globals used by this script and by SLiCAPyacc.py:
 
@@ -165,18 +165,14 @@ class circuit(object):
                         else:
                            parValues[par] = self.parDefs[key]          
             return parValues
-        elif type(parNames) == str:
-            parNames = sp.Symbol(parNames)
-        if isinstance(parNames, tuple(sp.core.all_classes)):
-            try:
-                if numeric:
-                    parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
-                else:
-                    parValue = self.parDefs[parNames]
-            except:
-                print "Error: parameter '%s' has not beed defined."%(str(parNames))
-                parValue = None
-        else:
+        parNames = sp.Symbol(str(parNames))
+        try:
+            if numeric:
+                parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
+            else:
+                parValue = self.parDefs[parNames]
+        except:
+            print "Error: parameter '%s' has not been defined."%(str(parNames))
             parValue = None
         return parValue
 

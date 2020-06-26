@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from SLiCAPprotos import *
+from SLiCAPlex import *
 
 class matrix(sp.Matrix):
     """SLiCAP matrix class for faster symbolic calculations.
@@ -157,7 +157,8 @@ def makeLaplaceRational(gain, zeros, poles):
     quadratic terms.
     
     The gain factor should be taken as the ratio of the coefficients of the 
-    highest order of the Laplace variable of the numerator and the denominator.
+    highest order of the Laplace variable of the numerator and the denominator:
+    this is not the DC gain!
     """
     Fs = gain
     for z in zeros:
@@ -283,12 +284,14 @@ def fullSubs(valExpr, parDefs):
         print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
     return valExpr
 
-
 def invLaplace(numer, denom):
     """
     Calculates the Inverse Laplace Transform of a numerical rational expression
     of which the sympy polynomials of the numerator and the denominator are 
     passed as arguments, respecively.
+    
+    ToDo: This function is not used because of observed problems with residues
+    at dominant pole-zero pairs. Instead maxILT() is used.
     """
     numer = np.poly1d(polyCoeffs(numer, ini.Laplace))
     numerCoeffs = [np.float(coeff) for coeff in numer.c]

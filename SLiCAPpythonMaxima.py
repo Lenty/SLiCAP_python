@@ -45,17 +45,30 @@ def maxEval(maxExpr):
     # Other conversions
     return result
 
-def maxILT(Fs):
+def maxILT(numer, denom):
     """
     Calculates the inverse Laplace transform of  'Fs' using Maxima.
     Tricky to use because Maxima can ask for assumtions.
     """
+    Fs = numer/denom
     if isinstance(Fs, tuple(sp.core.all_classes)):
-        if ini.Laplace in list(Fs.free_symbols):
-            maxExpr = 'result:bfloat(ilt(' + str(Fs) + ',' + str(ini.Laplace) + ',t));'
-            result = maxEval(maxExpr)
-            return max2sp(maxEval(maxExpr))
-    return 'ft'
+        params = list(numer.atoms(sp.Symbol))
+        try:
+            params.remove(ini.Laplace)
+            if len(params) != 0:
+                print "Error: symbolic variables found, cannot determine roots."
+                return sp.Symbol('ft')
+            else:
+                ncoeffs = polyCoeffs(numer, ini.Laplace)
+                zeros = np.roots(np.array(ncoeffs))
+                dcoeffs = polyCoeffs(denom, ini.Laplace)
+                poles = np.roots(np.array(dcoeffs))
+                Fs = makeLaplaceRational(ncoeffs[0]/dcoeffs[0], zeros, poles)
+                maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
+                result = maxEval(maxExpr)
+                return sp.sympify(result)
+        except:
+            return sp.Symbol('ft')
 
 def maxDet(M):
     """

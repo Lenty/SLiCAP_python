@@ -68,7 +68,7 @@ def doInstruction(instObj):
                 numers = stepFunctions(instObj, numer)
                 for i in range(len(denoms)):
                     try:
-                        instObj.stepResp.append(invLaplace(numers[i], denoms[i]*ini.Laplace))
+                        instObj.stepResp.append(maxILT(numers[i], denoms[i]*ini.Laplace))
                     except:
                         print "Warning: could not calculate the unit step response."
             elif instObj.dataType == 'impulse':
@@ -78,7 +78,7 @@ def doInstruction(instObj):
                 numers = stepFunctions(instObj, numer)
                 for i in range(len(denoms)):
                     try:
-                        instObj.stepResp.append(invLaplace(numers[i], denoms[i]))
+                        instObj.stepResp.append(maxILT(numers[i], denoms[i]))
                     except:
                         print "Warning: could not calculate the unit impulse response."
             elif instObj.dataType == 'time':
@@ -203,12 +203,12 @@ def doDataType(instObj):
             instObj.laplace = doLaplace(instObj)
     elif instObj.dataType == 'step':
         try:
-            instObj.stepResp = invLaplace(doNumer(instObj), doDenom(instObj)*ini.Laplace)
+            instObj.stepResp = maxILT(doNumer(instObj), doDenom(instObj)*ini.Laplace)
         except:
             print "Warning: could not calculate the unit step response."
     elif instObj.dataType == 'impulse':
         try:
-            instObj.stepResp = invLaplace(doNumer(instObj), doDenom(instObj))
+            instObj.stepResp = maxILT(doNumer(instObj), doDenom(instObj))
         except:
             print "Warning: could not calculate the unit impulse response."
     elif instObj.dataType == 'time':

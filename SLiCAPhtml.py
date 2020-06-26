@@ -482,6 +482,24 @@ def coeffsTransfer2html(transferCoeffs):
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
+def stepArray2html(stepVars, stepArray):
+    """
+    """
+    numVars = len(stepVars)
+    numRuns = len(stepArray[0])
+    html = '<h3>Step array</h3>\n<table><tr><th>Run</th>'
+    for i in range(numVars):
+        html += '<th>$%s$</th>'%(sp.latex(stepVars[i]))
+    html += '</tr>\n'
+    for i in range(numRuns):
+        html += '<tr><td>%s</td>'%(i+1)
+        for j in range(numVars):
+            html += '<td>%8.2e</td>'%(stepArray[j][i])
+        html += '</tr>\n'
+    html += '</table>\n'
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    return
+
 def roundN(expr):
     """
     Rounds all number atoms in an expression to ini.disp digits
