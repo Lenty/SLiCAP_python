@@ -221,7 +221,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
             i = 0
             for param in parNames:
                 symValue = '$' + sp.latex(roundN(elmt.params[param])) +'$'
-                numValue = '$' + sp.latex(roundN(fullSubs(elmt.params[param], circuitObject.parDefs))) + '$'
+                numValue = '$' + sp.latex(roundN(fullSubs(elmt.params[param], circuitObject.parDefs), numeric=True)) + '$'
                 if i == 0:
                     html += '<td class="left">' + param + '</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
                 else:
@@ -244,7 +244,7 @@ def params2html(circuitObject, label = '', caption = ''):
     for par in circuitObject.parDefs.keys():
         parName = '$' + sp.latex(par) + '$'
         symValue = '$' + sp.latex(roundN(circuitObject.parDefs[par])) + '$'
-        numValue = '$' + sp.latex(roundN(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs))) + '$'
+        numValue = '$' + sp.latex(roundN(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs), numeric=True)) + '$'
         html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
     html += '</table>\n'
     if len(circuitObject.params) > 0:
@@ -379,6 +379,11 @@ def pz2html(instObj, label = ''):
     """
     Displays the DC transfer, and tables with poles and zeros on the active 
     HTML page.
+    
+    ToDo:
+        
+        Make it work for stepped instructions
+        
     """
     if instObj.errors != 0:
         print "Errors found in instruction."
@@ -501,15 +506,24 @@ def stepArray2html(stepVars, stepArray):
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
-def roundN(expr):
+def roundN(expr, numeric=False):
     """
-    Rounds all number atoms in an expression to ini.disp digits
+    Rounds all number atoms in an expression to ini.disp digits, but only
+    converts integers into floats if their number of digites is more than
+    ini.disp
     """
-    #expr = sp.N(expr, ini.disp)
-    try:
-        return expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
-    except:
-        return expr
+    if numeric:
+        expr = sp.N(expr, ini.disp)
+    else:
+        try:
+            expr = expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
+            ints = list(expr.atoms(sp.Number))
+            for i in range(len(ints)):
+                if sp.N(sp.Abs(ints[i])) > 10**ini.disp or sp.N(sp.Abs(ints[i])) < 10**-ini.disp:
+                    expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})
+        except:
+            pass
+    return expr
 
 if __name__ == '__main__':
     ini.projectPath = ini.installPath + 'testProjects/MOSamp/'

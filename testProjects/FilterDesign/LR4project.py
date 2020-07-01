@@ -44,8 +44,8 @@ i1.gainType = 'gain'
 i1.dataType = 'laplace'
 result      = i1.execute()
  
-figdBmag    = plotdBmag('LR4dBmag', 'dB magnitude characteristic', result, 20, 20e3, 100, xscale='k')
-figPgase    = plotPhase('LR4phase', 'phase characteristic', result, 20, 20e3, 100, xscale='k')
+figdBmag    = plotdBmag('LR4dBmag', 'dB magnitude characteristic', result, 0.02, 20, 100, xscale='k')
+figPgase    = plotPhase('LR4phase', 'phase characteristic', result, 0.02, 20, 100, xscale='k')
 
 htmlPage('Report')
 
