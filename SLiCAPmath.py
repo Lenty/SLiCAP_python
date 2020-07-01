@@ -178,15 +178,44 @@ def coeffsTransfer(LaplaceRational):
     Returns a nested list with the coefficients of the Laplace variable of the 
     numerator and of the denominator of LpalaceRational.
     The coefficients are in ascending order.
+    ToDo:
+        
+        Factorization and simplification according to ini settings
     """
     (numer, denom) = sp.fraction(sp.simplify(LaplaceRational))
     coeffsNumer = polyCoeffs(numer, ini.Laplace)
     coeffsDenom = polyCoeffs(denom, ini.Laplace)
     coeffsNumer.reverse()
+    for i in range(len(coeffsNumer)):
+        coeffsNumer[i] = sp.factor(coeffsNumer[i])
     coeffsDenom.reverse()
-    return (coeffsNumer, coeffsDenom)
+    for i in range(len(coeffsDenom)):
+        coeffsDenom[i] = sp.factor(coeffsDenom[i])
+    coeffN = 1
+    coeffD = 1
+    gain   = 1
+    found = False
+    i = 0
+    while not found and i <= len(coeffsNumer):
+        if coeffsNumer[i] != 0:
+            found = True
+            coeffN = coeffsNumer[i]
+        i += 1
+    found = False
+    i = 0
+    while not found and i <= len(coeffsDenom):
+        if coeffsDenom[i] != 0.:
+            found = True
+            coeffD = coeffsDenom[i]
+        i += 1
+    gain = coeffN/coeffD
+    for j in range(len(coeffsNumer)):
+        coeffsNumer[j] = sp.simplify(coeffsNumer[j]/coeffN)
+    for j in range(len(coeffsDenom)):
+        coeffsDenom[j] = sp.simplify(coeffsDenom[j]/coeffD)
+    return (gain, coeffsNumer, coeffsDenom)
 
-def normalizeLaplaceRational(numer, denom):
+def normalizeLaplaceRational(LaplaceRational):
     """
     Normalizes a Laplace rational:
         
@@ -194,36 +223,18 @@ def normalizeLaplaceRational(numer, denom):
 
         with l zero if there is a finite nonzero zero-frequency value, else
         positive or negative
-        
+               
     """
-    coeffsNumer = polyCoeffs(numer, ini.Laplace)
-    nNumer = len(coeffsNumer)
-    coeffsDenom = polyCoeffs(denom, ini.Laplace)
-    nDenom = len(coeffsDenom)
+    gain, coeffsNumer, coeffsDenom = coeffsTransfer(LaplaceRational)
     # find coefficient of ini.Laplace of the lowest order of the denominator:
-    i = 0
-    coeffD = 1 # Just a nonzero startvalue
-    while coeffD != 0.:
-        coeffD = coeffsDenom[i]
-        i += 1
-        if i == nDenom:
-            break
-    i = 0
-    coeffN = 1 # Just a nonzero startvalue
-    while coeffN != 0.:
-        coeffN = coeffsNumer[i]
-        i += 1
-        if i == nNumer:
-            break
     numer = 0
     denom = 0
-    # normalize coefficients and construct the rational
-    gain = sp.simplify(coeffN/coeffD)
     for j in range(len(coeffsNumer)):
-        numer += sp.simplify(coeffsNumer[j]/coeffD/gain)*ini.Laplace**(nNumer-j-1)
+        numer += coeffsNumer[j]*ini.Laplace**j
     for j in range(len(coeffsDenom)):
-        denom += sp.simplify(coeffsDenom[j]/coeffD)*ini.Laplace**(nDenom-j-1)
+        denom += coeffsDenom[j]*ini.Laplace**j
     return gain*numer/denom
+    
 
 def cancelPZ(poles,zeros):
     """

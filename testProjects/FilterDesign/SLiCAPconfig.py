@@ -20,4 +20,4 @@ IMGPATH         = 'img/'    # path for image files
 PROJECT    = '4-th order Linkwitz-Riley Filter'
 AUTHOR     = 'anton'
 CREATED    = '2020-06-24 02:49:04.728480'
-LASTUPDATE = '2020-06-24 10:43:04.339283'
+LASTUPDATE = '2020-07-01 16:39:54.249328'

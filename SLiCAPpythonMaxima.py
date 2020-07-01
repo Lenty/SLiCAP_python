@@ -76,7 +76,7 @@ def maxDet(M):
     """
     M = sympy2maximaMatrix(M)
     maxExpr = 'm:' + M + ';result:bfloat(expand(newdet(m)));'
-    return max2sp(maxEval(maxExpr))
+    return sp.sympify(maxEval(maxExpr))
     
 def maxNumer(M, detP, detN, srcP, srcN):
     """
@@ -146,14 +146,8 @@ def maxNumer(M, detP, detN, srcP, srcN):
     for M in matrices:
         maxExpr += 'newdet(' + sympy2maximaMatrix(M) + ') +'
     maxExpr += '0));'
-    return max2sp(maxEval(maxExpr))
+    return sp.sympify(maxEval(maxExpr))
 
-def max2sp(result):
-    """
-    """
-    result = sp.sympify(result)
-    return result
-    
 def maxLimit(expr, var, val, pm):
     """
     Calculates the limit of an expression for 'var' approaches 'val' from 'pm'.
@@ -163,7 +157,7 @@ def maxLimit(expr, var, val, pm):
     pm:   'plus' or 'minus'
     """
     maxExpr = 'result:bfloat(limit(' + str(expr) + ',' + var + ',' + val + ',' + pm +' ));'
-    return max2sp(maxEval(maxExpr))
+    return sp.sympify(maxEval(maxExpr))
 
 def maxCramerNumer(M, Iv, detP, detN):
     """    
@@ -195,7 +189,7 @@ def maxCramerNumer(M, Iv, detP, detN):
     if detN != None:
         maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
     maxExpr += '));'
-    return max2sp(maxEval(maxExpr))
+    return sp.sympify(maxEval(maxExpr))
 
 def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False):
     """    
@@ -216,7 +210,7 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False):
     maxExpr += '))^2);'
     if not dc:
         maxExpr.replace('__ini.frequency__', '2*%pi*%i*' + ini.frequency)
-    return max2sp(maxEval(maxExpr))
+    return sp.sympify(maxEval(maxExpr))
 
 def maxDet2(M, dc = False):
     """
@@ -233,7 +227,7 @@ def maxDet2(M, dc = False):
     maxExpr = 'm:' + M + ';result:bfloat(cabs(expand(newdet(m))));'
     if not dc:
         maxExpr.replace('__ini.frequency__', '2*%pi*%i*' + ini.frequency)
-    return max2sp(maxEval(maxExpr))
+    return sp.sympify(maxEval(maxExpr))
 
 def maxSolve(M, Iv):
     """
@@ -262,16 +256,16 @@ def equateCoeffs(protoType, transfer, noSolve = []):
         if param in params:
             params.remove(param)
         
-    pN, pD = coeffsTransfer(protoType)
-    tN, tD = coeffsTransfer(transfer)
-    
+    gainP, pN, pD = coeffsTransfer(protoType)
+    gainT, tN, tD = coeffsTransfer(transfer)
+    """
     # normalize lowest order coeff
     gain = tN[0]/pN[0]
     for i in range(len(tN)):
         tN[i] = tN[i]/gain
     for i in range(len(tD)):
         tD[i] = tD[i]/gain
-    
+    """
     if len(pN) != len(tN) or len(pD) != len(tD):
         print 'Error: unequal orders of prototype and target.'
         return values
@@ -286,6 +280,9 @@ def equateCoeffs(protoType, transfer, noSolve = []):
             eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
             if eqn != True:
                 equations += str(pD[i]) + '=' + str(tD[i]) + ','
+        eqn = sp.Eq(sp.N(gainP, gainT))
+        if eqn != True:
+            equations += str(gainP) + '=' + str(gainT) + ','
         equations = '[' + equations[0:-1] + ']'
         params = str(params)
         maxExpr = 'result:(float(solve(' + equations + ',' + params + ')))[1];'
@@ -308,6 +305,9 @@ def equateCoeffs(protoType, transfer, noSolve = []):
             eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
             if eqn != True:
                 equations.append(eqn)
+        eqn = sp.Eq(sp.N(gainP, gainT))
+        if eqn != True:
+            equations.append(eqn)
         try:
             solution = sp.solve(equations, (params))[0]
             if type(solution) == dict:

@@ -69,6 +69,12 @@ class settings(object):
     - Laplace           : Parameter used for Laplace variable
     - frequency         : Parameter used for frequency variable
     - maxRecSubst       : Maximum number of recursive substitutions
+    - simplify          : True: simplify transfer functions
+    - normalize         : True: normalize transfer functions: lowest order
+                          coefficient of the Laplace variable will be
+                          normalized to unity.
+    - factor            : Try to write the numerator and denominator of
+                          expressions as product of factors.
     
     Display settings
     ----------------
@@ -114,6 +120,9 @@ class settings(object):
         self.mathmlPath         = None
         self.imgPath            = None
         self.mathml             = False
+        self.simplify           = False
+        self.normalize          = True
+        self.factor             = False
         self.htmlIndex          = None
         self.htmlPage           = None
         self.htmlPrefix         = None

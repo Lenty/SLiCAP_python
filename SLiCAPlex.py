@@ -98,7 +98,7 @@ def t_EXPR(t):
         t.value = sp.sympify(t.value[1:-1])
     except:
         lexer.errCount += 1
-        printError("Error in expression:", lexer.lexdata.splitlines[lexer.lineno], find_column(t))
+        printError("Error in expression:", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
     return t          
 
 def t_SCI(t):
@@ -111,7 +111,7 @@ def t_SCI(t):
         t.value = float(t.value)
         t.type = 'FLT'
     except:
-        printError('Cannot convert number to float.', lexer.lexdata.splitlines[lexer.lineno], find_column(t))
+        printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
     return t  
           
 # Define a rule so we can track line numbers
@@ -146,7 +146,7 @@ def t_SCALE(t):
         t.type = 'FLT'
     except:
 
-        printError('Cannot convert number to float.', lexer.lexdata.splitlines[lexer.lineno], find_column(t))
+        printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
         lexer.errCount += 1
     return t 
 

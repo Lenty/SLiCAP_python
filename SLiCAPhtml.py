@@ -468,13 +468,14 @@ def coeffsTransfer2html(transferCoeffs):
     """
     Displays the coefficients of the numerator and the denominator of a transfer function on the active html page.
     """
-    (numerCoeffs, denomCoeffs) = transferCoeffs
-    html = '<h3>Coefficients of the numerator:</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
+    (gain, numerCoeffs, denomCoeffs) = transferCoeffs
+    html = '<h3>Gain factor</h3>\n<p>$%s$</p>\n'%(sp.latex(roundN(gain)))
+    html += '<h3>Normalized coefficients of the numerator:</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
     for i in range(len(numerCoeffs)):
         value = sp.latex(roundN(numerCoeffs[i]))
         html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
     html += '</table>\n'
-    html += '<h3>Coefficients of the denominator:\n</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
+    html += '<h3>Normalized coefficients of the denominator:\n</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
     for i in range(len(denomCoeffs)):
         value = sp.latex(roundN(denomCoeffs[i]))
         html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
@@ -504,7 +505,7 @@ def roundN(expr):
     """
     Rounds all number atoms in an expression to ini.disp digits
     """
-    expr = sp.N(expr, ini.disp)
+    #expr = sp.N(expr, ini.disp)
     try:
         return expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
     except:

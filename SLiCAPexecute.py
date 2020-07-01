@@ -96,7 +96,10 @@ def doInstruction(instObj):
                 numers = stepFunctions(instObj, numer)
                 instObj.laplace = []
                 for i in range(len(denoms)):
-                    instObj.laplace.append(normalizeLaplaceRational(numers[i], denoms[i]))
+                    if ini.normalize == True:
+                        instObj.laplace.append(normalizeLaplaceRational(numers[i]/denoms[i]))
+                    else:
+                        instObj.laplace.append(numers[i]/denoms[i])
             elif instObj.dataType == 'solve':
                 sol = doSolve(instObj)
                 sols = stepFunctions(instObj. sol)
@@ -238,8 +241,7 @@ def doDenom(instObj):
     elif instObj.gainType == 'loopgain':
         (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
         denom = denom * lgDenom
-    return denom
-
+    return sp.collect(denom, ini.Laplace)
 
 def doPoles(instObj):
     """
@@ -415,7 +417,7 @@ def doNumer(instObj):
             numer *= lgNumer
         elif instObj.gainType == 'servo':
             numer *= -lgNumer
-    return numer
+    return sp.collect(numer, ini.Laplace)
 
 def doZeros(instObj):
     """
@@ -464,7 +466,24 @@ def doLaplace(instObj):
     """
     numer = doNumer(instObj)
     denom = doDenom(instObj)
-    return normalizeLaplaceRational(numer, denom)
+    if ini.normalize:
+        if ini.normalize == True:
+            return normalizeLaplaceRational(numer/denom)
+        else:
+            return numer/denom
+    elif ini.simplify:
+        if ini.factor == True:
+            numer, denom = sp.fraction(sp.simplify(numer/denom))
+            return sp.factor(numer)/sp.factor(denom)
+        else:
+            return sp.simplify(numer/denom)
+    elif ini.factor:
+        result = sp.factor(numer)/sp.factor(denom)
+        if ini.simplify == True:
+            result = sp.simplify(result)
+        return result   
+    else:
+        return numer/denom
 
 def doSolve(instObj):
     """
