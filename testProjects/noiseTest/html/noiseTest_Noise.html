@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="Language" content="English"/>
+<title>"Noise"</title><link rel="stylesheet" href="css/slicap.css">
+<script>MathJax = {tex:{tags: 'ams', inlineMath:[['$','$'],]}, svg:{fontCache:'global'}};</script>
+<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head><body><div id="top"><h1>Noise</h1></div>
+<h2>Numeric noise analysis results</h2>
+<h3>Detector-referred noise spectrum</h3>
+$$\frac{\left(1.657 \cdot 10^{-23} + \frac{1}{f} 1.657 \cdot 10^{-23}\right) \left(1.559 \cdot 10^{-27} f^{4} + 3.948 \cdot 10^{-11} f^{2} + 4.0 \cdot 10^{-6}\right)}{6.153 \cdot 10^{-44} f^{6} + 1.555 \cdot 10^{-27} f^{4} + 1.58 \cdot 10^{-16} f^{2} + 9.0 \cdot 10^{-12}} + \frac{1.657 \cdot 10^{-17} \left(3.948 \cdot 10^{-17} f^{2} + 1.0 \cdot 10^{-12}\right)}{6.153 \cdot 10^{-44} f^{6} + 1.555 \cdot 10^{-27} f^{4} + 1.58 \cdot 10^{-16} f^{2} + 9.0 \cdot 10^{-12}}\, \mathrm{\left[\frac{V^2}{Hz}\right]}$$
+<h3>Source-referred noise spectrum</h3>
+$$\frac{1.0}{f \left(3.948 \cdot 10^{-17} f^{2} + 1.0 \cdot 10^{-12}\right)} \left(2.582 \cdot 10^{-50} f^{5} + 2.582 \cdot 10^{-50} f^{4} + 1.308 \cdot 10^{-33} f^{3} + 6.541 \cdot 10^{-34} f^{2} + 8.284 \cdot 10^{-29} f + 6.627 \cdot 10^{-29}\right)\, \mathrm{\left[\frac{V^2}{Hz}\right]}$$
+<h3>Contributions of individual noise sources</h3><table>
+<th colspan = "3" class="center">Noise source: I1</th><tr><td class="title">Spectral density:</td><td>$1.657 \cdot 10^{-23} + \frac{1}{f} 1.657 \cdot 10^{-23}$</td><td class="units">$\,\mathrm{\left[\frac{A^2}{Hz}\right]}$</td></tr>
+<tr><td class="title">Detector-referred:</td><td>$\frac{\left(1.657 \cdot 10^{-23} + \frac{1}{f} 1.657 \cdot 10^{-23}\right) \left(1.559 \cdot 10^{-27} f^{4} + 3.948 \cdot 10^{-11} f^{2} + 4.0 \cdot 10^{-6}\right)}{6.153 \cdot 10^{-44} f^{6} + 1.555 \cdot 10^{-27} f^{4} + 1.58 \cdot 10^{-16} f^{2} + 9.0 \cdot 10^{-12}}$</td><td class="units">$\,\mathrm{\left[\frac{V^2}{Hz}\right]}$</td></tr>
+<tr><td class="title">Source-referred:</td><td>$\frac{1.657 \cdot 10^{-23}}{f \left(3.948 \cdot 10^{-17} f^{2} + 1.0 \cdot 10^{-12}\right)} \left(f + 1\right) \left(1.559 \cdot 10^{-27} f^{4} + 3.948 \cdot 10^{-11} f^{2} + 4.0 \cdot 10^{-6}\right)$</td><td class="units">$\,\mathrm{\left[\frac{V^2}{Hz}\right]}$</td></tr>
+<th colspan = "3" class="center">Noise source: V1</th><tr><td class="title">Spectral density:</td><td>$1.657 \cdot 10^{-17}$</td><td class="units">$\,\mathrm{\left[\frac{V^2}{Hz}\right]}$</td></tr>
+<tr><td class="title">Detector-referred:</td><td>$\frac{1.657 \cdot 10^{-17} \left(3.948 \cdot 10^{-17} f^{2} + 1.0 \cdot 10^{-12}\right)}{6.153 \cdot 10^{-44} f^{6} + 1.555 \cdot 10^{-27} f^{4} + 1.58 \cdot 10^{-16} f^{2} + 9.0 \cdot 10^{-12}}$</td><td class="units">$\,\mathrm{\left[\frac{V^2}{Hz}\right]}$</td></tr>
+<tr><td class="title">Source-referred:</td><td>$1.657 \cdot 10^{-17}$</td><td class="units">$\,\mathrm{\left[\frac{V^2}{Hz}\right]}$</td></tr>
+</table>
+<h2>Intrgrated noise</h2>
+<h3>Source-referred RMS noise</h3>
+\begin{equation}
+V_{ns}=5.757 \cdot 10^{-6}\,\left[ \mathrm{V}\right]
+\end{equation}
+<p>The noise figure $F$ equals:</p>
+\begin{equation}
+F=3.012\,\left[ \mathrm{dB}\right]
+\end{equation}
+<figure><img src="img/onoise.svg" alt="" style="width:600px">
+</figure>
+<figure><img src="img/inoiseStepped.svg" alt="" style="width:600px">
+</figure>
+<!-- INSERT -->
+<div id="footnote">
+<p>Go to <a href="noiseTest_index.html">noiseTest_index</a></p>
+<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>
+<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>
+<p>Last project update: 2020-07-04 22:43:29</p>
+</div></body></html>

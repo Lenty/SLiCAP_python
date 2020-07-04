@@ -69,7 +69,7 @@ def HTMLfoot(indexFile):
     HTML += '<p>Go to <a href="' + ini.htmlIndex + '">' + idx + '</a></p>\n'
     HTML += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>\n'
     HTML += '<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>\n'
-    HTML += '<p>Last project update: %s</p>\n'%(ini.lastUpdate)
+    HTML += '<p>Last project update: %s</p>\n'%(ini.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"))
     HTML += '</div></body></html>'
     return(HTML)
 
@@ -466,6 +466,52 @@ def pz2html(instObj, label = ''):
         html += '</table>\n'
     elif instObj.dataType == 'zeros' or instObj.dataType == 'pz':
         html += '<p>No zeros found.</p>\n'
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    return
+
+def noise2html(instObj, label = ''):
+    if instObj.errors != 0:
+        print "Errors found in instruction."
+        return
+    elif instObj.dataType != 'noise':
+        print "Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType)
+        return
+    elif instObj.step == True :
+        print "Error: parameter stepping not yet implemented for 'noise2html()'."
+        return  
+    if label != '':
+        ini.htmlLabels[label] = ini.htmlPage
+        label = '<a id="' + label + '"></a>'
+    detUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(instObj.detUnits)
+    srcUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(instObj.srcUnits)
+    if instObj.simType == 'symbolic':
+        html = '<h2>Symbolic noise analysis results</h2>\n'
+        numeric = False
+    else:
+        html = '<h2>Numeric noise analysis results</h2>\n'
+        numeric = True
+    html += '<h3>Detector-referred noise spectrum</h3>\n'
+    html += '$$%s\, %s$$\n'%(sp.latex(roundN(instObj.onoise)), detUnits)
+    if instObj.source != None:
+        html += '<h3>Source-referred noise spectrum</h3>\n'
+        html += '$$%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise)), srcUnits)
+    html += '<h3>Contributions of individual noise sources</h3><table>\n'    
+    keys = instObj.snoiseTerms.keys()
+    keys.sort()
+    for key in keys:
+        nUnits = key[0].upper()
+        if nUnits == 'I':
+            nUnits = 'A'
+        nUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(nUnits)
+        html += '<th colspan = "3" class="center">Noise source: %s</th>'%(key)
+        srcValue = instObj.snoiseTerms[key]
+        if numeric:
+            srcValue = fullSubs(srcValue, instObj.parDefs)
+        html += '<tr><td class="title">Spectral density:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue)), nUnits)
+        html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.onoiseTerms[key])), detUnits)
+        if instObj.source != None:
+            html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.inoiseTerms[key])), srcUnits)
+    html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 

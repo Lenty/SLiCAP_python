@@ -21,13 +21,12 @@ def maxEval(maxExpr):
     expr: expression in Maxima format to be evaluated.
     
     The variable that needs to be output must be named: 'result'."""
-    
     # LISP command for a  a single-line output in text format:
     maxStringConv = ":lisp (mfuncall '$string $result);"
-    maxInput = maxExpr + maxStringConv
+    maxInput = maxExpr + maxStringConv 
     output = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
-                               maxInput], stdout=subprocess.PIPE).stdout
-    # The last line of the output stream is the result                              
+                               maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout
+    # The last line of the output stream is the result            
     result = output.readlines()[-1]    
     output.close()
     # Convert big float notation '12345b+123' to float notation '12345e+123':
@@ -70,15 +69,19 @@ def maxILT(numer, denom):
         except:
             return sp.Symbol('ft')
 
-def maxDet(M):
+def maxDet(M, numeric = True):
     """
     Returns the determinant of matrix 'M' in Sympy format, calculated by Maxima.
     """
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
     M = sympy2maximaMatrix(M)
-    maxExpr = 'm:' + M + ';result:bfloat(expand(newdet(m)));'
+    maxExpr = 'm:' + M + ';result:%s(expand(newdet(m)));'%(numeric)
     return sp.sympify(maxEval(maxExpr))
     
-def maxNumer(M, detP, detN, srcP, srcN):
+def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
     """
     Returns the numerator of a transfer function:
         
@@ -118,6 +121,10 @@ def maxNumer(M, detP, detN, srcP, srcN):
     the determinants are calculated with Maxima.
     """
     # Create a list of matrices of which the determinant needt to be calculated
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
     matrices = []
     if detP != None:
         if srcP != None:
@@ -142,13 +149,13 @@ def maxNumer(M, detP, detN, srcP, srcN):
             else:
                 matrices.append(-M.minor_submatrix(srcN, detN))
     # Create the Maxima instruction
-    maxExpr = 'result:bfloat(expand('
+    maxExpr = 'result:%s(expand('%(numeric)
     for M in matrices:
         maxExpr += 'newdet(' + sympy2maximaMatrix(M) + ') +'
     maxExpr += '0));'
     return sp.sympify(maxEval(maxExpr))
 
-def maxLimit(expr, var, val, pm):
+def maxLimit(expr, var, val, pm, numeric = True):
     """
     Calculates the limit of an expression for 'var' approaches 'val' from 'pm'.
     expr: sympy expression or string
@@ -156,10 +163,14 @@ def maxLimit(expr, var, val, pm):
     val:  string representing the limit value of the variable
     pm:   'plus' or 'minus'
     """
-    maxExpr = 'result:bfloat(limit(' + str(expr) + ',' + var + ',' + val + ',' + pm +' ));'
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
+    maxExpr = 'result:%s(limit(' + str(expr) + ',' + var + ',' + val + ',' + pm +' ));'%(numeric)
     return sp.sympify(maxEval(maxExpr))
 
-def maxCramerNumer(M, Iv, detP, detN):
+def maxCramerNumer(M, Iv, detP, detN, numeric = True):
     """    
     Returns the numerator of the response at the detector as a result of
     excitations from one or more sources.
@@ -182,67 +193,106 @@ def maxCramerNumer(M, Iv, detP, detN):
     The subsititutions are made with Sympy,
     the determinants are calculated with Maxima.
     """
-    Iv = makeSrcVector(cir, elID)
-    maxExpr = 'result:bfloat(expand('
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
+    Iv = makeSrcVector(cir, elID, srcID=False)
+    maxExpr = 'result:%s(expand('
     if detP != None:
         maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
     if detN != None:
         maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
-    maxExpr += '));'
+    maxExpr += '));'%(numeric)
     return sp.sympify(maxEval(maxExpr))
 
-def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False):
+def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     """    
     Returns the numerator of the squared transfer from a source to the detector
     in Sympy format, with the Laplace variable replaced with
     '2*%pi*%i* + ini.frequency', or with 0, for noise or for dcVar calculations, 
     respectively.
     """
-    if dc:
-        M = sp.Subs(M, ini.Laplace, 0)
+    if numeric:
+        numeric = 'bfloat'
     else:
-        M = sp.Subs(M, ini.Laplace, sp.Symbol('__ini.frequency__'))
-    maxExpr = 'result:bfloat(cabs(expand('
+        numeric = ''
+    subst = False
+    if ini.Laplace in M.atoms(sp.Symbol):
+        if dc:
+            M = M.subs(ini.Laplace, 0)
+        else:
+            M = M.subs(ini.Laplace, sp.Symbol('__freq__'))
+            subst = True
+    Iv = makeSrcVector(cir, elID, srcID=True)
+    maxExpr = 'result:%s(cabs(expand('%(numeric)
     if detP != None:
         maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')/' + elID
     if detN != None:
         maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')/' + elID
     maxExpr += '))^2);'
-    if not dc:
-        maxExpr.replace('__ini.frequency__', '2*%pi*%i*' + ini.frequency)
+    if subst:
+        maxExpr = maxExpr.replace('__freq__', '2*%pi*%i*' + str(ini.frequency))
     return sp.sympify(maxEval(maxExpr))
 
-def maxDet2(M, dc = False):
+def maxDet2(M, dc = False, numeric = True):
     """
     Returns the squared magnitude of the determinant of matrix 'M' in Sympy 
     format, with the Laplace variable replaced with
     '2*%pi*%i* + ini.frequency', or with 0, for noise or for dcVar calculations, 
     respectively.
     """
-    if dc:
-        M = sp.Subs(M, ini.Laplace, 0)
+    if numeric:
+        numeric = 'bfloat'
     else:
-        M = sp.Subs(M, ini.Laplace, sp.Symbol('__ini.frequency__'))
+        numeric = ''
+    subst = False
+    if ini.Laplace in M.atoms(sp.Symbol):
+        if dc:
+            M = M.subs(ini.Laplace, 0)
+        else:
+            M = M .subs(ini.Laplace, sp.Symbol('__freq__'))
+            subst = True
     M = sympy2maximaMatrix(M)
-    maxExpr = 'm:' + M + ';result:bfloat(cabs(expand(newdet(m))));'
-    if not dc:
-        maxExpr.replace('__ini.frequency__', '2*%pi*%i*' + ini.frequency)
+    if subst:
+        M = M.replace('__freq__', '2*%pi*%i*' + str(ini.frequency))
+    maxExpr = 'm:' + M + ';result:%s(cabs(expand(newdet(m)))^2);'%(numeric)
     return sp.sympify(maxEval(maxExpr))
 
-def maxSolve(M, Iv):
+def maxSolve(M, Iv, numeric = True):
     """
     Calculates M^(-1).Dv
     
     M:  Matrix
     Iv: Vector with independent variables
     """
-    # To be implemented
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
     maxExpr = 'M:' + sympy2maximaMatrix(M) + ';'
     maxExpr += 'Iv:' + sympy2maximaMatrix(Iv) + ';'
-    maxExpr += 'result:bfloat(invert(M).Iv);'
+    maxExpr += 'result:%s(invert(M).Iv);'%(numeric)
     return  maxEval(maxExpr)
 
-def equateCoeffs(protoType, transfer, noSolve = []):
+def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
+    if start != None and stop != None:
+        maxExpr = 'assume_pos:true$assume_pos_pred:symbolp$result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
+    else:
+        maxExpr = 'assume_pos:true$assume_pos_pred:symbolp$result:%s(integrate(%s, %s));'%(numeric, str(expr), str(var))
+    result = maxEval(maxExpr)
+    try:
+        result = sp.sympify(result)
+    except:
+        print 'Error: could not integrate expression: %s.'%(str(expr))
+        result = sp.sympify('Error')
+    return result
+
+def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     """
     Returns the solutions of transfer = protoType.
     Both transfer and prototype should be Laplace rational functions.
@@ -250,6 +300,10 @@ def equateCoeffs(protoType, transfer, noSolve = []):
     order and their denominators should be polynomials of the Laplace variable
     of equal order.
     """
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
     params = list(set(list(protoType.atoms(sp.Symbol)) + list(transfer.atoms(sp.Symbol))))
     noSolve.append(ini.Laplace)
     for param in noSolve:
@@ -258,14 +312,6 @@ def equateCoeffs(protoType, transfer, noSolve = []):
         
     gainP, pN, pD = coeffsTransfer(protoType)
     gainT, tN, tD = coeffsTransfer(transfer)
-    """
-    # normalize lowest order coeff
-    gain = tN[0]/pN[0]
-    for i in range(len(tN)):
-        tN[i] = tN[i]/gain
-    for i in range(len(tD)):
-        tD[i] = tD[i]/gain
-    """
     if len(pN) != len(tN) or len(pD) != len(tD):
         print 'Error: unequal orders of prototype and target.'
         return values
@@ -285,7 +331,7 @@ def equateCoeffs(protoType, transfer, noSolve = []):
             equations += str(gainP) + '=' + str(gainT) + ','
         equations = '[' + equations[0:-1] + ']'
         params = str(params)
-        maxExpr = 'result:(float(solve(' + equations + ',' + params + ')))[1];'
+        maxExpr = 'result:(%s(solve(' + equations + ',' + params + ')))[1];'%(numeric)
         result = maxEval(maxExpr)
         result = result[1:-1].split(',')
         try:

@@ -17,7 +17,7 @@ MATHMLPATH      = 'mathml/' # path for mathML output saveMathML()
 IMGPATH         = 'img/'    # path for image files
 
 # Project information
-PROJECT    = '4-th order Linkwitz-Riley Filter'
+PROJECT    = 'Noise project'
 AUTHOR     = 'anton'
-CREATED    = '2020-06-24 02:49:04.728480'
-LASTUPDATE = '2020-07-03 15:12:04.767083'
+CREATED    = '2020-07-02 15:06:41.172260'
+LASTUPDATE = '2020-07-04 22:43:29.985503'

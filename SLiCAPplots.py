@@ -246,7 +246,7 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             else:
                 yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
                 func = sp.lambdify(ini.frequency, 20*sp.log(abs(yData),10))
-            y = func(x)
+            y = [func(x[j]) for j in range(len(x))]
             dBmagTrace = trace([x, y])
             try:
                 dBmagTrace.color = ini.gainColors[result.gainType]
@@ -262,7 +262,7 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 else:
                     y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
                     func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
-                y = func(x)
+                y = [func(x[j]) for j in range(len(x))]
                 dBmagTrace = trace([x, y])
                 dBmagTrace.color = ini.defaultColors[i % numColors]
                 dBmagTrace.label = result.gainType
@@ -320,7 +320,7 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
             else:
                 yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
                 func = sp.lambdify(ini.frequency, abs(yData))
-            y = func(x)
+            y = [func(x[j]) for j in range(len(x))]
             magTrace = trace([x, y])
             try:
                 magTrace.color = ini.gainColors[result.gainType]
@@ -336,7 +336,7 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
                 else:
                     y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
                     func = sp.lambdify(ini.frequency, abs(y))
-                y = func(x)
+                y = [func(x[j]) for j in range(len(x))]
                 magTrace = trace([x, y])
                 magTrace.color = ini.defaultColors[i % numColors]
                 magTrace.label = result.gainType
@@ -746,6 +746,158 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
         colNum += 1                  
     pz.traces = pzTraces
     fig.axes = [[pz]]
+    fig.plot()
+    return fig
+
+def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', sources = None, xscale = '', yscale = '', show = False, save = True):
+    fig = figure(title)
+    fig.fileName = fileName
+    fig.show = show
+    fig.save = save
+    ax = axis(title)
+    ax.xScaleFactor = xscale
+    ax.yScaleFactor = yscale
+    ax.xScale = 'log'
+    ax.yScale = 'log'
+    ax.xLabel = 'frequency [' + xscale + 'Hz]'
+    if noise == 'onoise':
+        yunits = results.detUnits
+    if noise == 'inoise':
+        yunits = results.srcUnits
+    ax.yLabel = 'spectral density [' + yscale + yunits +'^2/Hz]'
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    x = np.geomspace(checkNumber(fStart)*xScaleFactor, checkNumber(fStop)*xScaleFactor, checkNumber(fNum))
+    ax.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        keys = result.onoiseTerms.keys()
+        if not result.step:
+            if noise == 'onoise':
+                if sources == None:
+                    yData = result.onoise
+                    func = sp.lambdify(ini.frequency, yData)
+                    y = [func(x[j]) for j in range(len(x))]
+                    noiseTrace.label = 'onoise'
+                elif sources == 'all':
+                    for srcName in keys:
+                        yData = result.onoiseTerms[srcName]
+                        func = sp.lambdify(ini.frequency, yData)
+                        y = [func(x[j]) for j in range(len(x))]
+                        noiseTrace = trace([x, y])
+                        noiseTrace.color = ini.defaultColors[colNum % numColors]
+                        noiseTrace.label = 'onoise: ' + srcName
+                        ax.traces.append(noiseTrace)
+                        colNum += 1
+                elif sources in keys:
+                    yData = result.onoiseTerms[sources]
+                    func = sp.lambdify(ini.frequency, yData)
+                    y = [func(x[j]) for j in range(len(x))]
+                    noiseTrace = trace([x, y])
+                    noiseTrace.color = ini.defaultColors[colNum % numColors]
+                    noiseTrace.label = 'onoise: ' + sources
+                    ax.traces.append(noiseTrace)
+                    colNum += 1
+                elif type(sources) == list:
+                    for srcName in sources:
+                        if srcName in keys:
+                            yData = result.onoiseTerms[srcName]
+                            func = sp.lambdify(ini.frequency, yData)
+                            y = [func(x[j]) for j in range(len(x))]
+                            noiseTrace = trace([x, y])
+                            noiseTrace.color = ini.defaultColors[colNum % numColors]
+                            noiseTrace.label = 'onoise: ' + srcName
+                            ax.traces.append(noiseTrace)
+                            colNum += 1
+                else:
+                    print 'Error: cannot understand "sources=%s".'%(str(sources))
+                    return fig
+            elif noise == 'inoise':
+                if sources == None:
+                    yData = result.inoise
+                    func = sp.lambdify(ini.frequency, yData)
+                    y = [func(x[j]) for j in range(len(x))]
+                    noiseTrace = trace([x, y])                                
+                    noiseTrace.color = ini.defaultColors[colNum % numColors]
+                    noiseTrace.label = 'inoise'
+                    ax.traces.append(noiseTrace)
+                    colNum += 1
+                elif sources == 'all':
+                    for srcName in keys:
+                        yData = result.inoiseTerms[srcName]
+                        func = sp.lambdify(ini.frequency, yData)
+                        y = [func(x[j]) for j in range(len(x))]
+                        noiseTrace = trace([x, y])
+                        noiseTrace.color = ini.defaultColors[colNum % numColors]
+                        noiseTrace.label = 'inoise: ' + srcName
+                        ax.traces.append(noiseTrace)
+                        colNum += 1
+                elif sources in keys:
+                    yData = result.inoiseTerms[sources]
+                    func = sp.lambdify(ini.frequency, yData)
+                    y = [func(x[j]) for j in range(len(x))]
+                    noiseTrace = trace([x, y])
+                    noiseTrace.color = ini.defaultColors[colNum % numColors]
+                    noiseTrace.label = 'inoise: ' + sources
+                    ax.traces.append(noiseTrace)
+                    colNum += 1  
+                elif type(sources) == list:
+                    for srcName in sources:
+                        if srcName in keys:
+                            yData = result.inoiseTerms[srcName]
+                            func = sp.lambdify(ini.frequency, yData)
+                            y = [func(x[j]) for j in range(len(x))]
+                            noiseTrace = trace([x, y])
+                            noiseTrace.color = ini.defaultColors[colNum % numColors]
+                            noiseTrace.label = 'inoise: ' + srcName
+                            ax.traces.append(noiseTrace) 
+                            colNum += 1    
+                else:
+                    print 'Error: cannot understand "sources=%s".'%(str(sources))
+                    return fig
+            else:
+                print 'Error: cannot understand "noise=%s".'%(str(noise))
+                return fig
+        else:
+            numRuns = len(result.onoiseTerms[keys[0]])
+            if type(sources) == list or sources == 'all':
+                print 'Error: plotting of stepped noise analysis for multiple sources is not suported.'
+                return fig
+            else:
+                for i in range(numRuns):
+                    if sources == None:
+                        if noise == 'onoise':
+                            label = 'onoise:'
+                            yData = result.onoise[i]
+                        elif noise == 'inoise':
+                            label = 'inoise:'   
+                            yData = result.inoise[i]
+                    elif sources in keys:
+                        if noise == 'onoise':
+                            label = 'onoise: %s,'%(sources)
+                            yData = result.onoiseTerms[sources][i]
+                        elif noise == 'inoise':
+                            label = 'inoise: %s,'%(sources)
+                            yData = result.inoiseTerms[sources][i]
+                    else:
+                        print 'Error:  cannot understand "sources=%s".'%(str(sources))
+                        return
+                    if result.stepMethod == 'array':
+                        label += ' run: %s'%(i+1)
+                    else:
+                        label += ' %s = %8.1e'%(result.stepVar, result.stepList[i])
+                    # add trace
+                    func = sp.lambdify(ini.frequency, yData)
+                    y = [func(x[j]) for j in range(len(x))]
+                    noiseTrace = trace([x, y])
+                    noiseTrace.label = label
+                    ax.traces.append(noiseTrace)
+    fig.axes = [[ax]]
     fig.plot()
     return fig
 

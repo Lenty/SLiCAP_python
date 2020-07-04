@@ -102,10 +102,47 @@ def doInstruction(instObj):
                         instObj.laplace.append(numers[i]/denoms[i])
             elif instObj.dataType == 'solve':
                 sol = doSolve(instObj)
-                sols = stepFunctions(instObj. sol)
-                instObj.solve = []
-                for i in range(len(sols)):
-                    instObj.solve.append(sp.simplify(sols[i]))
+                instObj.solve = stepFunctions(instObj, sol)
+                for i in range(len(instObj.solve)):
+                    instObj.solve[i] = sp.simplify(instObj.solve[i])
+                    """
+                    Todo:
+                    
+                        simplification, normalization and factorization
+                        according to ini settings.
+                    """
+            elif instObj.dataType == 'noise':
+                detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+                if instObj.source != None:
+                    # Calculate the squared gain from source to detector as a
+                    # function of ini.frequency
+                    if instObj.simType == 'numeric':
+                        tf = True
+                    else:
+                        tf = False
+                    gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = tf)
+                    gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = tf))
+                # Calculate the contributions of each noise source to the
+                # spectral density of the total output noise
+                onoiseTerms = doNoise(instObj, detP, detN)
+                # apply function stepping
+                for elID in onoiseTerms.keys():
+                    if instObj.source != None:
+                        instObj.inoiseTerms[elID] = stepFunctions(instObj, sp.simplify(onoiseTerms[elID]/gain2))
+                    instObj.onoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID])
+                    instObj.snoiseTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['noise'])
+                numRuns = len(instObj.onoiseTerms[elID])
+                for i in range(numRuns):
+                    # calcuate onoise and inoise for each run
+                    onoise = 0
+                    inoise = 0
+                    for elID in onoiseTerms.keys():
+                        onoise += instObj.onoiseTerms[elID][i]
+                        if instObj.source != None:
+                            inoise += instObj.inoiseTerms[elID][i]
+                    instObj.onoise.append(sp.simplify(onoise))
+                    if instObj.source != None:
+                        instObj.inoise.append(sp.simplify(inoise))
         else:
             # Create a deep copy of the substitution dictionary
             subsDict = {}
@@ -220,7 +257,56 @@ def doDataType(instObj):
         if instObj.step:
             instObj.solve.append(doSolve(instObj))
         else:
-            instObj.solve = doSolve(instObj)            
+            instObj.solve = doSolve(instObj)    
+    elif instObj.dataType == 'noise':
+        detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+        # Calculate the contributions of each noise source to the
+        # spectral density of the total output noise
+        onoiseTerms = doNoise(instObj, detP, detN)
+        inoiseTerms = {}
+        snoiseTerms = {}
+        onoise      = 0
+        alreadyKeys = instObj.onoiseTerms.keys()
+        if instObj.simType == 'numeric':
+            tf = True
+        else:
+            tf = False
+        if instObj.source != None:
+            # Calculate the squared gain from source to detector as a
+            # function of ini.frequency
+            gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = tf)
+            gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = tf))
+            inoise = 0
+        for key in onoiseTerms.keys():
+            onoise += onoiseTerms[key]
+            snoiseTerms[key] = instObj.circuit.elements[key].params['noise']
+            if instObj.source != None:
+                inoiseTerms[key] = sp.simplify(onoiseTerms[key]/gain2)
+                inoise += inoiseTerms[key]
+            if instObj.step:
+                if key in alreadyKeys:
+                    instObj.onoiseTerms[key].append(onoiseTerms[key])
+                    instObj.snoiseTerms[key].append(snoiseTerms[key])
+                    if instObj.source != None:
+                        instObj.inoiseTerms[key].append(inoiseTerms[key])
+                else:
+                    instObj.onoiseTerms[key] = [onoiseTerms[key]]
+                    instObj.snoiseTerms[key] = [snoiseTerms[key]]
+                    if instObj.source != None:
+                        instObj.inoiseTerms[key] = [inoiseTerms[key]]
+            else:
+                instObj.onoiseTerms[key] = onoiseTerms[key]
+                instObj.snoiseTerms[key] = snoiseTerms[key]
+                if instObj.source != None:
+                    instObj.inoiseTerms[key] = inoiseTerms[key]
+        if instObj.step:
+            instObj.onoise.append(sp.simplify(onoise))
+            if instObj.source != None:
+                instObj.inoise.append(sp.simplify(inoise))
+        else:
+            instObj.onoise = onoise
+            if instObj.source != None:
+                instObj.inoise = sp.simplify(inoise)         
     return instObj
 
 def doDenom(instObj):
@@ -491,6 +577,25 @@ def doSolve(instObj):
     """
     return maxSolve(instObj.M, instObj.Iv)
 
+def doNoise(instObj, detP, detN):
+    """
+    """
+    if instObj.simType == 'numeric':
+        tf = True
+    else:
+        tf = False
+    denom2 = maxDet2(instObj.M, dc=False, numeric = tf)
+    onoiseTerms = {}
+    for src in instObj.circuit.indepVars:
+        if instObj.circuit.elements[src].params['noise'] != 0:
+            if tf:
+                value = fullSubs(instObj.circuit.elements[src].params['noise'], instObj.parDefs)
+            else:
+                value = instObj.circuit.elements[src].params['noise']
+            numer2 = maxCramerCoeff2(instObj.circuit, instObj.M, src, detP, detN, dc=False, numeric = tf)
+            onoiseTerms[src] = sp.simplify(sp.factor(numer2)/sp.factor(denom2))*value
+    return onoiseTerms
+
 def checkNumeric(expr, stepVar = None):
     """
     Checks if the expressions does not contain parameters other then stepVar',
@@ -535,13 +640,13 @@ def findServoBandwidth(loopgainRational):
     numPoles        = len(poles)
     numZeros        = len(zeros)
     numCornerFreqs  = numPoles + numZeros
-    coeffsN,coeffsD = coeffsTransfer(loopgainRational)
+    gain, coeffsN,coeffsD = coeffsTransfer(loopgainRational)
     coeffsN         = np.array(coeffsN)
     coeffsD         = np.array(coeffsD)
     firstNonZeroN   = np.argmax(coeffsN != 0)
     firstNonZeroD   = np.argmax(coeffsD != 0)
     startOrder      = firstNonZeroN - firstNonZeroD
-    startValue      = np.abs(coeffsN[firstNonZeroN]/coeffsD[firstNonZeroD])    
+    startValue      = np.abs(gain)    
     freqsOrders     = np.zeros((numCornerFreqs, 6))
     mbv             = sp.N(sp.Subs(loopgainRational, ini.Laplace, 0))
     mbf             = 0
@@ -629,11 +734,42 @@ def findServoBandwidth(loopgainRational):
         if freqsOrders[i,2] == 0 and freqsOrders[i,3] > mbv:
             result['mbv'] = freqsOrders[i,3]
             result['mbf'] = freqsOrders[i,0]
-    if ini.HZ:
+    if ini.Hz:
         result['hpf'] = result['hpf']/np.pi/2
         result['lpf'] = result['lpf']/np.pi/2
         result['mbf'] = result['mbf']/np.pi/2
     return result
+
+def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
+    """
+    """
+    fmax = checkNumber(fmax)
+    fmin = checkNumber(fmin)
+    if noiseResult.dataType != 'noise':
+        print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
+        rms = None
+    keys = noiseResult.onoiseTerms.keys()
+    if noise == 'inoise':
+        if source == None:
+            noiseData = noiseResult.inoise
+        elif source in keys:
+            noiseData = noiseResult.inoiseTerms[source]
+        else:
+            print "Error: unknown noise source: '%s'."%(source)
+            rms = None
+    elif noise == 'onoise':
+        if source == None:
+            noiseData = noiseResult.onoise
+        elif source in keys:
+            noiseData = noiseResult.onoiseTerms[source]
+        else:
+            print "Error: unknown noise source: '%s'."%(source)
+            rms = None
+    else:
+        print "Error: unknown noise type: '%s'."%(noise)
+        rms = None
+    rms =  sp.sqrt(maxIntegrate(noiseData, ini.frequency, start=fmin, stop=fmax))
+    return rms
 
 if __name__ == '__main__': 
     s = sp.Symbol('s')

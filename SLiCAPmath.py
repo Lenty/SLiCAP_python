@@ -115,7 +115,7 @@ def polyCoeffs(expr, var):
     Returns a list with coefficients of 'var' in descending order.
     """
     if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
-        return sp.poly(expr, ini.Laplace).all_coeffs()
+        return sp.poly(expr, var).all_coeffs()
     return []
 
 def numRoots(expr, var):
@@ -294,6 +294,11 @@ def fullSubs(valExpr, parDefs):
     if i == ini.maxRecSubst:
         print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
     return valExpr
+
+def assumeAllReal(expr):
+    """
+    """
+    return expr.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in expr.atoms(sp.Symbol)})
 
 def invLaplace(numer, denom):
     """

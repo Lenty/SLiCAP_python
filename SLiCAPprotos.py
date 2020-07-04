@@ -623,18 +623,18 @@ class allResults(object):
                                 # dataType 'pz'
         self.poles       = []   # Complex frequencies in [rad/s] or [Hz]
         self.zeros       = []   # Complex frequencies in [rad/s] or [Hz]
-        self.sources     = []   # Names of the sources with dc variance or noise
-        self.srcTerms    = []   # Dict with respective variance or noise
-        self.ivarTerms   = []   # Dict with respective contributions to 
+        self.svarTerms   = {}   # Dict with lists with source variances
+        self.ivarTerms   = {}   # Dict with lists with contributions to 
                                 # source-referred variance
-        self.ovarTerms   = []   # Dict with respective contributions to 
+        self.ovarTerms   = {}   # Dict with lists with contributions to 
                                 # detector-referred variance
         self.ivar        = []   # Total source-referred variance
         self.ovar        = []   # Total detector-referred variance
         self.dcSolve     = []   # DC solution of the network
-        self.inoiseTerms = []   # Dict with respective spectral contributions
+        self.snoiseTerms = {}   # Dict with lists with source noise spectra
+        self.inoiseTerms = {}   # Dict with lists with contributions
                                 # to source-referred noise
-        self.onoiseTerms = []   # Dict with espective spectral contributions
+        self.onoiseTerms = {}   # Dict with lists with contributions
                                 # to detector-referred noise
         self.inoise      = []   # Total source-referred noise spectral density
         self.onoise      = []   # Total detector-referred noise spectral 
@@ -668,3 +668,5 @@ class allResults(object):
         self.parDefs     = None
         self.numeric     = None
         self.errors      = 0
+        self.detUnits    = None
+        self.srcUnits    = None

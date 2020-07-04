@@ -298,7 +298,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
         cir.updateMdata()
     return (Iv, M, Vv)
 
-def makeSrcVector(cir, elID):
+def makeSrcVector(cir, elID, srcID = False):
     """
     Creates the vector with independent variables with only the
     source with refdes 'elID'. The value will be equal to the
@@ -314,14 +314,16 @@ def makeSrcVector(cir, elID):
     dim = len(cir.varIndex.keys())
     Iv = [0 for i in range(dim)]
     elmt = cir.elements[elID]
-    if elmt.model == 'I':
+    if srcID == True:
         value = sp.Symbol(elmt.refDes)
+    else:
+        value = elmt.params['value']
+    if elmt.model == 'I':
         pos0 = varIndex[elmt.nodes[0]]
         pos1 = varIndex[elmt.nodes[1]]
         Iv[pos0] += value
         Iv[pos1] += -value
     elif elmt.model == 'V':
-        value = sp.Symbol(elmt.refDes)
         dVarPos = varIndex['I_' + elmt.refDes]
         Iv[dVarPos] += value
     gndPos = varIndex['0']

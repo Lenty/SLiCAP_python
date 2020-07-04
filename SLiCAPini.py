@@ -150,7 +150,27 @@ class settings(object):
         self.legendLoc          = 'best'
         self.plotFontSize       = 12
         self.lastUpdate         = None
-
+    
+    def dump(self):
+        """
+        Prints the global variables that are available to the user.
+        """
+        disallowed = ['asymptotic', 'servo', 'vi', 'direct', 'loopgain', 'gain']
+        tabWidth   = 18
+        for attr in dir(self):
+            dct = getattr(self, attr)
+            if type(dct) == dict:
+                keys = dct.keys()
+                keys.sort()
+                for key in keys:
+                    if key not in disallowed:
+                        ndots = tabWidth - len(key)
+                        print key,
+                        dots = ''
+                        for i in range(ndots):
+                            dots += '.'
+                        print dots,':', dct[key]
+    
 # Create an instance of globals
 ini = settings()
 # Automatic detection of install and project paths
@@ -167,3 +187,6 @@ ini.csvPath          = ini.projectPath + CSVPATH
 ini.latexPath        = ini.projectPath + LATEXPATH
 ini.mathmlPath       = ini.projectPath + MATHMLPATH
 ini.imgPath          = ini.projectPath + IMGPATH
+
+if __name__ == '__main__':
+    ini.dump()

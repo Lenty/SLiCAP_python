@@ -44,6 +44,8 @@ class instruction(object):
         self.TAU        = None # dot porduct of self.R and self.C
         self.errors     = 0
         self.results    = allResults()
+        self.detUnits   = None
+        self.srcUnits   = None
         
     def checkCircuit(self, fileName):
         """
@@ -106,6 +108,8 @@ class instruction(object):
                 elif self.dataType == 'noise':
                     # need detector
                     self.checkDetector()
+                    # might need a sourrce as well
+                    self.checkSource(need = False)
                 elif self.dataType == 'matrix':
                     # need nothing
                     pass
@@ -192,13 +196,18 @@ class instruction(object):
             print "Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType)
         return
     
-    def checkSource(self):
+    def checkSource(self, need = True):
         if type(self.source) == bool:
-            self.errors += 1
-            print "Error: missing source definition."
+            if need:
+                self.errors += 1
+                print "Error: missing source definition."
         elif self.source not in self.circuit.indepVars:
             self.errors += 1
             print "Error: unkown source: '%s'."%(self.source)
+        else:
+            self.srcUnits = self.source[0].upper()
+            if self.srcUnits == 'I':
+                self.srcUnits = 'A'
         return
     
     def checkLGref(self):
@@ -246,7 +255,13 @@ class instruction(object):
             if detP == 'V_0':
                 self.detector[0] = None
             if detN == 'V_0':
-                self.detector[1] = None
+                self.detector[1] = None   
+            if self.detector[0] != None:
+                self.detUnits = detP[0].upper()
+            elif self.detector[1] != None:
+                self.detUnits = detN[0].upper()
+            if self.detUnits == 'I':
+                self.detUnits = 'A'
         else:
             self.errors += 1
             print "Error: missing detector definition."
@@ -446,6 +461,8 @@ class instruction(object):
             r.circuit        = self.circuit
             r.parDefs        = self.parDefs
             r.errors         = self.errors
+            r.detUnits       = self.detUnits
+            r.srcUnits       = self.srcUnits
             if r.simType == 'numeric':
                 r.numeric = True
             else:

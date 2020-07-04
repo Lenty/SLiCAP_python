@@ -71,7 +71,8 @@ def copyNotOverwrite(src, dest):
     """
     if not os.path.exists(dest):
         cp(src, dest)
-
+    return
+    
 def initProject(name):
     """
     Initializes a SLiCAP project.
