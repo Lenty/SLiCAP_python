@@ -331,7 +331,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
             equations += str(gainP) + '=' + str(gainT) + ','
         equations = '[' + equations[0:-1] + ']'
         params = str(params)
-        maxExpr = 'result:(%s(solve(' + equations + ',' + params + ')))[1];'%(numeric)
+        maxExpr = 'result:(%s(solve('%(numeric) + equations + ',' + params + ')))[1];'
         result = maxEval(maxExpr)
         result = result[1:-1].split(',')
         try:
