@@ -24,6 +24,8 @@ def getValue(elmt, param, numeric, parDefs):
     """
     Returns the symbolic or numeric value of a parameter of an element.
     """
+    if param not in elmt.params.keys():
+        return 0
     if numeric == True:        
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
@@ -67,21 +69,13 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
         cir.updateMdata()
     varIndex = cir.varIndex
     dim = len(cir.varIndex.keys())
-    Iv = [0 for i in range(dim)]
     Vv = [0 for i in range(dim)]
     M  = [[0 for i in range(dim)] for i in range(dim)]
     for i in range(len(cir.depVars)):
         Vv[i] = sp.Symbol(cir.depVars[i])
     for el in cir.elements.keys():
         elmt = cir.elements[el]
-        if elmt.model == 'I':
-            # Laplace rational can be in Iv
-            value = getValue(elmt, 'value', numeric, parDefs)
-            pos0 = varIndex[elmt.nodes[0]]
-            pos1 = varIndex[elmt.nodes[1]]
-            Iv[pos0] += value
-            Iv[pos1] += -value
-        elif elmt.model == 'C':
+        if elmt.model == 'C':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)
@@ -242,21 +236,17 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPos][pos2] += 1
             M[dVarPos][pos3] -= 1
         elif elmt.model == 'V':
-            value = getValue(elmt, 'value', numeric, parDefs)
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             dVarPos = varIndex['I_' + elmt.refDes]
-            Iv[dVarPos] += value
             M[pos0][dVarPos] += 1
             M[pos1][dVarPos] -= 1
             M[dVarPos][pos0] += 1
             M[dVarPos][pos1] -= 1
         elif elmt.model == 'VZ':
-            value = getValue(elmt, 'value', numeric, parDefs)
             (zoN, zoD) = getValues(elmt, 'zo', numeric, parDefs)
             pos1 = varIndex[elmt.nodes[1]]
             pos0 = varIndex[elmt.nodes[0]]
-            Iv[dVarPos] += value * zoD
             M[pos0][dVarPos] += 1
             M[pos1][dVarPos] -= 1
             M[dVarPos][pos0] += zoD
@@ -287,8 +277,6 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     gndPos = varIndex['0']
     M.row_del(gndPos)
     M.col_del(gndPos)
-    Iv = matrix(Iv)
-    Iv.row_del(gndPos)
     Vv = matrix(Vv)
     Vv.row_del(gndPos)
     if gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
@@ -296,9 +284,9 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     elif gainType == 'asymptotic':
         cir.elements[lgRef].model = lgRefModel
         cir.updateMdata()
-    return (Iv, M, Vv)
+    return (M, Vv)
 
-def makeSrcVector(cir, elID, srcID = False):
+def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
     """
     Creates the vector with independent variables with only the
     source with refdes 'elID'. The value will be equal to the
@@ -313,19 +301,29 @@ def makeSrcVector(cir, elID, srcID = False):
     varIndex = cir.varIndex
     dim = len(cir.varIndex.keys())
     Iv = [0 for i in range(dim)]
-    elmt = cir.elements[elID]
-    if srcID == True:
-        value = sp.Symbol(elmt.refDes)
-    else:
-        value = elmt.params['value']
-    if elmt.model == 'I':
-        pos0 = varIndex[elmt.nodes[0]]
-        pos1 = varIndex[elmt.nodes[1]]
-        Iv[pos0] += value
-        Iv[pos1] += -value
-    elif elmt.model == 'V':
-        dVarPos = varIndex['I_' + elmt.refDes]
-        Iv[dVarPos] += value
+    if elid == 'all':
+        elements = [cir.elements[key] for key in cir.elements.keys()]
+    elif elid in cir.elements.keys():
+        elements = [cir.elements[elid]]
+    for elmt in elements:
+        if value == 'id':
+            val = sp.Symbol(elmt.refDes)
+        elif value == 'value':
+            val = getValue(elmt, 'value', numeric, parDefs)
+        elif value == 'noise':
+            val = getValue(elmt, 'noise', numeric, parDefs)
+        elif value == 'dc':
+            val = getValue(elmt, 'dc', numeric, parDefs)
+        elif value == 'dcvar':
+            val = getValue(elmt, 'dcvar', numeric, parDefs)
+        if elmt.model == 'I':
+            pos0 = varIndex[elmt.nodes[0]]
+            pos1 = varIndex[elmt.nodes[1]]
+            Iv[pos0] += val
+            Iv[pos1] += -val
+        elif elmt.model == 'V':
+            dVarPos = varIndex['I_' + elmt.refDes]
+            Iv[dVarPos] += val
     gndPos = varIndex['0']
     Iv = matrix(Iv)
     Iv.row_del(gndPos)

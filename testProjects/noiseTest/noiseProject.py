@@ -48,3 +48,5 @@ text2html('The noise figure $F$ equals:')
 eqn2html('F', 20*np.log10(float(noiseFigure)), units='dB')
 img2html('onoise.svg', 600)
 img2html('inoiseStepped.svg', 600)
+t2 = time()
+print '\n',t2-t1,'s'

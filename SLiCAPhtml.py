@@ -491,10 +491,10 @@ def noise2html(instObj, label = ''):
         html = '<h2>Numeric noise analysis results</h2>\n'
         numeric = True
     html += '<h3>Detector-referred noise spectrum</h3>\n'
-    html += '$$%s\, %s$$\n'%(sp.latex(roundN(instObj.onoise)), detUnits)
+    html += '$$S_{out}=%s\, %s$$\n'%(sp.latex(roundN(instObj.onoise)), detUnits)
     if instObj.source != None:
         html += '<h3>Source-referred noise spectrum</h3>\n'
-        html += '$$%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise)), srcUnits)
+        html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise)), srcUnits)
     html += '<h3>Contributions of individual noise sources</h3><table>\n'    
     keys = instObj.snoiseTerms.keys()
     keys.sort()
@@ -511,6 +511,54 @@ def noise2html(instObj, label = ''):
         html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.onoiseTerms[key])), detUnits)
         if instObj.source != None:
             html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.inoiseTerms[key])), srcUnits)
+    html += '</table>\n'
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    return
+
+def dcVar2html(instObj, label = ''):
+    if instObj.errors != 0:
+        print "Errors found in instruction."
+        return
+    elif instObj.dataType != 'dcvar':
+        print "Error: 'noise2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType)
+        return
+    elif instObj.step == True :
+        print "Error: parameter stepping not yet implemented for 'dcvar2html()'."
+        return  
+    if label != '':
+        ini.htmlLabels[label] = ini.htmlPage
+        label = '<a id="' + label + '"></a>'
+    detUnits = '\mathrm{\left[ %s^2 \\right]}'%(instObj.detUnits)
+    srcUnits = '\mathrm{\left[ %s^2 \\right]}'%(instObj.srcUnits)
+    if instObj.simType == 'symbolic':
+        html = '<h2>Symbolic dcvar analysis results</h2>\n'
+        numeric = False
+    else:
+        html = '<h2>Numeric dcvar analysis results</h2>\n'
+        numeric = True
+    html += '<h3>DC solution of the network</h3>\n'
+    html += '$$%s=%s$$\n'%(sp.latex(roundN(instObj.Dv)), sp.latex(roundN(instObj.dcSolve)))
+    html += '<h3>Detector-referred variance</h3>\n'
+    html += '$$\sigma_{out}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ovar)), detUnits)
+    if instObj.source != None:
+        html += '<h3>Source-referred variance</h3>\n'
+        html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar)), srcUnits)
+    html += '<h3>Contributions of individual component variances</h3><table>\n'    
+    keys = instObj.svarTerms.keys()
+    keys.sort()
+    for key in keys:
+        nUnits = key[0].upper()
+        if nUnits == 'I':
+            nUnits = 'A'
+        nUnits = '\mathrm{\left[ %s^2 \\right]}'%(nUnits)
+        html += '<th colspan = "3" class="center">Variance of source: %s</th>'%(key)
+        srcValue = instObj.svarTerms[key]
+        if numeric:
+            srcValue = fullSubs(srcValue, instObj.parDefs)
+        html += '<tr><td class="title">Source variance:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue)), nUnits)
+        html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ovarTerms[key])), detUnits)
+        if instObj.source != None:
+            html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ivarTerms[key])), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return

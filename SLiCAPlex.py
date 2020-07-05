@@ -214,7 +214,7 @@ lexer = lex.lex()
 lexer.errCount = 0   
    
 if __name__ == '__main__':
-    fi = ini.installPath + 'testProjects/PIVA/cir/PIVA.cir'
+    fi = ini.installPath + 'testProjects/dcVarTest/cir/VampBias.cir'
     print fi
     lexer = tokenize(fi)
     tok = lexer.token()

@@ -86,11 +86,7 @@ V1 1 3 V noise={sv}
 I1 1 2 I noise={si}
 .ends 
 
-.subckt N_dcvar 1 2 4 6 COMMON
-+ sib={sib} 
-+ sio={sio} 
-+ svo={svo} 
-+ iib={iib}
+.subckt N_dcvar 1 2 4 6 COMMON sib={sib} sio={sio} svo={svo} iib={iib}
 Ib 1 5 I dc={iib} dcvar={sib^2}
 F1 2 COMMON 5 COMMON 1
 Io 1 2 I dcvar={sio^2}

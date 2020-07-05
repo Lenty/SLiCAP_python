@@ -631,6 +631,7 @@ class allResults(object):
         self.ivar        = []   # Total source-referred variance
         self.ovar        = []   # Total detector-referred variance
         self.dcSolve     = []   # DC solution of the network
+        self.dc          = []   # DC solution at the detector
         self.snoiseTerms = {}   # Dict with lists with source noise spectra
         self.inoiseTerms = {}   # Dict with lists with contributions
                                 # to source-referred noise

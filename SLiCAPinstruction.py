@@ -8,8 +8,9 @@ Created on Thu May 21 23:14:38 2020
 from SLiCAPexecute import *
 
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
-DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dcvar', 'dcsolve', 'numer',
-             'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 'step']
+DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 
+             'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 
+             'step']
 
 class instruction(object):
     """
@@ -99,16 +100,10 @@ class instruction(object):
                 if self.dataType == 'laplace':
                     # need detector
                     self.checkDetector()
-                elif self.dataType == 'numer':
-                    # need detector
-                    self.checkDetector()
-                elif self.dataType == 'denom':
-                    # need nothing
-                    pass
                 elif self.dataType == 'noise':
                     # need detector
                     self.checkDetector()
-                    # might need a sourrce as well
+                    # only needs a sourrce for input noise analysis
                     self.checkSource(need = False)
                 elif self.dataType == 'matrix':
                     # need nothing
@@ -117,6 +112,9 @@ class instruction(object):
                     # need nothing
                     pass
                 elif self.dataType == 'time':
+                    # need detector
+                    self.checkDetector()
+                elif self.dataType == 'dc':
                     # need detector
                     self.checkDetector()
                 elif self.dataType == 'dcvar':
@@ -179,7 +177,7 @@ class instruction(object):
                 else:
                     pass
         if self.step == True:
-            if self.simType == 'symbolic':
+            if not self.numeric:
                 self.errors += 1
                 print "Error: symbolic stepping has not been implemented, use substitution instead."
             elif self.dataType == 'matrix':
@@ -191,7 +189,7 @@ class instruction(object):
         return
     
     def checkNumeric(self):
-        if self.simType != 'numeric':
+        if not self.numeric:
             self.errors += 1
             print "Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType)
         return
@@ -433,6 +431,36 @@ class instruction(object):
                                 self.stepArray[i][j] = value   
         return
     
+    def stepParams(self, param):
+        """
+        Returns a dictionary with:
+            key:    parameter name
+            value:  list with parameter values after recursive substitution of
+                    all parameters for the stepped values of the step variable.
+        """
+        self.checkStep()
+        if self.errors != 0:
+            print "Errors found 'stepParams()' cannot be executed."
+            return {}
+        substDict = {}
+        if self.stepMethod == 'array':
+            print 'Error: "stepParams" not implemented for stepMethod "array".'
+            return parvalues
+        for key in self.circuit.parDefs.keys():
+            if key != self.stepVar:
+                substDict[key] = self.circuit.parDefs[key]
+        if sp.Symbol(param) not in self.circuit.parDefs.keys():
+            print "Error: unkonwn parameter '%s'."%(param)
+        else:
+            try:
+                func = fullSubs(self.circuit.parDefs[sp.Symbol(param)], substDict)
+                func = sp.lambdify(self.stepVar, func)
+                parValues = [func(self.stepList[i]) for i in range(len(self.stepList))]
+            except:
+                print 'Error: could not create function for "%s(%s)".'%(str(param), str(self.stepVar))
+                parValues = []
+        return parValues
+    
     def execute(self):
         self.check()
         if self.errors != 0:
@@ -463,10 +491,7 @@ class instruction(object):
             r.errors         = self.errors
             r.detUnits       = self.detUnits
             r.srcUnits       = self.srcUnits
-            if r.simType == 'numeric':
-                r.numeric = True
-            else:
-                r.numeric = False
+            r.numeric        = self.numeric
             return doInstruction(r)
     
     def delPar(self, parName):
@@ -504,13 +529,143 @@ class instruction(object):
         print self.circuit.controlled
         return
     
-    def stepParams(self):
-        # Returns the values of all parameters, while one or more are stepped.
-        return
-       
-DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dcvar', 'dcsolve', 'numer',
-             'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 'step']
+    def stepParams(self, paramPlot):
+        parNames = self.circuit.parDefs.keys() + self.circuit.params
+        errors = 0
+        yValues = {}
+        # check the input
+        if paramPlot.xVar == None:
+             print "Error: missing x variable."
+             errors +=1
+        elif sp.Symbol(paramPlot.xVar) not in parNames:
+            print "Error: unknown parameter: '%s'."%(paramPlot.xVar)
+            errors += 1
+        if paramPlot.yVar == None:
+             print "Error: missing y variable."
+             errors +=1
+        elif sp.Symbol(paramPlot.yVar) not in parNames:
+            print "Error: unknown parameter: '%s'."%(paramPlot.yVar)
+            errors += 1
+        elif paramPlot.pVar == None and sp.Symbol(paramPlot.pVar) not in parNames:
+            print "Error: unknown parameter: '%s'."%(paramPlot.pVar)
+            errors += 1
+        scaleFactors = SCALEFACTORS.keys()
+        if paramPlot.xScale != None and paramPlot.xScale not in scaleFactors:
+            print "Error: unknown scale factor '%s'."%(paramPlot.xScale)
+            errors += 1
+        if paramPlot.yScale != None and paramPlot.yScale not in scaleFactors:
+            print "Error: unknown scale factor '%s'."%(paramPlot.yScale)
+            errors += 1
+        if paramPlot.pScale != None and paramPlot.pScale not in scaleFactors:
+            print "Error: unknown scale factor '%s'."%(paramPlot.pScale)
+            errors += 1
+        if paramPlot.xNum == None:
+            print "Error: missing number of points for x variable."
+            errors += 1
+        else:
+            xNum = checkNumber(paramPlot.xNum)
+            if xNum == None:
+                print "Error: '%s' is not a number."%(paramPlot.xNum)
+                errors += 1
+        if paramPlot.xStart == None:
+            print "Error: missing start value for x variable."
+            errors += 1
+        else:
+            xStart = checkNumber(paramPlot.xStart)
+            if xStart == None:
+                print "Error: '%s' is not a number."%(paramPlot.xStart)
+                errors += 1
+        if paramPlot.xStop == None:
+            print "Error: missing stop value for x variable."
+            errors += 1
+        else:
+            xStop = checkNumber(paramPlot.xStop)
+            if paramPlot.xStop == None:
+                print "Error: '%s' is not a number."%(paramPlot.xStop)
+                errors += 1
+        if paramPlot.pVar != None:
+            if paramPlot.pNum == None:
+                print "Error: missing number of points for p variable."
+                errors += 1
+            else:
+                pNum = checkNumber(paramPlot.pNum)
+                if pNum == None:
+                    print "Error: '%s' is not a number."%(paramPlot.pNum)
+                    errors += 1
+            if paramPlot.pStart == None:
+                print "Error: missing start value of p variable."
+                errors += 1
+            else:
+                pStart = checkNumber(paramPlot.pStart)
+                if pStart == None:
+                    print "Error: '%s' is not a number."%(paramPlot.pStart)
+                    errors += 1
+            if paramPlot.pStop == None:
+                print "Error: missing stop value of p variable."
+                errors += 1
+            else:
+                pStop = checkNumber(paramPlot.pStop)
+                if pStop == None:
+                    print "Error: '%s' is not a number."%(paramPlot.pStop)
+                    errors += 1
+        if errors == 0:
+            if paramPlot.xMethod.lower() == 'lin':
+                x = np.linspace(xStart, xStop, num = xNum)
+            elif paramPlot.xMethod.lower() == 'log':
+                x = np.geomspace(xStart, xStop, num = xNum)
+            else:
+                print "Error: unknown method '%s'."%(paramPlot.xMethod)
+                errors +=1
+        if errors == 0 and paramPlot.pVar != None:
+            if paramPlot.pMethod.lower() == 'lin':
+                p = np.linspace(pStart, pStop, num = pNum)
+            elif paramPlot.xMethod.lower() == 'log':
+                p = np.geomspace(pStart, pStop, num = pNum)
+            else:
+                print "Error: unknown method '%s'."%(paramPlot.pMethod)
+                errors +=1
+        if errors == 0:
+            substitutions = {}
+            for parName in self.circuit.parDefs.keys():
+                if parName != sp.Symbol(paramPlot.xVar) and paramPlot.pVar != None and parName != sp.Symbol(paramPlot.pVar):
+                    substitutions[parName] = self.circuit.parDefs[parName]
+            f = fullSubs(self.circuit.parDefs[sp.Symbol(paramPlot.yVar)], substitutions)
+            if paramPlot.pVar != None:
+                for parValue in p:
+                    fu = f.subs(sp.Symbol(paramPlot.pVar), parValue)
+                    func = sp.lambdify(sp.Symbol(paramPlot.xVar), fu)
+                    yValues[parValue] = [func(x[i]) for i in range(len(x))]
+            else:
+                func = sp.lambdify(sp.Symbol(paramPlot.xVar), f)
+                yValues = [func(x[i] for i in range(len(x)))]
+            paramPlot.yValues = yValues
+            paramPlot.xValues = x
+        return paramPlot
 
+class paramPlot(object):
+    """
+    """
+    def __init__(self):
+        xVar    = None
+        yVar    = None
+        pVar    = None
+        xStart  = None
+        xStop   = None
+        xNum    = None
+        xMethod = 'lin'
+        pStart  = None
+        pStop   = None
+        pNum    = None
+        pMethod = 'lin'
+        xScale  = None
+        yScale  = None
+        pScale  = None
+        xUnits  = ''
+        yUnits  = ''
+        pUnits  = ''
+        xValues = None
+        yValues = None
+        
 if __name__ == '__main__':
     i = instruction()
     i.circuit = circuit()

@@ -197,13 +197,12 @@ def maxCramerNumer(M, Iv, detP, detN, numeric = True):
         numeric = 'bfloat'
     else:
         numeric = ''
-    Iv = makeSrcVector(cir, elID, srcID=False)
-    maxExpr = 'result:%s(expand('
+    maxExpr = 'result:%s(expand('%(numeric)
     if detP != None:
         maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
     if detN != None:
         maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
-    maxExpr += '));'%(numeric)
+    maxExpr += '));'
     return sp.sympify(maxEval(maxExpr))
 
 def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
@@ -215,8 +214,10 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     """
     if numeric:
         numeric = 'bfloat'
+        num = True
     else:
         numeric = ''
+        num = False
     subst = False
     if ini.Laplace in M.atoms(sp.Symbol):
         if dc:
@@ -224,7 +225,7 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
         else:
             M = M.subs(ini.Laplace, sp.Symbol('__freq__'))
             subst = True
-    Iv = makeSrcVector(cir, elID, srcID=True)
+    Iv = makeSrcVector(cir, cir.parDefs, elID, value = 'id', numeric = num)
     maxExpr = 'result:%s(cabs(expand('%(numeric)
     if detP != None:
         maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')/' + elID
@@ -261,7 +262,7 @@ def maxDet2(M, dc = False, numeric = True):
 
 def maxSolve(M, Iv, numeric = True):
     """
-    Calculates M^(-1).Dv
+    Calculates M^(-1).Iv
     
     M:  Matrix
     Iv: Vector with independent variables
@@ -273,7 +274,7 @@ def maxSolve(M, Iv, numeric = True):
     maxExpr = 'M:' + sympy2maximaMatrix(M) + ';'
     maxExpr += 'Iv:' + sympy2maximaMatrix(Iv) + ';'
     maxExpr += 'result:%s(invert(M).Iv);'%(numeric)
-    return  maxEval(maxExpr)
+    return sp.sympify(maxEval(maxExpr))
 
 def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     if numeric:

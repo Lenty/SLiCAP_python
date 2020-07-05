@@ -164,7 +164,7 @@ class figure(object):
             plt.show()
         plt.close(fig)
         return True
-
+        
 def defaultsPlot():
     """
     Applies default setting for all plots.
@@ -900,6 +900,12 @@ def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', s
     fig.axes = [[ax]]
     fig.plot()
     return fig
+
+def plotParams(paramsPlot):
+    return
+
+def plotCSV(fileName):
+    return
 
 if __name__=='__main__':
     x = np.linspace(0, 2*np.pi, endpoint = True)

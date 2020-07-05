@@ -200,7 +200,7 @@ def makeCircuit(cir):
                                 pass
                         newLineNo = lineNo
                     newElement.nodes = nodesModel[0:-1]
-                    newElement.model = nodesModel[-1]
+                    newElement.model = nodesModel[-1]                    
                     if nNodes < 2:
                         # We need at least two nodes per device!"
                         printError("Error: expected at least two nodes.", 
@@ -238,12 +238,23 @@ def makeCircuit(cir):
                         elif tok.type == 'ID':  
                             # If this token is 'ID' we have a model name 
                             newElement.model = tok.value 
+                            if newElement.model in MODELS.keys():
+                                validParams = MODELS[newElement.model].params.keys()                            
                             tok = cir.lexer.token()
                             while tok.type == 'PARDEF' or tok.type == 'PLUS':
                                 if tok.type == 'PLUS':
                                     pass
                                 elif tok.value[0] not in newElement.params.keys():
-                                    newElement.params[tok.value[0]]=tok.value[1]
+                                    if newElement.model not in MODELS.keys():
+                                        newElement.params[tok.value[0]]=tok.value[1]
+                                    else:
+                                        newParam = tok.value[0]
+                                        if newParam not in validParams:
+                                            printError("Error: unknown parameter.", 
+                                                       lines[cir.lexer.lineno], find_column(tok))
+                                            cir.errors += 1
+                                        else:
+                                            newElement.params[tok.value[0]]=tok.value[1]
                                 else:   
                                     # Parameter that must be passed to the 
                                     # element has already been pased to it!
@@ -266,7 +277,7 @@ def makeCircuit(cir):
                     # Here we will process the parameters of the sub circuit
                     while (tok.type == 'PARDEF' or tok.type == 'PLUS'):
                         if tok.type == 'PLUS':
-                            tok = cir.lexer.token()
+                            pass
                         elif tok.value[0] not in newElement.params.keys():
                             newElement.params[tok.value[0]]=tok.value[1]
                         else:
@@ -488,7 +499,6 @@ def expandModelsCircuits(circuitObject):
                 # Change the model name to the basic model name
                 circuitObject.elements[refDes].model = basicModel
                 # Parse parameter values
-                # ToDo: user library before SLiCAP library
                 for parName in modelParams:
                     if parName in circuitObject.elements[refDes].params.keys():
                         # These parameters were already defined
@@ -608,10 +618,11 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
         for key in childElement.params.keys():
             newElement.params[key] = childElement.params[key]
             # Add local parameters from expressions to the substitution dictionary
-            newParams = newElement.params[key].free_symbols
-            for newParam in newParams:
-                if str(newParam) not in LIB.parDefs.keys() and newParam not in substDict.keys():
-                    substDict[newParam] = sp.Symbol(str(newParam) + suffix)
+            if isinstance(newElement.params[key], tuple(sp.core.all_classes)):
+                newParams = list(newElement.params[key].atoms(sp.Symbol))
+                for newParam in newParams:
+                    if str(newParam) not in LIB.parDefs.keys() and newParam not in substDict.keys():
+                        substDict[newParam] = sp.Symbol(str(newParam) + suffix)
         # Store the element, we still need to update its parameters and values
         newElements[newElement.refDes] = newElement
     # Update parameters and values of new elements
@@ -653,9 +664,10 @@ def updateCirData(mainCircuit):
         mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
         del(mainCircuit.parDefs[key])
     for key in LIB.parDefs.keys():
-        newKey = sp.Symbol(key)
-        LIB.parDefs[newKey] = LIB.parDefs[key]
-        del(LIB.parDefs[key])
+        if type(key) == str:
+            newKey = sp.Symbol(key)
+            LIB.parDefs[newKey] = LIB.parDefs[key]
+            del(LIB.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
