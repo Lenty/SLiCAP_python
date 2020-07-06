@@ -671,3 +671,25 @@ class allResults(object):
         self.errors      = 0
         self.detUnits    = None
         self.srcUnits    = None
+
+class paramPlot(object):
+    """
+    """
+    def __init__(self):
+        xVar        = None  # variable to be plotted along the x-axis
+        yVar        = None  # variable to be plotted along the y-axis
+        pVar        = None  # variable to be plotted as step parameter
+        sVar        = None  # sweep variable to calculate xVar and yVar
+        sStart      = None  # sweep start value
+        sStop       = None  # sweep stop value
+        sNum        = None  # sweep number of steps
+        sMethod     = 'lin' # sweep method
+        pStart      = None  # start value step parameter
+        pStop       = None  # stop value step parameter
+        pNum        = None  # step parameter number of points
+        pMethod     = 'lin' # step method
+        xUnits      = ''    # units of x variable
+        yUnits      = ''    # units of y variable
+        pUnits      = ''    # units of step variable
+        xValues     = None  # x-axis plot data
+        yValues     = None  # y-axis plot data

@@ -1,0 +1,11 @@
+VampBiasNullor
+* file: VampBiasNullor.cir
+* SLiCAP netlist file
+V1 1 0 V dc={V_P}
+V2 0 3 V dc={V_N}
+R3 1 2 {R_a}
+R4 2 3 {R_b}
+R6 2 4 {R_c}
+R2 5 6 {19*R}
+N1 6 0 4 5
+.end

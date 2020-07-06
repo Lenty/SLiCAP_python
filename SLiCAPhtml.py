@@ -205,7 +205,8 @@ def elementData2html(circuitObject, label = '', caption = ''):
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
     elementNames = circuitObject.elements.keys()
-    for el in sorted(elementNames):
+    elementNames.sort()
+    for el in elementNames:
         elmt = circuitObject.elements[el]
         html += '<tr><td class="left">' + elmt.refDes + '</td><td class = "left">'
         for node in elmt.nodes:
@@ -241,7 +242,13 @@ def params2html(circuitObject, label = '', caption = ''):
     caption = "<caption>Table: Parameter definitions in '%s'.<br>%s</caption>\n"%(circuitObject.title, caption)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
-    for par in circuitObject.parDefs.keys():
+    parNames = circuitObject.parDefs.keys()
+    # Sort the list with symbolic keys such that elements are grouped and 
+    # sorted per sub circuit
+    parNames = [str(parNames[i]) for i in range(len(parNames))]
+    parNames = sorted(parNames, key = lambda x: x.split('_')[-1].upper() + x.split('_')[0].upper())
+    parNames = [sp.Symbol(parNames[i]) for i in range(len(parNames))]
+    for par in parNames:
         parName = '$' + sp.latex(par) + '$'
         symValue = '$' + sp.latex(roundN(circuitObject.parDefs[par])) + '$'
         numValue = '$' + sp.latex(roundN(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs), numeric=True)) + '$'

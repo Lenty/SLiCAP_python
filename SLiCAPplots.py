@@ -901,7 +901,62 @@ def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', s
     fig.plot()
     return fig
 
-def plotParams(paramsPlot):
+def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits = '', yunits= '', punits = '', xscale = '', yscale = '', pscale = '', show = False, save = True):
+    if type(plotData) != type(paramPlot()):
+        print "Error: unexpected input data."
+        return
+    if type(plotData) == bool or type(plotData.yValues) == bool:
+        print "Error: incomplete plot data."
+        return
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    try:
+        yScaleFactor = 10**int(SCALEFACTORS[yscale])
+    except:
+        yScaleFactor = 1.
+    try:
+        pScaleFactor = 10**int(SCALEFACTORS[pscale])
+    except:
+        pScaleFactor = 1.
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    pVar = '$' + sp.latex(sp.sympify(plotData.pVar)) +'$'
+    xVar = '$' + sp.latex(sp.sympify(plotData.xVar)) +'$'
+    yVar = '$' + sp.latex(sp.sympify(plotData.yVar)) +'$'
+    fig = figure(title)
+    fig.fileName = fileName
+    fig.show = show
+    fig.save = save
+    ax = axis(title)
+    ax.xScale = xaxis
+    ax.yScale = yaxis
+    ax.xLabel = xVar + '[' + xscale + xunits +']'
+    ax.yLabel = yVar + '[' + yscale + yunits +']'
+    if type(plotData.xValues) == dict:
+        xDict = True
+    else:
+        xDict = False
+    if type(plotData.yValues) == list:
+        xyTrace = trace(plotData.xValues/xScaleFactor, plotData.yValues/yScaleFactor)
+        xyTrace.label = yVar + '(' + plotData.xVar + ')'
+        xyTrace.color = ini.defaultColors[colNum]
+        ax.traces.append(xyTrace)
+    else:
+        stepVals = plotData.yValues.keys()
+        stepVals.sort()
+        for stepVal in stepVals:
+            if xDict:
+                xyTrace = trace([plotData.xValues[stepVal]/xScaleFactor, plotData.yValues[stepVal]/yScaleFactor])
+            else:
+                xyTrace = trace([plotData.xValues/xScaleFactor, plotData.yValues[stepVal]/yScaleFactor])
+            xyTrace.color = ini.defaultColors[colNum % numColors]   
+            xyTrace.label = pVar + '=%s [%s%s]'%(stepVal/pScaleFactor, pscale, punits)
+            ax.traces.append(xyTrace)
+            colNum += 1
+    fig.axes = [[ax]]
+    fig.plot()
     return
 
 def plotCSV(fileName):

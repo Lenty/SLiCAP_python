@@ -1,0 +1,9 @@
+VampBias
+* file: VampBias.cir
+* SLiCAP netlist file
+.include SLiCAP.lib
+R1 0 3 r value={R_B1} dcvar={(R_B1*sigma_r)^2}
+R2 out 4 r value={R_B2} dcvar={(R_B2*sigma_r)^2}
+X1 3 4 out 0 0 N_dcvar sib={I_b*sigma_Ib} sio={i_off} svo={v_off} 
++ iib={I_b}
+.end

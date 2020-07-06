@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="Language" content="English"/>
+<title>"Netlist and circuit data"</title><link rel="stylesheet" href="css/slicap.css">
+<script>MathJax = {tex:{tags: 'ams', inlineMath:[['$','$'],]}, svg:{fontCache:'global'}};</script>
+<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head><body><div id="top"><h1>Netlist and circuit data</h1></div>
+<h2>Netlist: VampBiasNullor.cir</h2>
+<pre>VampBiasNullor
+* file: VampBiasNullor.cir
+* SLiCAP netlist file
+V1 1 0 V dc={V_P}
+V2 0 3 V dc={V_N}
+R3 1 2 {R_a}
+R4 2 3 {R_b}
+R6 2 4 {R_c}
+R2 5 6 {19*R}
+N1 6 0 4 5
+.end
+</pre>
+<table><caption>Table: Element data of expanded netlist 'VampBiasNullor'<br></caption>
+
+<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>
+<tr><td class="left">N1</td><td class = "left">6 0 4 5 </td><td class = "left"></td><td class = "left">N</td>
+<td></td><td></td><td></td><tr><tr><td class="left">R2</td><td class = "left">5 6 </td><td class = "left"></td><td class = "left">R</td>
+<td class="left">value</td><td class="left">$19 R$</td><td class="left">$19.0 R$</td></tr>
+<tr><td class="left">R3</td><td class = "left">1 2 </td><td class = "left"></td><td class = "left">R</td>
+<td class="left">value</td><td class="left">$R_{a}$</td><td class="left">$R_{a}$</td></tr>
+<tr><td class="left">R4</td><td class = "left">2 3 </td><td class = "left"></td><td class = "left">R</td>
+<td class="left">value</td><td class="left">$R_{b}$</td><td class="left">$R_{b}$</td></tr>
+<tr><td class="left">R6</td><td class = "left">2 4 </td><td class = "left"></td><td class = "left">R</td>
+<td class="left">value</td><td class="left">$R_{c}$</td><td class="left">$R_{c}$</td></tr>
+<tr><td class="left">V1</td><td class = "left">1 0 </td><td class = "left"></td><td class = "left">V</td>
+<td class="left">dc</td><td class="left">$V_{P}$</td><td class="left">$V_{P}$</td></tr>
+<tr><td class="left">V2</td><td class = "left">0 3 </td><td class = "left"></td><td class = "left">V</td>
+<td class="left">dc</td><td class="left">$V_{N}$</td><td class="left">$V_{N}$</td></tr>
+</table>
+<!-- INSERT -->
+<div id="footnote">
+<p>Go to <a href="VampBiasNullor_index.html">VampBiasNullor_index</a></p>
+<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>
+<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>
+<p>Last project update: 2020-07-05 15:34:22</p>
+</div></body></html>
