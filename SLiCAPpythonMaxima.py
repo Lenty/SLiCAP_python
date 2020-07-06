@@ -51,7 +51,7 @@ def maxILT(numer, denom):
     """
     Fs = numer/denom
     if isinstance(Fs, tuple(sp.core.all_classes)):
-        params = list(numer.atoms(sp.Symbol))
+        params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
         try:
             params.remove(ini.Laplace)
             if len(params) != 0:

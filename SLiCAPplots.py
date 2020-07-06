@@ -232,10 +232,13 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     for result in results:
         if result.dataType == 'numer':
             yData = result.numer
+            yLabel = 'numer: '
         if result.dataType == 'denom':
             yData = result.denom
+            yLabel = 'denom: '
         if result.dataType == 'laplace':
             yData = result.laplace
+            yLabel = ''
         else:
             print "Error: wrong data type '%s' for 'plotdBmag()'."%(result.dataType)
             return fig
@@ -252,9 +255,18 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 dBmagTrace.color = ini.gainColors[result.gainType]
             except:
                 dBmagTrace.color = ini.defaultColors[colNum % numColors]
-            dBmagTrace.label = result.gainType
+                magTrace.color = ini.defaultColors[colNum % numColors]
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
+            dBmagTrace.label = yLabel
             dBmag.traces.append(dBmagTrace)
         elif type(yData) == list:
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
             for i in range(len(yData)):
                 if ini.Hz == True:
                     y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
@@ -266,6 +278,7 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 dBmagTrace = trace([x, y])
                 dBmagTrace.color = ini.defaultColors[i % numColors]
                 dBmagTrace.label = result.gainType
+                dBmagTrace.label = yLabel
                 if result.stepMethod == 'array':
                     dBmagTrace.label += ', run: %s'%(i+1)
                 else:
@@ -306,10 +319,13 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
     for result in results:
         if result.dataType == 'numer':
             yData = result.numer
+            yLabel = 'numer: '
         if result.dataType == 'denom':
             yData = result.denom
+            yLabel = 'denom: '
         if result.dataType == 'laplace':
             yData = result.laplace
+            yLabel = ''
         else:
             print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
             return fig
@@ -326,9 +342,17 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
                 magTrace.color = ini.gainColors[result.gainType]
             except:
                 magTrace.color = ini.defaultColors[colNum % numColors]
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
             magTrace.label = result.gainType
             mag.traces.append(magTrace)
         elif type(yData) == list:
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
             for i in range(len(yData)):
                 if ini.Hz == True:
                     y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
@@ -339,7 +363,7 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
                 y = [func(x[j]) for j in range(len(x))]
                 magTrace = trace([x, y])
                 magTrace.color = ini.defaultColors[i % numColors]
-                magTrace.label = result.gainType
+                magTrace.label = yLabel
                 if result.stepMethod == 'array':
                     magTrace.label += ', run: %s'%(i+1)
                 else:
@@ -381,10 +405,13 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     for result in results:
         if result.dataType == 'numer':
             yData = result.numer
+            yLabel = 'numer: '
         if result.dataType == 'denom':
             yData = result.denom
+            yLabel = 'denom: '
         if result.dataType == 'laplace':
             yData = result.laplace
+            yLabel = ''
         else:
             print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
             return fig
@@ -402,9 +429,17 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 phaseTrace.color = ini.gainColors[result.gainType]
             except:
                 phaseTrace.color = ini.defaultColors[colNum % numColors]
-            phaseTrace.label = result.gainType
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
+            phaseTrace.label = yLabel
             phase.traces.append(phaseTrace)
         elif type(yData) == list:
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
             for i in range(len(yData)):
                 if ini.Hz == True:
                     y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
@@ -416,7 +451,7 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                     y = np.unwrap(np.angle(func(x)))
                 phaseTrace = trace([x, y])
                 phaseTrace.color = ini.defaultColors[i % numColors]
-                phaseTrace.label = result.gainType
+                phaseTrace.label = yLabel
                 if result.stepMethod == 'array':
                     phaseTrace.label += ', run: %s'%(i+1)
                 else:
@@ -457,10 +492,13 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     for result in results:
         if result.dataType == 'numer':
             yData = result.numer
+            yLabel = 'numer: '
         if result.dataType == 'denom':
             yData = result.denom
+            yLabel = 'denom: '
         if result.dataType == 'laplace':
             yData = result.laplace
+            yLabel = ''
         else:
             print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
             return fig
@@ -475,9 +513,17 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 delayTrace.color = ini.gainColors[result.gainType]
             except:
                 delayTrace.color = ini.defaultColors[colNum % numColors]
-            delayTrace.label = result.gainType
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
+            delayTrace.label = yLabel
             delay.traces.append(delayTrace)
         elif type(yData) == list:
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
             for i in range(len(yData)):
                 y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
                 func = sp.lambdify(ini.frequency, y)
@@ -486,7 +532,6 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
                 x = x[0:-1] 
                 delayTrace = trace([x, y])
                 delayTrace.color = ini.defaultColors[i % numColors]
-                delayTrace.label = result.gainType
                 if result.stepMethod == 'array':
                     delayTrace.label += ', run: %s'%(i+1)
                 else:
@@ -524,10 +569,13 @@ def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale 
     for result in results:
         if result.dataType == 'time':
             yData = result.time
-        if result.dataType == 'impulse':
+            label = '$%s$'%(sp.latex(sp.Symbol(result.detLabel)))
+        elif result.dataType == 'impulse':
             yData = result.impulse
-        if result.dataType == 'step':
+            label = result.gainType
+        elif result.dataType == 'step':
             yData = result.stepResp
+            label = result.gainType
         else:
             print "Error: wrong data type '%s' for 'plotTime()'."%(result.dataType)
             return fig
@@ -539,9 +587,13 @@ def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale 
                 timeTrace.color = ini.gainColors[result.gainType]
             except:
                 timeTrace.color = ini.defaultColors[colNum % numColors]
-            timeTrace.label = result.gainType
+            timeTrace.label = label
             time.traces.append(timeTrace)
         elif type(yData) == list:
+            if result.gainType == 'vi':
+                yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                yLabel += result.gainType
             for i in range(len(yData)):
                 func = sp.lambdify(sp.Symbol('t',), yData[i])
                 y = np.real(func(x))

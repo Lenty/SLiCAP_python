@@ -16,7 +16,7 @@ fileName = 'PIVA.cir'
 i1 = instruction()           # Creates an instance of an instruction object
 i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
                              # resets the index page to the project index page
-                             
+
 i1.defPar('C_ph', '2.95p')
 
 i1.gainType         = 'vi'

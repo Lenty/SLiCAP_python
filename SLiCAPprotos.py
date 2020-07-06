@@ -671,6 +671,7 @@ class allResults(object):
         self.errors      = 0
         self.detUnits    = None
         self.srcUnits    = None
+        self.detLabel    = None # Name to be used in expressions or plots
 
 class paramPlot(object):
     """

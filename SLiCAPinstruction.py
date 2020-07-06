@@ -47,6 +47,7 @@ class instruction(object):
         self.results    = allResults()
         self.detUnits   = None
         self.srcUnits   = None
+        self.detLabel   = None # Name to be used in expressions or plots
         
     def checkCircuit(self, fileName):
         """
@@ -225,6 +226,7 @@ class instruction(object):
             list: either two nodat voltages or two branch currents
         """
         if self.detector != None:
+            self.detLabel = ''
             # detector has two nodes or two voltage sources
             if type(self.detector) == str:
                 # Change the detector definition
@@ -256,8 +258,10 @@ class instruction(object):
                 self.detector[1] = None   
             if self.detector[0] != None:
                 self.detUnits = detP[0].upper()
+                self.detLabel += detP
             elif self.detector[1] != None:
                 self.detUnits = detN[0].upper()
+                self.detLabel += '-' + detN
             if self.detUnits == 'I':
                 self.detUnits = 'A'
         else:
@@ -492,6 +496,7 @@ class instruction(object):
             r.detUnits       = self.detUnits
             r.srcUnits       = self.srcUnits
             r.numeric        = self.numeric
+            r.detLabel       = self.detLabel
             return doInstruction(r)
     
     def delPar(self, parName):

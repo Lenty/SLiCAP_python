@@ -285,11 +285,17 @@ def doDataType(instObj):
         if instObj.gainType == 'vi':
             nNum, nDen = sp.fraction(numer)
             numer = nNum
-            denom = denom*nDen
-        try:
-            instObj.stepResp = maxILT(numer, denom)
-        except:
-            print "Warning: could not calculate the unit impulse response."
+            denom = sp.expand(denom*nDen)
+        if instObj.dataType == 'impulse':
+            try:
+                instObj.impulse = maxILT(numer, denom)
+            except:
+                print "Warning: could not calculate the unit impulse response."
+        elif instObj.dataType == 'time':
+            try:
+                instObj.time = maxILT(numer, denom)
+            except:
+                print "Warning: could not calculate the time response."
     elif instObj.dataType == 'solve':
         if instObj.step:
             instObj.solve.append(doSolve(instObj))
