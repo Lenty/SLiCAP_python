@@ -115,7 +115,7 @@ def polyCoeffs(expr, var):
     Returns a list with coefficients of 'var' in descending order.
     """
     if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
-        return sp.poly(expr, var).all_coeffs()
+        return sp.Poly(expr, var).all_coeffs()
     return []
 
 def numRoots(expr, var):
@@ -182,7 +182,7 @@ def coeffsTransfer(LaplaceRational):
         
         Factorization and simplification according to ini settings
     """
-    (numer, denom) = sp.fraction(sp.simplify(LaplaceRational))
+    (numer, denom) = sp.fraction(LaplaceRational)
     coeffsNumer = polyCoeffs(numer, ini.Laplace)
     coeffsDenom = polyCoeffs(denom, ini.Laplace)
     coeffsNumer.reverse()
@@ -196,14 +196,14 @@ def coeffsTransfer(LaplaceRational):
     gain   = 1
     found = False
     i = 0
-    while not found and i <= len(coeffsNumer):
+    while not found and i < len(coeffsNumer):
         if coeffsNumer[i] != 0:
             found = True
             coeffN = coeffsNumer[i]
         i += 1
     found = False
     i = 0
-    while not found and i <= len(coeffsDenom):
+    while not found and i < len(coeffsDenom):
         if coeffsDenom[i] != 0.:
             found = True
             coeffD = coeffsDenom[i]
@@ -225,6 +225,8 @@ def normalizeLaplaceRational(LaplaceRational):
         positive or negative
                
     """
+    if ini.Sage:
+        return(LaplaceRational)
     gain, coeffsNumer, coeffsDenom = coeffsTransfer(LaplaceRational)
     # find coefficient of ini.Laplace of the lowest order of the denominator:
     numer = 0
@@ -234,7 +236,6 @@ def normalizeLaplaceRational(LaplaceRational):
     for j in range(len(coeffsDenom)):
         denom += coeffsDenom[j]*ini.Laplace**j
     return gain*numer/denom
-    
 
 def cancelPZ(poles,zeros):
     """

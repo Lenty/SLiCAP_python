@@ -77,6 +77,7 @@ def initProject(name):
     """
     Initializes a SLiCAP project.
     """
+    ini.updatePaths(os.path.abspath('.') + '/')
     prj = SLiCAPproject(name)
     return prj
 

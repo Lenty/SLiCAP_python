@@ -33,7 +33,7 @@ def checkCircuit(fileName):
     # fileName relative to ini.projectPath + CIRCUITPATH
     cir = circuit()
     cir.file = fileName
-    if LIB.errors == 0:
+    if LIB.errors == 0:        
         cir.lexer = tokenize(ini.circuitPath + fileName)
         cir = makeCircuit(cir)
         if cir.errors == 0:

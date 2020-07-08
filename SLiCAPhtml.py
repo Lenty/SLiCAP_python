@@ -35,9 +35,9 @@ def startHTML(projectName):
     global HTMLINDEX, HTMLPAGES
     ini.htmlIndex = 'index.html'
     toc = '<h2>Table of contents</h2>'
-    HTML = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)
+    html = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)
     f = open(ini.htmlPath + ini.htmlIndex, 'w')
-    f.write(HTML)
+    f.write(html)
     f.close()
     ini.htmlPages.append(ini.htmlIndex)
     return
@@ -46,43 +46,43 @@ def HTMLhead(pageTitle):
     """
     Returns the html page head, ignores MathJax settings in SLiCAPini.py
     """
-    HTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n'
-    HTML += '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n'
-    HTML += '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n'
-    HTML += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
-    HTML += '<meta name="Language" content="English"/>\n'
-    HTML += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
+    html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n'
+    html += '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n'
+    html += '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n'
+    html += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
+    html += '<meta name="Language" content="English"/>\n'
+    html += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
     if ini.mathml == True:
         print 'MathML is not (yet) supported. Only MathJaX cloud is supported!'
     else:
-        HTML += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
-        HTML += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
-    HTML += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'  
-    return(HTML)
+        html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
+        html += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
+    html += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'  
+    return
     
 def HTMLfoot(indexFile):
     """
     Returns html page footer with link to 'indexFile'.
     """
     idx = ini.htmlIndex.split('.')[0]
-    HTML = '\n<div id="footnote">\n'
-    HTML += '<p>Go to <a href="' + ini.htmlIndex + '">' + idx + '</a></p>\n'
-    HTML += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>\n'
-    HTML += '<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>\n'
-    HTML += '<p>Last project update: %s</p>\n'%(ini.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"))
-    HTML += '</div></body></html>'
-    return(HTML)
+    html = '\n<div id="footnote">\n'
+    html += '<p>Go to <a href="' + ini.htmlIndex + '">' + idx + '</a></p>\n'
+    html += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>\n'
+    html += '<p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>\n'
+    html += '<p>Last project update: %s</p>\n'%(ini.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"))
+    html += '</div></body></html>'
+    return(html)
 
-def insertHTML(fileName, html):
+def insertHTML(fileName, htmlInsert):
     """
     Inserts html in the file specified by 'fileName' at the location of
     HTMLINSERT.
     
     ToDo: check if this file exists.
     """
-    HTML = readFile(fileName)
-    HTML = HTML.replace(HTMLINSERT, html + HTMLINSERT)
-    writeFile(fileName, HTML)
+    html = readFile(fileName)
+    html = html.replace(HTMLINSERT, htmlInsert + HTMLINSERT)
+    writeFile(fileName, html)
     return
 
 def readFile(fileName):
@@ -124,8 +124,8 @@ def htmlPage(pageTitle, index = False):
         insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML file
         toc = '<h2>Table of contents</h2>'
-        HTML = HTMLhead(pageTitle) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)
-        writeFile(ini.htmlPath + fileName, HTML)
+        html = HTMLhead(pageTitle) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)
+        writeFile(ini.htmlPath + fileName, html)
         # Make this page the new index page
         ini.htmlIndex = fileName
     else:
@@ -134,14 +134,14 @@ def htmlPage(pageTitle, index = False):
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
         insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML page
-        HTML = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(ini.htmlIndex)
-        writeFile(ini.htmlPath + fileName, HTML)
+        html = HTMLhead(pageTitle) + HTMLINSERT + HTMLfoot(ini.htmlIndex)
+        writeFile(ini.htmlPath + fileName, html)
     # Make this page the active HTML page
     ini.htmlPage = fileName
     ini.htmlPages.append(fileName)
     # Remove double entries in ini.htmlPages
     ini.htmlPages = list(set(ini.htmlPages))
-    return(HTML)
+    return
     
 def head2html(headText, label=''):
     """
@@ -152,7 +152,7 @@ def head2html(headText, label=''):
         label = '<a id="' + label + '"></a>'
     html = '<h2>' + label + headText + '</h2>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def head3html(headText, label=''):
     """
@@ -163,7 +163,7 @@ def head3html(headText, label=''):
         label = '<a id="' + label + '"></a>'
     html = '<h3>' + label + headText + '</h3>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def text2html(txt):
     """
@@ -171,7 +171,7 @@ def text2html(txt):
     """
     html = '<p>' + txt + '</p>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def netlist2html(fileName, label=''):
     """
@@ -186,7 +186,7 @@ def netlist2html(fileName, label=''):
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print "Error: could not open netlist file: '%s'."%(fileName)
-    return
+    return html
 
 def elementData2html(circuitObject, label = '', caption = ''):
     """
@@ -230,7 +230,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
                 i += 1
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def params2html(circuitObject, label = '', caption = ''):
     """
@@ -246,8 +246,20 @@ def params2html(circuitObject, label = '', caption = ''):
     # Sort the list with symbolic keys such that elements are grouped and 
     # sorted per sub circuit
     parNames = [str(parNames[i]) for i in range(len(parNames))]
-    parNames = sorted(parNames, key = lambda x: x.split('_')[-1].upper() + x.split('_')[0].upper())
-    parNames = [sp.Symbol(parNames[i]) for i in range(len(parNames))]
+    localPars = []  # list for sub circuit parameters
+    globalPars = [] # list for main circuit parameters
+    for i in range(len(parNames)):
+        par = str(parNames[i]).split('_')
+        if par[-1][0].upper() == 'X':
+            localPars.append(str(parNames[i]))
+        else:
+            globalPars.append(str(parNames[i]))
+    # Group per sub circuit ignore case
+    #localParams = sorted(localParams, key = lambda x: x.split('_')[-1].upper() + x.split('_')[0].upper())
+    # Group per parname respect case
+    localPars = sorted(localPars)
+    names = sorted(globalPars) + localPars
+    parNames = [sp.Symbol(names[i]) for i in range(len(names))]
     for par in parNames:
         parName = '$' + sp.latex(par) + '$'
         symValue = '$' + sp.latex(roundN(circuitObject.parDefs[par])) + '$'
@@ -263,7 +275,7 @@ def params2html(circuitObject, label = '', caption = ''):
             html += '<tr><td class="left">' + parName +'</td></tr>\n'
         html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def img2html(fileName, width, label = '', caption = ''):
     """
@@ -283,7 +295,7 @@ def img2html(fileName, width, label = '', caption = ''):
         html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(fileName, caption)
     html += '</figure>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return '%s'%(ini.htmlPath + 'img/' + fileName)
 
 def csv2html(fileName, label = '', separator = ',', caption = ''):
     """
@@ -307,7 +319,7 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
         html += '</tr>\n'
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def expr2html(expr, units = ''):
     """
@@ -318,9 +330,10 @@ def expr2html(expr, units = ''):
             units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
         html = '$' + sp.latex(roundN(expr)) + units + '$'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
-        return
+        return html
     else:
         print "Error: expr2html, expected a Sympy expression."
+        return '$' + html + '$'
 
 def eqn2html(arg1, arg2, units = '', label = ''):
     """
@@ -347,7 +360,7 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     html += eqlabel
     html += '\\end{equation}\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def matrices2html(instrObj, label = ''):
     """
@@ -359,10 +372,10 @@ def matrices2html(instrObj, label = ''):
     eqlabel = ''
     if instrObj.errors != 0:
         print "Errors found during executeion."
-        return
+        return ''
     elif instrObj.dataType != 'matrix':
         print "Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType)
-        return
+        return ''
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
         Iv = sp.latex(roundN(Iv))
@@ -375,12 +388,13 @@ def matrices2html(instrObj, label = ''):
             label = '<a id="' + label + '"></a>'
         html = '<h3>' + label + 'Matrix equation:</h3>\n'
         html += '\\begin{equation}\n' + Iv + '=' + M + '\\cdot' + Dv + '\n'
+        htmlOut = Iv + '=' + M + '\\cdot' + Dv
         html += eqlabel
         html += '\\end{equation}\n'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print "Error: unexpected input for 'matrices2html()'."
-    return
+    return '$$' + htmlOut + '$$'
 
 def pz2html(instObj, label = ''):
     """
@@ -474,7 +488,7 @@ def pz2html(instObj, label = ''):
     elif instObj.dataType == 'zeros' or instObj.dataType == 'pz':
         html += '<p>No zeros found.</p>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def noise2html(instObj, label = ''):
     if instObj.errors != 0:
@@ -520,7 +534,7 @@ def noise2html(instObj, label = ''):
             html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.inoiseTerms[key])), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def dcVar2html(instObj, label = ''):
     if instObj.errors != 0:
@@ -568,7 +582,7 @@ def dcVar2html(instObj, label = ''):
             html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ivarTerms[key])), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def coeffsTransfer2html(transferCoeffs):
     """
@@ -587,7 +601,7 @@ def coeffsTransfer2html(transferCoeffs):
         html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def stepArray2html(stepVars, stepArray):
     """
@@ -605,7 +619,7 @@ def stepArray2html(stepVars, stepArray):
         html += '</tr>\n'
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
-    return
+    return html
 
 def roundN(expr, numeric=False):
     """
@@ -625,11 +639,6 @@ def roundN(expr, numeric=False):
         except:
             pass
     return expr
-
-if __name__ == '__main__':
-    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
-    ini.htmlPath    = ini.projectPath + 'html/'
-    startHTML('Test project') 
 
 ### HTML links and labels
 
@@ -655,3 +664,8 @@ def href(label, linkText, fileName = ''):
     else:
         html = '<a href="' + fileName + '#' +label+'">'+linkText+'</a>'
     return html
+
+if __name__ == '__main__':
+    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.htmlPath    = ini.projectPath + 'html/'
+    startHTML('Test project') 

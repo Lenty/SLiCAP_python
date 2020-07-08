@@ -5,7 +5,6 @@ Created on Sat May 23 10:47:15 2020
 
 @author: anton
 """
-
 from SLiCAP import *
 t1 = time()
 
@@ -18,6 +17,13 @@ i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
                              # resets the index page to the project index page
 
 i1.defPar('C_ph', '2.95p')
+
+htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
+                             # of this circuit
+img2html('PIVA.svg', 800, label = 'figPIVA', caption = 'Schematic diagram of the PIVA')
+netlist2html(fileName)       # Netlist of the circuit
+elementData2html(i1.circuit) # Element data of a circuit
+params2html(i1.circuit)      # Parameters of the last circuit checked
 
 i1.gainType         = 'vi'
 i1.simType          = 'symbolic'
@@ -117,6 +123,7 @@ matrices2html(matrixResult, label = 'eq_MNA')
 
 htmlPage('Poles and zeros')
 pz2html(polesResult, label = 'tab_poles')
+
 pz2html(zerosResult, label = 'tab_zeros')
 pz2html(pzResult, label = 'tab_pz')
 
@@ -138,7 +145,6 @@ img2html('delay.svg', 600, caption='Group delay of the PIVA transfer.')
 img2html('step.svg', 600, caption='Unit step response of the PIVA.')
 img2html('pz.svg', 600, caption='Poles and zeros of the gain of the PIVA.')
 img2html('pzDominant.svg', 600, caption='Dominant poles of the gain of the PIVA.')
-img2html('magdBfeedbackModel.svg', 600, caption='dB magnitude plots of the of feedback model transfer functions of the PIVA.')
 img2html('magdBstepped.svg', 600, caption='dB magnitude plot of the PIVA transfer for different values of the drain current.')
 img2html('polesStepped.svg', 600, caption='Poles of the gain for different values of the drain current.')
 

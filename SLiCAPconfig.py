@@ -5,7 +5,7 @@ Created on Sat May 30 11:10:18 2020
 
 @author: anton
 """
-
+PROJECTPATH     = None
 # PATHS: relative to the project path
 HTMLPATH        = 'html/'   # path for html output
 CIRCUITPATH     = 'cir/'    # path for .asc, .net, .cir, .sch files

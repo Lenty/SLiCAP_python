@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from SLiCAPconfig import *
+from IPython.core.display import HTML, SVG
+from IPython.display import Image
 import sympy as sp
 import numpy as np
 from scipy.signal import residue
@@ -109,6 +111,7 @@ class settings(object):
         """
         Initializes the start-up values of the global parameters.
         """
+        self.Sage               = False
         self.installPath        = None 
         self.projectPath        = None
         self.htmlPath           = None
@@ -171,22 +174,32 @@ class settings(object):
                             dots += '.'
                         print dots,':', dct[key]
     
-# Create an instance of globals
+    def updatePaths(self, projectPath):
+        """
+        Updates the project paths.
+        """
+        self.projectPath      = projectPath
+        self.htmlPath         = projectPath + HTMLPATH
+        self.circuitPath      = projectPath + CIRCUITPATH
+        self.libraryPath      = projectPath + LIBRARYPATH
+        self.txtPath          = projectPath + TXTPATH
+        self.csvPath          = projectPath + CSVPATH
+        self.latexPath        = projectPath + LATEXPATH
+        self.mathmlPath       = projectPath + MATHMLPATH
+        self.imgPath          = projectPath + IMGPATH
+                        
 ini = settings()
+    
+# Create an instance of globals
 # Automatic detection of install and project paths
 # Get the installation path
 ini.installPath  = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
-# Get the project path (the path of the script that imported SLiCAP.ini)
-ini.projectPath  = os.path.abspath('.') + '/'
 # Copy path settings from user configuration.
-ini.htmlPath         = ini.projectPath + HTMLPATH
-ini.circuitPath      = ini.projectPath + CIRCUITPATH
-ini.libraryPath      = ini.projectPath + LIBRARYPATH
-ini.txtPath          = ini.projectPath + TXTPATH
-ini.csvPath          = ini.projectPath + CSVPATH
-ini.latexPath        = ini.projectPath + LATEXPATH
-ini.mathmlPath       = ini.projectPath + MATHMLPATH
-ini.imgPath          = ini.projectPath + IMGPATH
+if PROJECTPATH == None:
+    # Get the project path (the path of the script that imported SLiCAP.ini)
+    PROJECTPATH  = os.path.abspath('.') + '/'
+    
+ini.updatePaths(PROJECTPATH)
 
 if __name__ == '__main__':
     ini.dump()
