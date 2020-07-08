@@ -58,7 +58,7 @@ def HTMLhead(pageTitle):
         html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
         html += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
     html += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'  
-    return
+    return(html)
     
 def HTMLfoot(indexFile):
     """
