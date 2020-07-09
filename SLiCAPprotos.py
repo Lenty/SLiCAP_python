@@ -673,6 +673,26 @@ class allResults(object):
         self.srcUnits    = None
         self.detLabel    = None # Name to be used in expressions or plots
 
+class goalFunc(object):
+    """
+    Structure for passing arguments to plotvsStep().
+    """
+    def __init__(self):
+        """
+        """
+        self.type      = None  # 'YatX', 'totalNoise', 'stdDev', 'dc', 'NF'
+        self.linlog    = 'lin' # axis type for y-axis
+        self.yscale    = ''    # scale factor for y-axis
+        self.yunits    = ''    # units for y-axis
+        self.pscale    = ''    # scale factor for x-axis (step parameter)
+        self.punits    = ''    # units for x-axis (step parameter)
+        self.value     = None  # x value for YatX
+        self.noiseType = None  # 'inoise' or 'onoise'
+        self.dcvarType = None  # 'ivar' or 'ovar'
+        self.source    = None  # identifier of source for stdDev or totalNoise
+        self.fmin      = None  # lower limit of frequency range for RMS noise
+        self.fmax      = None  # upper limit of frequency range for RMS noise
+
 class paramPlot(object):
     """
     """

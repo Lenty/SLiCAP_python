@@ -802,6 +802,8 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     return fig
 
 def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', sources = None, xscale = '', yscale = '', show = False, save = True):
+    """
+    """
     fig = figure(title)
     fig.fileName = fileName
     fig.show = show
@@ -1013,6 +1015,123 @@ def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits =
 
 def plotCSV(fileName):
     return
+
+def plotVsStep(fileName, title, result, goalFuncObj, show = False, save = True):
+    """
+    plotVsStep(figTitle, results, goalFuncObj) 
+    """
+    errors = 0
+    if type(results) != type(allResults()):
+        print "Error: plotVsStep only accepts single allResults() objects."
+        errors += 1
+    if result.step == False:
+        print "Error: parameter stepping should be enabled for this plot."
+        errors += 1
+    if result.stepMethod == 'array':
+        print "Error: array stepping is not supported by 'plotVsStep'."
+    if goalFuncObj.type == 'totalNoise' or goalFuncObj.type == 'NF':
+        if dataType != 'noise':
+            print "Error: goal function requires dataType 'noise'."
+            errors += 1
+    elif goalFuncObj.type == 'stdDev':
+        if dataType != 'dcvar':
+            print "Error: goal function requires dataType 'dcvar'."
+            errors += 1
+    elif goalFuncObj.type == 'YatX':
+        pass
+    else:
+        print "Error: unknown goal function."
+        errors += 1
+    if errors != 0:
+        return
+    fig = figure(title)
+    fig.fileName = fileName
+    fig.show = show
+    fig.save = save
+    vsStep = axis(title)
+    vsStep.xScaleFactor = pscale
+    vsStep.yScaleFactor = goalFuncObj.scale
+    if result.stepMethod == 'log':
+        vsStep.xScale = 'log'
+    else:
+        vsStep.xScale = 'lin'
+    vsStep.yLabel = goalFuncObj.label + '[' + goalFuncObj.yscale + goalFuncObj.yunits + ']'
+    vsStep.yScale = goalFuncObj.ylinlog
+    vsStep.xLabel = result.stepVar + ' [' + goalFuncObj.pscale + goalFuncObj.punits + ']'
+    vsStep.traces = [makeGoalFuncTrace(result, goalFuncObj)]
+    fig.axes = [[vsStep]]
+    fig.plot()
+    return
+
+def makeGoalFuncTrace(result, goalFuncObj):
+    """
+    """
+    if ini.Hz:
+        freq = 2*sp.pi*sp.I*ini.frequency
+    else:
+        freq = sp.I*ini.frequency
+    x = np.array(result.stepList) 
+    if result.dataType == 'numer' and goalFuncObj.type == 'YatX':
+        y = np.array([sp.Abs(result.numer[i].subs(ini.Laplace, freq).subs(ini.frequency, goalFuncObj.value)) for i in range(len(x))])
+    elif result.dataType == 'denom' and goalFuncObj.type == 'YatX':
+        y = np.array([sp.Abs(result.denom[i].subs(ini.Laplace, freq).subs(ini.frequency, goalFuncObj.value)) for i in range(len(x))])
+    elif result.dataType == 'laplace' and goalFuncObj.type == 'YatX':
+        y = np.array([sp.Abs(result.laplace[i].subs(ini.Laplace, freq).subs(ini.frequency, goalFuncObj.value)) for i in range(len(x))])
+    elif result.dataType == 'time' and goalFuncObj.type == 'YatX':
+        y = np.array([result.time[i].subs(sp.Symbol('t'), goalFuncObj.value) for i in range(len(x))])
+    elif result.dataType == 'impulse' and goalFuncObj.type == 'YatX':
+        y = np.array([result.impulse[i].subs(sp.Symbol('t'),goalFuncObj.value) for i in range(len(x))])
+    elif dataType == 'step' and goalFuncObj.type == 'YatX':
+        y = np.array([result.step[i].subs(sp.Symbol('t'), goalFuncObj.value) for i in range(len(x))])
+    elif result.dataType == 'noise':
+        if goalFuncObj.type == 'totalNoise':
+            y = np.array([rmsNoise(result, goalFuncObj.noiseType, goalFuncObj.fmin, goalFuncObj.fmax, source = goalFuncObj.source)])
+        if goalFuncObj.type == 'YatX':
+            if goalFuncObj.source != None:
+                if goalFuncObj.source in result.onoiseTerms.keys():
+                    if goalFuncObj.noiseType == 'onoise':
+                        y = np.array([result.onoiseTerms[goalFuncObj.source][i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
+                    if goalFuncObj.noiseType == 'inoise':
+                        y = np.array([result.inoiseTerms[goalFuncObj.source][i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
+                else:
+                    print "Error: unknown noise source '%s'."%(goalFuncObj.source)
+            else:
+                if goalFuncObj.noiseType == 'onoise':
+                    y = np.array([result.onoise[i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
+                if goalFuncObj.noiseType == 'inoise':
+                    y = np.array([result.inoise[i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
+        elif goalFuncObj.type == 'NF':
+            if result.source == None or result.source not in result.inoiseTerms.keys():
+                print "Error: goal function 'NF' requires noise associated with the signal source."
+            else:
+                totalOnoise       = np.array([rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax)])
+                totalOnoiseSource = np.array([rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax, source = goalFuncObj.source)])
+                y = totalOnoise/totalOnoiseSource
+    elif result.dataType == 'dcvar':
+        if goalFuncObj.type == 'stdDev':
+            if goalFuncObj.source != None:
+                if goalFuncObj.dcvarType == 'ivar':
+                    if goalFuncObj.source not in result.ivarTerms.keys():
+                        print "Error: unknown source '%s'."%(goalFuncObj.source)
+                    else:
+                        data = result.ivarTerms[goalFuncObj.source]
+                if goalFuncObj.dcvarType == 'ovar':
+                    if goalFuncObj.source not in result.ovarTerms.keys():
+                        print "Error: unknown source '%s'."%(goalFuncObj.source)
+                    else:
+                        data = result.ovarTerms[goalFuncObj.source]
+            y = np.sqrt(np.array(data))
+    elif result.dataType == 'dc' and goalFuncObj.type == 'dc':
+        y = np.array(result.dc)
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[pscale])
+    except:
+        xScaleFactor = 1.
+    try:
+        yScaleFactor = 10**int(SCALEFACTORS[yscale])
+    except:
+        yScaleFactor = 1.
+    return trace([x/xScaleFactor, y/yScaleFactor])
 
 if __name__=='__main__':
     x = np.linspace(0, 2*np.pi, endpoint = True)

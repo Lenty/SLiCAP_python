@@ -913,37 +913,6 @@ def findServoBandwidth(loopgainRational):
         result['mbf'] = result['mbf']/np.pi/2
     return result
 
-def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
-    """
-    """
-    fmax = checkNumber(fmax)
-    fmin = checkNumber(fmin)
-    if noiseResult.dataType != 'noise':
-        print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
-        rms = None
-    keys = noiseResult.onoiseTerms.keys()
-    if noise == 'inoise':
-        if source == None:
-            noiseData = noiseResult.inoise
-        elif source in keys:
-            noiseData = noiseResult.inoiseTerms[source]
-        else:
-            print "Error: unknown noise source: '%s'."%(source)
-            rms = None
-    elif noise == 'onoise':
-        if source == None:
-            noiseData = noiseResult.onoise
-        elif source in keys:
-            noiseData = noiseResult.onoiseTerms[source]
-        else:
-            print "Error: unknown noise source: '%s'."%(source)
-            rms = None
-    else:
-        print "Error: unknown noise type: '%s'."%(noise)
-        rms = None
-    rms =  sp.sqrt(maxIntegrate(noiseData, ini.frequency, start=fmin, stop=fmax))
-    return rms
-
 if __name__ == '__main__': 
     s = sp.Symbol('s')
     loopGainNumer = -s*(1 + s/20)*(1 + s/40)/2
