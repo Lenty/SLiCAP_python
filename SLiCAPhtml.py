@@ -6,7 +6,7 @@ Created on Wed May 20 17:36:05 2020
 @author: anton
 """
 
-from SLiCAPpythonMaxima import *
+from SLiCAPplots import *
 """
 HTMLINDEX    = 'index.html'      # will be set by initProject()
 HTMLPREFIX   = ''                # will be set by checkCircuit()
@@ -152,6 +152,8 @@ def head2html(headText, label=''):
         label = '<a id="' + label + '"></a>'
     html = '<h2>' + label + headText + '</h2>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def head3html(headText, label=''):
@@ -163,6 +165,8 @@ def head3html(headText, label=''):
         label = '<a id="' + label + '"></a>'
     html = '<h3>' + label + headText + '</h3>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def text2html(txt):
@@ -171,6 +175,8 @@ def text2html(txt):
     """
     html = '<p>' + txt + '</p>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def netlist2html(fileName, label=''):
@@ -201,7 +207,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
     if label != '':
         ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
-    caption = "<caption>Table: Element data of expanded netlist '%s'<br>%s</caption>\n"%(circuitObject.title, caption)
+    caption = "<caption>Table: Element data of expanded netlist '%s'</caption>\n"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
     elementNames = circuitObject.elements.keys()
@@ -230,6 +236,8 @@ def elementData2html(circuitObject, label = '', caption = ''):
                 i += 1
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def params2html(circuitObject, label = '', caption = ''):
@@ -239,7 +247,7 @@ def params2html(circuitObject, label = '', caption = ''):
     if label != '':
         ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
-    caption = "<caption>Table: Parameter definitions in '%s'.<br>%s</caption>\n"%(circuitObject.title, caption)
+    caption = "<caption>Table: Parameter definitions in '%s'.</caption>\n"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
     parNames = circuitObject.parDefs.keys()
@@ -267,14 +275,16 @@ def params2html(circuitObject, label = '', caption = ''):
         html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
     html += '</table>\n'
     if len(circuitObject.params) > 0:
-        caption = "<caption>Table: Parameters without definition in '%s.<br>%s</caption>\n"%(circuitObject.title, caption)
+        caption = "<caption>Table: Parameters without definition in '%s.</caption>\n"%(circuitObject.title)
         html += '<table>%s\n'%(caption)
-        html += '<table><tr><th class="left">Name</th></tr>\n'
+        html += '<tr><th class="left">Name</th></tr>\n'
         for par in circuitObject.params:
             parName = '$' + sp.latex(par) + '$'
             html += '<tr><td class="left">' + parName +'</td></tr>\n'
         html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def img2html(fileName, width, label = '', caption = ''):
@@ -319,6 +329,8 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
         html += '</tr>\n'
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def expr2html(expr, units = ''):
@@ -330,10 +342,12 @@ def expr2html(expr, units = ''):
             units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
         html = '$' + sp.latex(roundN(expr)) + units + '$'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
-        return html
     else:
         print "Error: expr2html, expected a Sympy expression."
-        return '$' + html + '$'
+        html = ''
+    if ini.notebook:
+        html = html.replace('$', '$$')
+    return html
 
 def eqn2html(arg1, arg2, units = '', label = ''):
     """
@@ -360,6 +374,8 @@ def eqn2html(arg1, arg2, units = '', label = ''):
     html += eqlabel
     html += '\\end{equation}\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = ('$$' + html + '$$')
     return html
 
 def matrices2html(instrObj, label = ''):
@@ -388,13 +404,14 @@ def matrices2html(instrObj, label = ''):
             label = '<a id="' + label + '"></a>'
         html = '<h3>' + label + 'Matrix equation:</h3>\n'
         html += '\\begin{equation}\n' + Iv + '=' + M + '\\cdot' + Dv + '\n'
-        htmlOut = Iv + '=' + M + '\\cdot' + Dv
         html += eqlabel
         html += '\\end{equation}\n'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print "Error: unexpected input for 'matrices2html()'."
-    return '$$' + htmlOut + '$$'
+    if ini.notebook:
+        html = html.replace('$', '$$')
+    return html
 
 def pz2html(instObj, label = ''):
     """
@@ -512,10 +529,10 @@ def noise2html(instObj, label = ''):
         html = '<h2>Numeric noise analysis results</h2>\n'
         numeric = True
     html += '<h3>Detector-referred noise spectrum</h3>\n'
-    html += '$$S_{out}=%s\, %s$$\n'%(sp.latex(roundN(instObj.onoise)), detUnits)
+    html += '$$S_{out}=%s\, %s$$\n'%(sp.latex(roundN(instObj.onoise, numeric = instObj.numeric)), detUnits)
     if instObj.source != None:
         html += '<h3>Source-referred noise spectrum</h3>\n'
-        html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise)), srcUnits)
+        html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual noise sources</h3><table>\n'    
     keys = instObj.snoiseTerms.keys()
     keys.sort()
@@ -528,12 +545,15 @@ def noise2html(instObj, label = ''):
         srcValue = instObj.snoiseTerms[key]
         if numeric:
             srcValue = fullSubs(srcValue, instObj.parDefs)
-        html += '<tr><td class="title">Spectral density:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue)), nUnits)
-        html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.onoiseTerms[key])), detUnits)
+        html += '<tr><td class="title">Spectral density:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue, numeric = instObj.numeric)), nUnits)
+        html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.onoiseTerms[key], numeric = instObj.numeric)), detUnits)
         if instObj.source != None:
-            html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.inoiseTerms[key])), srcUnits)
+            html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.inoiseTerms[key], numeric = instObj.numeric)), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
+        html = html.replace('$$$$', '$$')
     return html
 
 def dcVar2html(instObj, label = ''):
@@ -541,7 +561,7 @@ def dcVar2html(instObj, label = ''):
         print "Errors found in instruction."
         return
     elif instObj.dataType != 'dcvar':
-        print "Error: 'noise2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType)
+        print "Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType)
         return
     elif instObj.step == True :
         print "Error: parameter stepping not yet implemented for 'dcvar2html()'."
@@ -558,12 +578,12 @@ def dcVar2html(instObj, label = ''):
         html = '<h2>Numeric dcvar analysis results</h2>\n'
         numeric = True
     html += '<h3>DC solution of the network</h3>\n'
-    html += '$$%s=%s$$\n'%(sp.latex(roundN(instObj.Dv)), sp.latex(roundN(instObj.dcSolve)))
+    html += '$$%s=%s$$\n'%(sp.latex(roundN(instObj.Dv)), sp.latex(roundN(instObj.dcSolve, numeric = instObj.numeric)))
     html += '<h3>Detector-referred variance</h3>\n'
-    html += '$$\sigma_{out}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ovar)), detUnits)
+    html += '$$\sigma_{out}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ovar, numeric = instObj.numeric)), detUnits)
     if instObj.source != None:
         html += '<h3>Source-referred variance</h3>\n'
-        html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar)), srcUnits)
+        html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual component variances</h3><table>\n'    
     keys = instObj.svarTerms.keys()
     keys.sort()
@@ -576,12 +596,15 @@ def dcVar2html(instObj, label = ''):
         srcValue = instObj.svarTerms[key]
         if numeric:
             srcValue = fullSubs(srcValue, instObj.parDefs)
-        html += '<tr><td class="title">Source variance:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue)), nUnits)
-        html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ovarTerms[key])), detUnits)
+        html += '<tr><td class="title">Source variance:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue, numeric = instObj.numeric)), nUnits)
+        html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ovarTerms[key], numeric = instObj.numeric)), detUnits)
         if instObj.source != None:
-            html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ivarTerms[key])), srcUnits)
+            html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ivarTerms[key], numeric = instObj.numeric)), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
+        html = html.replace('$$$$', '$$')
     return html
 
 def coeffsTransfer2html(transferCoeffs):
@@ -590,17 +613,19 @@ def coeffsTransfer2html(transferCoeffs):
     """
     (gain, numerCoeffs, denomCoeffs) = transferCoeffs
     html = '<h3>Gain factor</h3>\n<p>$%s$</p>\n'%(sp.latex(roundN(gain)))
-    html += '<h3>Normalized coefficients of the numerator:</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
+    html += '<h3>Normalized coefficients of the numerator:</h3>\n<table><tr><th class=\"center\">order</th><th class=\"left\">coefficient</th></tr>\n'
     for i in range(len(numerCoeffs)):
         value = sp.latex(roundN(numerCoeffs[i]))
         html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
     html += '</table>\n'
-    html += '<h3>Normalized coefficients of the denominator:\n</h3><table><th class=\"center\")>order</th><th class=\"left\")>coefficient</th>'
+    html += '<h3>Normalized coefficients of the denominator:</h3>\n<table><tr><th class=\"center\">order</th><th class=\"left\">coefficient</th></tr>\n'
     for i in range(len(denomCoeffs)):
         value = sp.latex(roundN(denomCoeffs[i]))
         html += '<tr><td class=\"center\">$' + str(i) + '$</td><td class=\"left\">$' + value + '$</td></tr>\n'
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
+    if ini.notebook:
+        html = html.replace('$', '$$')
     return html
 
 def stepArray2html(stepVars, stepArray):
@@ -629,15 +654,18 @@ def roundN(expr, numeric=False):
     """
     if numeric:
         expr = sp.N(expr, ini.disp)
-    else:
-        try:
-            expr = expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
-            ints = list(expr.atoms(sp.Number))
-            for i in range(len(ints)):
-                if sp.N(sp.Abs(ints[i])) > 10**ini.disp or sp.N(sp.Abs(ints[i])) < 10**-ini.disp:
-                    expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})
-        except:
-            pass
+    try:
+        expr = expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
+        ints = list(expr.atoms(sp.Number))
+        for i in range(len(ints)):
+            if sp.N(sp.Abs(ints[i])) > 10**ini.disp or sp.N(sp.Abs(ints[i])) < 10**-ini.disp:
+                expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})
+            if sp.N(ints[i]) == 1.0:
+                expr = expr.xreplace({ints[i]: 1})
+            if sp.N(ints[i]) == -1.0:
+                expr = expr.xreplace({ints[i]: -1})
+    except:
+        pass
     return expr
 
 ### HTML links and labels

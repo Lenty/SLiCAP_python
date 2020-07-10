@@ -681,7 +681,7 @@ class goalFunc(object):
         """
         """
         self.type      = None  # 'YatX', 'totalNoise', 'stdDev', 'dc', 'NF'
-        self.linlog    = 'lin' # axis type for y-axis
+        self.ylinlog   = 'lin' # axis type for y-axis
         self.yscale    = ''    # scale factor for y-axis
         self.yunits    = ''    # units for y-axis
         self.pscale    = ''    # scale factor for x-axis (step parameter)
@@ -692,6 +692,7 @@ class goalFunc(object):
         self.source    = None  # identifier of source for stdDev or totalNoise
         self.fmin      = None  # lower limit of frequency range for RMS noise
         self.fmax      = None  # upper limit of frequency range for RMS noise
+        self.ylabel    = ''
 
 class paramPlot(object):
     """

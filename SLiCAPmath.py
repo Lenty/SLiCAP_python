@@ -327,44 +327,6 @@ def invLaplace(numer, denom):
         ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.E**(p[i]*t)
     return ft
 
-def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
-    """
-    """
-    fmax = checkNumber(fmax)
-    fmin = checkNumber(fmin)
-    if fmin == None or fmax == None or fmin >= fmax:
-        print "Error in frequency range specification."
-        return None
-    if noiseResult.dataType != 'noise':
-        print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
-        rms = None
-    keys = noiseResult.onoiseTerms.keys()
-    if noise == 'inoise':
-        if source == None:
-            noiseData = noiseResult.inoise
-        elif source in keys:
-            noiseData = noiseResult.inoiseTerms[source]
-        else:
-            print "Error: unknown noise source: '%s'."%(source)
-            rms = None
-    elif noise == 'onoise':
-        if source == None:
-            noiseData = noiseResult.onoise
-        elif source in keys:
-            noiseData = noiseResult.onoiseTerms[source]
-        else:
-            print "Error: unknown noise source: '%s'."%(source)
-            rms = None
-    else:
-        print "Error: unknown noise type: '%s'."%(noise)
-        rms = None
-    if type(noiseData) != list:
-        noiseData = [noiseData]
-    rms =  [sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax) for i in range(len(noiseData)))]
-    if len(rms) == 1:
-        rms = rms[0]
-    return rms
-
 if __name__ == "__main__":
     s = ini.Laplace
     

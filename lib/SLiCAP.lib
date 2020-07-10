@@ -119,7 +119,9 @@ N1 4 COMMON 3 2
 * 
 M1 drain gate source bulk CMOS18N
 
-.model CMOS18N M gm      = {g_m} go      = {g_o} 
+.model CMOS18N M 
++ gm      = {g_m} 
++ go      = {g_o} 
 + gb      = {g_b}
 + cgs     = {c_gs}
 + cdg     = {c_dg}

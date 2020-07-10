@@ -396,6 +396,16 @@ def makeCircuit(cir):
                             break
                 else:
                     print "Error: missing a parameter definition."
+            elif tok.value == 'BACKANNO':
+                tok = cir.lexer.token()
+            else:
+                # All what's left are tokens we don't expect at this position
+                printError("Error: unexpected input.", lines[cir.lexer.lineno], 
+                           find_column(tok))
+                cir.errors += 1
+                tok = cir.lexer.token()
+                if not tok:
+                    break
         else:
             # All what's left are tokens we don't expect at this position
             printError("Error: unexpected input.", lines[cir.lexer.lineno], 
@@ -621,7 +631,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
             if isinstance(newElement.params[key], tuple(sp.core.all_classes)):
                 newParams = list(newElement.params[key].atoms(sp.Symbol))
                 for newParam in newParams:
-                    if str(newParam) not in LIB.parDefs.keys() and newParam not in substDict.keys():
+                    if str(newParam) not in LIB.parDefs.keys() and newParam not in substDict.keys() and newParam!= ini.Laplace and newParam != ini.frequency:
                         substDict[newParam] = sp.Symbol(str(newParam) + suffix)
         # Store the element, we still need to update its parameters and values
         newElements[newElement.refDes] = newElement

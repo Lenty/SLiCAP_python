@@ -142,7 +142,8 @@ def doInstruction(instObj):
                     if instObj.source != None:
                         instObj.inoise.append(sp.simplify(inoise))
             elif instObj.dataType == 'dc':
-                dc = doDC(instObj)
+                detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+                dc = doDC(instObj, detP, detN)
                 instObj.dc = stepFunctions(instObj, dc)
             elif instObj.dataType == 'dcsolve':
                 dcSolve = doSolveDC(instObj)
@@ -351,7 +352,8 @@ def doDataType(instObj):
         if instObj.step:
             instObj.dc.append(doDC(instObj, detP, detN))
         else:
-            instObj.dc= doDC(instObj)        
+            detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+            instObj.dc= doDC(instObj, detP, detN)        
     elif instObj.dataType == 'dcsolve':
         if instObj.step:
             instObj.dcSolve.append(doSolveDC(instObj))

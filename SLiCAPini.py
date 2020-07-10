@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from SLiCAPconfig import *
-from IPython.core.display import HTML, SVG
-from IPython.display import Image
-import sympy as sp
+import docutils.core
+import docutils.writers.html5_polyglot
 import numpy as np
+import sympy as sp
 from scipy.signal import residue
 import ply.lex as lex
 from shutil import copy2 as cp
@@ -151,6 +151,9 @@ class settings(object):
         self.axisXscale         = 'linear'
         self.axisYscale         = 'linear'
         self.legendLoc          = 'best'
+        self.notebook           = True # places html math output between double
+                                       # dollar signs: '$$<latex>'$$' for 
+                                       # correct display in Jupyter notebooks
         self.plotFontSize       = 12
         self.lastUpdate         = None
     
@@ -176,7 +179,7 @@ class settings(object):
     
     def updatePaths(self, projectPath):
         """
-        Updates the project paths.
+        Updates the project paths
         """
         self.projectPath      = projectPath
         self.htmlPath         = projectPath + HTMLPATH
@@ -187,7 +190,7 @@ class settings(object):
         self.latexPath        = projectPath + LATEXPATH
         self.mathmlPath       = projectPath + MATHMLPATH
         self.imgPath          = projectPath + IMGPATH
-                        
+                                    
 ini = settings()
     
 # Create an instance of globals

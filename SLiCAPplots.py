@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from SLiCAPprotos import *
+from SLiCAPpythonMaxima import *
 
 class trace(object):
     def __init__(self, traceData):
@@ -837,7 +837,9 @@ def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', s
                     yData = result.onoise
                     func = sp.lambdify(ini.frequency, yData)
                     y = [func(x[j]) for j in range(len(x))]
+                    noiseTrace = trace([x, y])
                     noiseTrace.label = 'onoise'
+                    ax.traces.append(noiseTrace)
                 elif sources == 'all':
                     for srcName in keys:
                         yData = result.onoiseTerms[srcName]
@@ -986,8 +988,8 @@ def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits =
     ax = axis(title)
     ax.xScale = xaxis
     ax.yScale = yaxis
-    ax.xLabel = xVar + '[' + xscale + xunits +']'
-    ax.yLabel = yVar + '[' + yscale + yunits +']'
+    ax.xLabel = xVar + ' [' + xscale + xunits +']'
+    ax.yLabel = yVar + ' [' + yscale + yunits +']'
     if type(plotData.xValues) == dict:
         xDict = True
     else:
@@ -1021,7 +1023,7 @@ def plotVsStep(fileName, title, result, goalFuncObj, show = False, save = True):
     plotVsStep(figTitle, results, goalFuncObj) 
     """
     errors = 0
-    if type(results) != type(allResults()):
+    if type(result) != type(allResults()):
         print "Error: plotVsStep only accepts single allResults() objects."
         errors += 1
     if result.step == False:
@@ -1030,11 +1032,11 @@ def plotVsStep(fileName, title, result, goalFuncObj, show = False, save = True):
     if result.stepMethod == 'array':
         print "Error: array stepping is not supported by 'plotVsStep'."
     if goalFuncObj.type == 'totalNoise' or goalFuncObj.type == 'NF':
-        if dataType != 'noise':
+        if result.dataType != 'noise':
             print "Error: goal function requires dataType 'noise'."
             errors += 1
     elif goalFuncObj.type == 'stdDev':
-        if dataType != 'dcvar':
+        if result.dataType != 'dcvar':
             print "Error: goal function requires dataType 'dcvar'."
             errors += 1
     elif goalFuncObj.type == 'YatX':
@@ -1049,15 +1051,15 @@ def plotVsStep(fileName, title, result, goalFuncObj, show = False, save = True):
     fig.show = show
     fig.save = save
     vsStep = axis(title)
-    vsStep.xScaleFactor = pscale
-    vsStep.yScaleFactor = goalFuncObj.scale
+    vsStep.xScaleFactor = goalFuncObj.pscale
+    vsStep.yScaleFactor = goalFuncObj.yscale
     if result.stepMethod == 'log':
         vsStep.xScale = 'log'
     else:
         vsStep.xScale = 'lin'
-    vsStep.yLabel = goalFuncObj.label + '[' + goalFuncObj.yscale + goalFuncObj.yunits + ']'
+    vsStep.yLabel = goalFuncObj.ylabel + ' [' + goalFuncObj.yscale + goalFuncObj.yunits + ']'
     vsStep.yScale = goalFuncObj.ylinlog
-    vsStep.xLabel = result.stepVar + ' [' + goalFuncObj.pscale + goalFuncObj.punits + ']'
+    vsStep.xLabel = str(result.stepVar) + ' [' + goalFuncObj.pscale + goalFuncObj.punits + ']'
     vsStep.traces = [makeGoalFuncTrace(result, goalFuncObj)]
     fig.axes = [[vsStep]]
     fig.plot()
@@ -1081,7 +1083,7 @@ def makeGoalFuncTrace(result, goalFuncObj):
         y = np.array([result.time[i].subs(sp.Symbol('t'), goalFuncObj.value) for i in range(len(x))])
     elif result.dataType == 'impulse' and goalFuncObj.type == 'YatX':
         y = np.array([result.impulse[i].subs(sp.Symbol('t'),goalFuncObj.value) for i in range(len(x))])
-    elif dataType == 'step' and goalFuncObj.type == 'YatX':
+    elif result.dataType == 'step' and goalFuncObj.type == 'YatX':
         y = np.array([result.step[i].subs(sp.Symbol('t'), goalFuncObj.value) for i in range(len(x))])
     elif result.dataType == 'noise':
         if goalFuncObj.type == 'totalNoise':
@@ -1104,9 +1106,9 @@ def makeGoalFuncTrace(result, goalFuncObj):
             if result.source == None or result.source not in result.inoiseTerms.keys():
                 print "Error: goal function 'NF' requires noise associated with the signal source."
             else:
-                totalOnoise       = np.array([rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax)])
-                totalOnoiseSource = np.array([rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax, source = goalFuncObj.source)])
-                y = totalOnoise/totalOnoiseSource
+                totalOnoise       = rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax)
+                totalOnoiseSource = rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax, source = result.source)
+                y = np.array([20*sp.log(totalOnoise[i]/totalOnoiseSource[i])/sp.log(10) for i in range(len(x))])
     elif result.dataType == 'dcvar':
         if goalFuncObj.type == 'stdDev':
             if goalFuncObj.source != None:
@@ -1132,6 +1134,106 @@ def makeGoalFuncTrace(result, goalFuncObj):
     except:
         yScaleFactor = 1.
     return trace([x/xScaleFactor, y/yScaleFactor])
+
+def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
+    """
+    """
+    fmax = checkNumber(fmax)
+    fmin = checkNumber(fmin)
+    if fmin == None or fmax == None or fmin >= fmax:
+        print "Error in frequency range specification."
+        return None
+    if noiseResult.dataType != 'noise':
+        print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
+        rms = None
+    keys = noiseResult.onoiseTerms.keys()
+    if noise == 'inoise':
+        if source == None:
+            noiseData = noiseResult.inoise
+        elif source in keys:
+            noiseData = noiseResult.inoiseTerms[source]
+        else:
+            print "Error: unknown noise source: '%s'."%(source)
+            rms = None
+    elif noise == 'onoise':
+        if source == None:
+            noiseData = noiseResult.onoise
+        elif source in keys:
+            noiseData = noiseResult.onoiseTerms[source]
+        else:
+            print "Error: unknown noise source: '%s'."%(source)
+            rms = None
+    else:
+        print "Error: unknown noise type: '%s'."%(noise)
+        rms = None
+    if type(noiseData) != list:
+        noiseData = [noiseData]    
+    rms =  np.array([sp.N(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType))) for i in range(len(noiseData))])
+    if len(rms) == 1:
+        rms = rms[0]
+    return rms
+
+def plotFunction(fileName, title, funcObject, start, stop, points, save=True, show=False):
+    """
+    """
+    xvars = list(funcObject.expr.atoms(sp.Symbol))
+    if len(xvars) > 1:
+        print "Error: too many fuction variables."
+        return
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[funcObject.xscale])
+    except:
+        xScaleFactor = 1.
+    try:
+        yScaleFactor = 10**int(SCALEFACTORS[funcObject.yscale])
+    except:
+        yScaleFactor = 1.
+    fig = figure(title)
+    fig.fileName = fileName
+    fig.show = show
+    fig.save = save
+    ax = axis(title)
+    ax.xScaleFactor = funcObject.xscale
+    ax.yScaleFactor = funcObject.yscale
+    ax.xScale = funcObject.xaxis
+    ax.xLabel = str(xvars[0]) + ' [' + funcObject.xscale + funcObject.xunits + ']'
+    ax.yScale = funcObject.yaxis
+    ax.yLabel = funcObject.ylabel + ' [' + funcObject.yscale + funcObject.yunits + ']'
+    start  = checkNumber(start)
+    stop   = checkNumber(stop)
+    points = checkNumber(points)
+    if start != None and stop != None and points != None:
+        start *= xScaleFactor
+        stop  *= xScaleFactor
+        if funcObject.xaxis == 'lin':
+            x = np.linspace(start, stop, points)
+        elif funcObject.xaxis == 'log':
+            x = np.geomspace(start, stop, points)
+    else:
+        print "Error(s) in x range specification."
+        return
+    function = sp.lambdify(xvars[0], funcObject.expr)
+    y = np.array([function(x[i]) for i in range(len(x))])
+    t = trace([x, y])
+    t.label = funcObject.fname
+    ax.traces = [t]
+    fig.axes = [[ax]]
+    fig.plot()
+    return fig
+
+class func(object):
+    def __init__(self):
+        self.expr = None
+        self.xVar = None
+        self.xscale = ''
+        self.xunits = ''
+        self.xaxis  = 'lin'
+        self.ylabel = ''
+        self.yscale = ''
+        self.yunits = ''
+        self.yaxis  = 'lin'
+        self.color  = None
+        self.fname  = None
 
 if __name__=='__main__':
     x = np.linspace(0, 2*np.pi, endpoint = True)

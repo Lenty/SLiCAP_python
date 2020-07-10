@@ -16,16 +16,29 @@ R1 0 3 r value={R_B1} dcvar={(R_B1*sigma_r)^2}
 R2 out 4 r value={R_B2} dcvar={(R_B2*sigma_r)^2}
 X1 3 4 out 0 0 N_dcvar sib={I_b*sigma_Ib} sio={i_off} svo={v_off} 
 + iib={I_b}
+.backanno
+.anton
 .end
 </pre>
-<table><caption>Table: Element data of expanded netlist ''<br></caption>
+<table><caption>Table: Element data of expanded netlist 'VampBias'</caption>
 
 <tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>
+<tr><td class="left">R1</td><td class = "left">0 3 </td><td class = "left"></td><td class = "left">r</td>
+<td class="left">value</td><td class="left">$R_{B1}$</td><td class="left">$R_{B1}$</td></tr>
+<tr><td></td><td></td><td></td><td></td><td class="left">dcvar</td><td class="left">$R_{B1}^{2} \sigma_{r}^{2}$</td><td class="left">$R_{B1}^{2} \sigma_{r}^{2}$</td></tr>
+<tr><td class="left">R2</td><td class = "left">out 4 </td><td class = "left"></td><td class = "left">r</td>
+<td class="left">value</td><td class="left">$R_{B2}$</td><td class="left">$R_{B2}$</td></tr>
+<tr><td></td><td></td><td></td><td></td><td class="left">dcvar</td><td class="left">$R_{B2}^{2} \sigma_{r}^{2}$</td><td class="left">$R_{B2}^{2} \sigma_{r}^{2}$</td></tr>
+<tr><td class="left">X1</td><td class = "left">3 4 out 0 0 </td><td class = "left"></td><td class = "left">N_dcvar</td>
+<td class="left">sib</td><td class="left">$I_{b} \sigma_{Ib}$</td><td class="left">$I_{b} \sigma_{Ib}$</td></tr>
+<tr><td></td><td></td><td></td><td></td><td class="left">iib</td><td class="left">$I_{b}$</td><td class="left">$I_{b}$</td></tr>
+<tr><td></td><td></td><td></td><td></td><td class="left">sio</td><td class="left">$i_{off}$</td><td class="left">$i_{off}$</td></tr>
+<tr><td></td><td></td><td></td><td></td><td class="left">svo</td><td class="left">$v_{off}$</td><td class="left">$v_{off}$</td></tr>
 </table>
 <!-- INSERT -->
 <div id="footnote">
 <p>Go to <a href="index.html">index</a></p>
 <p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>
 <p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>
-<p>Last project update: 2020-07-05 18:10:35</p>
+<p>Last project update: 2020-07-10 18:20:10</p>
 </div></body></html>
