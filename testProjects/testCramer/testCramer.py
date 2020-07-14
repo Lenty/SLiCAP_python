@@ -30,7 +30,7 @@ i1.dataType = 'time'
 responseTime= i1.execute()
 response    = responseTime.time
 ini.gainColors['vi'] = 'r'
-plotTime('time', 'response', responseTime, 0, 1.5, 200, show=True, xscale='m', yscale = 'm', yunits = 'V')
+figTime = plotTime('time', 'response', responseTime, 0, 1.5, 200, xscale='m', yscale = 'm', yunits = 'V', show=True)
 
 t2 = time()
 print t2-t1, 's'

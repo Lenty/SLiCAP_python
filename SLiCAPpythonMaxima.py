@@ -44,30 +44,43 @@ def maxEval(maxExpr):
     # Other conversions
     return result
 
-def maxILT(numer, denom):
+def maxILT(numer, denom, numeric = True):
     """
     Calculates the inverse Laplace transform of  'Fs' using Maxima.
     Tricky to use because Maxima can ask for assumtions.
     """
     Fs = numer/denom
-    if isinstance(Fs, tuple(sp.core.all_classes)):
-        params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
-        try:
-            params.remove(ini.Laplace)
-            if len(params) != 0:
-                print "Error: symbolic variables found, cannot determine roots."
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
+    # Try inverse laplace of symbolic function
+    maxExpr = 'result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
+    result = maxEval(maxExpr)
+    if len(result) > 3 and result[1:5] == 'ilt(':
+        if isinstance(Fs, tuple(sp.core.all_classes)):
+            params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
+            try:
+                params.remove(ini.Laplace)
+                if len(params) != 0:
+                    print "Error: symbolic variables found, cannot determine roots."
+                    return sp.Symbol('ft')
+                else:
+                    ncoeffs = polyCoeffs(numer, ini.Laplace)
+                    zeros = np.roots(np.array(ncoeffs))
+                    dcoeffs = polyCoeffs(denom, ini.Laplace)
+                    poles = np.roots(np.array(dcoeffs))
+                    Fs = makeLaplaceRational(ncoeffs[0]/dcoeffs[0], zeros, poles)
+                    maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
+                    result = maxEval(maxExpr)
+                if len(result) > 3 and result[1:5] == 'ilt(':
+                    print "Error: could not determine the inverse Laplace transform."
+                    return sp.Symbol('ft')
+            except:
+                print "Error: could not determine the inverse Laplace transform."
                 return sp.Symbol('ft')
-            else:
-                ncoeffs = polyCoeffs(numer, ini.Laplace)
-                zeros = np.roots(np.array(ncoeffs))
-                dcoeffs = polyCoeffs(denom, ini.Laplace)
-                poles = np.roots(np.array(dcoeffs))
-                Fs = makeLaplaceRational(ncoeffs[0]/dcoeffs[0], zeros, poles)
-                maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
-                result = maxEval(maxExpr)
-                return sp.sympify(result)
-        except:
-            return sp.Symbol('ft')
+    return sp.sympify(result)
+                    
 
 def maxDet(M, numeric = True):
     """

@@ -36,6 +36,5 @@ eqn2html(result.Dv, DCsolution)
 
 i1.dataType = 'dcvar'
 result = i1.execute()
-print result.ovarTerms
 t2 = time()
 print '\n', t2-t1, 's'

@@ -201,13 +201,11 @@ def elementData2html(circuitObject, label = '', caption = ''):
         - nodes
         - referenced elements
         - parameters with symbolic and numeric values
-    ToDo:
-        Add HTML label.
     """
     if label != '':
         ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
-    caption = "<caption>Table: Element data of expanded netlist '%s'</caption>\n"%(circuitObject.title)
+    caption = "<caption>Table: Element data of expanded netlist '%s'</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
     elementNames = circuitObject.elements.keys()
@@ -247,7 +245,7 @@ def params2html(circuitObject, label = '', caption = ''):
     if label != '':
         ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
-    caption = "<caption>Table: Parameter definitions in '%s'.</caption>\n"%(circuitObject.title)
+    caption = "<caption>Table: Parameter definitions in '%s'.</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
     parNames = circuitObject.parDefs.keys()
@@ -645,6 +643,26 @@ def stepArray2html(stepVars, stepArray):
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return html
+
+def fig2html(figureObject, width, label = '', caption = ''):
+    """
+    Copies the image file to the 'img.' subdirectory of the 'html/' directory
+    set by HTMLPATH in SLiCAPini.py and creates a link to this file on the 
+    active html page.
+    """
+    if label != '':
+        ini.htmlLabels[label] = ini.htmlPage
+        label = '<a id="' + label + '"></a>'
+    html = '<figure>%s<img src="img/%s" alt="%s" style="width:%spx">\n'%(label, figureObject.fileName, caption, width)
+    if caption != '':
+        html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(figureObject.fileName, caption)
+    html += '</figure>\n'
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    try:
+        cp(ini.imgPath + figureObject.fileName, ini.htmlPath + 'img/' + figureObject.fileName)
+    except:
+        print("Error: could not copy: '%s'."%(ini.imgPath + figureObject.fileName))
+    return '%s'%(ini.htmlPath + 'img/' + figureObject.fileName)
 
 def roundN(expr, numeric=False):
     """

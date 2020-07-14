@@ -33,34 +33,34 @@ data.pStop   = 1.8
 data.pNum    = 10
 data.pMethod = 'lin'
 i1.stepParams(data)
-plotParams('IdsVds', '$I_{ds}(V_{ds})$', data, xunits = 'V', yunits = 'A', punits = 'V', yscale = 'u')
+fig_Ids_Vds = plotParams('IdsVds', '$I_{ds}(V_{ds})$', data, xunits = 'V', yunits = 'A', punits = 'V', yscale = 'u')
 
 # Ids-Vgs with Vds as parameter
 data.xVar    = 'V_G'
 data.sVar    = 'V_G'
 data.pVar    = 'V_D'
 i1.stepParams(data)
-plotParams('IdsVgs', '$I_{ds}(V_{gs})$', data, xunits = 'V', yunits = 'A', punits = 'V', yscale = 'u')
+fig_Ids_Vgs = plotParams('IdsVgs', '$I_{ds}(V_{gs})$', data, xunits = 'V', yunits = 'A', punits = 'V', yscale = 'u')
 
 # gm-Ids with Vds as parameter, sweep parameter = Vgs
-gmIds.xVar    = 'I_DS_X1'
-gmIds.sVar    = 'V_G'
-gmIds.yVar    = 'g_m_X1'
-i1.stepParams(gmIds)
-plotParams('gmIds', '$g_{m}(I_{ds})$', gmIds, xunits = 'A', yunits = 'S', punits = 'V', xscale = 'u', yscale = 'u')
+data.xVar    = 'I_DS_X1'
+data.sVar    = 'V_G'
+data.yVar    = 'g_m_X1'
+i1.stepParams(data)
+fig_gm_Ids = plotParams('gmIds', '$g_{m}(I_{ds})$', data, xunits = 'A', yunits = 'S', punits = 'V', xscale = 'u', yscale = 'u')
 
 # fT-Ids with Vds as parameter, sweep parameter = Vgs
 data.xVar    = 'I_DS_X1'
 data.sVar    = 'V_G'
 data.yVar    = 'f_T_X1'
 i1.stepParams(data)
-plotParams('fTIds', '$f_{T}(I_{ds})$', data, xunits = 'A', yunits = 'Hz', punits = 'V', xscale = 'u', yscale = 'G')
+fig_fT_Ids = plotParams('fTIds', '$f_{T}(I_{ds})$', data, xunits = 'A', yunits = 'Hz', punits = 'V', xscale = 'u', yscale = 'G')
 
 # Ciss-Vgs with Vds as parameter
 data.xVar    = 'V_G'
 data.yVar    = 'c_iss_X1'
 i1.stepParams(data)
-plotParams('CissVg', '$c_{iss}(V_{gs})$', data, xunits = 'V', yunits = 'F', punits = 'V', xscale = '', yscale = 'f')
+fig_CissVg = plotParams('CissVg', '$c_{iss}(V_{gs})$', data, xunits = 'V', yunits = 'F', punits = 'V', xscale = '', yscale = 'f')
 
 htmlPage('Circuit data')
 netlist2html(fileName)
@@ -68,11 +68,11 @@ elementData2html(i1.circuit)
 params2html(i1.circuit)
 # Put the plots on a page
 htmlPage('CMOS18 EKV model plots')
-img2html('IdsVds.svg', 600)
-img2html('IdsVgs.svg', 600)
-img2html('gmIds.svg', 600)
-img2html('fTIds.svg', 600)
-img2html('CissVg.svg', 600)
+fig2html(fig_Ids_Vds, 600)
+fig2html(fig_Ids_Vgs, 600)
+fig2html(fig_gm_Ids, 600)
+fig2html(fig_fT_Ids, 600)
+fig2html(fig_CissVg, 600)
 
 t2=time()
 print t2-t1,'s'

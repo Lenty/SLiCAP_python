@@ -151,9 +151,10 @@ class settings(object):
         self.axisXscale         = 'linear'
         self.axisYscale         = 'linear'
         self.legendLoc          = 'best'
-        self.notebook           = True # places html math output between double
-                                       # dollar signs: '$$<latex>'$$' for 
-                                       # correct display in Jupyter notebooks
+        self.notebook           = False # places html math output between 
+                                        # double dollar signs: '$$<latex>'$$' 
+                                        # for correct display in Jupyter 
+                                        # notebooks
         self.plotFontSize       = 12
         self.lastUpdate         = None
     

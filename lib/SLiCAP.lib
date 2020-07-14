@@ -72,12 +72,12 @@
 * Sub circuits
 **************
 
-.subckt ABCD 1 2 3 4 at={at} bt={bt} ct={ct} dt={dt}
+.subckt ABCD 1 2 3 4 A={A} B={B} C={C} D={D}
 N1 1 5 3 7
-E1 7 8 1 2 {at}
-H1 8 4 6 5 {bt}
-G1 3 4 1 2 {ct}
-F1 3 4 2 6 {dt}
+E1 7 8 1 2 {A}
+H1 8 4 6 5 {B}
+G1 3 4 1 2 {C}
+F1 3 4 2 6 {D}
 .ends 
 
 .subckt N_noise 1 2 4 COMMON sv={sv} si={si}
@@ -542,7 +542,7 @@ Q1 collector1 collector2 base1 base2 BJTD
 .subckt NM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * intrinsic noise sources, gate resistance should be added externally
 * CMOS18 N device: copy and modify this model for other devices
-I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/F^AF)} ; channel noise current
+I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f^AF)} ; channel noise current
 H1 ext int 1 10 {1/g_m}       ; equivalent-input voltage noise
 F1 ext comm 10 0 {s/2/pi/f_T} ; gate-induced noise
 I2 ext comm I value=0 noise={2*q*IG} ; gate shot noise
@@ -578,7 +578,7 @@ I2 ext comm I value=0 noise={2*q*IG} ; gate shot noise
 .subckt PM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * intrinsic noise sources, gate resistance should be added externally
 * CMOS18 P device: copy and modify this model for other devices
-I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/F^AF)}     ; channel noise current
+I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f^AF)}     ; channel noise current
 H1 ext int 1 10 {1/g_m}                               ; equivalent-input voltage noise
 F1 ext comm 10 0 {s/2/pi/f_T}                         ; gate-induced input current noise
 I2 ext comm I value=0 noise={2*q*IG}                  ; gate shot noise
@@ -614,7 +614,7 @@ I2 ext comm I value=0 noise={2*q*IG}                  ; gate shot noise
 .subckt J_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * simplified intrinsic noise sources, gate resistance should be added externally
 * MOS or JFET: copy and modify this model for other devices
-I1 0 1 I value=0 noise={8*k*T*g_m/3*(1+f_ell/F)}     ; channel noise current
+I1 0 1 I value=0 noise={8*k*T*g_m/3*(1+f_ell/f)}     ; channel noise current
 H1 ext int 1 10 {1/g_m}                              ; equivalent-input voltage noise
 F1 ext comm 10 0 {s*(Cgs_sq*L+Cdg_W)*W/g_m}          ; gate-induced input current noise
 I2 ext comm I value=0 noise={2*q*IG}                 ; gate shot noise
@@ -635,7 +635,7 @@ I2 ext comm I value=0 noise={2*q*IG}                 ; gate shot noise
 I1 0 1 I value=0 noise={2*q*IC}                          ; collector noise current
 H1 ext int 1 10 {U_T/IC}                                 ; equivalent-input voltage noise
 F1 ext comm 10 0 {s*(C_pi+C_bc)*U_T/IC}                  ; HF base-induced current noise, DC part ignored
-I2 ext comm I value=0 noise={2*q*IC*(1+f_ell/F)/beta_DC} ; base shot noise
+I2 ext comm I value=0 noise={2*q*IC*(1+f_ell/f)/beta_DC} ; base shot noise
 .param
 * Parameters will be substituted if simType has been set to "numeric"
 * device equations GP model
@@ -650,7 +650,7 @@ I2 ext comm I value=0 noise={2*q*IC*(1+f_ell/F)/beta_DC} ; base shot noise
 + CJE     = 5p   ; B-E forward bias junction capacitance
 + tau_F   = 1n   ; Forward transit time
 + VBE     = 0.6  ; Typical B-E operating voltage (< VJC!)
-+ KF      = 0    ; KF=3.6e-19*FL with AF=1 and FL in [Hz], set to zero for f_ell=0
++ KF      = 0    ; KF=3.6e-19*FL with AF=1 and f_ell in [Hz], set to zero for f_ell=0
 + AF      = 1    ; Flicker noise exponent
 .ends
 

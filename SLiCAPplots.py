@@ -52,118 +52,111 @@ class axis(object):
 
 class figure(object):
     def __init__(self, fileName):
-        self.fileName       = fileName              # Name of the file for saving the figure
         self.fileType       = ini.figureFileType    # Graphic file type for saving the figure
         self.axisHeight     = ini.figureAxisHeight  # Height of single axis
         self.axisWidth      = ini.figureAxisWidth   # Width of single axis
         self.axes           = []
         self.show           = False
-        self.save           = False
+        self.fileName       = fileName + '.' + ini.figureFileType
         
     def plot(self):                                 # <figure name>.plot()
                                                     # plots m x n axes in the figure
         axes = np.array(self.axes)
         try:
-            rows,cols = axes.shape
+            rows, cols = axes.shape
         except:
-            print 'Argument of the <figure>.plot() method must be a list of lists or a two-dimensional array.'
+            print 'Attribute of <figure>.axes must be a list of lists or a two-dimensional array.'
             return False
-        self.axes = []
+        axesList = []
         # Make a single list of plots to be plotted left -> right, then top -> bottom
         for i in range(rows):
             for j in range(cols):
-                self.axes.append(axes[i][j])
-        if not self.axes:
+                axesList.append(axes[i][j])
+        if len(axesList) == 0:
             print 'Error: no plot data available; plotting skipped.'
             return False
         # Define the matplotlib figure object
         fig = plt.figure(figsize = (self.axisWidth*cols, rows*self.axisHeight))
         # Make all the axis with their plots
-        for i in range(len(self.axes)):
-            if self.axes[i] != "":
-                ax = fig.add_subplot(rows, cols, i + 1, polar = self.axes[i].polar)
-                if self.axes[i].xLabel:
+        for i in range(len(axesList)):
+            if axesList[i] != "":
+                ax = fig.add_subplot(rows, cols, i + 1, polar = axesList[i].polar)
+                if axesList[i].xLabel:
                     try:
-                        ax.set_xlabel(self.axes[i].xLabel)
+                        ax.set_xlabel(axesList[i].xLabel)
                     except:
                         pass
-                if self.axes[i].yLabel:        
+                if axesList[i].yLabel:        
                     try:
-                        ax.set_ylabel(self.axes[i].yLabel)
+                        ax.set_ylabel(axesList[i].yLabel)
                     except:
                         pass
-                if self.axes[i].title:
+                if axesList[i].title:
                     try:
-                        ax.set_title(self.axes[i].title)
+                        ax.set_title(axesList[i].title)
                     except:
                         pass
-                if self.axes[i].xScale:
+                if axesList[i].xScale:
                     try:
-                         ax.set_xscale(self.axes[i].xScale)
+                         ax.set_xscale(axesList[i].xScale)
                     except:
                         pass
-                if self.axes[i].yScale:
+                if axesList[i].yScale:
                     try:
-                         ax.set_yscale(self.axes[i].yScale)
+                         ax.set_yscale(axesList[i].yScale)
                     except:
                         pass
-                if len(self.axes[i].xLim) == 2:
+                if len(axesList[i].xLim) == 2:
                     try:
-                        ax.set_xlim(self.axes[i].xLim[0], self.axes[i].xLim[1])
+                        ax.set_xlim(axesList[i].xLim[0], axesList[i].xLim[1])
                     except:
                         pass
-                if len(self.axes[i].yLim) == 2:
+                if len(axesList[i].yLim) == 2:
                     try:
-                        ax.set_ylim(self.axes[i].yLim[0], self.axes[i].yLim[1])
+                        ax.set_ylim(axesList[i].yLim[0], axesList[i].yLim[1])
                     except:
                         pass
-                if len(self.axes[i].traces) == 0:
+                if len(axesList[i].traces) == 0:
                     print 'Error: Missing trace data for plotting!'
                     return False
 
-                for j in range(len(self.axes[i].traces)):
-                    if self.axes[i].traces[j].color:
-                        Color = self.axes[i].traces[j].color
+                for j in range(len(axesList[i].traces)):
+                    if axesList[i].traces[j].color:
+                        Color = axesList[i].traces[j].color
                     else:
                         Color = ini.defaultColors[j % len(ini.defaultColors)]
-                    if self.axes[i].traces[j].marker:
-                        Marker = self.axes[i].traces[j].marker
+                    if axesList[i].traces[j].marker:
+                        Marker = axesList[i].traces[j].marker
                     else:
                         Marker = ini.defaultMarkers[j % len(ini.defaultMarkers)]
-                    if self.axes[i].traces[j].markerColor:
-                        MarkerColor = self.axes[i].traces[j].markerColor
+                    if axesList[i].traces[j].markerColor:
+                        MarkerColor = axesList[i].traces[j].markerColor
                     else:
                         MarkerColor = ini.defaultColors[j % len(ini.defaultColors)]
                     try:
-                        if self.axes[i].xScaleFactor in SCALEFACTORS.keys():
-                            scaleX = 10**eval(SCALEFACTORS[self.axes[i].xScaleFactor])
+                        if axesList[i].xScaleFactor in SCALEFACTORS.keys():
+                            scaleX = 10**eval(SCALEFACTORS[axesList[i].xScaleFactor])
                         else:
                             scaleX = 1
-                        if self.axes[i].yScaleFactor in SCALEFACTORS.keys():
-                            scaleY = 10**eval(SCALEFACTORS[self.axes[i].yScaleFactor])
+                        if axesList[i].yScaleFactor in SCALEFACTORS.keys():
+                            scaleY = 10**eval(SCALEFACTORS[axesList[i].yScaleFactor])
                         else:
                             scaleY = 1
-                        plt.plot(self.axes[i].traces[j].xData/scaleX, self.axes[i].traces[j].yData/scaleY, label = self.axes[i].traces[j].label, linewidth = self.axes[i].traces[j].lineWidth,
-                                 color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = self.axes[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = self.axes[i].traces[j].markerFaceColor, linestyle = self.axes[i].traces[j].lineType)
+                        plt.plot(axesList[i].traces[j].xData/scaleX, axesList[i].traces[j].yData/scaleY, label = axesList[i].traces[j].label, linewidth = axesList[i].traces[j].lineWidth,
+                                 color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = axesList[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = axesList[i].traces[j].markerFaceColor, linestyle = axesList[i].traces[j].lineType)
                     except:
                         print 'Error in plot data of %s.'%self.fileName
                         #return False
-                    if self.axes[i].text:
-                        X, Y, txt = self.axes[i].text
+                    if axesList[i].text:
+                        X, Y, txt = axesList[i].text
                         plt.text(X, Y, txt, fontsize = ini.plotFontSize)  
                     # Set default font sizes and grid
                     defaultsPlot()
-        if self.save:
-            try:
-                plt.savefig(ini.imgPath + self.fileName + '.' + self.fileType)
-                print 'Plot \"%s.%s\" saved to disk.'%(self.fileName, self.fileType)
-            except:
-                print 'Error: could not save the plot!'
-            # ToDo save CSV all traces??
+        plt.savefig(ini.imgPath + self.fileName)
         if self.show:
             plt.show()
         plt.close(fig)
-        return True
+        return
         
 def defaultsPlot():
     """
@@ -202,13 +195,11 @@ def defaultsPlot():
             for tick in fig.axes[i].yaxis.get_major_ticks():
                 tick.label.set_fontsize(ini.plotFontSize)
 
-def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False, save = True):
+def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     dBmag = axis(title)
     dBmag.xScaleFactor = xscale
     dBmag.yScaleFactor = yscale
@@ -289,13 +280,11 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     fig.plot()
     return fig
    
-def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', yunits = '', show = False, save = True):
+def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', yunits = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     mag = axis(title)
     mag.xScaleFactor = xscale
     mag.yScaleFactor = yscale
@@ -374,13 +363,11 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
     fig.plot()
     return fig
                 
-def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False, save = True):
+def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     phase = axis(title)
     phase.xScaleFactor = xscale
     phase.yScaleFactor = yscale
@@ -462,13 +449,11 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     fig.plot()
     return fig
                 
-def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False, save = True):
+def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     delay = axis(title)
     delay.xScaleFactor = xscale
     delay.yScaleFactor = yscale
@@ -542,13 +527,11 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
     fig.plot()
     return fig
                
-def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale = '', yunits = '', show = False, save = True):
+def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale = '', yunits = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     time = axis(title)
     time.xScaleFactor = xscale
     time.yScaleFactor = yscale
@@ -609,13 +592,11 @@ def plotTime(fileName, title, results, tStart, tStop, tNum, xscale = '', yscale 
     fig.plot()
     return fig
 
-def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax = None, xscale = '', yscale = '', show = False, save = True):
+def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax = None, xscale = '', yscale = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     fig.axisHeight = fig.axisWidth
     pz = axis(title)
     pz.xScaleFactor = xscale
@@ -801,13 +782,11 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     fig.plot()
     return fig
 
-def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', sources = None, xscale = '', yscale = '', show = False, save = True):
+def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', sources = None, xscale = '', yscale = '', show = False):
     """
     """
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     ax = axis(title)
     ax.xScaleFactor = xscale
     ax.yScaleFactor = yscale
@@ -957,7 +936,7 @@ def plotNoise(fileName, title, results, fStart, fStop, fNum, noise = 'onoise', s
     fig.plot()
     return fig
 
-def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits = '', yunits= '', punits = '', xscale = '', yscale = '', pscale = '', show = False, save = True):
+def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits = '', yunits= '', punits = '', xscale = '', yscale = '', pscale = '', show = False):
     if type(plotData) != type(paramPlot()):
         print "Error: unexpected input data."
         return
@@ -981,10 +960,8 @@ def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits =
     pVar = '$' + sp.latex(sp.sympify(plotData.pVar)) +'$'
     xVar = '$' + sp.latex(sp.sympify(plotData.xVar)) +'$'
     yVar = '$' + sp.latex(sp.sympify(plotData.yVar)) +'$'
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     ax = axis(title)
     ax.xScale = xaxis
     ax.yScale = yaxis
@@ -1013,7 +990,7 @@ def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits =
             colNum += 1
     fig.axes = [[ax]]
     fig.plot()
-    return
+    return fig
 
 def plotCSV(fileName):
     return
@@ -1046,10 +1023,8 @@ def plotVsStep(fileName, title, result, goalFuncObj, show = False, save = True):
         errors += 1
     if errors != 0:
         return
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     vsStep = axis(title)
     vsStep.xScaleFactor = goalFuncObj.pscale
     vsStep.yScaleFactor = goalFuncObj.yscale
@@ -1138,11 +1113,13 @@ def makeGoalFuncTrace(result, goalFuncObj):
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     """
     """
-    fmax = checkNumber(fmax)
-    fmin = checkNumber(fmin)
-    if fmin == None or fmax == None or fmin >= fmax:
+    if fmin == None or fmax == None:
         print "Error in frequency range specification."
         return None
+    if fmin != None and fmax != None:
+        if checkNumber(fmin) != None and  checkNumber(fmin) != None and fmin >= fmax:
+            print "Error in frequency range specification."
+            return None
     if noiseResult.dataType != 'noise':
         print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
         rms = None
@@ -1188,10 +1165,8 @@ def plotFunction(fileName, title, funcObject, start, stop, points, save=True, sh
         yScaleFactor = 10**int(SCALEFACTORS[funcObject.yscale])
     except:
         yScaleFactor = 1.
-    fig = figure(title)
-    fig.fileName = fileName
+    fig = figure(fileName)
     fig.show = show
-    fig.save = save
     ax = axis(title)
     ax.xScaleFactor = funcObject.xscale
     ax.yScaleFactor = funcObject.yscale
@@ -1236,6 +1211,7 @@ class func(object):
         self.fname  = None
 
 if __name__=='__main__':
+    ini.imgPath = ''
     x = np.linspace(0, 2*np.pi, endpoint = True)
     y1 = np.sin(x)
     y2 = np.cos(x)
@@ -1258,5 +1234,7 @@ if __name__=='__main__':
     testFig = figure('testFig')
     testFig.axes = [[sincos, ""],["",sincos]]
     testFig.show = True
+    testFig.plot()
+    plt.show()
     testFig.plot()
     plt.show()

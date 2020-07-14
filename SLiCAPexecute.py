@@ -67,10 +67,7 @@ def doInstruction(instObj):
                 numer = doNumer(instObj)
                 numers = stepFunctions(instObj, numer)
                 for i in range(len(denoms)):
-                    try:
-                        instObj.stepResp.append(maxILT(numers[i], denoms[i]*ini.Laplace))
-                    except:
-                        print "Warning: could not calculate the unit step response."
+                    instObj.stepResp.append(maxILT(numers[i], denoms[i]*ini.Laplace, numeric = instObj.numeric))
             elif instObj.dataType == 'impulse' or instObj.dataType == 'time':
                 denom = doDenom(instObj)
                 numer = doNumer(instObj)
@@ -82,7 +79,7 @@ def doInstruction(instObj):
                 numers = stepFunctions(instObj, numer)
                 for i in range(len(denoms)):
                     try:
-                        instObj.stepResp.append(maxILT(numers[i], denoms[i]))
+                        instObj.stepResp.append(maxILT(numers[i], denoms[i], numeric = instObj.numeric))
                     except:
                         print "Warning: could not calculate the unit impulse response."
             elif instObj.dataType == 'numer':
@@ -276,10 +273,7 @@ def doDataType(instObj):
         else:
             instObj.laplace = doLaplace(instObj)
     elif instObj.dataType == 'step':
-        try:
-            instObj.stepResp = maxILT(doNumer(instObj), doDenom(instObj)*ini.Laplace)
-        except:
-            print "Warning: could not calculate the unit step response."
+        instObj.stepResp = maxILT(doNumer(instObj), doDenom(instObj)*ini.Laplace, numeric = instObj.numeric)
     elif instObj.dataType == 'impulse' or instObj.dataType == 'time':
         numer = doNumer(instObj)
         denom = doDenom(instObj)
@@ -289,12 +283,12 @@ def doDataType(instObj):
             denom = sp.expand(denom*nDen)
         if instObj.dataType == 'impulse':
             try:
-                instObj.impulse = maxILT(numer, denom)
+                instObj.impulse = maxILT(numer, denom, numeric = instObj.numeric)
             except:
                 print "Warning: could not calculate the unit impulse response."
         elif instObj.dataType == 'time':
             try:
-                instObj.time = maxILT(numer, denom)
+                instObj.time = maxILT(numer, denom, numeric = instObj.numeric)
             except:
                 print "Warning: could not calculate the time response."
     elif instObj.dataType == 'solve':
