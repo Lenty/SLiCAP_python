@@ -234,13 +234,7 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             print "Error: wrong data type '%s' for 'plotdBmag()'."%(result.dataType)
             return fig
         if not result.step:
-            if ini.Hz == True:
-                yData = yData.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, 20*sp.log(abs(yData),10))
-            else:
-                yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, 20*sp.log(abs(yData),10))
-            y = [func(x[j]) for j in range(len(x))]
+            y = dBmagFunc_f(yData, x)
             dBmagTrace = trace([x, y])
             try:
                 dBmagTrace.color = ini.gainColors[result.gainType]
@@ -259,13 +253,7 @@ def plotdBmag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             else:
                 yLabel += result.gainType
             for i in range(len(yData)):
-                if ini.Hz == True:
-                    y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
-                else:
-                    y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, 20*sp.log(abs(y),10))
-                y = [func(x[j]) for j in range(len(x))]
+                y = dBmagFunc_f(yData[i], x)
                 dBmagTrace = trace([x, y])
                 dBmagTrace.color = ini.defaultColors[i % numColors]
                 dBmagTrace.label = result.gainType
@@ -319,13 +307,7 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
             print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
             return fig
         if not result.step:
-            if ini.Hz == True:
-                yData = yData.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, abs(yData))
-            else:
-                yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, abs(yData))
-            y = [func(x[j]) for j in range(len(x))]
+            y = magFunc_f(yData, x)
             magTrace = trace([x, y])
             try:
                 magTrace.color = ini.gainColors[result.gainType]
@@ -343,13 +325,7 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
             else:
                 yLabel += result.gainType
             for i in range(len(yData)):
-                if ini.Hz == True:
-                    y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, abs(y))
-                else:
-                    y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, abs(y))
-                y = [func(x[j]) for j in range(len(x))]
+                y = magFunc_f(yData[i], x)
                 magTrace = trace([x, y])
                 magTrace.color = ini.defaultColors[i % numColors]
                 magTrace.label = yLabel
@@ -362,7 +338,151 @@ def plotMag(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale =
     fig.axes = [[mag]]
     fig.plot()
     return fig
+
+def plotPolar(fileName, title, results, fStart, fStop, fNum, fscale = '', rscale = '', show = False):
+    """
+    """
+    fig = figure(fileName)
+    fig.show = show
+    magPolar = axis(title)
+    magPolar.polar = True
+    magPolar.yScaleFactor = rscale
+    magPolar.yScale = 'lin'
+    try:
+        fScaleFactor = 10**int(SCALEFACTORS[fscale])
+    except:
+        fScaleFactor = 1.
+    f = np.geomspace(checkNumber(fStart)*fScaleFactor, checkNumber(fStop)*fScaleFactor, checkNumber(fNum))
+    magPolar.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'numer':
+            rData = result.numer
+            rLabel = 'numer: '
+        if result.dataType == 'denom':
+            rData = result.denom
+            rLabel = 'denom: '
+        if result.dataType == 'laplace':
+            rData = result.laplace
+            rLabel = ''
+        else:
+            print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
+            return fig
+        if not result.step:
+            radius = magFunc_f(rData, f)
+            angle = phaseFunc_f(rData, f)
+            if ini.Hz:
+                angle = angle/180*np.pi
+            
+            polarTrace = trace([angle, radius])
+            try:
+                polarTrace.color = ini.gainColors[result.gainType]
+            except:
+                polarTrace.color = ini.defaultColors[colNum % numColors]
+            if result.gainType == 'vi':
+                rLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                rLabel += result.gainType
+            polarTrace.label = rLabel
+            magPolar.traces.append(polarTrace)
+        elif type(rData) == list:
+            if result.gainType == 'vi':
+                rLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                rLabel += result.gainType
+            for i in range(len(rData)):
+                radius = magFunc_f(rData[i], f)
+                angle = phaseFunc_f(rData[i], f)
+                if ini.Hz:
+                    angle = angle/180*np.pi
                 
+                polarTrace = trace([angle, radius])
+                polarTrace.color = ini.defaultColors[i % numColors]
+                polarTrace.label = rLabel
+                if result.stepMethod == 'array':
+                    polarTrace.label += ', run: %s'%(i+1)
+                else:
+                    polarTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                magPolar.traces.append(polarTrace)  
+        colNum += 1   
+    fig.axes = [[magPolar]]
+    fig.plot()
+    return fig
+
+def plotdBpolar(fileName, title, results, fStart, fStop,  fNum, fscale = '', rscale = '', show = False):
+    """
+    """
+    fig = figure(fileName)
+    fig.show = show
+    magPolar = axis(title)
+    magPolar.polar = True
+    magPolar.yScaleFactor = rscale
+    magPolar.yScale = 'lin'
+    try:
+        fScaleFactor = 10**int(SCALEFACTORS[fscale])
+    except:
+        fScaleFactor = 1.
+    f = np.geomspace(checkNumber(fStart)*fScaleFactor, checkNumber(fStop)*fScaleFactor, checkNumber(fNum))
+    magPolar.traces = []
+    if type(results) == type(allResults()):
+        results = [results]
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    for result in results:
+        if result.dataType == 'numer':
+            rData = result.numer
+            rLabel = 'numer: '
+        if result.dataType == 'denom':
+            rData = result.denom
+            rLabel = 'denom: '
+        if result.dataType == 'laplace':
+            rData = result.laplace
+            rLabel = ''
+        else:
+            print "Error: wrong data type '%s' for 'plotMag()'."%(result.dataType)
+            return fig
+        if not result.step:
+            radius = dBmagFunc_f(rData, f)
+            angle = phaseFunc_f(rData, f)
+            if ini.Hz:
+                angle = angle/180*np.pi
+            polarTrace = trace([angle, radius])
+            try:
+                polarTrace.color = ini.gainColors[result.gainType]
+            except:
+                polarTrace.color = ini.defaultColors[colNum % numColors]
+            if result.gainType == 'vi':
+                rLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                rLabel += result.gainType
+            polarTrace.label = rLabel
+            magPolar.traces.append(polarTrace)
+        elif type(rData) == list:
+            if result.gainType == 'vi':
+                rLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+            else:
+                rLabel += result.gainType
+            for i in range(len(rData)):
+                radius = dBmagFunc_f(rData[i], f)
+                angle = phaseFunc_f(rData, f)
+                if ini.Hz:
+                    angle = angle/180*np.pi
+                polarTrace = trace([angle, radius])
+                polarTrace.color = ini.defaultColors[i % numColors]
+                polarTrace.label = rLabel
+                if result.stepMethod == 'array':
+                    polarTrace.label += ', run: %s'%(i+1)
+                else:
+                    polarTrace.label += ', %s = %8.1e'%(result.stepVar, result.stepList[i])
+                magPolar.traces.append(polarTrace)  
+        colNum += 1   
+    fig.axes = [[magPolar]]
+    fig.plot()
+    return fig
+           
 def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale = '', show = False):
     """
     """
@@ -403,14 +523,7 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
             return fig
         if not result.step:
-            if ini.Hz == True:
-                yData = yData.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, yData)
-                y = 180*np.unwrap(np.angle(func(x)))/np.pi
-            else:
-                yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, yData)
-                y = np.unwrap(np.angle(func(x)))
+            y = phaseFunc_f(yData, x)
             phaseTrace = trace([x, y])
             try:
                 phaseTrace.color = ini.gainColors[result.gainType]
@@ -428,14 +541,7 @@ def plotPhase(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             else:
                 yLabel += result.gainType
             for i in range(len(yData)):
-                if ini.Hz == True:
-                    y = yData[i].xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, y)
-                    y = 180*np.unwrap(np.angle(func(x)))/np.pi
-                else:
-                    y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
-                    func = sp.lambdify(ini.frequency, y)
-                    y = np.unwrap(np.angle(func(x)))
+                y = phaseFunc_f(yData[i], x)
                 phaseTrace = trace([x, y])
                 phaseTrace.color = ini.defaultColors[i % numColors]
                 phaseTrace.label = yLabel
@@ -488,11 +594,7 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             print "Error: wrong data type '%s' for 'plotPhase()'."%(result.dataType)
             return fig
         if not result.step:
-            yData = yData.xreplace({ini.Laplace: sp.I*ini.frequency})
-            func = sp.lambdify(ini.frequency, yData)
-            y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
-            # y one point less than x after differentiation so remove last point x
-            x = x[0:-1] 
+            y = delayFunc_f(yData, x)
             delayTrace = trace([x, y])
             try:
                 delayTrace.color = ini.gainColors[result.gainType]
@@ -510,11 +612,7 @@ def plotDelay(fileName, title, results, fStart, fStop, fNum, xscale = '', yscale
             else:
                 yLabel += result.gainType
             for i in range(len(yData)):
-                y = yData[i].xreplace({ini.Laplace: sp.I*ini.frequency})
-                func = sp.lambdify(ini.frequency, y)
-                y = -np.diff(np.unwrap(np.angle(func(x))))/np.diff(x)
-                # y one point less than x after differentiation so remove last point x
-                x = x[0:-1] 
+                y = delayFunc_f(yData[i], x)
                 delayTrace = trace([x, y])
                 delayTrace.color = ini.defaultColors[i % numColors]
                 if result.stepMethod == 'array':
@@ -1110,46 +1208,6 @@ def makeGoalFuncTrace(result, goalFuncObj):
         yScaleFactor = 1.
     return trace([x/xScaleFactor, y/yScaleFactor])
 
-def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
-    """
-    """
-    if fmin == None or fmax == None:
-        print "Error in frequency range specification."
-        return None
-    if fmin != None and fmax != None:
-        if checkNumber(fmin) != None and  checkNumber(fmin) != None and fmin >= fmax:
-            print "Error in frequency range specification."
-            return None
-    if noiseResult.dataType != 'noise':
-        print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
-        rms = None
-    keys = noiseResult.onoiseTerms.keys()
-    if noise == 'inoise':
-        if source == None:
-            noiseData = noiseResult.inoise
-        elif source in keys:
-            noiseData = noiseResult.inoiseTerms[source]
-        else:
-            print "Error: unknown noise source: '%s'."%(source)
-            rms = None
-    elif noise == 'onoise':
-        if source == None:
-            noiseData = noiseResult.onoise
-        elif source in keys:
-            noiseData = noiseResult.onoiseTerms[source]
-        else:
-            print "Error: unknown noise source: '%s'."%(source)
-            rms = None
-    else:
-        print "Error: unknown noise type: '%s'."%(noise)
-        rms = None
-    if type(noiseData) != list:
-        noiseData = [noiseData]    
-    rms =  np.array([sp.N(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType))) for i in range(len(noiseData))])
-    if len(rms) == 1:
-        rms = rms[0]
-    return rms
-
 def plotFunction(fileName, title, funcObject, start, stop, points, save=True, show=False):
     """
     """
@@ -1228,6 +1286,7 @@ if __name__=='__main__':
     cosine.marker = 'x'
     cosine.markerColor = 'b'
     sincos = axis('sine and cosine')
+    sincos.polar = False
     sincos.xScale = 'lin'
     sincos.yScale = 'lin'
     sincos.traces = [sine, cosine]

@@ -35,19 +35,19 @@ MNA = i1.execute();
 htmlPage('Matrix equations')
 # Let us put some explaining text in the report:
 text2html('The MNA matrix equation for the RC network is:')
-matrices2html(MNA, label = 'MNA')
+matrices2html(MNA, label = 'MNA', labelText = 'MNA equation of the network')
 # The variables in this equation are available in the variable that holds 
 # the result of the execution:
 #
 # 1. The vector 'Iv' with independent variables:
 text2html('The vector with independent variables is:')
-eqn2html('I_v', MNA.Iv, label = 'Iv')
+eqn2html('I_v', MNA.Iv, label = 'Iv', labelText = 'Vector with independent variables')
 # 2. The matrix 'M':
 text2html('The MNA matrix is:')
-eqn2html('M', MNA.M, label = 'M')
+eqn2html('M', MNA.M, label = 'M', labelText = 'MNA matrix')
 # 3. The vercor wit dependent variables 'Dv':
 text2html('The vector with dependent variables is:')
-eqn2html('D_v', MNA.Dv, label = 'Dv')
+eqn2html('D_v', MNA.Dv, label = 'Dv', labelText = 'Vector with dependent variables')
 # Let us now evaluate the transfer function of this network.
 # To this end we need to define a signal source and a detector.
 # Both the source and the detector are attributes of the instruction object:
@@ -69,7 +69,7 @@ i1.simType = 'symbolic'
 # Let us execute the (modified) instruction 'i1' and assign the result to the variable gain:
 gain = i1.execute()
 # The laplace transform can now be found in the attribute 'laplace' of 'gain'.
-eqn2html('V_out/V_1', gain.laplace, label = 'gainLaplace')
+eqn2html('V_out/V_1', gain.laplace, label = 'gainLaplace', labelText = 'Laplace transfer function')
 # The parameters 'R' and 'C' stem from the circuit, while 's' is defined as the Laplace variable:
 print(ini.Laplace)
 # SLiCAP has a lot of predefined plots. The results of an analysis with data type 'laplace' can
@@ -87,6 +87,8 @@ head2html('Frequency domain plots')
 figMag = plotMag('RCmag', 'Magnitude characteristic', numGain, 10, '100k', 100, yunits = '-')
 # This will put the figure on the HTML page with a width of 800 pixels, a caption and a label:
 fig2html(figMag, 600, caption = 'Magnitude characteristic of the RC network.', label = 'figMag')
+figPol = plotPolar('RCpolar', 'Polar plot', numGain, 10, '100k', 100, rscale = '')
+fig2html(figPol, 600, caption = 'Polar plot of the transfer of the RC network.', label = 'figPolar')
 figdBmag = plotdBmag('RCdBmag', 'dB magnitude characteristic', numGain, 10, '100k', 100)
 fig2html(figdBmag, 600, caption = 'dB Magnitude characteristic of the RC network.', label = 'figdBmag')
 figPhase = plotPhase('RCphase', 'Phase characteristic', numGain, 10, '100k', 100,)
@@ -100,7 +102,7 @@ i1.dataType = 'pz'
 pzGain      = i1.execute()
 # We will create a new HTML page for displaying the results and display them also in this notebook.
 htmlPage('Poles and zeros')
-pz2html(pzGain, label = 'PZlist')
+pz2html(pzGain, label = 'PZlist', labelText = 'Poles and zeros of the network')
 # Let us also add a pole-zero plot of these results:
 head2html("Complex frequency domain plots")
 figPZ = plotPZ('PZ', 'Poles and zeros of the RC network', pzGain)
@@ -135,71 +137,77 @@ fig2html(figStep, 600, caption = 'Unit step response of the RC network.', label 
 #    b. Write the capacitance 'C_R1' as a function of 'n', 'tau_s' and 'R'
 #
 # Let us first create a new page for the above:
-htmlPage('Design equations for $R$ and $C$')
+htmlPage('Design equations for $R$ and $C$', label='desEq')
 head2html('The unit step response')
 # Step 1:
 i1.simType  = 'symbolic'
 i1.dataType = 'step'
 symStep     = i1.execute()
 mu_t        = sp.Symbol('mu_t')
-eqn2html(mu_t, symStep.stepResp, label = 'mu_t')
+eqn2html(mu_t, symStep.stepResp, label = 'mu_t', labelText = 'Symbolic expression of the unit step response')
 # Step 2:
 head2html("The settling error versus time")
 t             = sp.Symbol('t')
 settlingError = sp.limit(symStep.stepResp, t, 'oo') - symStep.stepResp
 epsilon_t     = sp.Symbol('epsilon_t')
-eqn2html(epsilon_t, settlingError, label = 'epsilon_t')
+eqn2html(epsilon_t, settlingError, label = 'epsilon_t', labelText = 'Symbolic expression of the settling error versus time')
 # Step 3:
 head2html("The n-bit settling time")
 n            = sp.Symbol('n')
 settlingTime = sp.solve(settlingError - 2**(-n), t)[0] # In this case there is only one solution
 tau_s        = sp.Symbol('tau_s')
-eqn2html(tau_s, settlingTime, label = 'tau_s')
+eqn2html(tau_s, settlingTime, label = 'tau_s', labelText = 'Symbolic expression of the settling time')
 # Step 4a:
 head2html("The design equation for $R$")
 R    = sp.Symbol('R')
 RR1  = sp.solve(settlingTime - tau_s, R)[0] # In this case there is only one solution
-eqn2html(R, RR1, label = 'RR1')
+eqn2html(R, RR1, label = 'RR1', labelText = 'Design equation for $R$')
 # Step 4b:
 head2html("The design equation for $C$")
 C    = sp.Symbol('C')
 CC1  = sp.solve(settlingTime - tau_s, C)[0] # In this case there is only one solution
-eqn2html(C, CC1, label = 'CC1')
+eqn2html(C, CC1, label = 'CC1', labelText = 'Design equation for $C$')
 head2html("Numeric example.")
 text2html("We will determine R for the case in which we need 10 bit settling within 100ns with a capacitance C=10pF. We obtain:")
 Rvalue = sp.N(RR1.subs([(tau_s, 100e-9), (n, 10), (C, 1e-11)]), ini.disp)
-eqn2html(R, Rvalue, label = 'Rvalue')
+eqn2html(R, Rvalue, label = 'Rvalue', labelText = 'Numeric value of $R$')
 #
+links2html()
+"""
 htmlPage('Data summary')
+#
+head2html('Pages')
+text2html(href('desEq'))
 #
 head2html('Plots')
 #
-text2html(href('figMag'       , 'Magnitude plot' ))
-text2html(href('figdBmag'     , 'dB Magnitude plot' ))
-text2html(href('figPhase'     , 'Phase plot' ))
-text2html(href('figDelay'     , 'Group delay plot' ))
-text2html(href('figPZ'        , 'Pole-zero plot' ))
-text2html(href('figStep'      , 'Step response plot' ))
+text2html(href('figMag'))
+text2html(href('figdBmag'))
+text2html(href('figPhase'))
+text2html(href('figDelay'))
+text2html(href('figPZ'))
+text2html(href('figStep'))
 #
 head2html('Equations')
 #
-text2html(href('MNA'          , 'MNA matrix equation'))
-text2html(href('Iv'           , 'Vector with independent variables'))
-text2html(href('M'            , 'MNA matrix'))
-text2html(href('Dv'           , 'Vector with dependent variables'))
-text2html(href('gainLaplace'  , 'Laplace transfer function of the RC network'))
-text2html(href('PZlist'       , 'Poles and zeros of the RC network'))
-text2html(href('mu_t'         , 'Symbolic expression of the step response'))
-text2html(href('epsilon_t'    , 'Symbolic expression of the settling error versus time'))
-text2html(href('tau_s'        , 'Symbolic expression of the settling time'))
-text2html(href('RR1'          , '$R(n, \\tau_s, C)$'))
-text2html(href('CC1'          , '$C(n, \\tau_s, R)$'))
-text2html(href('Rvalue'       , 'Numeric value of $R$ for 10 bit settling within 100ns with C=10pF'));
+text2html(href('MNA'))
+text2html(href('Iv'))
+text2html(href('M'))
+text2html(href('Dv' ))
+text2html(href('gainLaplace'))
+text2html(href('PZlist'))
+text2html(href('mu_t'))
+text2html(href('epsilon_t'))
+text2html(href('tau_s'))
+text2html(href('RR1'))
+text2html(href('CC1'))
+text2html(href('Rvalue'));
 #
 head2html('Circuit data')
-text2html(href('figRCnetwork' , 'Circuit diagram'))
-text2html(href('netlist'      , 'Netlist'))
-text2html(href('elementData'  , 'Element data'))
-text2html(href('params'       , 'Circuit parameters'))
+text2html(href('figRCnetwork'))
+text2html(href('netlist' ))
+text2html(href('elementData'))
+text2html(href('params'))
+"""
 t2 = time()
 print "Total time: %3.1fs"%(t2-t1)

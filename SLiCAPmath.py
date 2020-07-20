@@ -327,6 +327,95 @@ def invLaplace(numer, denom):
         ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.E**(p[i]*t)
     return ft
 
+def magFunc_f(laplaceRational, f):
+    """
+    """
+    if type(f) == list:
+        f = np.array(f)
+    if ini.Hz == True:
+        data = laplaceRational.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+    else:
+        data = laplaceRational.xreplace({ini.Laplace: sp.I*ini.frequency})
+    func = sp.lambdify(ini.frequency, abs(data))
+    return func(f)
+
+def dBmagFunc_f(laplaceRational, f):
+    """
+    """
+    if type(f) == list:
+        f = np.array(f)
+    if ini.Hz == True:
+        data = laplaceRational.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+    else:
+        data = laplaceRational.xreplace({ini.Laplace: sp.I*ini.frequency})
+    func = sp.lambdify(ini.frequency, 20*sp.log(abs(data), 10))
+    return func(f)
+
+def phaseFunc_f(laplaceRational, f):
+    """
+    """
+    if type(f) == list:
+        f = np.array(f)
+    if ini.Hz == True:
+        data = laplaceRational.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+    else:
+        data = laplaceRational.xreplace({ini.Laplace: sp.I*ini.frequency})
+    func = sp.lambdify(ini.frequency, data)
+    phase = np.angle(func(f))
+    try:
+        phase = np.unwrap(phase)
+    except:
+        pass
+    if ini.Hz:
+        phase = phase * 180/np.pi
+    return phase
+
+def delayFunc_f(laplaceRational, f, delta=10**(-ini.disp)):
+    """
+    """
+    if type(f) == list:
+        f = np.array(f)
+    if ini.Hz == True:
+        data = laplaceRational.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+        func = sp.lambdify(ini.frequency, data)
+    else:
+        data = laplaceRational.xreplace({ini.Laplace: sp.I*ini.frequency})
+        func = sp.lambdify(ini.frequency, data)
+    angle1 = np.angle(func(f))
+    angle2 = np.angle(func(f*(1+delta)))
+    try:
+        angle1 = np.unwrap(angle1)
+        angle2 = np.unwrap(angle2)
+    except:
+        pass
+    delay  = (angle1 - angle2)/delta/f
+    if ini.Hz == True:
+        delay = delay/2/np.pi
+    return delay
+
+def mag_f(laplaceRational):
+    """
+    """
+    if ini.Hz == True:
+        data = laplaceRational.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+    else:
+        data = laplaceRational.xreplace({ini.Laplace: sp.I*ini.frequency})
+    data = data.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in data.atoms(sp.Symbol)})
+    return sp.Abs(data)
+
+def phase_f(laplaceRational):
+    """
+    """
+    if ini.Hz == True:
+        data = laplaceRational.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+        return 180 * sp.arg(data) / sp.pi
+    else:
+        data = laplaceRational.xreplace({ini.Laplace: sp.I*ini.frequency})
+        return sp.arg(data)
+
+def assumeAllReal(expr):
+    return expr.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in expr.atoms(sp.Symbol)})
+
 if __name__ == "__main__":
     s = ini.Laplace
     
@@ -349,3 +438,5 @@ if __name__ == "__main__":
     DET = MOD.determinant()
     roots2 = numRoots(DET,s)
     print roots2
+    a = phase_f(DET)
+    print sp.N(a.subs(ini.frequency, 100))

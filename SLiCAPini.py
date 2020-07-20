@@ -130,7 +130,6 @@ class settings(object):
         self.htmlPage           = None
         self.htmlPrefix         = None
         self.htmlLabels         = None
-        self.htmlEqLabels       = None
         self.htmlPages          = None
         self.stepFunction       = True
         self.maxSolve           = True

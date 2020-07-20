@@ -25,8 +25,9 @@ END         = ['END', 'ENDS']
 CONTROLLED  = ['E', 'F', 'G', 'H']  # Controlled sources
 INDEPSCRCS  = ['I', 'V']            # Independent sources
 
-# list with (sub)circuit titles
+# list with (sub)circuit titles for checking hierarchy
 CIRTITLES = []
+
 LIB = circuit()
 
 def checkCircuit(fileName):
@@ -840,12 +841,13 @@ def addUserLibs(fileNames):
 
 if __name__ == '__main__':
     """
-    Since we are not running a project, we need to define the project directories.
+    Since we are not running a project, we need to define project data.
     """
     ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
+    ini.lastUpdate  = datetime.now()
     t1=time()
     LIB = makeLibraries()
     t2=time()  
