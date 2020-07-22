@@ -513,8 +513,16 @@ def makeSrcDetPos(instObj):
             detP = detectors.index('I_i_' + instObj.lgRef)
             detN = None
         elif lgRef.model == 'G':
-            srcP = detectors.index('I_o_' + instObj.lgRef)
-            srcN = None
+            # srcP = detectors.index('I_o_' + instObj.lgRef)
+            # srcN = None
+            if lgRef.nodes[0] == '0':
+                srcN = None
+            else:
+                srcN = detectors.index('V_' + lgRef.nodes[0])
+            if lgRef.nodes[1] == '0':
+                srcP = None
+            else:
+                srcP = detectors.index('V_' + lgRef.nodes[1])
             if lgRef.nodes[2] == '0':
                 detP = None
             else:
@@ -541,7 +549,7 @@ def makeSrcDetPos(instObj):
             else:
                 srcN = detectors.index('V_' + lgRef.nodes[0])
         elif lgRef.model == 'H':
-            srcP = detectors.index('I_o' + instObj.lgRef)
+            srcP = detectors.index('I_o_' + instObj.lgRef)
             srcN = None
             detP = detectors.index('I_i_' + instObj.lgRef)
             detN = None

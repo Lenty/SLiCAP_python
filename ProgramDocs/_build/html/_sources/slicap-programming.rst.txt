@@ -34,3 +34,5 @@ Contents
    instruction
    execute
    plot
+   SLiCAPnotebook
+   SLiCAP

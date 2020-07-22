@@ -41,3 +41,6 @@ def rstfile(filename):
 # Adjust HTML output for markdown.
 
 ini.notebook = True
+
+if __name__== '__main__':
+    ini.dump()

@@ -2,6 +2,25 @@
 from SLiCAPpythonMaxima import *
 
 class trace(object):
+    """
+    Trace prototype. Traces are plotted on axes, which are part of a figure.
+    
+    Trace attributes are:
+        xData          : numpy array with x data
+        yData          : numpy array with y data
+        xName          : 'x'     # Header for table
+        yName          : 'y'     # Header for table
+        label          : ''      # trace label will be displayed in legend box
+        color          : False   # trace color
+        marker         : False   # trace marker
+        markerColor    : False   # trace marker color
+        markerFaceColor: 'none'  # trace marker face color
+        markerSize     : 7       # trace marker size
+        lineWidth      : 2
+        lineType       : '-'
+        table          :: False
+        
+    """
     def __init__(self, traceData):
         """
         """

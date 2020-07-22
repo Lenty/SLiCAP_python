@@ -173,41 +173,5 @@ Rvalue = sp.N(RR1.subs([(tau_s, 100e-9), (n, 10), (C, 1e-11)]), ini.disp)
 eqn2html(R, Rvalue, label = 'Rvalue', labelText = 'Numeric value of $R$')
 #
 links2html()
-"""
-htmlPage('Data summary')
-#
-head2html('Pages')
-text2html(href('desEq'))
-#
-head2html('Plots')
-#
-text2html(href('figMag'))
-text2html(href('figdBmag'))
-text2html(href('figPhase'))
-text2html(href('figDelay'))
-text2html(href('figPZ'))
-text2html(href('figStep'))
-#
-head2html('Equations')
-#
-text2html(href('MNA'))
-text2html(href('Iv'))
-text2html(href('M'))
-text2html(href('Dv' ))
-text2html(href('gainLaplace'))
-text2html(href('PZlist'))
-text2html(href('mu_t'))
-text2html(href('epsilon_t'))
-text2html(href('tau_s'))
-text2html(href('RR1'))
-text2html(href('CC1'))
-text2html(href('Rvalue'));
-#
-head2html('Circuit data')
-text2html(href('figRCnetwork'))
-text2html(href('netlist' ))
-text2html(href('elementData'))
-text2html(href('params'))
-"""
 t2 = time()
 print "Total time: %3.1fs"%(t2-t1)

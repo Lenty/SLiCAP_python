@@ -227,7 +227,20 @@ class circuit(object):
 
 class element(object):
     """
-    Prototye circuit element object.
+    Prototype circuit element object. It has the following attributes:
+        
+
+    refDes     = ''    # Element reference designator (refdes)
+    type       = ''    # First letter of refdes
+    nodes      = []    # Node list
+    refs       = []    # Reference list
+    params     = {}    # Dictionary with model parameters
+                       #   key   : model parameter name
+                       #   value : parameter value or 
+                       #           expression; value = [numer, denom] 
+                       #           if Laplace rational
+    model      = ''    # Model for this element
+            
     """
     def __init__(self):
         self.refDes     = ''    # Element reference designator (refdes)
@@ -242,7 +255,17 @@ class element(object):
         self.model      = ''    # Model for this element
         
 class device(object):
-    # Prototype for devices that can be used in SLiCAP
+    """
+    Prototype for devices that can be used in SLiCAP. It has the following 
+    attributes:
+        
+    ID     = ''        # ID of the device, e.g. 'V' for voltage source
+    nNodes     = 0     # Number of nodes of the device
+    nRefs      = 0     # Number of IDs of referenced devices
+    value      = True  # True if model or value is required
+    models     = []    # list with valid models for the device. 
+                       # Model names refer to model.name of a model
+    """
     def __init__(self):
         self.ID     = ''        # ID of the device, e.g. 'V' for voltage source
         self.nNodes     = 0     # Number of nodes of the device
@@ -252,7 +275,20 @@ class device(object):
                                 # Model names refer to model.name of a model
         
 class model(object):
-    # Protpotype for element models that can be used in SLiCAP
+    """
+    # Protpotype for element models that can be used in SLiCAP. It has the 
+    following attributes:
+        
+    name       = ''    # Model name
+    stamp      = True  # True if model has associated matrix stamp, 
+                       # False if it requires expansion
+    depVars    = []    # Namens of dependent vars. in matrix stamp
+    params     = {}    # Dictionary with model parameters
+                       #   key   : model parameter name
+                       #   value : True: if Laplace is allowed in the
+                       #           expression for this parameter,
+                       #           else: False
+    """
     def __init__(self):
         self.name       = ''    # Model name
         self.stamp      = True  # True if model has associated matrix stamp, 
@@ -265,7 +301,16 @@ class model(object):
                                 #           else: False
 
 class modelDef(object):
-    # Protpotype for models that can be added to SLiCAP
+    """
+    Protpotype for model definitions that can be added to SLiCAP. It has the 
+    following attributes:
+        
+    name       = ''    # Model name
+    type       = ''    # Must be a built-in model type
+    params     = {}    # Dictionary with model parameters
+                       #   key   : model parameter name
+                       #   value : value or expression 
+    """
     def __init__(self):
         self.name       = ''    # Model name
         self.type       = ''    # Must be a built-in model type
@@ -339,7 +384,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'HZ'
     newModel.stamp          = True
-    newModel.depVars        = 1 # can be set to 2 if independent depVar is used
+    newModel.depVars        = ['I_o', 'I_i']
     newModel.params         = {'value': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # Independent current source
@@ -609,14 +654,84 @@ def initAll():
     DEVICES[newDev.ID]  = newDev
     return
 
-initAll()
+initAll() # Initialize all models, devices, etc.
 
 #### Return structure for instruction
         
 class allResults(object):
     """
     Return  structure for results, has attributes for all data types and
-    instruction data.
+    instruction data. It has the following attributes:
+    
+    # Instruction results:
+    
+    DCvalue     = []   # Zero-frequency value in case of 
+                            # dataType 'pz'
+    poles       = []   # Complex frequencies in [rad/s] or [Hz]
+    zeros       = []   # Complex frequencies in [rad/s] or [Hz]
+    svarTerms   = {}   # Dict with lists with source variances
+    ivarTerms   = {}   # Dict with lists with contributions to 
+                            # source-referred variance
+    ovarTerms   = {}   # Dict with lists with contributions to 
+                            # detector-referred variance
+    ivar        = []   # Total source-referred variance
+    ovar        = []   # Total detector-referred variance
+    dcSolve     = []   # DC solution of the network
+    dc          = []   # DC solution at the detector
+    snoiseTerms = {}   # Dict with lists with source noise spectra
+    inoiseTerms = {}   # Dict with lists with contributions
+                            # to source-referred noise
+    onoiseTerms = {}   # Dict with lists with contributions
+                            # to detector-referred noise
+    inoise      = []   # Total source-referred noise spectral density
+    onoise      = []   # Total detector-referred noise spectral 
+    Iv          = None # Vector with independent variables
+    M           = None # MNA matrix
+    Dv          = None # Vector with dependent variables
+    denom       = []   # Laplace poly of denominator
+    numer       = []   # Laplace poly of numerator
+    laplace     = []   # Laplace transfer functions
+    solve       = []   # Laplace solutions of the network
+    time        = []   # Time-domain responses
+    impulse     = []   # Unit impulse responses
+    stepResp    = []   # Unit step responses
+    
+    # instruction settings:
+    
+    simType     = None # Simulation type: 'symbolic' or 'numeric'
+    gainType    = None # Gain type  : 'gain', 'asymptotic', 'loopgain', 'servo'
+                       #              'direct', or 'vi'
+    dataType    = None # Data type  : 'dc', 'dcsolve', 'dcvar', 'denom', 
+                                      'impulse', 'laplace', 'matrix', 'noise',
+                                      'numer', 'poles', 'pz', 'solve', 'step', 
+                                      'time' or 'zeros'
+    step        = None # True       : enables parameter stepping
+    stepVar     = None # Step variable for step types 'lin', 'log' and 'list'
+    stepVars    = None # List with step variables for 'array' type stepping
+    stepMethod  = None # Step method: 'lin', 'log', 'list', 'array'
+    stepStart   = None # Start value for step methods 'lin' and 'log'
+    stepStop    = None # Stop value for step methods 'lin' and 'log'
+    stepNum     = None # Number of steps for step methods 'lin' and 'log'
+    stepList    = []   # List with values for step method 'list'
+    stepArray   = []   # Array with values for step method array:
+                       # Nested list: list[i] carries the values for the step 
+                       # variable in stepVars[i]. The lists should have equal
+                       # lengths.
+    source      = None # Refdes of the source (independent v or i source)
+    detector    = None # Names of one or two nodal voltages or names of one
+                       # or two dependent currents (see detector specification)
+    lgRef       = None # Refdes of controlled source that is assigned as loop
+                       # gain reference
+    circuit     = None # Circuit object used for this instruction
+    parDefs     = None # Parameter definitions used for this instruction
+    numeric     = None # Variable used during analysis an presentation of 
+                       # analysis results
+    errors      = 0    # Number of errors found in the definition of this 
+                       # instruction
+    detUnits    = None # Detector units 'V' or 'A' (automatically detected)
+    srcUnits    = None # Source units 'V' or 'A' (automatically detected)
+    detLabel    = None # Name to be used in expressions or plots
+        
     """
     def __init__(self):
         self.DCvalue     = []   # Zero-frequency value in case of 
@@ -675,10 +790,27 @@ class allResults(object):
 
 class goalFunc(object):
     """
-    Structure for passing arguments to plotvsStep().
+    Prototype structure for passing arguments to plotvsStep(). It has the
+    following attributes:
+        
+    type      = None  # Implemented type are:
+                      #    'YatX', 'totalNoise', 'stdDev', 'dc', 'NF'
+    ylinlog   = 'lin' # axis type for y-axis
+    yscale    = ''    # scale factor for y-axis
+    yunits    = ''    # units for y-axis
+    pscale    = ''    # scale factor for x-axis (step parameter)
+    punits    = ''    # units for x-axis (step parameter)
+    value     = None  # x value for YatX
+    noiseType = None  # 'inoise' or 'onoise'
+    dcvarType = None  # 'ivar' or 'ovar'
+    source    = None  # identifier of source for stdDev or totalNoise
+    fmin      = None  # lower limit of frequency range for RMS noise
+    fmax      = None  # upper limit of frequency range for RMS noise
+    ylabel    = ''
     """
     def __init__(self):
         """
+        Initialization of the attributes
         """
         self.type      = None  # 'YatX', 'totalNoise', 'stdDev', 'dc', 'NF'
         self.ylinlog   = 'lin' # axis type for y-axis
@@ -696,22 +828,61 @@ class goalFunc(object):
 
 class paramPlot(object):
     """
+    Prototype structure for plotting parameters against each other. It has the
+    following attributes:
+    
+    xVar        = None  # variable to be plotted along the x-axis
+    yVar        = None  # variable to be plotted along the y-axis
+    pVar        = None  # variable to be plotted as step parameter
+    sVar        = None  # sweep variable to calculate xVar and yVar
+    sStart      = None  # sweep start value
+    sStop       = None  # sweep stop value
+    sNum        = None  # sweep number of steps
+    sMethod     = 'lin' # sweep method
+    pStart      = None  # start value step parameter
+    pStop       = None  # stop value step parameter
+    pNum        = None  # step parameter number of points
+    pMethod     = 'lin' # step method
+    xUnits      = ''    # units of x variable
+    yUnits      = ''    # units of y variable
+    pUnits      = ''    # units of step variable
+    xValues     = None  # x-axis plot data
+    yValues     = None  # y-axis plot data
     """
     def __init__(self):
-        xVar        = None  # variable to be plotted along the x-axis
-        yVar        = None  # variable to be plotted along the y-axis
-        pVar        = None  # variable to be plotted as step parameter
-        sVar        = None  # sweep variable to calculate xVar and yVar
-        sStart      = None  # sweep start value
-        sStop       = None  # sweep stop value
-        sNum        = None  # sweep number of steps
-        sMethod     = 'lin' # sweep method
-        pStart      = None  # start value step parameter
-        pStop       = None  # stop value step parameter
-        pNum        = None  # step parameter number of points
-        pMethod     = 'lin' # step method
-        xUnits      = ''    # units of x variable
-        yUnits      = ''    # units of y variable
-        pUnits      = ''    # units of step variable
-        xValues     = None  # x-axis plot data
-        yValues     = None  # y-axis plot data
+        """
+        Initialization of the attributes
+        """
+        self.xVar        = None  # variable to be plotted along the x-axis
+        self.yVar        = None  # variable to be plotted along the y-axis
+        self.pVar        = None  # variable to be plotted as step parameter
+        self.sVar        = None  # sweep variable to calculate xVar and yVar
+        self.sStart      = None  # sweep start value
+        self.sStop       = None  # sweep stop value
+        self.sNum        = None  # sweep number of steps
+        self.sMethod     = 'lin' # sweep method
+        self.pStart      = None  # start value step parameter
+        self.pStop       = None  # stop value step parameter
+        self.pNum        = None  # step parameter number of points
+        self.pMethod     = 'lin' # step method
+        self.xUnits      = ''    # units of x variable
+        self.yUnits      = ''    # units of y variable
+        self.pUnits      = ''    # units of step variable
+        self.xValues     = None  # x-axis plot data
+        self.yValues     = None  # y-axis plot data
+
+def makeDir(dirName):
+    """
+    Creates the directory 'dirName' if it does not yet exist.
+    """
+    if not os.path.exists(dirName):
+        os.makedirs(dirName)
+    return
+
+def copyNotOverwrite(src, dest):
+    """
+    Copies the file 'src' to 'dest' if the latter one does not exist.
+    """
+    if not os.path.exists(dest):
+        cp(src, dest)
+    return

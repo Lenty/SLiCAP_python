@@ -111,6 +111,8 @@
 <li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
 </ul>
 
             
@@ -206,64 +208,14 @@ Once created it can be modified and modifications will not be overwritten by ini
 14
 15
 16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Sat May 30 11:10:18 2020</span>
 
 <span class="sd">@author: anton</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="n">LOGFILE</span>         <span class="o">=</span> <span class="bp">True</span>
-<span class="n">LANGUAGE</span>        <span class="o">=</span> <span class="s1">&#39;english&#39;</span> <span class="c1"># Language for error and warnings:</span>
-                            <span class="c1"># not yet implemented</span>
-<span class="n">DISP</span>            <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># Numner of digits for floats in output</span>
-<span class="n">MATHML</span>          <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># If True: MathML, else MathJaX cloud for rendering</span>
-                            <span class="c1"># math</span>
-<span class="n">STEPFUNCTION</span>    <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># Method for parameter stepping:</span>
-                            <span class="c1"># True:  substitution of step variable(s) after </span>
-                            <span class="c1">#        calculation of numerator/denominator</span>
-                            <span class="c1">#        Laplace functions</span>
-                            <span class="c1"># False: substitution of step values in the matrix</span>
-<span class="n">DISPMAXRESULT</span>   <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Displays result from Maxima CAS before it is</span>
-                            <span class="c1"># converted to a sympy expression.</span>
-<span class="n">LAPLACE</span>         <span class="o">=</span> <span class="s1">&#39;s&#39;</span>       <span class="c1"># Laplace veriable</span>
-<span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="s1">&#39;f&#39;</span>       <span class="c1"># Frequency in Hz</span>
-<span class="n">OMEGA</span>           <span class="o">=</span> <span class="s1">&#39;omega&#39;</span>   <span class="c1"># Frequency in rad/s</span>
-<span class="n">MAXRECSUBST</span>     <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># Maximum number of recursic=ve substitutions</span>
-<span class="n">HZ</span>              <span class="o">=</span> <span class="bp">True</span>      <span class="c1"># Display method for frequency on HTML pages:</span>
-                            <span class="c1"># True if frequency in Hz, else: False</span>
-
+<span class="n">PROJECTPATH</span>     <span class="o">=</span> <span class="bp">None</span>
 <span class="c1"># PATHS: relative to the project path</span>
 <span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
 <span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
@@ -273,16 +225,6 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
 <span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
 <span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
-
-<span class="c1"># Default plot settings</span>
-<span class="n">figureAxisHeight</span><span class="o">=</span> <span class="mi">4</span>
-<span class="n">figureAxisWidth</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">defaultColors</span>   <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">defaultMarkers</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
-<span class="n">tableFileType</span>   <span class="o">=</span> <span class="s1">&#39;csv&#39;</span>
-<span class="n">figureFileType</span>  <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
-<span class="n">axisXscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the x-axis can be &#39;linear&#39; or &#39;log&#39;</span>
-<span class="n">axisYscale</span>      <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>    <span class="c1"># Scale for the y-axis can be &#39;linear&#39; or &#39;log&#39;</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -295,83 +237,224 @@ Once created it can be modified and modifications will not be overwritten by ini
 <li>Some type conversions for user-defined constants</li>
 </ul>
 <p>These settings are in the file: <code class="docutils literal"><span class="pre">SLiCAPini.py</span></code>:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPconfig</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">docutils.core</span>
+<span class="kn">import</span> <span class="nn">docutils.writers.html5_polyglot</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">residue</span>
 <span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
@@ -379,65 +462,202 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Timer</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">getpass</span>
-
-<span class="c1"># Type conversions</span>
-<span class="c1"># These are the only globals. Read only!</span>
-<span class="n">LAPLACE</span>         <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">LAPLACE</span><span class="p">)</span>
-<span class="n">FREQUENCY</span>       <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">FREQUENCY</span><span class="p">)</span>
-<span class="n">OMEGA</span>           <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">OMEGA</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib._pylab_helpers</span> <span class="kn">as</span> <span class="nn">plotHelp</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span> <span class="c1"># Turn off the interactive mode for plotting</span>
 
 <span class="k">class</span> <span class="nc">settings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class with global variables that can be modified from within other modules.</span>
+    <span class="sd">&quot;&quot;&quot;A class for global variables</span>
+<span class="sd">    </span>
+<span class="sd">    The following globals are defined:</span>
+<span class="sd">        </span>
+<span class="sd">    path settings</span>
+<span class="sd">    -------------</span>
+<span class="sd">    </span>
+<span class="sd">    - installPath       : Directory with SLiCAP python script files</span>
+<span class="sd">    - projectPath       : Directory with SLiCAP project script files</span>
+<span class="sd">    - htmlPath          : Directory with SLiCAP HTML output</span>
+<span class="sd">    - circuitPath       : Directory with SLiCAP project circuit files</span>
+<span class="sd">    - libraryPath       : Directory with SLiCAP user libraries</span>
+<span class="sd">    - txtPath           : Directory with text files for HTML output</span>
+<span class="sd">    - csvPath           : Directory with csv files for HTML tables</span>
+<span class="sd">    - latexPath         : Directory with csv files for HTML tables</span>
+<span class="sd">    - mathmlPath        : Directory fro mathML output</span>
+<span class="sd">    - imgPath           : Directory with images for HTML output</span>
+<span class="sd">    </span>
+<span class="sd">    active HTML pages and active HTMLfile prefix</span>
+<span class="sd">    --------------------------------------------</span>
+<span class="sd">    </span>
+<span class="sd">    - htmlIndex         : Active HTML index page</span>
+<span class="sd">    - htmlPage          : Active HTML page</span>
+<span class="sd">    - htmlPrefix        : Active HTML prefix</span>
+<span class="sd">    </span>
+<span class="sd">    HTML labels and page names</span>
+<span class="sd">    --------------------------</span>
+<span class="sd">    </span>
+<span class="sd">    - htmlLabels        : Dict with HTML labels:</span>
+<span class="sd">                            key   = labelName  : name of the label</span>
+<span class="sd">                            value = pageName   : page of the label</span>
+<span class="sd">    - htmlEqLabels      : Dict with HTML equation labels:</span>
+<span class="sd">                            key   = labelName  : name of the label</span>
+<span class="sd">                            value = pageName   : page of the label</span>
+<span class="sd">    - htmlPages         : List with names of HTML pages</span>
+<span class="sd">    </span>
+<span class="sd">    Math settings</span>
+<span class="sd">    -------------</span>
+<span class="sd">    </span>
+<span class="sd">    - maxSolve          : True  : use Maxima for solving equations</span>
+<span class="sd">                          False : use Sympy for solving equations</span>
+<span class="sd">    - stepFunction      : True  : use Sympy.lambify for parameter stepping</span>
+<span class="sd">                          False : substitute step parameters in matrix</span>
+<span class="sd">    - Hz                : True  : frequency in Hz and phase in degrees</span>
+<span class="sd">                          False : frequency in radians/s and phase in radians</span>
+<span class="sd">    - Laplace           : Parameter used for Laplace variable</span>
+<span class="sd">    - frequency         : Parameter used for frequency variable</span>
+<span class="sd">    - maxRecSubst       : Maximum number of recursive substitutions</span>
+<span class="sd">    - simplify          : True: simplify transfer functions</span>
+<span class="sd">    - normalize         : True: normalize transfer functions: lowest order</span>
+<span class="sd">                          coefficient of the Laplace variable will be</span>
+<span class="sd">                          normalized to unity.</span>
+<span class="sd">    - factor            : Try to write the numerator and denominator of</span>
+<span class="sd">                          expressions as product of factors.</span>
+<span class="sd">    </span>
+<span class="sd">    Display settings</span>
+<span class="sd">    ----------------</span>
+<span class="sd">    </span>
+<span class="sd">    - disp              : Number of digits for displaying floats on html pages</span>
+<span class="sd">    - mathml            : True  : math in mathml in html pages </span>
+<span class="sd">                        : False : math in latex in html pages and MathJaX cloud</span>
+<span class="sd">    - language          : language for error messages</span>
+<span class="sd">    </span>
+<span class="sd">    Plot settings</span>
+<span class="sd">    -------------</span>
+<span class="sd">    </span>
+<span class="sd">    - figureAxisHeight  : Height of the axis in inches (72dpi)</span>
+<span class="sd">                          Pole-zero and polar plots are square and have their </span>
+<span class="sd">                          height set to their width.</span>
+<span class="sd">    - figureAxisWidth   : Width of an axis in inches (72dpi)</span>
+<span class="sd">    - defaultColors     : List with matplotlib color names for param. stepping</span>
+<span class="sd">    - gainColors        : dict with color names for gain types:</span>
+<span class="sd">                            key   = gainType</span>
+<span class="sd">                            value = matplotlib color name</span>
+<span class="sd">    - defaultMarkers    : list with matplotlib markers</span>
+<span class="sd">    - tableFileType     : file type for saving traces as tables</span>
+<span class="sd">    - figureFileType    : graphic file type for saving plots</span>
+<span class="sd">    - axisXscale        : default x-axis scale type</span>
+<span class="sd">    - axisYscale        : default y-axis scale type</span>
+<span class="sd">    - legendLoc         : default plot legend location</span>
+<span class="sd">    - plotFontSize      : default plot font size</span>
+<span class="sd">    </span>
+<span class="sd">    Jupyter notebook settings</span>
+<span class="sd">    -------------------------</span>
+<span class="sd">    </span>
+<span class="sd">    - notebook          : True adapts HTML math return variables to markdown</span>
+<span class="sd">                          format required by Jupyter notebook</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">installPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP python script files</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP project script files</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPath</span>     <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP HTML output</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">circuitPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP project circuit files</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">libraryPath</span>  <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with SLiCAP user libraries</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">txtPath</span>      <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with text files for HTML output</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">csvPath</span>      <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with csv files for HTML tables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">latexPath</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory for LaTeX output</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mathmlPath</span>   <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory fro mathML output</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">imgPath</span>      <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Directory with images for HTML output</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlIndex</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Active HTML index page</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPage</span>     <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Active HTML page</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPrefix</span>   <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Active HTML prefix</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlLabels</span>   <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Dict with HTML labels:</span>
-                                 <span class="c1">#    key   = labelName</span>
-                                 <span class="c1">#    value = pageName</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlEqLabels</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Dict with HTML equation labels:</span>
-                                 <span class="c1">#    key   = labelName</span>
-                                 <span class="c1">#    value = pageName</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPages</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># List with names of HTML pages</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stepFunction</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Stepping method:</span>
-                                 <span class="c1">#    True : function substitution </span>
-                                 <span class="c1">#    False: matrix substitution</span>
-        <span class="c1"># Add plot globals here!</span>
-
-<span class="c1"># Create an instance of globals</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the start-up values of the global parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Sage</span>               <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">installPath</span>        <span class="o">=</span> <span class="bp">None</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectPath</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPath</span>           <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuitPath</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libraryPath</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPath</span>            <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csvPath</span>            <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latexPath</span>          <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathmlPath</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imgPath</span>            <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathml</span>             <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span>           <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span>          <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factor</span>             <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlIndex</span>          <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPage</span>           <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPrefix</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlLabels</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPages</span>          <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepFunction</span>       <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxSolve</span>           <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxRecSubst</span>        <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disp</span>               <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Hz</span>                 <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Laplace</span>            <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>          <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figureAxisHeight</span>   <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figureAxisWidth</span>    <span class="o">=</span> <span class="mi">7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultColors</span>      <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gainColors</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;asymptotic&#39;</span><span class="p">:</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+                                   <span class="s1">&#39;loopgain&#39;</span><span class="p">:</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">:</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> 
+                                   <span class="s1">&#39;servo&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;vi&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultMarkers</span>     <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tableFileType</span>      <span class="o">=</span> <span class="s1">&#39;csv&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figureFileType</span>     <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axisXscale</span>         <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axisYscale</span>         <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legendLoc</span>          <span class="o">=</span> <span class="s1">&#39;best&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span>           <span class="o">=</span> <span class="bp">False</span> <span class="c1"># places html math output between </span>
+                                        <span class="c1"># double dollar signs: &#39;$$&lt;latex&gt;&#39;$$&#39; </span>
+                                        <span class="c1"># for correct display in Jupyter </span>
+                                        <span class="c1"># notebooks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotFontSize</span>       <span class="o">=</span> <span class="mi">12</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastUpdate</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MaximaTimeOut</span>      <span class="o">=</span> <span class="mi">5</span>     <span class="c1"># Maximum time for subprocess to run Maxima</span>
+    
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints the global variables that are available to the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">disallowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;asymptotic&#39;</span><span class="p">,</span> <span class="s1">&#39;servo&#39;</span><span class="p">,</span> <span class="s1">&#39;vi&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">,</span> <span class="s1">&#39;loopgain&#39;</span><span class="p">,</span> <span class="s1">&#39;gain&#39;</span><span class="p">]</span>
+        <span class="n">tabWidth</span>   <span class="o">=</span> <span class="mi">18</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">dct</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="n">keys</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="n">keys</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed</span><span class="p">:</span>
+                        <span class="n">ndots</span> <span class="o">=</span> <span class="n">tabWidth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                        <span class="k">print</span> <span class="n">key</span><span class="p">,</span>
+                        <span class="n">dots</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndots</span><span class="p">):</span>
+                            <span class="n">dots</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+                        <span class="k">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">updatePaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectPath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the file locations according to the project path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectPath</span>      <span class="o">=</span> <span class="n">projectPath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPath</span>         <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">HTMLPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuitPath</span>      <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">CIRCUITPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libraryPath</span>      <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">LIBRARYPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPath</span>          <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">TXTPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csvPath</span>          <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">CSVPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latexPath</span>        <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">LATEXPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathmlPath</span>       <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">MATHMLPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imgPath</span>          <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">IMGPATH</span>
+                                    
 <span class="n">ini</span> <span class="o">=</span> <span class="n">settings</span><span class="p">()</span>
+    
+<span class="c1"># Create an instance of globals</span>
 <span class="c1"># Automatic detection of install and project paths</span>
 <span class="c1"># Get the installation path</span>
 <span class="n">ini</span><span class="o">.</span><span class="n">installPath</span>  <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
-<span class="c1"># Get the project path (the path of the script that imported SLiCAP.ini)</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
-<span class="c1"># Copy path settings from user configuration. These settings can be modified</span>
-<span class="c1"># from the SLiCAP environment without editing &#39;SLiCAPconfig.py&#39;</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">htmlPath</span>      <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">HTMLPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">circuitPath</span>   <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">CIRCUITPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">libraryPath</span>   <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">LIBRARYPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">txtPath</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">TXTPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">csvPath</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">CSVPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">latexPath</span>     <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">LATEXPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">mathmlPath</span>    <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">MATHMLPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">imgPath</span>       <span class="o">=</span> <span class="n">ini</span><span class="o">.</span><span class="n">projectPath</span> <span class="o">+</span> <span class="n">IMGPATH</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">stepFunction</span>  <span class="o">=</span> <span class="n">STEPFUNCTION</span>
-<span class="n">ini</span><span class="o">.</span><span class="n">dispMaxResult</span> <span class="o">=</span> <span class="n">DISPMAXRESULT</span>
-<span class="c1"># Copy plot globals here!</span>
+<span class="c1"># Copy path settings from user configuration.</span>
+<span class="k">if</span> <span class="n">PROJECTPATH</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="c1"># Get the project path (the path of the script that imported SLiCAP.ini)</span>
+    <span class="n">PROJECTPATH</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+    
+<span class="n">ini</span><span class="o">.</span><span class="n">updatePaths</span><span class="p">(</span><span class="n">PROJECTPATH</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p>After this file has been copied to the project directory, product data will be added.
@@ -977,81 +1197,534 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 517
 518
 519
-520</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">SLiCAPini</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">SLiCAPmath</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="c1"># Globals</span>
+<span class="c1"># Globals used by this script and by SLiCAPyacc.py:</span>
+
 <span class="n">HIERARCHY</span>   <span class="o">=</span> <span class="p">[]</span>                <span class="c1"># Check list for hierarchical loops</span>
-<span class="n">CONSTANTS</span>   <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with global parameters taken from</span>
-                                <span class="c1"># the ini file</span>
 <span class="n">MODELS</span>      <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with SLiCAP built-in models</span>
                                 <span class="c1">#   key   : model name</span>
                                 <span class="c1">#   value : associated model object</span>
 <span class="n">DEVICES</span>     <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with SLiCAP built-in devices</span>
                                 <span class="c1">#   key   : device name</span>
                                 <span class="c1">#   value : associated device object</span>
-<span class="n">CONTROLLED</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">]</span>  <span class="c1"># Types of controlled sources</span>
-<span class="n">INDEPSCRCS</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">]</span>            <span class="c1"># Types of independent sources</span>
-
 <span class="k">class</span> <span class="nc">circuit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># Circuit object for main circuit and for sub circuits</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype (sub)circuit object. It has the following attributes with their</span>
+<span class="sd">    default values:</span>
+<span class="sd">        </span>
+<span class="sd">    title      = &#39;&#39;    # Title of (sub) circuit</span>
+<span class="sd">    file       = []    # Name of the netlist file</span>
+<span class="sd">    lexer      = None  # Tokenized input file</span>
+<span class="sd">    subCKT     = False # True if sub circuit</span>
+<span class="sd">    elements   = {}    # Dictionary with the circuit&#39;s element  objects</span>
+<span class="sd">                       #   key (str)  : element refDes</span>
+<span class="sd">                       #   value (obj): associated element object</span>
+<span class="sd">    nodes      = []    # Connecting nodes to parent circuit</span>
+<span class="sd">    params     = {}    # Before expansion: Parameters that can be be passed </span>
+<span class="sd">                       # from parent circuit (sub circuit only)</span>
+<span class="sd">                       # key (sympy.Symbol)                  : model parameter </span>
+<span class="sd">                       #                                       name</span>
+<span class="sd">                       # value (sympy expression, int, float): parameter value </span>
+<span class="sd">                       #                                       or expression</span>
+<span class="sd">                       # After expansion: List with undefined parameters </span>
+<span class="sd">                       # (sympy.Symbol) </span>
+<span class="sd">    parDefs    = {}    # Dictionary with paremeter definitions</span>
+<span class="sd">                       # key (sympy.Symbol)                  : parameter name</span>
+<span class="sd">                       # value (sympy expression, int, float): parameter value </span>
+<span class="sd">                       #                                       or expression                                      </span>
+<span class="sd">    modelDefs  = {}    # Dictionary with model definitions found in </span>
+<span class="sd">                       # the circuit:</span>
+<span class="sd">                       #   key (str)  : model name</span>
+<span class="sd">                       #   value (obj): modelDef object</span>
+<span class="sd">    circuits   = {}    # Dict with sub circuit definitions found in</span>
+<span class="sd">                       # the netlist (before expansion)</span>
+<span class="sd">                       #   key (str)  : sub circuit name</span>
+<span class="sd">                       #   value (obj): circuit object</span>
+<span class="sd">    errors     = 0     # Number of errors found during checking (int)</span>
+<span class="sd">    libs       = []    # List with library files</span>
+<span class="sd">    indepVars  = []    # List with sources that can be used as signal source</span>
+<span class="sd">    depVars    = []    # List with dependent variables that can be used as </span>
+<span class="sd">                       # detector</span>
+<span class="sd">    controlled = []    # List with controlles sources that can be used as loop</span>
+<span class="sd">                       # gain reference</span>
+<span class="sd">    varIndex   = {}    # Dictionary with index of node or dependent</span>
+<span class="sd">                       # current (speeds up the building of the matrix)</span>
+<span class="sd">                       #   key (str)  : node name or current name</span>
+<span class="sd">                       #   value (int): row position in the vector with</span>
+<span class="sd">                       #                dependent variables, before removal of</span>
+<span class="sd">                       #                row with reference node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Title of (sub) circuit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file</span>       <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Name of the netlist file</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># Tokenized input file</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subCKT</span>     <span class="o">=</span> <span class="bp">False</span> <span class="c1"># True if sub circuit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>   <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary withthe circuit&#39;s element  objects</span>
-                                <span class="c1">#   key   : element refDes</span>
-                                <span class="c1">#   value : associated element object</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>      <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Connecting nodes to parent circuit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Parameters tat can be be passed from parent</span>
-                                <span class="c1"># circuit (sub circuit only)</span>
-                                <span class="c1">#   key   : model parameter name</span>
-                                <span class="c1">#   value : parameter value or expression </span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span>    <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with paremeter definitions</span>
-                                <span class="c1">#   key   : model parameter name</span>
-                                <span class="c1">#   value : parameter value or expression</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">modelDefs</span>  <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model definitions found in </span>
-                                <span class="c1"># the circuit:</span>
-                                <span class="c1">#   key   : model name</span>
-                                <span class="c1">#   value : modelDef object</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">circuits</span>   <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dict with sub circuit definitions found in</span>
-                                <span class="c1"># the netlist (before expansion)</span>
-                                <span class="c1">#   key   : sub circuit name</span>
-                                <span class="c1">#   value : circuit object</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span>     <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Number of errors found during checking</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">libs</span>       <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List with library files</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">indepVars</span>  <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List with independent sources;</span>
-                                <span class="c1"># can be used as signal source</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List with dependent variables;</span>
-                                <span class="c1"># can be used as detector</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controlled</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List with controlles sources;</span>
-                                <span class="c1"># can be used as loop gain reference</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span>   <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with index of node or dependent</span>
-                                <span class="c1"># current (speeds up the building of the matrix)</span>
-                                <span class="c1">#   key   : node name or current name</span>
-                                <span class="c1">#   value : position in the vector with</span>
-                                <span class="c1">#           dependent variables</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the circuit object, see description above.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span>       <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span>      <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subCKT</span>     <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>   <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>      <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span>    <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelDefs</span>  <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuits</span>   <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span>     <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libs</span>       <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indepVars</span>  <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controlled</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span>   <span class="o">=</span> <span class="p">{}</span>
     
     <span class="k">def</span> <span class="nf">delPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
-        <span class="c1"># single params and multiple.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a parameter definition from self.parDefs.</span>
+<span class="sd">        </span>
+<span class="sd">        The list self.params with undefined parameters is updated.</span>
+<span class="sd">        </span>
+<span class="sd">        parName (str or sympy.Symbol): name of the parameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">)),</span> <span class="bp">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
         <span class="k">return</span>
         
-    <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
-        <span class="c1"># single params and multiple.</span>
+    <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">,</span> <span class="n">parValue</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines a parameter: it either add its definition to self.parDefs or </span>
+<span class="sd">        changes it if it already exists.</span>
+<span class="sd">        </span>
+<span class="sd">        The list self.params with undefined parameters is updated.</span>
+<span class="sd">        </span>
+<span class="sd">        parName (str or sympy.Symbol)         : name of the parameter.</span>
+<span class="sd">        parValue (str, float, int, sp.Symbol) : value or expression of the </span>
+<span class="sd">                                                parameter, may include scale </span>
+<span class="sd">                                                factors</span>
+<span class="sd">                                                </span>
+<span class="sd">        example: myCir.defPar(&#39;myPar&#39;, &#39;sin(2*pi*1M)&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        note: </span>
+<span class="sd">            Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">))</span>
+        <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">return</span>
+    
+    <span class="k">def</span> <span class="nf">defPars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines multiple parameters, this either adds definitions to </span>
+<span class="sd">        self.parDefs or changes existing definitions.</span>
+<span class="sd">        </span>
+<span class="sd">        The list self.params with undefined parameters is updated.</span>
+<span class="sd">        </span>
+<span class="sd">        parDict (dict): dictionary with key-value pairs:</span>
+<span class="sd">            </span>
+<span class="sd">        key: parName (str or sympy.Symbol)           : name of the parameter.</span>
+<span class="sd">        value: parValue (str, float, int, sp.Symbol) : value or expression of </span>
+<span class="sd">                                                       the parameter, may </span>
+<span class="sd">                                                       include scale factors</span>
+<span class="sd">        note: </span>
+<span class="sd">            Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
         <span class="k">return</span>
         
     <span class="k">def</span> <span class="nf">getParValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parNames</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
-        <span class="c1"># single params and multiple.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the value or expression of one or more parameters.</span>
+<span class="sd">        If numeric == True it will perform a full recursive substitution of</span>
+<span class="sd">        all circuit parameter definitions.</span>
+<span class="sd">        </span>
+<span class="sd">        parNames (str, sympy.Symbol, list): name(s) of the parameter(s)</span>
+<span class="sd">        return value:</span>
+<span class="sd">            if type(parNames) == list:</span>
+<span class="sd">                return value = dict with key-value pairs:</span>
+<span class="sd">                    key (sympy.Symbol)             : name of the parameter</span>
+<span class="sd">                    value (int, float, expression) : value of the parameter</span>
+<span class="sd">        note: </span>
+<span class="sd">            Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">parNames</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-                    <span class="n">par</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+                <span class="n">par</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">par</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">par</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">numeric</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
@@ -1059,45 +1732,50 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
                         <span class="k">else</span><span class="p">:</span>
                            <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>          
             <span class="k">return</span> <span class="n">parValues</span>
-        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="n">parNames</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parNames</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">all_classes</span><span class="p">)):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">numeric</span><span class="p">:</span>
-                    <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">))</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">parValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">]</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="s2">&quot;Error: parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has not beed defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
-                <span class="n">parValue</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="n">parNames</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">numeric</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s2">&quot;Error: parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has not been defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
             <span class="n">parValue</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">return</span> <span class="n">parValue</span>
 
     <span class="k">def</span> <span class="nf">updateParams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates self.params (undefined parameters) after modification of </span>
-<span class="sd">        parameter definitions in self.parDefs or in elements: </span>
-<span class="sd">        self.elements[&lt;refDes&gt;].params[&lt;parName&gt;].</span>
+<span class="sd">        Updates self.params (list with undefined parameters) after modification </span>
+<span class="sd">        of parameter definitions in self.parDefs.</span>
+<span class="sd">            </span>
+<span class="sd">            return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
                 <span class="k">except</span><span class="p">:</span>
                     <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
         <span class="n">undefined</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">LAPLACE</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">FREQUENCY</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">OMEGA</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">ini</span><span class="o">.</span><span class="n">frequency</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">undefined</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">undefined</span>
         <span class="k">return</span>
         
     <span class="k">def</span> <span class="nf">updateMdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates data for building matrices: self.depVars and self.varIndex</span>
+<span class="sd">        Updates data for building matrices: self.depVars and self.varIndex.</span>
+<span class="sd">        </span>
+<span class="sd">        self.depVars    : vector with dependent variables</span>
+<span class="sd">        self.varIndex   : dict with key-value pairs:</span>
+<span class="sd">            key (str)   : name of the dependent variable</span>
+<span class="sd">            value (int) : row position in the matrices before removing</span>
+<span class="sd">                          the row and column that corresponds with node &#39;0&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1115,7 +1793,22 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
         <span class="k">return</span>
 
 <span class="k">class</span> <span class="nc">element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># Circuit element object</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype circuit element object. It has the following attributes:</span>
+<span class="sd">        </span>
+
+<span class="sd">    refDes     = &#39;&#39;    # Element reference designator (refdes)</span>
+<span class="sd">    type       = &#39;&#39;    # First letter of refdes</span>
+<span class="sd">    nodes      = []    # Node list</span>
+<span class="sd">    refs       = []    # Reference list</span>
+<span class="sd">    params     = {}    # Dictionary with model parameters</span>
+<span class="sd">                       #   key   : model parameter name</span>
+<span class="sd">                       #   value : parameter value or </span>
+<span class="sd">                       #           expression; value = [numer, denom] </span>
+<span class="sd">                       #           if Laplace rational</span>
+<span class="sd">    model      = &#39;&#39;    # Model for this element</span>
+<span class="sd">            </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refDes</span>     <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Element reference designator (refdes)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># First letter of refdes</span>
@@ -1129,7 +1822,17 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model for this element</span>
         
 <span class="k">class</span> <span class="nc">device</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># Prototype for devices that can be used in SLiCAP</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype for devices that can be used in SLiCAP. It has the following </span>
+<span class="sd">    attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    ID     = &#39;&#39;        # ID of the device, e.g. &#39;V&#39; for voltage source</span>
+<span class="sd">    nNodes     = 0     # Number of nodes of the device</span>
+<span class="sd">    nRefs      = 0     # Number of IDs of referenced devices</span>
+<span class="sd">    value      = True  # True if model or value is required</span>
+<span class="sd">    models     = []    # list with valid models for the device. </span>
+<span class="sd">                       # Model names refer to model.name of a model</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ID</span>     <span class="o">=</span> <span class="s1">&#39;&#39;</span>        <span class="c1"># ID of the device, e.g. &#39;V&#39; for voltage source</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nNodes</span>     <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Number of nodes of the device</span>
@@ -1139,7 +1842,20 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
                                 <span class="c1"># Model names refer to model.name of a model</span>
         
 <span class="k">class</span> <span class="nc">model</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># Protpotype for element models that can be used in SLiCAP</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    # Protpotype for element models that can be used in SLiCAP. It has the </span>
+<span class="sd">    following attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    name       = &#39;&#39;    # Model name</span>
+<span class="sd">    stamp      = True  # True if model has associated matrix stamp, </span>
+<span class="sd">                       # False if it requires expansion</span>
+<span class="sd">    depVars    = []    # Namens of dependent vars. in matrix stamp</span>
+<span class="sd">    params     = {}    # Dictionary with model parameters</span>
+<span class="sd">                       #   key   : model parameter name</span>
+<span class="sd">                       #   value : True: if Laplace is allowed in the</span>
+<span class="sd">                       #           expression for this parameter,</span>
+<span class="sd">                       #           else: False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span>      <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># True if model has associated matrix stamp, </span>
@@ -1152,7 +1868,16 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
                                 <span class="c1">#           else: False</span>
 
 <span class="k">class</span> <span class="nc">modelDef</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># Protpotype for models that can be added to SLiCAP</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Protpotype for model definitions that can be added to SLiCAP. It has the </span>
+<span class="sd">    following attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    name       = &#39;&#39;    # Model name</span>
+<span class="sd">    type       = &#39;&#39;    # Must be a built-in model type</span>
+<span class="sd">    params     = {}    # Dictionary with model parameters</span>
+<span class="sd">                       #   key   : model parameter name</span>
+<span class="sd">                       #   value : value or expression </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Must be a built-in model type</span>
@@ -1496,7 +2221,238 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
     <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
     <span class="k">return</span>
 
-<span class="n">initAll</span><span class="p">()</span>
+<span class="n">initAll</span><span class="p">()</span> <span class="c1"># Initialize all models, devices, etc.</span>
+
+<span class="c1">#### Return structure for instruction</span>
+        
+<span class="k">class</span> <span class="nc">allResults</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return  structure for results, has attributes for all data types and</span>
+<span class="sd">    instruction data. It has the following attributes:</span>
+<span class="sd">    </span>
+<span class="sd">    # Instruction results:</span>
+<span class="sd">    </span>
+<span class="sd">    DCvalue     = []   # Zero-frequency value in case of </span>
+<span class="sd">                            # dataType &#39;pz&#39;</span>
+<span class="sd">    poles       = []   # Complex frequencies in [rad/s] or [Hz]</span>
+<span class="sd">    zeros       = []   # Complex frequencies in [rad/s] or [Hz]</span>
+<span class="sd">    svarTerms   = {}   # Dict with lists with source variances</span>
+<span class="sd">    ivarTerms   = {}   # Dict with lists with contributions to </span>
+<span class="sd">                            # source-referred variance</span>
+<span class="sd">    ovarTerms   = {}   # Dict with lists with contributions to </span>
+<span class="sd">                            # detector-referred variance</span>
+<span class="sd">    ivar        = []   # Total source-referred variance</span>
+<span class="sd">    ovar        = []   # Total detector-referred variance</span>
+<span class="sd">    dcSolve     = []   # DC solution of the network</span>
+<span class="sd">    dc          = []   # DC solution at the detector</span>
+<span class="sd">    snoiseTerms = {}   # Dict with lists with source noise spectra</span>
+<span class="sd">    inoiseTerms = {}   # Dict with lists with contributions</span>
+<span class="sd">                            # to source-referred noise</span>
+<span class="sd">    onoiseTerms = {}   # Dict with lists with contributions</span>
+<span class="sd">                            # to detector-referred noise</span>
+<span class="sd">    inoise      = []   # Total source-referred noise spectral density</span>
+<span class="sd">    onoise      = []   # Total detector-referred noise spectral </span>
+<span class="sd">    Iv          = None # Vector with independent variables</span>
+<span class="sd">    M           = None # MNA matrix</span>
+<span class="sd">    Dv          = None # Vector with dependent variables</span>
+<span class="sd">    denom       = []   # Laplace poly of denominator</span>
+<span class="sd">    numer       = []   # Laplace poly of numerator</span>
+<span class="sd">    laplace     = []   # Laplace transfer functions</span>
+<span class="sd">    solve       = []   # Laplace solutions of the network</span>
+<span class="sd">    time        = []   # Time-domain responses</span>
+<span class="sd">    impulse     = []   # Unit impulse responses</span>
+<span class="sd">    stepResp    = []   # Unit step responses</span>
+<span class="sd">    </span>
+<span class="sd">    # instruction settings:</span>
+<span class="sd">    </span>
+<span class="sd">    simType     = None # Simulation type: &#39;symbolic&#39; or &#39;numeric&#39;</span>
+<span class="sd">    gainType    = None # Gain type  : &#39;gain&#39;, &#39;asymptotic&#39;, &#39;loopgain&#39;, &#39;servo&#39;</span>
+<span class="sd">                       #              &#39;direct&#39;, or &#39;vi&#39;</span>
+<span class="sd">    dataType    = None # Data type  : &#39;dc&#39;, &#39;dcsolve&#39;, &#39;dcvar&#39;, &#39;denom&#39;, </span>
+<span class="sd">                                      &#39;impulse&#39;, &#39;laplace&#39;, &#39;matrix&#39;, &#39;noise&#39;,</span>
+<span class="sd">                                      &#39;numer&#39;, &#39;poles&#39;, &#39;pz&#39;, &#39;solve&#39;, &#39;step&#39;, </span>
+<span class="sd">                                      &#39;time&#39; or &#39;zeros&#39;</span>
+<span class="sd">    step        = None # True       : enables parameter stepping</span>
+<span class="sd">    stepVar     = None # Step variable for step types &#39;lin&#39;, &#39;log&#39; and &#39;list&#39;</span>
+<span class="sd">    stepVars    = None # List with step variables for &#39;array&#39; type stepping</span>
+<span class="sd">    stepMethod  = None # Step method: &#39;lin&#39;, &#39;log&#39;, &#39;list&#39;, &#39;array&#39;</span>
+<span class="sd">    stepStart   = None # Start value for step methods &#39;lin&#39; and &#39;log&#39;</span>
+<span class="sd">    stepStop    = None # Stop value for step methods &#39;lin&#39; and &#39;log&#39;</span>
+<span class="sd">    stepNum     = None # Number of steps for step methods &#39;lin&#39; and &#39;log&#39;</span>
+<span class="sd">    stepList    = []   # List with values for step method &#39;list&#39;</span>
+<span class="sd">    stepArray   = []   # Array with values for step method array:</span>
+<span class="sd">                       # Nested list: list[i] carries the values for the step </span>
+<span class="sd">                       # variable in stepVars[i]. The lists should have equal</span>
+<span class="sd">                       # lengths.</span>
+<span class="sd">    source      = None # Refdes of the source (independent v or i source)</span>
+<span class="sd">    detector    = None # Names of one or two nodal voltages or names of one</span>
+<span class="sd">                       # or two dependent currents (see detector specification)</span>
+<span class="sd">    lgRef       = None # Refdes of controlled source that is assigned as loop</span>
+<span class="sd">                       # gain reference</span>
+<span class="sd">    circuit     = None # Circuit object used for this instruction</span>
+<span class="sd">    parDefs     = None # Parameter definitions used for this instruction</span>
+<span class="sd">    numeric     = None # Variable used during analysis an presentation of </span>
+<span class="sd">                       # analysis results</span>
+<span class="sd">    errors      = 0    # Number of errors found in the definition of this </span>
+<span class="sd">                       # instruction</span>
+<span class="sd">    detUnits    = None # Detector units &#39;V&#39; or &#39;A&#39; (automatically detected)</span>
+<span class="sd">    srcUnits    = None # Source units &#39;V&#39; or &#39;A&#39; (automatically detected)</span>
+<span class="sd">    detLabel    = None # Name to be used in expressions or plots</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DCvalue</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Zero-frequency value in case of </span>
+                                <span class="c1"># dataType &#39;pz&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poles</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Complex frequencies in [rad/s] or [Hz]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zeros</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Complex frequencies in [rad/s] or [Hz]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">svarTerms</span>   <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with source variances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivarTerms</span>   <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions to </span>
+                                <span class="c1"># source-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ovarTerms</span>   <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions to </span>
+                                <span class="c1"># detector-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivar</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total source-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ovar</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total detector-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dcSolve</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># DC solution of the network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dc</span>          <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># DC solution at the detector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snoiseTerms</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with source noise spectra</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inoiseTerms</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions</span>
+                                <span class="c1"># to source-referred noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onoiseTerms</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions</span>
+                                <span class="c1"># to detector-referred noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inoise</span>      <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total source-referred noise spectral density</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onoise</span>      <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total detector-referred noise spectral </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Iv</span>          <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Vector with independent variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span>           <span class="o">=</span> <span class="bp">None</span> <span class="c1"># MNA matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dv</span>          <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Vector with dependent variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">denom</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace poly of denominator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numer</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace poly of numerator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">laplace</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace transfer functions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solve</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace solutions of the network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Time-domain responses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">impulse</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Unit impulse responses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepResp</span>    <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Unit step responses</span>
+        <span class="c1"># instruction settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simType</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gainType</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataType</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepVar</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepVars</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepMethod</span>  <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepStart</span>   <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepStop</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepNum</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepList</span>    <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepArray</span>   <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span>      <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lgRef</span>       <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numeric</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span>      <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detUnits</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">srcUnits</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detLabel</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Name to be used in expressions or plots</span>
+
+<span class="k">class</span> <span class="nc">goalFunc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype structure for passing arguments to plotvsStep(). It has the</span>
+<span class="sd">    following attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    type      = None  # Implemented type are:</span>
+<span class="sd">                      #    &#39;YatX&#39;, &#39;totalNoise&#39;, &#39;stdDev&#39;, &#39;dc&#39;, &#39;NF&#39;</span>
+<span class="sd">    ylinlog   = &#39;lin&#39; # axis type for y-axis</span>
+<span class="sd">    yscale    = &#39;&#39;    # scale factor for y-axis</span>
+<span class="sd">    yunits    = &#39;&#39;    # units for y-axis</span>
+<span class="sd">    pscale    = &#39;&#39;    # scale factor for x-axis (step parameter)</span>
+<span class="sd">    punits    = &#39;&#39;    # units for x-axis (step parameter)</span>
+<span class="sd">    value     = None  # x value for YatX</span>
+<span class="sd">    noiseType = None  # &#39;inoise&#39; or &#39;onoise&#39;</span>
+<span class="sd">    dcvarType = None  # &#39;ivar&#39; or &#39;ovar&#39;</span>
+<span class="sd">    source    = None  # identifier of source for stdDev or totalNoise</span>
+<span class="sd">    fmin      = None  # lower limit of frequency range for RMS noise</span>
+<span class="sd">    fmax      = None  # upper limit of frequency range for RMS noise</span>
+<span class="sd">    ylabel    = &#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the attributes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># &#39;YatX&#39;, &#39;totalNoise&#39;, &#39;stdDev&#39;, &#39;dc&#39;, &#39;NF&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylinlog</span>   <span class="o">=</span> <span class="s1">&#39;lin&#39;</span> <span class="c1"># axis type for y-axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yscale</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># scale factor for y-axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yunits</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units for y-axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pscale</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># scale factor for x-axis (step parameter)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">punits</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units for x-axis (step parameter)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span>     <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># x value for YatX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noiseType</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># &#39;inoise&#39; or &#39;onoise&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dcvarType</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># &#39;ivar&#39; or &#39;ovar&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span>    <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># identifier of source for stdDev or totalNoise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmin</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># lower limit of frequency range for RMS noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmax</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># upper limit of frequency range for RMS noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ylabel</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="k">class</span> <span class="nc">paramPlot</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype structure for plotting parameters against each other. It has the</span>
+<span class="sd">    following attributes:</span>
+<span class="sd">    </span>
+<span class="sd">    xVar        = None  # variable to be plotted along the x-axis</span>
+<span class="sd">    yVar        = None  # variable to be plotted along the y-axis</span>
+<span class="sd">    pVar        = None  # variable to be plotted as step parameter</span>
+<span class="sd">    sVar        = None  # sweep variable to calculate xVar and yVar</span>
+<span class="sd">    sStart      = None  # sweep start value</span>
+<span class="sd">    sStop       = None  # sweep stop value</span>
+<span class="sd">    sNum        = None  # sweep number of steps</span>
+<span class="sd">    sMethod     = &#39;lin&#39; # sweep method</span>
+<span class="sd">    pStart      = None  # start value step parameter</span>
+<span class="sd">    pStop       = None  # stop value step parameter</span>
+<span class="sd">    pNum        = None  # step parameter number of points</span>
+<span class="sd">    pMethod     = &#39;lin&#39; # step method</span>
+<span class="sd">    xUnits      = &#39;&#39;    # units of x variable</span>
+<span class="sd">    yUnits      = &#39;&#39;    # units of y variable</span>
+<span class="sd">    pUnits      = &#39;&#39;    # units of step variable</span>
+<span class="sd">    xValues     = None  # x-axis plot data</span>
+<span class="sd">    yValues     = None  # y-axis plot data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the attributes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># variable to be plotted along the x-axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># variable to be plotted along the y-axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># variable to be plotted as step parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep variable to calculate xVar and yVar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sStart</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep start value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sStop</span>       <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep stop value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sNum</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep number of steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sMethod</span>     <span class="o">=</span> <span class="s1">&#39;lin&#39;</span> <span class="c1"># sweep method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pStart</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># start value step parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pStop</span>       <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># stop value step parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pNum</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># step parameter number of points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pMethod</span>     <span class="o">=</span> <span class="s1">&#39;lin&#39;</span> <span class="c1"># step method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xUnits</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units of x variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yUnits</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units of y variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pUnits</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units of step variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xValues</span>     <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># x-axis plot data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yValues</span>     <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># y-axis plot data</span>
+
+<span class="k">def</span> <span class="nf">makeDir</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates the directory &#39;dirName&#39; if it does not yet exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirName</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">copyNotOverwrite</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copies the file &#39;src&#39; to &#39;dest&#39; if the latter one does not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dest</span><span class="p">):</span>
+        <span class="n">cp</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+    <span class="k">return</span>
 </pre></div>
 </td></tr></table></div>
 </div>

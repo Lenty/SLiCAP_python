@@ -69,7 +69,8 @@ def t_COMMENT(t):
 def t_LEFTBR(t):
     r'\('
     """
-    Start of model parameters will be ignored.
+    Start of model parameters will be ignored. The SLiCAP parser finds
+    parameter definitions with the PARDEF token.
     """
     pass
 

@@ -1,9 +1,18 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Thu May 21 23:14:38 2020
+SLiCAPinstruction.py
+====================
 
-@author: anton
+Module with definition of the SLiCAP instruction class. 
+
+Imported by SLiCAP.py
+
+It defines the globals GAINTYPES and DATATYPES:
+
+GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct']
+
+DATATYPES = ['dc', 'dcsolve', 'dcvar', 'denom', 'impulse', 'laplace', 'matrix', 'noise', 'numer', 'poles', 'pz', 'step', 'solve', 'time', 'zeros']
 """
 from SLiCAPexecute import *
 
@@ -14,9 +23,94 @@ DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve',
 
 class instruction(object):
     """
-    Prototype Instruction object, with execute and check methods.
+    Prototype Instruction object.
+    
+    :param circuit: Circuit object for this instruction
+    :type circuit: :class:`circuit`
+    :param simType: Simulation type: 'symbolic' or 'numeric', defaults to None
+    :type simType: str
+    :param gainType: Gain type for the instruction: should be in the list GAINTYPES, defaults to None
+    :type gainType: str
+    :param dataType: Data type for the instruction: should be in the list DATATYPES, defaults to None
+    :type dataType: str
+    :param step: True enabled parameter stepping for the instruction, defaults to None
+    :type step: bool
+    :param stepVar: Step variable for step methods: 'lin', 'log' and 'list', defaults to None
+    :type stepVar: str
+    :param stepVars: List with step variables for step method 'array', defaults to []
+    :type stepVars: list with str
+    :param stepMethod: Step method: 'lin', 'log', 'list' or 'array', defaults to []
+    :type stepMethod: str
+    :param stepStart: Start value for step methods 'lin' and 'log', defaults to None
+    :type stepStart: int, float, str
+    :param stepStop: Stop value for step methods 'lin' and 'log', defaults to None
+    :type stepStop: int, float, str
+    :param stepNum: Number of steps for step methods 'lin' and 'log', defaults to None
+    :type stepNum: int, float, str
+    :param stepList: List with values for step method 'list', defaults to []
+    :type stepList: list with int, float, str
+    :param stepArray: Nested list with values for step method array. List[i] carries the values for the step variable in stepVars[i]. The lists should have equal lengths, defaults to []
+    :type stepList: list of lists
+    :param source:  Refdes of the source (independent v or i source), defaults to None
+    :type stepList: str
+    :param detector: List with names of one or two nodal voltages or one or two dependent currents, one of the names can be None, defaults to None
+    :type detector: list
+    :param lgRef: Refdes of controlled source that is assigned as loop gain reference
+    :type lgRef: str
+    :param circuit: Circuit object used for this instruction
+    :type circuit: :class:`circuit`
+    :param parDefs: Parameter definitions used for this instruction, dict with key-value pairs. key(sympy.Symbol), value(int, float, sympy obj), defaults to None
+    :type parDefs: dct
+    :param numeric: Variable used during analysis an presentation of analysis results, True or False, defaults to None
+    :type numeric: bool
+    :param results: allResults object that holds the results of the instruction
+    :type results: :class:`allResults`
+    :param errors: Number of errors found in the definition of this instruction, defaults to 0
+    :type errors: int
+    :param detUnits: Detector units 'V' or 'A' (automatically detected), defaults to None
+    :type detUnits: str
+    :param srcUnits: Source units 'V' or 'A' (automatically detected), defaults to None
+    :type srcUnits: str
+    :param detLabel: Detector name to be used in expressions or plots, defaults to None
+    :type detLabel: str
+        
+        
+    :Example:
+    
+    >>> # create an instance if a SLiCAP instruction
+    >>> i = instruction()  
+    >>> # create i1.circuit from the netlist 'myFirstRCnetwork.cir'
+    >>> i.checkCircuit('myFirstRCnetwork.cir')
+    >>> i.source      = 'V1'          # Voltage source with refdes 'V1'
+    >>> i.detector    = 'V_out'       # Voltage at node 'out'
+    >>> i.detector
+    'V_out'
+    >>> i.simType     = 'symbolic'    # Use symbolic analysis
+    >>> i.gainType    = 'gain'        # Set the gain type to 'gain'
+    >>> i.dataType    = 'laplace'     # Set the data type to 'laplace'
+    >>> gain          = i.execute()   # execute the instruction and assign the
+                                      # result to the variable 'gain'
+    >>> gain.laplace
+    1.0/(1.0*C*R*s + 1.0)
+    >>> i1.detector                   
+    ['V_out', None]
+                                 
+    :Example:
+    
+    >>> # modify the detector
+    >>> i.detector    = 'I_V1'        # Current through 'V1'
+    >>> gain          = i.execute()  
+    >>> Y_in          = -gain.laplace # Input admittance of the RC network
+    >>> Y_in
+    1.0*C*s/(1.0*C*R*s + 1.0)
+    >>> i1.detector
+    ['I_V1', None]
+    
     """
     def __init__(self):
+        """
+        Constructor method.
+        """
         self.circuit    = None
         self.simType    = None
         self.gainType   = None
@@ -36,13 +130,6 @@ class instruction(object):
         self.parDefs    = None
         self.numeric    = None
         self.results    = None
-        self.Iv         = None # Vector with independent variables, adjusted for instruction.gainType
-        self.M          = None # MNA matrix, adjusted for instruction.gainType
-        self.Dv         = None # Vector with dependent variables, adjusted for instruction.gainType
-        self.G          = None # Conductance matrix (not implemented)
-        self.C          = None # Capacitance matrix (not implemented)
-        self.R          = None # Inverse of the conductance matrix (not implemented)
-        self.TAU        = None # dot porduct of self.R and self.C
         self.errors     = 0
         self.results    = allResults()
         self.detUnits   = None
@@ -51,15 +138,15 @@ class instruction(object):
         
     def checkCircuit(self, fileName):
         """
-        Checks the circuit and makes it the (local) ciruit object for this
-        instruction.
+        Checks the circuit from 'fileName' and makes it 
+        the (local) ciruit object for this instruction.
         """
         self.circuit = checkCircuit(fileName)
         
     def check(self):
         """
-        Check the completeness and consistancy of the instruction data before
-        it can be executed.
+        Checks the completeness and consistancy of the instruction data.  
+        Will be called by self.execute(). 
         """
         self.errors = 0
         if self.circuit == None:
@@ -127,7 +214,7 @@ class instruction(object):
                 else:
                     self.errors += 1
                     print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
-            else:
+            elif self.gainType != 'loopgain':
                 if self.dataType == 'laplace':
                     # need source and detector
                     self.checkDetector()
@@ -163,20 +250,11 @@ class instruction(object):
                 else:
                     self.errors += 1
                     print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
-                if self.gainType == 'asymptotic':
-                    # need loop gain reference
-                    self.checkLGref()
-                elif self.gainType == 'direct':
-                    # need loop gain reference
-                    self.checkLGref()
-                elif self.gainType == 'loopgain':
-                    # need loop gain reference
-                    self.checkLGref()
-                elif self.gainType == 'servo':
-                    # need loop gain reference
-                    self.checkLGref()
-                else:
-                    pass
+            if self.gainType == 'asymptotic' or self.gainType == 'direct' or self.gainType == 'loopgain' or self.gainType == 'servo':
+                # need loop gain reference
+                self.checkLGref()
+            else:
+                pass
         if self.step == True:
             if not self.numeric:
                 self.errors += 1
@@ -190,12 +268,19 @@ class instruction(object):
         return
     
     def checkNumeric(self):
+        """
+        Checks if the simulation type is set to 'numeric'. This is required for
+        pole-zero analysis.
+        """
         if not self.numeric:
             self.errors += 1
             print "Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType)
         return
     
     def checkSource(self, need = True):
+        """
+        Checks if the source has been defined and if it exists in the circuit.
+        """
         if type(self.source) == bool:
             if need:
                 self.errors += 1
@@ -210,6 +295,9 @@ class instruction(object):
         return
     
     def checkLGref(self):
+        """
+        Checks if the loop gain reference has been defined and if it exists in the circuit.
+        """
         if type(self.lgRef) == bool:
             self.errors += 1
             print "Error: missing loop gain reference definition."
@@ -220,10 +308,26 @@ class instruction(object):
     
     def checkDetector(self):
         """
-        The tyoe of self.detector can be:
-            bool: no detector has been defined
-            str:  a single detector, nodal voltage or branch current
-            list: either two nodat voltages or two branch currents
+        Checks if the detector has been defined and if it exists in the circuit.
+        
+        self.detector can defined as:
+            
+        - bool: None: no detector has been defined
+        - str:  a single detector, name of a nodal voltage or a branch current
+        - list: with two either two nodal voltages or two branch currents
+        
+        CheckDetector converts the detector definition into a list with a positive and a negative detector [<detP>, <detN>]. 
+        detP and detN can be the names (str) of either two nodal voltages or two branch currents. 
+        Names of possible detectors are listed in instruction.circuit.depVars.
+        
+        :Example:
+        
+        >>> # create an instance if a SLiCAP instruction
+        >>> i = instruction()  
+        >>> # create i1.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> i.checkCircuit('myFirstRCnetwork.cir')
+        >>> i.circuit.depVars
+        ['I_V1', 'V_0', 'V_N001', 'V_out']
         """
         if self.detector != None:
             self.detLabel = ''
@@ -231,8 +335,30 @@ class instruction(object):
             if type(self.detector) == str:
                 # Change the detector definition
                 self.detector = [self.detector, None]
+            elif type(self.detector) == list:
+                numDets = len(self.detector)
+                if numDets == 0:
+                    self.errors += 1
+                    print "Error: missing detector specification"
+                elif numDets == 1:
+                    self.detector = [self.detector[0], None]
+                elif numDets > 2:
+                    self.errors += 1
+                    print "Error: to many detectors."
+            if self.errors !=0:
+                return
             detP = self.detector[0]
             detN = self.detector[1]
+            """
+            if detP == 'V_0':
+                detP = None
+            if detN == 'V_0':
+                detN = None
+            """
+            if detP == None and detN == None:
+                self.errors += 1
+                print "Error: missing detector specification."
+                return
             # detectors must be of the same type
             if detP == None or detN == None:
                 pass

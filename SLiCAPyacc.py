@@ -15,7 +15,7 @@ from SLiCAPhtml import *
 # Composite tokens
 NODES       = ['NODEID', 'ID', 'INT']
 VALEXPR     = ['FLT', 'EXPR', 'SCI', 'INT']
-TITLE       = ['ID', 'QSTRING']
+TITLE       = ['ID', 'QSTRING', 'FNAME']
 
 # Commands with identical action
 INC         = ['INC', 'LIB']
@@ -423,7 +423,7 @@ def makeCircuit(cir):
         for refDes in cir.elements.keys():
             if cir.elements[refDes].model not in MODELS.keys():
                 needExpansion = True
-            elif MODELS[cir.elements[refDes].model] == False:
+            elif MODELS[cir.elements[refDes].model].stamp == False:
                 needExpansion = True
         if needExpansion:
             # First add the user libraries to the global library LIB
@@ -483,7 +483,7 @@ def expandModelsCircuits(circuitObject):
                 basicModel = circuitObject.modelDefs[modelName].type
             elif modelName in LIB.modelDefs.keys():
                 basicModel = LIB.modelDefs[modelName].type
-            elif modelName in MODELS:
+            elif modelName in MODELS.keys():
                 basicModel = modelName
             else:
                 basicModel = ''

@@ -1,0 +1,8 @@
+params2model
+Q1 1 1 0 0 QV gpi = {g_pi_1}
+Q2 2 2 0 0 QV gm = {g_m_2}
+Q3 3 3 0 0 myQ
+Q4 4 4 0 0 myQ gm = {g_m_4} gpi = {g_pi_4}
+.model myQ QV gm={g_m_3}
+.param g_pi_4 = 10u
+.end

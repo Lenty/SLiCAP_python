@@ -13,6 +13,7 @@ from time import time
 from datetime import datetime
 import re
 import subprocess
+from threading import Timer
 import os
 import getpass
 import matplotlib._pylab_helpers as plotHelp
@@ -20,10 +21,7 @@ from matplotlib import pyplot as plt
 plt.ioff() # Turn off the interactive mode for plotting
 
 class settings(object):
-    """
-    Class with global variables that can be modified from within other modules
-    and by the user. These variables can be adressed as attributes of 'ini', 
-    e.g. ini.circuitPath = 'cir/'.
+    """A class for global variables
     
     The following globals are defined:
         
@@ -105,7 +103,11 @@ class settings(object):
     - legendLoc         : default plot legend location
     - plotFontSize      : default plot font size
     
-        
+    Jupyter notebook settings
+    -------------------------
+    
+    - notebook          : True adapts HTML math return variables to markdown
+                          format required by Jupyter notebook
     """
     def __init__(self):
         """
@@ -156,6 +158,7 @@ class settings(object):
                                         # notebooks
         self.plotFontSize       = 12
         self.lastUpdate         = None
+        self.MaximaTimeOut      = 5     # Maximum time for subprocess to run Maxima
     
     def dump(self):
         """
@@ -179,7 +182,7 @@ class settings(object):
     
     def updatePaths(self, projectPath):
         """
-        Updates the project paths
+        Updates the file locations according to the project path.
         """
         self.projectPath      = projectPath
         self.htmlPath         = projectPath + HTMLPATH

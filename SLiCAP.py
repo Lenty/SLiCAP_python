@@ -1,37 +1,39 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Thu May 21 20:29:52 2020
+SLiCAP.py
+=========
 
-@author: anton
+This is the main SLiCAP module to be imported when running SLiCAP from a 
+console or from within a Python IDE such as 'spider'.
+
+When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py. 
+It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and 
+RST in the Jupyter notebooks.
 """
 from SLiCAPinstruction import *
 
 class SLiCAPproject(object):
     """
-    Prototype of a SLiCAPproject.
+    Prototype of a SLiCAPproject. 
+    
+    :param name: Name of the project
+    :type name: str
+    :param lastUpdate: Will be set to datetime.now()
+    :type lastUpdate: datetime.datetime
+    :param author: Will be set to getpass.getuser()
+    :type author: str
+    :return: None
+    :rtype: None
     """
     def __init__(self, name):
+        """
+        Constructor method.
+        """
         self.name = name
         self.lastUpdate = datetime.now()
         self.author = getpass.getuser()
         ini.lastUpdate = self.lastUpdate
-
-def makeDir(dirName):
-    """
-    Creates the directory 'dirName' if it does not yet exist.
-    """
-    if not os.path.exists(dirName):
-        os.makedirs(dirName)
-    return
-
-def copyNotOverwrite(src, dest):
-    """
-    Copies the file 'src' to 'dest' if the latter one does not exist.
-    """
-    if not os.path.exists(dest):
-        cp(src, dest)
-    return
     
 def initProject(name):
     """
@@ -39,10 +41,24 @@ def initProject(name):
     
     - Copies the directory structure from the templates subdirectory to the
       project directory in the case it has not yet been created.
-    - Creates index.html in the html directory
+    - Creates index.html in the html directory with the project name in the
+      title bar
     - Compiles the system libraries
     - Creates or updates 'SLiCAPconfig.py' in the project directory
+    - Creates instance of SLiCAPproject object
     
+    :param name: Name of the project will be passed to the :class:`SLiCAPproject` object.
+    :type param: str
+    :return: SLiCAPproject
+    :rtype: :class:`SLiCAPproject`
+    
+    
+    :Example:
+    
+    >>> prj = initProject('my first SLiCAP project')
+    >>> print prj.author
+    anton
+
     """
     ini.updatePaths(os.path.abspath('.') + '/')
     prj = SLiCAPproject(name)
