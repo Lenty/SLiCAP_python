@@ -165,6 +165,7 @@ class settings(object):
         Prints the global variables that are available to the user.
         """
         disallowed = ['asymptotic', 'servo', 'vi', 'direct', 'loopgain', 'gain']
+        printTypes = [dict, list, int, float, str, bool]
         tabWidth   = 18
         for attr in dir(self):
             dct = getattr(self, attr)
@@ -172,14 +173,26 @@ class settings(object):
                 keys = dct.keys()
                 keys.sort()
                 for key in keys:
-                    if key not in disallowed:
-                        ndots = tabWidth - len(key)
-                        print key,
-                        dots = ''
-                        for i in range(ndots):
-                            dots += '.'
-                        print dots,':', dct[key]
-    
+                    if key not in disallowed and type(dct[key]) in printTypes:
+                        if key != 'htmlLabels':
+                            ndots = tabWidth - len(key)
+                            print key,
+                            dots = ''
+                            for i in range(ndots):
+                                dots += '.'
+                            print dots,':', dct[key]
+                        elif key == 'htmlLabels':
+                            dispkey = key + '.keys()'
+                            ndots = tabWidth - len(dispkey)
+                            print dispkey,
+                            dots = ''
+                            for i in range(ndots):
+                                dots += '.'
+                            if type(dct[key]) == dict:
+                                print dots,':', dct[key].keys()
+                            else:
+                                print dots,':', dct[key]
+                            
     def updatePaths(self, projectPath):
         """
         Updates the file locations according to the project path.

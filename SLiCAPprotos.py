@@ -82,11 +82,22 @@ class circuit(object):
     
     def delPar(self, parName):
         """
-        Delete a parameter definition from self.parDefs.
+        Deletes a parameter definition and updates the list 
+        **circuit.params** with names (*sympy.Symbol*) of
+        undefined parameters.
         
-        The list self.params with undefined parameters is updated.
+        :param parName: Name of the parameter.
+        :type parName: str, sympy.Symbol
         
-        parName (str or sympy.Symbol): name of the parameter.
+        :return: None
+        :return type: None
+        
+        :Example:
+            
+        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Delete the definition for the parameter 'R':
+        >>> my_circuit.delPar('R')
         """
         self.parDefs.pop(sp.Symbol(str(parName)), None)
         self.updateParams()
@@ -94,20 +105,27 @@ class circuit(object):
         
     def defPar(self, parName, parValue):
         """
-        Defines a parameter: it either add its definition to self.parDefs or 
-        changes it if it already exists.
+        Deletes a parameter definition and updates the list 
+        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.
         
-        The list self.params with undefined parameters is updated.
+        :param parName: Name of the parameter.
+        :type parName: str, sympy.Symbol
         
-        parName (str or sympy.Symbol)         : name of the parameter.
-        parValue (str, float, int, sp.Symbol) : value or expression of the 
-                                                parameter, may include scale 
-                                                factors
-                                                
-        example: myCir.defPar('myPar', 'sin(2*pi*1M)')
+        :return: None
+        :return type: None
         
-        note: 
-            Do not enter a number as parameter name, this will not be checked!
+        :Example:
+            
+        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define the value of 'R' as 2000
+        >>> my_circuit.defPar('R', '2k')
+        >>> # Or:
+        >>> my_circuit.defPar('R', 2e3)
+        
+        :note: 
+            
+        Do not enter a number as parameter name, this will not be checked!
         """
         parName = sp.Symbol(str(parName))
         parValue = sp.sympify(replaceScaleFactors(str(parValue)))
@@ -117,19 +135,28 @@ class circuit(object):
     
     def defPars(self, parDict):
         """
-        Defines multiple parameters, this either adds definitions to 
-        self.parDefs or changes existing definitions.
+        Adds or modifies multiple parameter definitions and updates the list 
+        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.
+                
+        :params parDict: Dictionary with key-value pairs:
+                         key: parName (*str, sympy.Symbol*): name of the parameter.
+                         value: parValue (*str, float, int, sp.Symbol*) : value 
+                         or expression of the parameter.
+        :type parDict:   dict
         
-        The list self.params with undefined parameters is updated.
+        :return: None
+        :return type: None
         
-        parDict (dict): dictionary with key-value pairs:
+        :Example:
+        
+        >>> # Create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
+        >>> my_circuit.defPars({'R': '2k', 'C': '5p')
+        
+        :note: 
             
-        key: parName (str or sympy.Symbol)           : name of the parameter.
-        value: parValue (str, float, int, sp.Symbol) : value or expression of 
-                                                       the parameter, may 
-                                                       include scale factors
-        note: 
-            Do not enter a number as parameter name, this will not be checked!
+        Do not enter a number as parameter name, this will not be checked!
         """
         for key in parDict.keys():
             parName = sp.Symbol(str(key))
@@ -142,17 +169,37 @@ class circuit(object):
     def getParValue(self, parNames, numeric = False):
         """
         Returns the value or expression of one or more parameters.
+        
         If numeric == True it will perform a full recursive substitution of
         all circuit parameter definitions.
         
-        parNames (str, sympy.Symbol, list): name(s) of the parameter(s)
-        return value:
-            if type(parNames) == list:
-                return value = dict with key-value pairs:
-                    key (sympy.Symbol)             : name of the parameter
-                    value (int, float, expression) : value of the parameter
-        note: 
-            Do not enter a number as parameter name, this will not be checked!
+        :param parName: name(s) of the parameter(s)
+        :type parName: str, sympy.Symbol, list 
+        
+        :return: if type(parNames) == list:
+            
+                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
+                 name of the parameter, value (*int, float, sympy expression*): 
+                 value of the parameter
+                 
+                 else:
+                 value or expression
+                 
+        :return type: dict, float, int, sympy obj
+        
+        :Example:
+         
+        >>> # create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()  
+        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.checkCircuit('myFirstRCnetwork.cir')
+        >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
+        >>> my_instr.symType = 'numeric'
+        >>> my_instr.getParValues(['R', 'C'])
+        
+        :note: 
+        
+        Do not enter a number as parameter name, this will not be checked!
         """
         if type(parNames) == list:
             parValues = {}

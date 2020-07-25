@@ -108,11 +108,11 @@
 <li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
 </ul>
 
             
@@ -1565,7 +1565,54 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 885
 886
 887
-888</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPmath</span> <span class="kn">import</span> <span class="o">*</span>
@@ -1649,11 +1696,22 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
     
     <span class="k">def</span> <span class="nf">delPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delete a parameter definition from self.parDefs.</span>
+<span class="sd">        Deletes a parameter definition and updates the list </span>
+<span class="sd">        **circuit.params** with names (*sympy.Symbol*) of</span>
+<span class="sd">        undefined parameters.</span>
 <span class="sd">        </span>
-<span class="sd">        The list self.params with undefined parameters is updated.</span>
+<span class="sd">        :param parName: Name of the parameter.</span>
+<span class="sd">        :type parName: str, sympy.Symbol</span>
 <span class="sd">        </span>
-<span class="sd">        parName (str or sympy.Symbol): name of the parameter.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">            </span>
+<span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Delete the definition for the parameter &#39;R&#39;:</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.delPar(&#39;R&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">)),</span> <span class="bp">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
@@ -1661,20 +1719,27 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
         
     <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">,</span> <span class="n">parValue</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines a parameter: it either add its definition to self.parDefs or </span>
-<span class="sd">        changes it if it already exists.</span>
+<span class="sd">        Deletes a parameter definition and updates the list </span>
+<span class="sd">        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.</span>
 <span class="sd">        </span>
-<span class="sd">        The list self.params with undefined parameters is updated.</span>
+<span class="sd">        :param parName: Name of the parameter.</span>
+<span class="sd">        :type parName: str, sympy.Symbol</span>
 <span class="sd">        </span>
-<span class="sd">        parName (str or sympy.Symbol)         : name of the parameter.</span>
-<span class="sd">        parValue (str, float, int, sp.Symbol) : value or expression of the </span>
-<span class="sd">                                                parameter, may include scale </span>
-<span class="sd">                                                factors</span>
-<span class="sd">                                                </span>
-<span class="sd">        example: myCir.defPar(&#39;myPar&#39;, &#39;sin(2*pi*1M)&#39;)</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
 <span class="sd">        </span>
-<span class="sd">        note: </span>
-<span class="sd">            Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        :Example:</span>
+<span class="sd">            </span>
+<span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define the value of &#39;R&#39; as 2000</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, &#39;2k&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Or:</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, 2e3)</span>
+<span class="sd">        </span>
+<span class="sd">        :note: </span>
+<span class="sd">            </span>
+<span class="sd">        Do not enter a number as parameter name, this will not be checked!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">))</span>
         <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
@@ -1684,19 +1749,28 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
     
     <span class="k">def</span> <span class="nf">defPars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parDict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines multiple parameters, this either adds definitions to </span>
-<span class="sd">        self.parDefs or changes existing definitions.</span>
+<span class="sd">        Adds or modifies multiple parameter definitions and updates the list </span>
+<span class="sd">        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.</span>
+<span class="sd">                </span>
+<span class="sd">        :params parDict: Dictionary with key-value pairs:</span>
+<span class="sd">                         key: parName (*str, sympy.Symbol*): name of the parameter.</span>
+<span class="sd">                         value: parValue (*str, float, int, sp.Symbol*) : value </span>
+<span class="sd">                         or expression of the parameter.</span>
+<span class="sd">        :type parDict:   dict</span>
 <span class="sd">        </span>
-<span class="sd">        The list self.params with undefined parameters is updated.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
 <span class="sd">        </span>
-<span class="sd">        parDict (dict): dictionary with key-value pairs:</span>
+<span class="sd">        :Example:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPars({&#39;R&#39;: &#39;2k&#39;, &#39;C&#39;: &#39;5p&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        :note: </span>
 <span class="sd">            </span>
-<span class="sd">        key: parName (str or sympy.Symbol)           : name of the parameter.</span>
-<span class="sd">        value: parValue (str, float, int, sp.Symbol) : value or expression of </span>
-<span class="sd">                                                       the parameter, may </span>
-<span class="sd">                                                       include scale factors</span>
-<span class="sd">        note: </span>
-<span class="sd">            Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        Do not enter a number as parameter name, this will not be checked!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
@@ -1709,17 +1783,37 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
     <span class="k">def</span> <span class="nf">getParValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parNames</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the value or expression of one or more parameters.</span>
+<span class="sd">        </span>
 <span class="sd">        If numeric == True it will perform a full recursive substitution of</span>
 <span class="sd">        all circuit parameter definitions.</span>
 <span class="sd">        </span>
-<span class="sd">        parNames (str, sympy.Symbol, list): name(s) of the parameter(s)</span>
-<span class="sd">        return value:</span>
-<span class="sd">            if type(parNames) == list:</span>
-<span class="sd">                return value = dict with key-value pairs:</span>
-<span class="sd">                    key (sympy.Symbol)             : name of the parameter</span>
-<span class="sd">                    value (int, float, expression) : value of the parameter</span>
-<span class="sd">        note: </span>
-<span class="sd">            Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        :param parName: name(s) of the parameter(s)</span>
+<span class="sd">        :type parName: str, sympy.Symbol, list </span>
+<span class="sd">        </span>
+<span class="sd">        :return: if type(parNames) == list:</span>
+<span class="sd">            </span>
+<span class="sd">                 return value = dict with key-value pairs: key (*sympy.Symbol*): </span>
+<span class="sd">                 name of the parameter, value (*int, float, sympy expression*): </span>
+<span class="sd">                 value of the parameter</span>
+<span class="sd">                 </span>
+<span class="sd">                 else:</span>
+<span class="sd">                 value or expression</span>
+<span class="sd">                 </span>
+<span class="sd">        :return type: dict, float, int, sympy obj</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">         </span>
+<span class="sd">        &gt;&gt;&gt; # create an instance if a SLiCAP instruction</span>
+<span class="sd">        &gt;&gt;&gt; my_instr = instruction()  </span>
+<span class="sd">        &gt;&gt;&gt; # create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Obtain the numeric parameter definitions of of &#39;R&#39; and &#39;C&#39;:</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.symType = &#39;numeric&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.getParValues([&#39;R&#39;, &#39;C&#39;])</span>
+<span class="sd">        </span>
+<span class="sd">        :note: </span>
+<span class="sd">        </span>
+<span class="sd">        Do not enter a number as parameter name, this will not be checked!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1951,7 +2045,7 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
     <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;HZ&#39;</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="mi">1</span> <span class="c1"># can be set to 2 if independent depVar is used</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">,</span> <span class="s1">&#39;I_i&#39;</span><span class="p">]</span>
     <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
     <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
     <span class="c1"># Independent current source</span>

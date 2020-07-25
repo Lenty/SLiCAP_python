@@ -14,7 +14,7 @@ prj = initProject('My first RC network') # Sets all the paths and creates the HT
 
 fileName = 'myFirstRCnetwork.cir'
 i1 = instruction()                       # Creates an instance of an instruction object
-i1.checkCircuit(fileName)                # Checks and defines the local circuit object and
+i1.setCircuit(fileName)                  # Checks and defines the local circuit object and
                                          # sets the index page to the circuit index page
 # We will generate a HTML report (not from within Jupyter). Let us first create an empty HTML page:
 htmlPage('Circuit data')
@@ -26,9 +26,9 @@ elementData2html(i1.circuit, label = 'elementData') # This shows the data of the
 params2html(i1.circuit, label = 'params') # This displays the circuit parameters
 # Let us define an instruction to display the symbolic MNA matrix equation.
 # This is done by defining attributes of the instruction object 'i1'
-i1.simType = 'symbolic';
-i1.gainType = 'vi';
-i1.dataType = 'matrix';
+i1.setSimType('symbolic')
+i1.setGainType('vi')
+i1.setDataType('matrix')
 # We execute the instruction and assign the result to a variable 'MNA'
 MNA = i1.execute();
 # We will put the instruction on a new HTML page and display it in this notebook
@@ -51,13 +51,13 @@ eqn2html('D_v', MNA.Dv, label = 'Dv', labelText = 'Vector with dependent variabl
 # Let us now evaluate the transfer function of this network.
 # To this end we need to define a signal source and a detector.
 # Both the source and the detector are attributes of the instruction object:
-i1.source   = 'V1'    # 'V1' is the identifier of the independent source that we assign as signal source
-i1.detector = 'V_out' # 'V_out' is the voltage at node 'out' with respect to ground (node '0')
+i1.setSource('V1')   # 'V1' is the identifier of the independent source that we assign as signal source
+i1.setDetector('V_out') # 'V_out' is the voltage at node 'out' with respect to ground (node '0')
 # The transfer from source to load is called 'gain'. Later we will discuss more transfer types.
-i1.gainType = 'gain'
+i1.setGainType('gain')
 # The data that we would like to obtain is the Laplace transfer of the gain. SLiCAP has many different 
 # data types. The data type for an instruction is also an attribute of the instruction object:
-i1.dataType = 'laplace'
+i1.setDataType('laplace')
 # SLiCAP performs symbolic calculations, even when the data is numeric. In those case SLiCAP calculates
 # with rationals. Only in a limited number of cases SLiCAP calculates with floats.
 # Numeric values or combined numeric/symbolic expressions can be assigned to circuit parameters. In cases
@@ -65,7 +65,7 @@ i1.dataType = 'laplace'
 #
 # Let us display the transfer symbolically. In this case we have no parameters defined, so 'numeric' will
 # give the same answer as 'symbolic'.
-i1.simType = 'symbolic'
+i1.setSimType('symbolic')
 # Let us execute the (modified) instruction 'i1' and assign the result to the variable gain:
 gain = i1.execute()
 # The laplace transform can now be found in the attribute 'laplace' of 'gain'.
@@ -79,7 +79,7 @@ print(ini.Laplace)
 # 3. phase plots versus frequency
 # 4. (group) delay plots versus frequency
 # For plotting we need numeric values:
-i1.simType = 'numeric' 
+i1.setSimType('numeric')
 numGain = i1.execute() 
 # We will create a new HTML page for the plots
 htmlPage('Plots')
@@ -98,7 +98,7 @@ figDelay = plotDelay('RCdelay', 'Group delay characteristic', numGain, 10, '100k
 fig2html(figDelay, 600, caption = 'Group delay characteristic of the RC network.', label = 'figDelay')
 # With data type: 'pz' we can calculate the DC value of the gain and the poles and the zeros.
 # This data type requires numeric component values.
-i1.dataType = 'pz'
+i1.setDataType('pz')
 pzGain      = i1.execute()
 # We will create a new HTML page for displaying the results and display them also in this notebook.
 htmlPage('Poles and zeros')
@@ -118,7 +118,7 @@ fig2html(figPZ, 600, caption = 'Poles and zeros of the RC network.', label = 'fi
 # With data types 'impulse' and 'step' you can calculate the impulse response and the step response
 # of the network, respctively. These responses are obtained from the inverse Laplace transform of
 # the transfer function (impulse response) or the transfer function multiplied with 1/ini.Laplace.
-i1.dataType = 'step'
+i1.setDataType('step')
 numStep = i1.execute()
 figStep = plotTime('step', 'Unit step response', numStep, 0, 1, 50, xscale='m')
 # Let us put this plot on the page with the plots. You can get a list with page names by typing: 'ini.htmlPages'
@@ -140,8 +140,7 @@ fig2html(figStep, 600, caption = 'Unit step response of the RC network.', label 
 htmlPage('Design equations for $R$ and $C$', label='desEq')
 head2html('The unit step response')
 # Step 1:
-i1.simType  = 'symbolic'
-i1.dataType = 'step'
+i1.setSimType('symbolic')
 symStep     = i1.execute()
 mu_t        = sp.Symbol('mu_t')
 eqn2html(mu_t, symStep.stepResp, label = 'mu_t', labelText = 'Symbolic expression of the unit step response')

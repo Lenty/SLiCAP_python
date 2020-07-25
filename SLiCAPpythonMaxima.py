@@ -34,7 +34,7 @@ def maxEval(maxExpr):
     
     Example: 
         
-        result = maxEval(result:ilt(1/(s^2 + a^2), s, t))
+    >>> result = maxEval(result:ilt(1/(s^2 + a^2), s, t);)
     
     """
     # LISP command for a  a single-line output in text format:
@@ -198,14 +198,26 @@ def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
     maxExpr = 'result:%s(expand('%(numeric)
     if detP != None:
         if srcP != None:
-            maxExpr += '+' + str((-1)**(detP + srcP))+'*newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
+            if (detP+srcP)%2 == 0:
+                maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
+            else:
+                maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
         if srcN != None:
-            maxExpr += '+' + str(-(-1)**(detP + srcN))+'*newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
+            if (detP+srcN)%2 == 0:
+                maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
+            else:
+                maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
     if detN != None:
         if srcP != None:
-            maxExpr += '+' + str(-(-1)**(detN + srcP))+'*newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
+            if (detN+srcP)%2 == 0:
+                maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
+            else:
+                maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
         if srcN != None:
-            maxExpr += '+' + str((-1)**(detN + srcN))+'*newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
+            if (detN+srcN)%2 == 0:
+                maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
+            else:
+                maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
     maxExpr += '));'
     return sp.sympify(maxEval(maxExpr))
 
@@ -381,7 +393,7 @@ def maxSolve(M, Iv, numeric = True):
 
 def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     """
-    Calculated defite or indefinite integral of 'expr'.
+    Calculated definite or indefinite integral of 'expr'.
     
     arguments:
         

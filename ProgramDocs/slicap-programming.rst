@@ -36,3 +36,4 @@ Contents
    plot
    SLiCAPnotebook
    SLiCAP
+   SLiCAPinstruction

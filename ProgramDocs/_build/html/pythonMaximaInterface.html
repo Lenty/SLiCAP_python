@@ -103,9 +103,11 @@
 <li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
 </ul>
 
             
@@ -757,10 +759,7 @@
 575
 576
 577
-578
-579
-580
-581</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+578</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Fri May  1 13:57:02 2020</span>
@@ -796,7 +795,7 @@
 <span class="sd">    </span>
 <span class="sd">    Example: </span>
 <span class="sd">        </span>
-<span class="sd">        result = maxEval(result:ilt(1/(s^2 + a^2), s, t))</span>
+<span class="sd">    &gt;&gt;&gt; result = maxEval(result:ilt(1/(s^2 + a^2), s, t);)</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># LISP command for a  a single-line output in text format:</span>
@@ -956,34 +955,31 @@
         <span class="n">numeric</span> <span class="o">=</span> <span class="s1">&#39;bfloat&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">numeric</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">matrices</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">detP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">srcP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">detP</span> <span class="o">+</span> <span class="n">srcP</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">srcN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">detP</span> <span class="o">+</span> <span class="n">srcN</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">detN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">srcP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">detN</span> <span class="o">+</span> <span class="n">srcP</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">srcN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">detN</span> <span class="o">+</span> <span class="n">srcN</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span>
     <span class="c1"># Create the Maxima instruction</span>
     <span class="n">maxExpr</span> <span class="o">=</span> <span class="s1">&#39;result:</span><span class="si">%s</span><span class="s1">(expand(&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">numeric</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">M</span> <span class="ow">in</span> <span class="n">matrices</span><span class="p">:</span>
-        <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) +&#39;</span>
-    <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;0));&#39;</span>
+    <span class="k">if</span> <span class="n">detP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">srcP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detP</span><span class="o">+</span><span class="n">srcP</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;+newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;-newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">if</span> <span class="n">srcN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detP</span><span class="o">+</span><span class="n">srcN</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;-newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;+newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detP</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+    <span class="k">if</span> <span class="n">detN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">srcP</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detN</span><span class="o">+</span><span class="n">srcP</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;-newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;+newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcP</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">if</span> <span class="n">srcN</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">detN</span><span class="o">+</span><span class="n">srcN</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;+newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;-newdet(&#39;</span> <span class="o">+</span> <span class="n">sympy2maximaMatrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">minor_submatrix</span><span class="p">(</span><span class="n">srcN</span><span class="p">,</span> <span class="n">detN</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+    <span class="n">maxExpr</span> <span class="o">+=</span> <span class="s1">&#39;));&#39;</span>
     <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">maxEval</span><span class="p">(</span><span class="n">maxExpr</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">maxLimit</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">pm</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
@@ -1158,7 +1154,7 @@
 
 <span class="k">def</span> <span class="nf">maxIntegrate</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculated defite or indefinite integral of &#39;expr&#39;.</span>
+<span class="sd">    Calculated definite or indefinite integral of &#39;expr&#39;.</span>
 <span class="sd">    </span>
 <span class="sd">    arguments:</span>
 <span class="sd">        </span>

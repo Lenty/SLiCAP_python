@@ -109,9 +109,11 @@
 <li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="instruction.html">Instruction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
 </ul>
 
             
@@ -997,7 +999,7 @@
 <span class="c1"># Composite tokens</span>
 <span class="n">NODES</span>       <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NODEID&#39;</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;INT&#39;</span><span class="p">]</span>
 <span class="n">VALEXPR</span>     <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FLT&#39;</span><span class="p">,</span> <span class="s1">&#39;EXPR&#39;</span><span class="p">,</span> <span class="s1">&#39;SCI&#39;</span><span class="p">,</span> <span class="s1">&#39;INT&#39;</span><span class="p">]</span>
-<span class="n">TITLE</span>       <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;QSTRING&#39;</span><span class="p">]</span>
+<span class="n">TITLE</span>       <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;QSTRING&#39;</span><span class="p">,</span> <span class="s1">&#39;FNAME&#39;</span><span class="p">]</span>
 
 <span class="c1"># Commands with identical action</span>
 <span class="n">INC</span>         <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;INC&#39;</span><span class="p">,</span> <span class="s1">&#39;LIB&#39;</span><span class="p">]</span>
@@ -1714,7 +1716,7 @@
         <span class="k">for</span> <span class="n">refDes</span> <span class="ow">in</span> <span class="n">cir</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">cir</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">needExpansion</span> <span class="o">=</span> <span class="bp">True</span>
-            <span class="k">elif</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">cir</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">cir</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
                 <span class="n">needExpansion</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">if</span> <span class="n">needExpansion</span><span class="p">:</span>
             <span class="c1"># First add the user libraries to the global library LIB</span>
@@ -1774,7 +1776,7 @@
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
             <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-            <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="n">modelName</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>

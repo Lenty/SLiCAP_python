@@ -1,9 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-SLiCAP.py
-=========
-
 This is the main SLiCAP module to be imported when running SLiCAP from a 
 console or from within a Python IDE such as 'spider'.
 
@@ -16,23 +13,27 @@ from SLiCAPinstruction import *
 class SLiCAPproject(object):
     """
     Prototype of a SLiCAPproject. 
-    
-    :param name: Name of the project
-    :type name: str
-    :param lastUpdate: Will be set to datetime.now()
-    :type lastUpdate: datetime.datetime
-    :param author: Will be set to getpass.getuser()
-    :type author: str
-    :return: None
-    :rtype: None
     """
     def __init__(self, name):
-        """
-        Constructor method.
-        """
+        
         self.name = name
+        """
+        SLiCAPproject.name (str) is the name of the project. It will appear 
+        on the main html index page
+        """       
+        
         self.lastUpdate = datetime.now()
+        """
+        SLiCAPproject.lastUpdate (datetime.datetime) will be updated by
+        running: SLiCAPproject.initProject(<name>)  
+        """
+        
         self.author = getpass.getuser()
+        """
+        SLiCAPproject.author (str) Will be updated by running: 
+        SLiCAPproject.initProject(<name>)    
+        """
+        
         ini.lastUpdate = self.lastUpdate
     
 def initProject(name):
@@ -47,10 +48,11 @@ def initProject(name):
     - Creates or updates 'SLiCAPconfig.py' in the project directory
     - Creates instance of SLiCAPproject object
     
-    :param name: Name of the project will be passed to the :class:`SLiCAPproject` object.
-    :type param: str
-    :return: SLiCAPproject
-    :rtype: :class:`SLiCAPproject`
+    :param name: Name of the project will be passed to an instance of the 
+                 SLiCAPproject object.
+    :type name: str
+    :return:     SLiCAPproject
+    :rtype:      obj
     
     
     :Example:
