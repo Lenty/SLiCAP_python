@@ -10,7 +10,7 @@ from SLiCAPexecute import *
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 
              'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 
-             'step']
+             'step', 'param']
 
 class instruction(object):
     """
@@ -37,6 +37,13 @@ class instruction(object):
         Defines the simulation data type.
         
         See **instruction.setDataType(<dataType>)** for specification of *instruction.dataType*.
+        """
+        
+        self.sweepVar = None
+        """
+        Defines the sweep variable for parameter sweeping.
+        
+        See **instruction.setSweepVar(<sweepVar>)** for specification of *instruction.sweepVar*.
         """
         
         self.step = None
@@ -208,7 +215,32 @@ class instruction(object):
         Name for the detector quantity to be used in expressions or plots 
         (automatically determined in **instruction.chekDetector()**).
         """
+    
+    def setSweepVar(self, sweepVar):
+        """
+        Defines the sweep variable for parameter sweeping
         
+        :param sweepVar: Name of the parameter
+        :type simType: str
+        
+        :return: None
+        :return type: None
+        
+        :Example:
+        
+        >>> # Create an instance of the instruction object
+        >>> my_instr = instruction() 
+        >>> # Set the simulation type to numeric:
+        >>> my_instr.setSimType('numeric')
+        >>> # Set the data type to 'params'
+        >>> my_instr.setDataType('params')
+        >>> # Define the sweep parameter
+        >>> my_instr.setSweepVar(<my_par_name>)        
+        """
+        self.simType = simType
+        self.checkSimType()
+        return
+    
     def setSimType(self, simType):
         """
         Defines the simulation type for the instruction.
@@ -1628,6 +1660,7 @@ class instruction(object):
             r.simType        = self.simType
             r.gainType       = self.gainType
             r.dataType       = self.dataType
+            r.sweepVar       = self.sweepVar
             r.step           = self.step
             r.stepVar        = self.stepVar
             r.stepVars       = self.stepVars

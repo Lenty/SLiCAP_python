@@ -316,12 +316,52 @@ def fullSubs(valExpr, parDefs):
         print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
     return valExpr
 
-def assumeAllReal(expr):
+def assumeRealParams(expr, params = 'all'):
     """
-    Returns the sympy expression 'expr' in which all sambolic variables have
+    Returns the sympy expression 'expr' in which parameters have
     been redefined as real.
     """
-    return expr.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in expr.atoms(sp.Symbol)})
+    if type(params) == list:
+        for i in range(len(params)):
+            expr = expr.xreplace({sp.Symbol(params[i]): sp.Symbol(params[i], real = True)})
+    elif type(params) == str:
+        if params == 'all':
+            params = list(expr.atoms(sp.Symbol))
+            try:
+                params.remove(ini.Laplace)
+            except:
+                pass
+            for i in range(len(params)):
+                expr = expr.xreplace({sp.Symbol(str(params[i])): sp.Symbol(str(params[i]), real = True)})
+        else:
+            return expr.xreplace({sp.Symbol(params): sp.Symbol(params, real = True)})
+    else:
+        print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
+    return expr
+
+def assumePosParams(expr, params = 'all'):
+    """
+    Returns the sympy expression 'expr' in which parameters have
+    been redefined as positive.
+    """
+    if type(params) == list:
+        for i in range(len(params)):
+            expr = expr.xreplace({sp.Symbol(params[i]): sp.Symbol(params[i], positive = True)})
+    elif type(params) == str:
+        if params == 'all':
+            params = list(expr.atoms(sp.Symbol))
+            try:
+                params.remove(ini.Laplace)
+            except:
+                pass
+            for i in range(len(params)):
+                expr = expr.xreplace({sp.Symbol(str(params[i])): sp.Symbol(str(params[i]), positive = True)})
+        else:
+            return expr.xreplace({sp.Symbol(params): sp.Symbol(params, positive = True)})
+    else:
+        print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
+    return expr
+            
 
 def invLaplace(numer, denom):
     """

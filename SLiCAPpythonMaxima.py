@@ -540,8 +540,14 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     if fmin == None or fmax == None:
         print "Error in frequency range specification."
         return None
+    fMi = checkNumber(fmin)
+    fMa = checkNumber(fmax)
+    if fMi != None:
+        fmin = fMi
+    if fMa != None:
+        fmax = fMa
     if fmin != None and fmax != None:
-        if checkNumber(fmin) != None and  checkNumber(fmin) != None and fmin >= fmax:
+        if fMi != None and  fMa != None and fmin >= fmax:
             print "Error in frequency range specification."
             return None
     if noiseResult.dataType != 'noise':

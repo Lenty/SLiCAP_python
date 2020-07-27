@@ -14,7 +14,7 @@ prj = initProject('My first SLiCAP project') # Creates the SLiCAP libraries and 
 fileName = 'PIVA.cir'
 i1 = instruction()           # Creates an instance of an instruction object
 i1.setCircuit(fileName)      # Checks and defines the local circuit object and
-                             # resets the index page to the project index page
+                             # sets the index page to the circuit index page
 
 i1.defPar('C_ph', '2.95p')
 
@@ -52,16 +52,18 @@ numer = i1.execute().numer
 
 i1.setDataType('laplace')
 result = i1.execute()
+
+
 Fs = result.laplace
 transferCoeffs = coeffsTransfer(Fs)
 
 # Frequency-domain plots
-figdBmag = plotdBmag('dBmag', 'dB magnitude', result, 1, 1e3, 100, xscale = 'k')
-figMag   = plotMag('mag', 'Magnitude', result, 1, 1e3, 100, xscale = 'k', yunits = '-')
-figPhase = plotPhase('phase', 'Phase', result, 1, 1e3, 100, xscale = 'k')
-figDelay = plotDelay('delay', 'Delay', result, 1, 1e3, 100, xscale = 'k', yscale = 'u')
-figPolar = plotPolar('polar', 'Polar' , result, 1, 1e3, 100, fscale = 'k')
-figdBpolar = plotdBpolar('dBpolar', 'dB polar' , result, 1, 1e3, 100, fscale = 'k')
+figdBmag = plotSweep('dBmag', 'dB magnitude', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'dBmag')
+figMag   = plotSweep('mag', 'Magnitude', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'mag', funcUnits = '-')
+figPhase = plotSweep('phase', 'Phase', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'phase')
+figDelay = plotSweep('delay', 'Delay', result, 1, 1e3, 100, sweepScale = 'k', funcScale = 'u', funcType = 'delay')
+figPolar = plotSweep('polar', 'Polar' , result, 1, 1e3, 100, sweepScale = 'k', axisType = 'polar', funcType = 'mag')
+figdBpolar = plotSweep('dBpolar', 'dB polar' , result, 1, 1e3, 100, funcType = 'dBmag', sweepScale = 'k', axisType = 'polar')
 figPZ = plotPZ('PZ', 'Poles and zeros', pzResult, xmin = -100, xscale = 'M', yscale = 'M')
 figPZd = plotPZ('PZd', 'Dominant poles and zeros', pzResult, xmin = -100, xmax = 0, ymin = -50, ymax = 50, xscale = 'k', yscale = 'k')
 
@@ -73,14 +75,14 @@ i1.setGainType('servo')
 servo = i1.execute()
 i1.setGainType('direct')
 direct = i1.execute()
-figdBmagA = plotdBmag('magA', 'dB magnitude feedback model', [result, asymptotic, loopgain, servo, direct], 1, 1e3, 100, xscale = 'k')
+figdBmagA = plotSweep('magA', 'dB magnitude feedback model', [result, asymptotic, loopgain, servo, direct], 1, 1e3, 100, funcType = 'dBmag', sweepScale = 'k')
 
 i1.setDataType('step')
 i1.setGainType('gain')
 result = i1.execute()
 mu_t = result.stepResp
-# Time-domain plot
-figStep = plotTime('step', 'Unit step response', result, 0, 50, 100, xscale = 'u', yunits = 'V')
+
+figStep = plotSweep('step', 'step response', result, 0, 50, 100, sweepScale = 'u', funcUnits = 'V')
 
 # Find the network solution
 i1.setGainType('vi')
@@ -99,7 +101,7 @@ i1.setStepStop('1u')
 i1.stepOn()
 FsStepped = i1.execute()
 
-figdBs = plotdBmag('dBs', 'dB magnitude step I_D', FsStepped, 1, 1e3, 100, xscale = 'k')
+figdBs = plotSweep('dBs', 'dB magnitude step I_D', FsStepped, 1, 1e3, 100, funcType = 'dBmag', sweepScale = 'k')
 
 i1.setDataType('poles')
 i1.setStepNum(200)
@@ -108,7 +110,8 @@ figRL = plotPZ('RL', 'Root Locus I_D', polesStepped, xmin = -180, xmax = 20, ymi
 
 i1.setDataType('step')
 i1.setStepNum(7)
-mu_tStepped = i1.execute().stepResp
+mu_tStepped = i1.execute()
+figStepped = plotSweep('stepped', 'step response I_D', mu_tStepped, 0, 50, 100, sweepScale = 'u', funcUnits = 'V',)
 
 # Generate HTML report. Run this section twice if you use forward references.                             
 htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
@@ -138,19 +141,21 @@ htmlPage('Network solution')
 eqn2html(Dv, solution)
 
 htmlPage('Plots')
-fig2html(figdBmag, 600, caption='dB magnitude plot of the PIVA transfer.')
-fig2html(figMag, 600, caption='Magnitude plot of the PIVA transfer.')
-fig2html(figPhase, 600, caption='Phase plot of the PIVA transfer.')
-fig2html(figDelay, 600, caption='Group delay of the PIVA transfer.')
-fig2html(figdBmagA, 600, caption='Asymptotic-gain model parameter dB magnitude plots of the PIVA transfer.')
-fig2html(figPolar, 600, caption ='Polar plot of the PIVA transfer.')
-fig2html(figdBpolar, 600, caption ='dB polar plot of the PIVA transfer.')
-fig2html(figStep, 600, caption='Unit step response of the PIVA.')
-fig2html(figPZ, 600, caption='Poles and zeros of the gain of the PIVA.')
-fig2html(figPZd,  600, caption='Dominant poles of the gain of the PIVA.')
-fig2html(figdBs, 600, caption='dB magnitude plot of the PIVA transfer for different values of the drain current.')
-fig2html(figRL, 600, caption='Poles of the gain for different values of the drain current.')
+fig2html(figdBmag, 600, label = 'figdBmag',  caption='dB magnitude plot of the PIVA transfer.')
+fig2html(figMag, 600, label = 'figMag', caption='Magnitude plot of the PIVA transfer.')
+fig2html(figPhase, 600, label = 'figPhase', caption='Phase plot of the PIVA transfer.')
+fig2html(figDelay, 600, label = 'figDelay', caption='Group delay of the PIVA transfer.')
+fig2html(figdBmagA, 600, label = 'figdBmagA', caption='Asymptotic-gain model parameter dB magnitude plots of the PIVA transfer.')
+fig2html(figPolar, 600, label = 'figPolar', caption ='Polar plot of the PIVA transfer.')
+fig2html(figdBpolar, 600, label = 'figdBpolar', caption ='dB polar plot of the PIVA transfer.')
+fig2html(figStep, 600, label = 'figStep', caption='Unit step response of the PIVA.')
+fig2html(figStepped, 600, label = 'figStepped', caption='Unit step response of the PIVA versus $I_D$.')
+fig2html(figPZ, 600, label = 'figPZ', caption='Poles and zeros of the gain of the PIVA.')
+fig2html(figPZd,  600, label = 'figPZd', caption='Dominant poles of the gain of the PIVA.')
+fig2html(figdBs, 600, label = 'figdBs', caption='dB magnitude plot of the PIVA transfer for different values of the drain current.')
+fig2html(figRL, 600, label = 'figRL', caption='Poles of the gain for different values of the drain current.')
 
+links2html()
 t2=time()
 print '\nTotal time: %3.1fs'%(t2-t1)
 #os.system('firefox html/index.html')

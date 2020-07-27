@@ -782,19 +782,19 @@ def links2html():
             elif labelType == 'data':
                 html += '<h2>Circuit data and imported tables</h2>\n'
                 for name in labelDict[labelType]:
-                    html += '<p>%s</p>'%(href(name))
+                    html += '<p>%s</p>\n'%(href(name))
             elif labelType == 'fig':
                 html += '<h2>Figures</h2>\n'
                 for name in labelDict[labelType]:
-                    html += '<p>%s</p>'%(href(name))
+                    html += '<p>%s</p>\n'%(href(name))
             elif labelType == 'eqn':
                 html += '<h2>Equations</h2>\n'
                 for name in labelDict[labelType]:
-                    html += '<p>%s</p>'%(href(name))
+                    html += '<p>%s</p>\n'%(href(name))
             elif labelType == 'analysis':
                 html += '<h2>Analysis results</h2>\n'
                 for name in labelDict[labelType]:
-                    html += '<p>%s</p>'%(href(name))
+                    html += '<p>%s</p>\n'%(href(name))
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 

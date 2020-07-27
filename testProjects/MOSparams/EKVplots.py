@@ -14,8 +14,8 @@ prj = initProject('NMOS EKV polts') # Creates the SLiCAP libraries and the
 
 fileName = 'mosEKVplots.cir'
 i1 = instruction()           # Creates an instance of an instruction object
-i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
-                             # resets the index page to the project index page
+i1.setCircuit(fileName)      # Checks and defines the local circuit object and
+                             # sets the index page to the circuit index page
 
 data = paramPlot()
 

@@ -13,31 +13,31 @@ prj = initProject('Noise project') # Creates the SLiCAP libraries and the
 
 fileName = 'noiseTest.cir'
 i1 = instruction()           # Creates an instance of an instruction object
-i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
-                             # resets the index page to the project index page
-i1.source            = 'V1'
-i1.detector          = 'V_2'
-i1.gainType          = 'vi'
-i1.dataType          = 'noise'
-i1.simType           = 'numeric'
-noiseResults         = i1.execute()
+i1.setCircuit(fileName)      # Checks and defines the local circuit object and
+                             # sets the index page to the circuit index page
+i1.setSource('V1')
+i1.setDetector('V_2')
+i1.setGainType('vi')
+i1.setDataType('noise')
+i1.setSimType('numeric')
+noiseResults = i1.execute()
 
-fig_onoise           = plotNoise('onoise', 'Detector-refferred noise', noiseResults, 0.1, '1M', 200, noise='onoise', sources = 'all')
+fig_onoise = plotSweep('onoise', 'Detector-refferred noise', noiseResults, 0.1, '1M', 200, noiseSources = 'all')
 
-rmsInoise            = rmsNoise(noiseResults, 'inoise', 0.1, '1M')
-rmsSnoise            = rmsNoise(noiseResults, 'inoise', 0.1, '1M', source = 'V1')
+rmsInoise = rmsNoise(noiseResults, 'inoise', 0.1, '1M')
+rmsSnoise = rmsNoise(noiseResults, 'inoise', 0.1, '1M', source = 'V1')
 
-noiseFigure          = rmsInoise/rmsSnoise
+noiseFigure = rmsInoise/rmsSnoise
 
-i1.step = True
-i1.stepMethod        = 'lin'
-i1.stepVar           = 'R_p'
-i1.stepStart         = 200
-i1.stepStop          = '1k'
-i1.stepNum           = '5'
-ini.stepFunction     = True
-noiseResultsStepped  = i1.execute() 
-fig_onoiseStepped    = plotNoise('inoiseStepped', 'Source-refferred noise', noiseResultsStepped, 0.1, '1M', 200, noise='inoise', sources = 'I1')
+i1.stepOn()
+i1.setStepMethod('lin')
+i1.setStepVar('R_p')
+i1.setStepStart(200)
+i1.setStepStop('1k')
+i1.setStepNum(5)
+noiseResultsStepped = i1.execute() 
+
+fig_onoiseStepped   = plotSweep('inoiseStepped', 'Source-refferred noise', noiseResultsStepped, 0.1, '1M', 200, funcType = 'inoise', noiseSources = 'I1')
 
 htmlPage('Noise')
 noise2html(noiseResults)

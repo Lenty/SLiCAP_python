@@ -751,7 +751,8 @@ class allResults(object):
     dataType    = None # Data type  : 'dc', 'dcsolve', 'dcvar', 'denom', 
                                       'impulse', 'laplace', 'matrix', 'noise',
                                       'numer', 'poles', 'pz', 'solve', 'step', 
-                                      'time' or 'zeros'
+                                      'time','zeros' or 'param'
+    sweepVar    = None # Sweep parameter for data type 'param'
     step        = None # True       : enables parameter stepping
     stepVar     = None # Step variable for step types 'lin', 'log' and 'list'
     stepVars    = None # List with step variables for 'array' type stepping
@@ -778,7 +779,6 @@ class allResults(object):
     detUnits    = None # Detector units 'V' or 'A' (automatically detected)
     srcUnits    = None # Source units 'V' or 'A' (automatically detected)
     detLabel    = None # Name to be used in expressions or plots
-        
     """
     def __init__(self):
         self.DCvalue     = []   # Zero-frequency value in case of 
@@ -811,10 +811,12 @@ class allResults(object):
         self.time        = []   # Time-domain responses
         self.impulse     = []   # Unit impulse responses
         self.stepResp    = []   # Unit step responses
+        self.params      = {}   # Results of parameter sweep (dataType = 'param')
         # instruction settings
         self.simType     = None
         self.gainType    = None
         self.dataType    = None
+        self.sweepVar    = None
         self.step        = None
         self.stepVar     = None
         self.stepVars    = None
