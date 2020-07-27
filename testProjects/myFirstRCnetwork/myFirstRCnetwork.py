@@ -84,7 +84,7 @@ numGain = i1.execute()
 # We will create a new HTML page for the plots
 htmlPage('Plots')
 head2html('Frequency domain plots')
-figMag = plotSweep('RCmag', 'Magnitude characteristic', numGain, 10, '100k', 100, funcUnits = '-', show = True)
+figMag = plotSweep('RCmag', 'Magnitude characteristic', numGain, 10, '100k', 100, yUnits = '-', show = True)
 # This will put the figure on the HTML page with a width of 800 pixels, a caption and a label:
 fig2html(figMag, 600, caption = 'Magnitude characteristic of the RC network.', label = 'figMag')
 figPol = plotSweep('RCpolar', 'Polar plot', numGain, 10, '100k', 100, axisType = 'polar', show = True)
@@ -94,7 +94,7 @@ fig2html(figdBmag, 600, caption = 'dB Magnitude characteristic of the RC network
 figPhase = plotSweep('RCphase', 'Phase characteristic', numGain, 10, '100k', 100, funcType = 'phase', show = True)
 fig2html(figPhase, 600, caption = 'Phase characteristic of the RC network.', label = 'figPhase')
 # We will display the delay in 'us'
-figDelay = plotSweep('RCdelay', 'Group delay characteristic', numGain, 10, '100k', 100, funcScale = 'u', funcType = 'delay')
+figDelay = plotSweep('RCdelay', 'Group delay characteristic', numGain, 10, '100k', 100, yScale = 'u', funcType = 'delay')
 fig2html(figDelay, 600, caption = 'Group delay characteristic of the RC network.', label = 'figDelay')
 # With data type: 'pz' we can calculate the DC value of the gain and the poles and the zeros.
 # This data type requires numeric component values.

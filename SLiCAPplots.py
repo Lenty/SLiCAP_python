@@ -214,18 +214,18 @@ def defaultsPlot():
             for tick in fig.axes[i].yaxis.get_major_ticks():
                 tick.label.set_fontsize(ini.plotFontSize)
                
-def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepScale = '', axisType = 'auto', funcType = 'auto', funcScale = '', funcUnits = '', noiseSources = None, show = False):
+def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVar = 'auto', sweepScale = '', xVar = 'auto', xUnits = '', xScale = '', axisType = 'auto', funcType = 'auto', yVar = 'auto', yScale = '', yUnits = '', noiseSources = None, show = False):
     """
     """
-    plotDataTypes = ['laplace', 'numer', 'denom', 'noise', 'step', 'impulse', 'time']
-    funcTypes  = ['mag', 'dBmag', 'phase', 'delay', 'time', 'onoise', 'inoise']
-    axisTypes  = ['lin', 'log', 'semilogx', 'semilogx', 'polar']
+    plotDataTypes = ['laplace', 'numer', 'denom', 'noise', 'step', 'impulse', 'time', None]
+    funcTypes  = ['mag', 'dBmag', 'phase', 'delay', 'time', 'onoise', 'inoise', 'param']
+    axisTypes  = ['lin', 'log', 'semilogx', 'semilogy', 'polar']
     freqTypes  = ['laplace', 'numer', 'denom', 'noise']
     timeTypes  = ['time', 'impulse', 'step']
     fig = figure(fileName)
     fig.show = show
     ax = axis(title)
-    if type(results) == type(allResults()):
+    if type(results) != list:
         results = [results]
     colNum = 0
     numColors = len(ini.defaultColors)
@@ -241,11 +241,33 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepSc
             funcType = 'mag'
         elif result.dataType in timeTypes:
             funcType = 'time'
+    elif funcType == 'param':
+        if sweepVar == 'auto':
+            print "Error: undefined sweep variable."
+            return fig
+        if yVar == 'auto':
+            print "Error: missing parameter to be plotted."
+            return fig
+        if xVar == 'auto':
+            xVar = sweepVar
+            xScale = sweepScale
+        if result.step:
+            if result.stepMethod == 'array':
+                print "Error: array type stepping is not supported for funcType 'param'."
+                return fig
+            if result.stepMethod == 'list':
+                print "Error: list type stepping is not supported for funcType 'param'."
+                return fig
+            result.checkStep()
+            if result.errors != 0:
+                return fig
     elif funcType not in funcTypes:
         print "Error: unknown funcType: '%s'."%(funcType)
         return fig
     if axisType == 'auto':
-        if funcType == 'mag' or result.dataType == 'noise':
+        if funcType == 'param':
+            axisType = 'lin'
+        elif funcType == 'mag' or result.dataType == 'noise':
             axisType = 'log'
         elif funcType == 'dBmag' or funcType == 'phase' or funcType == 'delay':
             axisType = 'semilogx'
@@ -270,25 +292,52 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepSc
         ax.polar = True
         ax.yScale = 'lin'
     if not ax.polar:
-        ax.xScaleFactor = sweepScale
-    ax.yScaleFactor = funcScale
+        if funcType == 'param' and xVar != sweepVar:
+            ax.xScaleFactor = xScale
+        else:
+            ax.xScaleFactor = sweepScale
+    ax.yScaleFactor = yScale
     ax.traces = []
-    # Create the x-label and the y-label data
-    if result.dataType in freqTypes:
+    # Create the axis labels
+    # For parameter plots: the parameter names with units and scalefactors
+    if funcType == 'param':
+        ax.xLabel = '$' + sp.latex(sp.Symbol(xVar)) + '$ [' + xScale + xUnits + ']'
+        ax.yLabel = '$' + sp.latex(sp.Symbol(yVar)) + '$ [' + yScale + yUnits + ']'
+    # For time frequency plots we use frequency 'Hz' or 'rad/s' along the x-axis
+    elif result.dataType in freqTypes:
         if result.dataType == 'noise':    
             if funcType == 'onoise':
-                funcUnits = result.detUnits
+                yUnits = result.detUnits
             if funcType == 'inoise':
-                funcUnits = result.srcUnits
+                yUnits = result.srcUnits
             ax.xLabel = 'frequency [' + sweepScale + 'Hz]'
         elif ini.Hz == True:
             ax.xLabel = 'frequency [' + sweepScale + 'Hz]'
         else:
             ax.xLabel = 'frequency [' + sweepScale + 'rad/s]'
+    # For time plots we use time along the x-axis
     elif funcType in timeTypes:
         ax.xLabel = 'time [' + sweepScale + 's]'
-        funcUnits = result.detUnits
-    # Create the sweep
+        yUnits = result.detUnits
+    # Create the y-label for other than parameter plots
+    if funcType == 'mag':
+        ax.yLabel = 'magnitude [' + yScale + yUnits + ']'
+    elif funcType == 'dBmag':
+        ax.yLabel = 'magnitude [' + yScale + 'dB]'
+    elif funcType == 'phase':
+        if ini.Hz == True:
+            ax.yLabel = 'phase [' + yScale + 'deg]'
+        else:
+            ax.yLabel = 'phase [' + yScale + 'rad]'
+    elif funcType == 'delay':
+        ax.yLabel = 'group delay [' + yScale + 's]'
+    elif funcType == 'time':
+        ax.yLabel = '[' + yScale + yUnits + ']'
+    elif funcType == 'onoise':
+        ax.yLabel = 'spectral density [' + yScale + yUnits +'^2/Hz]'
+    elif funcType == 'inoise':
+        ax.yLabel = 'spectral density [' + yScale + yUnits +'^2/Hz]'
+    # Create the sweep, lin or log depending on the x-axis type
     try:
         xScaleFactor = 10**int(SCALEFACTORS[sweepScale])
     except:
@@ -297,182 +346,45 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepSc
         x = np.geomspace(checkNumber(sweepStart)*xScaleFactor, checkNumber(sweepStop)*xScaleFactor, checkNumber(sweepNum))
     elif ax.xScale == 'lin' or ax.xScale == 'semilogy':
         x = np.linspace(checkNumber(sweepStart)*xScaleFactor, checkNumber(sweepStop)*xScaleFactor, checkNumber(sweepNum))
-    # Create the y-label
-    if funcType == 'mag':
-        ax.yLabel = 'magnitude [' + funcScale + funcUnits + ']'
-    elif funcType == 'dBmag':
-        ax.yLabel = 'magnitude [' + funcScale + 'dB]'
-    elif funcType == 'phase':
-        if ini.Hz == True:
-            ax.yLabel = 'phase [' + funcScale + 'deg]'
+    # Create the plot:
+    # Create the plot data for param plots
+    if funcType == 'param':
+        xData, yData = result.stepParams(xVar, yVar, sweepVar, x)
+        if type(xData) == dict:
+            keys = sorted(xData.keys())
+            for i in range(len(keys)):
+                newTrace = trace([xData[keys[i]], yData[keys[i]]])
+                newTrace.label = '$%s$ = %8.1e'%(sp.latex(result.stepVar), result.stepList[i])
+                newTrace.color = ini.defaultColors[colNum % numColors]
+                colNum += 1
+                ax.traces.append(newTrace)
         else:
-            ax.yLabel = 'phase [' + funcScale + 'rad]'
-    elif funcType == 'delay':
-        ax.yLabel = 'group delay [' + funcScale + 's]'
-    elif funcType == 'time':
-        ax.yLabel = '[' + funcScale + funcUnits + ']'
-    elif funcType == 'onoise':
-        ax.yLabel = 'spectral density [' + funcScale + funcUnits +'^2/Hz]'
-    elif funcType == 'inoise':
-        ax.yLabel = 'spectral density [' + funcScale + funcUnits +'^2/Hz]'
-    for result in results:
-        if not result.step:
-            if result.dataType == 'numer':
-                yData = result.numer
-                yLabel = 'numer: '
-            elif result.dataType == 'denom':
-                yData = result.denom
-                yLabel = 'denom: '
-            elif result.dataType == 'laplace':
-                yData = result.laplace
-                yLabel = ''
-            elif result.dataType == 'time':
-                yData = result.time
-                yLabel = '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
-            elif result.dataType == 'step':
-                yData = result.stepResp
-                yLabel = '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
-            elif result.dataType == 'impulse':
-                yData = result.impulse
-                yLabel = '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
-            if funcType == 'mag':
-                if ax.polar:
-                    radius = magFunc_f(yData, x)
-                    angle = phaseFunc_f(yData, x)
-                    if ini.Hz:
-                        angle = angle/180*np.pi
-                    newTrace = trace([angle, radius])
-                else:
-                    newTrace = trace([x, magFunc_f(yData, x)])
-            elif funcType == 'dBmag':
-                if ax.polar:
-                    radius = dBmagFunc_f(yData, x)
-                    angle = phaseFunc_f(yData, x)
-                    if ini.Hz:
-                        angle = angle/180*np.pi
-                    newTrace = trace([angle, radius])
-                else:
-                    newTrace = trace([x, dBmagFunc_f(yData, x)])
-            elif funcType == 'phase':
-                if not ax.polar:
-                    newTrace = trace([x, phaseFunc_f(yData, x)])
-            elif funcType == 'delay':
-                if not ax.polar:
-                    newTrace = trace([x, delayFunc_f(yData, x)])
-            elif funcType == 'time':
-                if not ax.polar:
-                    func = sp.lambdify(sp.Symbol('t'), yData)
-                    y = np.real(func(x))
-                    newTrace = trace([x, y])
-            if result.dataType != 'noise':
-                try:
-                    newTrace.color = ini.gainColors[result.gainType]
-                except:
-                    newTrace.color = ini.defaultColors[colNum % numColors]
-                    colNum += 1
-                if result.gainType == 'vi':
-                    yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
-                else:
-                    yLabel += result.gainType
-                try:
-                    ax.traces.append(newTrace)
-                except:
-                    pass
-            else:
-                keys = result.onoiseTerms.keys()
-                if noiseSources == None:
-                    if funcType == 'onoise':
-                        yData = result.onoise
-                    elif funcType == 'inoise':
-                        yData = result.inoise
-                    func = sp.lambdify(ini.frequency, yData)
-                    # y = [func(x[j]) for j in range(len(x))]
-                    y = func(x)
-                    newTrace = trace([x, y])
-                    newTrace.label = funcType
-                    ax.traces.append(newTrace)
-                elif noiseSources == 'all':
-                    for srcName in keys:
-                        if funcType == 'onoise':
-                            yData = result.onoiseTerms[srcName]
-                        elif funcType == 'inoise':
-                            yData = result.inoiseTerms[srcName]
-                        func = sp.lambdify(ini.frequency, yData)
-                        # y = [func(x[j]) for j in range(len(x))]
-                        y = func(x)
-                        noiseTrace = trace([x, y])
-                        noiseTrace.color = ini.defaultColors[colNum % numColors]
-                        noiseTrace.label = funcType + ': ' + srcName
-                        ax.traces.append(noiseTrace)
-                        colNum += 1
-                elif noiseSources in keys:
-                    if funcType == 'onoise':
-                        yData = result.onoiseTerms[noiseSources]
-                    elif funcType == 'inoise':
-                        yData = result.inoiseTerms[noiseSources]
-                    func = sp.lambdify(ini.frequency, yData)
-                    # y = [func(x[j]) for j in range(len(x))]
-                    y = func(x)
-                    noiseTrace = trace([x, y])
-                    noiseTrace.color = ini.defaultColors[colNum % numColors]
-                    noiseTrace.label = funcType + ': ' + sources
-                    ax.traces.append(noiseTrace)
-                    colNum += 1
-                elif type(noiseSources) == list:
-                    for srcName in noiseSources:
-                        if srcName in keys:
-                            if funcType == 'onoise':
-                                yData = result.onoiseTerms[srcName]
-                            elif funcType == 'inoise':
-                                yData = result.inoiseTerms[srcName]
-                            func = sp.lambdify(ini.frequency, yData)
-                            # y = [func(x[j]) for j in range(len(x))]
-                            y = func(x)
-                            noiseTrace = trace([x, y])
-                            noiseTrace.color = ini.defaultColors[colNum % numColors]
-                            noiseTrace.label = funcType + ': ' + srcName
-                            ax.traces.append(noiseTrace)
-                            colNum += 1
-                else:
-                    print 'Error: cannot understand "sources=%s".'%(str(sources))
-                    return fig
-        else:
-            if result.stepMethod != 'array':
-                stepNum = len(result.stepList)
-            else:
-                stepNum = len(result.stepArray[0])
-            for i in range(stepNum):
+            newTrace = trace([xData, yData])
+            newTrace.label = '$' + sp.latex(sp.Symbol(yVar)) + '$'
+            newTrace.color = ini.defaultColors[colNum % numColors]
+            ax.traces.append(newTrace)
+            colNum += 1
+    else:
+        for result in results:
+            if not result.step:
                 if result.dataType == 'numer':
-                    yData = result.numer[i]
+                    yData = result.numer
                     yLabel = 'numer: '
                 elif result.dataType == 'denom':
-                    yData = result.denom[i]
+                    yData = result.denom
                     yLabel = 'denom: '
                 elif result.dataType == 'laplace':
-                    yData = result.laplace[i]
+                    yData = result.laplace
                     yLabel = ''
                 elif result.dataType == 'time':
-                    yData = result.time[i]
+                    yData = result.time
+                    yLabel = '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
                 elif result.dataType == 'step':
-                    yData = result.stepResp[i]
+                    yData = result.stepResp
+                    yLabel = '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
                 elif result.dataType == 'impulse':
-                    yData = result.impulse[i]
-                elif result.dataType == 'noise':
-                    if funcType == 'onoise':
-                        yData = result.onoise[i]
-                    elif funcType == 'inoise':
-                        yData = result.inoise[i]
-                if result.gainType == 'vi':
-                    if result.dataType == 'noise':
-                        yLabel = funcType
-                    else:
-                        yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
-                else:
-                    yLabel = result.gainType     
-                if result.stepMethod == 'array':
-                    yLabel += ', run: %s'%(i+1)
-                else:
-                    yLabel += ', %s = %8.1e'%(result.stepVar, result.stepList[i])    
+                    yData = result.impulse
+                    yLabel = '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
                 if funcType == 'mag':
                     if ax.polar:
                         radius = magFunc_f(yData, x)
@@ -502,19 +414,157 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepSc
                         func = sp.lambdify(sp.Symbol('t'), yData)
                         y = np.real(func(x))
                         newTrace = trace([x, y])
-                elif funcType == 'onoise' or funcType == 'inoise':
-                    if not ax.polar:
+                if result.dataType != 'noise':
+                    try:
+                        newTrace.color = ini.gainColors[result.gainType]
+                    except:
+                        newTrace.color = ini.defaultColors[colNum % numColors]
+                        colNum += 1
+                    if result.gainType == 'vi':
+                        yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+                    else:
+                        yLabel += result.gainType
+                    try:
+                        ax.traces.append(newTrace)
+                    except:
+                        pass
+                else:
+                    keys = result.onoiseTerms.keys()
+                    if noiseSources == None:
+                        if funcType == 'onoise':
+                            yData = result.onoise
+                        elif funcType == 'inoise':
+                            yData = result.inoise
                         func = sp.lambdify(ini.frequency, yData)
-                        #y = [func(x[j]) for j in range(len(x))]
+                        # y = [func(x[j]) for j in range(len(x))]
                         y = func(x)
                         newTrace = trace([x, y])
-                newTrace.color = ini.defaultColors[colNum % numColors]
-                colNum += 1
-                newTrace.label = yLabel
-                try:
-                    ax.traces.append(newTrace)
-                except:
-                    pass
+                        newTrace.label = funcType
+                        ax.traces.append(newTrace)
+                    elif noiseSources == 'all':
+                        for srcName in keys:
+                            if funcType == 'onoise':
+                                yData = result.onoiseTerms[srcName]
+                            elif funcType == 'inoise':
+                                yData = result.inoiseTerms[srcName]
+                            func = sp.lambdify(ini.frequency, yData)
+                            # y = [func(x[j]) for j in range(len(x))]
+                            y = func(x)
+                            noiseTrace = trace([x, y])
+                            noiseTrace.color = ini.defaultColors[colNum % numColors]
+                            noiseTrace.label = funcType + ': ' + srcName
+                            ax.traces.append(noiseTrace)
+                            colNum += 1
+                    elif noiseSources in keys:
+                        if funcType == 'onoise':
+                            yData = result.onoiseTerms[noiseSources]
+                        elif funcType == 'inoise':
+                            yData = result.inoiseTerms[noiseSources]
+                        func = sp.lambdify(ini.frequency, yData)
+                        # y = [func(x[j]) for j in range(len(x))]
+                        y = func(x)
+                        noiseTrace = trace([x, y])
+                        noiseTrace.color = ini.defaultColors[colNum % numColors]
+                        noiseTrace.label = funcType + ': ' + sources
+                        ax.traces.append(noiseTrace)
+                        colNum += 1
+                    elif type(noiseSources) == list:
+                        for srcName in noiseSources:
+                            if srcName in keys:
+                                if funcType == 'onoise':
+                                    yData = result.onoiseTerms[srcName]
+                                elif funcType == 'inoise':
+                                    yData = result.inoiseTerms[srcName]
+                                func = sp.lambdify(ini.frequency, yData)
+                                # y = [func(x[j]) for j in range(len(x))]
+                                y = func(x)
+                                noiseTrace = trace([x, y])
+                                noiseTrace.color = ini.defaultColors[colNum % numColors]
+                                noiseTrace.label = funcType + ': ' + srcName
+                                ax.traces.append(noiseTrace)
+                                colNum += 1
+                    else:
+                        print 'Error: cannot understand "sources=%s".'%(str(sources))
+                        return fig
+            else:
+                if result.stepMethod != 'array':
+                    stepNum = len(result.stepList)
+                else:
+                    stepNum = len(result.stepArray[0])
+                for i in range(stepNum):
+                    if result.dataType == 'numer':
+                        yData = result.numer[i]
+                        yLabel = 'numer: '
+                    elif result.dataType == 'denom':
+                        yData = result.denom[i]
+                        yLabel = 'denom: '
+                    elif result.dataType == 'laplace':
+                        yData = result.laplace[i]
+                        yLabel = ''
+                    elif result.dataType == 'time':
+                        yData = result.time[i]
+                    elif result.dataType == 'step':
+                        yData = result.stepResp[i]
+                    elif result.dataType == 'impulse':
+                        yData = result.impulse[i]
+                    elif result.dataType == 'noise':
+                        if funcType == 'onoise':
+                            yData = result.onoise[i]
+                        elif funcType == 'inoise':
+                            yData = result.inoise[i]
+                    if result.gainType == 'vi':
+                        if result.dataType == 'noise':
+                            yLabel = funcType
+                        else:
+                            yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
+                    else:
+                        yLabel = result.gainType     
+                    if result.stepMethod == 'array':
+                        yLabel += ', run: %s'%(i+1)
+                    else:
+                        yLabel += ', %s = %8.1e'%(result.stepVar, result.stepList[i])    
+                    if funcType == 'mag':
+                        if ax.polar:
+                            radius = magFunc_f(yData, x)
+                            angle = phaseFunc_f(yData, x)
+                            if ini.Hz:
+                                angle = angle/180*np.pi
+                            newTrace = trace([angle, radius])
+                        else:
+                            newTrace = trace([x, magFunc_f(yData, x)])
+                    elif funcType == 'dBmag':
+                        if ax.polar:
+                            radius = dBmagFunc_f(yData, x)
+                            angle = phaseFunc_f(yData, x)
+                            if ini.Hz:
+                                angle = angle/180*np.pi
+                            newTrace = trace([angle, radius])
+                        else:
+                            newTrace = trace([x, dBmagFunc_f(yData, x)])
+                    elif funcType == 'phase':
+                        if not ax.polar:
+                            newTrace = trace([x, phaseFunc_f(yData, x)])
+                    elif funcType == 'delay':
+                        if not ax.polar:
+                            newTrace = trace([x, delayFunc_f(yData, x)])
+                    elif funcType == 'time':
+                        if not ax.polar:
+                            func = sp.lambdify(sp.Symbol('t'), yData)
+                            y = np.real(func(x))
+                            newTrace = trace([x, y])
+                    elif funcType == 'onoise' or funcType == 'inoise':
+                        if not ax.polar:
+                            func = sp.lambdify(ini.frequency, yData)
+                            #y = [func(x[j]) for j in range(len(x))]
+                            y = func(x)
+                            newTrace = trace([x, y])
+                    newTrace.color = ini.defaultColors[colNum % numColors]
+                    colNum += 1
+                    newTrace.label = yLabel
+                    try:
+                        ax.traces.append(newTrace)
+                    except:
+                        pass
     fig.axes = [[ax]]
     fig.plot()
     return fig
@@ -708,240 +758,6 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     fig.axes = [[pz]]
     fig.plot()
     return fig
-
-def plotParams(fileName, title, plotData, xaxis = 'lin', yaxis = 'lin', xunits = '', yunits= '', punits = '', xscale = '', yscale = '', pscale = '', show = False):
-    if type(plotData) != type(paramPlot()):
-        print "Error: unexpected input data."
-        return
-    if type(plotData) == bool or type(plotData.yValues) == bool:
-        print "Error: incomplete plot data."
-        return
-    try:
-        xScaleFactor = 10**int(SCALEFACTORS[xscale])
-    except:
-        xScaleFactor = 1.
-    try:
-        yScaleFactor = 10**int(SCALEFACTORS[yscale])
-    except:
-        yScaleFactor = 1.
-    try:
-        pScaleFactor = 10**int(SCALEFACTORS[pscale])
-    except:
-        pScaleFactor = 1.
-    colNum = 0
-    numColors = len(ini.defaultColors)
-    pVar = '$' + sp.latex(sp.sympify(plotData.pVar)) +'$'
-    xVar = '$' + sp.latex(sp.sympify(plotData.xVar)) +'$'
-    yVar = '$' + sp.latex(sp.sympify(plotData.yVar)) +'$'
-    fig = figure(fileName)
-    fig.show = show
-    ax = axis(title)
-    ax.xScale = xaxis
-    ax.yScale = yaxis
-    ax.xLabel = xVar + ' [' + xscale + xunits +']'
-    ax.yLabel = yVar + ' [' + yscale + yunits +']'
-    if type(plotData.xValues) == dict:
-        xDict = True
-    else:
-        xDict = False
-    if type(plotData.yValues) == list:
-        xyTrace = trace(plotData.xValues/xScaleFactor, plotData.yValues/yScaleFactor)
-        xyTrace.label = yVar + '(' + plotData.xVar + ')'
-        xyTrace.color = ini.defaultColors[colNum]
-        ax.traces.append(xyTrace)
-    else:
-        stepVals = plotData.yValues.keys()
-        stepVals.sort()
-        for stepVal in stepVals:
-            if xDict:
-                xyTrace = trace([plotData.xValues[stepVal]/xScaleFactor, plotData.yValues[stepVal]/yScaleFactor])
-            else:
-                xyTrace = trace([plotData.xValues/xScaleFactor, plotData.yValues[stepVal]/yScaleFactor])
-            xyTrace.color = ini.defaultColors[colNum % numColors]   
-            xyTrace.label = pVar + '=%s [%s%s]'%(stepVal/pScaleFactor, pscale, punits)
-            ax.traces.append(xyTrace)
-            colNum += 1
-    fig.axes = [[ax]]
-    fig.plot()
-    return fig
-
-def plotCSV(fileName):
-    return
-
-def plotVsStep(fileName, title, result, goalFuncObj, show = False, save = True):
-    """
-    plotVsStep(figTitle, results, goalFuncObj) 
-    """
-    errors = 0
-    if type(result) != type(allResults()):
-        print "Error: plotVsStep only accepts single allResults() objects."
-        errors += 1
-    if result.step == False:
-        print "Error: parameter stepping should be enabled for this plot."
-        errors += 1
-    if result.stepMethod == 'array':
-        print "Error: array stepping is not supported by 'plotVsStep'."
-    if goalFuncObj.type == 'totalNoise' or goalFuncObj.type == 'NF':
-        if result.dataType != 'noise':
-            print "Error: goal function requires dataType 'noise'."
-            errors += 1
-    elif goalFuncObj.type == 'stdDev':
-        if result.dataType != 'dcvar':
-            print "Error: goal function requires dataType 'dcvar'."
-            errors += 1
-    elif goalFuncObj.type == 'YatX':
-        pass
-    else:
-        print "Error: unknown goal function."
-        errors += 1
-    if errors != 0:
-        return
-    fig = figure(fileName)
-    fig.show = show
-    vsStep = axis(title)
-    vsStep.xScaleFactor = goalFuncObj.pscale
-    vsStep.yScaleFactor = goalFuncObj.yscale
-    if result.stepMethod == 'log':
-        vsStep.xScale = 'log'
-    else:
-        vsStep.xScale = 'lin'
-    vsStep.yLabel = goalFuncObj.ylabel + ' [' + goalFuncObj.yscale + goalFuncObj.yunits + ']'
-    vsStep.yScale = goalFuncObj.ylinlog
-    vsStep.xLabel = str(result.stepVar) + ' [' + goalFuncObj.pscale + goalFuncObj.punits + ']'
-    vsStep.traces = [makeGoalFuncTrace(result, goalFuncObj)]
-    fig.axes = [[vsStep]]
-    fig.plot()
-    return
-
-def makeGoalFuncTrace(result, goalFuncObj):
-    """
-    """
-    if ini.Hz:
-        freq = 2*sp.pi*sp.I*ini.frequency
-    else:
-        freq = sp.I*ini.frequency
-    x = np.array(result.stepList) 
-    if result.dataType == 'numer' and goalFuncObj.type == 'YatX':
-        y = np.array([sp.Abs(result.numer[i].subs(ini.Laplace, freq).subs(ini.frequency, goalFuncObj.value)) for i in range(len(x))])
-    elif result.dataType == 'denom' and goalFuncObj.type == 'YatX':
-        y = np.array([sp.Abs(result.denom[i].subs(ini.Laplace, freq).subs(ini.frequency, goalFuncObj.value)) for i in range(len(x))])
-    elif result.dataType == 'laplace' and goalFuncObj.type == 'YatX':
-        y = np.array([sp.Abs(result.laplace[i].subs(ini.Laplace, freq).subs(ini.frequency, goalFuncObj.value)) for i in range(len(x))])
-    elif result.dataType == 'time' and goalFuncObj.type == 'YatX':
-        y = np.array([result.time[i].subs(sp.Symbol('t'), goalFuncObj.value) for i in range(len(x))])
-    elif result.dataType == 'impulse' and goalFuncObj.type == 'YatX':
-        y = np.array([result.impulse[i].subs(sp.Symbol('t'),goalFuncObj.value) for i in range(len(x))])
-    elif result.dataType == 'step' and goalFuncObj.type == 'YatX':
-        y = np.array([result.step[i].subs(sp.Symbol('t'), goalFuncObj.value) for i in range(len(x))])
-    elif result.dataType == 'noise':
-        if goalFuncObj.type == 'totalNoise':
-            y = np.array([rmsNoise(result, goalFuncObj.noiseType, goalFuncObj.fmin, goalFuncObj.fmax, source = goalFuncObj.source)])
-        if goalFuncObj.type == 'YatX':
-            if goalFuncObj.source != None:
-                if goalFuncObj.source in result.onoiseTerms.keys():
-                    if goalFuncObj.noiseType == 'onoise':
-                        y = np.array([result.onoiseTerms[goalFuncObj.source][i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
-                    if goalFuncObj.noiseType == 'inoise':
-                        y = np.array([result.inoiseTerms[goalFuncObj.source][i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
-                else:
-                    print "Error: unknown noise source '%s'."%(goalFuncObj.source)
-            else:
-                if goalFuncObj.noiseType == 'onoise':
-                    y = np.array([result.onoise[i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
-                if goalFuncObj.noiseType == 'inoise':
-                    y = np.array([result.inoise[i].subs(ini.frequency, goalFuncObj.value) for i in range(len(x))])
-        elif goalFuncObj.type == 'NF':
-            if result.source == None or result.source not in result.inoiseTerms.keys():
-                print "Error: goal function 'NF' requires noise associated with the signal source."
-            else:
-                totalOnoise       = rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax)
-                totalOnoiseSource = rmsNoise(result, 'onoise', goalFuncObj.fmin, goalFuncObj.fmax, source = result.source)
-                y = np.array([20*sp.log(totalOnoise[i]/totalOnoiseSource[i])/sp.log(10) for i in range(len(x))])
-    elif result.dataType == 'dcvar':
-        if goalFuncObj.type == 'stdDev':
-            if goalFuncObj.source != None:
-                if goalFuncObj.dcvarType == 'ivar':
-                    if goalFuncObj.source not in result.ivarTerms.keys():
-                        print "Error: unknown source '%s'."%(goalFuncObj.source)
-                    else:
-                        data = result.ivarTerms[goalFuncObj.source]
-                if goalFuncObj.dcvarType == 'ovar':
-                    if goalFuncObj.source not in result.ovarTerms.keys():
-                        print "Error: unknown source '%s'."%(goalFuncObj.source)
-                    else:
-                        data = result.ovarTerms[goalFuncObj.source]
-            y = np.sqrt(np.array(data))
-    elif result.dataType == 'dc' and goalFuncObj.type == 'dc':
-        y = np.array(result.dc)
-    try:
-        xScaleFactor = 10**int(SCALEFACTORS[pscale])
-    except:
-        xScaleFactor = 1.
-    try:
-        yScaleFactor = 10**int(SCALEFACTORS[yscale])
-    except:
-        yScaleFactor = 1.
-    return trace([x/xScaleFactor, y/yScaleFactor])
-
-def plotFunction(fileName, title, funcObject, start, stop, points, save=True, show=False):
-    """
-    """
-    xvars = list(funcObject.expr.atoms(sp.Symbol))
-    if len(xvars) > 1:
-        print "Error: too many fuction variables."
-        return
-    try:
-        xScaleFactor = 10**int(SCALEFACTORS[funcObject.xscale])
-    except:
-        xScaleFactor = 1.
-    try:
-        yScaleFactor = 10**int(SCALEFACTORS[funcObject.yscale])
-    except:
-        yScaleFactor = 1.
-    fig = figure(fileName)
-    fig.show = show
-    ax = axis(title)
-    ax.xScaleFactor = funcObject.xscale
-    ax.yScaleFactor = funcObject.yscale
-    ax.xScale = funcObject.xaxis
-    ax.xLabel = str(xvars[0]) + ' [' + funcObject.xscale + funcObject.xunits + ']'
-    ax.yScale = funcObject.yaxis
-    ax.yLabel = funcObject.ylabel + ' [' + funcObject.yscale + funcObject.yunits + ']'
-    start  = checkNumber(start)
-    stop   = checkNumber(stop)
-    points = checkNumber(points)
-    if start != None and stop != None and points != None:
-        start *= xScaleFactor
-        stop  *= xScaleFactor
-        if funcObject.xaxis == 'lin':
-            x = np.linspace(start, stop, points)
-        elif funcObject.xaxis == 'log':
-            x = np.geomspace(start, stop, points)
-    else:
-        print "Error(s) in x range specification."
-        return
-    function = sp.lambdify(xvars[0], funcObject.expr)
-    y = np.array([function(x[i]) for i in range(len(x))])
-    t = trace([x, y])
-    t.label = funcObject.fname
-    ax.traces = [t]
-    fig.axes = [[ax]]
-    fig.plot()
-    return fig
-
-class func(object):
-    def __init__(self):
-        self.expr = None
-        self.xVar = None
-        self.xscale = ''
-        self.xunits = ''
-        self.xaxis  = 'lin'
-        self.ylabel = ''
-        self.yscale = ''
-        self.yunits = ''
-        self.yaxis  = 'lin'
-        self.color  = None
-        self.fname  = None
 
 if __name__=='__main__':
     ini.imgPath = ''

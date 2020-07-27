@@ -174,8 +174,6 @@ def doInstruction(instObj):
                         instObj.ivar.append(sp.simplify(ivar))
                 # step the DC solution
                 instObj.dcSolve = stepFunctions(instObj, instObj.dcSol)
-            elif instOb.dataType == 'param':
-                print 'Not yet implmented'
         else:
             # Create a deep copy of the substitution dictionary
             subsDict = {}
@@ -401,8 +399,6 @@ def doDataType(instObj):
             if instObj.source != None:
                 instObj.ivar = sp.simplify(ivar) 
             instObj.dcSolve = dcSol
-    elif instObj.dataType == 'param':
-        print "Not yet impolemented."
     return instObj
 
 def doDenom(instObj):

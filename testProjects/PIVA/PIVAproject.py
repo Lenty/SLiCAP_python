@@ -59,9 +59,9 @@ transferCoeffs = coeffsTransfer(Fs)
 
 # Frequency-domain plots
 figdBmag = plotSweep('dBmag', 'dB magnitude', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'dBmag')
-figMag   = plotSweep('mag', 'Magnitude', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'mag', funcUnits = '-')
+figMag   = plotSweep('mag', 'Magnitude', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'mag', yUnits = '-')
 figPhase = plotSweep('phase', 'Phase', result, 1, 1e3, 100, sweepScale = 'k', funcType = 'phase')
-figDelay = plotSweep('delay', 'Delay', result, 1, 1e3, 100, sweepScale = 'k', funcScale = 'u', funcType = 'delay')
+figDelay = plotSweep('delay', 'Delay', result, 1, 1e3, 100, sweepScale = 'k', yScale = 'u', funcType = 'delay')
 figPolar = plotSweep('polar', 'Polar' , result, 1, 1e3, 100, sweepScale = 'k', axisType = 'polar', funcType = 'mag')
 figdBpolar = plotSweep('dBpolar', 'dB polar' , result, 1, 1e3, 100, funcType = 'dBmag', sweepScale = 'k', axisType = 'polar')
 figPZ = plotPZ('PZ', 'Poles and zeros', pzResult, xmin = -100, xscale = 'M', yscale = 'M')
@@ -82,7 +82,7 @@ i1.setGainType('gain')
 result = i1.execute()
 mu_t = result.stepResp
 
-figStep = plotSweep('step', 'step response', result, 0, 50, 100, sweepScale = 'u', funcUnits = 'V')
+figStep = plotSweep('step', 'step response', result, 0, 50, 100, sweepScale = 'u', yUnits = 'V')
 
 # Find the network solution
 i1.setGainType('vi')
@@ -111,7 +111,7 @@ figRL = plotPZ('RL', 'Root Locus I_D', polesStepped, xmin = -180, xmax = 20, ymi
 i1.setDataType('step')
 i1.setStepNum(7)
 mu_tStepped = i1.execute()
-figStepped = plotSweep('stepped', 'step response I_D', mu_tStepped, 0, 50, 100, sweepScale = 'u', funcUnits = 'V',)
+figStepped = plotSweep('stepped', 'step response I_D', mu_tStepped, 0, 50, 100, sweepScale = 'u', yUnits = 'V',)
 
 # Generate HTML report. Run this section twice if you use forward references.                             
 htmlPage('Circuit data')     # Creates an HTML page and a link on the index page

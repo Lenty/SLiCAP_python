@@ -10,7 +10,7 @@ from SLiCAPexecute import *
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 
              'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 
-             'step', 'param']
+             'step']
 
 class instruction(object):
     """
@@ -1139,7 +1139,7 @@ class instruction(object):
         :param parName: Name of the parameter.
         :type parName: str, sympy.Symbol
         :param parValue: Value or expression.
-        :type parName: str, sympy.Symbol
+        :type parName: str, sympy.Symbol, sympy.Expr
         
         :return: None
         :return type: None
@@ -1296,7 +1296,7 @@ class instruction(object):
         """
         return self.circuit.controlled
     
-    def stepParams(self, paramPlot):
+    def stepParams(self, xVar, yVar, sVar, s):
         """
         TBD
         """
@@ -1305,118 +1305,57 @@ class instruction(object):
         xValues = {}
         yValues = {}
         # check the input
-        if paramPlot.xVar == None:
+        if xVar == None:
              print "Error: missing x variable."
              errors +=1
-        elif sp.Symbol(paramPlot.xVar) not in parNames:
-            print "Error: unknown parameter: '%s'."%(paramPlot.xVar)
+        elif sp.Symbol(xVar) not in parNames:
+            print "Error: unknown parameter: '%s' for 'x variable'."%(xVar)
             errors += 1
-        if paramPlot.sVar == None:
-             paramPlot.svar = paramPlot.xVar
-        elif sp.Symbol(paramPlot.xVar) not in parNames:
-            print "Error: unknown parameter: '%s'."%(paramPlot.xVar)
+        if sVar == None:
+             svar = xVar
+        elif sp.Symbol(xVar) not in parNames:
+            print "Error: unknown parameter: '%s' for sweep variable."%(xVar)
             errors += 1
-        if paramPlot.yVar == None:
+        if yVar == None:
              print "Error: missing y variable."
              errors +=1
-        elif sp.Symbol(paramPlot.yVar) not in parNames:
-            print "Error: unknown parameter: '%s'."%(paramPlot.yVar)
+        elif sp.Symbol(yVar) not in parNames:
+            print "Error: unknown parameter: '%s' for y variable."%(yVar)
             errors += 1
-        elif paramPlot.pVar == None and sp.Symbol(paramPlot.pVar) not in parNames:
-            print "Error: unknown parameter: '%s'."%(paramPlot.pVar)
-            errors += 1
-        if paramPlot.sNum == None:
-            print "Error: missing number of points for x variable."
-            errors += 1
-        else:
-            sNum = checkNumber(paramPlot.sNum)
-            if sNum == None:
-                print "Error: '%s' is not a number."%(paramPlot.sNum)
-                errors += 1
-        if paramPlot.sStart == None:
-            print "Error: missing start value for x variable."
-            errors += 1
-        else:
-            sStart = checkNumber(paramPlot.sStart)
-            if sStart == None:
-                print "Error: '%s' is not a number."%(paramPlot.sStart)
-                errors += 1
-        if paramPlot.sStop == None:
-            print "Error: missing stop value for x variable."
-            errors += 1
-        else:
-            sStop = checkNumber(paramPlot.sStop)
-            if paramPlot.sStop == None:
-                print "Error: '%s' is not a number."%(paramPlot.sStop)
-                errors += 1
-        if paramPlot.pVar != None:
-            if paramPlot.pNum == None:
-                print "Error: missing number of points for p variable."
-                errors += 1
-            else:
-                pNum = checkNumber(paramPlot.pNum)
-                if pNum == None:
-                    print "Error: '%s' is not a number."%(paramPlot.pNum)
-                    errors += 1
-            if paramPlot.pStart == None:
-                print "Error: missing start value of p variable."
-                errors += 1
-            else:
-                pStart = checkNumber(paramPlot.pStart)
-                if pStart == None:
-                    print "Error: '%s' is not a number."%(paramPlot.pStart)
-                    errors += 1
-            if paramPlot.pStop == None:
-                print "Error: missing stop value of p variable."
-                errors += 1
-            else:
-                pStop = checkNumber(paramPlot.pStop)
-                if pStop == None:
-                    print "Error: '%s' is not a number."%(paramPlot.pStop)
-                    errors += 1
-        if errors == 0:
-            if paramPlot.sMethod.lower() == 'lin':
-                s = np.linspace(sStart, sStop, num = sNum)
-            elif paramPlot.xMethod.lower() == 'log':
-                s = np.geomspace(sStart, sStop, num = sNum)
-            else:
-                print "Error: unknown method '%s'."%(paramPlot.sMethod)
-                errors +=1
-        if errors == 0 and paramPlot.pVar != None:
-            if paramPlot.pMethod.lower() == 'lin':
-                p = np.linspace(pStart, pStop, num = pNum)
-            elif paramPlot.xMethod.lower() == 'log':
-                p = np.geomspace(pStart, pStop, num = pNum)
-            else:
-                print "Error: unknown method '%s'."%(paramPlot.pMethod)
-                errors +=1
+        if errors == 0 and self.step:
+            if self.stepMethod.lower() == 'lin':
+                p = np.linspace(self.stepStart, self.stepStop, num = self.stepNum)
+            elif xMethod.lower() == 'log':
+                p = np.geomspace(self.stepStart, self.stepStop, num = self.stepNum)
         if errors == 0:
             substitutions = {}
             for parName in self.circuit.parDefs.keys():
-                if parName != sp.Symbol(paramPlot.sVar) and paramPlot.pVar != None and parName != sp.Symbol(paramPlot.pVar):
-                    substitutions[parName] = self.circuit.parDefs[parName]
-            f = fullSubs(self.circuit.parDefs[sp.Symbol(paramPlot.yVar)], substitutions)
-            g = fullSubs(self.circuit.parDefs[sp.Symbol(paramPlot.xVar)], substitutions)
-            if paramPlot.pVar != None:
+                if parName != sp.Symbol(sVar) and parName != self.stepVar:
+                    substitutions[parName] = self.circuit.parDefs[parName]\
+            # Obtain the y-variable as a function of the sweep and the step variable:
+            f = fullSubs(self.circuit.parDefs[sp.Symbol(yVar)], substitutions)
+            # Obtain the x-variable as a function of the sweep and the step variable:
+            g = fullSubs(self.circuit.parDefs[sp.Symbol(xVar)], substitutions)
+            if self.step:
                 for parValue in p:
-                    y = f.subs(sp.Symbol(paramPlot.pVar), parValue)
-                    yfunc = sp.lambdify(sp.Symbol(paramPlot.sVar), y)
-                    yValues[parValue] = np.array([yfunc(s[i]) for i in range(len(s))])
-                    if paramPlot.xVar != paramPlot.sVar:
-                        x = g.subs(sp.Symbol(paramPlot.pVar), parValue)
-                        xfunc = sp.lambdify(sp.Symbol(paramPlot.sVar), x)
-                        xValues[parValue] = np.array([xfunc(s[i]) for i in range(len(s))])
+                    y = f.subs(self.stepVar, parValue)
+                    yfunc = sp.lambdify(sp.Symbol(sVar), y)
+                    yValues[parValue] = yfunc(s)
+                    if xVar != sVar:
+                        x = g.subs(self.stepVar, parValue)
+                        xfunc = sp.lambdify(sp.Symbol(sVar), x)
+                        xValues[parValue] = xfunc(s)
+                    else:
+                        xValues[parValue] = s
             else:
-                y       = sp.lambdify(sp.Symbol(paramPlot.sVar), f)
-                yValues = np.array([func(s[i] for i in range(len(s)))])
-                if paramPlot.xVar != paramPlot.sVar:
-                    x       = sp.lambdify(sp.Symbol(paramPlot.sVar), g)
-                    xValues = np.array([func(s[i] for i in range(len(s)))])
-            if paramPlot.xVar == paramPlot.sVar:
-                xValues = s
-            paramPlot.yValues = yValues
-            paramPlot.xValues = xValues
-        return paramPlot
+                y = sp.lambdify(sp.Symbol(sVar), f)
+                yValues = y(s)
+                if xVar != sVar:
+                    x = sp.lambdify(sp.Symbol(sVar), g)
+                    xValues = x(s)
+                else:
+                    xValues = s
+        return (xValues, yValues)
     
     def setCircuit(self, fileName):
         """
