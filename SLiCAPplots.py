@@ -759,6 +759,110 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     fig.plot()
     return fig
 
+def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = '', yName = 'auto', yScale = '', yUnits = '', show = False):
+    """
+    """
+    fig = figure(fileName)
+    fig.show = show
+    ax = axis(title)
+    colNum = 0
+    numColors = len(ini.defaultColors)
+    if axisType == 'lin':
+        ax.xScale = 'lin'
+        ax.yScale = 'lin'
+    elif axisType == 'log':
+        ax.xScale = 'log'
+        ax.yScale = 'log'
+    elif axisType == 'semilogx':
+        ax.xScale = 'log'
+        ax.yScale = 'lin'
+    elif axisType == 'semilogy':
+        ax.xScale = 'lin'
+        ax.yScale = 'log'
+    elif axisType == 'polar':
+        ax.polar = True
+        ax.yScale = 'lin'
+    else:
+        print "Error: unknown axis type '%s'."%(axisType)
+        return fig
+    ax.xScaleFactor = xScale
+    ax.yScaleFactor = yScale
+    ax.traces = []
+    # Create the axis labels
+    ax.xLabel = xName + ' [' + xScale + xUnits + ']'
+    ax.yLabel = yName + ' [' + yScale + yUnits + ']'
+    for key in sorted(plotData.keys()):
+        newTrace = trace(plotData[key])
+        newTrace.label = key
+        newTrace.color = ini.defaultColors[colNum % numColors]
+        ax.traces.append(newTrace)
+        colNum += 1
+    fig.axes = [[ax]]
+    fig.plot()
+    return fig
+
+def stepParams(results, xVar, yVar, sVar, s):
+    """
+    Called by plotSweep in cases in which funcType = 'param'
+    Can also be used to generate a dict with plotData for plot().
+    """
+    parNames = results.circuit.parDefs.keys() + results.circuit.params
+    errors = 0
+    xValues = {}
+    yValues = {}
+    # check the input
+    if xVar == None:
+         print "Error: missing x variable."
+         errors +=1
+    elif sp.Symbol(xVar) not in parNames:
+        print "Error: unknown parameter: '%s' for 'x variable'."%(xVar)
+        errors += 1
+    if sVar == None:
+         svar = xVar
+    elif sp.Symbol(xVar) not in parNames:
+        print "Error: unknown parameter: '%s' for sweep variable."%(xVar)
+        errors += 1
+    if yVar == None:
+         print "Error: missing y variable."
+         errors +=1
+    elif sp.Symbol(yVar) not in parNames:
+        print "Error: unknown parameter: '%s' for y variable."%(yVar)
+        errors += 1
+    if errors == 0 and results.step:
+        if results.stepMethod.lower() == 'lin':
+            p = np.linspace(results.stepStart, results.stepStop, num = results.stepNum)
+        elif xMethod.lower() == 'log':
+            p = np.geomspace(results.stepStart, results.stepStop, num = results.stepNum)
+    if errors == 0:
+        substitutions = {}
+        for parName in results.circuit.parDefs.keys():
+            if parName != sp.Symbol(sVar) and parName != results.stepVar:
+                substitutions[parName] = results.circuit.parDefs[parName]\
+        # Obtain the y-variable as a function of the sweep and the step variable:
+        f = fullSubs(results.circuit.parDefs[sp.Symbol(yVar)], substitutions)
+        # Obtain the x-variable as a function of the sweep and the step variable:
+        g = fullSubs(results.circuit.parDefs[sp.Symbol(xVar)], substitutions)
+        if results.step:
+            for parValue in p:
+                y = f.subs(results.stepVar, parValue)
+                yfunc = sp.lambdify(sp.Symbol(sVar), y)
+                yValues[parValue] = yfunc(s)
+                if xVar != sVar:
+                    x = g.subs(results.stepVar, parValue)
+                    xfunc = sp.lambdify(sp.Symbol(sVar), x)
+                    xValues[parValue] = xfunc(s)
+                else:
+                    xValues[parValue] = s
+        else:
+            y = sp.lambdify(sp.Symbol(sVar), f)
+            yValues = y(s)
+            if xVar != sVar:
+                x = sp.lambdify(sp.Symbol(sVar), g)
+                xValues = x(s)
+            else:
+                xValues = s
+    return (xValues, yValues)
+
 if __name__=='__main__':
     ini.imgPath = ''
     x = np.linspace(0, 2*np.pi, endpoint = True)

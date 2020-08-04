@@ -7,6 +7,7 @@ import docutils.writers.html5_polyglot
 import numpy as np
 import sympy as sp
 from scipy.signal import residue
+from scipy.optimize import newton
 import ply.lex as lex
 from shutil import copy2 as cp
 from time import time

@@ -276,6 +276,132 @@ def cancelPZ(poles,zeros):
                 newZeros.remove(zeros[j])             
     return(newPoles, newZeros)
     
+def findServoBandwidth(loopgainRational):
+    """
+    Determines the intersection points of the asymptotes of the magnitude of
+    the loopgain with unity. It returns a dictionary with key-value pairs:
+        
+        - hpf: frequency of high-pass intersection
+        - hpo: order at high-pass intersection
+        - lpf: frequency of low-pass intersection
+        - lpo: order at low-pass intersection
+        - mbv: mid-band value of the loopgain (highest value at order = zero)
+        - mbf: lowest freqency of mbv
+        
+    """
+    numer, denom    = sp.fraction(loopgainRational)
+    numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
+    denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
+    poles           = numRoots(denom, ini.Laplace)
+    zeros           = numRoots(numer, ini.Laplace)
+    (poles, zeros)  = cancelPZ(poles, zeros)
+    numPoles        = len(poles)
+    numZeros        = len(zeros)
+    numCornerFreqs  = numPoles + numZeros
+    gain, coeffsN,coeffsD = coeffsTransfer(loopgainRational)
+    coeffsN         = np.array(coeffsN)
+    coeffsD         = np.array(coeffsD)
+    firstNonZeroN   = np.argmax(coeffsN != 0)
+    firstNonZeroD   = np.argmax(coeffsD != 0)
+    
+    startOrder      = firstNonZeroN - firstNonZeroD
+    startValue      = np.abs(gain)
+    
+    freqsOrders     = np.zeros((numCornerFreqs, 6))
+    mbv             = sp.Abs(sp.N(sp.Subs(loopgainRational, ini.Laplace, 0)))
+    mbf             = 0
+    for i in range(numZeros):
+        freqsOrders[i, 0] = np.abs(zeros[i])
+        freqsOrders[i, 1] = 1
+    for i in range(numPoles):
+        freqsOrders[numZeros + i, 0] = np.abs(poles[i])
+        freqsOrders[numZeros + i, 1] = -1
+    # sort the rows with increasing corner frequencies 
+    freqsOrders = freqsOrders[freqsOrders[:,0].argsort()]
+    
+    start = 0
+    for i in range(numCornerFreqs):
+        if freqsOrders[i, 0] == 0:
+            start = i + 1
+            freqsOrders[i, 2] = startOrder
+            freqsOrders[i, 4] = 0
+            freqsOrders[i, 5] = freqsOrders[-1, 0]
+        if i == start:
+            freqsOrders[i, 2] =  startOrder + freqsOrders[i, 1]
+            freqsOrders[i, 3] = startValue/(freqsOrders[i, 0]**freqsOrders[i, 1])
+            if freqsOrders[i, 2] != 0:
+                Bw = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
+            else:
+                Bw = 0
+            if Bw > freqsOrders[i, 0]:
+                if freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
+                    freqsOrders[i, 4] = Bw
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] < 0:
+                    freqsOrders[i, 5] = Bw
+                    freqsOrders[i, 4] = 0
+                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] > 0:
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                    freqsOrders[i, 4] = 0
+                elif freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                    freqsOrders[i, 4] = Bw
+                elif freqsOrders[i, 2] == 0:
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                    freqsOrders[i, 4] = 0
+            else:
+                freqsOrders[i, 4] = 0
+                freqsOrders[i, 5] = freqsOrders[-1, 0]
+        elif i > start:
+            freqsOrders[i, 2] = freqsOrders[i - 1, 2] + freqsOrders[i, 1]
+            if freqsOrders[i, 1] != 0:
+                freqsOrders[i, 3] = freqsOrders[i - 1, 3]/(freqsOrders[i, 0]**freqsOrders[i, 1])
+            else:
+                freqsOrders[i, 3] = np.NaN
+            if freqsOrders[i, 2] != 0:
+                freqsOrders[i, 5] = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
+            else:
+                freqsOrders[i, 5] = 0
+            if freqsOrders[i, 2] != 0:
+                Bw = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
+            else:
+                Bw = 0
+            if Bw > freqsOrders[i, 0]:
+                if freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
+                    freqsOrders[i, 4] = Bw
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] < 0:
+                    freqsOrders[i, 5] = Bw
+                    freqsOrders[i, 4] = 0
+                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] > 0:
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                    freqsOrders[i, 4] = 0
+                elif freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                    freqsOrders[i, 4] = Bw
+                elif freqsOrders[i, 2] == 0:
+                    freqsOrders[i, 5] = freqsOrders[-1, 0]
+                    freqsOrders[i, 4] = 0
+            else:
+                freqsOrders[i, 4] = 0
+                freqsOrders[i, 5] = freqsOrders[-1, 0]
+    result = {}
+    result['hpf'] = np.amax(freqsOrders[:,4])
+    result['lpf'] = np.amin(freqsOrders[:,5])
+    result['hpo'] = freqsOrders[np.where(freqsOrders[:,4]==result['hpf'])[0][0],2]
+    result['lpo'] = freqsOrders[np.where(freqsOrders[:,5]==result['lpf'])[0][0],2]
+    result['mbv'] = mbv
+    result['mbf'] = mbf
+    for i in range(numCornerFreqs):
+        if freqsOrders[i,2] == 0 and freqsOrders[i,3] > mbv:
+            result['mbv'] = freqsOrders[i,3]
+            result['mbf'] = freqsOrders[i,0]
+    if ini.Hz:
+        result['hpf'] = result['hpf']/np.pi/2
+        result['lpf'] = result['lpf']/np.pi/2
+        result['mbf'] = result['mbf']/np.pi/2
+    return result
+    
 def checkNumber(var):
     """
     Returns a number with its value represented by var, or None if var
@@ -362,7 +488,6 @@ def assumePosParams(expr, params = 'all'):
         print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
     return expr
             
-
 def invLaplace(numer, denom):
     """
     Calculates the Inverse Laplace Transform of a numerical rational expression
@@ -389,6 +514,36 @@ def invLaplace(numer, denom):
                 m = 1
         ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.E**(p[i]*t)
     return ft
+
+def phaseMargin(LaplaceExpr):
+    """
+    Calculates the phase margin assuming the loop gain definition according to 
+    the asymptotic gain model.
+    """
+    if type(LaplaceExpr) != list:
+        LaplaceExpr = [LaplaceExpr]
+    freqs = []
+    mrgns = []
+    for expr in LaplaceExpr:
+        if ini.Hz == True:
+            data = expr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
+        else:
+            data = expr.xreplace({ini.Laplace: sp.I*ini.frequency})
+        func = sp.lambdify(ini.frequency, sp.Abs(data)-1)
+        guess = findServoBandwidth(expr)['lpf']
+        try:
+            freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
+            mrgn = phaseFunc_f(expr, freq)
+        except:
+            print "Error: could not determine unity-gain frequency for phase margin."
+            freq = None
+            mrgn = None
+        freqs.append(freq)
+        mrgns.append(mrgn)
+    if len(freqs) == 1:
+        return (mrgns[0], freqs[0])
+    else:
+        return (mrgns, freqs)
 
 def magFunc_f(LaplaceExpr, f):
     """
@@ -601,7 +756,6 @@ def phase_f(LaplaceExpr):
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
         return sp.arg(data)
-
 
 if __name__ == "__main__":
     s = ini.Laplace

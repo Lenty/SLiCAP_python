@@ -10,7 +10,7 @@ from SLiCAPexecute import *
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 
              'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse', 
-             'step']
+             'step', 'params']
 
 class instruction(object):
     """
@@ -37,13 +37,6 @@ class instruction(object):
         Defines the simulation data type.
         
         See **instruction.setDataType(<dataType>)** for specification of *instruction.dataType*.
-        """
-        
-        self.sweepVar = None
-        """
-        Defines the sweep variable for parameter sweeping.
-        
-        See **instruction.setSweepVar(<sweepVar>)** for specification of *instruction.sweepVar*.
         """
         
         self.step = None
@@ -154,30 +147,7 @@ class instruction(object):
         >>> # instruction:
         >>> my_instr.setCircuit('my_circuit.cir')
         """
-        
-        self.parDefs = None
-        """
-        Parameter definitions (*dict*) used for this instruction.
-        
-        
-        This dictionary hold key-value pairs of parameter definitions in the
-        circuit (netlist entries: .param parName = parValue). Keys are sympy
-        symbols and values are either numeric or sympy expressions.
-        
-        The dictionary is updated when executing an instruction, and when using 
-        the methods instruction.delPar(<parName>) and instruction.defPar(<parName>, 
-        <parValue | parExpr>).
-        
-        :note: 
-        
-        The contents of this dict is determinedduring the checking of the 
-        circuit and it should not be modified directly by the user. 
-        
-        Use the method **instruction.delPar(<parName>)** or the method
-        **instruction.defPar(<parName>, <parValue | parExpr>)** to alter
-        definitions of circuit parameters.
-        """
-        
+
         self.numeric = None
         """
         Variable used during analysis an presentation of analysis results.
@@ -216,31 +186,11 @@ class instruction(object):
         (automatically determined in **instruction.chekDetector()**).
         """
     
-    def setSweepVar(self, sweepVar):
+        self.parDefs = None
         """
-        Defines the sweep variable for parameter sweeping
-        
-        :param sweepVar: Name of the parameter
-        :type simType: str
-        
-        :return: None
-        :return type: None
-        
-        :Example:
-        
-        >>> # Create an instance of the instruction object
-        >>> my_instr = instruction() 
-        >>> # Set the simulation type to numeric:
-        >>> my_instr.setSimType('numeric')
-        >>> # Set the data type to 'params'
-        >>> my_instr.setDataType('params')
-        >>> # Define the sweep parameter
-        >>> my_instr.setSweepVar(<my_par_name>)        
+        Parameter definitions for the instruction. 
         """
-        self.simType = simType
-        self.checkSimType()
-        return
-    
+        
     def setSimType(self, simType):
         """
         Defines the simulation type for the instruction.
@@ -347,7 +297,7 @@ class instruction(object):
         
         :param dataType: data type for the instruction: 'dc', 'dcsolve', 'dcvar', 
                          'denom', 'impulse', 'laplace', 'matrix', 'noise', 'numer', 
-                         'poles', 'pz', 'solve', 'step', 'time' or 'zeros'.
+                         'params', 'poles', 'pz', 'solve', 'step', 'time' or 'zeros'.
         :type dataType: str
         
         :Example:
@@ -452,7 +402,7 @@ class instruction(object):
         >>> print instr.circuit.params + instr.circuit.parDefs.keys()
         """
         self.stepVar = stepVar
-        self.checkStepVar
+        self.checkStepVar()
         return
     
     def checkStepVar(self):
@@ -519,7 +469,7 @@ class instruction(object):
         >>> print instr.circuit.params + instr.circuit.parDefs.keys()
         """
         self.stepVars = stepVars
-        self.check(stepVars)
+        self.checkStepVars()
         return
     
     def checkStepVars(self):
@@ -535,16 +485,17 @@ class instruction(object):
         errors = 0
         if type(self.stepVars) == list:
             if len(self.stepVars) != 0:
-                for stepVar in self.stepVars:
-                    if checkNumber(stepVar) == None:
-                        if type(stepVar) == str:
+                for i in range(len(self.stepVars)):
+                    if checkNumber(self.stepVars[i]) == None:
+                        if type(self.stepVars[i]) == str:
                             try:
-                                stepVar = sp.Symbol(stepVar)
+                                self.stepVars[i] = sp.Symbol(self.stepVars[i])
                             except:
                                 errors += 1
-                                print "Error: step variable '%s' is not a parameter."%(stepVar)
-                        if isinstance(stepVar, sp.symbol.Symbol) and stepVar not in self.circuit.parDefs.keys() and stepVar not in self.circuit.params:
-                            print "Warning: unknown step parameter '%s'."%(str(stepVar))
+                                print "Error: step variable '%s' is not a parameter."%(self.stepVars[i])
+                        if isinstance(self.stepVars[i], sp.symbol.Symbol):
+                            if self.stepVars[i] not in self.circuit.parDefs.keys() and self.stepVars[i] not in self.circuit.params:
+                                print "Warning: unknown step parameter '%s'."%(str(stepVar))
                         else:
                             errors += 1
                             print "Error: argument type must be 'str' or 'sympy.symbol.Symbol'."
@@ -809,7 +760,6 @@ class instruction(object):
             self.errors += 1
             print "Error: expected a list type for 'stepValues'."
         return
-    
     
     def setStepArray(self, stepArray):
         """
@@ -1296,67 +1246,6 @@ class instruction(object):
         """
         return self.circuit.controlled
     
-    def stepParams(self, xVar, yVar, sVar, s):
-        """
-        TBD
-        """
-        parNames = self.circuit.parDefs.keys() + self.circuit.params
-        errors = 0
-        xValues = {}
-        yValues = {}
-        # check the input
-        if xVar == None:
-             print "Error: missing x variable."
-             errors +=1
-        elif sp.Symbol(xVar) not in parNames:
-            print "Error: unknown parameter: '%s' for 'x variable'."%(xVar)
-            errors += 1
-        if sVar == None:
-             svar = xVar
-        elif sp.Symbol(xVar) not in parNames:
-            print "Error: unknown parameter: '%s' for sweep variable."%(xVar)
-            errors += 1
-        if yVar == None:
-             print "Error: missing y variable."
-             errors +=1
-        elif sp.Symbol(yVar) not in parNames:
-            print "Error: unknown parameter: '%s' for y variable."%(yVar)
-            errors += 1
-        if errors == 0 and self.step:
-            if self.stepMethod.lower() == 'lin':
-                p = np.linspace(self.stepStart, self.stepStop, num = self.stepNum)
-            elif xMethod.lower() == 'log':
-                p = np.geomspace(self.stepStart, self.stepStop, num = self.stepNum)
-        if errors == 0:
-            substitutions = {}
-            for parName in self.circuit.parDefs.keys():
-                if parName != sp.Symbol(sVar) and parName != self.stepVar:
-                    substitutions[parName] = self.circuit.parDefs[parName]\
-            # Obtain the y-variable as a function of the sweep and the step variable:
-            f = fullSubs(self.circuit.parDefs[sp.Symbol(yVar)], substitutions)
-            # Obtain the x-variable as a function of the sweep and the step variable:
-            g = fullSubs(self.circuit.parDefs[sp.Symbol(xVar)], substitutions)
-            if self.step:
-                for parValue in p:
-                    y = f.subs(self.stepVar, parValue)
-                    yfunc = sp.lambdify(sp.Symbol(sVar), y)
-                    yValues[parValue] = yfunc(s)
-                    if xVar != sVar:
-                        x = g.subs(self.stepVar, parValue)
-                        xfunc = sp.lambdify(sp.Symbol(sVar), x)
-                        xValues[parValue] = xfunc(s)
-                    else:
-                        xValues[parValue] = s
-            else:
-                y = sp.lambdify(sp.Symbol(sVar), f)
-                yValues = y(s)
-                if xVar != sVar:
-                    x = sp.lambdify(sp.Symbol(sVar), g)
-                    xValues = x(s)
-                else:
-                    xValues = s
-        return (xValues, yValues)
-    
     def setCircuit(self, fileName):
         """
         Defines the circuit for this instruction.
@@ -1415,83 +1304,84 @@ class instruction(object):
         """
         self.errors = 0
         self.checkCircuit()
-        self.checkSimType()
-        self.checkGainType()
-        self.checkDataType()
-        if self.errors == 0:
-            if self.gainType == 'vi':
-                if self.dataType == 'laplace':
-                    # need detector
-                    self.checkDetector()
-                elif self.dataType == 'noise':
-                    # need detector
-                    self.checkDetector()
-                    # only needs a sourrce for input noise analysis
-                    self.checkSource(need = False)
-                elif self.dataType == 'matrix':
-                    # need nothing
-                    pass
-                elif self.dataType == 'solve':
-                    # need nothing
-                    pass
-                elif self.dataType == 'time':
-                    # need detector
-                    self.checkDetector()
-                elif self.dataType == 'dc':
-                    # need detector
-                    self.checkDetector()
-                elif self.dataType == 'dcvar':
-                    # need detector
-                    self.checkDetector()
-                elif self.dataType == 'dcsolve':
-                    # need nothing
-                    pass
+        if self.dataType != 'params':
+            self.checkSimType()
+            self.checkGainType()
+            self.checkDataType()
+            if self.errors == 0:
+                if self.gainType == 'vi':
+                    if self.dataType == 'laplace':
+                        # need detector
+                        self.checkDetector()
+                    elif self.dataType == 'noise':
+                        # need detector
+                        self.checkDetector()
+                        # only needs a sourrce for input noise analysis
+                        self.checkSource(need = False)
+                    elif self.dataType == 'matrix':
+                        # need nothing
+                        pass
+                    elif self.dataType == 'solve':
+                        # need nothing
+                        pass
+                    elif self.dataType == 'time':
+                        # need detector
+                        self.checkDetector()
+                    elif self.dataType == 'dc':
+                        # need detector
+                        self.checkDetector()
+                    elif self.dataType == 'dcvar':
+                        # need detector
+                        self.checkDetector()
+                    elif self.dataType == 'dcsolve':
+                        # need nothing
+                        pass
+                    else:
+                        self.errors += 1
+                        print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
+                elif self.gainType != 'loopgain':
+                    if self.dataType == 'laplace':
+                        # need source and detector
+                        self.checkDetector()
+                        self.checkSource()
+                    elif self.dataType == 'numer':
+                        # need source and detector
+                        self.checkDetector()
+                        self.checkSource()
+                    elif self.dataType == 'denom':
+                        # need nothing
+                        pass
+                    elif self.dataType == 'impulse':
+                        # need source and detector
+                        self.checkDetector()
+                        self.checkSource()
+                    elif self.dataType == 'step':
+                        # need source and detector
+                        self.checkDetector()
+                        self.checkSource()
+                    elif self.dataType == 'poles':
+                        # need numeric
+                        self.checkNumeric()
+                    elif self.dataType == 'zeros':
+                        # need numeric, source and detector
+                        self.checkNumeric()
+                        self.checkDetector()
+                        self.checkSource()
+                    elif self.dataType == 'pz':
+                        # need numeric source and detector
+                        self.checkNumeric()
+                        self.checkDetector()
+                        self.checkSource()
+                    else:
+                        self.errors += 1
+                        print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
+                if self.gainType == 'asymptotic' or self.gainType == 'direct' or self.gainType == 'loopgain' or self.gainType == 'servo':
+                    # need loop gain reference
+                    self.checkLGref()
                 else:
-                    self.errors += 1
-                    print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
-            elif self.gainType != 'loopgain':
-                if self.dataType == 'laplace':
-                    # need source and detector
-                    self.checkDetector()
-                    self.checkSource()
-                elif self.dataType == 'numer':
-                    # need source and detector
-                    self.checkDetector()
-                    self.checkSource()
-                elif self.dataType == 'denom':
-                    # need nothing
                     pass
-                elif self.dataType == 'impulse':
-                    # need source and detector
-                    self.checkDetector()
-                    self.checkSource()
-                elif self.dataType == 'step':
-                    # need source and detector
-                    self.checkDetector()
-                    self.checkSource()
-                elif self.dataType == 'poles':
-                    # need numeric
-                    self.checkNumeric()
-                elif self.dataType == 'zeros':
-                    # need numeric, source and detector
-                    self.checkNumeric()
-                    self.checkDetector()
-                    self.checkSource()
-                elif self.dataType == 'pz':
-                    # need numeric source and detector
-                    self.checkNumeric()
-                    self.checkDetector()
-                    self.checkSource()
-                else:
-                    self.errors += 1
-                    print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
-            if self.gainType == 'asymptotic' or self.gainType == 'direct' or self.gainType == 'loopgain' or self.gainType == 'servo':
-                # need loop gain reference
-                self.checkLGref()
-            else:
-                pass
         if self.step == True:
-            if not self.numeric:
+            if not self.numeric and self.dataType != 'params':
                 self.errors += 1
                 print "Error: symbolic stepping has not been implemented, use substitution instead."
             elif self.dataType == 'matrix':
@@ -1599,7 +1489,6 @@ class instruction(object):
             r.simType        = self.simType
             r.gainType       = self.gainType
             r.dataType       = self.dataType
-            r.sweepVar       = self.sweepVar
             r.step           = self.step
             r.stepVar        = self.stepVar
             r.stepVars       = self.stepVars
@@ -1613,13 +1502,15 @@ class instruction(object):
             r.detector       = self.detector
             r.lgRef          = self.lgRef
             r.circuit        = self.circuit
-            r.parDefs        = self.parDefs
             r.errors         = self.errors
             r.detUnits       = self.detUnits
             r.srcUnits       = self.srcUnits
             r.numeric        = self.numeric
             r.detLabel       = self.detLabel
-            return doInstruction(r)
+            if self.dataType == 'params':
+                return r
+            else:
+                return doInstruction(r)
         
 if __name__ == '__main__':
     i = instruction()

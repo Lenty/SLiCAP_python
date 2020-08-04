@@ -20,4 +20,4 @@ IMGPATH         = 'img/'    # path for image files
 PROJECT    = 'My first RC network'
 AUTHOR     = 'anton'
 CREATED    = '2020-07-10 16:59:26.508333'
-LASTUPDATE = '2020-07-28 00:32:34.621901'
+LASTUPDATE = '2020-08-04 14:20:58.210065'

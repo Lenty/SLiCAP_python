@@ -604,7 +604,7 @@ def dcVar2html(instObj, label = '', labelText = ''):
     if instObj.errors != 0:
         print "Errors found in instruction."
         return
-    elif instObj.dataType != 'analysis':
+    elif instObj.dataType != 'dcvar':
         print "Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType)
         return
     elif instObj.step == True :

@@ -13,14 +13,13 @@ prj = initProject('Vamp bias project') # Creates the SLiCAP libraries and the
 
 fileName = 'VampBias.cir'
 i1 = instruction()           # Creates an instance of an instruction object
-i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
-                             # resets the index page to the project index page
-i1.detector = 'V_out'
-i1.simType  = 'symbolic'
-i1.gainType = 'vi'
-i1.dataType = 'dcvar'
+i1.setCircuit(fileName)      # Checks and defines the local circuit object and
+                             # sets the index page to the circuit index page
+i1.setDetector('V_out')
+i1.setSimType('symbolic')
+i1.setGainType('vi')
+i1.setDataType('dcvar')
 result = i1.execute()
-ovarTerms = result.ovarTerms
 
 htmlPage('Netlist and circuit data');
 netlist2html(fileName);

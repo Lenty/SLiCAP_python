@@ -2,6 +2,32 @@
 Execute
 =======
 
+Considerations
+==============
+
+SLiCAP is a symbolic simulator designed to set-up or generate design equations for electronic circuits.
+
+Design equations write the design parameters of a circuit as a function of performance parameters, cost factors and/or operating conditions. Examples of circuit design parameters are:
+
+#. The values of resistors, capacitors, inductors, etc.
+#. The values of the geometry parameters of transistors, such as the width and the length of the channel and the number of 'fingers' for MOS devices, the emmitter area and the number of base contacts and collector contacts for bipolar transistors.
+#. Budgets for error sources, such as:
+   #. The mean value and the standard deviation of DC error sources
+   #. The spectral densities of noise sources
+#. The circuit topology (structure of the circuit)
+
+Performance parameters 
+
+The functions that need to be realized with the circuit be considered as a high-level performance parameter. It can be regarded as the driving parameter for the structure of the topology of the circuit. The resolution of an arbitrary function into elementary basic functions
+
+
+
+They can be obtained from circuit analysis if:
+
+#. Device models are kept as simple as possible, modeling only the 
+
+
+
 The file ``SLiCAPexecute.py`` contains the scripts for execution of an instruction.
 
 Execution ``instruction.execute()`` proceeds as follows:

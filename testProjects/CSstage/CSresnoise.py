@@ -7,6 +7,7 @@ Created on Mon Jul 27 23:00:31 2020
 """
 
 from SLiCAP import *
+t1 = time()
 prj = initProject('CS stage noise with resistive source')
 fileName = 'CSresNoise.cir'
 i1 = instruction()
@@ -19,7 +20,7 @@ IC      = i1.getParValue('IC_X1')
 IC_CRIT = i1.getParValue('IC_CRIT_X1')
 I_D     = I_D*IC_CRIT/IC
 
-i1.defPar('ID', I_D)
+i1.circuit.defPar('ID', I_D)
 R_N   = i1.getParValue('R_N_X1')
 R_s   = i1.getParValue('R_s')
 f_T   = i1.getParValue('f_T_X1')
@@ -44,7 +45,7 @@ print("The noise figure equals: %s [dB]."%(sp.N(NF, ini.disp)))
 # We will now calculate the width W at which we will have the best noise performance.
 # Define the variable 'W' in the notebook environment
 W               = sp.Symbol('W', positive = True)
-i1.delPar('W')        # delete the numeric definition of the width
+i1.circuit.delPar('W')        # delete the numeric definition of the width
 # We will keep the inversion coefficient at critical inversion, hence we scale the
 # current with the width.
 # Please know that not scaling the current results in expressions that cannot be integrated symbolically.
@@ -80,5 +81,8 @@ i1.setStepMethod('lin')
 i1.setSimType('numeric')
 i1.setStepNum(5)
 i1.stepOn()
+result = i1.execute()
 # Plot the function
-fig_NF_W = plotSweep('NF_W', 'Noise Figure versus width, $f_{min}$ = 200MHz', i1, 10, 200, 50, sweepVar = 'W', sweepScale = 'u', funcType = 'param', xUnits = 'm', yVar = 'NF', yUnits = 'dB', show = True)
+fig_NF_W = plotSweep('NF_W', 'Noise Figure versus width, $f_{min}$ = 200MHz', result, 10, 200, 50, sweepVar = 'W', sweepScale = 'u', funcType = 'param', xUnits = 'm', yVar = 'NF', yUnits = 'dB', show = True)
+t2 = time()
+print t2-t1, s

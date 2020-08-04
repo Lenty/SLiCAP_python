@@ -12,58 +12,58 @@ prj = initProject('CMOS 18 amplifier project') # Creates the SLiCAP libraries an
 
 fileName = 'MOSamp.cir'
 i1 = instruction()           # Creates an instance of an instruction object
-i1.checkCircuit(fileName)    # Checks and defines the local circuit object and
-                             # resets the index page to the project index page
-                  
-i1.gainType = 'vi'
-i1.simType  = 'symbolic'
-i1.dataType = 'matrix'
-i1.source = 'V1'
-i1.detector = 'V_out'
+i1.setCircuit(fileName)      # Checks and defines the local circuit object and
+                             # sets the index page to the circuit index page
+
+i1.setSource('V1')
+i1.setDetector('V_out')
+
+i1.setGainType('vi')
+i1.setSimType('symbolic')
+i1.setDataType('matrix')
 matrixResult = i1.execute()
 
-i1.simType = 'numeric'
-i1.gainType = 'gain'
-i1.lgRef = 'Gm_M1_X1'
-i1.dataType = 'poles'
+i1.setSimType('numeric')
+i1.setGainType('gain')
+i1.setLGref('Gm_M1_X1')
+i1.setDataType('poles')
 polesResult = i1.execute()
-i1.dataType = 'zeros'
+i1.setDataType('zeros')
 zerosResult = i1.execute()
-i1.dataType = 'pz'
+i1.setDataType('pz')
 pzResult = i1.execute()
-i1.dataType = 'step'
+i1.setDataType('step')
 mu_t = i1.execute().stepResp
-i1.dataType = 'denom'
+i1.setDataType('denom')
 denom = i1.execute().denom
-i1.dataType = 'numer'
+i1.setDataType('numer')
 numer = i1.execute().numer
-i1.dataType = 'laplace'
+i1.setDataType('laplace')
 Fs = i1.execute().laplace
 
-i1.step             = True
+i1.setStepVar('I_source')
+i1.setStepMethod('lin')
+i1.setStepNum(10)
+i1.setStepStart(0)
+i1.setStepStop('1u')
 
-ini.stepFunction    = True
-i1.stepVar          = 'I_source'
-i1.stepMethod       = 'lin'
-i1.stepNum          = 10
-i1.stepStart        = 0
-i1.stepStop         = '1u'
+FsStepped = i1.execute().laplace
 
-FsStepped           = i1.execute().laplace
-
-i1.dataType         = 'pz'
-
+i1.setDataType('pz')
 result              = i1.execute()
 polesStepped        = result.poles
 zerosStepped        = result.zeros
 dcValStepped        = result.DCvalue
 
-ini.stepFunction    = True
-i1.stepVars         = ['I_source', 'I_sink']
+i1.setStepVars(['I_source', 'I_sink'])
+
 i1.stepArray        = [[0, '10n', '100n', '1u', '10u'], ['10u', '1u', '100n', '10n', 0]]
+
 i1.stepMethod = 'array'
+i1.stepOn()
 
 resultArray         = i1.execute()
+
 polesSteppedArray   = resultArray.poles
 zerosSteppedArray   = resultArray.zeros
 dcValSteppedArray   = resultArray.DCvalue
@@ -71,7 +71,7 @@ dcValSteppedArray   = resultArray.DCvalue
 # Generate HTML report. Run this section twice if you use forward references.
 htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
                              # of this circuit
-img2html('MOSamp.svg', 800, label = 'figPIVA', caption = 'Schematic diagram of the MOS amplifier')
+img2html('MOSamp.svg', 800, label = 'figMOS2', caption = 'Schematic diagram of the MOS amplifier')
 netlist2html(fileName)       # Netlist of the circuit
 elementData2html(i1.circuit) # Element data of a circuit
 params2html(i1.circuit)      # Parameters of the last circuit checked

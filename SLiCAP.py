@@ -96,7 +96,9 @@ def initProject(name):
     copyNotOverwrite(ini.installPath + 'Grid.png', ini.htmlPath + 'css/Grid.png')
     makeDir(ini.mathmlPath)
     makeDir(ini.latexPath)
+    # Create the HTML project index file
     startHTML(name)
+    # Create the libraries
     makeLibraries()
     return prj
 

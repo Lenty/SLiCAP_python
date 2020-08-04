@@ -22,7 +22,7 @@ i1.setDataType('noise')
 i1.setSimType('numeric')
 noiseResults = i1.execute()
 
-fig_onoise = plotSweep('onoise', 'Detector-refferred noise', noiseResults, 0.1, '1M', 200, noiseSources = 'all')
+fig_onoise = plotSweep('onoise', 'Detector-refferred noise', noiseResults, 0.1, '1M', 200, noiseSources = 'all', show = True)
 
 rmsInoise = rmsNoise(noiseResults, 'inoise', 0.1, '1M')
 rmsSnoise = rmsNoise(noiseResults, 'inoise', 0.1, '1M', source = 'V1')
@@ -37,7 +37,7 @@ i1.setStepStop('1k')
 i1.setStepNum(5)
 noiseResultsStepped = i1.execute() 
 
-fig_onoiseStepped   = plotSweep('inoiseStepped', 'Source-refferred noise', noiseResultsStepped, 0.1, '1M', 200, funcType = 'inoise', noiseSources = 'I1')
+fig_onoiseStepped   = plotSweep('inoiseStepped', 'Source-refferred noise', noiseResultsStepped, 0.1, '1M', 200, funcType = 'inoise', noiseSources = 'I1', show = True)
 
 htmlPage('Noise')
 noise2html(noiseResults)

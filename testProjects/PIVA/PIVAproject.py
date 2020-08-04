@@ -71,6 +71,27 @@ i1.setGainType('asymptotic')
 asymptotic = i1.execute()
 i1.setGainType('loopgain')
 loopgain = i1.execute()
+
+# Let us calculate the phase margin
+
+print phaseMargin(loopgain.laplace)
+
+i1.setStepVar('I_D')
+i1.setStepMethod('log')
+i1.setStepNum(25)
+i1.setStepStart('10p')
+i1.setStepStop('1m')
+i1.stepOn()
+loopgainStepped = i1.execute()
+PM2p95 = [i1.stepList, phaseMargin(loopgainStepped.laplace)[0]]
+i1.defPar('C_ph', '1.5p')
+loopgainStepped_1p5 = i1.execute()
+PM1p5 = [i1.stepList, phaseMargin(loopgainStepped_1p5.laplace)[0]]
+plotData = {'$C_{ph}=2.95$p': PM2p95, '$C_{ph}=1.5$p': PM1p5}
+figPM = plot('PM', 'Phase margin versus $I_D$', 'semilogx', plotData, xName = '$' + sp.latex(i1.stepVar) + '$', xScale = 'u', xUnits = 'A', yName = 'Phase margin', yUnits = 'deg', show = True)
+
+i1.defPar('C_ph', '2.95p')
+i1.stepOff()
 i1.setGainType('servo')
 servo = i1.execute()
 i1.setGainType('direct')
@@ -79,26 +100,16 @@ figdBmagA = plotSweep('magA', 'dB magnitude feedback model', [result, asymptotic
 
 i1.setDataType('step')
 i1.setGainType('gain')
-result = i1.execute()
-mu_t = result.stepResp
+a_t = i1.execute()
 
-figStep = plotSweep('step', 'step response', result, 0, 50, 100, sweepScale = 'u', yUnits = 'V')
+figStep = plotSweep('step', 'step response', a_t, 0, 50, 100, sweepScale = 'u', yUnits = 'V')
 
-# Find the network solution
-i1.setGainType('vi')
-i1.setDataType('solve')
-result = i1.execute()
-solution = result.solve
-Dv = result.Dv
-
-i1.setGainType('gain')
-i1.setDataType('laplace')
-i1.setStepVar('I_D')
-i1.setStepMethod('log')
+i1.stepOn()
 i1.setStepNum(7)
 i1.setStepStart('1p')
 i1.setStepStop('1u')
-i1.stepOn()
+i1.setGainType('gain')
+i1.setDataType('laplace')
 FsStepped = i1.execute()
 
 figdBs = plotSweep('dBs', 'dB magnitude step I_D', FsStepped, 1, 1e3, 100, funcType = 'dBmag', sweepScale = 'k')
@@ -110,8 +121,8 @@ figRL = plotPZ('RL', 'Root Locus I_D', polesStepped, xmin = -180, xmax = 20, ymi
 
 i1.setDataType('step')
 i1.setStepNum(7)
-mu_tStepped = i1.execute()
-figStepped = plotSweep('stepped', 'step response I_D', mu_tStepped, 0, 50, 100, sweepScale = 'u', yUnits = 'V',)
+a_tStepped = i1.execute()
+figStepped = plotSweep('stepped', 'step response I_D', a_tStepped, 0, 50, 100, sweepScale = 'u', yUnits = 'V')
 
 # Generate HTML report. Run this section twice if you use forward references.                             
 htmlPage('Circuit data')     # Creates an HTML page and a link on the index page
@@ -137,15 +148,13 @@ eqn2html('F_s', Fs, label = 'eq_gain')
 coeffsTransfer2html(transferCoeffs)
 eqn2html('f_t', mu_t, label = 'eq_step')
 
-htmlPage('Network solution')
-eqn2html(Dv, solution)
-
 htmlPage('Plots')
 fig2html(figdBmag, 600, label = 'figdBmag',  caption='dB magnitude plot of the PIVA transfer.')
 fig2html(figMag, 600, label = 'figMag', caption='Magnitude plot of the PIVA transfer.')
 fig2html(figPhase, 600, label = 'figPhase', caption='Phase plot of the PIVA transfer.')
 fig2html(figDelay, 600, label = 'figDelay', caption='Group delay of the PIVA transfer.')
 fig2html(figdBmagA, 600, label = 'figdBmagA', caption='Asymptotic-gain model parameter dB magnitude plots of the PIVA transfer.')
+fig2html(figPM, 600, label = 'figPM', caption='Phase margin versus drain current for different values of the phantom zero capacitance.')
 fig2html(figPolar, 600, label = 'figPolar', caption ='Polar plot of the PIVA transfer.')
 fig2html(figdBpolar, 600, label = 'figdBpolar', caption ='dB polar plot of the PIVA transfer.')
 fig2html(figStep, 600, label = 'figStep', caption='Unit step response of the PIVA.')

@@ -13,21 +13,21 @@ i1 = instruction()
 
 # Check if default model parameters are passed to an element of which the
 # model needs to be expanded. This is done for a bipolar transistor model 'QV'.
-i1.checkCircuit('defaultParams.cir')
+i1.setCircuit('defaultParams.cir')
 htmlPage('Circuit data')
 netlist2html('defaultParams.cir')
 elementData2html(i1.circuit)
 params2html(i1.circuit)
 
 # Check if parameters are passed correctly to models
-i1.checkCircuit('params2model.cir')
+i1.setCircuit('params2model.cir')
 htmlPage('Circuit data')
 netlist2html('params2model.cir')
 elementData2html(i1.circuit)
 params2html(i1.circuit)
 
 # Check if parameters are passed correctly to subcircuits
-i1.checkCircuit('params2subckt.cir')
+i1.setCircuit('params2subckt.cir')
 htmlPage('Circuit data')
 netlist2html('params2subckt.cir')
 elementData2html(i1.circuit)
@@ -42,11 +42,11 @@ results = {'E': sp.sympify('-(A_v*R_2*(s*tau_z + 1))/((2*R_1 + R_2)*(s*tau_p + 1
            'HZ': sp.sympify('-(A_z*(s*tau_z + 1)*(s*tau_zp + 1))/((s*tau_p + 1)*(R + 2*R_1 + R*s*tau_zz + 2*R_1*s*tau_zp))')}
 for i in range(len(circuits)):
     print '\nLoop gain test:', circuits[i]
-    i1.checkCircuit(circuits[i] + '.cir')
-    i1.simType  = 'symbolic'
-    i1.dataType = 'laplace'
-    i1.gainType = 'loopgain'
-    i1.lgRef    = circuits[i] + '1'
+    i1.setCircuit(circuits[i] + '.cir')
+    i1.setSimType('symbolic')
+    i1.setDataType('laplace')
+    i1.setGainType('loopgain')
+    i1.setLGref(circuits[i] + '1')
     result      = i1.execute()
     lgLaplace   = result.laplace
     if sp.simplify(results[circuits[i]] - lgLaplace) == 0:

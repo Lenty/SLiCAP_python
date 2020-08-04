@@ -5,8 +5,7 @@ Created on Sat May 30 11:10:18 2020
 
 @author: anton
 """
-
-PROJECTPATH     = '/mnt/DATA/SLiCAP/SLiCAP_github/SLiCAP_python/testProjects/testCramer/'
+PROJECTPATH     = None
 # PATHS: relative to the project path
 HTMLPATH        = 'html/'   # path for html output
 CIRCUITPATH     = 'cir/'    # path for .asc, .net, .cir, .sch files
@@ -18,7 +17,7 @@ MATHMLPATH      = 'mathml/' # path for mathML output saveMathML()
 IMGPATH         = 'img/'    # path for image files
 
 # Project information
-PROJECT    = 'Response 4-th order Linkwitz-Riley Filter'
+PROJECT    = 'NMOS EKV polts'
 AUTHOR     = 'anton'
-CREATED    = '2020-07-06 18:36:56.667221'
-LASTUPDATE = '2020-08-03 19:21:37.301176'
+CREATED    = '2020-07-12 15:48:58.604973'
+LASTUPDATE = '2020-08-04 14:21:59.106882'

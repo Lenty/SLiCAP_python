@@ -71,6 +71,7 @@ class circuit(object):
         self.nodes      = []
         self.params     = {}
         self.parDefs    = {}
+        self.parUnits   = {}
         self.modelDefs  = {}
         self.circuits   = {}
         self.errors     = 0
@@ -100,16 +101,23 @@ class circuit(object):
         >>> my_circuit.delPar('R')
         """
         self.parDefs.pop(sp.Symbol(str(parName)), None)
+        self.parUnits.pop(sp.Symbol(str(parName)), None)
         self.updateParams()
         return
         
-    def defPar(self, parName, parValue):
+    def defPar(self, parName, parValue, units = None):
         """
-        Deletes a parameter definition and updates the list 
+        Updates or adds a parameter definition and updates the list 
         **circuit.params** with names (*sympy.Symbol*) of undefined parameters.
         
         :param parName: Name of the parameter.
         :type parName: str, sympy.Symbol
+        
+        :param parValue: Value of the parameter.
+        :type parValue: str, sympy.Symbol, sympy.Expr, int, float
+        
+        :param units: Value of the parameter, defaults to None
+        :type units: str, sympy.Symbol, sympy.Expr, int, float
         
         :return: None
         :return type: None
@@ -119,18 +127,55 @@ class circuit(object):
         >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
         >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
         >>> # Define the value of 'R' as 2000
-        >>> my_circuit.defPar('R', '2k')
+        >>> my_circuit.defPar('R', '2k', )
         >>> # Or:
         >>> my_circuit.defPar('R', 2e3)
-        
-        :note: 
-            
-        Do not enter a number as parameter name, this will not be checked!
         """
-        parName = sp.Symbol(str(parName))
-        parValue = sp.sympify(replaceScaleFactors(str(parValue)))
-        self.parDefs[parName] = parValue
-        self.updateParams()
+        if checkNumber(parName) == None:
+            parName = sp.Symbol(str(parName))
+            parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+            self.parDefs[parName] = parValue
+            if type(units) == str:
+                # ToDo: checkUnits() calculate wir SI units.
+                self.parUnits[parName] = units
+            else:
+                self.parUnits[parName] = ''
+            self.updateParams()
+        else:
+            print "Error: cannot define a number as parameter."
+        return
+    
+    def defParUnits(self, parDict):
+        """
+        Defines the units of a parameter.
+        
+        :param parDict: Dictionary with key-value pairs:
+        
+                        key(*str, sp.Symbol*): parameter name 
+                        value(*str*): parameter units 
+        :type parDict: dict
+        
+        :return: None
+        :return type: None
+        
+        :Example:
+            
+        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define the units of 'R' and 'C'
+        >>> my_circuit.defParUnits({'R': 'Omega', C: F})
+        """
+        if type(parDict) == dict:
+            for key in parDict.keys():
+                if checkNumber(key) == None:
+                    if type(parDict[key]) == str:
+                        self.parUnits[key] = parDict[key]
+                    else:
+                        self.parUnits[key] = ''
+                else:
+                    print "Error: cannot use a number as parameter."
+        else:
+            print "Error: expected a dict type argument."
         return
     
     def defPars(self, parDict):
@@ -153,16 +198,18 @@ class circuit(object):
         >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
         >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
         >>> my_circuit.defPars({'R': '2k', 'C': '5p')
-        
-        :note: 
-            
-        Do not enter a number as parameter name, this will not be checked!
         """
-        for key in parDict.keys():
-            parName = sp.Symbol(str(key))
-            parValue = str(parDict[key])
-            parValue = sp.sympify(replaceScaleFactors(str(parValue)))
-            self.parDefs[parName] = parValue    
+        if type(parDict) == dict:
+            for key in parDict.keys():
+                if checkNumber(key) == None:
+                    parName = sp.Symbol(str(key))
+                    parValue = str(parDict[key])
+                    parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+                    self.parDefs[parName] = parValue
+                else:
+                    print "Error: cannot define a number as parameter."
+        else:
+            print "Error: expected a dict type argument."
         self.updateParams()
         return
         
@@ -173,8 +220,8 @@ class circuit(object):
         If numeric == True it will perform a full recursive substitution of
         all circuit parameter definitions.
         
-        :param parName: name(s) of the parameter(s)
-        :type parName: str, sympy.Symbol, list 
+        :param parNames: name(s) of the parameter(s)
+        :type parNames: str, sympy.Symbol, list 
         
         :return: if type(parNames) == list:
             
@@ -196,10 +243,54 @@ class circuit(object):
         >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
         >>> my_instr.symType = 'numeric'
         >>> my_instr.getParValues(['R', 'C'])
+        """
+        if type(parNames) == list:
+            parValues = {}
+            for par in parNames:
+                par = sp.Symbol(str(par))
+                for key in self.parDefs.keys():
+                    if par == key:
+                        if numeric == True:
+                            parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
+                        else:
+                           parValues[par] = self.parDefs[key]          
+            return parValues
+        parNames = sp.Symbol(str(parNames))
+        try:
+            if numeric:
+                parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
+            else:
+                parValue = self.parDefs[parNames]
+        except:
+            print "Error: parameter '%s' has not been defined."%(str(parNames))
+            parValue = None
+        return parValue
+    
+    def getParUnits(self, parNames):
+        """
+        Returns the units of one or more parameters.
         
-        :note: 
+        :param parNames: name(s) of the parameter(s)
+        :type parNames: str, sympy.Symbol, list 
         
-        Do not enter a number as parameter name, this will not be checked!
+        :return: if type(parNames) == list:
+            
+                 return value = list with units of the parameters
+                 
+                 else:
+                 units (str)
+                 
+        :return type: list, str
+        
+        :Example:
+         
+        >>> # create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()  
+        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define and obtain the units of 'R' and 'C':
+        >>> my_instr.symType = 'numeric'
+        >>> my_instr.getParValues(['R', 'C'])
         """
         if type(parNames) == list:
             parValues = {}
@@ -231,14 +322,23 @@ class circuit(object):
             return: None
         """    
         self.params =[]
+        # Get all the parameters used in element values
         for elmt in self.elements.keys():
             for par in self.elements[elmt].params.keys():
                 try:
                     self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
                 except:
                     pass
+        # Get all the parameters used in parameter definitions
+        for par in self.parDefs.keys():
+            try:
+                self.params += list(self.parDefs[par].atoms(sp.Symbol))
+            except:
+                pass
+        # Remove duplicates
         self.params = list(set(self.params))
         undefined = []
+        # If these parameters are not found in parDefs.keys, they are undefined.
         for par in self.params:
             if par != ini.Laplace and par != ini.frequency and par not in self.parDefs.keys():
                 undefined.append(par)
