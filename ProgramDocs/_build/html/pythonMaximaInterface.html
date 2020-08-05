@@ -105,9 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPreference.html">SLiCAP Rference</a></li>
 </ul>
 
             
@@ -759,7 +757,13 @@
 575
 576
 577
-578</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+578
+579
+580
+581
+582
+583
+584</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Created on Fri May  1 13:57:02 2020</span>
@@ -1301,8 +1305,14 @@
     <span class="k">if</span> <span class="n">fmin</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">fmax</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
         <span class="k">print</span> <span class="s2">&quot;Error in frequency range specification.&quot;</span>
         <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">fMi</span> <span class="o">=</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">fmin</span><span class="p">)</span>
+    <span class="n">fMa</span> <span class="o">=</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">fmax</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fMi</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">fmin</span> <span class="o">=</span> <span class="n">fMi</span>
+    <span class="k">if</span> <span class="n">fMa</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">fmax</span> <span class="o">=</span> <span class="n">fMa</span>
     <span class="k">if</span> <span class="n">fmin</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">fmax</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">fmin</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span>  <span class="n">checkNumber</span><span class="p">(</span><span class="n">fmin</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">fmin</span> <span class="o">&gt;=</span> <span class="n">fmax</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fMi</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span>  <span class="n">fMa</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">fmin</span> <span class="o">&gt;=</span> <span class="n">fmax</span><span class="p">:</span>
             <span class="k">print</span> <span class="s2">&quot;Error in frequency range specification.&quot;</span>
             <span class="k">return</span> <span class="bp">None</span>
     <span class="k">if</span> <span class="n">noiseResult</span><span class="o">.</span><span class="n">dataType</span> <span class="o">!=</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span>

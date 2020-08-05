@@ -57,7 +57,7 @@ class instruction(object):
         """
         Defines the step variables for 'array' type parameter stepping.
         
-        See **instruction.setStepArray(<stepArray>)** for specification of *instruction.stepArray*.
+        See **instruction.setStepVars(<stepVars>)** for specification of *instruction.stepVars*.
         """
         
         self.stepMethod = None
@@ -127,7 +127,7 @@ class instruction(object):
         self.circuit = None
         """
         Circuit (*obj*) used for this instruction. Can be assigned by setting
-        this attribute, or is will be defined by running:
+        this attribute, or will be defined by running:
         instruction.setCircuit(<fileName>).
         
         :Example:
@@ -188,7 +188,8 @@ class instruction(object):
     
         self.parDefs = None
         """
-        Parameter definitions for the instruction. 
+        Parameter definitions for the instruction. Will be updated by executing
+        the instruction.
         """
         
     def setSimType(self, simType):
@@ -213,14 +214,17 @@ class instruction(object):
         :note:
         
         SLiCAP always uses symbolic calculation methods. Only in a limited
-        number of cases SLiCAP calulates with floats (pole-zero analysis).
+        number of cases SLiCAP calulates with floats (pole-zero analysis,
+        determination of the phase margin, etc.).
         
         With the simulation type set to 'numeric' SLiCAP recursively 
         substitutes all circuit parameter definitions into expressions used for
-        element values. Hence, expressions can still have symbolic parameters.
+        element values. Hence, component values can be expressions with 
+        symbolic parameters.
         
         The default number of recursive substitutions is 10. It is defined by 
-        ini.recSubst and can be changed by the user.
+        ini.recSubst and can be changed by the user. For using the built-in MOS
+        EKV models a value of eight is the minumum for full substitution.
         
         :Example:
             
@@ -369,7 +373,7 @@ class instruction(object):
 
     def setStepVar(self, stepVar):
         """
-        Defines the step variable for step types 'lin', 'log' and 'list'.
+        Defines the step variable for parameter step types 'lin', 'log' and 'list'.
         
         :param stepVar: step variable
         :type stepVar: str, sympy.symbol.Symbol
@@ -381,7 +385,7 @@ class instruction(object):
         
         >>> # Create an instance of the instruction object
         >>> my_instr = instruction() 
-        >>> # Define circuit parameter 'alpha' as step variable:
+        >>> # Define the circuit parameter 'alpha' as step variable:
         >>> my_instr.setStepVar('alpha')
         >>> # Enable parameter stepping
         >>> my_instr.stepOn()
@@ -590,7 +594,7 @@ class instruction(object):
     
     def checkStepStart(self):
         """
-        Checks if the start value for parameter steping is defined correctly.
+        Checks if the start value for parameter stepping is defined correctly.
         
         Called by **instruction.checkStep()** and by **instruction.stepStart(<stepStart>)**.
         """
@@ -684,7 +688,7 @@ class instruction(object):
         
     def checkStepNum(self):
         """
-        Checks if the numper of steps is defined properly.
+        Checks if the number of steps is defined properly.
         
         Called by :**instruction.checkStep()** and by **instruction.setStepNum(<stepNum>)**.
         
@@ -705,7 +709,9 @@ class instruction(object):
     
     def setStepList(self, stepList):
         """
-        Defines the list with step values for step method 'list'. 
+        Defines the list with step values for step method 'list'. This list will
+        be overwritten if the instruction is executed with the step method set
+        to 'lin' or 'log'.
         
         :param stepList: List with step values for the step parameter.
         :type stepList: list
@@ -912,7 +918,7 @@ class instruction(object):
             
         - bool: None: no detector has been defined
         - str:  a single detector, name of a nodal voltage or a branch current
-        - list: with two either two nodal voltages or two branch currents
+        - list: with names of either two nodal voltages or two branch currents.
         
         instruction.checkDetector converts the detector definition into a list 
         with a positive and a negative detector [<detP>, <detN>], where detP 
@@ -945,11 +951,9 @@ class instruction(object):
 
     def checkDetector(self):
         """
-        
         Checks if the detector has been defined and if it exists in the circuit.
         
         Called by **instruction.check()** and by **instruction.setDetector(<detector>)**.
-        
         """
         if self.detector != None:
             self.detLabel = ''
@@ -1040,10 +1044,10 @@ class instruction(object):
     
     def checkLGref(self):
         """
-        Called by **instruction.check()** and by **instruction.setLGref(<lgRef>)**.
-        
         Checks if the loop gain reference has been defined and if it exists in 
         the circuit.
+        
+        Called by **instruction.check()** and by **instruction.setLGref(<lgRef>)**.
         """
         if type(self.lgRef) == bool:
             self.errors += 1
@@ -1057,8 +1061,9 @@ class instruction(object):
         """
         Deletes a parameter definition
         
-        After deletion it updates the list **instruction.circuit.params** with 
-        names (*sympy.Symbol*) of undefined parameters.
+        After deletion of the parameter from the instruction.circuit.parDefs 
+        dictionary the list **instruction.circuit.params** with 
+        names (*sympy.Symbol*) of undefined parameters is updated.
         
         :param parName: Name of the parameter.
         :type parName: str, sympy.Symbol
@@ -1152,7 +1157,7 @@ class instruction(object):
         substitution of all circuit parameter definitions.
         
         This method calls instruction.circuit.getParValue() with keyword arg
-        numeric = True if instruction.simType == 'numeric'.
+        numeric = True if instruction.simType is set to 'numeric'.
         
         :param parName: name(s) of the parameter(s)
         :type parName: str, sympy.Symbol, list 
@@ -1177,10 +1182,6 @@ class instruction(object):
         >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
         >>> my_instr.symType = 'numeric'
         >>> my_instr.getParValues(['R', 'C'])
-        
-        :note: 
-        
-        Do not enter a number as parameter name, this will not be checked!
         """
         if self.simType == 'numeric':
             self.numeric = True
@@ -1252,7 +1253,7 @@ class instruction(object):
         
         - Checks the netlist file 'fileName'
         - Creates a circuit object from it
-        - Makes it the (local) ciruit object for this instruction.
+        - Makes it the ciruit object for this instruction.
         
         :param fileName: Name of the netlist file.
         :type fileName: str
@@ -1273,7 +1274,9 @@ class instruction(object):
         
     def checkCircuit(self):
         """
-        Checks if the circuit for this instruction is a check :c;ass:`SLiCAPprotos.circuit()` object.
+        Checks if the circuit for this instruction is a :class:`SLiCAPprotos.circuit()` object.
+        
+        Called by **instruction.execute()**.
         """
         if self.circuit == None:
             self.errors += 1
@@ -1289,7 +1292,7 @@ class instruction(object):
     def check(self):
         """
         Checks the completeness and consistancy of the instruction data.  
-        Will be called by **self.execute()**. 
+        Will be called by **instruction.execute()**. 
         
         :return: None
         :return type: None
@@ -1394,11 +1397,11 @@ class instruction(object):
     
     def checkNumeric(self):
         """
-        Called by **instruction.check()** in cases in which a numeric 
-        simulation is required.
-        
         Checks if the simulation type is set to 'numeric'. This is required for
         pole-zero analysis.
+        
+        Called by **instruction.check()** in cases in which a numeric 
+        simulation is required.
         
         :return: None
         :return type: None
@@ -1410,12 +1413,12 @@ class instruction(object):
     
     def checkStep(self):
         """
-        Called by **instruction.check()** in cases in which 
-        instruction.step == True
-        
         This method will check the completeness and the consistency of the 
         instruction data for parameter stepping, before executing the 
         instruction.
+        
+        Called by **instruction.check()** in cases in which 
+        instruction.step == True
         
         :return: None
         :return type: None
@@ -1451,7 +1454,7 @@ class instruction(object):
     
     def execute(self):
         """
-        Checks the instruction and executes it in case no errors have been found.
+        Checks the instruction and executes it if no errors are found.
         
         if no errors are found it returns a :class:`allResults` object with the 
         results of the instruction.
@@ -1508,8 +1511,14 @@ class instruction(object):
             r.numeric        = self.numeric
             r.detLabel       = self.detLabel
             if self.dataType == 'params':
+                # If data type is set to 'params', only two things need to be \
+                # done:
+                
+                # 1. Check the definitions required for parameter stepping
+                # 2. Return an allResult() object with instruction data.
                 return r
             else:
+                # Execute the instruction
                 return doInstruction(r)
         
 if __name__ == '__main__':

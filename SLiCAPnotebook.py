@@ -1,9 +1,14 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jul 10 23:28:32 2020
+Main module for working with SLiCAP from within Jupyter Notebook or Jupyter Lab.
 
-@author: anton
+This module imports specific modules for rendering HTML and SVG in notebooks. It
+also sets the configuration variable *ini.notebook* that provides correct latex
+output from the functions in the module **SLiCAPhtml.py**.
+
+It also activates a work around for rendering reStructured text (.rst files)
+in notebooks.
 """
 
 from IPython.core.display import HTML, SVG

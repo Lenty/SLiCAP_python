@@ -110,9 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPreference.html">SLiCAP Rference</a></li>
 </ul>
 
             
@@ -447,7 +445,21 @@ Once created it can be modified and modifications will not be overwritten by ini
 208
 209
 210
-211</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPconfig</span> <span class="kn">import</span> <span class="o">*</span>
@@ -456,6 +468,7 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">residue</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">newton</span>
 <span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
@@ -614,6 +627,7 @@ Once created it can be modified and modifications will not be overwritten by ini
 <span class="sd">        Prints the global variables that are available to the user.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">disallowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;asymptotic&#39;</span><span class="p">,</span> <span class="s1">&#39;servo&#39;</span><span class="p">,</span> <span class="s1">&#39;vi&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">,</span> <span class="s1">&#39;loopgain&#39;</span><span class="p">,</span> <span class="s1">&#39;gain&#39;</span><span class="p">]</span>
+        <span class="n">printTypes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
         <span class="n">tabWidth</span>   <span class="o">=</span> <span class="mi">18</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">dct</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
@@ -621,14 +635,26 @@ Once created it can be modified and modifications will not be overwritten by ini
                 <span class="n">keys</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="n">keys</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed</span><span class="p">:</span>
-                        <span class="n">ndots</span> <span class="o">=</span> <span class="n">tabWidth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-                        <span class="k">print</span> <span class="n">key</span><span class="p">,</span>
-                        <span class="n">dots</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndots</span><span class="p">):</span>
-                            <span class="n">dots</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
-                        <span class="k">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="ow">in</span> <span class="n">printTypes</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;htmlLabels&#39;</span><span class="p">:</span>
+                            <span class="n">ndots</span> <span class="o">=</span> <span class="n">tabWidth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                            <span class="k">print</span> <span class="n">key</span><span class="p">,</span>
+                            <span class="n">dots</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndots</span><span class="p">):</span>
+                                <span class="n">dots</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+                            <span class="k">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;htmlLabels&#39;</span><span class="p">:</span>
+                            <span class="n">dispkey</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;.keys()&#39;</span>
+                            <span class="n">ndots</span> <span class="o">=</span> <span class="n">tabWidth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">dispkey</span><span class="p">)</span>
+                            <span class="k">print</span> <span class="n">dispkey</span><span class="p">,</span>
+                            <span class="n">dots</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndots</span><span class="p">):</span>
+                                <span class="n">dots</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+                            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+                                <span class="k">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="k">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                            
     <span class="k">def</span> <span class="nf">updatePaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectPath</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the file locations according to the project path.</span>
@@ -1612,7 +1638,26 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 932
 933
 934
-935</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPmath</span> <span class="kn">import</span> <span class="o">*</span>
@@ -1685,6 +1730,7 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>      <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span>    <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span>   <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">modelDefs</span>  <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">circuits</span>   <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">errors</span>     <span class="o">=</span> <span class="mi">0</span>
@@ -1714,16 +1760,23 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">        &gt;&gt;&gt; my_circuit.delPar(&#39;R&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">)),</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">)),</span> <span class="bp">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
         <span class="k">return</span>
         
-    <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">,</span> <span class="n">parValue</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">,</span> <span class="n">parValue</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes a parameter definition and updates the list </span>
+<span class="sd">        Updates or adds a parameter definition and updates the list </span>
 <span class="sd">        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.</span>
 <span class="sd">        </span>
 <span class="sd">        :param parName: Name of the parameter.</span>
 <span class="sd">        :type parName: str, sympy.Symbol</span>
+<span class="sd">        </span>
+<span class="sd">        :param parValue: Value of the parameter.</span>
+<span class="sd">        :type parValue: str, sympy.Symbol, sympy.Expr, int, float</span>
+<span class="sd">        </span>
+<span class="sd">        :param units: Value of the parameter, defaults to None</span>
+<span class="sd">        :type units: str, sympy.Symbol, sympy.Expr, int, float</span>
 <span class="sd">        </span>
 <span class="sd">        :return: None</span>
 <span class="sd">        :return type: None</span>
@@ -1733,18 +1786,55 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; # Define the value of &#39;R&#39; as 2000</span>
-<span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, &#39;2k&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, &#39;2k&#39;, )</span>
 <span class="sd">        &gt;&gt;&gt; # Or:</span>
 <span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, 2e3)</span>
-<span class="sd">        </span>
-<span class="sd">        :note: </span>
-<span class="sd">            </span>
-<span class="sd">        Do not enter a number as parameter name, this will not be checked!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">))</span>
-        <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">parName</span><span class="p">)</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">))</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="c1"># ToDo: checkUnits() calculate wir SI units.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s2">&quot;Error: cannot define a number as parameter.&quot;</span>
+        <span class="k">return</span>
+    
+    <span class="k">def</span> <span class="nf">defParUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the units of a parameter.</span>
+<span class="sd">        </span>
+<span class="sd">        :param parDict: Dictionary with key-value pairs:</span>
+<span class="sd">        </span>
+<span class="sd">                        key(*str, sp.Symbol*): parameter name </span>
+<span class="sd">                        value(*str*): parameter units </span>
+<span class="sd">        :type parDict: dict</span>
+<span class="sd">        </span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">            </span>
+<span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define the units of &#39;R&#39; and &#39;C&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defParUnits({&#39;R&#39;: &#39;Omega&#39;, C: F})</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parDict</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span> <span class="s2">&quot;Error: cannot use a number as parameter.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s2">&quot;Error: expected a dict type argument.&quot;</span>
         <span class="k">return</span>
     
     <span class="k">def</span> <span class="nf">defPars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parDict</span><span class="p">):</span>
@@ -1767,16 +1857,18 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; # Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
 <span class="sd">        &gt;&gt;&gt; my_circuit.defPars({&#39;R&#39;: &#39;2k&#39;, &#39;C&#39;: &#39;5p&#39;)</span>
-<span class="sd">        </span>
-<span class="sd">        :note: </span>
-<span class="sd">            </span>
-<span class="sd">        Do not enter a number as parameter name, this will not be checked!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-            <span class="n">parValue</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-            <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>    
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parDict</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                    <span class="n">parValue</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                    <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span> <span class="s2">&quot;Error: cannot define a number as parameter.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s2">&quot;Error: expected a dict type argument.&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
         <span class="k">return</span>
         
@@ -1787,8 +1879,8 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">        If numeric == True it will perform a full recursive substitution of</span>
 <span class="sd">        all circuit parameter definitions.</span>
 <span class="sd">        </span>
-<span class="sd">        :param parName: name(s) of the parameter(s)</span>
-<span class="sd">        :type parName: str, sympy.Symbol, list </span>
+<span class="sd">        :param parNames: name(s) of the parameter(s)</span>
+<span class="sd">        :type parNames: str, sympy.Symbol, list </span>
 <span class="sd">        </span>
 <span class="sd">        :return: if type(parNames) == list:</span>
 <span class="sd">            </span>
@@ -1810,10 +1902,54 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">        &gt;&gt;&gt; # Obtain the numeric parameter definitions of of &#39;R&#39; and &#39;C&#39;:</span>
 <span class="sd">        &gt;&gt;&gt; my_instr.symType = &#39;numeric&#39;</span>
 <span class="sd">        &gt;&gt;&gt; my_instr.getParValues([&#39;R&#39;, &#39;C&#39;])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">parNames</span><span class="p">:</span>
+                <span class="n">par</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">par</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">par</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">numeric</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                            <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>          
+            <span class="k">return</span> <span class="n">parValues</span>
+        <span class="n">parNames</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">numeric</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s2">&quot;Error: parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has not been defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">parValue</span>
+    
+    <span class="k">def</span> <span class="nf">getParUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parNames</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the units of one or more parameters.</span>
 <span class="sd">        </span>
-<span class="sd">        :note: </span>
+<span class="sd">        :param parNames: name(s) of the parameter(s)</span>
+<span class="sd">        :type parNames: str, sympy.Symbol, list </span>
 <span class="sd">        </span>
-<span class="sd">        Do not enter a number as parameter name, this will not be checked!</span>
+<span class="sd">        :return: if type(parNames) == list:</span>
+<span class="sd">            </span>
+<span class="sd">                 return value = list with units of the parameters</span>
+<span class="sd">                 </span>
+<span class="sd">                 else:</span>
+<span class="sd">                 units (str)</span>
+<span class="sd">                 </span>
+<span class="sd">        :return type: list, str</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">         </span>
+<span class="sd">        &gt;&gt;&gt; # create an instance if a SLiCAP instruction</span>
+<span class="sd">        &gt;&gt;&gt; my_instr = instruction()  </span>
+<span class="sd">        &gt;&gt;&gt; # create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define and obtain the units of &#39;R&#39; and &#39;C&#39;:</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.symType = &#39;numeric&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.getParValues([&#39;R&#39;, &#39;C&#39;])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1845,14 +1981,23 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">            return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="c1"># Get all the parameters used in element values</span>
         <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
                 <span class="k">except</span><span class="p">:</span>
                     <span class="k">pass</span>
+        <span class="c1"># Get all the parameters used in parameter definitions</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="c1"># Remove duplicates</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
         <span class="n">undefined</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># If these parameters are not found in parDefs.keys, they are undefined.</span>
         <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">ini</span><span class="o">.</span><span class="n">frequency</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">undefined</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
@@ -2365,7 +2510,8 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">    dataType    = None # Data type  : &#39;dc&#39;, &#39;dcsolve&#39;, &#39;dcvar&#39;, &#39;denom&#39;, </span>
 <span class="sd">                                      &#39;impulse&#39;, &#39;laplace&#39;, &#39;matrix&#39;, &#39;noise&#39;,</span>
 <span class="sd">                                      &#39;numer&#39;, &#39;poles&#39;, &#39;pz&#39;, &#39;solve&#39;, &#39;step&#39;, </span>
-<span class="sd">                                      &#39;time&#39; or &#39;zeros&#39;</span>
+<span class="sd">                                      &#39;time&#39;,&#39;zeros&#39; or &#39;param&#39;</span>
+<span class="sd">    sweepVar    = None # Sweep parameter for data type &#39;param&#39;</span>
 <span class="sd">    step        = None # True       : enables parameter stepping</span>
 <span class="sd">    stepVar     = None # Step variable for step types &#39;lin&#39;, &#39;log&#39; and &#39;list&#39;</span>
 <span class="sd">    stepVars    = None # List with step variables for &#39;array&#39; type stepping</span>
@@ -2392,7 +2538,6 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
 <span class="sd">    detUnits    = None # Detector units &#39;V&#39; or &#39;A&#39; (automatically detected)</span>
 <span class="sd">    srcUnits    = None # Source units &#39;V&#39; or &#39;A&#39; (automatically detected)</span>
 <span class="sd">    detLabel    = None # Name to be used in expressions or plots</span>
-<span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DCvalue</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Zero-frequency value in case of </span>
@@ -2425,10 +2570,12 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Time-domain responses</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">impulse</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Unit impulse responses</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stepResp</span>    <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Unit step responses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>      <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Results of parameter sweep (dataType = &#39;param&#39;)</span>
         <span class="c1"># instruction settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">simType</span>     <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gainType</span>    <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataType</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sweepVar</span>    <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step</span>        <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stepVar</span>     <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stepVars</span>    <span class="o">=</span> <span class="bp">None</span>
@@ -2448,90 +2595,7 @@ An example of product data is shown below. The variable LASTUPDATE will be updat
         <span class="bp">self</span><span class="o">.</span><span class="n">detUnits</span>    <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">srcUnits</span>    <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">detLabel</span>    <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Name to be used in expressions or plots</span>
-
-<span class="k">class</span> <span class="nc">goalFunc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prototype structure for passing arguments to plotvsStep(). It has the</span>
-<span class="sd">    following attributes:</span>
-<span class="sd">        </span>
-<span class="sd">    type      = None  # Implemented type are:</span>
-<span class="sd">                      #    &#39;YatX&#39;, &#39;totalNoise&#39;, &#39;stdDev&#39;, &#39;dc&#39;, &#39;NF&#39;</span>
-<span class="sd">    ylinlog   = &#39;lin&#39; # axis type for y-axis</span>
-<span class="sd">    yscale    = &#39;&#39;    # scale factor for y-axis</span>
-<span class="sd">    yunits    = &#39;&#39;    # units for y-axis</span>
-<span class="sd">    pscale    = &#39;&#39;    # scale factor for x-axis (step parameter)</span>
-<span class="sd">    punits    = &#39;&#39;    # units for x-axis (step parameter)</span>
-<span class="sd">    value     = None  # x value for YatX</span>
-<span class="sd">    noiseType = None  # &#39;inoise&#39; or &#39;onoise&#39;</span>
-<span class="sd">    dcvarType = None  # &#39;ivar&#39; or &#39;ovar&#39;</span>
-<span class="sd">    source    = None  # identifier of source for stdDev or totalNoise</span>
-<span class="sd">    fmin      = None  # lower limit of frequency range for RMS noise</span>
-<span class="sd">    fmax      = None  # upper limit of frequency range for RMS noise</span>
-<span class="sd">    ylabel    = &#39;&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialization of the attributes</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># &#39;YatX&#39;, &#39;totalNoise&#39;, &#39;stdDev&#39;, &#39;dc&#39;, &#39;NF&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ylinlog</span>   <span class="o">=</span> <span class="s1">&#39;lin&#39;</span> <span class="c1"># axis type for y-axis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yscale</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># scale factor for y-axis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yunits</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units for y-axis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pscale</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># scale factor for x-axis (step parameter)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">punits</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units for x-axis (step parameter)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span>     <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># x value for YatX</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">noiseType</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># &#39;inoise&#39; or &#39;onoise&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dcvarType</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># &#39;ivar&#39; or &#39;ovar&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source</span>    <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># identifier of source for stdDev or totalNoise</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fmin</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># lower limit of frequency range for RMS noise</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fmax</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># upper limit of frequency range for RMS noise</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ylabel</span>    <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-
-<span class="k">class</span> <span class="nc">paramPlot</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prototype structure for plotting parameters against each other. It has the</span>
-<span class="sd">    following attributes:</span>
-<span class="sd">    </span>
-<span class="sd">    xVar        = None  # variable to be plotted along the x-axis</span>
-<span class="sd">    yVar        = None  # variable to be plotted along the y-axis</span>
-<span class="sd">    pVar        = None  # variable to be plotted as step parameter</span>
-<span class="sd">    sVar        = None  # sweep variable to calculate xVar and yVar</span>
-<span class="sd">    sStart      = None  # sweep start value</span>
-<span class="sd">    sStop       = None  # sweep stop value</span>
-<span class="sd">    sNum        = None  # sweep number of steps</span>
-<span class="sd">    sMethod     = &#39;lin&#39; # sweep method</span>
-<span class="sd">    pStart      = None  # start value step parameter</span>
-<span class="sd">    pStop       = None  # stop value step parameter</span>
-<span class="sd">    pNum        = None  # step parameter number of points</span>
-<span class="sd">    pMethod     = &#39;lin&#39; # step method</span>
-<span class="sd">    xUnits      = &#39;&#39;    # units of x variable</span>
-<span class="sd">    yUnits      = &#39;&#39;    # units of y variable</span>
-<span class="sd">    pUnits      = &#39;&#39;    # units of step variable</span>
-<span class="sd">    xValues     = None  # x-axis plot data</span>
-<span class="sd">    yValues     = None  # y-axis plot data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialization of the attributes</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># variable to be plotted along the x-axis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># variable to be plotted along the y-axis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># variable to be plotted as step parameter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sVar</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep variable to calculate xVar and yVar</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sStart</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep start value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sStop</span>       <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep stop value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sNum</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># sweep number of steps</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sMethod</span>     <span class="o">=</span> <span class="s1">&#39;lin&#39;</span> <span class="c1"># sweep method</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pStart</span>      <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># start value step parameter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pStop</span>       <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># stop value step parameter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pNum</span>        <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># step parameter number of points</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pMethod</span>     <span class="o">=</span> <span class="s1">&#39;lin&#39;</span> <span class="c1"># step method</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xUnits</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units of x variable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yUnits</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units of y variable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pUnits</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># units of step variable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xValues</span>     <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># x-axis plot data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yValues</span>     <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># y-axis plot data</span>
-
+        
 <span class="k">def</span> <span class="nf">makeDir</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the directory &#39;dirName&#39; if it does not yet exist.</span>

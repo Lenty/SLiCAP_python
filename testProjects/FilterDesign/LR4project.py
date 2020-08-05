@@ -58,8 +58,6 @@ for key in compValues.keys():
     eqn2html(key, compValues[key])
 elementData2html(i1.circuit)  
 params2html(i1.circuit)
-head2html('solution of the network')
-eqn2html(Dv, solution)
 
 head2html('Plots')
 fig2html(figdBmag, 600, caption='dB magnitude of the LR4 filter transfer.')  

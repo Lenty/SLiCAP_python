@@ -217,7 +217,7 @@ def defaultsPlot():
 def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVar = 'auto', sweepScale = '', xVar = 'auto', xUnits = '', xScale = '', axisType = 'auto', funcType = 'auto', yVar = 'auto', yScale = '', yUnits = '', noiseSources = None, show = False):
     """
     """
-    plotDataTypes = ['laplace', 'numer', 'denom', 'noise', 'step', 'impulse', 'time', None]
+    plotDataTypes = ['laplace', 'numer', 'denom', 'noise', 'step', 'impulse', 'time', 'params', None]
     funcTypes  = ['mag', 'dBmag', 'phase', 'delay', 'time', 'onoise', 'inoise', 'param']
     axisTypes  = ['lin', 'log', 'semilogx', 'semilogy', 'polar']
     freqTypes  = ['laplace', 'numer', 'denom', 'noise']
@@ -251,16 +251,6 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
         if xVar == 'auto':
             xVar = sweepVar
             xScale = sweepScale
-        if result.step:
-            if result.stepMethod == 'array':
-                print "Error: array type stepping is not supported for funcType 'param'."
-                return fig
-            if result.stepMethod == 'list':
-                print "Error: list type stepping is not supported for funcType 'param'."
-                return fig
-            result.checkStep()
-            if result.errors != 0:
-                return fig
     elif funcType not in funcTypes:
         print "Error: unknown funcType: '%s'."%(funcType)
         return fig
@@ -347,9 +337,10 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     elif ax.xScale == 'lin' or ax.xScale == 'semilogy':
         x = np.linspace(checkNumber(sweepStart)*xScaleFactor, checkNumber(sweepStop)*xScaleFactor, checkNumber(sweepNum))
     # Create the plot:
-    # Create the plot data for param plots
+    # Create the plot data for param plots, only one simulation result alowed
+    # Other simulation results are simply ignored (plots would become messy).
     if funcType == 'param':
-        xData, yData = result.stepParams(xVar, yVar, sweepVar, x)
+        xData, yData = stepParams(result, xVar, yVar, sweepVar, x)
         if type(xData) == dict:
             keys = sorted(xData.keys())
             for i in range(len(keys)):

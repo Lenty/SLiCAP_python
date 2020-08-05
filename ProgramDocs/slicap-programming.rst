@@ -18,7 +18,7 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   
+
    introduction
    ToDo
    configure
@@ -34,6 +34,4 @@ Contents
    instruction
    execute
    plot
-   SLiCAPnotebook
-   SLiCAP
-   SLiCAPinstruction
+   SLiCAPreference

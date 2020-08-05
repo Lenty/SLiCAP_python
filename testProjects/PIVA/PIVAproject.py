@@ -146,7 +146,7 @@ eqn2html('D_s', denom, label = 'eq_denom')
 eqn2html('N_s', numer, label = 'eq_numer')
 eqn2html('F_s', Fs, label = 'eq_gain')
 coeffsTransfer2html(transferCoeffs)
-eqn2html('f_t', mu_t, label = 'eq_step')
+eqn2html('a_t', a_t, label = 'eq_step')
 
 htmlPage('Plots')
 fig2html(figdBmag, 600, label = 'figdBmag',  caption='dB magnitude plot of the PIVA transfer.')
