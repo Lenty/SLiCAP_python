@@ -100,9 +100,10 @@ figdBmagA = plotSweep('magA', 'dB magnitude feedback model', [result, asymptotic
 
 i1.setDataType('step')
 i1.setGainType('gain')
-a_t = i1.execute()
+stepResult = i1.execute()
+a_t = stepResult.stepResp
 
-figStep = plotSweep('step', 'step response', a_t, 0, 50, 100, sweepScale = 'u', yUnits = 'V')
+figStep = plotSweep('step', 'step response', stepResult, 0, 50, 100, sweepScale = 'u', yUnits = 'V')
 
 i1.stepOn()
 i1.setStepNum(7)

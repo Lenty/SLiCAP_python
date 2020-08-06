@@ -20,4 +20,4 @@ IMGPATH         = 'img/'    # path for image files
 PROJECT    = 'Vamp bias project'
 AUTHOR     = 'anton'
 CREATED    = '2020-07-10 17:09:35.075755'
-LASTUPDATE = '2020-08-05 11:01:13.896528'
+LASTUPDATE = '2020-08-05 14:23:52.894934'

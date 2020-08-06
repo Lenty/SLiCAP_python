@@ -20,4 +20,4 @@ IMGPATH         = 'img/'    # path for image files
 PROJECT    = 'CMOS 18 amplifier project'
 AUTHOR     = 'anton'
 CREATED    = '2020-07-12 15:47:17.994356'
-LASTUPDATE = '2020-08-05 11:01:56.843242'
+LASTUPDATE = '2020-08-05 14:24:03.725628'

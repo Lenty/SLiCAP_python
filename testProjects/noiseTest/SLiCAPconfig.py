@@ -20,4 +20,4 @@ IMGPATH         = 'img/'    # path for image files
 PROJECT    = 'Noise project'
 AUTHOR     = 'anton'
 CREATED    = '2020-07-12 16:01:27.993343'
-LASTUPDATE = '2020-08-05 11:11:51.761292'
+LASTUPDATE = '2020-08-05 14:24:38.266761'

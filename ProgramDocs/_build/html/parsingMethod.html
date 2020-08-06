@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Parsing method &mdash; SLiCAP Programming 0.1.2020 documentation</title>
+  <title>Parsing method &mdash; SLiCAP Programming 1.0.2020 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
 
   
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="SLiCAP Programming 0.1.2020 documentation" href="index.html"/>
+    <link rel="top" title="SLiCAP Programming 1.0.2020 documentation" href="index.html"/>
         <link rel="next" title="Models" href="modelParams.html"/>
         <link rel="prev" title="SLiCAP netlist parser" href="Parser.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1
+                1.0
               </div>
             
           
@@ -111,7 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SLiCAPreference.html">SLiCAP Rference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPreference.html">SLiCAP Reference</a></li>
 </ul>
 
             
@@ -983,13 +983,11 @@
 411</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">SLiCAPyacc.py</span>
+<span class="sd">Netlist parser. </span>
 
-<span class="sd">Compiler for SLiCAP netlist files</span>
+<span class="sd">Tokenizes the netlist and creates a &#39;flattened&#39; circuit object.</span>
 
-<span class="sd">Created on Mon May  4 12:32:13 2020</span>
-
-<span class="sd">@author: anton</span>
+<span class="sd">Imported by the module **SLiCAPexecute.py**.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">SLiCAPhtml</span> <span class="kn">import</span> <span class="o">*</span>
@@ -1013,12 +1011,24 @@
 <span class="n">LIB</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">checkCircuit</span><span class="p">(</span><span class="n">fileName</span><span class="p">):</span>
-    <span class="c1"># fileName relative to ini.projectPath + CIRCUITPATH</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks a netlist and converts it into a circuit object.</span>
+<span class="sd">    </span>
+<span class="sd">    :param fileName: Name of the netlist file, relative to the circuit directory.</span>
+<span class="sd">    :type param: str</span>
+<span class="sd">    :return: cir</span>
+<span class="sd">    :return type: SLiCAP.protos.circuit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create in instance of the ciruit object</span>
     <span class="n">cir</span> <span class="o">=</span> <span class="n">circuit</span><span class="p">()</span>
     <span class="n">cir</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">fileName</span>
+    <span class="c1"># Be sure the libraries are compiled withou errors.</span>
     <span class="k">if</span> <span class="n">LIB</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>        
+        <span class="c1"># tokenize the file and store the tokens with the object.</span>
         <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">circuitPath</span> <span class="o">+</span> <span class="n">fileName</span><span class="p">)</span>
+        <span class="c1"># Parse the tokenized netlist</span>
         <span class="n">cir</span> <span class="o">=</span> <span class="n">makeCircuit</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
+        <span class="c1"># If no errors are found, create the html index page for the circuit</span>
         <span class="k">if</span> <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">cir</span> <span class="o">=</span> <span class="n">updateCirData</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
             <span class="n">ini</span><span class="o">.</span><span class="n">htmlPrefix</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
@@ -1035,15 +1045,15 @@
 
 <span class="k">def</span> <span class="nf">makeCircuit</span><span class="p">(</span><span class="n">cir</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a nested circuit object from the tokens in cir.lexer and checks </span>
-<span class="sd">    for syntax errors:</span>
-<span class="sd">        - Unexpected tokens</span>
-<span class="sd">        - Errors in expressions</span>
-<span class="sd">        - Double definitions of circuit elements</span>
-<span class="sd">        - Double parameter definitions in element definition lines</span>
-<span class="sd">        - Double parameter definitions in .param lines</span>
-<span class="sd">        - Double parameter definitions in .model lines</span>
-<span class="sd">        - Double parameter definitions in .subckt lines</span>
+<span class="sd">    Creates a nested circuit object from the tokens in cir.lexer.</span>
+<span class="sd">    </span>
+<span class="sd">    Called by: **checkCircuit()**</span>
+<span class="sd">    </span>
+<span class="sd">    :param cir: Circuit object with lexer data in cir.lexer to which data will</span>
+<span class="sd">                be added</span>
+<span class="sd">    :type cir: SLiCAP.protos.circuit</span>
+<span class="sd">    :return: cir: circuit object with all data of the &#39;flattened&#39; circuit.</span>
+<span class="sd">    :return type: SLiCAP.protos.circuit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">CIRTITLES</span>
     
@@ -1381,16 +1391,6 @@
                     <span class="k">print</span> <span class="s2">&quot;Error: missing a parameter definition.&quot;</span>
             <span class="k">elif</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;BACKANNO&#39;</span><span class="p">:</span>
                 <span class="n">tok</span> <span class="o">=</span> <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># All what&#39;s left are tokens we don&#39;t expect at this position</span>
-                <span class="n">printError</span><span class="p">(</span><span class="s2">&quot;Error: unexpected input.&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span><span class="p">],</span> 
-                           <span class="n">find_column</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span>
-                <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">tok</span> <span class="o">=</span> <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span>
-                    <span class="k">break</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># All what&#39;s left are tokens we don&#39;t expect at this position</span>
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
@@ -1701,7 +1701,17 @@
 626
 627
 628
-629</pre></div></td><td class="code"><div class="highlight"><pre><span></span>                       <span class="n">find_column</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span>
+629</pre></div></td><td class="code"><div class="highlight"><pre><span></span>                <span class="c1"># All what&#39;s left are tokens we don&#39;t expect at this position</span>
+                <span class="n">printError</span><span class="p">(</span><span class="s2">&quot;Error: unexpected input.&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span><span class="p">],</span> 
+                           <span class="n">find_column</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span>
+                <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">tok</span> <span class="o">=</span> <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># All what&#39;s left are tokens we don&#39;t expect at this position</span>
+            <span class="n">printError</span><span class="p">(</span><span class="s2">&quot;Error: unexpected input.&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span><span class="p">],</span> 
+                       <span class="n">find_column</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span>
             <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">tok</span> <span class="o">=</span> <span class="n">cir</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span>
@@ -1719,6 +1729,7 @@
         <span class="k">if</span> <span class="n">needExpansion</span><span class="p">:</span>
             <span class="c1"># First add the user libraries to the global library LIB</span>
             <span class="n">addUserLibs</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">libs</span><span class="p">)</span>
+            <span class="c1"># Put the title of the circuit in the global CIRTITLES</span>
             <span class="n">CIRTITLES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cir</span><span class="o">.</span><span class="n">title</span><span class="p">)</span> 
             <span class="n">cir</span> <span class="o">=</span> <span class="n">expandModelsCircuits</span><span class="p">(</span><span class="n">cir</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cir</span><span class="o">.</span><span class="n">errors</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1728,60 +1739,47 @@
 
 <span class="k">def</span> <span class="nf">expandModelsCircuits</span><span class="p">(</span><span class="n">circuitObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    - For each element of which the element type differs from &#39;X&#39;, check</span>
-<span class="sd">      if the model parameters can be obtained from the element definition. </span>
-<span class="sd">      If not try to find them from:</span>
-<span class="sd">      - local model definitions in the circuitObject.modelDefs attribute</span>
-<span class="sd">      - model definitions from precompiled user libraries</span>
-<span class="sd">      - model definitions from built-in models</span>
+<span class="sd">    Expands the subcircuits and the models that require expansion.</span>
 <span class="sd">    </span>
-<span class="sd">    - For each element with an expansion model try to find the required </span>
-<span class="sd">      child circuit definition for its model in:</span>
-<span class="sd">      - The circuitObject.circuits dictionary</span>
-<span class="sd">      - The dictionary LIBRARYMODELS with circuits from the the pre-compiled </span>
-<span class="sd">        user libraries</span>
-<span class="sd">      - The dictionary: EXPANSIONMODELS, with precompiled built-in circuits</span>
-<span class="sd">    - Create a working copy &#39;childCircuit&#39; from this prototype.</span>
-<span class="sd">    - For all elements of this childCircuit:</span>
-<span class="sd">      - Update the refDes attributes by adding a suffix: </span>
-<span class="sd">        _&lt; parent element refDes &gt;</span>
-<span class="sd">      - Update the values of the model parameters in the .params dict:</span>
-<span class="sd">        - substitute parameters that need to be passed from the parent element</span>
-<span class="sd">          in the corresponsing value of the child parameter</span>
-<span class="sd">        - all other, except the built-in parameters, used in the child element</span>
-<span class="sd">          that were not defined by the parent will be renamed by adding the</span>
-<span class="sd">          suffix: _&lt; parent element refDes &gt;</span>
-<span class="sd">    - For all .parDefs fields of the child circuit:</span>
-<span class="sd">      - Substitute the values of the parameters that should be passed to the </span>
-<span class="sd">        child in all the expressions of the value fields in the .parDefs</span>
-<span class="sd">        dictionary and keep their name in the keys </span>
-<span class="sd">      - For all other (local)parameters add the suffix:</span>
-<span class="sd">        _&lt; parent element refDes &gt; to their name (key) and substitute them in</span>
-<span class="sd">        all value value fields with: </span>
-<span class="sd">        sympy.sp.Symbol(&lt; parameter name &gt;_&lt; parent element refDes &gt;)</span>
-<span class="sd">    - Add all elements from the childCircuit to circuitObject</span>
-<span class="sd">    - Add all entries from the .parDefs dict of the childCircuit to</span>
-<span class="sd">      circuitObject.</span>
+<span class="sd">    This proceeds as follows:</span>
+<span class="sd">    </span>
+<span class="sd">    #. Check if models and model parameters used with element definitions can</span>
+<span class="sd">       be found in built-in models, models defined with the circuit, or in</span>
+<span class="sd">       precompiled libraries.</span>
+<span class="sd">    #. If element models are not &#39;stamp&#39; models, expand them by using their</span>
+<span class="sd">       prototype subcircuit.</span>
+<span class="sd">    #. If element models refer to sub circuits, check for a hierarchical loop </span>
+<span class="sd">       and if this does not exists, expand them by using their prototype </span>
+<span class="sd">       subcircuit.</span>
+<span class="sd">        </span>
+<span class="sd">    :param circuitObject: Circuit object to which the data will be added.</span>
+<span class="sd">    :type circuitObject: SLiCAPprotos.circuit</span>
+<span class="sd">    :return: circuitObject with expanded circuits or models</span>
+<span class="sd">    :return type: SLiCAPprotos.circuit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">CIRTITLES</span><span class="p">,</span> <span class="n">LIB</span>
-    <span class="c1"># Check if names of sub circuits and models are given and can be found</span>
-    <span class="c1"># and parse parameter values</span>
+    <span class="c1"># Check if model names and parameters can be found for all elements.</span>
     <span class="k">for</span> <span class="n">refDes</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1"># Do this for all elements except sub circuits</span>
         <span class="k">if</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
-            <span class="c1"># Do this for all elements except sub circuits</span>
             <span class="n">modelName</span> <span class="o">=</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">model</span>
+            <span class="c1"># Get the basic model type for this element</span>
             <span class="k">if</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1"># Get it from a local definition in the circuit</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
             <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1"># Get it from a definition in the precompiled libraries</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
             <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1"># Get it from the built-in models</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="n">modelName</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">basicModel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                 <span class="k">print</span> <span class="s2">&quot;Cannot find basic model for &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">refDes</span><span class="p">)</span>
                 <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="c1"># Check for valid parameter names</span>
+                <span class="c1"># Check for valid parameter names for this model.</span>
+                <span class="c1"># These names are defined with the built-in models.</span>
                 <span class="n">modelParams</span> <span class="o">=</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">basicModel</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">parName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">modelParams</span><span class="p">:</span>
@@ -1789,36 +1787,38 @@
                         <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="c1"># Check if the ini.Laplace parameter is used in the</span>
-                        <span class="c1"># expression and if this is allowed.</span>
+                        <span class="c1"># expression for the model parameters and if this is allowed.</span>
                         <span class="n">valExpr</span> <span class="o">=</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
                         <span class="c1"># valExpr is either an integer or a float of a sympy object</span>
                         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">valExpr</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">all_classes</span><span class="p">)):</span>
-                            <span class="n">exprParams</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
+                            <span class="n">exprParams</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
                             <span class="k">if</span> <span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span> <span class="ow">in</span> <span class="n">exprParams</span> <span class="ow">and</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">basicModel</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
                                 <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
                                 <span class="k">print</span> <span class="s2">&quot;Error: Laplace variable not allowed in expression &#39;</span><span class="si">%s</span><span class="s2">&#39; of parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; of element &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">valExpr</span><span class="p">,</span> <span class="n">parName</span><span class="p">,</span> <span class="n">refDes</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="c1"># Change the model name to the basic model name</span>
+                <span class="c1"># Change the model name of the element to the basic model name</span>
                 <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">basicModel</span>
                 <span class="c1"># Parse parameter values</span>
                 <span class="k">for</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">modelParams</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="c1"># These parameters were already defined</span>
+                        <span class="c1"># These parameters were defined with the element, keep them</span>
                         <span class="k">pass</span>
-                    <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="c1"># Not a basic model: check if there is a model definition</span>
-                        <span class="c1"># with the circuit and take parameters from there</span>
-                        <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> \
-                        <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="c1"># Not a basic model: check if there is a library</span>
-                        <span class="c1"># model and take the value from it</span>
-                        <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> \
-                        <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
                     <span class="k">elif</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="c1"># Take this value </span>
+                        <span class="c1"># Take the value from the model definition from the circuit</span>
                         <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> \
                         <span class="n">circuitObject</span><span class="o">.</span><span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="c1"># Not a standard model</span>
+                        <span class="k">if</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="c1"># See if there is a model definition with the circuit </span>
+                            <span class="c1"># and take the parameter value from there</span>
+                            <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="n">circuitObject</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
+                        <span class="k">elif</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">parName</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="c1"># See if there is a model definition in the library</span>
+                            <span class="c1"># and take the parameter value from there</span>
+                            <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="n">LIB</span><span class="o">.</span><span class="n">modelDefs</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">basicModel</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
                 <span class="n">stamp</span> <span class="o">=</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">basicModel</span><span class="p">]</span><span class="o">.</span><span class="n">stamp</span>
                 <span class="k">if</span> <span class="n">stamp</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
@@ -1843,9 +1843,11 @@
                 <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>                            
         <span class="k">if</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">stamp</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+                <span class="c1"># We need to expand the model</span>
                 <span class="n">elmt</span> <span class="o">=</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span>
                 <span class="n">circuitObject</span> <span class="o">=</span> <span class="n">expandCircuit</span><span class="p">(</span><span class="n">elmt</span><span class="p">,</span> <span class="n">circuitObject</span><span class="p">,</span> <span class="n">protoCircuit</span><span class="p">)</span>
             <span class="k">elif</span>  <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+                <span class="c1"># We need to expand the subcircuit</span>
                 <span class="n">elmt</span> <span class="o">=</span> <span class="n">circuitObject</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">refDes</span><span class="p">]</span>
                 <span class="n">circuitObject</span> <span class="o">=</span> <span class="n">expandCircuit</span><span class="p">(</span><span class="n">elmt</span><span class="p">,</span> <span class="n">circuitObject</span><span class="p">,</span> <span class="n">protoCircuit</span><span class="p">)</span>
     <span class="n">CIRTITLES</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -1853,71 +1855,69 @@
 
 <span class="k">def</span> <span class="nf">expandCircuit</span><span class="p">(</span><span class="n">elmt</span><span class="p">,</span> <span class="n">parentCircuit</span><span class="p">,</span> <span class="n">childCircuit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The parsing of nodes to new elements of the expanded circuit will be as</span>
-<span class="sd">    follows:</span>
+<span class="sd">    Expands an element &#39;elmt&#39; of &#39;parentCircuit&#39; based on the prototype </span>
+<span class="sd">    &#39;childCircuit&#39;.</span>
+<span class="sd">    </span>
+<span class="sd">    After expansion the element &#39;elmt&#39; will be removed from &#39;parentCircuit&#39;.</span>
+<span class="sd">    </span>
+<span class="sd">    This proceeds as follows:</span>
 <span class="sd">        </span>
-<span class="sd">    For each element in the child circuit, create an element object that will</span>
-<span class="sd">    be added to the parent circuit.</span>
-<span class="sd">    If a node ID of the child element is found in the connecting nodes of the</span>
-<span class="sd">    child circuit (.nodes attribute), then the corresponding node of the new </span>
-<span class="sd">    element obtains this node ID.</span>
-<span class="sd">    If the node of the child element is the global ground node: &#39;0&#39;, the </span>
-<span class="sd">    corresponding node of the new element is also &#39;0&#39;.</span>
-<span class="sd">    In other case we have a local node. The corresponding node of the new </span>
-<span class="sd">    element will then be the node ID of the element of the child circuit with</span>
-<span class="sd">    added suffix: &#39;_&lt; elmt.refDes &gt;.</span>
+<span class="sd">    #. New circuit elements</span>
 <span class="sd">    </span>
-<span class="sd">    The parsing of element model parameters and parameter definitions in the</span>
-<span class="sd">    child circuit will be as follows:</span>
-<span class="sd">    Create a substitution dicionary:</span>
-<span class="sd">    The keys of the dictionary are </span>
+<span class="sd">       #. Each element of the child circuit will be added to the parent.</span>
+<span class="sd">       #. The name (refdes) of this element childID_parentID, where</span>
+<span class="sd">          &#39;childID&#39; is the name of the element of the child circuit and </span>
+<span class="sd">          &#39;parentID is the name of the element of the parent circuit that</span>
+<span class="sd">          needed to be expanded (e.g. Xnnn or Mnnn).</span>
+<span class="sd">        </span>
+<span class="sd">    #. Node names</span>
+<span class="sd">        </span>
+<span class="sd">       #. If a node ID of the child element is found in the connecting nodes of</span>
+<span class="sd">          the child circuit, the corresponding node of the new element obtains </span>
+<span class="sd">          this node ID.</span>
+<span class="sd">       #. If the node of the child element is the global ground node: &#39;0&#39;, the </span>
+<span class="sd">          corresponding node of the new element is also &#39;0&#39;.</span>
+<span class="sd">       #. In other case we have a local node. The corresponding node of the new </span>
+<span class="sd">          element will then be the node ID of the element of the child circuit</span>
+<span class="sd">          with added suffix: &#39;_parentID.</span>
+<span class="sd">       </span>
+<span class="sd">    #. Reference names</span>
 <span class="sd">    </span>
+<span class="sd">       #. References to other elements are always local. The names of referenced</span>
+<span class="sd">          elements will obtain the suffix: &#39;_parentID&#39;.</span>
+<span class="sd">    </span>
+<span class="sd">    #. Parameter names</span>
+
+<span class="sd">       #. Parameter definitions used in &#39;elmt&#39; will be passed tho parameters</span>
+<span class="sd">          of the child circuit</span>
+<span class="sd">       #. All other parameter names used in both element definitions and </span>
+<span class="sd">          parameter definitions of the child circuit will obtain the suffix &#39;_parentID&#39;.</span>
+<span class="sd">          </span>
+<span class="sd">    :param elmt: Element of the parent circuit that requires expansion</span>
+<span class="sd">    :type param: SLiCAP.protos.element</span>
+<span class="sd">    :param parentCircuit: Circuit object of the circuit with the element &#39;elmt&#39;</span>
+<span class="sd">    :type parentCircuit: SLiCAP.protos.circuit</span>
+<span class="sd">    :param childCircuit: Prototype circuit used for expansion of &#39;elmt&#39;</span>
+<span class="sd">    :type childCircuit: SLiCAP.protos.circuit</span>
+<span class="sd">    :return: parentCircuit Circuit in which &#39;elmt&#39; is replaced with elements</span>
+<span class="sd">             of the child circuit.</span>
+<span class="sd">    :return type: SLiCAP.protos.circuit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># make the suffix for parameters and element IDs</span>
     <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="o">.</span><span class="n">refDes</span>
     <span class="c1"># make a substitution dictionary for parameters</span>
     <span class="n">substDict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Put the names and values of the parameters of the parent element in this </span>
-    <span class="c1"># dictionary</span>
+    <span class="c1"># dictionary. These names should be passed to the child.</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">elmt</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">substDict</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">elmt</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
     <span class="c1"># If they are not yet in, put the default values of the child circuit </span>
-    <span class="c1"># parameters in this dictionary</span>
+    <span class="c1"># parameters in this dictionary.</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">substDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">substDict</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
     <span class="c1"># Copy the parameter definitions of the child circuit to a new dict</span>
     <span class="c1"># The keys and entries of this dictionary will be modified</span>
-    <span class="n">newParDefs</span><span class="o">=</span> <span class="p">{}</span> <span class="c1"># Temporary storage for new parameter definitions</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">newParDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">substDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">substDict</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
-    <span class="n">newElements</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># Temp storage for all the new elements</span>
-    <span class="k">for</span> <span class="n">elName</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="c1"># Create element with new refdes</span>
-        <span class="n">childElement</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elName</span><span class="p">]</span>
-        <span class="n">newElement</span> <span class="o">=</span> <span class="n">element</span><span class="p">()</span>
-        <span class="n">newElement</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elName</span><span class="p">]</span><span class="o">.</span><span class="n">model</span>
-        <span class="n">newElement</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">elName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-        <span class="n">newElement</span><span class="o">.</span><span class="n">refDes</span> <span class="o">=</span> <span class="n">elName</span> <span class="o">+</span> <span class="n">suffix</span>
-        <span class="c1"># Connect it to the parent circuit</span>
-        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">childElement</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-                <span class="c1"># This is a connecting node </span>
-                <span class="n">nodeIDX</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-                <span class="n">newElement</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elmt</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nodeIDX</span><span class="p">])</span>
-            <span class="k">elif</span> <span class="n">node</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
-                <span class="c1"># Node &#39;0&#39; is always global!</span>
-                <span class="n">newElement</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># This is a local node</span>
-                <span class="n">newElement</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
-        <span class="c1"># Make the list of referenced devices</span>
-        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">childElement</span><span class="o">.</span><span class="n">refs</span><span class="p">:</span>
-            <span class="n">newElement</span><span class="o">.</span><span class="n">refs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
-        <span class="c1"># Add parameters and value of child element to the new element</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">childElement</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
 </pre></div>
 </td></tr></table></div>
 </div></blockquote>
@@ -2015,7 +2015,37 @@
 699
 700
 701
-702</pre></div></td><td class="code"><div class="highlight"><pre><span></span>            <span class="c1"># Add local parameters from expressions to the substitution dictionary</span>
+702</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">newParDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">substDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">substDict</span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+    <span class="n">newElements</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># Temp storage for all the new elements</span>
+    <span class="k">for</span> <span class="n">elName</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1"># Create element with new refdes</span>
+        <span class="n">childElement</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elName</span><span class="p">]</span>
+        <span class="n">newElement</span> <span class="o">=</span> <span class="n">element</span><span class="p">()</span>
+        <span class="n">newElement</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elName</span><span class="p">]</span><span class="o">.</span><span class="n">model</span>
+        <span class="n">newElement</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">elName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="n">newElement</span><span class="o">.</span><span class="n">refDes</span> <span class="o">=</span> <span class="n">elName</span> <span class="o">+</span> <span class="n">suffix</span>
+        <span class="c1"># Connect it to the parent circuit</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">childElement</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="c1"># This is a connecting node </span>
+                <span class="n">nodeIDX</span> <span class="o">=</span> <span class="n">childCircuit</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="n">newElement</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elmt</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nodeIDX</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">node</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+                <span class="c1"># Node &#39;0&#39; is always global!</span>
+                <span class="n">newElement</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># This is a local node</span>
+                <span class="n">newElement</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+        <span class="c1"># Make the list of referenced devices</span>
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">childElement</span><span class="o">.</span><span class="n">refs</span><span class="p">:</span>
+            <span class="n">newElement</span><span class="o">.</span><span class="n">refs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+        <span class="c1"># Add parameters and value of child element to the new element</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">childElement</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">newElement</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">childElement</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="c1"># Add local parameters from expressions to the substitution dictionary</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">newElement</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">all_classes</span><span class="p">)):</span>
                 <span class="n">newParams</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">newElement</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">newParam</span> <span class="ow">in</span> <span class="n">newParams</span><span class="p">:</span>
@@ -2041,52 +2071,22 @@
     <span class="k">return</span><span class="p">(</span><span class="n">parentCircuit</span><span class="p">)</span>
     
 <span class="k">def</span> <span class="nf">updateCirData</span><span class="p">(</span><span class="n">mainCircuit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    - Updates the lists with dependent variables (detectors), sources </span>
-<span class="sd">      (independent variables) and controlled sources (possible loop gain </span>
-<span class="sd">      references). </span>
-<span class="sd">    - If global parameters are used in the circuit, their definition is added</span>
-<span class="sd">      to the &#39;.parDefs&#39; attribute of the circuit.</span>
-<span class="sd">    - Checks if the global ground node &#39;0&#39; is used in the circuit.</span>
-<span class="sd">    - Checks if the circuit has at least two nodes.</span>
-<span class="sd">    - Checks if the referenced elements exist.</span>
-<span class="sd">    </span>
-<span class="sd">    # Add global parameter definitions for mainCircuit.parDefs</span>
-<span class="sd">    for parName in LIB.parDefs.keys():</span>
-<span class="sd">        if parName not in mainCircuit.parDefs.keys():</span>
-<span class="sd">            mainCircuit.parDefs[parName] = LIB.parDefs[parName]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Convert *char* keys in the .parDefs attribute into sympy symbols.</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">newKey</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">newKey</span><span class="p">]</span> <span class="o">=</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">del</span><span class="p">(</span><span class="n">mainCircuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="n">newKey</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-            <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">newKey</span><span class="p">]</span> <span class="o">=</span> <span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-            <span class="k">del</span><span class="p">(</span><span class="n">LIB</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-    <span class="c1"># make the node list and check for the ground node</span>
-    <span class="c1"># check the references (error)</span>
-    <span class="c1"># make the list with IDs of independent variables</span>
-    <span class="c1"># make the list with IDs of controlled sources</span>
-    <span class="c1"># make the list with IDs of dependend variables</span>
-    <span class="c1"># convert mainCircuit.params to list and put undefined params in it</span>
-    <span class="n">mainCircuit</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
-    <span class="n">mainCircuit</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">varIndexPos</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">mainCircuit</span><span class="o">.</span><span class="n">nodes</span> <span class="o">+=</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">nodes</span>
-        <span class="k">for</span> <span class="n">refID</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">refs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">refID</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="k">print</span> <span class="s2">&quot;Error: Could not find referenced element &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">refID</span><span class="p">)</span>
-                <span class="n">mainCircuit</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">INDEPSCRCS</span><span class="p">:</span>
-            <span class="n">mainCircuit</span><span class="o">.</span><span class="n">indepVars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elmt</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">CONTROLLED</span><span class="p">:</span>
-            <span class="n">mainCircuit</span><span class="o">.</span><span class="n">controlled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elmt</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">MODELS</span><span class="p">[</span><span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">depVars</span><span class="p">)):</span>
-            <span class="n">depVar</span> <span class="o">=</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">mainCircuit</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">depVars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Updates circuit data required for instructions.</span>
+<span class="s2">    </span>
+<span class="s2">    - Updates the lists with dependent variables (detectors), sources </span>
+<span class="s2">      (independent variables) and controlled sources (possible loop gain </span>
+<span class="s2">      references). </span>
+<span class="s2">    - If global parameters are used in the circuit, their definition is added</span>
+<span class="s2">      to the &#39;.parDefs&#39; attribute of the circuit.</span>
+<span class="s2">    - Checks if the global ground node &#39;0&#39; is used in the circuit.</span>
+<span class="s2">    - Checks if the circuit has at least two nodes.</span>
+<span class="s2">    - Checks if the referenced elements exist.</span>
+<span class="s2">    </span>
+<span class="s2">    :param mainCircuit: Main (fully expanded) circuit object.</span>
+<span class="s2">    :type mainCircuit: SLiCAP.protos.circuit</span>
+<span class="s2">    :return: mainCircuit: Main circuit with updated circuit information for instructions.</span>
+<span class="s2">    :return type: SLiCAP.protos.circuit</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -2136,7 +2136,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.2020',
+            VERSION:'1.0.2020',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

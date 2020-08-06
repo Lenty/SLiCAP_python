@@ -1,13 +1,11 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-SLiCAPyacc.py
+Netlist parser. 
 
-Compiler for SLiCAP netlist files
+Tokenizes the netlist and creates a 'flattened' circuit object.
 
-Created on Mon May  4 12:32:13 2020
-
-@author: anton
+Imported by the module **SLiCAPexecute.py**.
 """
 
 from SLiCAPhtml import *
@@ -31,12 +29,24 @@ CIRTITLES = []
 LIB = circuit()
 
 def checkCircuit(fileName):
-    # fileName relative to ini.projectPath + CIRCUITPATH
+    """
+    Checks a netlist and converts it into a circuit object.
+    
+    :param fileName: Name of the netlist file, relative to the circuit directory.
+    :type param: str
+    :return: cir
+    :return type: SLiCAP.protos.circuit
+    """
+    # Create in instance of the ciruit object
     cir = circuit()
     cir.file = fileName
+    # Be sure the libraries are compiled withou errors.
     if LIB.errors == 0:        
+        # tokenize the file and store the tokens with the object.
         cir.lexer = tokenize(ini.circuitPath + fileName)
+        # Parse the tokenized netlist
         cir = makeCircuit(cir)
+        # If no errors are found, create the html index page for the circuit
         if cir.errors == 0:
             cir = updateCirData(cir)
             ini.htmlPrefix = ('-'.join(cir.title.split()) + '_')
@@ -53,15 +63,15 @@ def checkCircuit(fileName):
 
 def makeCircuit(cir):
     """
-    Creates a nested circuit object from the tokens in cir.lexer and checks 
-    for syntax errors:
-        - Unexpected tokens
-        - Errors in expressions
-        - Double definitions of circuit elements
-        - Double parameter definitions in element definition lines
-        - Double parameter definitions in .param lines
-        - Double parameter definitions in .model lines
-        - Double parameter definitions in .subckt lines
+    Creates a nested circuit object from the tokens in cir.lexer.
+    
+    Called by: **checkCircuit()**
+    
+    :param cir: Circuit object with lexer data in cir.lexer to which data will
+                be added
+    :type cir: SLiCAP.protos.circuit
+    :return: cir: circuit object with all data of the 'flattened' circuit.
+    :return type: SLiCAP.protos.circuit
     """
     global CIRTITLES
     
@@ -428,6 +438,7 @@ def makeCircuit(cir):
         if needExpansion:
             # First add the user libraries to the global library LIB
             addUserLibs(cir.libs)
+            # Put the title of the circuit in the global CIRTITLES
             CIRTITLES.append(cir.title) 
             cir = expandModelsCircuits(cir)
         if cir.errors != 0:
@@ -437,60 +448,47 @@ Instructions with this circuit will not be executed."""%(cir.title)
 
 def expandModelsCircuits(circuitObject):
     """
-    - For each element of which the element type differs from 'X', check
-      if the model parameters can be obtained from the element definition. 
-      If not try to find them from:
-      - local model definitions in the circuitObject.modelDefs attribute
-      - model definitions from precompiled user libraries
-      - model definitions from built-in models
+    Expands the subcircuits and the models that require expansion.
     
-    - For each element with an expansion model try to find the required 
-      child circuit definition for its model in:
-      - The circuitObject.circuits dictionary
-      - The dictionary LIBRARYMODELS with circuits from the the pre-compiled 
-        user libraries
-      - The dictionary: EXPANSIONMODELS, with precompiled built-in circuits
-    - Create a working copy 'childCircuit' from this prototype.
-    - For all elements of this childCircuit:
-      - Update the refDes attributes by adding a suffix: 
-        _< parent element refDes >
-      - Update the values of the model parameters in the .params dict:
-        - substitute parameters that need to be passed from the parent element
-          in the corresponsing value of the child parameter
-        - all other, except the built-in parameters, used in the child element
-          that were not defined by the parent will be renamed by adding the
-          suffix: _< parent element refDes >
-    - For all .parDefs fields of the child circuit:
-      - Substitute the values of the parameters that should be passed to the 
-        child in all the expressions of the value fields in the .parDefs
-        dictionary and keep their name in the keys 
-      - For all other (local)parameters add the suffix:
-        _< parent element refDes > to their name (key) and substitute them in
-        all value value fields with: 
-        sympy.sp.Symbol(< parameter name >_< parent element refDes >)
-    - Add all elements from the childCircuit to circuitObject
-    - Add all entries from the .parDefs dict of the childCircuit to
-      circuitObject.
+    This proceeds as follows:
+    
+    #. Check if models and model parameters used with element definitions can
+       be found in built-in models, models defined with the circuit, or in
+       precompiled libraries.
+    #. If element models are not 'stamp' models, expand them by using their
+       prototype subcircuit.
+    #. If element models refer to sub circuits, check for a hierarchical loop 
+       and if this does not exists, expand them by using their prototype 
+       subcircuit.
+        
+    :param circuitObject: Circuit object to which the data will be added.
+    :type circuitObject: SLiCAPprotos.circuit
+    :return: circuitObject with expanded circuits or models
+    :return type: SLiCAPprotos.circuit
     """
     global CIRTITLES, LIB
-    # Check if names of sub circuits and models are given and can be found
-    # and parse parameter values
+    # Check if model names and parameters can be found for all elements.
     for refDes in circuitObject.elements.keys():
+        # Do this for all elements except sub circuits
         if circuitObject.elements[refDes].type != 'X':
-            # Do this for all elements except sub circuits
             modelName = circuitObject.elements[refDes].model
+            # Get the basic model type for this element
             if modelName in circuitObject.modelDefs.keys():
+                # Get it from a local definition in the circuit
                 basicModel = circuitObject.modelDefs[modelName].type
             elif modelName in LIB.modelDefs.keys():
+                # Get it from a definition in the precompiled libraries
                 basicModel = LIB.modelDefs[modelName].type
             elif modelName in MODELS.keys():
+                # Get it from the built-in models
                 basicModel = modelName
             else:
                 basicModel = ''
                 print "Cannot find basic model for '%s'"%(refDes)
                 circuitObject.errors += 1
             if circuitObject.errors == 0:
-                # Check for valid parameter names
+                # Check for valid parameter names for this model.
+                # These names are defined with the built-in models.
                 modelParams = MODELS[basicModel].params.keys()
                 for parName in circuitObject.elements[refDes].params.keys():
                     if parName not in modelParams:
@@ -498,36 +496,38 @@ def expandModelsCircuits(circuitObject):
                         circuitObject.errors += 1
                     else:
                         # Check if the ini.Laplace parameter is used in the
-                        # expression and if this is allowed.
+                        # expression for the model parameters and if this is allowed.
                         valExpr = circuitObject.elements[refDes].params[parName]
                         # valExpr is either an integer or a float of a sympy object
                         if isinstance(valExpr, tuple(sp.core.all_classes)):
-                            exprParams = list(circuitObject.elements[refDes].params[parName].free_symbols)
+                            exprParams = list(circuitObject.elements[refDes].params[parName].atoms(sp.Symbol))
                             if ini.Laplace in exprParams and MODELS[basicModel].params[parName] == False:
                                 circuitObject.errors += 1
                                 print "Error: Laplace variable not allowed in expression '%s' of parameter '%s' of element '%s'"%(valExpr, parName, refDes)
             if circuitObject.errors == 0:
-                # Change the model name to the basic model name
+                # Change the model name of the element to the basic model name
                 circuitObject.elements[refDes].model = basicModel
                 # Parse parameter values
                 for parName in modelParams:
                     if parName in circuitObject.elements[refDes].params.keys():
-                        # These parameters were already defined
+                        # These parameters were defined with the element, keep them
                         pass
-                    elif modelName not in MODELS.keys() and modelName in circuitObject.modelDefs.keys() and parName in circuitObject.modelDefs[modelName].params.keys():
-                        # Not a basic model: check if there is a model definition
-                        # with the circuit and take parameters from there
-                        circuitObject.elements[refDes].params[parName] = \
-                        circuitObject.modelDefs[modelName].params[parName]
-                    elif modelName not in MODELS.keys() and modelName in LIB.modelDefs.keys() and parName in LIB.modelDefs[modelName].params.keys():
-                        # Not a basic model: check if there is a library
-                        # model and take the value from it
-                        circuitObject.elements[refDes].params[parName] = \
-                        LIB.modelDefs[modelName].params[parName]
                     elif parName in circuitObject.modelDefs.keys():
-                        # Take this value 
+                        # Take the value from the model definition from the circuit
                         circuitObject.elements[refDes].params[parName] = \
                         circuitObject.circuitObject.modelDefs[parName]
+                    elif modelName not in MODELS.keys():
+                        # Not a standard model
+                        if modelName in circuitObject.modelDefs.keys() and parName in circuitObject.modelDefs[modelName].params.keys():
+                            # See if there is a model definition with the circuit 
+                            # and take the parameter value from there
+                            circuitObject.elements[refDes].params[parName] = \
+                            circuitObject.modelDefs[modelName].params[parName]
+                        elif modelName in LIB.modelDefs.keys() and parName in LIB.modelDefs[modelName].params.keys():
+                            # See if there is a model definition in the library
+                            # and take the parameter value from there
+                            circuitObject.elements[refDes].params[parName] = \
+                            LIB.modelDefs[modelName].params[parName]
             if basicModel != '':
                 stamp = MODELS[basicModel].stamp
                 if stamp == False:
@@ -552,9 +552,11 @@ def expandModelsCircuits(circuitObject):
                 circuitObject.errors += 1                            
         if circuitObject.errors == 0:
             if stamp == False:
+                # We need to expand the model
                 elmt = circuitObject.elements[refDes]
                 circuitObject = expandCircuit(elmt, circuitObject, protoCircuit)
             elif  circuitObject.elements[refDes].type == 'X':
+                # We need to expand the subcircuit
                 elmt = circuitObject.elements[refDes]
                 circuitObject = expandCircuit(elmt, circuitObject, protoCircuit)
     CIRTITLES.pop(-1)
@@ -562,36 +564,64 @@ def expandModelsCircuits(circuitObject):
 
 def expandCircuit(elmt, parentCircuit, childCircuit):
     """
-    The parsing of nodes to new elements of the expanded circuit will be as
-    follows:
+    Expands an element 'elmt' of 'parentCircuit' based on the prototype 
+    'childCircuit'.
+    
+    After expansion the element 'elmt' will be removed from 'parentCircuit'.
+    
+    This proceeds as follows:
         
-    For each element in the child circuit, create an element object that will
-    be added to the parent circuit.
-    If a node ID of the child element is found in the connecting nodes of the
-    child circuit (.nodes attribute), then the corresponding node of the new 
-    element obtains this node ID.
-    If the node of the child element is the global ground node: '0', the 
-    corresponding node of the new element is also '0'.
-    In other case we have a local node. The corresponding node of the new 
-    element will then be the node ID of the element of the child circuit with
-    added suffix: '_< elmt.refDes >.
+    #. New circuit elements
     
-    The parsing of element model parameters and parameter definitions in the
-    child circuit will be as follows:
-    Create a substitution dicionary:
-    The keys of the dictionary are 
+       #. Each element of the child circuit will be added to the parent.
+       #. The name (refdes) of this element childID_parentID, where
+          'childID' is the name of the element of the child circuit and 
+          'parentID is the name of the element of the parent circuit that
+          needed to be expanded (e.g. Xnnn or Mnnn).
+        
+    #. Node names
+        
+       #. If a node ID of the child element is found in the connecting nodes of
+          the child circuit, the corresponding node of the new element obtains 
+          this node ID.
+       #. If the node of the child element is the global ground node: '0', the 
+          corresponding node of the new element is also '0'.
+       #. In other case we have a local node. The corresponding node of the new 
+          element will then be the node ID of the element of the child circuit
+          with added suffix: '_parentID.
+       
+    #. Reference names
     
+       #. References to other elements are always local. The names of referenced
+          elements will obtain the suffix: '_parentID'.
+    
+    #. Parameter names
+
+       #. Parameter definitions used in 'elmt' will be passed tho parameters
+          of the child circuit
+       #. All other parameter names used in both element definitions and 
+          parameter definitions of the child circuit will obtain the suffix '_parentID'.
+          
+    :param elmt: Element of the parent circuit that requires expansion
+    :type param: SLiCAP.protos.element
+    :param parentCircuit: Circuit object of the circuit with the element 'elmt'
+    :type parentCircuit: SLiCAP.protos.circuit
+    :param childCircuit: Prototype circuit used for expansion of 'elmt'
+    :type childCircuit: SLiCAP.protos.circuit
+    :return: parentCircuit Circuit in which 'elmt' is replaced with elements
+             of the child circuit.
+    :return type: SLiCAP.protos.circuit
     """
     # make the suffix for parameters and element IDs
     suffix = '_' + elmt.refDes
     # make a substitution dictionary for parameters
     substDict = {}
     # Put the names and values of the parameters of the parent element in this 
-    # dictionary
+    # dictionary. These names should be passed to the child.
     for key in elmt.params.keys():
         substDict[sp.Symbol(key)] = elmt.params[key]
     # If they are not yet in, put the default values of the child circuit 
-    # parameters in this dictionary
+    # parameters in this dictionary.
     for key in childCircuit.params.keys():
         if sp.Symbol(key) not in substDict.keys():
             substDict[sp.Symbol(key)] = childCircuit.params[key]
@@ -655,6 +685,8 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     
 def updateCirData(mainCircuit):
     """
+    Updates circuit data required for instructions.
+    
     - Updates the lists with dependent variables (detectors), sources 
       (independent variables) and controlled sources (possible loop gain 
       references). 
@@ -664,10 +696,10 @@ def updateCirData(mainCircuit):
     - Checks if the circuit has at least two nodes.
     - Checks if the referenced elements exist.
     
-    # Add global parameter definitions for mainCircuit.parDefs
-    for parName in LIB.parDefs.keys():
-        if parName not in mainCircuit.parDefs.keys():
-            mainCircuit.parDefs[parName] = LIB.parDefs[parName]
+    :param mainCircuit: Main (fully expanded) circuit object.
+    :type mainCircuit: SLiCAP.protos.circuit
+    :return: mainCircuit: Main circuit with updated circuit information for instructions.
+    :return type: SLiCAP.protos.circuit
     """
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in mainCircuit.parDefs.keys():
@@ -709,14 +741,12 @@ def updateCirData(mainCircuit):
                 mainCircuit.params += list(mainCircuit.elements[elmt].params[par].atoms(sp.Symbol))
             except:
                 pass
-    
     # Add parameters used in parDef expressions to circuit.params
     for par in mainCircuit.parDefs.keys():
         try:
             mainCircuit.params += list(mainCircuit.parDefs[par].atoms(sp.Symbol))
         except:
             pass
-            
     mainCircuit.params = list(set(mainCircuit.params))
     # Try to find required global parameter definitions for undefined params
     undefined = []
@@ -746,6 +776,18 @@ def updateCirData(mainCircuit):
 
 def addGlobals(parDefs, par):
     """
+    Adds value or expression of the parameter 'par' as well as the parameters 
+    in this expression given in the library to the parameter definitions in the
+    dict 'parDefs'.
+    
+    :param parDefs: Dictionary with key-value pair of parameters to which the 
+                    definition of the parameter 'par' needs to added.
+    :type parDefs: dict
+    :param par: Parameter of which the definition needs to be added to the dict
+                'parDefs'.
+    :type par: sympy.Symbol
+    :return: parDefs: dict with added parameter definitions
+    :return type: dict
     """
     parDefs[par] = LIB.parDefs[par]
     params = LIB.parDefs[par].atoms(sp.Symbol)
@@ -755,6 +797,16 @@ def addGlobals(parDefs, par):
     return parDefs
     
 def makeLibraries():
+    """
+    Compiles the library 'lib/SLiCAPmodels.lib'.
+    
+    Returns a circuit object with subcircuits, model definitions and parameter
+    definitions from this library.
+    
+    :return: LIB: circuit object with subcircuits, model definitions and parameter
+             definitions from  'lib/SLiCAPmodels.lib'.
+    :return type: SLiCAPprotos.circuit
+    """
     global CIRTITLES, LIB
     CIRTITLES = []
     # This must be the first library: it contains the basic expansion models!
@@ -791,7 +843,12 @@ def makeLibraries():
     
 def addUserLibs(fileNames):
     """ 
-    Adds pre compiled user libraries to LIB. Overwrites existing keys in LIB.
+    Adds pre compiled user libraries to LIB. 
+    
+    Overwrites existing keys in LIB.
+    
+    :param fileNames: List with file names (*str*) of user libraries.
+    :type fileNames: list
     """
     global CIRTITLES, LIB
     for fi in fileNames:
@@ -856,6 +913,7 @@ if __name__ == '__main__':
     myCir = checkCircuit(fi)
     t3=time()
     keys = myCir.elements.keys()
+    
     for key in keys:
         el = myCir.elements[key]
         print '\nElement    :', key
@@ -874,4 +932,5 @@ if __name__ == '__main__':
         for par in  myCir.elements[el].params.keys():
             parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
             print el,'\t', par, sp.N(parNum, ini.disp)
+    
     t5=time()

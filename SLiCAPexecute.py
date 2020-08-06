@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 The module **SLiCAPexecute.py** contains the scripts for execution of an 
-instruction. It is imported by the module **SLiCAPinstruction.py**
+instruction. 
+
+Imported by the module **SLiCAPinstruction.py**.
 
 Execution **instruction.execute()** proceeds as follows:
 

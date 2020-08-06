@@ -3,7 +3,7 @@
 """
 Module with definition of the SLiCAP instruction class. 
 
-This module is imported by SLiCAP.py
+Imported by the module **SLiCAP.py**.
 """
 from SLiCAPexecute import *
 
