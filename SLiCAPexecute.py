@@ -1,8 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-The module **SLiCAPexecute.py** contains the scripts for execution of an 
-instruction. 
+SLiCAP module with functions for execution of instructions. 
 
 Imported by the module **SLiCAPinstruction.py**.
 

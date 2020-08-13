@@ -1,85 +1,250 @@
 #!/usr/bin/python
+
+"""
+SLiCAP module with plot functions.
+
+Imported by the module SLiCAPhtml.py
+
+"""
 from SLiCAPpythonMaxima import *
 
 class trace(object):
     """
-    Trace prototype. Traces are plotted on axes, which are part of a figure.
+    Trace prototype. 
     
-    Trace attributes are:
-        xData          : numpy array with x data
-        yData          : numpy array with y data
-        xName          : 'x'     # Header for table
-        yName          : 'y'     # Header for table
-        label          : ''      # trace label will be displayed in legend box
-        color          : False   # trace color
-        marker         : False   # trace marker
-        markerColor    : False   # trace marker color
-        markerFaceColor: 'none'  # trace marker face color
-        markerSize     : 7       # trace marker size
-        lineWidth      : 2
-        lineType       : '-'
-        table          :: False
+    Traces are plotted on axes, which are part of a figure.    
+    
+    :param traceData: list with list array-like X and Y data of the trace.
+    :type traceData: list
+    
+    :Example:
         
+    >>> x_data = np.linspace(0, 2*np.pi, 50)
+    >>> y_data = np.sin(x_data)
+    >>> sin_trace = trace([x_data, y_data])    
     """
     def __init__(self, traceData):
+        self.xData = np.array(traceData[0])
         """
+        Array-like data for the x-axis of the trace. On a polar axes this is 
+        the angle in radians.
         """
-        self.xData          = np.array(traceData[0])
-        self.yData          = np.array(traceData[1])
+        
+        self.yData = np.array(traceData[1])
+        """
+        Array-like data for the y-axis of the trace. On a polar axes this is 
+        the radius.
+        """
+        
         try:
             if len(self.xData) != len(self.yData):
                 print 'Error in plot data.'
         except:
             pass
-        self.xName          = 'x'           # Header for table
-        self.yName          = 'y'           # Header for table
-        self.label          = ''            # trace label will be displayed in legend box
-        self.color          = False         # trace color
-        self.marker         = False         # trace marker
-        self.markerColor    = False         # trace marker color
-        self.markerFaceColor = 'none'        # trace marker face color
-        self.markerSize     = 7             # trace marker size
-        self.lineWidth      = 2
-        self.lineType       = '-'
-        self.table          = False
+        
+        self.xName = 'x' 
+        """
+        Heading (*str*) for the x column of a table. Defaults to 'x'.
+        """
+        
+        self.yName = 'y'
+        """
+        Heading (*str*) for the y column of a table. Defaults to 'y'.
+        """
+        
+        self.label = ''
+        """
+        Trace label (*str*) that will be displayed in legend box. Defaults to ''.
+        """
+        
+        self.color = False
+        """
+        Trace color (*str*) in matplotlib format. Defaults to False.
+        """
+        
+        self.marker = False
+        """
+        Marker type (*str*) in matplotlib format. Defaults to False.
+        """
+        
+        self.markerColor = False
+        """
+        Marker color (*str*) in matplotlib format. Defaults to False.
+        """
+        
+        self.markerFaceColor = 'none'
+        """
+        Marker face color (*str*) in matplotlib format. Defaults to 'none'.
+        """
+        
+        self.markerSize = 7 
+        """
+        Marker size (*int*). Defaults to 7.
+        """
+        
+        self.lineWidth = 2
+        """
+        Line width (*int*) in pixels. Defaults to 2.
+        """
+        
+        self.lineType = '-'
+        """
+        Line type (*str*) in matplotlib format. Defaults to '-'.
+        """
     
     def makeTable(self):
         """
-        Returns a table with all axis data in CSV format.
+        Returns a table with trace data in CSV format.
+        
+        :return: table: CSV table with column headings and x-data and y-data in
+                 columns
+        :rtype: str
+    
+        :Example:
+            
+        >>> x_data = np.linspace(0, 2*np.pi, 10)
+        >>> y_data = np.sin(x_data)
+        >>> sin_trace = trace([x_data, y_data]) 
+        >>> sin_trace.yName = 'sin(x)'
+        >>> print sin_trace.makeTable()
+        x,sin(x)
+          0.000000000000e+00,   0.000000000000e+00
+          6.981317007977e-01,   6.427876096865e-01
+          1.396263401595e+00,   9.848077530122e-01
+          2.094395102393e+00,   8.660254037844e-01
+          2.792526803191e+00,   3.420201433257e-01
+          3.490658503989e+00,  -3.420201433257e-01
+          4.188790204786e+00,  -8.660254037844e-01
+          4.886921905584e+00,  -9.848077530122e-01
+          5.585053606382e+00,  -6.427876096865e-01
+          6.283185307180e+00,  -2.449293598295e-16
         """
-        out = str(self.xName) + ',' + str(self.yName) + '\n'
+        table = str(self.xName) + ',' + str(self.yName) + '\n'
         for i in range(len(self.xData)):
-            out += '%20.12e,'%(self.xData[i]) + '%20.12e'%(self.yData[i]) + '\n'
-        self.table = out
-        return
+            table += '%20.12e,%20.12e'%(self.xData[i], self.yData[i]) + '\n'
+        return table
         
 class axis(object):
+    """
+    Axis prototype.
+    
+    :param title: Title of the axis. The title will be placed on top of the axis.
+    :type title: str
+    """
+    
     def __init__(self, title):
-        self.title          = title         # Title of the axis, will be placed on top of the axis
-        self.xLabel         = False         # Label for the x-axis, e.g. 'frequency [Hz]'
-        self.yLabel         = False         # Label for the y-axis, e.q. 'Voltage [V]'
-        self.xScale         = 'linear'      # Scale for the x-axis can be 'linear' or 'log'
-        self.yScale         = 'linear'      # Scale for the y-axis can be 'linear' or 'log'
-        self.xLim           = []            # List: [<xMin>, <xMax>], limits for the x-scale
-        self.yLim           = []            # List: [<yMin>, <yMax>], limits for the y-scale
-        self.traces         = []            # List: [<trace1>(,<trace2>)...(,<traceN>)]
-        self.text           = False         # Text and relative plot position
-        self.polar          = False         # True if a polar plot is used. In that case: xLists = [<list of radians>]
-        self.xScaleFactor   = ' '           # Scale factor (engineering notation, e.g. M for 1E6) for x-axis
-        self.yScaleFactor   = ' '           # Scale factor (engineering notation, e.g. M for 1E6) for y-axis
+        self.title = title
+        """
+        Title (*str*) of the axis, will be placed on top of the axis
+        """
+        
+        self.xLabel = False
+        """
+        Label (*str*) for the x-axis, e.g. 'frequency [Hz]'. Defaults to False.
+        """
+        
+        self.yLabel = False 
+        """
+        Label (*str*) for the x-axis, e.g. 'voltage [V]'. Defaults to False.
+        """
+        
+        self.xScale = 'lin'
+        """
+        Scale (*str*) for the x-axis can be 'lin' or 'log'. Defaults to 'lin'.
+        """
+        
+        self.yScale = 'lin'
+        """
+        Scale (*str*) for the y-axis can be 'lin' or 'log'. Defaults to 'lin'.
+        """
+        
+        self.xLim = []
+        """
+        Limits (*list*) for the x-scale: [<xMin>, <xMax>]. Defaults to [].
+        """
+        
+        self.yLim = []
+        """
+        Limits (*list*) for the y-scale: [<yMin>, <yMax>]. Defaults to [].
+        """
+        
+        self.traces = []
+        """
+        List with **SLiCAPplots.trace** objects to be plotted on this axis: 
+        [<trace1>(,<trace2>,...,<traceN>)]. Defaults to [].
+        """
+        
+        self.text = [0, 0, '']
+        """
+        Text (*[int, int, str]*) with relative plot position: [<xPos>, <yPos>, <text>].
+        Defaults to [0, 0, ''].
+        """
+        
+        self.polar = False
+        """
+        (*bool*) True if a polar axis is required. Defaults to False.
+        """
+        
+        self.xScaleFactor = ''
+        """
+        Scale factor (*str*) for the x-scale; e.g. M for 1E6. Defaults to ''.
+        """
+        self.yScaleFactor = ''
+        """
+        Scale factor (*str*) for the y-scale; e.g. M for 1E6. Defaults to ''.
+        """
         return
 
 class figure(object):
+    """
+    Prototype SLiCAP figure object.
+    
+    :param fileName: Name of the file for saving the figure.
+    :type fileName: str
+    """
     def __init__(self, fileName):
-        self.fileType       = ini.figureFileType    # Graphic file type for saving the figure
-        self.axisHeight     = ini.figureAxisHeight  # Height of single axis
-        self.axisWidth      = ini.figureAxisWidth   # Width of single axis
-        self.axes           = []
-        self.show           = False
-        self.fileName       = fileName + '.' + ini.figureFileType
         
-    def plot(self):                                 # <figure name>.plot()
-                                                    # plots m x n axes in the figure
+        self.fileType = ini.figureFileType
+        """
+        Graphic file type (*str*) for saving the figure. Defaults to fileName
+        """
+        
+        self.axisHeight = ini.figureAxisHeight
+        """
+        Relative height (*int, float*) of a single axis. Defaults to ini.figureAxisHeight.
+        
+        To do: absolute measures in inch or cm.
+        """
+        
+        self.axisWidth = ini.figureAxisWidth
+        """
+        Relative width (*int, float*) of a single axis. Defaults to ini.figureAxisWidth.
+        
+        To do: absolute measures in inch or cm.
+        """
+        
+        self.axes = []
+        """
+        List with **SLiCAPplots.axis** objects to be plotted on this figure. 
+        Defaults to [].
+        """
+        
+        self.show = False
+        """
+        (*bool*) if 'True' the figure will be displayed with the method 
+        **SLiCAPplots.figure.plot()**. Defaults to [].
+        """
+        
+        self.fileName = fileName + '.' + ini.figureFileType
+        """
+        File name of the figure. Defaults to: fileName + '.' + ini.figureFileType.
+        """
+        
+    def plot(self):
+        """
+        Creates the figure, displays it if SLiCAPplots.figure.show == True and 
+        saves it to disk.
+        """
         axes = np.array(self.axes)
         try:
             rows, cols = axes.shape
@@ -96,7 +261,7 @@ class figure(object):
             return False
         # Define the matplotlib figure object
         fig = plt.figure(figsize = (self.axisWidth*cols, rows*self.axisHeight))
-        # Make all the axis with their plots
+        # Create the axes with their plots
         for i in range(len(axesList)):
             if axesList[i] != "":
                 ax = fig.add_subplot(rows, cols, i + 1, polar = axesList[i].polar)
@@ -165,12 +330,12 @@ class figure(object):
                                  color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = axesList[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = axesList[i].traces[j].markerFaceColor, linestyle = axesList[i].traces[j].lineType)
                     except:
                         print 'Error in plot data of %s.'%self.fileName
-                        #return False
                     if axesList[i].text:
                         X, Y, txt = axesList[i].text
                         plt.text(X, Y, txt, fontsize = ini.plotFontSize)  
                     # Set default font sizes and grid
                     defaultsPlot()
+        # Save the figure"
         plt.savefig(ini.imgPath + self.fileName)
         if self.show:
             plt.show()
@@ -179,7 +344,7 @@ class figure(object):
         
 def defaultsPlot():
     """
-    Applies default setting for all plots.
+    Applies default settings for plots.
     """
     figures = [manager.canvas.figure for manager in plotHelp.Gcf.get_all_fig_managers()]
     for fig in figures:
@@ -213,9 +378,97 @@ def defaultsPlot():
                 tick.label.set_fontsize(ini.plotFontSize)
             for tick in fig.axes[i].yaxis.get_major_ticks():
                 tick.label.set_fontsize(ini.plotFontSize)
-               
-def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVar = 'auto', sweepScale = '', xVar = 'auto', xUnits = '', xScale = '', axisType = 'auto', funcType = 'auto', yVar = 'auto', yScale = '', yUnits = '', noiseSources = None, show = False):
+                             
+def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVar = 'auto', sweepScale = '', xVar = 'auto', xScale = '', xUnits = '', axisType = 'auto', funcType = 'auto', yVar = 'auto', yScale = '', yUnits = '', noiseSources = None, show = False):
     """
+    Plots a function by sweeping one variable and optionally stepping another. 
+    
+    The function to be plotted depends on the arguments 'yVar' and 'funcType':
+    
+    - If funcType == 'params', the variable 'yVar' must be the name of a circuit
+      parameter.
+    - If funcType == 'auto', the default function that will be plotted depends 
+      on the data type of the instruction:
+          
+      - data type == 'noise': funcType = 'onoise'
+      - data type == 'laplace', 'numer' or 'denom': funcType = 'mag'
+      - data type == 'time', 'impulse' or 'step': funcType = 'time'
+      
+    The variable plotted along the x-axis defaults to the sweep variable. However,
+    for multivariate functions obtained with data type 'params', the x variable 
+    can be choosen from all circuit parameters.
+    
+    - If sweepVar == 'auto', the sweep variable will be determined from the data type:
+        
+      - data type == 'noise', 'laplace', 'numer' or 'denom': sweepVar = ini.frequency
+        for data types 'laplace', 'numer' or 'denom' the laplace variable will
+        be replaced with sympy.i*ini.frequency or with 2*sympy.pi*sympy.i*ini.frequency
+        before sweeping, when ini.Hz == False, or ini.Hz== True, respectively.
+      - dataType == 'time', 'impulse' or 'step': sweepVar = sympy.Symbol('t')
+    
+    The type of axis can be 'lin', 'log', 'semilogx', 'semilogy' or 'polar'.
+    
+    :param fileName: Name of the file for saving it to disk.
+    :type fileName: str
+        
+    :param title: Title of the figure.
+    :type title: str
+    
+    :param results: Results of the execution of an instruction, or a list with
+                    SLiCAPprotos.allResults objects.
+    :type results: list, SLiCAPprotos.allResults
+    
+    :param sweepStart: Start value of the sweep parameter
+    :type sweepStart: float, int, str
+    
+    :param sweepStop: Stop value of the sweep parameter
+    :type sweepStop: float, int, str
+    
+    :param sweepNum: Number of points of the sweep parameter
+    :type sweepNum: int
+    
+    :param sweepVar: Name of the sweep variable
+    :type sweepVar: sympy.Symbol, str
+    
+    :param sweepScale: Scale factor of the sweep variable. Both the start and 
+                       the stop value will be multiplied with a factor that
+                       corresponds with this scale factor.
+    :type sweepScale: str
+    
+    :param xVar: Name of the variable to be plotted along the x axis
+    :type xvar: str, sympy.Symbol
+    
+    :param xScale: Scale factor of the x axis variable.
+    :type xScale: str
+    
+    :param xUnits: Units of the x axis variable.
+    :type xUnits: str
+    
+    :param axisType: Type of axis: 'lin', 'log', 'semilogx', 'semilogy' or 'polar'.
+    :type axisType: str
+    
+    :param funcType: Type of function can be: 'mag', 'dBmag', 'phase', 'delay',
+                     'time', 'onoise', 'inoise' or 'param'.
+    :type funcType: str
+    
+    :param yScale: Scale factor of the y axis variable.
+    :type yScale: str
+    
+    :param yUnits: Units of the y axis variable.
+    :type yUnits: str
+    
+    :param noiseSources: Noise sources of which the contribution to the detector-
+                         referred noise (funcType = 'onoise') or the source-
+                         referred noise (funcType = 'inoise') should be plotted.
+                         Can be 'all', a list with names of noise sources or an
+                         ID of a noise source.
+    :type noiseSources: list, str
+    
+    :param show: If 'True' the plot will be shown in the workspace.
+    :type show: bool
+    
+    :return: fig
+    :rtype: SLiCAPplots.figure
     """
     plotDataTypes = ['laplace', 'numer', 'denom', 'noise', 'step', 'impulse', 'time', 'params', None]
     funcTypes  = ['mag', 'dBmag', 'phase', 'delay', 'time', 'onoise', 'inoise', 'param']
@@ -561,7 +814,60 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     return fig
 
 def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax = None, xscale = '', yscale = '', show = False):
-    """
+    """    
+    Creates a pole-zero scatter plot. 
+    
+    If parameter stepping of the instruction is enabled, a root locus is drawn 
+    with the parameter as root locus variable.
+    
+    In such cases special begin end endpoint markers are used:
+        
+    - poles begin of root locus: 'x'
+    - poles end of root locus: '+'
+    - zeros begin of root locus: 'o'
+    - zeros end of root locus: 'square'
+    
+    The root locus itself is drawn with dots for each position of a pole or zero.
+    
+    Results of multiple analysis can be combined in one plot by putting them in
+    a list.
+    
+    The type of the axis is 'lin'.
+    
+    :param fileName: Name of the file for saving it to disk.
+    :type fileName: str
+        
+    :param title: Title of the figure.
+    :type title: str
+    
+    :param results: Results of the execution of an instruction, or a list with
+                    SLiCAPprotos.allResults objects. The data type of these
+                    instructions should be 'poles', 'zeros' or 'pz'.
+    :type results: list, SLiCAPprotos.allResults
+    
+    :param xmin: Minimum value of the x axis; defaults to None.
+    :type xmin: int, float, str
+    
+    :param xmax: Maximum value of the x axis; defaults to None.
+    :type xmax: int, float, str
+    
+    :param ymin: Minimum value of the y axis; defaults to None.
+    :type ymin: int, float, str
+    
+    :param ymax: Maximum value of the y axis; defaults to None.
+    :type ymax: int, float, str
+    
+    :param xscale: x axis scale factor; defaults to ''.
+    :type xscale: str
+    
+    :param yscale: y axis scale factor; defaults to ''.
+    :type yscale: str
+    
+    :param show: If 'True' the plot will be shown in the workspace. Defaults to False.
+    :type show: bool
+    
+    :return: fig
+    :rtype: SLiCAPplots.figure
     """
     fig = figure(fileName)
     fig.show = show
@@ -750,8 +1056,45 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     fig.plot()
     return fig
 
-def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = '', yName = 'auto', yScale = '', yUnits = '', show = False):
+def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = '', yName = '', yScale = '', yUnits = '', show = False):
     """
+    Plots x-y data, or multiple pairs of x-y data. 
+    
+    :param fileName: Name of the file for saving it to disk.
+    :type fileName: str
+        
+    :param title: Title of the figure.
+    :type title: str
+    
+    :param axisType: Type of axis: 'lin', 'log', 'semilogx', 'semilogy' or 'polar'.
+    :type axisType: str
+    
+    :param plotData: List of lists with pairs of x data and y data.
+    :type plotData: list
+    
+    :param xName: Name of the variable to be plotted along the x axis. Defaults to ''.
+    :type xName: str
+    
+    :param xScale: Scale factor of the x axis variable. Defaults to ''.
+    :type xScale: str
+    
+    :param xUnits: Units of the x axis variable. Defaults to ''.
+    :type xUnits: str
+    
+    :param yName:  Name of the variable to be plotted along the y axis. Defaults to ''.
+    :type funcType: str, sympy.Symbol
+    
+    :param yScale: Scale factor of the y axis variable. Defaults to ''.
+    :type yScale: str
+    
+    :param yUnits: Units of the y axis variable. Defaults to ''.
+    :type yUnits: str
+    
+    :param show: If 'True' the plot will be shown in the workspace.
+    :type show: bool
+    
+    :return: fig
+    :rtype: SLiCAPplots.figure
     """
     fig = figure(fileName)
     fig.show = show
@@ -792,10 +1135,39 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     fig.plot()
     return fig
 
-def stepParams(results, xVar, yVar, sVar, s):
+def stepParams(results, xVar, yVar, sVar, sweepList):
     """
-    Called by plotSweep in cases in which funcType = 'param'
-    Can also be used to generate a dict with plotData for plot().
+    Returns parameter values as a result of sweeping and stepping parameters.
+        
+    Called by **SLiCAPplots.plotSweep()** in cases in which funcType = 'param'.
+    
+    - If parameter stepping is enabled it returns a tuple with two dictionaries:
+        
+        #. {stepVal[j]: [xVal[i] for i in range(len(sweepValues))], ...}
+        #. {stepVal[j]: [yVal[i] for i in range(len(sweepValues))], ...}
+        
+    - If parameter stepping is disabled it returns a tuple with two lists:
+        
+        #. [xVal[i] for i in range(len(sweepValues))]
+        #. [yVal[i] for i in range(len(sweepValues))]
+    
+    :param results: Results of the execution of an instruction with data type 'params'.
+    :type results: SLiCAPprotos.allResults
+    
+    :param xVar: Name of the parameter to be plotted along the x axis
+    :type xvar: str
+    
+    :param yVar: Name of the parameter to be plotted along the y axis
+    :type yvar: str
+    
+    :param sVar: Name of the sweep parameter
+    :type svar: str
+    
+    :param sweepList: Array-like sweep values.
+    :type sweepList: list, numpy.array
+    
+    :return: parameter values as a result of sweeping and stepping parameters.
+    :rtype: tuple
     """
     parNames = results.circuit.parDefs.keys() + results.circuit.params
     errors = 0
@@ -837,21 +1209,21 @@ def stepParams(results, xVar, yVar, sVar, s):
             for parValue in p:
                 y = f.subs(results.stepVar, parValue)
                 yfunc = sp.lambdify(sp.Symbol(sVar), y)
-                yValues[parValue] = yfunc(s)
+                yValues[parValue] = yfunc(sweepList)
                 if xVar != sVar:
                     x = g.subs(results.stepVar, parValue)
                     xfunc = sp.lambdify(sp.Symbol(sVar), x)
-                    xValues[parValue] = xfunc(s)
+                    xValues[parValue] = xfunc(sweepList)
                 else:
-                    xValues[parValue] = s
+                    xValues[parValue] = sweepList
         else:
             y = sp.lambdify(sp.Symbol(sVar), f)
-            yValues = y(s)
+            yValues = y(sweepList)
             if xVar != sVar:
                 x = sp.lambdify(sp.Symbol(sVar), g)
-                xValues = x(s)
+                xValues = x(sweepList)
             else:
-                xValues = s
+                xValues = sweepList
     return (xValues, yValues)
 
 if __name__=='__main__':
@@ -872,6 +1244,7 @@ if __name__=='__main__':
     cosine.marker = 'x'
     cosine.markerColor = 'b'
     sincos = axis('sine and cosine')
+    sincos.text = [3.14, 0.1, '$blah_9^{14}$']
     sincos.polar = False
     sincos.xScale = 'lin'
     sincos.yScale = 'lin'

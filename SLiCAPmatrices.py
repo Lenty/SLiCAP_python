@@ -1,23 +1,35 @@
+"""
+SLiCAP module for building the MNA matrix and the associated vectors.
+
+Imported by the module **SLiCAPpythonMaxima.py**
+"""
+
 from SLiCAPprotos import *
 
 def getValues(elmt, param, numeric, parDefs):
     """
     Returns the symbolic or numeric value of numerator and the denominator
     of a parameter of an element. This function is called by makeMatrices().
-    
-    arguments:
         
-        elmt    : element object
-        param   : parameter of interest ('value', 'noise', 'dc' or 'dcvar')
-        numeric : if True is uses full substitution and sp.N for converting
-                  parameters to sympy floats
-        parDefs : Dict with key value pairs:
-                     - key  : parameter name (sympy.Symbol)
-                     - value: numeric value of sympy expression
-    return variable:
-
-        tuple with sympy expresssions or numeric values of the numerator and 
-        the denominator of the element parameter
+    :parm elmt: element object
+    :type elmt: SLiCAPprotos.element
+    
+    :param param: parameter of interest ('value', 'noise', 'dc' or 'dcvar')
+    :type param: str
+    
+    :param numeric: If True is uses full substitution and sp.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+    
+    :param parDefs: Dict with key value pairs:
+                    
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict                
+    
+    :return: Tuple with sympy expresssions or numeric values of the numerator 
+             and the denominator of the element parameter.
+    :return type: tuple
     """
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
@@ -37,20 +49,27 @@ def getValues(elmt, param, numeric, parDefs):
 def getValue(elmt, param, numeric, parDefs):
     """
     Returns the symbolic or numeric value of a parameter of an element.
-    This function is called by makeMatrices().
     
-    arguments:
+    This function is called by makeMatrices().
         
-        elmt    : element object
-        param   : parameter of interest ('value', 'noise', 'dc' or 'dcvar')
-        numeric : if True is uses full substitution and sp.N for converting
-                  parameters to sympy floats
-        parDefs : Dict with key value pairs:
-                     - key  : parameter name (sympy.Symbol)
-                     - value: numeric value of sympy expression
-    return variable:
-
-        sympy expresssion or numeric value of the element parameter
+    :parm elmt: element object
+    :type elmt: SLiCAPprotos.element
+    
+    :param param: parameter of interest ('value', 'noise', 'dc' or 'dcvar')
+    :type param: str
+    
+    :param numeric: If True is uses full substitution and sympy.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+    
+    :param parDefs: Dict with key value pairs:
+                    
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+    
+    :return: value: sympy expresssion or numeric value of the element parameter
+    :return type: sympy.Expr, int, float, sympy.Float
     """
     if param not in elmt.params.keys():
         return 0
@@ -62,13 +81,14 @@ def getValue(elmt, param, numeric, parDefs):
         
 def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     """
-    This function creates the MNA matrices of a circuit.
+    Returns the MNA matrix and the vector with dependent variables of a circuit.
     
     Modifications in the circuit object, necessary for calculation of different
     gain types are temporary. The circuit data before and after
     running 'makeMatrices' is the same:
     
-    1. If gainType == 'asymptotic':
+    #. If gainType == 'asymptotic':
+    
        - store the model of lgRef
        - modify the model of lgRef to 'N'
        - update depVars and varIndex
@@ -76,7 +96,8 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
        - restore the model of lgRef
        - update depVars and varIndex
         
-    2. If gainType == 'direct', 'loopgain' or 'servo':
+    #. If gainType == 'direct', 'loopgain' or 'servo':
+    
        - store value of lgRef
        - set value of lgRef element to zero
        - create the matrices
@@ -85,25 +106,35 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
        - loopgain and servo will be calculated with the output of lgRef 
          as source and the input of lgRef as detector.
         
-    3. If gainType == 'vi' or 'gain':
+    #. If gainType == 'vi' or 'gain':
+    
        - no alterations of the circuit need to be made
-       
-    arguments:
         
-        cir      : Circuit object
-        parDefs  : Dict with key value pairs:
-                     - key  : parameter name (sympy.Symbol)
-                     - value: numeric value of sympy expression
-                   (used if if numeric == True)
-        numeric  : True if simulation type == 'numeric'
-        gainType : Gain type of the instruction
-        lgRef    : Loop gain reference of the instruction
+    :param cir: Circuit of which the matrices need to be returned.
+    :type cir: SLiCAPprotos.circuit
+
+    :param parDefs: Dict with key value pairs:
+                    
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+    
+    
+    :param numeric: If True is uses full substitution and sympy.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+    
+    :param gainType: Gain type of the instruction
+    :type gainType: str
+    
+    :param lgRef: ID of the loop gain reference of the instruction
+    :type lgRef: str   
+    
+    :return: tuple with two sympy matrices:
         
-    return variable:
-        
-        tuple with two sympy matrices:
-            1. MNA matrix M
-            2. Vector with dependent variables Dv
+             #. MNA matrix M
+             #. Vector with dependent variables Dv
+    :return type: tuple
     """
     if gainType == 'vi' or gainType == 'gain':
         pass
@@ -351,27 +382,26 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
     
     This method is used for determination of gain factors for noise sources
     and for DC variance sources.
-       
-    arguments:
         
-        cir      : Circuit object
-        parDefs  : Dict with key value pairs:
-                     - key  : parameter name (sympy.Symbol)
-                     - value: numeric value of sympy expression
-                   (used if if numeric == True)
-        value    : Type of value that will be substituted into the vector:
-                     - 'id' (refDes) for calculation of gain factors
-                     - 'dc'
-                     - 'dcVar'
-                     - 'noise'
-                     - 'value'
-        numeric  : True if simulation type == 'numeric'
-        gainType : Gain type of the instruction
-        lgRef    : Loop gain reference of the instruction
+    :param cir: Circuit of which the matrices need to be returned.
+    :type cir: SLiCAPprotos.circuit
+
+    :param parDefs: Dict with key value pairs:
+                    
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+    
+    :param elid: Refdes (ID) of a source to be included in this vector; 'all'
+                 for all sources.
+    :type elid: str
+    
+    :param numeric: If True is uses full substitution and sympy.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
         
-    return variable:
-        
-        Iv: vector with in dependent variables
+    :return: Iv: vector with in dependent variables
+    :return type: sympy.Matrix
     """
     # varIndex holds the position of dependent variables in the matrix.
     varIndex = cir.varIndex 

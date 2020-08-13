@@ -1,9 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 20 17:36:05 2020
+SLiCAP module with HTML functions.
 
-@author: anton
+This module is imported by SLiCAPyacc.py
 """
 
 from SLiCAPplots import *
@@ -20,19 +20,46 @@ LABELTYPES       = ['headings', 'data', 'fig', 'eqn', 'analysis']
 
 class Label(object):
     """
+    Prototype HTML label
     """
     def __init__(self, name, typ, page, text):
-        """
-        """
         self.name = name
+        """
+        Label name *(str)*
+        
+        Automatically set by HTML functions that have a label as parameter.
+        """
+        
         self.type = typ
+        """
+        Type of label *(str)*
+        
+        Automatically set by HTML functions that have a label as parameter.
+        Used by **SLiCALhtml.links2html()** for sorting the links. Value can be:
+        'headings', 'data', 'fig', 'eqn' or 'analysis'.    
+        """
+        
         self.page = page
+        """
+        Name of the page on which the label is placed  *(str)*
+        
+        Automatically set by HTML functions that have a label as parameter.
+        """
+        
         self.text = text
+        """
+        Label text  *(str)* to be placed with the label when using links2html. 
+        If the label is attached to a figure, this text is the figure caption.
+        """
+        
         return
 
 def startHTML(projectName):
     """
     Creates main project index page.
+    
+    :param: projectName: Name of the project.
+    :type projectName: str
     """
     global HTMLINDEX, HTMLPAGES
     ini.htmlIndex = 'index.html'
@@ -46,7 +73,12 @@ def startHTML(projectName):
 
 def HTMLhead(pageTitle):
     """
-    Returns the html page head, ignores MathJax settings in SLiCAPini.py
+    Returns the html head for a new html page.
+    
+    :param pageTitle: Title of the page
+    :type pageTitle: str
+    :return: html: Page head for a html page
+    :rtype: str
     """
     html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n'
     html += '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n'
@@ -65,6 +97,12 @@ def HTMLhead(pageTitle):
 def HTMLfoot(indexFile):
     """
     Returns html page footer with link to 'indexFile'.
+    
+    :param indexFile: name of ther hml index file to which a link must be
+                      placed in the footer.
+    :type indexFile: str
+    :return: html: HTML footer with link to 'indexFile'
+    :rtype: str
     """
     idx = ini.htmlIndex.split('.')[0]
     html = '\n<div id="footnote">\n'
@@ -77,10 +115,13 @@ def HTMLfoot(indexFile):
 
 def insertHTML(fileName, htmlInsert):
     """
-    Inserts html in the file specified by 'fileName' at the location of
-    HTMLINSERT.
+    Inserts html in the file specified by 'fileName' at the location of the 
+    string 'HTMLINSERT'.
     
-    ToDo: check if this file exists.
+    :param fileName: name of the file
+    :type fileName: str
+    :param htmlInsert: HTML that must be inserted in this file
+    :type htmlInsert: str
     """
     html = readFile(fileName)
     html = html.replace(HTMLINSERT, htmlInsert + HTMLINSERT)
@@ -91,18 +132,28 @@ def readFile(fileName):
     """
     Returns the contents of a file as a string.
     
-    ToDo: check if this file exists.
+    :param fileName: Name of the file
+    :type fileName: str
+    :return: txt: contents of the file.
+    :rtype: str
     """
-    f = open(fileName, 'r')
-    txt = f.read()
-    f.close()
+    try:
+        f = open(fileName, 'r')
+        txt = f.read()
+        f.close()
+    except:
+        print "Error: could note open '%s'."%(fileName)
+        txt = ''
     return txt
 
 def writeFile(fileName, txt):
     """
     Writes a text string to a file.
     
-    ToDo: check if this file exists.
+    :param fileName: Name of the file
+    :type fileName: str
+    :param txt: Text to be written to the file.
+    :type txt: str
     """
     f = open(fileName, 'w')
     f.write(txt)
@@ -113,13 +164,24 @@ def writeFile(fileName, txt):
 
 def htmlPage(pageTitle, index = False, label = ''):
     """
-    Creates an HTML page with the title in the title bar. If index==True
-    then the page will be used as new index page, else a link to this page will
-    be placed on the current index page.
-    The global HTMLINDEX holds the name of the current index page.
+    Creates an HTML page with the title in the title bar. 
+    
+    If index==True the page will be used as new index page, else a link to this 
+    page will be placed on the current index page.
+    
+    :param pageTitle:Title of the page.
+    :type param: str
+    :param index: True or False
+    :type index: Bool
+    :param label: ID of a labelthat can be assigned to this page.
+    :type label: str
+    
+    :Example:
+        
+    >>> htmlPage('Circuit data')
     """
     if index == True:
-        # The page is a new index page
+        # The page is a  new index page
         fileName = ini.htmlPrefix + 'index.html'
         # Place link on old index page
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
@@ -136,7 +198,7 @@ def htmlPage(pageTitle, index = False, label = ''):
         href = '<li><a href="' + fileName +'">' + pageTitle + '</a></li>'
         insertHTML(ini.htmlPath + ini.htmlIndex, href)
         # Create the new HTML page
-        if label != '':
+        if label != None:
             #
             newlabel = Label(label, 'headings', fileName, pageTitle)
             ini.htmlLabels[label] = newlabel
@@ -154,14 +216,21 @@ def htmlPage(pageTitle, index = False, label = ''):
     
 def head2html(headText, label=''):
     """
-    Placed a level-2 heading on the active HTML page.
+    Places a level 2 heading on the active HTML page.
+    
+    :param headText: header text
+    :type headText: str
+    :param label: ID of a labelthat can be assigned to this page.
+    :type label: str
+    :return: HTML string of this header
+    :rtype: str
+    
+    
     """
     if label != '':
         #
         newlabel = Label(label, 'headings', ini.htmlPage, headText)
         ini.htmlLabels[label] = newlabel
-        #
-        #ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     html = '<h2>' + label + headText + '</h2>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
@@ -171,14 +240,18 @@ def head2html(headText, label=''):
 
 def head3html(headText, label=''):
     """
-    Placed a level-3 heading on the active HTML page.
+    Places a level 3 heading on the active HTML page.
+    
+    :param headText: header text
+    :type headText: str
+    :param label: ID of a labelthat can be assigned to this page.
+    :type label: str
+    :return: HTML string of this header
+    :rtype: str
     """
     if label != '':
-        #
         newlabel = Label(label, 'headings', ini.htmlPage, headText)
         ini.htmlLabels[label] = newlabel
-        #
-        #ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     html = '<h3>' + label + headText + '</h3>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
@@ -189,6 +262,10 @@ def head3html(headText, label=''):
 def text2html(txt):
     """
     Places txt on the active HTML page.
+    :param txt: Text to be placed on the HTML page
+    :type txt: str
+    :return: html: HTML string placed on the page
+    :rtype: str
     """
     html = '<p>' + txt + '</p>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
@@ -198,7 +275,14 @@ def text2html(txt):
 
 def netlist2html(fileName, label=''):
     """
-    Places the netlist of HTMLCIRCUIT on HTMLPAGE
+    Places the netlist of the circuit file 'fileName' on the active HTML page.
+    
+    :param fileName: Name of the netlist file
+    :type fileName: str
+    :param label: Label ID for this object.
+    :type label: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     try:
         if label != '':
@@ -214,11 +298,22 @@ def netlist2html(fileName, label=''):
 
 def elementData2html(circuitObject, label = '', caption = ''):
     """
-    Displays element data on the active html page:
-        - refDes
-        - nodes
-        - referenced elements
-        - parameters with symbolic and numeric values
+    Displays a table with element data on the active html page:
+        
+    - refDes
+    - nodes
+    - referenced elements
+    - element parameters with symbolic and numeric values
+    
+    :param circuitObject: SLiCAP circuit object of which the element data will 
+                          be displayed on the HTML page.
+    :type circuitObject: *SLiCAPprotos.circuit*
+    :param label: Label that will be assigned to this table.
+    :type label: str
+    :param caption: Caption that will be placed with this table.
+    :type caption: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if label != '':
         #
@@ -262,14 +357,22 @@ def elementData2html(circuitObject, label = '', caption = ''):
 
 def params2html(circuitObject, label = '', caption = ''):
     """
-    Displays all parameters with definitions and numeric value.
+    Displays a table with circuit parameters, their definitions and numeric 
+    values on the actibe htmal page.
+    
+    :param circuitObject: SLiCAP circuit object of which the element data will 
+                          be displayed on the HTML page.
+    :type circuitObject: *SLiCAPprotos.circuit*
+    :param label: Label that will be assigned to this table.
+    :type label: str
+    :param caption: Caption that will be placed with this table.
+    :type caption: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if label != '':
-        #
         newlabel = Label(label, 'data', ini.htmlPage, circuitObject.title + ': circuit parameters')
         ini.htmlLabels[label] = newlabel
-        #
-        #ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     caption = "<caption>Table: Parameter definitions in '%s'.</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
@@ -287,8 +390,6 @@ def params2html(circuitObject, label = '', caption = ''):
         else:
             globalPars.append(str(parNames[i]))
     # Group per sub circuit ignore case
-    #localParams = sorted(localParams, key = lambda x: x.split('_')[-1].upper() + x.split('_')[0].upper())
-    # Group per parname respect case
     localPars = sorted(localPars)
     names = sorted(globalPars) + localPars
     parNames = [sp.Symbol(names[i]) for i in range(len(names))]
@@ -313,9 +414,21 @@ def params2html(circuitObject, label = '', caption = ''):
 
 def img2html(fileName, width, label = '', caption = ''):
     """
+    Places an image from file 'fileName' on the active html page.
+    
     Copies the image file to the 'img.' subdirectory of the 'html/' directory
-    set by HTMLPATH in SLiCAPini.py and creates a link to this file on the 
-    active html page.
+    and creates a link to this file on the active html page.
+    
+    :param fileName: Name of the image file
+    :type fileName: str
+    :param width: With of the image in pixels
+    :type width: int
+    :param label: ID of the label to be assigned to this image, defaults to ''.
+    :type label: str
+    :param caption: Caption for this image; defaults to ''.
+    :type caption: str
+    :return: file path for this image.
+    :rtype: str
     """
     if label != '':
         #
@@ -340,6 +453,17 @@ def img2html(fileName, width, label = '', caption = ''):
 def csv2html(fileName, label = '', separator = ',', caption = ''):
     """
     Displays the contents of a csv file as a table on the active HTML page.
+    
+    :param fileName: Name of the csv file file
+    :type fileName: str
+    :param label: ID of the label assigned to this table.
+    :type label: str
+    :param separator: Field separator for this csv file; defaults to ','.
+    :type separator: str
+    :param caption: Caption for this table.
+    :type caption: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if label != '':
         #
@@ -349,8 +473,6 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
             labelText = caption
         newlabel = Label(label, 'data', ini.htmlPage, labelText)
         ini.htmlLabels[label] = newlabel
-        #
-        #ini.htmlLabels[label] = ini.htmlPage
         label = '<a id="' + label + '"></a>'
     caption = '<caption>Table: %s<br>%s.</caption>'%(fileName, caption)
     html = '%s<table>%s'%(label, caption)
@@ -374,6 +496,13 @@ def csv2html(fileName, label = '', separator = ',', caption = ''):
 def expr2html(expr, units = ''):
     """
     Inline display of an expression optional with units.
+    
+    :param expr: Expression
+    :type expr: sympy.Expr
+    :param units: Units for this expression, defaults to ''.
+    :type units: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if isinstance(expr, tuple(sp.core.all_classes)):
         if units != '':
@@ -390,6 +519,17 @@ def expr2html(expr, units = ''):
 def eqn2html(arg1, arg2, units = '', label = '', labelText = ''):
     """
     Displays an equation on the active HTML page'.
+    
+    :param arg1: left hand side of the equation
+    :type arg1: str, sympy.Symbol, sympy.Expr
+    :param arg2: right hand side of the equation
+    :type arg2: str, sympy.Symbol, sympy.Expr
+    :param label: ID of the label assigned to this equation; defaults to ''.
+    :type label: str
+    :param labelText: Label text to be displayed by **links2html()**; defaults to ''
+    :type labelText: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if arg1 == None or arg2 == None:
         return
@@ -417,6 +557,15 @@ def eqn2html(arg1, arg2, units = '', label = '', labelText = ''):
 def matrices2html(instrObj, label = '', labelText = ''):
     """
     Displays the MNA equation on the active HTML page.
+    
+    :param instrObj: Results of instruction with data type matrix.
+    :type instrObj: SLiCAPprotos.allResults
+    :param label: ID of the label assigned to this equation; defaults to ''.
+    :type label: str
+    :param labelText: Label text to be displayed by **links2html()**; defaults to ''
+    :type labelText: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if instrObj.errors != 0:
         print "Errors found during executeion."
@@ -451,10 +600,16 @@ def pz2html(instObj, label = '', labelText = ''):
     Displays the DC transfer, and tables with poles and zeros on the active 
     HTML page.
     
-    ToDo:
-        
-        Make it work for stepped instructions
-        
+    Not (yet) implemented with parameter stepping.
+    
+    :param instObj: Results of an instruction with data type 'poles', 'zeros' or 'pz'.
+    :type instObj: SLiCAP.protos.allResults
+    :param label: ID of the label assigned to these tables; defaults to ''.
+    :type label: str
+    :param labelText: Label text to be displayed by **links2html()**; defaults to ''
+    :type labelText: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if instObj.errors != 0:
         print "Errors found in instruction."
@@ -546,6 +701,18 @@ def pz2html(instObj, label = '', labelText = ''):
 
 def noise2html(instObj, label = '', labelText = ''):
     """
+    Displays the reults of a noise analysis on the active html page.
+    
+    Not implemented with parameter stepping.
+    
+    :param instObj: Results of an instruction with data type 'noise'.
+    :type instObj: SLiCAP.protos.allResults
+    :param label: ID of the label assigned to these tables; defaults to ''.
+    :type label: str
+    :param labelText: Label text to be displayed by **links2html()**; defaults to ''
+    :type labelText: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if instObj.errors != 0:
         print "Errors found in instruction."
@@ -600,6 +767,18 @@ def noise2html(instObj, label = '', labelText = ''):
 
 def dcVar2html(instObj, label = '', labelText = ''):
     """
+    Displays the reults of a dcVAr analysis on the active html page.
+    
+    Not implemented with parameter stepping.
+    
+    :param instObj: Results of an instruction with data type 'dcvar'.
+    :type instObj: SLiCAP.protos.allResults
+    :param label: ID of the label assigned to these tables; defaults to ''.
+    :type label: str
+    :param labelText: Label text to be displayed by **links2html()**; defaults to ''
+    :type labelText: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     if instObj.errors != 0:
         print "Errors found in instruction."

@@ -1,19 +1,11 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-SLiCAPlex.py
+SLiCAP tokenizer for netlist files.
 
-Tokenizer for SLiCAP netlist files
-
-Created on Mon May  4 12:32:13 2020
-
-@author: anton
+Imported by the module **SLiCAPmath.py**
 """
 from SLiCAPini import *
-
-"""
-Tokenizer for SLiCAP netlist files
-"""
 
 # list of token names
 
@@ -123,13 +115,6 @@ def t_newline(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
 
-def find_column(token):
-    """
-    Computes and rerutns column number of a token.
-    """
-    line_start = lexer.lexdata.rfind('\n', 0, token.lexpos) + 1
-    return (token.lexpos - line_start) + 1
- 
  # Error handling rule
 def t_error(t):
     t.lexer.errCount += 1
@@ -151,20 +136,35 @@ def t_SCALE(t):
         lexer.errCount += 1
     return t 
 
+def find_column(token):
+    """
+    Computes and returns the column number of 'token'.
+    
+    :param token: Token of which the column number has to be calculated.
+    :type token: ply.lex.token
+    
+    :return: Column position of this token.
+    :rtype: int
+    """
+    line_start = lexer.lexdata.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
+
 def replaceScaleFactors(txt):
     """
     Replaces scale factors in expressions with their value in scientific 
     notation:
         
-        txt (str): represents expression or number with scale factors
+    :param txt: Expression or number with scale factors
+    :type txt: str
         
-        return value (str): txt in which scale factors are replaced with their 
-        corresponding scientific notation.
+    :return: out: Text in which scale factors are replaced with their 
+             corresponding scientific notation.
+    :rtype: str
         
-        example:
+    :Example:
             
-            replaceScaleFactors('sin(2*pi*1M)')
-            returns: 'sin(2*pi*1E6)'
+    >>> replaceScaleFactors('sin(2*pi*1M)')
+    'sin(2*pi*1E6)'
     """
     pos = 0
     out = ''
@@ -176,9 +176,13 @@ def replaceScaleFactors(txt):
 
 def tokenize(cirFileName):
     """
-    Reset the lexer, and create the tokens from an input file:
+    Reset the lexer, and create the tokens from the file: 'cirFileName'.
         
-        cirFileName (str): name of the netlist file to be tokenized.
+    :param cirFileName: Name of the netlist file to be tokenized.
+    :type cirFileName: str
+        
+    :return: lexer
+    :rtype: ply.lex.lex
     """
     lexer.errCount = 0
     lexer.lineno = 0
@@ -190,9 +194,13 @@ def tokenize(cirFileName):
 
 def tokenizeTxt(textString):
     """
-    Reset the lexer, and create the tokens from the new text input:
+    Reset the lexer, and create the tokens from text input 'textString'.
         
-        textString (str): text input to be tokenized
+    :param textString: Text input to be tokenized.
+    :type textString: str
+        
+    :return: lexer
+    :rtype: ply.lex.lex
     """
     lexer.errCount = 0
     lexer.lineno = 0
@@ -203,6 +211,18 @@ def printError(msg, line, pos):
     """
     Prints the line with the error and an error message, and shows the position
     of the error.
+    
+    :param msg: Error message.
+    :type msg: str
+    
+    :param line: Input line with the error.
+    :param line: str
+    
+    :param pos: Position of therror in the input line.
+    :type pos: int
+    
+    :return: out: Input line with error message.
+    :rtype: str
     """
     out = '\n' + line + '\n'
     for i in range(pos-1):

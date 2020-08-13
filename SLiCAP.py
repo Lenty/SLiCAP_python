@@ -1,8 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-This is the main SLiCAP module to be imported when running SLiCAP from a 
-console or from within a Python IDE such as 'spider'.
+Main module for running SLiCAP from a console or from within a Python IDE.
 
 When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py. 
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and 
@@ -52,7 +51,7 @@ def initProject(name):
                  SLiCAPproject object.
     :type name: str
     :return:     SLiCAPproject
-    :rtype:      obj
+    :rtype:      SLiCAP.SLiCAPproject
     
     
     :Example:

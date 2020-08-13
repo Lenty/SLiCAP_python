@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Module with definition of the SLiCAP instruction class. 
+SLiCAP instruction class definition. 
 
 Imported by the module **SLiCAP.py**.
 """
@@ -126,8 +126,8 @@ class instruction(object):
         
         self.circuit = None
         """
-        Circuit (*obj*) used for this instruction. Can be assigned by setting
-        this attribute, or will be defined by running:
+        Circuit (*SLiCAPprotos.circuit*) used for this instruction. Can be 
+        assigned by setting this attribute, or will be defined by running:
         instruction.setCircuit(<fileName>).
         
         :Example:
@@ -199,9 +199,6 @@ class instruction(object):
         :param simType: Simulation type: 'symbolic' or 'numeric'
         :type simType: str
         
-        :return: None
-        :return type: None
-        
         :Example:
         
         >>> # Create an instance of the instruction object
@@ -262,9 +259,6 @@ class instruction(object):
         :param gainType: gain type for the instruction'gain', 'asymptotic', 
                          'loopgain', 'servo', 'direct', or 'vi'.
         :type gainType: str
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -332,15 +326,13 @@ class instruction(object):
             print "Error: missing data type specification."
         else:
             print "Error: data type must be type 'str' or 'None'."
+        return
     
     def stepOn(self):
         """        
         Enables parameter stepping.
         
         Does not change other settings for parameter stepping.
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -358,9 +350,6 @@ class instruction(object):
         
         Does not change other settings for parameter stepping.
         
-        :return: None
-        :return type: None
-        
         :Example:
         
         >>> # Create an instance of the instruction object
@@ -377,9 +366,6 @@ class instruction(object):
         
         :param stepVar: step variable
         :type stepVar: str, sympy.symbol.Symbol
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -437,9 +423,6 @@ class instruction(object):
         :param stepVars: List with names (*str, sympy.symbol.Symbol*) of step
                          variables for array type stepping.
         :type stepVars: list
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -522,9 +505,6 @@ class instruction(object):
         :param stepMethod: 'lin', 'log', 'list' or 'array'.
         :type stepMethod: str
         
-        :return: None
-        :return type: None
-        
         :Example:
         
         >>> # Create an instance of the instruction object
@@ -568,9 +548,6 @@ class instruction(object):
         
         :param stepStart: Start value for parameter stepping methods 'lin' and 'log'.
         :type stepStart: str, int, float
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -617,9 +594,6 @@ class instruction(object):
         :param stepStop: End value for parameter stepping methods 'lin' and 'log'.
         :type stepStop: str, int, float
         
-        :return: None
-        :return type: None
-        
         :Example:
         
         >>> # Create an instance of the instruction object
@@ -663,9 +637,6 @@ class instruction(object):
         
         :param stepNumber: Number of steps for stepping methods 'lin' and 'log'.
         :type stepStop: int
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -716,9 +687,6 @@ class instruction(object):
         :param stepList: List with step values for the step parameter.
         :type stepList: list
         
-        :return: None
-        :return type: None
-        
         :Example:
         
         >>> # Create an instance of the instruction object
@@ -744,9 +712,6 @@ class instruction(object):
         Checks if the list with step values is defined properly.
         
         Called by **instruction.checkStep()** and by **instruction.setStepList(<stepList>)**.
-        
-        :return: None
-        :return type: None
         """
         if self.stepList == None:
             self.errors += 1
@@ -775,9 +740,6 @@ class instruction(object):
                           step variable in instruction.stepVars[i]. 
                           The lists should have equal lengths.
         :type stepArray: list
-        
-        :return: None
-        :return type: None
         
         :Example:
         
@@ -842,9 +804,6 @@ class instruction(object):
         :param source: Name of an independent voltage or current source that
                        exists in the circuit.
         :type source: str
-        
-        :return: None
-        :return type: None
 
         :Example:
         
@@ -910,9 +869,6 @@ class instruction(object):
         :param detector: Name(s) of one or two nodal voltages or of one or two 
                          dependent currents.
         :type detector: list, str
-        
-        :return: None
-        :return type: None
         
         detector can defined as:
             
@@ -1024,9 +980,6 @@ class instruction(object):
         
         :param lgRef: Name of the loop gain reference.
         :type lgRef: str, sympy.Symbol
-        
-        :return: None
-        :return type: None
             
         :Example:
             
@@ -1068,9 +1021,6 @@ class instruction(object):
         :param parName: Name of the parameter.
         :type parName: str, sympy.Symbol
         
-        :return: None
-        :return type: None
-        
         :Example:
             
         >>> # create an instance if a SLiCAP instruction
@@ -1095,9 +1045,6 @@ class instruction(object):
         :type parName: str, sympy.Symbol
         :param parValue: Value or expression.
         :type parName: str, sympy.Symbol, sympy.Expr
-        
-        :return: None
-        :return type: None
         
         :Example:
             
@@ -1128,9 +1075,6 @@ class instruction(object):
                          value: parValue (*str, float, int, sp.Symbol*) : value 
                          or expression of the parameter.
         :type parDict:   dict
-        
-        :return: None
-        :return type: None
         
         :Example:
             
@@ -1171,7 +1115,7 @@ class instruction(object):
                  else:
                  value or expression
                  
-        :return type: dict, float, int, sympy obj
+        :rtype: dict, float, int, sympy.Expr
         
         :Example:
          
@@ -1181,7 +1125,7 @@ class instruction(object):
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
         >>> my_instr.symType = 'numeric'
-        >>> my_instr.getParValues(['R', 'C'])
+        >>> my_instr.getParValue(['R', 'C'])
         """
         if self.simType == 'numeric':
             self.numeric = True
@@ -1194,7 +1138,7 @@ class instruction(object):
         Returns a list with names of independent sources in **instruction.circuit**
         
         :return: list with names of independent sources in **instruction.circuit**
-        :return type: list
+        :rtype: list
         
         :Example:
             
@@ -1214,7 +1158,7 @@ class instruction(object):
         be used as detector.
         
         :return: list with names of nodal voltages and branch currents
-        :return type: list
+        :rtype: list
         
         :Example:
             
@@ -1234,7 +1178,7 @@ class instruction(object):
         that can be used as loop gain reference.
         
         :return: list with names of controlled sources in **instruction.circuit**
-        :return type: list
+        :rtype: list
         :Example:
             
         >>> # create an instance if a SLiCAP instruction
@@ -1257,9 +1201,6 @@ class instruction(object):
         
         :param fileName: Name of the netlist file.
         :type fileName: str
-        
-        :return: None
-        :return type: None
         
         :Example:
             
@@ -1293,10 +1234,7 @@ class instruction(object):
         """
         Checks the completeness and consistancy of the instruction data.  
         Will be called by **instruction.execute()**. 
-        
-        :return: None
-        :return type: None
-                
+                        
         :Example:
         
         >>> # create an instance of the instruction object
@@ -1402,9 +1340,6 @@ class instruction(object):
         
         Called by **instruction.check()** in cases in which a numeric 
         simulation is required.
-        
-        :return: None
-        :return type: None
         """
         if not self.numeric:
             self.errors += 1
@@ -1419,9 +1354,6 @@ class instruction(object):
         
         Called by **instruction.check()** in cases in which 
         instruction.step == True
-        
-        :return: None
-        :return type: None
         """
         self.checkStepMethod()
         if self.errors == 0:
@@ -1459,9 +1391,8 @@ class instruction(object):
         if no errors are found it returns a :class:`allResults` object with the 
         results of the instruction.
         
-        :return: :class:`allResults` object with results of the execution
-        :return type: obj
-        :Example:
+        :return: allResults object with results of the execution
+        :rtype: SLiCAPprotos.allResults
         
         >>> # create an instance if a SLiCAP instruction
         >>> my_instr = instruction()  

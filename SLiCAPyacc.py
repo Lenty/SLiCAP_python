@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Netlist parser. 
+SLiCAP netlist parser: functions for converting a netlist into a circuit object.
 
 Tokenizes the netlist and creates a 'flattened' circuit object.
 
@@ -35,7 +35,7 @@ def checkCircuit(fileName):
     :param fileName: Name of the netlist file, relative to the circuit directory.
     :type param: str
     :return: cir
-    :return type: SLiCAP.protos.circuit
+    :rtype: SLiCAPprotos.circuit
     """
     # Create in instance of the ciruit object
     cir = circuit()
@@ -71,7 +71,7 @@ def makeCircuit(cir):
                 be added
     :type cir: SLiCAP.protos.circuit
     :return: cir: circuit object with all data of the 'flattened' circuit.
-    :return type: SLiCAP.protos.circuit
+    :rtype: SLiCAPprotos.circuit
     """
     global CIRTITLES
     
@@ -464,7 +464,7 @@ def expandModelsCircuits(circuitObject):
     :param circuitObject: Circuit object to which the data will be added.
     :type circuitObject: SLiCAPprotos.circuit
     :return: circuitObject with expanded circuits or models
-    :return type: SLiCAPprotos.circuit
+    :rtype: SLiCAPprotos.circuit
     """
     global CIRTITLES, LIB
     # Check if model names and parameters can be found for all elements.
@@ -610,7 +610,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     :type childCircuit: SLiCAP.protos.circuit
     :return: parentCircuit Circuit in which 'elmt' is replaced with elements
              of the child circuit.
-    :return type: SLiCAP.protos.circuit
+    :rtype: SLiCAPprotos.circuit
     """
     # make the suffix for parameters and element IDs
     suffix = '_' + elmt.refDes
@@ -699,7 +699,7 @@ def updateCirData(mainCircuit):
     :param mainCircuit: Main (fully expanded) circuit object.
     :type mainCircuit: SLiCAP.protos.circuit
     :return: mainCircuit: Main circuit with updated circuit information for instructions.
-    :return type: SLiCAP.protos.circuit
+    :rtype: SLiCAPprotos.circuit
     """
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in mainCircuit.parDefs.keys():
@@ -787,7 +787,7 @@ def addGlobals(parDefs, par):
                 'parDefs'.
     :type par: sympy.Symbol
     :return: parDefs: dict with added parameter definitions
-    :return type: dict
+    :rtype: dict
     """
     parDefs[par] = LIB.parDefs[par]
     params = LIB.parDefs[par].atoms(sp.Symbol)
@@ -805,7 +805,7 @@ def makeLibraries():
     
     :return: LIB: circuit object with subcircuits, model definitions and parameter
              definitions from  'lib/SLiCAPmodels.lib'.
-    :return type: SLiCAPprotos.circuit
+    :rtype: SLiCAPprotos.circuit
     """
     global CIRTITLES, LIB
     CIRTITLES = []

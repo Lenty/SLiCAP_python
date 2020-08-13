@@ -1,9 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri May  1 13:57:02 2020
+SLiCAP module with symbolic math functions executed by maxima CAS.
 
-@author: anton
+Imported by the module **SLiCAPplots.py**.
 """
 from SLiCAPmatrices import *
     
@@ -11,35 +11,40 @@ def sympy2maximaMatrix(M):
     """
     Converts a sympy matrix object into a Maxima matrix definition.
     
-    argument    : sympy matrix
+    :param M: sympy matrix
+    :type M: symPy.Matrix
     
-    return value: str: sympy matrix converted to a Maxima matrix
+    :return: sympy matrix converted to a Maxima matrix
+    :rtype: str
     """
     return(str(M).replace('Matrix([','matrix(').replace(']])','])'))
     
 def maxEval(maxExpr):
     """
+    Evaluates the expression 'maxExpr' with Maxima CAS and returns the result.
+    
     Starts a subprocess that evaluates maxExpr with Maxima CAS and returns the
     resulting expression in text format. The variable that needs to be output 
     must be named: 'result'.
     
-    argument    : expression in Maxima format to be evaluated.
-    return value: string that can be converted into a sympy expression
-    
     In some cases Maxima CAS will ask for extra input.
-    This will be ignored and in such cases a time out will kill the subprocess.
+    This will be ignored and a time out will kill the subprocess.
     
-    In python 3 a time out argument can be passed with communicate().
+    :param maxExpr: Expression in Maxima format to be evaluated.
+    :type maxExpr: str
     
+    :return: String that can be converted into a sympy expression.    
+    :rtype: str
     
     Example: 
         
-    >>> result = maxEval(result:ilt(1/(s^2 + a^2), s, t);)
-    
+    >>> maxEval("result:ilt(1/(s^2 + a^2), s, t);")
+    'sin(a*t)/a'
     """
     # LISP command for a  a single-line output in text format:
     maxStringConv = ":lisp (mfuncall '$string $result);"
-    maxInput = maxExpr + maxStringConv 
+    maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
+    maxInput = maxAssume + maxExpr + maxStringConv 
     p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
                                maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Define a function for killing the process
@@ -74,27 +79,34 @@ def maxEval(maxExpr):
 
 def maxILT(numer, denom, numeric = True):
     """
-    Calculates the inverse Laplace transform of  'Fs' using Maxima.
+    Calculates the inverse Laplace transform of  'Fs' using Maxima CAS.
     
     This function first tries to calculate the ILT symbolically, if this fails
     it tries to create a factorized rational expression of the Laplace variable
-    ini.laplace and then calculates the ILT form this rational expression. 
+    ini.laplace and then calculates the ILT of this rational expression. 
     
-    arguments:
+    :param numer: Numarator of the Laplace Transform.
+    :type numer: sympy.Expr
         
-        numer  : numarator of the Laplace Transform
-        denom  : denominator of the Laplace Transform
-        numeric: True will force Maxima to use (big) floats for numeric
-                 values
+    :param denom : Denominator of the Laplace Transform.
+    :type denom: sympy.Expr
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool
                  
-    return value:
+    :return: Sympy expression of the time function if the ILT succeeded, or 
+             sp.Symbol('ft') if the ILT failed.
+
+    :Example:
         
-        sp.Symbol('ft') if the ILT failed
-        sumpy expression of the time function if the ILT succeeded.
+    >>> maxILT(2, 3*ini.Laplace**2 + sp.Symbol('a')**2, numeric = False)
+    2*sqrt(3)*sin(sqrt(3)*a*t/3)/(3*a)
+    
+    :Example:
         
-    Example:
-        
-       print maxILT(1, ini.Laplace**2 + sp.Symbol('a')**2, numeric = False)
+    >>> maxILT(2, 3*ini.Laplace**2 + sp.Symbol('a')**2, numeric = True)
+    1.154700538379252*sin(0.5773502691896258*a*t)/a
     """
     Fs = numer/denom
     if numeric:
@@ -102,7 +114,7 @@ def maxILT(numer, denom, numeric = True):
     else:
         numeric = ''
     # Try inverse laplace of symbolic function
-    maxExpr = 'assume_pos:true$assume_pos_pred:symbolp$result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
+    maxExpr = 'result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
     result = maxEval(maxExpr)
     if len(result) > 3 and result[1:5] == 'ilt(':
         if isinstance(Fs, tuple(sp.core.all_classes)):
@@ -134,13 +146,18 @@ def maxILT(numer, denom, numeric = True):
 
 def maxDet(M, numeric = True):
     """
-    Returns the determinant of matrix 'M' in Sympy format, calculated by Maxima.
+    Returns the determinant of matrix 'M' in Sympy format, calculated by Maxima CAS.
     
-    arguments:
-        
-        M       : matrix of which the determinant needs to be evaluated
-        numeric : True will force Maxima to use (big) floats for numeric values
-        
+    Calculation of the determinant according to the GENTLEMAN-JOHNSON TREE-MINOR
+    method. This is a fast version of expansion by minors. It it implemented in
+    Maxima CAS for matrices up to 50 x 50.
+    
+    :param M: Matrix of which the determinant needs to be evaluated
+    :type M: sympy.Matrix
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
     """
     if numeric:
         numeric = 'bfloat'
@@ -152,42 +169,55 @@ def maxDet(M, numeric = True):
     
 def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
     """
-    Returns the numerator of a transfer function:
-        
-    M = MNA matrix
-    detP :    position of positive detector in vector with dependent variables.
-              This can be a nodal voltage or a current through a voltage source
-              or None if the positive node is the ground node or a positive 
-              current is not used.
-    detN :    position of positive detector in vector with dependent variables
-              This can be a nodal voltage or a current through a voltage source
-              or None if the negative node is the ground node or a negative 
-              current is not used.
-    srcP    : Current source: position of positive node in vector with dependent 
-                              variables.
-              Voltage source: position of current through this source in the 
-                              vector with dependent variables.
-    srcN    : Current source: position of positive node in vector with dependent 
-                              variables.
-              Voltage source: None
-        
-    numeric : True will force Maxima to use (big) floats for numeric values
-    
-    Note:     In Sympy a minor is defined as the determinant of the minor 
-              matrix. Use the attribute .minor_submatrix to get the matrix only.
-          
-              In Maxima a minor is the minor matrix itself.
+    Returns the numerator of a transfer function.
           
     Calculation method:
         
-              numer = + cofactor(srcP, detP) - cofactor(srcN, detP) 
-                      - cofactor(srcP, detN) + cofactor(srcN, detN)
-              cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))
+    - numer = + cofactor(srcP, detP) - cofactor(srcN, detP) - cofactor(srcP, detN) + cofactor(srcN, detN)
+    - cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))
     
     The minor matrices and the multiplication factors are determined with Sympy,
     the determinants are calculated with Maxima.
     
-    return value: sympy expression (numerator of a transfer function)
+    :Note: In Sympy a minor is defined as the determinant of the minor 
+           matrix. Use sympy.Matrix.minor_submatrix to get the matrix only.
+          
+           In Maxima a minor is the minor matrix itself.
+        
+    :param M: MNA matrix
+    :type M: sympy.Matrix
+    
+    :param detP: Position of positive detector in vector with dependent variables.
+                 This can be a nodal voltage or a current through a voltage source
+                 or None if the positive node is the ground node or a positive 
+                 current is not used.
+    :type detP: int, bool
+    
+    :param detN: Position of positive detector in vector with dependent variables.
+                 This can be a nodal voltage or a current through a voltage source
+                 or None if the negative node is the ground node or a negative 
+                 current is not used.
+    :type detN: int, bool
+    
+    :param srcP: Current source: position of positive node in vector with 
+                 dependent variables.
+                 
+                 Voltage source: position of current through this source in the 
+                 vector with dependent variables.
+    :type srcP: int, bool
+    :param srcN: Current source: position of positive node in vector with dependent 
+                 variables.
+                 
+                 Voltage source: None
+    :type srcN: int, bool
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    
+    :return: Numerator of a transfer function
+    :rtype: sympy.Expr
     """
     # Create a list of matrices of which the determinant needt to be calculated
     if numeric:
@@ -225,55 +255,63 @@ def maxLimit(expr, var, val, pm, numeric = True):
     """
     Calculates the limit of an expression for 'var' approaches 'val' from 'pm'.
     
-    arguments:
-        
-        expr    : sympy expression or string
-        var     :  string representing the variable
-        val     :  string representing the limit value of the variable
-        pm      :   'plus' or 'minus'
-        numeric : True will force Maxima to use (big) floats for numeric values
+    :param expr: Expression of which the limit must be evaluated.
+    :type expr: sympy.Expr, str
+    :param var: Variable that should approach the limit value.
+    :type var: sympy.Symbol, str
+    :param val: Limit value of the variable.
+    :type val:  sympy.Symbol, str, sp.Expr, int, float
+    :param pm: Direction: 'plus' or 'minus'
+    :type pm: str
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
     
-    return value: sympy expression
-         
+    :return: Calculated limit
+    :rtype: sympy.Expr
     """
     if numeric:
         numeric = 'bfloat'
     else:
         numeric = ''
-    maxExpr = 'result:%s(limit(' + str(expr) + ',' + var + ',' + val + ',' + pm +' ));'%(numeric)
+    maxExpr = 'result:%s(limit(' + str(expr) + ',' + str(var) + ',' + str(val) + ',' + pm +' ));'%(numeric)
     return sp.sympify(maxEval(maxExpr))
 
 def maxCramerNumer(M, Iv, detP, detN, numeric = True):
     """    
     Returns the numerator of the response at the detector as a result of
     excitations from one or more sources.
-    
-    arguments:   
-        
-    M    : MNA matrix (sympy matrix object)
-    Iv   : Vector with independent variables (sympy matrix object)
-    detP : (int or None) position of positive detector in vector with dependent
-           variables.
-           This can be a nodal voltage or a current through a voltage source or
-           False if the positive node is the ground node or a positive current
-           is not used.
-    detN : (int or None) position of positive detector in vector with dependent 
-           variables
-           This can be a nodal voltage or a current through a voltage source or
-           False if the negative node is the ground node or a negative current
-           is not used.
-        
-    numeric : True will force Maxima to use (big) floats for numeric values
              
     Calculation method:
         
-        numer = + determinant(subs(M, col(detP) = Iv))
-                - determinant(subs(M, col(detN) = Iv))
+    - numer = + determinant(subs(M, col(detP) = Iv)) - determinant(subs(M, col(detN) = Iv))
     
-    The subsititutions are made with Sympy,
-    the determinants are calculated with Maxima.
+    The subsititutions are made with Sympy. The determinants are calculated with Maxima CAS.
+        
+    :param M: MNA matrix
+    :type M: sympy.Matrix
     
-    return value: sympy expression
+    :param Iv: Vector with independent variables
+    :type Iv: sympy.Matrix
+    
+    :param detP: Position of positive detector in vector with dependent variables.
+                 This can be a nodal voltage or a current through a voltage source
+                 or None if the positive node is the ground node or a positive 
+                 current is not used.
+    :type detP: int, bool
+    
+    :param detN: Position of positive detector in vector with dependent variables.
+                 This can be a nodal voltage or a current through a voltage source
+                 or None if the negative node is the ground node or a negative 
+                 current is not used.
+    :type detN: int, bool
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    :return: Numerator of a response
+    :rtype: sympy.Expr
     """
     if numeric:
         numeric = 'bfloat'
@@ -294,21 +332,37 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     '2*%pi*%i*ini.frequency' for noise, or with 0, for noise or for dcVar 
     calculations, respectively.
     
-    arguments:
-        
-        cir     : Circuit object
-        M       : MNA matrix
-        elID    : RefDes of an independent source of cir.elements
-        detP    : (int) position of the positive detector in the vector with
-                  independent variables, or None
-        detN    : (int) position of the negative detector in the vector with
-                  independent variables, or None
-        dc      : If True the Laplace variable will be substituted with 0
-        numeric : True will force Maxima to use (big) floats for numeric values
-        
-    return value:
-        
-        sympy expression
+    :param cir: Circuit object
+    :type cir: SLiCAPprotos.circuit
+    
+    :param M: MNA matrix
+    :type M: sympy.Matrix
+    
+    :param elID: Refdes (ID) of the source of which the transfer to the detector
+                 needs to be evaluated.
+    :type elID: str
+    
+    :param detP: Position of positive detector in vector with dependent variables.
+                 This can be a nodal voltage or a current through a voltage source
+                 or None if the positive node is the ground node or a positive 
+                 current is not used.
+    :type detP: int, bool
+    
+    :param detN: Position of positive detector in vector with dependent variables.
+                 This can be a nodal voltage or a current through a voltage source
+                 or None if the negative node is the ground node or a negative 
+                 current is not used.
+    :type detN: int, bool
+    
+    :param dc: True if the DC transfer needs to be determined.
+    :type dc: bool
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    :return: Numerator of the squared transfer.
+    :rtype: sympy.Expr
     """
     if numeric:
         numeric = 'bfloat'
@@ -341,15 +395,18 @@ def maxDet2(M, dc = False, numeric = True):
     '2*%pi*%i* + ini.frequency', or with 0, for noise or for dcVar calculations, 
     respectively.
     
-    arguments:
-
-        M       : MNA matrix
-        dc      : If True the Laplace variable will be substituted with 0
-        numeric : True will force Maxima to use (big) floats for numeric values
-        
-    return value:
-        
-        sympy expression
+    :param M: MNA matrix
+    :type M: sympy.Matrix
+    
+    :param dc: True if the DC transfer needs to be determined.
+    :type dc: bool
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    :return: Numerator of the squared transfer.
+    :rtype: sympy.Expr
     """
     if numeric:
         numeric = 'bfloat'
@@ -372,15 +429,18 @@ def maxSolve(M, Iv, numeric = True):
     """
     Calculates M^(-1).Iv
     
-    arguments:
-        
-        M       :  Matrix
-        Iv      : Vector with independent variables
-        numeric : True will force Maxima to use (big) floats for numeric values
-        
-    return value:
-        
-        sympy expression (matrix)
+    :param M: MNA matrix
+    :type M: sympy.Matrix
+    
+    :param Iv: Vector with independent variables
+    :type Iv: sympy.Matrix
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    :return: Network solution.
+    :rtype: sympy.Matrix
     """
     if numeric:
         numeric = 'bfloat'
@@ -395,26 +455,33 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     """
     Calculated definite or indefinite integral of 'expr'.
     
-    arguments:
-        
-        expr    : integrand
-        var     : integration variable
-        start   : lower limit of the integral: None, number or sympy expression
-        stop    : upper limit of the integral: None, number or sympy expression
-        numeric : True will force Maxima to use (big) floats for numeric values
-        
-    return value:
-        
-        sympy expression
+    :param expr: Integrand
+    :type expr: sympy.Expr
+    
+    :param var: Integration variable
+    :type var: sympy.Symbol, str
+    
+    :param start: Lower limit of the integral.
+    :type start: Bool, int float, sympy.Expr
+    
+    :param stop: Upper limit of the integral.
+    :type stop: Bool, int float, sympy.Expr
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    :return: Integral
+    :rtype: sympy.Expr
     """
     if numeric:
         numeric = 'bfloat'
     else:
         numeric = ''
     if start != None and stop != None:
-        maxExpr = 'assume_pos:true$assume_pos_pred:symbolp$result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
+        maxExpr = 'result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
     else:
-        maxExpr = 'assume_pos:true$assume_pos_pred:symbolp$result:%s(integrate(%s, %s));'%(numeric, str(expr), str(var))
+        maxExpr = 'result:%s(integrate(%s, %s));'%(numeric, str(expr), str(var))
     result = maxEval(maxExpr)
     try:
         result = sp.sympify(result)
@@ -426,30 +493,35 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
 def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     """
     Returns the solutions of the equation transferFunction = protoTypeFunction.
+    
     Both transfer and prototype should be Laplace rational functions.
     Their numerators should be polynomials of the Laplace variable of equal 
     order and their denominators should be polynomials of the Laplace variable
     of equal order.
     
-    arguments:
-        
-        protoType : Prototype rational expression of the Laplace variable
-        transfer  : Transfer fucntion of which the parameters need to be
-                    solved. The numerator and the denominator of this rational 
-                    expression should be of the same order as those of the 
-                    prototype.
-        noSolve   : Variables that do not need to besolved. The will be 
-                    symbolic variables in the solutions.
-        numeric   : True will force Maxima to use (big) floats for numeric 
-                    values
-        
-    return value: 
-        
-        dict with key-value pairs:
+    :param protoType: Prototype rational expression of the Laplace variable
+    :type protoType: sympy.Expr
+    
+    :param transfer: Transfer fucntion of which the parameters need to be
+                     solved. The numerator and the denominator of this rational 
+                     expression should be of the same order as those of the 
+                     prototype.
+    :type transfer: sympy.Expr
+    
+    :param noSolve: List with variables (*sympy.Symbol*) that do not need to be
+                    solved. They will stay symbolic variables in the solutions.
+    :type noSolve: list
+    
+    :param numeric: True will force Maxima to use (big) floats for numeric
+                    values.
+    :type numeric: bool 
+    
+    :return: Dictionary with key-value pairs:
             
-            key   : name of the parameter (sympy.Symbol)
-            value : solution of this parameter: number of sympy expression
-        
+             - key: name of the parameter (*sympy.Symbol*)
+             - value: solution of this parameter: (*sympy.Expr, int, float*)
+             
+    :rtype: dict
     """
     if numeric:
         numeric = 'bfloat'
@@ -519,23 +591,29 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     """
-    Calculates the RMS (integrated) source-referred noise or detector-referred
-    noise, or the contribution of a specific noise source to it.
+    Calculates the RMS source-referred noise or detector-referred noise, 
+    or the contribution of a specific noise source to it.
     
-    arguments:
-        
-        noiseResult : allResults object (execution result of a noise analysis)
-        noise       : 'inoise' or 'onoise' for source-referred noise or 
-                      detector-referred noise, respectively
-        fmin        : lower limit of the frequency range in Hz
-        fmax        : upper limit of the frequency range in Hz
-        source      : 'all' or refDes of a noise source of which the 
-                      contribution to the RMS noise needs to be evaluated
-    return value:
-        
-        number of sympy expression if noiseResult is a single-run result
-        numpy array if noiseResult is a multiple run execution result
-
+    :param noiseResult: Results of the execution of an instruction with data type 'noise'.
+    :type noiseResult: SLiCAPprotos.allResults
+    
+    :param noise: 'inoise' or 'onoise' for source-referred noise or detector-
+                  referred noise, respectively.
+    :type noise': str
+    
+    :param fmin: Lower limit of the frequency range in Hz.
+    :type fmin: str, int, float, sp.Symbol
+    
+    :param fmax: Upper limit of the frequency range in Hz.
+    :type fmax: str, int, float, sp.Symbol
+    
+    :param source: 'all' or refDes (ID) of a noise source of which the 
+                   contribution to the RMS noise needs to be evaluated.
+    :return: RMS noise over the frequency interval. 
+    
+             - An expression or value if parameter stepping of the instruction is disabled.
+             - A list with expressions or values if parameter stepping of the instruction is enabled.
+    :rtype: int, float, sympy.Expr, list
     """
     if fmin == None or fmax == None:
         print "Error in frequency range specification."
