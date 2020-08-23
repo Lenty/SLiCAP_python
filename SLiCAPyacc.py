@@ -39,7 +39,7 @@ def fullSubs(valExpr, parDefs):
     strValExpr = str(valExpr)
     i = 0
     newvalExpr = 0
-    while valExpr != newvalExpr and i < MAXRECSUBST and isinstance(valExpr, tuple(sp.core.all_classes)):
+    while valExpr != newvalExpr and i < ini.maxRecSubst and isinstance(valExpr, tuple(sp.core.all_classes)):
         # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
         substDict = {}
         params = list(valExpr.free_symbols)
@@ -50,7 +50,7 @@ def fullSubs(valExpr, parDefs):
         newvalExpr = valExpr
         valExpr = newvalExpr.subs(substDict)
         i += 1
-    if i == MAXRECSUBST:
+    if i == ini.maxRecSubst:
         print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
     return valExpr
 

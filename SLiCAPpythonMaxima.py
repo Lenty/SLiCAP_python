@@ -47,12 +47,12 @@ def maxEval(maxExpr):
     maxInput = maxAssume + maxExpr + maxStringConv
     #Check system we are running on
     if platform.system() =='Linux' or platform.system() =='Darwin':
-        output = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
-                               maxInput], stdout=subprocess.PIPE).stdout
-        result = output.readlines()[-1].decode("utf-8")
+        p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
+                               maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
     if platform.system() =='Windows':
-        output = subprocess.Popen(['C:\\maxima-5.42.2\\bin\\maxima.bat', '--very-quiet', '-batch-string', \
-                               maxInput], stdout=subprocess.PIPE).stdout
+        p = subprocess.Popen(['C:\\maxima-5.42.2\\bin\\maxima.bat', '--very-quiet', '-batch-string', \
+                               maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Define a function for killing the process
     kill     = lambda process: process.kill()
     # Define the timer for killing the process
@@ -62,6 +62,11 @@ def maxEval(maxExpr):
     # Get the ouput from the subprocess
     stdout, stderr = p.communicate()
     # The last line of the output stream is the result
+    try:
+        stdout = stdout.decode("utf-8")
+    except (UnicodeDecodeError, AttributeError):
+        pass
+
     result = stdout.split('\n')[-1]
     # Cancel the timer because the process does not exsists after succesfully
     # reading its output

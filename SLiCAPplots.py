@@ -1169,7 +1169,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
     :return: parameter values as a result of sweeping and stepping parameters.
     :rtype: tuple
     """
-    parNames = results.circuit.parDefs.keys() + results.circuit.params
+    parNames = list(results.circuit.parDefs.keys()) + results.circuit.params
     errors = 0
     xValues = {}
     yValues = {}

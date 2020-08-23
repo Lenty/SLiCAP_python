@@ -24,8 +24,7 @@ t_ID      = r'[a-zA-Z]\w*'
 t_QSTRING = r'"(.*)"'
 t_PLUS    = r'\+'
 
-class Lexer():
-    pass
+
 
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
@@ -207,7 +206,6 @@ def tokenize(cirFileName):
     :return: lexer
     :rtype: ply.lex.lex
     """
-    lexer = Lexer()
     lexer.errCount = 0
     lexer.lineno = 0
     f = open(cirFileName, 'r')
@@ -254,8 +252,12 @@ def printError(msg, line, pos):
     out += '|\n' + msg
     print(out)
 
+# Initialize the lexer
+lexer = lex.lex()
+lexer.errCount = 0
+
 if __name__ == '__main__':
-    fi = ini.installPath + 'testProjects/dcVarTest/cir/VampBias.cir'
+    fi = ini.installPath + 'examples/dcVarTest/cir/VampBias.cir'
     print(fi)
     lexer = tokenize(fi)
     tok = lexer.token()

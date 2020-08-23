@@ -325,7 +325,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
     caption = "<caption>Table: Element data of expanded netlist '%s'</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
-    elementNames = circuitObject.elements.keys()
+    elementNames = list(circuitObject.elements.keys())
     elementNames.sort()
     for el in elementNames:
         elmt = circuitObject.elements[el]
@@ -336,7 +336,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
         for ref in elmt.refs:
             html += ref + ' '
         html += '</td><td class = "left">' + elmt.model +'</td>\n'
-        parNames = elmt.params.keys()
+        parNames = list(elmt.params.keys())
         if len(parNames) == 0:
             html += '<td></td><td></td><td></td><tr>'
         else:
@@ -377,7 +377,7 @@ def params2html(circuitObject, label = '', caption = ''):
     caption = "<caption>Table: Parameter definitions in '%s'.</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
-    parNames = circuitObject.parDefs.keys()
+    parNames = list(circuitObject.parDefs.keys())
     # Sort the list with symbolic keys such that elements are grouped and
     # sorted per sub circuit
     parNames = [str(parNames[i]) for i in range(len(parNames))]
@@ -743,7 +743,7 @@ def noise2html(instObj, label = '', labelText = ''):
         html += '<h3>Source-referred noise spectrum</h3>\n'
         html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual noise sources</h3><table>\n'
-    keys = instObj.snoiseTerms.keys()
+    keys = list(instObj.snoiseTerms.keys())
     keys.sort()
     for key in keys:
         nUnits = key[0].upper()
@@ -811,7 +811,7 @@ def dcVar2html(instObj, label = '', labelText = ''):
         html += '<h3>Source-referred variance</h3>\n'
         html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual component variances</h3><table>\n'
-    keys = instObj.svarTerms.keys()
+    keys = list(instObj.svarTerms.keys())
     keys.sort()
     for key in keys:
         nUnits = key[0].upper()
