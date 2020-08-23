@@ -921,19 +921,19 @@ class instruction(object):
                 numDets = len(self.detector)
                 if numDets == 0:
                     self.errors += 1
-                    print "Error: missing detector specification"
+                    print("Error: missing detector specification")
                 elif numDets == 1:
                     self.detector = [self.detector[0], None]
                 elif numDets > 2:
                     self.errors += 1
-                    print "Error: to many detectors."
+                    print("Error: to many detectors.")
             if self.errors !=0:
                 return
             detP = self.detector[0]
             detN = self.detector[1]
             if detP == None and detN == None:
                 self.errors += 1
-                print "Error: missing detector specification."
+                print("Error: missing detector specification.")
                 return
             # detectors must be of the same type
             if detP == None or detN == None:
@@ -1221,13 +1221,13 @@ class instruction(object):
         """
         if self.circuit == None:
             self.errors += 1
-            print "Error: missing circuit definition."
+            print("Error: missing circuit definition.")
         elif type(self.circuit.params) == dict:
             self.errors += 1
-            print "Error: empty circuit object for this instruction."
+            print("Error: empty circuit object for this instruction.")
         elif type(self.circuit) != type(circuit()):
             self.errors += 1
-            print "Error: not SLiCAP a circuit object for this instruction."
+            print("Error: not SLiCAP a circuit object for this instruction.")
         return
 
     def check(self):
@@ -1279,7 +1279,7 @@ class instruction(object):
                         pass
                     else:
                         self.errors += 1
-                        print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
+                        print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
                 elif self.gainType != 'loopgain':
                     if self.dataType == 'laplace':
                         # need source and detector
@@ -1315,7 +1315,7 @@ class instruction(object):
                         self.checkSource()
                     else:
                         self.errors += 1
-                        print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
+                        print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
                 if self.gainType == 'asymptotic' or self.gainType == 'direct' or self.gainType == 'loopgain' or self.gainType == 'servo':
                     # need loop gain reference
                     self.checkLGref()
@@ -1324,10 +1324,10 @@ class instruction(object):
         if self.step == True:
             if not self.numeric and self.dataType != 'params':
                 self.errors += 1
-                print "Error: symbolic stepping has not been implemented, use substitution instead."
+                print("Error: symbolic stepping has not been implemented, use substitution instead.")
             elif self.dataType == 'matrix':
                 self.errors += 1
-                print "Error: parameter stepping with dataType 'matrix' has not been implemented."
+                print("Error: parameter stepping with dataType 'matrix' has not been implemented.")
             else:
                 # Check step parameters
                 self.checkStep()
@@ -1343,7 +1343,7 @@ class instruction(object):
         """
         if not self.numeric:
             self.errors += 1
-            print "Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType)
+            print("Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType))
         return
 
     def checkStep(self):

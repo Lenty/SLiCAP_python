@@ -87,7 +87,7 @@ def HTMLhead(pageTitle):
     html += '<meta name="Language" content="English"/>\n'
     html += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
     if ini.mathml == True:
-        print 'MathML is not (yet) supported. Only MathJaX cloud is supported!'
+        print('MathML is not (yet) supported. Only MathJaX cloud is supported!')
     else:
         html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
         html += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
@@ -142,7 +142,7 @@ def readFile(fileName):
         txt = f.read()
         f.close()
     except:
-        print "Error: could note open '%s'."%(fileName)
+        print("Error: could note open '%s'."%(fileName))
         txt = ''
     return txt
 
@@ -510,7 +510,7 @@ def expr2html(expr, units = ''):
         html = '$' + sp.latex(roundN(expr)) + units + '$'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     else:
-        print ("Error: expr2html, expected a Sympy expression.")
+        print("Error: expr2html, expected a Sympy expression.")
         html = ''
     if ini.notebook:
         html = html.replace('$', '$$')
@@ -568,10 +568,10 @@ def matrices2html(instrObj, label = '', labelText = ''):
     :rtype: str
     """
     if instrObj.errors != 0:
-        print ("Errors found during executeion.")
+        print("Errors found during executeion.")
         return ''
     elif instrObj.dataType != 'matrix':
-        print ("Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType))
+        print("Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType))
         return ''
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
@@ -590,7 +590,7 @@ def matrices2html(instrObj, label = '', labelText = ''):
         html += '\\end{equation}\n'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
-        print ("Error: unexpected input for 'matrices2html()'.")
+        print("Error: unexpected input for 'matrices2html()'.")
     if ini.notebook:
         html = html.replace('$', '$$')
     return html
@@ -715,13 +715,13 @@ def noise2html(instObj, label = '', labelText = ''):
     :rtype: str
     """
     if instObj.errors != 0:
-        print "Errors found in instruction."
+        print("Errors found in instruction.")
         return
     elif instObj.dataType != 'noise':
-        print "Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType)
+        print("Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print "Error: parameter stepping not yet implemented for 'noise2html()'."
+        print("Error: parameter stepping not yet implemented for 'noise2html()'.")
         return
     if label != '':
         if labelText == '':
@@ -781,13 +781,13 @@ def dcVar2html(instObj, label = '', labelText = ''):
     :rtype: str
     """
     if instObj.errors != 0:
-        print "Errors found in instruction."
+        print("Errors found in instruction.")
         return
     elif instObj.dataType != 'dcvar':
-        print "Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType)
+        print("Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print "Error: parameter stepping not yet implemented for 'dcvar2html()'."
+        print("Error: parameter stepping not yet implemented for 'dcvar2html()'.")
         return
     if label != '':
         if labelText == '':

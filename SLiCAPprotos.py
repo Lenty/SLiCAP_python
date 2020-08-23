@@ -215,7 +215,7 @@ class circuit(object):
                 self.parUnits[parName] = ''
             self.updateParams()
         else:
-            print "Error: cannot define a number as parameter."
+            print("Error: cannot define a number as parameter.")
         return
 
     def defParUnits(self, parDict):
@@ -244,9 +244,9 @@ class circuit(object):
                     else:
                         self.parUnits[key] = ''
                 else:
-                    print "Error: cannot use a number as parameter."
+                    print("Error: cannot use a number as parameter.")
         else:
-            print "Error: expected a dict type argument."
+            print("Error: expected a dict type argument.")
         return
 
     def defPars(self, parDict):
@@ -277,9 +277,9 @@ class circuit(object):
                     parValue = sp.sympify(replaceScaleFactors(str(parValue)))
                     self.parDefs[parName] = parValue
                 else:
-                    print "Error: cannot define a number as parameter."
+                    print("Error: cannot define a number as parameter.")
         else:
-            print "Error: expected a dict type argument."
+            print("Error: expected a dict type argument.")
         self.updateParams()
         return
 

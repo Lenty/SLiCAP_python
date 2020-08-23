@@ -570,7 +570,7 @@ def assumeRealParams(expr, params = 'all'):
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, real = True)})
     else:
-        print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
+        print("Error: expected type 'str' or 'lst', got '%s'."%(type(params)))
     return expr
 
 def assumePosParams(expr, params = 'all'):
@@ -603,7 +603,7 @@ def assumePosParams(expr, params = 'all'):
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, positive = True)})
     else:
-        print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
+        print("Error: expected type 'str' or 'lst', got '%s'."%(type(params)))
     return expr
 
 def invLaplace(numer, denom):
@@ -682,7 +682,7 @@ def phaseMargin(LaplaceExpr):
             freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
             mrgn = phaseFunc_f(expr, freq)
         except:
-            print "Error: could not determine unity-gain frequency for phase margin."
+            print("Error: could not determine unity-gain frequency for phase margin.")
             freq = None
             mrgn = None
         freqs.append(freq)
@@ -911,10 +911,10 @@ if __name__ == "__main__":
     t1=time()
     roots1 = numRoots(DET,s)
     t2=time()
-    print roots1, t2-t1
+    print(roots1, t2-t1)
     MOD = MNA.Cramer([0,0,0,1,0,-1,0,0,0],3)
     DET = MOD.determinant()
     roots2 = numRoots(DET,s)
-    print roots2
+    print(roots2)
     a = phase_f(DET)
-    print sp.N(a.subs(ini.frequency, 100))
+    print(sp.N(a.subs(ini.frequency, 100)))

@@ -19,6 +19,7 @@ import subprocess
 from threading import Timer
 import os
 import getpass
+import platform
 
 import matplotlib._pylab_helpers as plotHelp
 from matplotlib import pyplot as plt
@@ -409,22 +410,22 @@ class settings(object):
                     if key not in disallowed and type(dct[key]) in printTypes:
                         if key != 'htmlLabels':
                             ndots = tabWidth - len(key)
-                            print key,
+                            print(key)
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
-                            print dots,':', dct[key]
+                            print(dots,':', dct[key])
                         elif key == 'htmlLabels':
                             dispkey = key + '.keys()'
                             ndots = tabWidth - len(dispkey)
-                            print dispkey,
+                            print(dispkey,)
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
                             if type(dct[key]) == dict:
-                                print dots,':', dct[key].keys()
+                                print(dots,':', dct[key].keys())
                             else:
-                                print dots,':', dct[key]
+                                print(dots,':', dct[key])
 
     def updatePaths(self, projectPath):
         """

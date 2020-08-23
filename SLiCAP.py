@@ -115,7 +115,7 @@ if __name__ == '__main__':
     a = sp.Symbol('a')
     b = sp.Symbol('b')
     c = a+sp.I*b
-    print sp.re(c), sp.im(c)
+    print(sp.re(c), sp.im(c))
     c = c.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in c.atoms(sp.Symbol)})
-    print sp.re(c), sp.im(c)
-    print c.as_real_imag()
+    print(sp.re(c), sp.im(c))
+    print(c.as_real_imag())
