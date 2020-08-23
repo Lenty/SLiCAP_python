@@ -1,25 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Sat May 30 11:10:18 2020
-
-@author: anton
+SLiCAP module with user-defined path settings.
 """
-
-LOGFILE         = True
-LANGUAGE        = 'english' # Language for error and warnings:
-                            # not yet implemented
-DISP            = 4         # Numner of digits for floats in output
-MATHJAXLOCAL    = False     # Will be ignored, later it will be replaced with
-                            # a selection between mathml and MatJax cloud
-
-LAPLACE         = 's'       # Laplace veriable
-FREQUENCY       = 'f'       # Frequency in Hz
-OMEGA           = 'omega'   # Frequency in rad/s
-MAXRECSUBST     = 10        # Maximum number of recursic=ve substitutions
-HZ              = True      # Display method for frequency on HTML pages:
-                            # True if frequency in Hz, else: False
-
+PROJECTPATH     = None      # Leave it for automatic detection
 # PATHS: relative to the project path
 HTMLPATH        = 'html/'   # path for html output
 CIRCUITPATH     = 'cir/'    # path for .asc, .net, .cir, .sch files
@@ -29,14 +13,3 @@ CSVPATH         = 'csv/'    # path for CSV files (csv2html)
 LATEXPATH       = 'tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH      = 'mathml/' # path for mathML output saveMathML()
 IMGPATH         = 'img/'    # path for image files
-
-# Default plot settings
-figureAxisHeight= 4
-figureAxisWidth = 6
-defaultColors   = ('r','b','g','c','m','y','k')
-defaultMarkers  = ['']
-tableFileType   = 'csv'
-figureFileType  = 'svg'
-axisXscale      = 'linear'    # Scale for the x-axis can be 'linear' or 'log'
-axisYscale      = 'linear'    # Scale for the y-axis can be 'linear' or 'log'
-LASTUPDATE = '2020-06-05 19:17:10.058305'

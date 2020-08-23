@@ -1,0 +1,8 @@
+CSinputImpedance
+* SLiCAP netlist file
+I1 0 1 {I_s}
+R2 2 0 {R_ell}
+C2 2 0 {C_ell}
+M1 2 1 0 0 M gm=0.5m cgs=1250f cdg={c_dg} cdb=0.2f go=20u
+.param c_dg=0.3f I_s=1 C_s=0.2p R_s=100k R_ell=100k C_ell=0.5p
+.end

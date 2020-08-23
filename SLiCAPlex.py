@@ -1,20 +1,15 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-SLiCAPlex.py
+SLiCAP tokenizer for netlist files.
 
-Tokenizer for SLiCAP netlist files
-
-Created on Mon May  4 12:32:13 2020
-
-@author: anton
+Imported by the module **SLiCAPmath.py**
 """
-
-from SLiCAPprotos import *
+from SLiCAPini import *
 
 # list of token names
 
-tokens = ('PARDEF', 'EXPR', 'SCALE', 'SCI', 'FLT', 'INT', 'CMD', 'FNAME', 
+tokens = ('PARDEF', 'EXPR', 'SCALE', 'SCI', 'FLT', 'INT', 'CMD', 'FNAME',
           'PARAMS', 'ID', 'QSTRING', 'PLUS', 'LEFTBR', 'RIGHTBR', 'COMMENT')
 
 SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
@@ -43,7 +38,7 @@ def t_PARDEF(t):
         pos = 1
         out = ''
         for m in re.finditer(r'\d+\.?\d*[yzafpnumkMGTPEZY]', t.value[1]):
-            out += t.value[1][pos: m.end()-1] + 'E' 
+            out += t.value[1][pos: m.end()-1] + 'E'
             out += SCALEFACTORS[m.group(0)[-1]]
             pos = m.end()
         out += t.value[1][pos:-1]
@@ -65,7 +60,7 @@ def t_PARDEF(t):
 def t_CMD(t):
     r'\.[a-zA-Z]+'
     """
-    Caplitalize commands.
+    Returns a caplitalized command.
     """
     t.value = t.value[1:].upper()
     return t
@@ -80,21 +75,22 @@ def t_COMMENT(t):
 def t_LEFTBR(t):
     r'\('
     """
-    Start of model parameters can be ignored.
+    Start of model parameters will be ignored. The SLiCAP parser finds
+    parameter definitions with the PARDEF token.
     """
     pass
 
 def t_t_RIGHTBR(t):
     r'\)'
     """
-    End of model parameters can be ignored.
+    End of model parameters will be ignored.
     """
     pass
 
 def t_PARAMS(t):
     r'((?i)(params:))'
     """
-    Start of sub circuit parameters can be ignored
+    Start of sub circuit parameters will be ignored
     """
     pass
 
@@ -115,29 +111,30 @@ def t_EXPR(t):
         t.value = sp.sympify(out)
     except:
         lexer.errCount += 1
-        printError("Error in expression:", lexer.lexdata.splitlines[lexer.lineno], find_column(t))
-    return t      
+        printError("Error in expression:", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
+    return t
 
 def t_SCI(t):
     r'[+-]?\d+\.?\d*[eE][+-]?\d+'
-    
+    """
+    Converts a string representing a number in scientific notation into a
+    float.
+    """
+    try:
+        t.value = float(t.value)
+        t.type = 'FLT'
+    except:
+        printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
     return t
-                
+
 # Define a rule so we can track line numbers
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-    
+
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
 
-# Compute column.
-#   input is the input text string
-#   token is a token instance
-def find_column(token):
-    line_start = lexer.lexdata.rfind('\n', 0, token.lexpos) + 1
-    return (token.lexpos - line_start) + 1
- 
  # Error handling rule
 def t_error(t):
     t.lexer.errCount += 1
@@ -153,18 +150,59 @@ def t_SCALE(t):
     try:
         t.value = float(t.value[0:-1] + 'E' + SCALEFACTORS[t.value[-1]])
     except:
-        printError('Cannot convert number to float.', lexer.lexdata.splitlines[lexer.lineno], find_column(t))
+
+        printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
         lexer.errCount += 1
     t.type = 'FLT'
     return t
 
-# Initialize the lexer
-lexer = lex.lex()
-lexer.errCount = 0
+def find_column(token):
+    """
+    Computes and returns the column number of 'token'.
+
+    :param token: Token of which the column number has to be calculated.
+    :type token: ply.lex.token
+
+    :return: Column position of this token.
+    :rtype: int
+    """
+    line_start = lexer.lexdata.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
+
+def replaceScaleFactors(txt):
+    """
+    Replaces scale factors in expressions with their value in scientific
+    notation:
+
+    :param txt: Expression or number with scale factors
+    :type txt: str
+
+    :return: out: Text in which scale factors are replaced with their
+             corresponding scientific notation.
+    :rtype: str
+
+    :Example:
+
+    >>> replaceScaleFactors('sin(2*pi*1M)')
+    'sin(2*pi*1E6)'
+    """
+    pos = 0
+    out = ''
+    for m in re.finditer(r'\d+\.?\d*([yzafpnumkMGTPEZY])', txt):
+        out += txt[pos: m.end()-1] + 'E' + SCALEFACTORS[m.group(0)[-1]]
+        pos = m.end()
+    out += txt[pos:]
+    return out
 
 def tokenize(cirFileName):
     """
-    Reset the lexer, and create the tokens for the new data.
+    Reset the lexer, and create the tokens from the file: 'cirFileName'.
+
+    :param cirFileName: Name of the netlist file to be tokenized.
+    :type cirFileName: str
+
+    :return: lexer
+    :rtype: ply.lex.lex
     """
     lexer.errCount = 0
     lexer.lineno = 0
@@ -176,7 +214,13 @@ def tokenize(cirFileName):
 
 def tokenizeTxt(textString):
     """
-    Reset the lexer, and create the tokens for the new data.
+    Reset the lexer, and create the tokens from text input 'textString'.
+
+    :param textString: Text input to be tokenized.
+    :type textString: str
+
+    :return: lexer
+    :rtype: ply.lex.lex
     """
     lexer.errCount = 0
     lexer.lineno = 0
@@ -185,22 +229,33 @@ def tokenizeTxt(textString):
 
 def printError(msg, line, pos):
     """
-    Print the line with the error, an error message and show the position
+    Prints the line with the error and an error message, and shows the position
     of the error.
+
+    :param msg: Error message.
+    :type msg: str
+
+    :param line: Input line with the error.
+    :param line: str
+
+    :param pos: Position of therror in the input line.
+    :type pos: int
+
+    :return: out: Input line with error message.
+    :rtype: str
     """
     out = '\n' + line + '\n'
     for i in range(pos-1):
         out += '.'
     out += '|\n' + msg
     print(out)
-    
+
 if __name__ == '__main__':
-    fi = ini.installPath + 'testProjects/PIVA/cir/PIVA.cir'
-    print(fi)
+    fi = ini.installPath + 'testProjects/dcVarTest/cir/VampBias.cir'
+    print fi
     lexer = tokenize(fi)
     tok = lexer.token()
     while tok:
         print(tok)
-        tok = lexer.token() 
+        tok = lexer.token()
     print('\nnumber of errors =', lexer.errCount, '\n')
-

@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="SLiCAPstructure-1.svg">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path832"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-1"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-61"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-1-0"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-9-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-1-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-9-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-1-7"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-9-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-1-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path832-9-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="205.8881"
+     inkscape:cy="793.43262"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:object-paths="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1372"
+     inkscape:window-x="2560"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="233.50002"
+       id="text819"><tspan
+         sodipodi:role="line"
+         id="tspan817"
+         x="10.583333"
+         y="233.50002"
+         style="font-size:2.82222223px;stroke-width:0.26458332">SLiCAPinstruction.instruction.setCircuit( &lt; fileName &gt; )</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="237.46877"
+       id="text819-3"><tspan
+         sodipodi:role="line"
+         id="tspan817-6"
+         x="14.552083"
+         y="237.46877"
+         style="font-size:2.82222223px;stroke-width:0.26458332">SLiCAPyacc.checkCircuit( &lt; fileName &gt; )</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="241.43752"
+       id="text819-3-7"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="241.43752"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145"># Create a circuit object:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="261.28128"
+       id="text1522"><tspan
+         sodipodi:role="line"
+         id="tspan1520"
+         x="18.520834"
+         y="261.28128"
+         style="stroke-width:0.26458332">cir = SLiCAPyacc.makeCircuit(cir)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="225.56252"
+       id="text1522-2"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9"
+         x="10.583333"
+         y="225.56252"
+         style="stroke-width:0.26458332">my_instr = SLiCAPinstruction.instruction</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="221.59377"
+       id="text1522-2-1"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-2"
+         x="10.583333"
+         y="221.59377"
+         style="stroke-width:0.26458332"># Create an instance of the instruction class</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="229.53127"
+       id="text1522-2-1-7"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-2-0"
+         x="10.583333"
+         y="229.53127"
+         style="stroke-width:0.26458332"># Check a netlist and define the circuit from it for the instruction</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="245.40627"
+       id="text1625"><tspan
+         sodipodi:role="line"
+         id="tspan1623"
+         x="18.520834"
+         y="245.40627"
+         style="stroke-width:0.26458332">cir = SLiCAPprotos.circuit()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="249.37503"
+       id="text819-3-7-6"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="249.37503"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145-1"># Tokenize the input file</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="253.34378"
+       id="text1625-8"><tspan
+         sodipodi:role="line"
+         id="tspan1623-7"
+         x="18.520834"
+         y="253.34378"
+         style="stroke-width:0.26458332">cir.lexer = SLiCAPlex.tokenize(fileName)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="257.31253"
+       id="text819-3-7-6-9"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="257.31253"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145-1-2"># Create a 'flattened' circuit from the tokens</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="265.25003"
+       id="text819-3-7-6-0"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="265.25003"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145-1-23"># Update the circuit data required  for execution of instructions.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="24.479166"
+       id="text1522-2-1-75"><tspan
+         sodipodi:role="line"
+         x="10.583333"
+         y="24.479166"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan3115">from SLiCAP import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.46944451px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="146.1875"
+       id="text1522-2-1-2"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-2-2"
+         x="10.583333"
+         y="146.1875"
+         style="font-size:2.82222247px;stroke-width:0.26458332"># Create an instance of the project class.</tspan><tspan
+         sodipodi:role="line"
+         x="10.583333"
+         y="149.40315"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan2358">&quot;&quot;&quot; </tspan><tspan
+         sodipodi:role="line"
+         x="10.583333"
+         y="152.48996"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan2350">This initializes the project paths, creates the directory </tspan><tspan
+         sodipodi:role="line"
+         x="10.583333"
+         y="155.57677"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan2362">structure, a main index HTML page and compiles the</tspan><tspan
+         sodipodi:role="line"
+         x="10.583333"
+         y="158.66357"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan2366">system libraries.&quot;&quot;&quot;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.583333"
+       y="163.38544"
+       id="text1522-2-8"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9"
+         x="10.583333"
+         y="163.38544"
+         style="stroke-width:0.26458332">my_prj = SLiCAP.initProject( &lt; projectName &gt;)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="269.21878"
+       id="text1522-7"><tspan
+         sodipodi:role="line"
+         id="tspan1520-3"
+         x="18.520834"
+         y="269.21878"
+         style="stroke-width:0.26458332">SLiCAPyacc.updateCircuitData(cir)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="273.1875"
+       id="text819-9"><tspan
+         sodipodi:role="line"
+         id="tspan817-3"
+         x="14.552083"
+         y="273.1875"
+         style="font-size:2.82222223px;stroke-width:0.26458332">SLiCAPinstruction.instruction.circuit = cir</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="172.64584"
+       id="text1522-2-8-7"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-8"
+         x="14.552083"
+         y="172.64584"
+         style="stroke-width:0.26458332">SLiCAP.ini.upatePaths( &lt; ProjectPath &gt; )</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="176.61459"
+       id="text1522-2-8-7-4"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-8-5"
+         x="14.552083"
+         y="176.61459"
+         style="stroke-width:0.26458332">SLiCAP.html.startHTML(projectName)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="168.67709"
+       id="text1522-2-8-0"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-3"
+         x="14.552083"
+         y="168.67709"
+         style="stroke-width:0.26458332">Prj = SLiCAP.SLiCAPproject( &lt; projectName &gt;)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="180.58334"
+       id="text1522-2-8-7-4-3"><tspan
+         sodipodi:role="line"
+         x="14.552083"
+         y="180.58334"
+         style="stroke-width:0.26458332"
+         id="tspan3109">SLiCAPyacc.makeLibraries() </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="184.55209"
+       id="text819-3-7-5"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="184.55209"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145-5"># Create a circuit object</tspan><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="188.07986"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan4400">&quot;&quot;&quot;</tspan><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="191.60765"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan4398">library models and sub circuits are stored in</tspan><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="195.13542"
+         style="font-size:2.46944451px;stroke-width:0.26458332"
+         id="tspan4406">LIB.models and in LIB.circuits, respectively.&quot;&quot;&quot;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="216.30209"
+       id="text1522-4"><tspan
+         sodipodi:role="line"
+         id="tspan1520-7"
+         x="18.520834"
+         y="216.30209"
+         style="stroke-width:0.26458332">LIB = SLiCAPyacc.makeCircuit(LIB)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="200.42709"
+       id="text1625-6"><tspan
+         sodipodi:role="line"
+         id="tspan1623-5"
+         x="18.520834"
+         y="200.42709"
+         style="stroke-width:0.26458332">LIB = SLiCAPprotos.circuit()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="204.39584"
+       id="text819-3-7-6-6"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="204.39584"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145-1-9"># tokenize the input file</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="208.36459"
+       id="text1625-8-3"><tspan
+         sodipodi:role="line"
+         id="tspan1623-7-7"
+         x="18.520834"
+         y="208.36459"
+         style="stroke-width:0.26458332">LIB.lexer = SLiCAPlex.tokenize( &lt; libFileName &gt; )</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="212.33334"
+       id="text819-3-7-6-9-4"><tspan
+         sodipodi:role="line"
+         x="18.520834"
+         y="212.33334"
+         style="font-size:2.82222223px;stroke-width:0.26458332"
+         id="tspan1145-1-2-5"># Create a 'flattened' circuit from the tokens</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.552083"
+       y="28.447916"
+       id="text1522-2-8-07"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86"
+         x="14.552083"
+         y="28.447916"
+         style="stroke-width:0.26458332">from SLiCAPinstruction import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="18.520834"
+       y="32.416668"
+       id="text1522-2-8-07-8"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8"
+         x="18.520834"
+         y="32.416668"
+         style="stroke-width:0.26458332">from SLiCAPexecute import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="22.489584"
+       y="36.385418"
+       id="text1522-2-8-07-8-4"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3"
+         x="22.489584"
+         y="36.385418"
+         style="stroke-width:0.26458332">from SLiCAPyacc import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="26.458334"
+       y="40.354168"
+       id="text1522-2-8-07-8-4-1"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4"
+         x="26.458334"
+         y="40.354168"
+         style="stroke-width:0.26458332">from SLiCAPhtml import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="30.427084"
+       y="44.322918"
+       id="text1522-2-8-07-8-4-1-9"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-2"
+         x="30.427084"
+         y="44.322918"
+         style="stroke-width:0.26458332">from SLiCAPplots import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="34.395832"
+       y="48.291664"
+       id="text1522-2-8-07-8-4-1-0"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-6"
+         x="34.395832"
+         y="48.291664"
+         style="stroke-width:0.26458332">from SLiCAPpythonMaxima import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="38.364582"
+       y="52.260414"
+       id="text1522-2-8-07-8-4-1-8"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-9"
+         x="38.364582"
+         y="52.260414"
+         style="stroke-width:0.26458332">from SLiCAPmatrices import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="42.333332"
+       y="56.229164"
+       id="text1522-2-8-07-8-4-1-2"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66"
+         x="42.333332"
+         y="56.229164"
+         style="stroke-width:0.26458332">from SLiCAPprotos import *</tspan><tspan
+         sodipodi:role="line"
+         x="42.333332"
+         y="59.756943"
+         style="stroke-width:0.26458332"
+         id="tspan3960" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="46.302082"
+       y="60.197914"
+       id="text1522-2-8-07-8-4-1-2-4"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66-9"
+         x="46.302082"
+         y="60.197914"
+         style="stroke-width:0.26458332">from SLiCAPmath import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="46.302082"
+       y="72.104164"
+       id="text1522-2-8-07-8-4-1-2-4-5"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66-9-0"
+         x="46.302082"
+         y="72.104164"
+         style="stroke-width:0.26458332">from SLiCAPlex import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="50.270832"
+       y="76.072922"
+       id="text1522-2-8-07-8-4-1-2-4-5-4"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66-9-0-8"
+         x="50.270832"
+         y="76.072922"
+         style="stroke-width:0.26458332">from SLiCAPini import *</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222247px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="54.239582"
+       y="87.979172"
+       id="text3918"><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="87.979172"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3920">import docutils.core</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="91.50695"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3952">import docutils.writers.html5_polyglot</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="95.034729"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3922">import numpy as np</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="98.562508"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3924">import sympy as sp</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="102.09029"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3926">from scipy.signal import residue</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="105.61806"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3928">import ply.lex as lex</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="109.14584"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3930">from shutil import copy2 as cp</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="112.67362"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3932">from time import time</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="116.20139"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3934">from datetime import datetime</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="119.72917"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3936">import re</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="123.25695"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3938">import subprocess</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="126.78473"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3940">from threading import Timer</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="130.3125"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3942">import os</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="133.84029"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3944">import getpass</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="137.36806"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3946">import matplotlib._pylab_helpers as plotHelp</tspan><tspan
+         sodipodi:role="line"
+         x="54.239582"
+         y="140.89584"
+         style="font-size:2.82222247px;stroke-width:0.26458332"
+         id="tspan3948">from matplotlib import pyplot as plt</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="46.302082"
+       y="64.166664"
+       id="text1522-2-8-07-8-4-1-2-45"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66-5"
+         x="46.302082"
+         y="64.166664"
+         style="stroke-width:0.26458332"># Initialize DEVICES and MODELS:</tspan><tspan
+         sodipodi:role="line"
+         x="46.302082"
+         y="67.694443"
+         style="stroke-width:0.26458332"
+         id="tspan3983">SLiCAPprotos.initAll()</tspan><tspan
+         sodipodi:role="line"
+         x="46.302082"
+         y="71.222221"
+         style="stroke-width:0.26458332"
+         id="tspan3960-5" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="54.239582"
+       y="84.010422"
+       id="text1522-2-8-07-8-4-1-2-4-5-4-2"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66-9-0-8-6"
+         x="54.239582"
+         y="84.010422"
+         style="stroke-width:0.26458332"># other Python modules.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="54.239582"
+       y="80.041672"
+       id="text1522-2-8-07-8-4-1-2-4-5-4-9"><tspan
+         sodipodi:role="line"
+         id="tspan1520-9-9-86-8-3-4-66-9-0-8-9"
+         x="54.239582"
+         y="80.041672"
+         style="stroke-width:0.26458332">from SLiCAPconfig import *         # The only module that may be modified by the user.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333359px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="42.333332"
+       y="11.25"
+       id="text5172"><tspan
+         sodipodi:role="line"
+         id="tspan5170"
+         x="42.333332"
+         y="11.25"
+         style="font-size:4.23333359px;stroke-width:0.26458332"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           id="tspan5174">SLiCAP from import until creation of a circuit</tspan></tspan></text>
+  </g>
+</svg>

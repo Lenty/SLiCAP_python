@@ -1,0 +1,18 @@
+VampFeedbackBiasTotal
+* file: VampFeedbackBiasTotal.cir
+* SLiCAP netlist file
+.include SLiCAP.lib
+V1 1    0 V value = {V_s}
+V2 6    0 V value = 0 dc={V_ref}
+R1 1    2 {R_s}
+R2 4    5 r value={R} dcvar={(R*sigma_r)^2}
+R3 out  4 r value={19*R} dcvar={(19*R*sigma_r)^2}
+C1 2    3 {C_a}
+C2 5    0 {C_b}
+X1 3 4 out  0 O_dcvar ; amplifier controller 
++ sib={I_b*sigma_Ib} 
++ sio={i_off} 
++ svo={v_off} 
++ iib={I_b}
+G1 3 0 out 6 {g_B/s}         ; bias loop controller
+.end  

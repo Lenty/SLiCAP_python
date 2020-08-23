@@ -1,126 +1,456 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri May 22 17:41:46 2020
+SLiCAP module with functions for execution of instructions. 
 
-@author: anton
+Imported by the module **SLiCAPinstruction.py**.
+
+Execution **instruction.execute()** proceeds as follows:
+
+#. The instruction settings will be checked for completeness and consistency
+#. If no errors are found **doInstruction(<allResults obj>)** performs the
+   actual execution of the instruction
 """
 
 from SLiCAPyacc import *
-
-#### Return structures depend on data type
-        
-class allResults(object):
-    """
-    Return  structure for results, has attributes for all data types
-    """
-    def __init__(self):
-        self.DCvalue     = None # Zero-frequency value in case of 
-                                # dataType 'pz'
-        self.poles       = None # Complex frequencies in [rad/s] or [Hz]
-        self.zeros       = None # Complex frequencies in [rad/s] or [Hz]
-        self.sources     = None # Names of the sources with dc variance or noise
-        self.srcTerms    = None # Dict with respective variance or noise
-        self.ivarTerms   = None # Dict with respective contributions to 
-                                # source-referred variance
-        self.ovarTerms   = None # Dict with respective contributions to 
-                                # detector-referred variance
-        self.ivar        = None # Total source-referred variance
-        self.ovar        = None # Total detector-referred variance
-        self.dcSolve     = None # DC solution of the network
-        self.inoiseTerms = None # Dict with respective spectral contributions
-                                # to source-referred noise
-        self.onoiseTerms = None # Dict with espective spectral contributions
-                                # to detector-referred noise
-        self.inoise      = None # Total source-referred noise spectral density
-        self.onoise      = None # Total detector-referred noise spectral 
-        self.Iv          = None # Vector with independent variables
-        self.M           = None # MNA matrix
-        self.Dv          = None # Vector with dependent variables
-        self.laplace     = None # Laplace transfer functions
-        self.time        = None # Time-domain responses
-        self.impulse     = None # Unit impulse responses
-        self.step        = None # Unit step responses
-        self.denom       = None # Laplace poly of denominator
-        self.numer       = None # Laplace poly of numerator
-    
-        
+       
 def doInstruction(instObj):
-    # In this case we need substitution and things get different with 
-    # parameter stepping:
-    if instObj.step == True and instObj.stepMethod != 'array':
-        try:
-            del instObj.parDefs[instObj.stepVar]
-        except:
-            pass
-    elif instObj.step == True and instObj.stepMethod == 'array':
-        # In this case we build the matrix for every step
-        pass
-    else:
-        pass
-    if instObj.errors == 0:
-        if instObj.simType == 'numeric':
-            numeric = True
+    """
+    Executes the instruction with or without parameter stepping.
+    
+    Called by **instruction.execute()**. This function should not be called 
+    directly by the user.
+    
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: **allResults()** object that holds instruction data.
+    :return type: **allResults()** object
+    """
+    if instObj.step:
+        if ini.stepFunction:
+            # Create a substitution dictionary that does not contain step parameters
+            subsDict = {}
+            if instObj.stepMethod == 'array':
+                for key in instObj.circuit.parDefs.keys():
+                    if key not in instObj.stepVars:
+                        subsDict[key] = instObj.circuit.parDefs[key]
+            else:
+                for key in instObj.circuit.parDefs.keys():
+                    if key != instObj.stepVar:
+                        subsDict[key] = instObj.circuit.parDefs[key]
+            instObj.parDefs = subsDict
+            # Do the instruction
+            instObj.M, instObj.Dv = makeMatrices(instObj.circuit, instObj.parDefs, instObj.numeric, instObj.gainType, instObj.lgRef)
+            # Do stepping by means of substitution in the numerator and denominator
+            if instObj.dataType == 'poles':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                # pz analysis is numeric so better lambdify!
+                for poly in denoms:
+                    instObj.poles.append(numRoots(poly, ini.Laplace))
+                instObj.zeros = []
+            elif instObj.dataType == 'zeros':
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                for poly in numers:
+                    instObj.zeros.append(numRoots(poly, ini.Laplace))
+                instObj.poles = []
+            elif instObj.dataType == 'pz':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                instObj.poles = []
+                instObj.zeros = []
+                instObj.DCvalue = []
+                for i in range(len(denoms)):
+                    poles = numRoots(denoms[i], ini.Laplace)
+                    zeros = numRoots(numers[i], ini.Laplace)
+                    (poles, zeros) = cancelPZ(poles, zeros)
+                    instObj.poles.append(poles)
+                    instObj.zeros.append(zeros)
+                    try:
+                        # Lets try a real limit with Maxima CAS
+                        instObj.DCvalue.append(maxLimit(numers[i]/denoms[i], str(ini.Laplace), '0', 'plus'))
+                    except:
+                        # If not just substitute s=0 with Sympy
+                        instObj.DCvalue.append(sp.N(sp.Subs(numers[i]/denoms[i], ini.Laplace, 0)))
+            elif instObj.dataType == 'step':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj)
+                numers = stepFunctions(instObj, numer)
+                for i in range(len(denoms)):
+                    instObj.stepResp.append(maxILT(numers[i], denoms[i]*ini.Laplace, numeric = instObj.numeric))
+            elif instObj.dataType == 'impulse' or instObj.dataType == 'time':
+                denom = doDenom(instObj)
+                numer = doNumer(instObj)
+                if instObj.gainType == 'vi':
+                    nNum, nDen = sp.fraction(numer)
+                    numer = nNum
+                    denom = denom*nDen
+                denoms = stepFunctions(instObj, denom)
+                numers = stepFunctions(instObj, numer)
+                for i in range(len(denoms)):
+                    try:
+                        instObj.stepResp.append(maxILT(numers[i], denoms[i], numeric = instObj.numeric))
+                    except:
+                        print "Warning: could not calculate the unit impulse response."
+            elif instObj.dataType == 'numer':
+                numer = doNumer(instObj)
+                instObj.numer = stepFunctions(instObj, numer)
+            elif instObj.dataType == 'denom':
+                denom = doDenom(instObj)
+                instObj.denom = stepFunctions(instObj, denom)
+            elif instObj.dataType == 'laplace':
+                denom = doDenom(instObj)
+                denoms = stepFunctions(instObj, denom)
+                numer = doNumer(instObj) # works for all gain types
+                numers = stepFunctions(instObj, numer)
+                instObj.laplace = []
+                for i in range(len(denoms)):
+                    if ini.normalize == True:
+                        instObj.laplace.append(normalizeLaplaceRational(numers[i]/denoms[i]))
+                    else:
+                        instObj.laplace.append(numers[i]/denoms[i])
+            elif instObj.dataType == 'solve':
+                sol = doSolve(instObj)
+                instObj.solve = stepFunctions(instObj, sol)
+                for i in range(len(instObj.solve)):
+                    instObj.solve[i] = sp.simplify(instObj.solve[i])
+                    """
+                    Todo:
+                    
+                        simplification, normalization and factorization
+                        according to ini settings.
+                    """
+            elif instObj.dataType == 'noise':
+                detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+                if instObj.source != None:
+                    # Calculate the squared gain from source to detector as a
+                    # function of ini.frequency
+                    gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = instObj.numeric)
+                    gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = instObj.numeric))
+                # Calculate the contributions of each noise source to the
+                # spectral density of the total output noise
+                onoiseTerms = doNoise(instObj, detP, detN)
+                # apply function stepping
+                for elID in onoiseTerms.keys():
+                    if instObj.source != None:
+                        instObj.inoiseTerms[elID] = stepFunctions(instObj, sp.simplify(onoiseTerms[elID]/gain2))
+                    instObj.onoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID])
+                    instObj.snoiseTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['noise'])
+                numRuns = len(instObj.onoiseTerms[elID])
+                for i in range(numRuns):
+                    # calcuate onoise and inoise for each run
+                    onoise = 0
+                    inoise = 0
+                    for elID in onoiseTerms.keys():
+                        onoise += instObj.onoiseTerms[elID][i]
+                        if instObj.source != None:
+                            inoise += instObj.inoiseTerms[elID][i]
+                    instObj.onoise.append(sp.simplify(onoise))
+                    if instObj.source != None:
+                        instObj.inoise.append(sp.simplify(inoise))
+            elif instObj.dataType == 'dc':
+                detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+                dc = doDC(instObj, detP, detN)
+                instObj.dc = stepFunctions(instObj, dc)
+            elif instObj.dataType == 'dcsolve':
+                dcSolve = doSolveDC(instObj)
+                instObj.dcSolve = stepFunctions(instObj, dcSolve)
+            elif instObj.dataType == 'dcvar':
+                detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+                if instObj.source != None:
+                    # Calculate the squared DC gain from source to detector
+                    gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = True, numeric = instObj.numeric)
+                    gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = True, numeric = instObj.numeric))
+                # Calculate the contributions of each variance source to the
+                # variance at the detector
+                ovarTerms, dcSol = doDCvar(instObj, detP, detN)
+                # apply function stepping
+                for elID in ovarTerms.keys():
+                    if instObj.source != None:
+                        instObj.ivarTerms[elID] = stepFunctions(instObj, sp.simplify(ovarTerms[elID]/gain2))
+                    instObj.ovarTerms[elID] = stepFunctions(instObj, ovarTerms[elID])
+                    instObj.svarTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['dcvar'])
+                numRuns = len(instObj.ovarTerms[elID])
+                for i in range(numRuns):
+                    # calcuate ovar and ivar for each run
+                    ovar = 0
+                    ivar = 0
+                    for elID in ovarTerms.keys():
+                        ovar += instObj.ovarTerms[elID][i]
+                        if instObj.source != None:
+                            ivar += instObj.ivarTerms[elID][i]
+                    instObj.ovar.append(sp.simplify(ovar))
+                    if instObj.source != None:
+                        instObj.ivar.append(sp.simplify(ivar))
         else:
-            numeric = False
-        (instObj.Iv, instObj.M, instObj.Dv) = makeGainType(instObj, numeric)
-        if instObj.dataType == 'matrix':
-            instObj.results.Iv = instObj.Iv
-            instObj.results.M = instObj.M
-            instObj.results.Dv = instObj.Dv
-        elif instObj.dataType == 'poles':
-            instObj.results.poles = doPoles(instObj)  
-            instObj.results.zeros = []
-            instObj.DCvalue = None
-        elif instObj.dataType == 'zeros':
-            instObj.results.zeros = doZeros(instObj)
-            instObj.results.poles == []
-            instObj.DCvalue = None
-        elif instObj.dataType == 'pz':
-            (poles, zeros, DCvalue) = doPZ(instObj)
-            instObj.results.poles = poles
-            instObj.results.zeros = zeros
-            instObj.results.DCvalue = DCvalue
-        elif instObj.dataType == 'denom':
-            denom = doDenom(instObj)
-            instObj.results.denom = denom
-        elif instObj.dataType == 'numer':
-            numer = doNumer(instObj)
-            instObj.results.numer = numer
-        elif instObj.dataType == 'laplace':
-            laplace = doLaplace(instObj)
-            instObj.results.laplace = laplace           
+            # Create a deep copy of the substitution dictionary
+            subsDict = {}
+            for key in instObj.circuit.parDefs.keys():
+                subsDict[key] = instObj.circuit.parDefs[key]
+            instObj.parDefs = subsDict
+            # For each set of step variable create the numeric substitution
+            # dictionary, make the matrices and do the non-stepped instruction.
+            if instObj.stepMethod != 'array':
+                for stepVal in instObj.stepList:
+                    instObj.parDefs[instObj.stepVar] = stepVal
+                    doDataType(instObj)
+            else:
+                # array stepping, number of steps is length of lists in stepArray
+                for i in range(len(instObj.stepArray[0])):
+                    # substitute the i-th value for each step variable in the
+                    # .parDefs dictionary.
+                    for j in range(len(instObj.stepVars)):
+                        instObj.parDefs[instObj.stepVars[j]] = instObj.stepArray[j][i]
+                    doDataType(instObj)
+    else:
+        # No parameter stepping, just do the non-stepped instruction.
+        instObj.parDefs = instObj.circuit.parDefs
+        doDataType(instObj)
     return instObj
 
-def makeGainType(instObj, numeric, subsDict = None):
+def stepFunctions(instObj, function):
     """
-    Adds the matrices (Iv, M and Dv) to the instruction object 'instObj.
-    When single-parameter stepping is enabled, the step variable is kept
-    symbolic in the matrix. Single-parameter stepping will then be done after 
-    the transfer, a numerator or a denominator has been calculated.
-    Multi-parameter stepping is done by creating the matrix with each step.
+    Substitutes values for step parameters in functions and returns a list
+    of functions with these substitutions.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    :param function:
+    :type function: sympy.Expr
+    
+    :return: List with functions (*sympy.Expr*). The number of 
+             functions equals the number of steps. Function i equals 
+             the input function in which the step variable has been 
+             replaced with its i-th step value.
+    :return type: list
     """
-    if instObj.step == True and instObj.stepMethod != 'array':
-        # make a copy of the parameter definitions, but do not include the
-        # step variable
-        parDefs = {}
-        stepVar = sp.Symbol(instObj.stepVar)
-        for key in instObj.circuit.parDefs.keys():
-            if key != stepVar:
-                parDefs[key] = instObj.circuit.parDefs[key]
-    elif instObj.step == True and instObj.stepMethod == 'array' and subsDict != None:
-        parDefs = subsDict
+    if instObj.stepMethod == 'array':
+        functions = []
+        for i in range(len(instObj.stepArray[0])):
+            subsList = []
+            for j in range(len(instObj.stepVars)):
+                subsList.append((instObj.stepVars[j], instObj.stepArray[j][i]))
+            functions.append(function.subs(subsList))
     else:
-        parDefs = instObj.circuit.parDefs
-    return makeMatrices(instObj.circuit, parDefs, numeric, gainType = instObj.gainType, lgRef = instObj.lgRef)
+        functions = [function.xreplace({instObj.stepVar: instObj.stepList[i]}) for i in range(len(instObj.stepList))]
+    return functions
+
+def doDataType(instObj):
+    """
+    Executes the instruction without parameter stepping.
+    
+    #. It builds the matrices in accordance with the specified gain type
+    #. It executes instruction for the specified dataype
+    
+    :param instObj: **allResults()** objectthat holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: **allResults()** object that holds instruction data
+    :return type: **allResults()** object
+    """
+    instObj.M, instObj.Dv = makeMatrices(instObj.circuit, instObj.parDefs, instObj.numeric, instObj.gainType, instObj.lgRef)  
+    if instObj.dataType == 'matrix':
+        instObj.Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'value', numeric=instObj.numeric)
+    elif instObj.dataType == 'poles':
+        if instObj.step:
+            instObj.poles.append(doPoles(instObj))
+        else:
+            instObj.poles = doPoles(instObj)  
+            instObj.DCvalue = None
+    elif instObj.dataType == 'zeros':
+        if instObj.step:
+            instObj.zeros.append(doZeros(instObj))
+        else:
+            instObj.zeros = doZeros(instObj)
+            instObj.DCvalue = None
+    elif instObj.dataType == 'pz':
+        (poles, zeros, DCvalue) = doPZ(instObj)
+        if instObj.step:
+            instObj.poles.append(poles)
+            instObj.zeros.append(zeros)
+            instObj.DCvalue.append(DCvalue)
+        else:    
+            instObj.poles = poles
+            instObj.zeros = zeros
+            instObj.DCvalue = DCvalue
+    elif instObj.dataType == 'denom':
+        if instObj.step:
+            instObj.denom.append(doDenom(instObj))
+        else:
+            instObj.denom = doDenom(instObj)
+    elif instObj.dataType == 'numer':
+        if instObj.step:
+            instObj.numer.append(doNumer(instObj))
+        else:
+            instObj.numer = doNumer(instObj)
+    elif instObj.dataType == 'laplace':
+        if instObj.step:
+            instObj.laplace.append(doLaplace(instObj))
+        else:
+            instObj.laplace = doLaplace(instObj)
+    elif instObj.dataType == 'step':
+        instObj.stepResp = maxILT(doNumer(instObj), doDenom(instObj)*ini.Laplace, numeric = instObj.numeric)
+    elif instObj.dataType == 'impulse' or instObj.dataType == 'time':
+        numer = doNumer(instObj)
+        denom = doDenom(instObj)
+        if instObj.gainType == 'vi':
+            nNum, nDen = sp.fraction(numer)
+            numer = nNum
+            denom = sp.expand(denom*nDen)
+        if instObj.dataType == 'impulse':
+            try:
+                instObj.impulse = maxILT(numer, denom, numeric = instObj.numeric)
+            except:
+                print "Warning: could not calculate the unit impulse response."
+        elif instObj.dataType == 'time':
+            try:
+                instObj.time = maxILT(numer, denom, numeric = instObj.numeric)
+            except:
+                print "Warning: could not calculate the time response."
+    elif instObj.dataType == 'solve':
+        if instObj.step:
+            instObj.solve.append(doSolve(instObj))
+        else:
+            instObj.solve = doSolve(instObj)    
+    elif instObj.dataType == 'noise':
+        # Calculate the contributions of each noise source to the
+        # spectral density of the total output noise
+        detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+        onoiseTerms = doNoise(instObj, detP, detN)
+        inoiseTerms = {}
+        snoiseTerms = {}
+        onoise      = 0
+        alreadyKeys = instObj.onoiseTerms.keys()
+        if instObj.source != None:
+            # Calculate the squared gain from source to detector as a
+            # function of ini.frequency
+            gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = instObj.numeric)
+            gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = instObj.numeric))
+            inoise = 0
+        for key in onoiseTerms.keys():
+            onoise += onoiseTerms[key]
+            snoiseTerms[key] = instObj.circuit.elements[key].params['noise']
+            if instObj.source != None:
+                inoiseTerms[key] = sp.simplify(onoiseTerms[key]/gain2)
+                inoise += inoiseTerms[key]
+            if instObj.step:
+                if key in alreadyKeys:
+                    instObj.onoiseTerms[key].append(onoiseTerms[key])
+                    instObj.snoiseTerms[key].append(snoiseTerms[key])
+                    if instObj.source != None:
+                        instObj.inoiseTerms[key].append(inoiseTerms[key])
+                else:
+                    instObj.onoiseTerms[key] = [onoiseTerms[key]]
+                    instObj.snoiseTerms[key] = [snoiseTerms[key]]
+                    if instObj.source != None:
+                        instObj.inoiseTerms[key] = [inoiseTerms[key]]
+            else:
+                instObj.onoiseTerms[key] = onoiseTerms[key]
+                instObj.snoiseTerms[key] = snoiseTerms[key]
+                if instObj.source != None:
+                    instObj.inoiseTerms[key] = inoiseTerms[key]
+        if instObj.step:
+            instObj.onoise.append(sp.simplify(onoise))
+            if instObj.source != None:
+                instObj.inoise.append(sp.simplify(inoise))
+        else:
+            instObj.onoise = onoise
+            if instObj.source != None:
+                instObj.inoise = sp.simplify(inoise)      
+    elif instObj.dataType == 'dc':
+        (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
+        if instObj.step:
+            instObj.dc.append(doDC(instObj, detP, detN))
+        else:
+            detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+            instObj.dc= doDC(instObj, detP, detN)        
+    elif instObj.dataType == 'dcsolve':
+        if instObj.step:
+            instObj.dcSolve.append(doSolveDC(instObj))
+        else:
+            instObj.dcSolve = doSolveDC(instObj) 
+    elif instObj.dataType == 'dcvar':
+        # Calculate the contributions of each dcvar source to the
+        # variance at the detector
+        detP, detN, srcP, srcN = makeSrcDetPos(instObj)
+        ovarTerms, dcSol = doDCvar(instObj, detP, detN)
+        ivarTerms = {}
+        svarTerms = {}
+        ovar      = 0
+        alreadyKeys = instObj.ovarTerms.keys()
+        if instObj.source != None:
+            # Calculate the squared DC gain from source to detector
+            gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = True, numeric = instObj.numeric)
+            gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = True, numeric = instObj.numeric))
+            ivar = 0
+        for key in ovarTerms.keys():
+            ovar += ovarTerms[key]
+            svarTerms[key] = instObj.circuit.elements[key].params['dcvar']
+            if instObj.source != None:
+                ivarTerms[key] = sp.simplify(ovarTerms[key]/gain2)
+                ivar += ivarTerms[key]
+            if instObj.step:
+                if key in alreadyKeys:
+                    instObj.ovarTerms[key].append(ovarTerms[key])
+                    instObj.svarTerms[key].append(svarTerms[key])
+                    if instObj.source != None:
+                        instObj.ivarTerms[key].append(ivarTerms[key])
+                else:
+                    instObj.ovarTerms[key] = [ovarTerms[key]]
+                    instObj.svarTerms[key] = [svarTerms[key]]
+                    if instObj.source != None:
+                        instObj.ivarTerms[key] = [ivarTerms[key]]
+            else:
+                instObj.ovarTerms[key] = ovarTerms[key]
+                instObj.svarTerms[key] = svarTerms[key]
+                if instObj.source != None:
+                    instObj.ivarTerms[key] = ivarTerms[key]
+        if instObj.step:
+            instObj.ovar.append(sp.simplify(ovar))
+            if instObj.source != None:
+                instObj.ivar.append(sp.simplify(ivar))
+            instObj.dcSolve.append(dcSol)
+        else:
+            instObj.ovar = ovar
+            if instObj.source != None:
+                instObj.ivar = sp.simplify(ivar) 
+            instObj.dcSolve = dcSol
+    return instObj
 
 def doDenom(instObj):
     """
-    Calculates the denominator of a transfer by evaluating of the determinant
+    Calculates the denominator of a transfer by evaluating the determinant
     of the MNA matrix.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
     
-    instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
-    return value: Sympy expression.
+    :return: denominator of a transfer or a detector voltage or current:
+             
+             - gain type = 'vi', 'gain', 'direct', 'asymptotic':
+               
+               dDeterminant of the MNA matrix for that gain type
+               
+             - gain type = 'loopgain':
+             
+               Determinant of the MNA matrix for gain type 'loopgain' multiplied
+               with the denominator of the gain of the loop gain reference.
+               
+             - gain type = 'servo':
+                 
+               Determinant of the MNA matrix for gain type 'loopgain' multiplied
+               with the denominator of the gain of the loop gain reference, plus
+               the numerator of the loop gain. The latter one is calculated as
+               the product of the sum of cofactors of the MNA matrix for gain 
+               type 'loopgain' and the numerator of the gain of the loop gain 
+               reference.
+               
+    :return type: sympy.Expr
     """
     denom = maxDet(instObj.M)
     if instObj.gainType == 'servo':
@@ -132,28 +462,43 @@ def doDenom(instObj):
     elif instObj.gainType == 'loopgain':
         (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
         denom = denom * lgDenom
-    return denom
-
+    return sp.collect(denom, ini.Laplace)
 
 def doPoles(instObj):
     """
-    Calculates the denominator of a transfer from source to detector and find
-    the poles.
+    Calculates the numeric roots of the denominator of a transfer.
     
-    instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
-    return value: List with zeros, empty list if no zeros are found.
+    It first calls **execute.doDenom()** to calculate the denominator of the
+    transfer defined by the gain type. It then calculates the numerical roots
+    by calling **SLiCAPmath.numRoots()**.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: list with numerical roots of the denominator of a transfer
+    :return type: list
     """
-    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), LAPLACE))
-    return numRoots(denom, LAPLACE)
+    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), ini.Laplace))
+    return numRoots(denom, ini.Laplace)
 
 def lgValue(instObj):
     """
-    Calculates the corrected gain of the loop gain reference. In case of
-    a loop gain reference of the type EZ and HZ the calculation of the loop
-    gain proceeds as if a current source was placed in parallel with the
-    output impedance (zo) of this controlled source. The value of this source
-    is the loop gain reference divided by the output impedance of the device
-    (Norton equivalent representation).
+    Calculates the corrected gain of the loop gain reference. 
+    
+    In case of a loop gain reference of the type EZ and HZ the calculation of 
+    the loop gain is performed as if a current source was placed in parallel 
+    with the output impedance (zo) of this controlled source (Norton equivalent 
+    representation). The value of this current source is that of the loop gain 
+    reference divided by the output impedance of the device.
+    
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: Gain of the loop gain reference, modified in a Norton equivalent
+             in cases in which the model of the loop gain reference is 'EZ' or 
+             'HZ'.
+             
+    :return type: sympy.
     """
     lgRef = instObj.circuit.elements[instObj.lgRef]
     if lgRef.model == 'g':
@@ -161,9 +506,15 @@ def lgValue(instObj):
     elif lgRef.model == 'E':
         value = lgRef.params['value']
     elif lgRef.model == 'EZ':
-        value = lgRef.params['value']/lgRef.params['zo']
+        if lgRef.params['zo'] != 0:
+            value = lgRef.params['value']/lgRef.params['zo']
+        else:
+            value = lgRef.params['value']
     elif lgRef.model == 'HZ':
-        value = lgRef.params['value']/lgRef.params['zo']
+        if lgRef.params['zo'] != 0:
+            value = lgRef.params['value']/lgRef.params['zo']
+        else:
+            value = lgRef.params['value']
     elif lgRef.model == 'H':
         value = lgRef.params['value']
     elif lgRef.model == 'F':
@@ -176,8 +527,27 @@ def lgValue(instObj):
 
 def makeSrcDetPos(instObj):
     """
-    Returns the number of the source rows and detector colums for calculation
-    of the cofactors.
+    Returns the number of the source row(s) and detector colum(s) for 
+    calculation of cofactors or for application of Cramer's rule.
+    
+    If the gain type is 'loopgain' or 'servo', the source and the detector are
+    taken at the input and the output of the loop gain reference.
+    
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: tuple: (detP, detN, srcP, srcN):
+            
+            - detP (*None, int*): number of the row of the vector with dependent 
+              variables that corresponds with the positive detector
+            - detN (*None, int*): number of the row of the vector with dependent 
+              variables that corresponds with the negative detector
+            - srcP (*None, int*): number of the row of the vector with dependent 
+              variables that corresponds with the positive source
+            - srcN (*None, int*): number of the row of the vector with dependent 
+              variables that corresponds with the negative source
+              
+    :return type: tuple
     """
     detectors = []
     for var in instObj.circuit.depVars:
@@ -186,8 +556,11 @@ def makeSrcDetPos(instObj):
     if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
         lgRef = instObj.circuit.elements[instObj.lgRef]
         if lgRef.model == 'E':
+            # The detector nodes are the inP and inN nodes of the VCVS
             srcP = detectors.index('I_o_' + instObj.lgRef)
             srcN = None
+            # The source row is that of the current through the controlled
+            # voltage source
             if lgRef.nodes[2] == '0':
                 detP = None
             else:
@@ -197,8 +570,7 @@ def makeSrcDetPos(instObj):
             else:
                 detN = detectors.index('V_' + lgRef.nodes[3])
         elif lgRef.model == 'EZ':
-            # Signal source is a current source in parallel with Zo
-            # gain will be divided by the value of Zo.
+            # The detector nodes are the inP and inN nodes of the VCVS
             if lgRef.nodes[2] == '0':
                 detP = None
             else:
@@ -207,15 +579,29 @@ def makeSrcDetPos(instObj):
                 detN = None
             else:
                 detN = detectors.index('V_' + lgRef.nodes[3])
-            if lgRef.nodes[0] == '0':
-                srcP = None
+            if lgRef.params['zo'] != 0:
+                # A current source in parallel with Zo, hence flowing from the 
+                # outN node to the outP node of the device is the new source.
+                # The gain of the reference variable needs to be divided by the
+                # value of Zo.
+                if lgRef.nodes[0] == '0':
+                    srcP = None
+                else:
+                    srcP = detectors.index('V_' + lgRef.nodes[0])
+                if lgRef.nodes[1] == '0':
+                    srcN = None
+                else:
+                    srcN = detectors.index('V_' + lgRef.nodes[1])
             else:
-                srcP = detectors.index('V_' + lgRef.nodes[0])
-            if lgRef.nodes[1] == '0':
-                srcN = None
-            else:
-                srcN = detectors.index('V_' + lgRef.nodes[1])
+                # If Zo is zero the method for model 'E' must be applied.
+                srcP = detectors.index('I_o_' + instObj.lgRef)
+                srcN = None                
         elif lgRef.model == 'F':
+            # The detector row is that of the input current of the CCCS
+            detP = detectors.index('I_i_' + instObj.lgRef)
+            detN = None
+            # The source rows correspond with those of the nodes of the
+            # controlled current source at the output of the device.
             if lgRef.nodes[1] == '0':
                 srcP = None
             else:
@@ -224,11 +610,9 @@ def makeSrcDetPos(instObj):
                 srcN = None
             else:
                 srcN = detectors.index('V_' + lgRef.nodes[0])
-            detP = detectors.index('I_i_' + instObj.lgRef)
-            detN = None
         elif lgRef.model == 'G':
-            srcP = detectors.index('I_o_' + instObj.lgRef)
-            srcN = None
+            # The detector rows correspond with those of the input nodes
+            # of the VCCS.
             if lgRef.nodes[2] == '0':
                 detP = None
             else:
@@ -237,7 +621,19 @@ def makeSrcDetPos(instObj):
                 detN = None
             else:
                 detN = detectors.index('V_' + lgRef.nodes[3])
+            # The source current source flows from the outN node to the
+            # outP node of the device.
+            if lgRef.nodes[0] == '0':
+                srcN = None
+            else:
+                srcN = detectors.index('V_' + lgRef.nodes[0])
+            if lgRef.nodes[1] == '0':
+                srcP = None
+            else:
+                srcP = detectors.index('V_' + lgRef.nodes[1])
         elif lgRef.model == 'g':
+            # The detector rows correspond with those of the input nodes
+            # of the VCCS.
             if lgRef.nodes[2] == '0':
                 detP = None
             else:
@@ -246,6 +642,8 @@ def makeSrcDetPos(instObj):
                 detN = None
             else:
                 detN = detectors.index('V_' + lgRef.nodes[3])
+            # The source current source flows from the outN node to the
+            # outP node of the device.
             if lgRef.nodes[1] == '0':
                 srcP = None
             else:
@@ -255,88 +653,159 @@ def makeSrcDetPos(instObj):
             else:
                 srcN = detectors.index('V_' + lgRef.nodes[0])
         elif lgRef.model == 'H':
-            srcP = detectors.index('I_o' + instObj.lgRef)
+            # The detector row is that of the input current of the CCVS
+            detP = detectors.index('I_i_' + instObj.lgRef)
+            detN = None
+            # The source row is that of the output current of the CCVS
+            srcP = detectors.index('I_o_' + instObj.lgRef)
             srcN = None
-            detP = detectors.index('I_i_' + instObj.lgRef)
-            detN = None
         elif lgRef.model == 'HZ':
+            # The detector row is that of the input current of the CCVS
             detP = detectors.index('I_i_' + instObj.lgRef)
-            detN = None
-            if lgRef.nodes[0] == '0':
-                srcP = None
+            detN = None  
+            if lgRef.params['zo'] != 0:
+                # A current source in parallel with Zo, hence flowing from the 
+                # outN node to the outP node of the device is the new source.
+                # The gain of the reference variable needs to be divided by the
+                # value of Zo.
+                if lgRef.nodes[0] == '0':
+                    srcP = None
+                else:
+                    srcP = detectors.index('V_' + lgRef.nodes[0])
+                if lgRef.nodes[1] == '0':
+                    srcN = None
+                else:
+                    srcN = detectors.index('V_' + lgRef.nodes[1])
             else:
-                srcP = detectors.index('V_' + lgRef.nodes[0])
-            if lgRef.nodes[1] == '0':
-                srcN = None
-            else:
-                srcN = detectors.index('V_' + lgRef.nodes[1])    
+                # If Zo equals zero the method for model 'H' must be applied.
+                srcP = detectors.index('I_o_' + instObj.lgRef)
+                srcN = None                  
     else:
+        # For all other gain types:
+        # The detector rows are those that correspond with the dependent 
+        # variables of the detector.
         (detP, detN) = instObj.detector
         if detP != None:
             detP = detectors.index(detP)
         if detN != None:
             detN = detectors.index(detN)
-        if instObj.source[0].upper() == 'V':
-            srcP = detectors.index('I_' + instObj.source)
-            srcN = None
-        elif instObj.source[0].upper() == 'I':
-            nodes = instObj.circuit.elements[instObj.source].nodes
-            if nodes[0] != '0':
-                srcP = detectors.index('V_' + nodes[0])
-            else:
-                scrP = None
-            if nodes[1] != 0:
-                srcN = detectors.index('V_' + nodes[1])
-            else:
+        if instObj.source != None:
+            # If there is s source defined:
+            if instObj.source[0].upper() == 'V':
+                # The source row corresponds with that of the current through
+                # the voltage source
+                srcP = detectors.index('I_' + instObj.source)
                 srcN = None
+            elif instObj.source[0].upper() == 'I':
+                # The source rows correspond with those of the nodal voltages
+                # of the source nodes
+                nodes = instObj.circuit.elements[instObj.source].nodes
+                if nodes[0] != '0':
+                    srcP = detectors.index('V_' + nodes[0])
+                else:
+                    scrP = None
+                if nodes[1] != 0:
+                    srcN = detectors.index('V_' + nodes[1])
+                else:
+                    srcN = None
+        else:
+            # If there is no source defines, srcP and srcN are set to 'None'
+            srcP = None
+            srcN = None
     return(detP, detN, srcP, srcN)
     
 def doNumer(instObj):
     """
-    Calculates the numerator of a transfer by evaluating cofactors.
+    Calculates the numerator of a transfer by evaluating cofactors or by using 
+    Cramer's rule.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
     
-    instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
-    return value: Sympy expression.
+    :return: numerator of a transfer or a detector voltage or current:
+             
+             - gain type = 'vi':
+                 
+               Application of Cramer's rule
+             
+             - gain type = 'gain', 'direct', 'asymptotic':
+               
+               Sum of cofactors of the MNA matrix for that gain type
+               
+             - gain type = 'loopgain':
+             
+               Sum of cofactors of the MNA matrix for gain type 'loopgain' 
+               multiplied with the numerator of the gain of the loop gain 
+               reference.
+               
+             - gain type = 'servo':
+                 
+               Sum of cofactors of the MNA matrix for gain type 'loopgain' 
+               multiplied with the the negative value of the numerator of the 
+               gain of the loop gain reference.
+               
+    :return type: sympy.Expr
     """
     (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
-    numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
-    if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
-        (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-        numer *= lgNumer
-    elif instObj.gainType == 'servo':
-        numer *= -lgNumer
-    return numer
+    if instObj.gainType == 'vi':
+        # Todo:
+        # Iv can have Laplace rationals in it, check if this works with ILT
+        Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'value', numeric = instObj.numeric)
+        return maxCramerNumer(instObj.M, Iv, detP, detN)
+    else:
+        numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
+        if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
+            (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+            numer *= lgNumer
+        elif instObj.gainType == 'servo':
+            numer *= -lgNumer
+        return sp.collect(numer, ini.Laplace)
 
 def doZeros(instObj):
     """
-    Calculates the numerator of a transfer from source to detector and find the
-    zeros.
+    Calculates the numeric roots of numerator of a transfer.
     
-    instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
-    return value: List with zeros, empty list if no zeros are found.
+    It first calls **execute.doNumer()** to calculate the numerator of the
+    transfer defined by the gain type. It then calculates the numerical roots
+    by calling **SLiCAPmath.numRoots()**.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: list with numerical roots of the numerator of a transfer
+    :return type: list
     """
-    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), LAPLACE))
-    return numRoots(numer, LAPLACE)
+    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), ini.Laplace))
+    return numRoots(numer, ini.Laplace)
     
 def doPZ(instObj):
     """
-    Calculates the numerator and the denominator of the transfer from source to
-    detector and determines the zero-frequency value, the poles and the zeros.
+    Calculates the DC gain, and the numric roots of the numerator and the
+    denominator of a transfer.
     
-    instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
-    return value: List with poles, list with zeros, DCvalue.
+    - Calculate the numerator and the denominator
+    - Calculate the poles and the zeros
+    - Calculate the DC gain 
+    - Cancel poles and zeros that coincide within a relative tolerance of 
+      :math:`10^{-\mathrm{ini.disp}}`.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: tuple: (poles, zeros, DCvalue)
+    :return type: tuple
     """
-    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), LAPLACE))
-    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), LAPLACE))
-    poles = numRoots(denom, LAPLACE)
-    zeros = numRoots(numer, LAPLACE)
+    numer = sp.expand(sp.collect(doNumer(instObj).evalf(), ini.Laplace))
+    denom = sp.expand(sp.collect(doDenom(instObj).evalf(), ini.Laplace))
+    poles = numRoots(denom, ini.Laplace)
+    zeros = numRoots(numer, ini.Laplace)
     (poles, zeros) = cancelPZ(poles, zeros)
     try:
         # Lets try a real limit with maxima
-        DCvalue = maxLimit(numer/denom, str(LAPLACE), '0', 'plus')
+        DCvalue = maxLimit(numer/denom, str(ini.Laplace), '0', 'plus')
     except:
         # If not just substitute s=0
-        DCvalue = sp.Subs(numer/denom, LAPLACE, 0)
+        DCvalue = sp.Subs(numer/denom, ini.Laplace, 0)
     return(poles, zeros, DCvalue)
 
 def doLaplace(instObj):
@@ -344,49 +813,196 @@ def doLaplace(instObj):
     Calculates the numerator and the denominator of the transfer and normalizes
     the result to:
         
-        F(s) = gain * s^l (1+b_1*s + ... + b_m*s^m)/ (1+a_1*s + ... + a_n*s^n),
+    - :math:`F(s) = G s^{\ell} \\frac{1+b_1s + ... + b_ms^m}{1+a_1s + ... + a_ns^n}`,
 
-        with l zero if there is a finite nonzero zero-frequency value, else
-        positive or negative integer.
+      with :math:`\ell` equal zero if there is a finite nonzero zero-frequency 
+      value, else a positive or negative integer.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
     
-    instObj:      Instruction object with MNA matrix stored in 'instrObject.M'
-    return value: Sympy expression.
+    :return: Laplace transform of a transfer or detector voltage or current
+    :return type: sympy.Expr
     """
     numer = doNumer(instObj)
     denom = doDenom(instObj)
-    return normalizeLaplaceRational(numer, denom)
+    if ini.normalize:
+        if ini.normalize == True:
+            return normalizeLaplaceRational(numer/denom)
+        else:
+            return numer/denom
+    elif ini.simplify:
+        if ini.factor == True:
+            numer, denom = sp.fraction(sp.simplify(numer/denom))
+            return sp.factor(numer)/sp.factor(denom)
+        else:
+            return sp.simplify(numer/denom)
+    elif ini.factor:
+        result = sp.factor(numer)/sp.factor(denom)
+        if ini.simplify == True:
+            result = sp.simplify(result)
+        return result   
+    else:
+        return numer/denom
 
-def doImpulse(instrObj):
-    numer = doNumer(instObj)
-    denom = doDenom(instObj)
-    Fs = numer/denom
-    try:
-        impulse = maxILT(Fs)
-    except:
-        pass
-    return impulse
-
-def checkNumeric(expr, stepVar = None):
+def doSolve(instObj):
     """
-    Checks if the expressions does not contain parameters other then stepVar',
-    'LAPLACE', 'FREQUECY' or 'OMEGA'.
+    Calculates the symbolic or numeric solution of a network.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
     
-    expr:         Sympy expression
-    stepVar:      str or Sympy.Symbol
-    return value: 'True' if numeric, else 'False'.
+    :return: Network solution (vector)
+    :return type: sympy.Matrix
     """
-    numeric = True
-    if type(expr) == str:
-        expr = sp.N(sp.sympify(expr))
-    if isinstance(expr, tuple(sp.core.all_classes)):
-        expr = sp.N(expr)
-        params = list(expr.free_symbols)
-        for par in params:
-            if stepVar == None and par != LAPLACE and par != FREQUENCY and par != OMEGA:
-                numeric = False
-            elif par != stepVar and par != LAPLACE and par != FREQUENCY and par != OMEGA:
-                numeric = False
-    return numeric
+    Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'value', numeric = instObj.numeric)
+    return maxSolve(instObj.M, Iv, numeric = instObj.numeric)
 
-if __name__ == '__main__':
-    pass
+def doNoise(instObj, detP, detN):
+    """
+    Calculates the contributions of all noise sources to the noise spectral
+    density at the detector.
+    
+    Returns a dictionary with key-value pairs:
+        
+    - key = ID of the noise source
+    - value = contribution to the noise spectral density th the detector in 
+      :math:`\\frac{V^2}{Hz}` or in :math:`\\frac{A^2}{Hz}`.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    
+    :return: onoiseTerms
+    :return type: dict
+    """
+    denom2 = maxDet2(instObj.M, dc=False, numeric = instObj.numeric)
+    onoiseTerms = {}
+    for src in instObj.circuit.indepVars:
+        if 'noise' in instObj.circuit.elements[src].params.keys() and instObj.circuit.elements[src].params['noise'] != 0:
+            if instObj.numeric:
+                value = fullSubs(instObj.circuit.elements[src].params['noise'], instObj.parDefs)
+            else:
+                value = instObj.circuit.elements[src].params['noise']
+            numer2 = maxCramerCoeff2(instObj.circuit, instObj.M, src, detP, detN, dc=False, numeric = instObj.numeric)
+            onoiseTerms[src] = sp.simplify(sp.factor(numer2)/sp.factor(denom2))*value
+    return onoiseTerms
+
+def doDC(instObj, detP, detN):
+    """
+    Calculates the DC voltage or current at the detector. 
+    
+    It uses the dc value field of independent sources and replaces the Laplace
+    variable in the MNA matrix with 0.
+    
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    :param detP: position of the positive detector quantity in the vector with
+                 dependent variables
+    :type detP: int
+    :param detN: position of the negative detector quantity in the vector with
+                 dependent variables
+    :type detN: int
+    """
+    Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'dc', numeric = instObj.numeric)
+    M = instObj.M.subs(ini.Laplace, 0)
+    numer = maxCramerNumer(M, Iv, detP, detN, numeric = instObj.numeric)
+    denom = maxDet(M, numeric = instObj.numeric)
+    return sp.simplify(numer/denom)
+
+def doSolveDC(instObj):
+    """
+    Calculates the DC solution of a network. 
+    
+    It uses the dc value field of independent sources and replaces the Laplace
+    variable in the MNA matrix with 0.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    :return: DC solution of the network
+    :return type: sympy.Matrix
+    """
+    Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'dc', numeric = instObj.numeric)
+    M = instObj.M.subs(ini.Laplace, 0)
+    return maxSolve(M, Iv, numeric = instObj.numeric)
+
+def doDCvar(instObj, detP, detN):
+    """
+    Calculates the contributions of variances of DC sources and resistors to
+    detector-referred variance.
+    
+    After execution of this function the circuit is modified: dc variance 
+    current sources have been added in parallel with resistors that have a 
+    nonzero value of their dcvar parameter.
+    
+    The names of these sources are those of the currents through these 
+    resistors. These names have been added to the list circuit.indepVars.
+    
+    If these elements already existed because of an earlier DCvar analysis, 
+    they will be removed, as well as the references in to them the list 
+    circuit.indepVars.
+
+    :param instObj: **allResults()** object that holds instruction data.
+    :type instObj: :class:`allResult()`
+    :return: Tuple with a dictionary ovarTerms and the dc solution of 
+             the network.
+             
+             - ovarTerms (*dict*):
+                 
+               - key (*str*): ID of the dc variance source
+               - value (*sympy.Expr*) contribution of this source to the dc 
+                 variance at the detector in :math:`V^2` or in :math:`A^2`.
+                 
+             - dcSolution(*sympy.Matrix*): DC solution of the network
+    """
+    # Calculate the DC solution, we need it for the calculation of error currents
+    dcSolution = doSolveDC(instObj)
+    # Add error sources
+    for variable in instObj.Dv:
+        variable = str(variable)
+        varType = variable[0]
+        refDes  = variable[2:]
+        if varType.upper() == 'I' and refDes[0].upper() == 'R' and 'dcvar' in instObj.circuit.elements[refDes].params.keys():
+            # Delete DC variance sources added by a previous dcVar analysis
+            if variable in instObj.circuit.elements.keys():
+                del(instObj.circuit.elements[variable])
+                instObj.circuit.depVars.remove(variable)
+            # Calculate the error current
+            errorCurrentVariance = instObj.circuit.elements[refDes].params['dcvar']/ instObj.circuit.elements[refDes].params['value']**2 * dcSolution[instObj.circuit.varIndex[variable]]**2
+            # Add a current source to the sicuit elements
+            newCurrentSource = element()
+            newCurrentSource.refDes          = variable
+            newCurrentSource.params['dcvar'] = sp.simplify(errorCurrentVariance)
+            newCurrentSource.params['noise'] = 0
+            newCurrentSource.params['dc']    = 0
+            newCurrentSource.params['value'] = 0
+            newCurrentSource.model           = 'I'
+            newCurrentSource.nodes           = instObj.circuit.elements[refDes].nodes
+            instObj.circuit.elements[variable] = newCurrentSource
+            instObj.circuit.indepVars.append(variable)
+    # Create the vector with indepemdent variables (current and voltage sources)
+    Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'dcvar', numeric = instObj.numeric)
+    # Calculate the contribution to the detector variance for each source.
+    # First the squared denominator, we need it for all sources
+    denom2 = maxDet2(instObj.M, dc=True, numeric = instObj.numeric)
+    ovarTerms = {}
+    for src in instObj.circuit.indepVars:
+        # Now the squared numerator for sources that have a nonzero dcVar value.
+        if 'dcvar' in instObj.circuit.elements[src].params.keys() and instObj.circuit.elements[src].params['dcvar'] != 0:
+            if instObj.numeric:
+                # Calculate the numeric value of the source
+                value = fullSubs(instObj.circuit.elements[src].params['dcvar'], instObj.parDefs)
+            else:
+                value = instObj.circuit.elements[src].params['dcvar']
+            # Use Cramer's rule for determination of the squared gain for this source
+            numer2 = maxCramerCoeff2(instObj.circuit, instObj.M, src, detP, detN, dc=True, numeric = instObj.numeric)
+            # Combine numerator, denominator and the value, store it in the dict
+            ovarTerms[src] = sp.simplify(sp.factor(numer2)/sp.factor(denom2))*value
+    return (ovarTerms, dcSolution)
+
+if __name__ == '__main__': 
+    s = sp.Symbol('s')
+    loopGainNumer = -s*(1 + s/20)*(1 + s/40)/2
+    loopGainDenom = (s + 1)**2*(1 + s/4e3)*(1 + s/50e3)*(1 + s/1e6)
+    loopGain        = loopGainNumer/loopGainDenom
+    r = findServoBandwidth(loopGain)
+    print r

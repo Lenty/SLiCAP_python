@@ -1,16 +1,42 @@
-from SLiCAPmath import *
+"""
+SLiCAP module for building the MNA matrix and the associated vectors.
+
+Imported by the module **SLiCAPpythonMaxima.py**
+"""
+
+from SLiCAPprotos import *
 
 def getValues(elmt, param, numeric, parDefs):
     """
     Returns the symbolic or numeric value of numerator and the denominator
-    of a parameter of an element.
+    of a parameter of an element. This function is called by makeMatrices().
+
+    :parm elmt: element object
+    :type elmt: SLiCAPprotos.element
+
+    :param param: parameter of interest ('value', 'noise', 'dc' or 'dcvar')
+    :type param: str
+
+    :param numeric: If True is uses full substitution and sp.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+
+    :param parDefs: Dict with key value pairs:
+
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+
+    :return: Tuple with sympy expresssions or numeric values of the numerator
+             and the denominator of the element parameter.
+    :return type: tuple
     """
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
         value = elmt.params[param]
     try:
-        if LAPLACE in value.free_symbols:
+        if ini.Laplace in value.atoms(sp.Symbol):
             (numer, denom) = sp.fraction(value)
         else:
             numer = value
@@ -23,38 +49,92 @@ def getValues(elmt, param, numeric, parDefs):
 def getValue(elmt, param, numeric, parDefs):
     """
     Returns the symbolic or numeric value of a parameter of an element.
+
+    This function is called by makeMatrices().
+
+    :parm elmt: element object
+    :type elmt: SLiCAPprotos.element
+
+    :param param: parameter of interest ('value', 'noise', 'dc' or 'dcvar')
+    :type param: str
+
+    :param numeric: If True is uses full substitution and sympy.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+
+    :param parDefs: Dict with key value pairs:
+
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+
+    :return: value: sympy expresssion or numeric value of the element parameter
+    :return type: sympy.Expr, int, float, sympy.Float
     """
+    if param not in elmt.params.keys():
+        return 0
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
         value = elmt.params[param]
     return value
-        
-def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
+
+def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     """
-    Modifications in the circuit object, necessary for calculation different
-    gain types need to be temporary. The circuit data before and after
-    running 'makeMatrices' should be the same!
-    
-    1. If gainType == 'asymptotic':
-        store the model of lgRef
-        modify the model of lgRef to 'N'
-        update depVars and varIndex
-        create the matrices
-        restore the model of lgRef
-        update depVars and varIndex
-        
-    2. If gainType == 'direct', 'loopgain' or 'servo':
-        store value of lgRef
-        set value of lgRef element to zero
-        create the matrices
-        restore the value of lgRef
-        
-        loopgain and servo will be calculated with the output of lgRef 
-        as source and the input of lgRef as detector.
-        
-    3. If gainType == 'vi' or 'gain':
-        no alterations of the circuit need to be made
+    Returns the MNA matrix and the vector with dependent variables of a circuit.
+
+    Modifications in the circuit object, necessary for calculation of different
+    gain types are temporary. The circuit data before and after
+    running 'makeMatrices' is the same:
+
+    #. If gainType == 'asymptotic':
+
+       - store the model of lgRef
+       - modify the model of lgRef to 'N'
+       - update depVars and varIndex
+       - create the matrices
+       - restore the model of lgRef
+       - update depVars and varIndex
+
+    #. If gainType == 'direct', 'loopgain' or 'servo':
+
+       - store value of lgRef
+       - set value of lgRef element to zero
+       - create the matrices
+       - restore the value of lgRef
+
+       - loopgain and servo will be calculated with the output of lgRef
+         as source and the input of lgRef as detector.
+
+    #. If gainType == 'vi' or 'gain':
+
+       - no alterations of the circuit need to be made
+
+    :param cir: Circuit of which the matrices need to be returned.
+    :type cir: SLiCAPprotos.circuit
+
+    :param parDefs: Dict with key value pairs:
+
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+
+
+    :param numeric: If True is uses full substitution and sympy.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+
+    :param gainType: Gain type of the instruction
+    :type gainType: str
+
+    :param lgRef: ID of the loop gain reference of the instruction
+    :type lgRef: str
+
+    :return: tuple with two sympy matrices:
+
+             #. MNA matrix M
+             #. Vector with dependent variables Dv
+    :return type: tuple
     """
     if gainType == 'vi' or gainType == 'gain':
         pass
@@ -67,28 +147,20 @@ def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
         cir.updateMdata()
     varIndex = cir.varIndex
     dim = len(cir.varIndex.keys())
-    Iv = [0 for i in range(dim)]
-    Vv = [0 for i in range(dim)]
+    Dv = [0 for i in range(dim)]
     M  = [[0 for i in range(dim)] for i in range(dim)]
     for i in range(len(cir.depVars)):
-        Vv[i] = sp.Symbol(cir.depVars[i])
+        Dv[i] = sp.Symbol(cir.depVars[i])
     for el in cir.elements.keys():
         elmt = cir.elements[el]
-        if elmt.model == 'I':
-            # Laplace rational can be in Iv
-            value = getValue(elmt, 'value', numeric, parDefs)
-            pos0 = varIndex[elmt.nodes[0]]
-            pos1 = varIndex[elmt.nodes[1]]
-            Iv[pos0] += value
-            Iv[pos1] += -value
-        elif elmt.model == 'C':
+        if elmt.model == 'C':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][pos0] += value * LAPLACE
-            M[pos0][pos1] -= value * LAPLACE
-            M[pos1][pos0] -= value * LAPLACE
-            M[pos1][pos1] += value * LAPLACE
+            M[pos0][pos0] += value * ini.Laplace
+            M[pos0][pos1] -= value * ini.Laplace
+            M[pos1][pos0] -= value * ini.Laplace
+            M[pos1][pos1] += value * ini.Laplace
         elif elmt.model == 'L':
             dVarPos = varIndex['I_'+ elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -98,7 +170,7 @@ def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
             M[pos1][dVarPos] -= 1
             M[dVarPos][pos0] += 1
             M[dVarPos][pos1] -= 1
-            M[dVarPos][dVarPos] -= value * LAPLACE
+            M[dVarPos][dVarPos] -= value * ini.Laplace
         elif elmt.model == 'R':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
@@ -242,21 +314,17 @@ def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
             M[dVarPos][pos2] += 1
             M[dVarPos][pos3] -= 1
         elif elmt.model == 'V':
-            value = getValue(elmt, 'value', numeric, parDefs)
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             dVarPos = varIndex['I_' + elmt.refDes]
-            Iv[dVarPos] += value
             M[pos0][dVarPos] += 1
             M[pos1][dVarPos] -= 1
             M[dVarPos][pos0] += 1
             M[dVarPos][pos1] -= 1
         elif elmt.model == 'VZ':
-            value = getValue(elmt, 'value', numeric, parDefs)
             (zoN, zoD) = getValues(elmt, 'zo', numeric, parDefs)
             pos1 = varIndex[elmt.nodes[1]]
             pos0 = varIndex[elmt.nodes[0]]
-            Iv[dVarPos] += value * zoD
             M[pos0][dVarPos] += 1
             M[pos1][dVarPos] -= 1
             M[dVarPos][pos0] += zoD
@@ -282,70 +350,90 @@ def makeMatrices(cir, parDefs, numeric=False, gainType = 'vi', lgRef = None):
             ind0    = getValue(cir.elements[elmt.refs[0]].params['value'])
             ind1    = getValue(cir.elements[elmt.refs[1]].params['value'])
             value = getValue(elmt, 'value', numeric, parDefs)
-            value = value * LAPLACE * sqrt(ind0 * ind1)
+            value = value * ini.Laplace * sqrt(ind0 * ind1)
     M = matrix(M)
     gndPos = varIndex['0']
     M.row_del(gndPos)
     M.col_del(gndPos)
-    Iv = matrix(Iv)
-    Iv.row_del(gndPos)
-    Vv = matrix(Vv)
-    Vv.row_del(gndPos)
+    Dv = matrix(Dv)
+    Dv.row_del(gndPos)
+    # Restore circuit data
     if gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
         cir.elements[lgRef].params['value'] = lgValue
     elif gainType == 'asymptotic':
         cir.elements[lgRef].model = lgRefModel
         cir.updateMdata()
-    return (Iv, M, Vv)
+    return (M, Dv)
 
-if __name__ == '__main__':
-    ini.projectPath = ini.installPath + 'testProjects/PIVA/'
-    ini.circuitPath = ini.projectPath + 'cir/'
-    ini.htmlPath    = ini.projectPath + 'html/'
-    ini.htmlIndex   = 'index.html'
-    ini.htmlPages = []
-    t1=time()
-    LIB = makeLibraries()
-    t2=time()
-    fi = 'PIVA.cir'
+def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
+    """
+    Creates the vector with independent variables.
+    The vector can be created for a single independent variable or for all.
 
-    print("\nCheking:", fi)
+    This can be used for determination of a transfer using Cramer's rule.
 
-    myCir = checkCircuit(fi )
-    t3=time()
-    keys = myCir.elements.keys()
-    for key in keys:
-        el = myCir.elements[key]
-        print('\nElement    :', key)
-        print('Nodes      :', el.nodes)
-        print('Refs       :', el.refs)
-        print('Model      :', el.model)
-        print('Params     :')
-        for par in el.params.keys():
-            print(' ', par, '=', el.params[par])
-    
-    print('\nCircuit parameter definitions:')
-    for par in myCir.parDefs.keys():
-        print(' ', par, '=', myCir.parDefs[par])
-    t4=time()
-    for el in myCir.elements.keys():
-        for par in  myCir.elements[el].params.keys():
-            parNum = fullSubs(myCir.elements[el].params[par], myCir.parDefs)
-            print(el,'\t', par, sp.N(parNum, DISP))
-    t5=time()
-    (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, False)
-    t6=time()
-    print(M)
-    (Iv, M, Vv) = makeMatrices(myCir, myCir.parDefs, True)
-    t7=time()
-    #display.display(M)
-    charPoly = M.determinant()
-    t8=time()
+    If a single variable is used, this vector and Cramer's rule can be used as
+    an alternative for calculation cofactors:
 
-    print(charPoly)
-    print("\nmakeLibraries         : %fs."%(t2-t1))
-    print("checkCircuit          : %fs."%(t3-t2))
-    print("makeMatrices symbolic : %fs."%(t6-t3))
-    print("makeMatrices numeric  : %fs."%(t7-t6))
-    print("determinant()         : %fs."%(t8-t7))
-    
+    The refDes of the independent variable (source) is substituted in the vecor
+    with independent variables (value = 'id'). This vector is then substituted
+    in the detector col, of the MNA matrix.  After calculation of the
+    determinant of this modified matrix, the result is divided by refDes.
+
+    This method is used for determination of gain factors for noise sources
+    and for DC variance sources.
+
+    :param cir: Circuit of which the matrices need to be returned.
+    :type cir: SLiCAPprotos.circuit
+
+    :param parDefs: Dict with key value pairs:
+
+                    - key  : parameter name (sympy.Symbol)
+                    - value: numeric value of sympy expression
+    :type parDefs: dict
+
+    :param elid: Refdes (ID) of a source to be included in this vector; 'all'
+                 for all sources.
+    :type elid: str
+
+    :param numeric: If True is uses full substitution and sympy.N for converting
+                    parameters to sympy floats
+    :type numeric: bool
+
+    :return: Iv: vector with in dependent variables
+    :return type: sympy.Matrix
+    """
+    # varIndex holds the position of dependent variables in the matrix.
+    varIndex = cir.varIndex
+    dim = len(cir.varIndex.keys())
+    # Define the vector
+    Iv = [0 for i in range(dim)]
+    # Select the elements of interest
+    if elid == 'all':
+        elements = [cir.elements[key] for key in cir.elements.keys()]
+    elif elid in cir.elements.keys():
+        elements = [cir.elements[elid]]
+    for elmt in elements:
+        # subsititute the element parameters of interest in the vecor Iv
+        if value == 'id':
+            val = sp.Symbol(elmt.refDes)
+        elif value == 'value':
+            val = getValue(elmt, 'value', numeric, parDefs)
+        elif value == 'noise':
+            val = getValue(elmt, 'noise', numeric, parDefs)
+        elif value == 'dc':
+            val = getValue(elmt, 'dc', numeric, parDefs)
+        elif value == 'dcvar':
+            val = getValue(elmt, 'dcvar', numeric, parDefs)
+        if elmt.model == 'I':
+            pos0 = varIndex[elmt.nodes[0]]
+            pos1 = varIndex[elmt.nodes[1]]
+            Iv[pos0] += val
+            Iv[pos1] += -val
+        elif elmt.model == 'V':
+            dVarPos = varIndex['I_' + elmt.refDes]
+            Iv[dVarPos] += val
+    gndPos = varIndex['0']
+    Iv = matrix(Iv)
+    Iv.row_del(gndPos)
+    return Iv

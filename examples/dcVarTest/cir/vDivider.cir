@@ -1,0 +1,7 @@
+"Voltage divider"
+* File: vDivider.cir
+* SLiCAP netlist file
+V1 1 0 V dc={V_S} dcvar={(sigma_1*V_S)^2}
+R1 1 out r value={R_a} dcvar={(sigma_2*R_a)^2}
+R2 out 0 r value={R_b} dcvar={(sigma_3*R_b)^2}
+.end

@@ -11,10 +11,7 @@
 + epsilon_SiO2  = 3.9               ; Relative permittivity of SiO2
 + U_T           = {k*T/q}           ; Thermal voltage [V]
 + k             = 1.38064852e-23    ; Boltzmann constant in [J/K]
-+ e             = {exp(1)}          ; Natural base
-+ i             = {1j}              ; Imaginary unit
-+ PI            = {pi}              ; 3.14......
-+ epsilon_0     = {1/mu_0/c^2}        ; permittivity of vacuum
++ epsilon_0     = {1/mu_0/c^2}      ; permittivity of vacuum
 
 * Expansion model prototypes
 ****************************

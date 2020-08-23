@@ -1,125 +1,423 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
+"""
+SLiCAP module with basic SLiCAP classes and functions.
 
-from SLiCAPini import *
-from SLiCAPhtml import *
+Imported by the module **SLiCAPmatrices.py**.
+"""
 
-# Globals
-HIERARCHY   = []                # Check list for hierarchical loops
-CONSTANTS   = {}                # Dictionary with global parameters taken from
-                                # the ini file
+from SLiCAPmath import *
+
+# Globals used by this script and by SLiCAPyacc.py:
+
 MODELS      = {}                # Dictionary with SLiCAP built-in models
                                 #   key   : model name
                                 #   value : associated model object
 DEVICES     = {}                # Dictionary with SLiCAP built-in devices
                                 #   key   : device name
                                 #   value : associated device object
-CONTROLLED  = ['E', 'F', 'G', 'H']  # Types of controlled sources
-INDEPSCRCS  = ['I', 'V']            # Types of independent sources
-
 class circuit(object):
-    # Circuit object for main circuit and for sub circuits
+    """
+    Prototype (sub)circuit object.
+    """
     def __init__(self):
-        self.title      = ''    # Title of (sub) circuit
-        self.file       = []    # Name of the netlist file
-        self.lexer      = None  # Tokenized input file
-        self.subCKT     = False # True if sub circuit
-        self.elements   = {}    # Dictionary withthe circuit's element  objects
-                                #   key   : element refDes
-                                #   value : associated element object
-        self.nodes      = []    # Connecting nodes to parent circuit
-        self.params     = {}    # Parameters tat can be be passed from parent
-                                # circuit (sub circuit only)
-                                #   key   : model parameter name
-                                #   value : parameter value or expression 
-        self.parDefs    = {}    # Dictionary with paremeter definitions
-                                #   key   : model parameter name
-                                #   value : parameter value or expression
-        self.modelDefs  = {}    # Dictionary with model definitions found in 
-                                # the circuit:
-                                #   key   : model name
-                                #   value : modelDef object
-        self.circuits   = {}    # Dict with sub circuit definitions found in
-                                # the netlist (before expansion)
-                                #   key   : sub circuit name
-                                #   value : circuit object
-        self.errors     = 0     # Number of errors found during checking
-        self.libs       = []    # List with library files
-        self.indepVars  = []    # List with independent sources;
-                                # can be used as signal source
-        self.depVars    = []    # List with dependent variables;
-                                # can be used as detector
-        self.controlled = []    # List with controlles sources;
-                                # can be used as loop gain reference
-        self.varIndex   = {}    # Dictionary with index of node or dependent
-                                # current (speeds up the building of the matrix)
-                                #   key   : node name or current name
-                                #   value : position in the vector with
-                                #           dependent variables
-    
+        """
+        Initialization of the circuit object, see description above.
+        """
+        self.title      = None
+        """
+        Title (*str*) of the circuit. Defautls to None.
+        """
+
+        self.file       = None
+        """
+        Name (*str*) of the netlist file. Defaults to None.
+        """
+
+        self.lexer      = None
+        """
+        Tokenized (*ply.lex.lex*) netlist file. Defaults to None.
+        """
+
+        self.subCKT     = False
+        """
+        (*bool*) True if the circuit is a sub circuit. Defaults to False.
+        """
+
+        self.elements   = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key: Reference designator (*str*) of the element.
+        - value: Element object (*SLiCAPprotos.element*)
+        """
+
+        self.nodes      = []
+        """
+        (*list*) with names (*str*) of circuit nodes.
+        """
+
+        self.params     = {}
+        """
+        - If SLiCAPcircuit.subCKT == True:
+
+          (*dict*) with key-value pairs:
+
+          - key: Name (*sympy.Symbol*) of a parameter that can be passed to the
+            sub circuit.
+          - value: Default value (*sympy object*, float, int) of the parameter.
+
+        - Else:
+
+          - (*list*) with names (*sympy.Symbol*) of undefined parameters.
+        """
+
+        self.parDefs    = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key: Name (*sympy.Symbol*) of a circuit parameter.
+        - value: Value (*sympy object*, float, int) of the parameter.
+        """
+
+        self.parUnits   = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key: Name (*sympy.Symbol*) of a circuit parameter.
+        - value: Units (*str*) of the parameter.
+        """
+
+        self.modelDefs  = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key: Name (*sympy.Symbol*) of a model.
+        - value: Associated model object (*SLiCAPprotos.model*).
+        """
+        self.circuits   = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key: Name (*str*) of a subcircuit.
+        - value: Associated circuit object (*SLiCAPprotos.circuit*).
+        """
+
+        self.errors     = 0
+        """
+        Number (*int*) of errors found during checking of the circuit.
+        Defaults to 0.
+        """
+
+        self.libs       = []
+        """
+        (*list*) with names (*str*) of library files found in netlist lines
+        starting with ',lib' or '.inc'.
+        """
+
+        self.indepVars  = []
+        """
+        (*list*) with reference designators (*str*) of independent variables:
+
+        - independent voltage sources
+        - independent current sources.
+        """
+
+        self.depVars    = []
+        """
+        (*list*) with names (*str*) of independent variables:
+
+        - nodal voltages:
+
+          A nodal voltage will be named as: 'V_<node name>'
+
+        - branch currents. Branch current will be named ad follows:
+
+          - Current through a two-terminal element:
+
+            - Vxxx: 'I_Vxxx'
+            - Rxxx with model 'r': 'I_Rxxx'
+            - Lxxx: 'I_Lxxx'
+
+          - Currents through the input port or the output port of controlled
+            sources:
+
+            - Exxx output port: 'I_o_Exxx'
+            - Fxxx input port: 'I_i_Fxxx'
+            - Gxxx, model = 'G', output port: 'I_o_Gxxx'
+            - Hxxx, input port: 'Ii_Hxxx', output port: 'I_o_xxx'
+        """
+        self.controlled = []
+        """
+        (*list*) with reference designators (*str*) of controlled sources.
+        """
+        self.varIndex   = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key (*str*): node name or name of branch current.
+        - value(*int*) : row position in the vector with independent variables,
+          before elemination of the row anmd column associated with the
+          reference node '0'.
+        """
+
     def delPar(self, parName):
-        # single params and multiple.
+        """
+        Deletes a parameter definition and updates the list
+        **SLiCAPprotos.circuit.params** with names (*sympy.Symbol*) of
+        undefined parameters.
+
+        :param parName: Name of the parameter.
+        :type parName: str, sympy.Symbol
+
+        :Example:
+
+        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Delete the definition for the parameter 'R':
+        >>> my_circuit.delPar('R')
+        """
+        self.parDefs.pop(sp.Symbol(str(parName)), None)
+        self.parUnits.pop(sp.Symbol(str(parName)), None)
         self.updateParams()
         return
-        
-    def defPar(self, parName):
-        # single params and multiple.
+
+    def defPar(self, parName, parValue, units = None):
+        """
+        Updates or adds a parameter definition and updates the list
+        **SLiCAPprotos.circuit.params** with names (*sympy.Symbol*) of
+        undefined parameters.
+
+        :param parName: Name of the parameter.
+        :type parName: str, sympy.Symbol
+
+        :param parValue: Value of the parameter.
+        :type parValue: str, sympy.Symbol, sympy.Expr, int, float
+
+        :param units: Value of the parameter, defaults to None
+        :type units: str, sympy.Symbol, sympy.Expr, int, float
+
+        :Example:
+
+        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define the value of 'R' as 2000
+        >>> my_circuit.defPar('R', '2k', )
+        >>> # Or:
+        >>> my_circuit.defPar('R', 2e3)
+        """
+        if checkNumber(parName) == None:
+            parName = sp.Symbol(str(parName))
+            parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+            self.parDefs[parName] = parValue
+            if type(units) == str:
+                # ToDo: checkUnits() calculate wir SI units.
+                self.parUnits[parName] = units
+            else:
+                self.parUnits[parName] = ''
+            self.updateParams()
+        else:
+            print "Error: cannot define a number as parameter."
+        return
+
+    def defParUnits(self, parDict):
+        """
+        Defines the units of a parameter.
+
+        :param parDict: Dictionary with key-value pairs:
+
+                        - key (*str, sp.Symbol*): parameter name
+                        - value (*str*): parameter units
+
+        :type parDict: dict
+
+        :Example:
+
+        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define the units of 'R' and 'C'
+        >>> my_circuit.defParUnits({'R': 'Omega', C: F})
+        """
+        if type(parDict) == dict:
+            for key in parDict.keys():
+                if checkNumber(key) == None:
+                    if type(parDict[key]) == str:
+                        self.parUnits[key] = parDict[key]
+                    else:
+                        self.parUnits[key] = ''
+                else:
+                    print "Error: cannot use a number as parameter."
+        else:
+            print "Error: expected a dict type argument."
+        return
+
+    def defPars(self, parDict):
+        """
+        Adds or modifies multiple parameter definitions and updates the list
+        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.
+
+        :params parDict: Dictionary with key-value pairs:
+
+                         - key: parName (*str, sympy.Symbol*): name of the
+                           parameter.
+                         - value: parValue (*str, float, int, sympy object*):
+                           value or expression of the parameter.
+        :type parDict:   dict
+
+        :Example:
+
+        >>> # Create my_circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
+        >>> my_circuit.defPars({'R': '2k', 'C': '5p')
+        """
+        if type(parDict) == dict:
+            for key in parDict.keys():
+                if checkNumber(key) == None:
+                    parName = sp.Symbol(str(key))
+                    parValue = str(parDict[key])
+                    parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+                    self.parDefs[parName] = parValue
+                else:
+                    print "Error: cannot define a number as parameter."
+        else:
+            print "Error: expected a dict type argument."
         self.updateParams()
         return
-        
+
     def getParValue(self, parNames, numeric = False):
-        # single params and multiple.
+        """
+        Returns the value or expression of one or more parameters.
+
+        If numeric == True it will perform a full recursive substitution of
+        all circuit parameter definitions.
+
+        :param parNames: name(s) of the parameter(s)
+        :type parNames: str, sympy.Symbol, list
+
+        :return: If type(parNames) == list:
+
+                 (*dict*) with key-value pairs:
+
+                 - key (*sympy.Symbol*): name of the parameter
+
+                 - value (*int, float, sympy object*): value of the parameter
+
+                 Else: value or expression (*int, float, sympy object*).
+
+        :rtype: dict, float, int, sympy obj
+
+        :Example:
+
+        >>> # create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()
+        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.checkCircuit('myFirstRCnetwork.cir')
+        >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
+        >>> my_instr.symType = 'numeric'
+        >>> my_instr.getParValues(['R', 'C'])
+        """
         if type(parNames) == list:
             parValues = {}
             for par in parNames:
-                if type(par) == str:
-                    par = sp.Symbol(par)
+                par = sp.Symbol(str(par))
                 for key in self.parDefs.keys():
                     if par == key:
                         if numeric == True:
                             parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
                         else:
-                           parValues[par] = self.parDefs[key]          
+                           parValues[par] = self.parDefs[key]
             return parValues
-        elif type(parNames) == str:
-            parNames = sp.Symbol(parNames)
-        if isinstance(parNames, tuple(sp.core.all_classes)):
-            try:
-                if numeric:
-                    parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
-                else:
-                    parValue = self.parDefs[parNames]
-            except:
-                print("Error: parameter '%s' has not beed defined."%(str(parNames)))
-                parValue = None
-        else:
+        parNames = sp.Symbol(str(parNames))
+        try:
+            if numeric:
+                parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
+            else:
+                parValue = self.parDefs[parNames]
+        except:
+            print("Error: parameter '%s' has not been defined."%(str(parNames)))
+            parValue = None
+        return parValue
+
+    def getParUnits(self, parNames):
+        """
+        Returns the units of one or more parameters.
+
+        :param parNames: name(s) of the parameter(s)
+        :type parNames: str, sympy.Symbol, list
+
+        :return: If type(parNames) == list:
+
+                 (*list*) with units (*str*) of the parameters
+
+                 Else: units (*str*)
+
+        :rtype: list, str
+
+        :Example:
+
+        >>> # create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()
+        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.checkCircuit('myFirstRCnetwork.cir')
+        >>> # Define and obtain the units of 'R' and 'C':
+        >>> my_instr.symType = 'numeric'
+        >>> my_instr.getParValues(['R', 'C'])
+        """
+        if type(parNames) == list:
+            parValues = {}
+            for par in parNames:
+                par = sp.Symbol(str(par))
+                for key in self.parDefs.keys():
+                    if par == key:
+                        if numeric == True:
+                            parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
+                        else:
+                           parValues[par] = self.parDefs[key]
+            return parValues
+        parNames = sp.Symbol(str(parNames))
+        try:
+            if numeric:
+                parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
+            else:
+                parValue = self.parDefs[parNames]
+        except:
+            print("Error: parameter '%s' has not been defined."%(str(parNames)))
             parValue = None
         return parValue
 
     def updateParams(self):
         """
-        Updates self.params (undefined parameters) after modification of 
-        parameter definitions in self.parDefs or in elements: 
-        self.elements[<refDes>].params[<parName>].
-        """    
+        Updates self.params (list with undefined parameters) after modification
+        of parameter definitions in self.parDefs.
+        """
         self.params =[]
+        # Get all the parameters used in element values
         for elmt in self.elements.keys():
             for par in self.elements[elmt].params.keys():
                 try:
-                    self.params += list(self.elements[elmt].params[par].free_symbols)
+                    self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
                 except:
                     pass
+        # Get all the parameters used in parameter definitions
+        for par in self.parDefs.keys():
+            try:
+                self.params += list(self.parDefs[par].atoms(sp.Symbol))
+            except:
+                pass
+        # Remove duplicates
         self.params = list(set(self.params))
         undefined = []
+        # If these parameters are not found in parDefs.keys, they are undefined.
         for par in self.params:
-            if par != LAPLACE and par != FREQUENCY and par != OMEGA and par not in self.parDefs.keys():
-                self.append(par)
+            if par != ini.Laplace and par != ini.frequency and par not in self.parDefs.keys():
+                undefined.append(par)
+            else:
+                self.params.remove(par)
         self.params = undefined
         return
-        
+
     def updateMdata(self):
         """
-        Updates data for building matrices: self.depVars and self.varIndex
+        Updates data for building matrices: self.depVars and self.varIndex.
         """
         self.depVars = []
         self.varIndex = {}
@@ -137,54 +435,131 @@ class circuit(object):
         return
 
 class element(object):
-    # Circuit element object
+    """
+    Prototype circuit element object.
+    """
     def __init__(self):
-        self.refDes     = ''    # Element reference designator (refdes)
-        self.type       = ''    # First letter of refdes
-        self.nodes      = []    # Node list
-        self.refs       = []    # Reference list
-        self.params     = {}    # Dictionary with model parameters
-                                #   key   : model parameter name
-                                #   value : parameter value or 
-                                #           expression; value = [numer, denom] 
-                                #           if Laplace rational
-        self.model      = ''    # Model for this element
-        
+        self.refDes     = ''
+        """
+        Element reference designator (*str*), defaults to ''.
+        """
+
+        self.type       = ''
+        """
+        Element type: First letter of refdes (*str*).
+        """
+
+        self.nodes      = []
+        """
+        (*list*) with names (*str*) of the nodes to which the element is
+        connected.
+        """
+
+        self.refs       = []
+        """
+        (*list*) with reference designators of elements (*str*) that are
+        referenced to by the element.
+        """
+
+        self.params     = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key (*sympy.Symbol*): Name of an element parameter.
+        - value (*sympy object*, float, int): Value of the parameter.
+        """
+        self.model      = ''
+        """
+        Name (*str*) of the model of the element.
+        """
 class device(object):
-    # Prototype for devices that can be used in SLiCAP
+    """
+    Prototype for devices that can be used in SLiCAP.
+    """
+
     def __init__(self):
-        self.ID     = ''        # ID of the device, e.g. 'V' for voltage source
-        self.nNodes     = 0     # Number of nodes of the device
-        self.nRefs      = 0     # Number of IDs of referenced devices
-        self.value      = True  # True if model or value is required
-        self.models     = []    # list with valid models for the device. 
-                                # Model names refer to model.name of a model
-        
+        self.ID     = ''
+        """
+        ID of the device, e.g. 'V' for voltage source. Defaults to ''.
+        """
+
+        self.nNodes     = 0
+        """
+        Number (*int*) of nodes of the device. Defaults to 0.
+        """
+
+        self.nRefs      = 0
+        """
+        Number (*int*) of reference designators of referenced devices.
+        Defaults to 0.
+        """
+
+        self.value      = True
+        """
+        (*bool*) True if model or value is required. Defaults to True.
+        """
+        self.models     = []
+        """
+        (*list*) with names (*str*) of valid models for the device.
+        """
+
 class model(object):
-    # Protpotype for element models that can be used in SLiCAP
+    """
+    Protpotype for element models that can be used in SLiCAP.
+    """
+
     def __init__(self):
-        self.name       = ''    # Model name
-        self.stamp      = True  # True if model has associated matrix stamp, 
-                                # False if it requires expansion
-        self.depVars    = []    # Namens of dependent vars. in matrix stamp
-        self.params     = {}    # Dictionary with model parameters
-                                #   key   : model parameter name
-                                #   value : True: if Laplace is allowed in the
-                                #           expression for this parameter,
-                                #           else: False
+        self.name       = ''
+        """
+        Name (*str*) of the model.
+        """
+
+        self.stamp      = True
+        """
+        (*bool*) True if model has associated matrix stamp,
+        False if it requires expansion.
+        """
+
+        self.depVars    = []
+        """
+        (*list*) with names of dependent variables to be used in the vector
+        with dependent variables.
+        """
+        self.params     = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key (*str*): Name  of the model parameter
+        - value (*bool*): True if the Laplace variable is allowed in the
+          expression for this parameter, else False.
+        """
 
 class modelDef(object):
-    # Protpotype for models that can be added to SLiCAP
+    """
+    Protpotype for model definitions that can be added to SLiCAP.
+    """
     def __init__(self):
-        self.name       = ''    # Model name
-        self.type       = ''    # Must be a built-in model type
-        self.params     = {}    # Dictionary with model parameters
-                                #   key   : model parameter name
-                                #   value : value or expression 
-                                
+        self.name       = ''
+        """
+        Name (*str*) of the model.
+        """
+        self.type       = ''
+        """
+        Name (*str*) of the built-in model type that should be used for this
+        model.
+        """
+
+        self.params     = {}
+        """
+        (*dict*) with key-value pairs:
+
+        - key (*str*): Model parameter name
+        - value (*sympy object*, float, int): Value or expression
+        """
+
 def initAll():
     """
-    Initializes the models and the devices.
+    Creates the SLiCAP built-in models and devices.
     """
     global MODELS, DEVICES
 
@@ -248,7 +623,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'HZ'
     newModel.stamp          = True
-    newModel.depVars        = 1 # can be set to 2 if independent depVar is used
+    newModel.depVars        = ['I_o', 'I_i']
     newModel.params         = {'value': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # Independent current source
@@ -261,7 +636,7 @@ def initAll():
     # JFET
     newModel                = model()
     newModel.name           = 'J'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cgs': False, 'cdg': False, 'gm': False, 'go': False}
     MODELS[newModel.name]   = newModel
     # Coupling factor
@@ -281,13 +656,13 @@ def initAll():
     # MOSFET
     newModel                = model()
     newModel.name           = 'M'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cgs': False, 'cdg': False, 'cdb': False, 'csb': False, 'cgb': False, 'gm': False, 'gb': False, 'go': False}
     MODELS[newModel.name]   = newModel
     # MOS differential pair
     newModel                = model()
     newModel.name           = 'MD'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cgg': False, 'cdg': False, 'cdd': False, 'gm': False, 'go': False}
     MODELS[newModel.name]   = newModel
     # Nullor
@@ -300,31 +675,31 @@ def initAll():
     # Current feedback operational amplifier
     newModel                = model()
     newModel.name           = 'OC'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cp': False, 'gp': False, 'cpn': False, 'gpn': False, 'gm': False, 'zt': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # Voltage feedback operational amplifier
     newModel                = model()
     newModel.name           = 'OV'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cd': False, 'cc': False, 'gd': False, 'gc': False, 'av': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # Vertical BJT
     newModel                = model()
     newModel.name           = 'QV'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cpi': False, 'cbc': False, 'cbx': False, 'cs': False, 'gpi': False, 'gm': False, 'gbc': False, 'go': False, 'rb': False}
     MODELS[newModel.name]   = newModel
     # Lateral BJT
     newModel                = model()
     newModel.name           = 'QL'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cpi': False, 'cbc': False, 'cbx': False, 'cs': False, 'gpi': False, 'gm': False, 'gbc': False, 'go': False, 'rb': False}
     MODELS[newModel.name]   = newModel
     # BJT differential pair
     newModel                = model()
     newModel.name           = 'QD'
-    newModel.stamp          = False          
+    newModel.stamp          = False
     newModel.params         = {'cbb': False, 'cbc': False, 'gbb': False, 'gm': False, 'go': False, 'gbc': False}
     MODELS[newModel.name]   = newModel
     # Resistor (resistance cannot be zero)
@@ -362,7 +737,7 @@ def initAll():
     newModel.depVars        = []
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
-    
+
     # Generate the dictionary with SLiCAP devices
     # Capacitor
     newDev                  = device()
@@ -518,4 +893,342 @@ def initAll():
     DEVICES[newDev.ID]  = newDev
     return
 
-initAll()
+initAll() # Initialize all models, devices, etc.
+
+
+class allResults(object):
+    """
+    Return  structure for results, has attributes for all data types and
+    instruction data.
+    """
+    def __init__(self):
+        self.DCvalue     = []
+        """
+        Zero-frequency value in case of dataType 'pz'.
+        """
+        self.poles       = []
+        """
+        Complex frequencies in [rad/s] or [Hz]
+        """
+
+        self.zeros       = []
+        """
+        Complex frequencies in [rad/s] or [Hz]
+        """
+        self.svarTerms   = {}
+        """
+        Dict with lists with source variances
+        """
+
+        self.ivarTerms   = {}
+        """
+        Dict with lists with contributions to source-referred variance.
+        """
+
+        self.ovarTerms   = {}
+        """
+        Dict with lists with contributions to detector-referred variance.
+        """
+
+        self.ivar        = []
+        """
+        Total source-referred variance.
+        """
+
+        self.ovar        = []
+        """
+        Total detector-referred variance.
+        """
+
+        self.dcSolve     = []
+        """
+        DC solution of the network.
+        """
+
+        self.dc          = []
+        """
+        DC solution at the detector.
+        """
+
+        self.snoiseTerms = {}
+        """
+        Dict with lists with source noise spectra.
+        """
+
+        self.inoiseTerms = {}
+        """
+        Dict with lists with contributions to source-referred noise.
+        """
+        self.onoiseTerms = {}
+        """
+        Dict with lists with contributions to detector-referred noise.
+        """
+
+        self.inoise      = []
+        """
+        Total source-referred noise spectral density.
+        """
+
+        self.onoise      = []
+        """
+        Total detector-referred noise spectral.
+        """
+
+        self.Iv          = None
+        """
+        Vector with independent variables.
+        """
+
+        self.M           = None
+        """
+        MNA matrix.
+        """
+
+        self.Dv          = None
+        """
+        Vector with dependent variables.
+        """
+
+        self.denom       = []
+        """
+        Laplace poly of denominator.
+        """
+
+        self.numer       = []
+        """
+        Laplace poly of numerator.
+        """
+
+        self.laplace     = []
+        """
+        Laplace transfer functions.
+        """
+
+        self.solve       = []
+        """
+        Laplace solutions of the network.
+        """
+
+        self.time        = []
+        """
+        Time-domain responses.
+        """
+
+        self.impulse     = []
+        """
+        Unit impulse responses.
+        """
+
+        self.stepResp    = []
+        """
+        Unit step responses.
+        """
+
+        self.params      = {}
+        """
+        Results of parameter sweep (dataType = 'param').
+        """
+
+        # Instruction settings
+
+        self.simType = 'numeric'
+        """
+        Defines the simulation gain type.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.gainType = None
+        """
+        Defines the simulation gain type.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.dataType = None
+        """
+        Defines the simulation data type.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.step = None
+        """
+        Setting for parameter stepping.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepVar = None
+        """
+        Defines the step variable (*str*) for step types 'lin', 'log' and 'list'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepVars = None
+        """
+        Defines the step variables for 'array' type parameter stepping.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepMethod = None
+        """
+        Step method for parameter stepping.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepStart = None
+        """
+        Start value for stepping methods 'lin' and 'log'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepStop = None
+        """
+        Stop value for stepping methods 'lin' and 'log'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepNum = None
+        """
+        Number of steps for step methods 'lin' and 'log'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepList = []
+        """
+        List with values for step method 'list'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.stepArray = []
+        """
+        Array (*list of lists*) with values for step method array.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.source = None
+        """
+        Refdes of the signal source (independent v or i source).
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.detector = None
+        """
+        Names of the positive and negative detector.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.lgRef = None
+        """
+        Refdes of the controlled source that is assigned as loop gain reference.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.circuit = None
+        """
+        Circuit (*SLiCAPprotos.circuit*) used for this instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.numeric = None
+        """
+        Variable used during analysis an presentation of analysis results.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.errors = 0
+        """
+        Number of errors found in the definition of this instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.detUnits = None
+        """
+        Detector units 'V' or 'A'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.srcUnits = None
+        """
+        Source units 'V' or 'A'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.detLabel = None
+        """
+        Name for the detector quantity to be used in expressions or plots.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.parDefs = None
+        """
+        Parameter definitions for the instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+def makeDir(dirName):
+    """
+    Creates the directory 'dirName' if it does not yet exist.
+
+    :param dirName: Name of the ditectory.
+    :type dirName: str
+    """
+
+    if not os.path.exists(dirName):
+        os.makedirs(dirName)
+    return
+
+def copyNotOverwrite(src, dest):
+    """
+    Copies the file 'src' to 'dest' if the latter one does not exist.
+
+    :param src: Name of the source file.
+    :type src: str
+
+    :param dest: Name of the desitination file.
+    :type dest: str
+    """
+    if not os.path.exists(dest):
+        cp(src, dest)
+    return
