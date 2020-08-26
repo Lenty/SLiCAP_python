@@ -918,3 +918,8 @@ if __name__ == "__main__":
     print roots2
     a = phase_f(DET)
     print sp.N(a.subs(ini.frequency, 100))
+    loopgain_numer   = sp.sympify('-s*(1 + s/20)*(1 + s/40)/2')
+    loopgain_denom   = sp.sympify('(s + 1)^2*(1 + s/4e3)*(1 + s/50e3)*(1 + s/1e6)')
+    loopgain         = loopgain_numer/loopgain_denom
+    servo_info       = findServoBandwidth(loopgain)
+    print(servo_info)

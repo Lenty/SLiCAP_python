@@ -121,6 +121,10 @@ class settings(object):
     
        - notebook: True adapts HTML math return variables to markdown format 
          required by Jupyter notebook
+         
+    #. Netlister settings:
+   
+       - ltspice : os command for batch netlist creation with LTspice
     """
     def __init__(self):
         """
@@ -387,6 +391,17 @@ class settings(object):
         to 5.
         """
         
+        self.ltspice = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        """
+        Operating system command prefix for batch generation of a netlist from an 
+        LTspice circuit.
+        
+        - windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        - linux (wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        
+        This prefix will be followed by the name of the schematic file.
+        """
+
     def dump(self):
         """
         Prints the global variables and their values.

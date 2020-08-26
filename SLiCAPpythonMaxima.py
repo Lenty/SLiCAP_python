@@ -499,6 +499,8 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     order and their denominators should be polynomials of the Laplace variable
     of equal order.
     
+    :note: if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.
+    
     :param protoType: Prototype rational expression of the Laplace variable
     :type protoType: sympy.Expr
     
@@ -508,8 +510,9 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
                      prototype.
     :type transfer: sympy.Expr
     
-    :param noSolve: List with variables (*sympy.Symbol*) that do not need to be
-                    solved. They will stay symbolic variables in the solutions.
+    :param noSolve: List with variables (*str, sympy.Symbol*) that do not need 
+                    to be solved. These parameters will remain symbolic in the 
+                    solutions.
     :type noSolve: list
     
     :param numeric: True will force Maxima to use (big) floats for numeric
@@ -527,12 +530,13 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
         numeric = 'bfloat'
     else:
         numeric = ''
-    params = list(set(list(protoType.atoms(sp.Symbol)) + list(transfer.atoms(sp.Symbol))))
-    noSolve.append(ini.Laplace)
-    for param in noSolve:
-        if param in params:
-            params.remove(param)
-        
+    pars = list(set(list(protoType.atoms(sp.Symbol)) + list(transfer.atoms(sp.Symbol))))
+    for i in range(len(noSolve)):
+        noSolve[i] = sp.Symbol(str(noSolve[i]))
+    params = []
+    for par in pars:
+        if par != ini.Laplace and par not in noSolve:
+            params.append(par)
     gainP, pN, pD = coeffsTransfer(protoType)
     gainT, tN, tD = coeffsTransfer(transfer)
     if len(pN) != len(tN) or len(pD) != len(tD):
@@ -549,7 +553,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
             eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
             if eqn != True:
                 equations += str(pD[i]) + '=' + str(tD[i]) + ','
-        eqn = sp.Eq(sp.N(gainP, gainT))
+        eqn = sp.Eq(gainP, gainT)
         if eqn != True:
             equations += str(gainP) + '=' + str(gainT) + ','
         equations = '[' + equations[0:-1] + ']'
@@ -574,7 +578,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
             eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
             if eqn != True:
                 equations.append(eqn)
-        eqn = sp.Eq(sp.N(gainP, gainT))
+        eqn = sp.Eq(gainP, gainT)
         if eqn != True:
             equations.append(eqn)
         try:
@@ -660,3 +664,10 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
 
 if __name__ == '__main__':
     print maxILT(1, ini.Laplace**2 + sp.Symbol('a')**2, numeric = False)
+    proto_transfer = sp.sympify('0.3*(1/(1+s*0.6))')
+    circuit_transfer = sp.sympify('R_1/(R_1 + R_2)/(1 + s*R_1*R_2/(R_1 + R_2)*10e-6)')
+    circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer)
+    print circuit_component_values
+    proto_transfer = sp.sympify('A/(1+s*tau)')
+    circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer, noSolve=['A','tau'], numeric=False)
+    print circuit_component_values

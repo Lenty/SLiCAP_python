@@ -12,7 +12,11 @@ t1=time()
 
 prj = initProject('My first RC network') # Sets all the paths and creates the HTML main index page.
 
-fileName = 'myFirstRCnetwork.cir'
+baseFileName = 'myFirstRCnetwork'
+fileName = baseFileName + '.cir'
+schematicFile = baseFileName + '.asc'
+
+makeNetlist(schematicFile, 'My first RC network')
 i1 = instruction()                       # Creates an instance of an instruction object
 i1.setCircuit(fileName)                  # Checks and defines the local circuit object and
                                          # sets the index page to the circuit index page
@@ -122,7 +126,7 @@ i1.setDataType('step')
 numStep = i1.execute()
 figStep = plotSweep('step', 'Unit step response', numStep, 0, 1, 50, sweepScale='m', show = True)
 # Let us put this plot on the page with the plots. You can get a list with page names by typing: 'ini.htmlPages'
-ini.htmlPage = 'my-first-RC-network_Plots.html'
+ini.htmlPage = 'My-first-RC-network_Plots.html'
 head2html('Time domain plots')
 fig2html(figStep, 600, caption = 'Unit step response of the RC network.', label = 'figStep')
 # SLiCAP is developed for setting up and solving circuit design equations

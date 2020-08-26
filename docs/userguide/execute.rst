@@ -2,323 +2,271 @@
 Execute an instruction
 ======================
 
-The SLiCAP function ``execute.m`` evokes the execution of an instruction. It returns a MATLAB® structured array with all relevant data of the executed instruction. If the instruction contains errors, these errors will be written to the log page and execution is aborted. Below the SLiCAP syntax for execution of an instruction and unpacking of the execution results.
+The method **SLiCAPinstruction.instruction.execute()** executes the instruction and returns a **SLiCAPprotos.allResults()** object with attributes comprising instruction data and instruction results. See `SLiCAPprotos.allResults() <../reference/SLiCAPprotos.html>`_.
 
-.. code-block:: matlab
-
-	result             = execute();        % execute() returns a structured array with the fields described below
-	calculatedResult   = result.results    % results of the execution, nested lists depend on setting of dataType
-	instrSimType       = result.simType    % setting of the simulation type for this instruction
-	instrGainType      = result.gainType   % setting of the gain type for this instruction
-	instrDataType      = result.dataType   % setting of the data type for this instruction
-	instrSource        = result.source     % name of the signal source for this instruction
-	instrDetector      = result.detector   % setting of the detector for this instruction
-	instrLgRef         = result.lgRef      % setting of the loop gain reference variable for this instruction
-	instrStepTrueFalse = result.step       % setting of parameter stepping for this instruction
-	instrStepVar       = result.stepVar    % name of the step parameter for this instruction
-	instrStepMethod    = result.stepMethod % setting of the step method for this instruction
-	instrStepList      = result.stepList   % step list generated from start value stop value and step method
-	instrPostProc      = result.postProc   % post processing field will be discussed below
-
-The contents of the ``.results`` field depends on the data type. This will be discussed in more detail in the corresponding sections below. The other fields carry the setting of the corresponding instruction variable at the time of the execution with exception of the ``.stepList`` field. This attributes carries the list of values for the step variable, based on the settings of step start, step stop, step number and step method.
 
 -----------------
 Execution results
 -----------------
 
-The contents and the structure of the ``execute.results`` field depends on the data type. Below, this contents will be discussed in detail for each data type.
 
-Data type MATRIX
-----------------
+All attributes from the instance of the **SLiCAPinstruction.instruction()** object are copied to the corresponding attribute of the **SLiCAPprotos.allResults()** object. All copies, except that of the **SLiCAPinstruction.instruction.circuit** attribute are *deep* copies.
 
-The structure of the results field for this data type is: ``[..., [MNA_Ii, MNA_Gi, MNA_Di], ...]``
+In the following sections we will describe the attributes that carry the execution results. We will do this for all data types.
 
-1. ``MNA_Ii`` is the vector with the values of the independent sources for the i-th run.
+Data type dc
+------------     
 
-2. ``MNA_Gi`` is the admittance matrix according to modified nodal analysis for the i-th run, adapted to the gain type.
+Calculates the DC value of the detector quantity; only for gain type 'vi'.
 
-3. ``MNA_Di`` is the vector with the dependent variables: the nodal voltages and the currents through elements that have been defined by a current-controlled notation for the i-th run.
+- If parameter stepping is enabled: 
 
-.. code-block:: matlab
+  - A list with dc values (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.dc**
 
-	dataType('matrix');
-	result           = execute();
-	runResults       = result.results
-	firstRunMatrices = runResults(1)
-	MNA_I1           = firstRunMatrices(1) % Vector with independent variables
-	MNA_G1           = firstRunMatrices(2) % Square MNA matrix
-	MNA_D1           = firstRunMatrices(3) % Vector with dependent variables
+- If parameter stepping is disabled:
 
-Data type LAPLACE
------------------
+  - The dc value (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.dc**
 
-The structure of the results field for this data type is: ``[..., H_si, ...]``, in which ``H_si`` is the Laplace transform of the voltage of a voltage across a voltage detector, the current though a current detector or of a transfer function, for the i-th run.
+Data type dcsolve
+-----------------   
 
-.. code-block:: matlab
+Calculates DC solution of the network; only for gain type 'vi'.
 
-	dataType('laplace');
-	result     = execute();
-	runResults = result.results
-	H_s1       = runResults(1)
-	
-		
-Data type SOLVE
------------------
+- If parameter stepping is enabled: 
 
-The structure of the results field for this data type is: ``[..., [MNA_D_i, SOL_i], ...]``, in which ``MNA_D`` is the vector with dependent variables for the i-th run, and ``SOL_i`` is the network solution for the i-th run.
+  - A list with dc solutions (*symPy.Matrix*) is assigned to **SLiCAPprotos.allResults.dcSolve**
 
-Note:
+- If parameter stepping is disabled:
 
-Although MuPAD can handle very large symbolic expressions, MathJax may not be able to render them on a web page.
+  - The dc solution (*symPy.Matrix*) is assigned to **SLiCAPprotos.allResults.dcSolve**
 
-.. code-block:: matlab
+Data type dcvar
+---------------     
 
-	gainType('vi');
-	dataType('solve');
-	result          = execute();
-	runResults      = result.results;
-	firstRunResults = runResults(1);
-	depVariables    = firstRunResults(1);
-	solution        = firstRunResults(2);
-    htmlPage('Results');
-    eqn2html(depVariables, solution);
+Calculates contribution of all dc variances (sources and resistors) to the detector-referred variance. Only for gain type 'vi'. If a signal source has been defined it also calculates the contibutions to the source-referred variance.
 
-Data type NUMER
----------------
+- If parameter stepping is enabled: 
 
-The structure of the results field for this data type is: ``[..., N_si, ...]``, in which ``N_si`` is the numerator of the Laplace transform of the voltage across a voltage detector, the current though a current detector or of a transfer function, for the i-th run.
+  - A list with values of the total detector-referred variance (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ovar**
+  - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ovarTerms**
 
-.. code-block:: matlab
+    - key: Name of the source (*str*)
+    - value: List with contributions to the detector-referred variance (*float, sympy.Symbol, symPy.Expr*)
 
-	dataType('numer');
-	result     = execute();
-	runResults = result.results
-	N_s1       = runResults(1);   
+  - If a signal source has been defined:
 
-Data type DENOM
----------------
+    - A list with values of the total source-referred variance (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ivar**
+    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ivarTerms**
 
-The structure of the results field for this data type is: ``[..., D_si, ...]``, in which ``D_si`` is the denominator of the Laplace transform of the voltage across a voltage detector, the current though a current detector or of a transfer function, for the i-th run.
+      - key: Name of the source (*str*)
+      - value: List with contributions to the source-referred variance (*float, sympy.Symbol, symPy.Expr*)
 
-.. code-block:: matlab
+- If parameter stepping is disabled:
 
-	dataType('denom');
-	result     = execute();
-	runResults = result.results
-	D_s1       = runResults(1)
+  - The total detector-referred variance (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ovar**
+  - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ovarTerms**
 
-Data type IMPULSE
------------------
+    - key: Name of the source (*str*)
+    - value: Contributions to the detector-referred variance (*float, sympy.Symbol, symPy.Expr*)
 
-The structure of the results field for this data type is: ``[..., h_ti, ...]``, in which ``h_ti`` is the inverse Laplace transform of a transfer function, for the i-th run.
+  - If a signal source has been defined:
 
-.. code-block:: matlab
+    - The total source-referred variance (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ivar**
+    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ivarTerms**
 
-	dataType('impulse');
-	result     = execute();
-	runResults = result.results
-	h_t1       = runResults(1)
+      - key: Name of the source (*str*)
+      - value: Contributions to the source-referred variance (*float, sympy.Symbol, symPy.Expr*)
 
-Data type STEP
---------------
+Data type denom
+---------------     
 
-The structure of the results field for this data type is: ``[..., a_ti, ...]``, in which ``a_ti`` is the inverse Laplace transform of :math:`\frac{1}{s} \times` the Laplace transform of a transfer function, for the i-th run.
+Calculates the denominator of the Laplace Transform of the unit-impulse response or of a voltage or a current.
 
-.. code-block:: matlab
+- If parameter stepping is enabled: 
 
-	dataType('step');
-	result     = execute();
-	runResults = result.results
-	a_t1       = runResults(1)
+  A list with results (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.denom**
 
-Data type TIME
---------------
+- If parameter stepping is disabled: 
 
-The structure of the results field for this data type is: ``[..., f_ti, ...]``, in which ``f_ti`` is the inverse Laplace transform of the voltage across a voltage detector or the current though a current detector, for the i-th run.
+  The result (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.denom**
 
-.. code-block:: matlab
+Data type impulse
+-----------------     
 
-	dataType('time');
-	result     = execute();
-	runResults = result.results
-	f_t1       = runResults(1)
+Calculates the unit-impulse response (inverse Laplace Transform); may not work with symbolic values. Not for gain type 'vi'.
 
-Data type POLES
----------------
+- If parameter stepping is enabled: 
 
-The structure of the results field for this data type is: ``[..., [p_1i, p_2i, ... p_ji, ...], ...]``, in which ``p_ji`` is the j-th complex solution in [rad/s] of the denominator of the Laplace transform of a transfer function, for the i-th run. Poles with identical complex frequencies will be listed separately.
+  A list with results (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.impulse**
 
-.. code-block:: matlab
+- If parameter stepping is disabled: 
 
-	dataType('poles');
-	result     = execute();
-	runResults = result.results;
-	polesRun1  = runResults(1);
-	p_1_1      = polesRun1(1);    % frequency in [rad/s] of first pole from the first run
+  The result (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.impulse**
 
+Data type laplace
+-----------------     
 
-Data type ZEROS
----------------
+Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.
 
-The structure of the results field for this data type is: ``[..., [z_1i, z_2i, ... z_ji, ...], ...]``, in which ``z_ji`` is the j-th complex solution in [rad/s] of the numerator of the Laplace transform of the voltage across a voltage detector, the current though a current detector or of a transfer function, for the i-th run. Zeros with identical complex frequencies will be listed separately.
+- If parameter stepping is enabled: 
 
-.. code-block:: matlab
+  A list with results (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.laplace**
 
-	dataType('zeros');
-	result     = execute();
-	runResults = result.results;
-	zerosRun1  = runResults(1);
-	z_1_1      = zerosRun1(1);    % frequency in [rad/s] of first zero from the first run
+- If parameter stepping is disabled: 
 
-Data type PZ
-------------
+  The result (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.laplace**
 
-The structure of the results field for this data type is: ``[..., [ [p_1i, p_2i, ... p_ji, ...], [z_1i, z_2i, ... z_ki, ...], DCgain_i ], ...]``, in which:
+Data type matrix
+----------------     
 
-1. ``p_ji`` is the j-th complex solution in [rad/s] of the denominator of the Laplace transform of the voltage across a voltage detector, the current though a current detector or of a transfer function, for the i-th run. Poles with identical complex frequencies will be listed separately.
+Calculates the matrix equation of the circuit. 
 
-2. ``z_ki`` is the k-th complex solution in [rad/s] of the numerator of the Laplace transform of the voltage across a voltage detector, the current though a current detector or of a transfer function, for the i-th run. Zeros with identical complex frequencies will be listed separately.
+- If parameter stepping is disabled: 
 
-3. ``DCgain_i`` is the zero-frequency transfer for the i-th run. If there exists a pole at s=0, the zero-frequency transfer is set to the MuPAD® boolean FALSE.
+  - The vector with independent variables (*sympy.Matrix*) is assigned to **SLiCAPprotos.allResults.Iv**
+  - The vector with dependent variables (*sympy.Matrix*) is assigned to **SLiCAPprotos.allResults.Dv**
+  - The MNA matrix (*sympy.Matrix*) is assigned to **SLiCAPprotos.allResults.M**
 
-Note: poles and zeros with a relative frequency difference smaler than :math:`10^{DISP}` [1]_ will be cancelled.
+- Parameter stepping with data type 'matrix' is not supported.
 
-.. [1] DISP is the number of digits for displaying floating point numbers.
+Data type noise
+---------------     
 
-.. code-block:: matlab
+Calculates contributions to the detector-referred noise of all noise sources. Only for gain type 'vi'. If a signal source has been defined it also calculates the contibutions to the source-referred noise.
 
-	dataType('pz');
-	result     = execute();
-	runResults = result.results; % results of all runs
-	pzDCrun1   = runResults(1);  % results of first run
-	polesRun1  = pzDCrun1(1);    % frequencies in [rad/s] of the poles of the first run
-	zerosRun1  = pzDCrun1(2);    % frequencies in [rad/s] of the zeros of the first run
-	DCgainRun1 = pzDCrun1(3);    % DC value of the gain of the first run
-		
-Data type NOISE
----------------
+- If parameter stepping is enabled: 
 
-The structure of the results field for this data type is: ``[..., [ sourceNames, sourceSpectra_i, onoiseTerms_i, inoiseTerms_i, onoise_i, inoise_i, units ], ...]``, in which:
+  - A list with values of the total detector-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.onoise**
+  - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.onoiseTerms**
 
-1. ``sourceNames = [ ..., N_j, ... ]``, in which ``N_j`` is the name (identifier) of the j-th noise source in the circuit netlist.
+    - key: Name of the source (*str*)
+    - value: List with contributions to the detector-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
 
-2. ``sourceSpectra_i = [ ..., S_j, ... ]``, in ``which S_j`` is spectral density in [V²/Hz] or in [A²/Hz] of the j-th noise source, for the i-th run.
+  - If a signal source has been defined:
 
-3.  ``onoiseTerms_i = [ ..., So_ji, ... ]``, in which ``So_ji`` is the contribution of the noise source ``N_j`` to the spectral density at the detector in [V²/Hz] or in [A²/Hz], for the i-th run.
+    - A list with values of the total source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ivar**
+    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ivarTerms**
 
-4. ``inoiseTerms_i = [ ..., Si_ji, ... ]``, in which ``Si_ji`` is the source-referred contribution of the noise source ``N_j`` in [V²/Hz] or in [A²/Hz], for the i-th run.
+      - key: Name of the source (*str*)
+      - value: List with contributions to the source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
 
-5. ``onoise_i`` is the spectral density of the total detector-referred noise in [V²/Hz] or in [A²/Hz], for the i-th run.
+- If parameter stepping is disabled:
 
-6. ``inoise_i`` is the spectral density of the total source-referred noise in [V²/Hz] or in [A²/Hz], for the i-th run.
+  - The total detector-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.onoise**
+  - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ovarTerms**
 
-7. ``units = [ uD, uS]``
+    - key: Name of the source (*str*)
+    - value: Contributions to the detector-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
 
-    - ``uD`` represents the units of the detector: A for a current detector and V for a voltage detector.
+  - If a signal source has been defined:
 
-    - ``uS`` represents the units of the signal source: A for a current source and V for a voltage source.
+    - The total source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ivar**
+    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ivarTerms**
 
-Below an example how to unpack the results structure of a noise calculation.
+      - key: Name of the source (*str*)
+      - value: Contributions to the source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
 
-.. code-block:: matlab
+Data type numer
+---------------    
 
-	dataType('noise');
-	result                              = execute();
-	runResults                          = result.results;
-	noiseRun1                           = runResults(1);
-	noiseNames                          = noiseRun1(1);
-	noiseName1                          = char(noiseNames(1));
-	noiseSourceSpectra1                 = noiseRun1(2);
-	detectorReferredNoiseContributions1 = noiseRun1(3);
-	sourceReferredNoiseContributions1   = noiseRun1(4);
-	detectorReferredNoiseSpectrum1      = noiseRun1(5);
-	sourceReferredNoiseSpectrum1        = noiseRun1(6);
-	units                               = noiseRun1(7);
-	detectorReferredNoiseSpectumUnits   = char(units(1)^2/sym('Hz'));
-	sourceReferredNoiseSpectumUnits     = char(units(2)^2/sym('Hz'));
-	
-Data type DC
-------------
+Calculates the numerator of the Laplace Transform of the unit-impulse response or of a voltage or a current.
 
-The structure of the results field for this data type is: ``[..., DC_i, ...]``, in which ``DC_i`` is the DC voltage at the voltage detector or the DC current though a current detector, for the i-th run.
+- If parameter stepping is enabled: 
 
-.. code-block:: matlab
+  A list with results (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.numer**
 
-	dataType('dc');
-	result     = execute();
-	runResults = result.results
-	DC_1       = runResults(1)
+- If parameter stepping is disabled: 
 
-Data type DCVAR
----------------
+  The result (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.numer**
 
-The structure of the results field for this data type is: ``[..., [ sourceNames, sourceVar_i, detVarTerms_i, srcVarTerms_i, detVar_i, srcVar_i, detRelVarTerms_i, srcRelValTerms_i, detVarRel_i, srcVarRel_i, units_i, Dvect_i, DCsol_i], ...]``, in which:
 
-1. ``sourceNames = [ ..., N_j, ... ]``, in which ``N_j`` is the name (identifier) of the j-th source in the circuit netlist.
+Data type params
+----------------    
 
-2. ``sourceVar_i = [ ..., Var_j, ... ]``, in ``which Var_j`` is variance in [V²] or in [A²] of the j-th source, for the i-th run.
+Calculates the values of parameters, while sweeping or stepping other parameters. This data type should be used when plotting parameters against each other. Only the copied instruction data is returned.
 
-3.  ``detVarTerms_i = [ ..., Vout_ji, ... ]``, in which ``Vout_ji`` is the contribution of the source ``N_j`` to the variance at the detector in [V²] or in [A²], for the i-th run.
+Data type poles
+---------------     
 
-4. ``srcVarTerms_i = [ ..., Vin_ji, ... ]``, in which ``Vin_ji`` is the contribution to the source-referred variance of source ``N_j`` in [V²] or in [A²], for the i-th run.
+Calculates the complex solutions of the denominator of the Laplace transfer function. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomial.
 
-5. ``detVar_i`` is the detector-referred variance in [V²] or in [A²], for the i-th run.
+- If parameter stepping is enabled: 
 
-6. ``srcVar_i`` is the source-referred variance in [V²] or in [A²], for the i-th run.
+  A list of lists with solutions (*complex*) is assigned to **SLiCAPprotos.allResults.poles**
 
-7. ``detRelVarTerms_i`` as (3) but now relative to the DC value of the detector quantity (current or voltage), for the i-th run.
+- If parameter stepping is disabled:
 
-8. ``srcRelValTerms_i`` as (4) but now relative to the DC value of the detector quantity (current or voltage), for the i-th run.
+  A list with solutions (*complex*) is assigned to **SLiCAPprotos.allResults.poles**
 
-9.  ``detVarRel_i`` as (5) but now relative to the DC value of the detector quantity (current or voltage), for the i-th run.
+Data type pz
+------------     
 
-10.  srcVarRel_i`` as (6) but now relative to the DC value of the detector quantity (current or voltage), for the i-th run.
+Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomials. 
 
-11. ``units_i = [ uD, uS]``
+.. admonition:: note
 
-    - ``uD`` represents the units of the detector for run i: A for a current detector and V for a voltage detector.
+   pole-zero pairs with equal complex frequencies (tolerance = :math:`10^{\mathrm{-ini.disp}}`) are removed from the results.
 
-    - ``uS`` represents the units of the signal source for run i: A for a current source and V for a voltage source.
-    
-12.  ``Dvect_i`` the vector with independent variables, for the i-th run.
- 
-13.  ``DCsol_i`` the DC solution of the network: the values of the variables in ``Dvect_i``, for the i-th run. 
+- If parameter stepping is enabled: 
 
-Below an example how to unpack the results structure of a dc variance calculation.
+  - A list of lists with solutions (*complex*) of the denominator is assigned to **SLiCAPprotos.allResults.poles**
+  - A list of lists with solutions (*complex*) of the numerator is assigned to **SLiCAPprotos.allResults.zeros**
+  - A list with zero-frequency values (*float*) of the transfer is assigned to **SLiCAPprotos.allResults.DCvalue**
 
-.. code-block:: matlab
+- If parameter stepping is disabled:
 
-	dataType('dcvar');
-	result                              = execute();
-	runResults                          = result.results;
-	varRun1                             = runResults(1);
-	varNames                            = varRun1(1);
-	varName1                            = char(varNames(1));
-	varSource1                          = varRun1(2);
-	detectorReferredVarContributions1   = varRun1(3);
-	sourceReferredVarContributions1     = varRun1(4);
-	totalDetectorReferredVariance1      = varRun1(5);
-	totalSourceReferredVariance         = varRun1(6);
-	detectorReferredRelativeVarContrs1  = varRun1(7);
-	sourceReferredRelativeVarContrs1    = varRun1(8);
-	totalRelativeDetReferredVariance1   = varRun1(9);
-	totalRelativeSrcReferredVariance1   = varRun1(10);
-	units                               = varRun1(11);
-	detectorReferredVarianceUnits       = char(units(1)^2);
-	sourceReferredVarianceUnits         = char(units(2)^2);
-	vectorDependentVariables            = varRun1(12);
-	DCnetworkSolution                   = varRun1(13);
-		
-Data type DCSOLVE
------------------
+  - A list with solutions (*complex*) of the denominator is assigned to **SLiCAPprotos.allResults.poles**
+  - A list with solutions (*complex*) of the numerator is assigned to **SLiCAPprotos.allResults.zeros**
+  - The zero-frequency values (*float*) of the transfer is assigned to **SLiCAPprotos.allResults.DCvalue**
 
-The structure of the results field for this data type is: ``[..., [MNA_D_i, DCsol_i], ...]``, in which ``MNA_D`` is the vector with dependent variables for the i-th run, and ``DCsol_i`` is the DC network solution for the i-th run.
+Data type solve
+---------------     
 
-.. code-block:: matlab
+Calculates the network solution; only for gain type 'vi'.
 
-	dataType('dcsolve');
-	result          = execute();
-	runResults      = result.results
-	firstRunResults = runResults(1)
-	depVariables    = firstRunResults(1)
-	DCsolution      = firstRunResults(2)
+- If parameter stepping is enabled: 
+
+  - A list with solutions (*symPy.Matrix*) is assigned to **SLiCAPprotos.allResults.solve**
+
+- If parameter stepping is disabled:
+
+  - The solution (*symPy.Matrix*) is assigned to **SLiCAPprotos.allResults.solve**
+
+Data type step
+--------------     
+
+Calculates inverse Laplace transform of (1/s) times the transfer function. It may not work with symbolic values.
+
+- If parameter stepping is enabled: 
+
+  A list with results (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.stepResp**
+
+- If parameter stepping is disabled: 
+
+  The result (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.stepResp**
+
+Data type time
+--------------     
+
+Calculates inverse Laplace transform of a detector voltage or current. Only for gain type 'vi'. It may not work with symbolic values.
+
+- If parameter stepping is enabled: 
+
+  A list with results (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.time**
+
+- If parameter stepping is disabled: 
+
+  The result (*float, sympy.Expr*) is assigned to **SLiCAPprotos.allResults.time**
+
+Data type zeros
+---------------     
+
+Calculates the complex solutions of the numerator of the Laplace transfer function. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomial.
+
+- If parameter stepping is enabled: 
+
+  A list of lists with solutions (*complex*) is assigned to **SLiCAPprotos.allResults.poles**
+
+- If parameter stepping is disabled:
+
+  A list with solutions (*complex*) is assigned to **SLiCAPprotos.allResults.poles**

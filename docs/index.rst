@@ -1,9 +1,9 @@
 .. SLiCAP documentation master file, created by
    sphinx-quickstart on Mon Feb  1 11:05:15 2016.
 
-==================
-SLiCAP Programming
-==================
+==============
+SLiCAP Manuals
+==============
 
 .. image:: https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png
     :target: http://creativecommons.org/licenses/by-nc-nd/4.0/
@@ -23,3 +23,5 @@ Contents
    userguide/SLiCAPuserguide
    syntax/SLiCAPnetlistSyntax
    reference/SLiCAPreference
+   development/SLiCAPdevelopment
+   tutorials/SLiCAPtutorials

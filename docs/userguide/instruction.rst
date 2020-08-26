@@ -2,7 +2,7 @@
 Define an instruction
 =====================
 
-All the aspects of an instruction can at any time be changed from the MATLAB® environment. An instruction can be executed if the instruction data is complete and consistent (this will be checked by SLiCAP).
+All the aspects of an instruction can at any time be changed from twithin the SLiCAP environment. An instruction can be executed if the instruction data is complete and consistent (this will be checked by SLiCAP).
 
 In the following sections the instruction data and their default values will be discussed.
 
@@ -10,15 +10,24 @@ In the following sections the instruction data and their default values will be 
 Simulation type
 ---------------
 
-SLiCAP uses symbolic calculation methods, even if the data is numerical. If the simulation type has been set to NUMERIC, parameter values are recursively substituted into the expressions for the circuit elements.
+SLiCAP uses symbolic calculation methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the expressions for the circuit elements.
 
-The default simultion mode is 'NUMERIC'. The simulation type can be set with the function ``simType.m``. This function returns the setting for the simulation type.
+The simulation type can be set with the method **SLiCAPinstruction.instruction.setSimType(*args)**.
 
-.. code-block:: matlab
+.. code-block:: python
 
-	currentSimType = simType('?');   % Assigns the current simulation type setting to the MATLAB® variable 'currentSimType'
-	newSimType = simType('numeric'); % Sets the simulation type to 'numeric' and assigns the simulation type to the MATLAB variable 'newSimType'
-	simType('symbolic');             % Sets the simulation mode to 'symbolic'
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()        # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+    >>> instr.setSimType('numeric')  # Set the simulation type to 'numeric'.
+    >>> print(instr.simType)         # Print the current setting of the simulation type
+    numeric
+    >>> instr.setSimType('symbolic') # Set the simulation mode to 'symbolic'
+    >>> print(instr.simType)         # Print the current setting of the simulation type
+    symbolic
 
 ---------
 Gain type
@@ -26,109 +35,224 @@ Gain type
 
 SLiCAP can provide expressions for:
 
-	1. Nodal voltages or currents through elements that have been defined in current-controlled notation (the volhage has been defined as a function of the current)
+#. Nodal voltages or currents through elements that have been defined in current-controlled notation (the volhage has been defined as a function of the current).
 
-	2. Transfer functions of the asymptotic-gain model:
+   - gain type: *vi*
+
+#. Transfer functions of the asymptotic-gain model:
 	
-		a) gain
+   - source-to-detector transfer: gain type *gain*
 		
-			This is the transfer from the source to the detector
+	 This is the transfer from the source to the detector
 				
-		b) asymptotic-gain 
+   - asymptotic-gain: gain type *asymptotic*
 		
-			This is the transfer for infinite loop gain
+	 This is the gain when the loop gain reference is replaced with a nullor.
 				
-		c) loop gain
+   - loop gain: gain type *loopgain*
 		
-			This is the transfer of the controlled source selected by the loop gain reference variable, multiplied with the transfer from the output quantity of this variable to its input quantity.
+	 This is the transfer of the controlled source selected by the loop gain reference variable, multiplied with the transfer from the output quantity of this controlled source to its input quantity.
 				
-		d) direct transfer
+   - direct transfer: gain type *direct*
 		
-			This is the transfer from source to the detector with the gain of the loop gain reference variable set to zero
+	 This is the transfer from source to the detector with the gain of the loop gain reference variable set to zero
 				  
-		e) servo function
+   - servo function: gain type *servo*
 		
-			This is :math:`\frac{-L}{1-L}` in which :math:`L` is the loop gain according to the definition above.
+	 This is :math:`\frac{-L}{1-L}` in which :math:`L` is the loop gain according to the definition above.
 
-The gain type can be defined with the function: ``gaintype.m``.
+The gain type can be defined with the method: **SLiCAPinstruction.instruction.setGainType(*args)**.
 
-.. code-block:: matlab
+.. code-block:: python
 
-	currentGainType = gainType('?') % Assigns the current setting of the gain type to the MATLAB® variable 'currentGainType'
-	gainType('asymptotic');         % Calculates asymptotic-gain according to the asymptotig-gain model requires source, detector and loop gain reference
-	gainType('direct');             % Calculates direct transfer according to the asymptotig-gain model requires source, detector and loop gain reference
-	gainType('gain');               % Calculates the source to detector transfer requires, source and detector
-	gainType('loopgain');           % Calculates the loop gain according to the asymptotig-gain model requires a loop gain reference
-	gainType('servo');              % Calculates servo function according to the asymptotig-gain model requires loop gain reference
-	gainType('vi');                 % Calculates voltage or current; default gain type
-                                    % requires detector, except for data types 'matrix', 'solve' and 'DCsolve'
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()           # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+    >>> instr.setGainType('vi')         # Set the gain type to 'vi'.
+    >>> print(instr.gainType)           # Print the current setting of the gain type
+    vi
+    >>> instr.setGainType('gain')       # Set the gain type to 'gain'.
+    >>> print(instr.gainType)           # Print the current setting of the gain type
+    gain
+    >>> instr.setGainType('asymptotic') # Set the gain type to 'asymptotic'.
+    >>> print(instr.gainType)           # Print the current setting of the gain type
+    asymptotic
+    >>> instr.setGainType('loopgain')   # Set the gain type to 'loopgain'.
+    >>> print(instr.gainType)           # Print the current setting of the gain type
+    loopgain
+    >>> instr.setGainType('servo')      # Set the gain type to 'servo'.
+    >>> print(instr.gainType)           # Print the current setting of the gain type
+    servo
+    >>> instr.setGainType('direct')     # Set the gain type to 'direct'.
+    >>> print(instr.gainType)           # Print the current setting of the gain type
+    direct
 
 -------------
 Signal source
 -------------
 
-Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the function: ``source.m``.  The argument of the function should be the name (identifier) of an inpependent source in the circuit. A list of available independent sources in the circuit can be obtained with the function: ``indepVars.m``. 
+Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: **SLiCAPinstruction.instruction.setSource(*args)**.  The argument of the function should be the name (identifier) of an inpependent source in the circuit. A list of available independent sources is returned by the method: **SLiCAPinstruction.instruction.indepVars()**. 
 
-.. code-block:: matlab
+.. code-block:: python
 
-    availableSources = indepVars(); % Assigns a symbolic list with independent variables to the MATLAB® variable 'availableSources'
-    source('Vs');                   % Defines the voltage source 'Vs' as signal source
-    source('I3');                   % Defines the current source 'I3' as signal source
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()           # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+    >>> print(instr.indepVars())        # Print a list with independent sources in the circuit
+    ['V1']
+    >>> instr.setSource('V1')           # Define the signal source
+    >>> print(instr.source)             # Print the signal source
+    V1
 
 --------
 Detector 
 --------
 	  
-In order to limit the execution time, SLiCAP calculates only one current, voltage or differential voltage or one transfer function. This variable is defined by the detector: ``detector.m``. The name of this function should be composed as follows:
+SLiCAP can calculate one of the following:
+
+#. One branch current through an element defined by its V(I) relation in current-contrilled notation
+#. One nodal voltage
+#. One branch voltage (difference between two nodal voltages)
+#. One difference between two branch currents through elements defined by their V(I) relation in current-controlled notation
+#. One transfer function
+#. The complete network solution
+
+For (1) - (5) this variable is defined by the detector: **SLiCAPinstruction.instruction.detector** which can be set with the method: **SLiCAPinstruction.instruction.setDetector(*args)** The name of this function should be composed as follows:
 
 - In the case of a voltage detector, the name should be the concatenation of 'V\_' and the name of the output node; in general: 'V_<outputNode>'. For the voltage difference between two nodes, simply use two arguments (see example below)
 
 - In the case of a current detector, the name should be the concatenation of 'I\_' and the name of the element (identifier) whose current is taken as detector current.
 
-Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables can be obtained with the function ``depVars.m``.
+Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables is returned by the method: **SLiCAPinstruction.instruction.depVars()**
 
-.. code-block:: matlab
+.. code-block:: python
 
-	availableDets = depVars();      % Assigns a symbolic list with available dependent variables to the MATLAB® variable 'availableDets'
-	currentDet = detector('?');     % Assigns the name of the current detector to the MATLAB® variable 'currentDet'
-	detector('V_out');              % Defines the voltage detector at node 'out'
-	detector('V_pos', 'V_neg');     % Defines a differential voltage detector between node 'pos' en node 'neg'
-	detector('I_Vs');               % Defines a current detector that measures the current through 'Vs'
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()           # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+    >>> print(instr.depVars())          # print a list with independent sources in the circuit
+    ['I_V1', 'V_0', 'V_N001', 'V_out']
+    >>> instr.setDetector('V_out')      # Nodal voltage 'V_out' is detector voltage
+    >>> print(instr.detector)           # Print the detecor quantity
+    ['V_out', None]
+    >>> instr.setDetector(['V_out', 'V_N001']) # Voltage 'V_out'-'V_N001' is the detector voltage
+    >>> print(instr.detector)           # Print the detecor quantity
+    ['V_out', 'V_N001']
+    >>> instr.setDetector('I_V1')       # Current through 'V1' is the detector current
+    >>> print(instr.detector)           # Print the detecor quantity
+    ['I_V1', None]
 
 -------------------
 Loop gain reference
 -------------------
 
-The asymptotic-gain negative-feedback model uses one controlled source of the circuit as so-called loop gain reference variable. A list with controlled sources that are available for this purpose can be obtained with the fuction ``controlled.m``. 
+The asymptotic-gain negative-feedback model uses one controlled source of the circuit as *loop gain reference variable*. The name of this controlled source is stored in the attribute: **SLiCAPinstruction.instruction.lgRef**. A list with controlled sources that are available for this purpose is returned by the method:  **SLiCAPinstruction.instruction.controlled()**. 
 
-One of the controlled sources of this list can be assigned as loop gain reference variable. This can be done with the function ``lgRef.m``. 
+One of the controlled sources of this list can be assigned as loop gain reference variable. This can be done with the method **SLiCAPinstruction.instruction.setLGref()**. 
 
-.. code-block:: matlab
+.. code-block:: python
 
-	availableRefs = controlled();   % Assigns a symbolic list with available controlled sources to the MATLAB® variable 'availableRefs'
-	currentRef = lgRef('?');        % Assigns the name of the loop gain reference variable to the MATLAB® variable 'currentRef'
-	lgRef('gm_M1');                 % Defines the controlled source with name 'gm_M1'  as loop gain reference variable
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()           # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+    >>> print instr.controlled()        # Print a list with names of controlled sources
+    []
 
 ---------
 Data type
 ---------
 
-SLiCAP can provide many types of data. The data type can be defined with the function: ``dataType.m``. Below the syntax for setting the data type and the meaning of the different data types.
+SLiCAP can provide 16 types of data. The data type for the instruction is stored in the attribute **SLiCAPinstruction.instruction.dataType**. It is defined by the method: **SLiCAPinstruction.instruction.setDataType**. Below an overview of the availabe data types and their meaning.
 
-.. code-block:: matlab
+#. dc     
 
-	dataType('dc')          % Calculates DC value of the detector voltage or the detector current; only for gain type 'vi'
-	dataType('dcsolve')     % Calculates DC solution of the network; only for gain type 'vi'
-	dataType('dcvar')       % Calculates source-referred and detector-referred variance due to variances of all voltage and current sources; only for gain type 'vi'
-	dataType('denom')       % Calculates denominator of laplace transform of gain type; default data type
-	dataType('impulse')     % Calculates inverse laplace transform of gain type not for gain type 'vi'; may not work with symbolic values
-	dataType('laplace')     % Calculates laplace transform of gain type; default data type
-	dataType('matrix')      % Calculates matrix equation of the circiut; default data type
-	dataType('noise')       % Calculates source-referred and detector-referred noise contributions of all noise sources; only for gain type 'vi'
-	dataType('numer')       % Calculates numerator of laplace transform of gain type; default data type
-	dataType('poles')       % Calculates complex solutions of laplace transform of 'denom' not for gain type 'vi'; may not work with symbolic values
-	dataType('pz')          % Calculates poles and zeros (with pole-zero canceling) and DC gain not for gain type 'vi'; may not work with symbolic values
-	dataType('solve')       % Calculates the network solution; only for gain type 'vi'
-	dataType('step')        % Calculates inverse laplace transform of (1/s) * gain type not for gain type 'vi'; may not work with symbolic values
-	dataType('time')        % Calculates inverse laplace transform of detector voltage or current only for gain type 'vi'; may not work with symbolic values
-	dataType('zeros')       % Calculates complex solutions of laplace transform of 'numer' not for gain type 'vi'; may not work with symbolic values
+    Calculates DC value of the detector voltage or the detector current; only for gain type 'vi'.
+
+#. dcsolve
+
+   Calculates DC solution of the network; only for gain type 'vi'.
+
+#. dcvar
+
+   Calculates contribution of all dc variances (sources and resistors) to the detector-referred variance. Only for gain type 'vi'. If a signal source has been defined it also calculates the contibutions to the source-referred variance.
+
+#. denom
+
+   Calculates the denominator of the Laplace Transform of the unit-impulse response or of a voltage or a current.
+
+#. impulse
+
+   Calculates inverse laplace transform of a transfer not for gain type 'vi'; may not work with symbolic values.
+
+#. laplace
+
+   Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.
+
+#. matrix
+
+   Calculates the matrix equation of the circuit.
+
+#. noise
+
+   Calculates contributions to the detector-referred noise of all noise sources. Only for gain type 'vi'. If a signal source has been defined it also calculates the contibutions to the source-referred noise.
+
+#. numer
+
+   Calculates the numerator of the Laplace Transform of the unit-impulse response or of a voltage or a current.
+
+#. params
+
+   Calculates the values of parameters, while sweeping or stepping other parameters.
+
+#. poles
+
+   Calculates the complex solutions of the denominator of the Laplace transform of a transfer function. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomial.
+
+#. pz
+
+   Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomials. Poles and zeros with equal values are cancelled.
+
+#. solve
+
+   Calculates the network solution; only for gain type 'vi'.
+
+#. step
+
+   Calculates inverse Laplace transform of (1/s) times the transfer function. It may not work with symbolic values.
+
+#. time
+
+   Calculates inverse Laplace transform of a detector voltage or current. Only for gain type 'vi'. It may not work with symbolic values.
+
+#. zeros
+
+   Calculates the complex solutions of the numerator of the Laplace transform of a transfer function. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomial.
+
+.. code-block:: python
+
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()         # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+    >>> instr.setSimType('symbolic')  # Define the simulation type
+    >>> instr.setSource('V1')         # Define the signal source
+    >>> instr.setDetector('V_out')    # Nodal voltage 'V_out' is detector voltage
+    >>> instr.setGainType('gain')     # Define the gain type
+    >>> instr.setDataType('laplace')  # Define the data type
+    >>> result = instr.execute()      # Execute the instruction and assign the results to 'result'
+    >>> print result.laplace          # Print the Laplace transform of the gain
+    1.0/(1.0*C*R*s + 1.0)

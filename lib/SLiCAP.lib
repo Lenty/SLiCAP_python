@@ -132,33 +132,19 @@ M1 drain gate source bulk CMOS18N
 .param
 * device equations EKV model
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
-+ IC_CRIT = {1/(4*(N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ g_m     = {ID/(N_s*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
-+ g_o     = {ID/VAL/L}
-+ g_b     = {(N_s-1)*g_m}
-+ c_gs    = {2/3*W*L*C_OX + CGSO*W} 
-+ c_dg    = {CGSO*W}
-+ c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
-+ c_db    = {CJB0*W*LDS}
-+ c_sb    = {CJB0*W*LDS}
-+ IC      = {ID*L/W/I_0}
-+ I_0     = {2*N_s*u_0*C_OX*U_T^2}
-+ C_OX    = {epsilon_0*epsilon_SiO2/TOX}
-+ V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC))-1)+Vth}
++ IC_CRIT = {1/(4*(N_s_N18*U_T)*(Theta_N18+1/L/E_CRIT_N18))^2}
++ g_m     = {ID/(N_s_N18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ g_o     = {ID/VAL_N18/L}
++ g_b     = {(N_s_N18-1)*g_m}
++ c_gs    = {2/3*W*L*C_OX_N18 + CGSO_N18*W} 
++ c_dg    = {CGSO_N18*W}
++ c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
++ c_db    = {CJB0_N18*W*LDS_N18}
++ c_sb    = {CJB0_N18*W*LDS_N18}
++ IC      = {ID*L/W/I_0_N18}
++ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC))-1)+Vth_N18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
-* technology parameters (SI units)
-+ Vth     = 0.36 ; threshold voltage
-+ CGBO    = 1p   ; gate-bulk overlap capacitance
-+ CGSO    = 300p ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m   ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n ; length of drain and source
-+ TOX     = 4.1n ; oxide thickness
-+ Theta   = 0.28 ; vertical field mobility reduction factor
-+ E_CRIT  = 5.6M ; lateral field strength for velocity saturation
-+ N_s     = 1.35 ; substrate factor
-+ VAL     = 40M  ; Early voltage per unit of length
-+ u_0     = 42.2m; zero field carrier mobility
 .ends
 
 .subckt CMOS18N_V drain gate source bulk W={W} L={L} VD={VD} VG={VG} VS={VS}
@@ -183,51 +169,35 @@ M1 drain gate source bulk CMOS18N_V
 * device equations EKV model
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
 * See EKV2.6 model manual
-+ V_A     = {VAL*L}
-+ C_gso   = {CGSO*W}
-+ C_gdo   = {CGSO*W}
-+ C_gbo   = {CGBO*2*L}
-+ C_sb0   = {CJB0*W*LDS}
-+ C_db0   = {CJB0*W*LDS}
-+ COX     = {epsilon_0*epsilon_SiO2/TOX}
-+ C_OX    = {COX*W*L}
-+ I_0     = {2*N_s*u_0*COX*U_T^2}
-+ IC_CRIT = {1/((4*N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ V_effF  = {(VG-Vth-N_s*VS)/N_s/U_T}
-+ V_effR  = {(VG-Vth-N_s*VD)/N_s/U_T}
++ V_A     = {VAL_N18*L}
++ C_gso   = {CGSO_N18*W}
++ C_gdo   = {CGSO_N18*W}
++ C_gbo   = {CGBO_N18*2*L}
++ C_sb0   = {CJB0_N18*W*LDS_N18}
++ C_db0   = {CJB0_N18*W*LDS_N18}
++ IC_CRIT = {1/((4*N_s_N18*U_T)*(Theta_N18+1/L/E_CRIT_N18))^2}
++ V_effF  = {(VG-Vth_N18-N_s_N18*VS)/N_s_N18/U_T}
++ V_effR  = {(VG-Vth_N18-N_s_N18*VD)/N_s_N18/U_T}
 + IC_F    = {(ln(1+exp(V_effF/2)))^2}
 + IC_R    = {(ln(1+exp(V_effR/2)))^2}
 + x_f     = {sqrt(1/4+IC_F)}
 + x_r     = {sqrt(1/4+IC_R)}
-+ I_DS    = {W/L*I_0*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta+1/L/E_CRIT)*2*U_T*sqrt(IC_F))}
-+ V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC_F))-1)+Vth}
-+ g_mF    = {W/L*I_0*IC_F*(1+(VD-VS)/V_A)/(N_s*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
-+ g_mR    = {W/L*I_0*IC_R/(N_s*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
++ I_DS    = {W/L*I_0_N18*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_N18+1/L/E_CRIT_N18)*2*U_T*sqrt(IC_F))}
++ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC_F))-1)+Vth_N18}
++ g_mF    = {W/L*I_0_N18*IC_F*(1+(VD-VS)/V_A)/(N_s_N18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
++ g_mR    = {W/L*I_0_N18*IC_R/(N_s_N18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
-+ g_o     = {I_DS/(V_A+VD-VS) + u_0*C_OX/(1+Theta*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
-+ g_b     = {(N_s-1)*g_m}
-+ c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX} 
-+ c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX}
++ g_o     = {I_DS/(V_A+VD-VS) + u_0_N18*C_OX_N18*W*L/(1+Theta_N18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
++ g_b     = {(N_s_N18-1)*g_m}
++ c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX_N18*W*L} 
++ c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX_N18*W*L}
 + c_gs    = {c_gsi+C_gso}
 + c_dg    = {c_dgi+C_gdo}
-+ c_gb    = {(N_s-1)/N_s*(C_OX-c_gsi-c_dgi)+C_gbo}
-+ c_db    = {(N_s-1)*c_dgi+C_db0}
-+ c_sb    = {(N_s-1)*c_gsi+C_sb0}
++ c_gb    = {(N_s_N18-1)/N_s_N18*(C_OX_N18*W*L-c_gsi-c_dgi)+C_gbo}
++ c_db    = {(N_s_N18-1)*c_dgi+C_db0}
++ c_sb    = {(N_s_N18-1)*c_gsi+C_sb0}
 + c_iss   = {c_gs+c_dg+c_gb}
 + f_T     = {g_m/2/pi/c_iss}
-* technology parameters (SI units)
-+ Vth     = 0.36 ; threshold voltage
-+ CGBO    = 1p   ; gate-bulk overlap capacitance
-+ CGSO    = 300p ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m   ; source/bulk drain/bulk capacitance per unit of area
-+ LDS     = 180n ; length of drain and source
-+ TOX     = 4.1n ; oxide thickness
-+ Theta   = 0.28 ; vertical field mobility reduction factor
-+ E_CRIT  = 5.6M ; lateral field strength for velocity saturation
-+ N_s     = 1.35 ; substrate factor
-+ VAL     = 40M  ; Early voltage per unit of length
-+ u_0     = 42.2m; zero field carrier mobility
-
 .ends
 
 .subckt CMOS18ND drain1 drain2 gate1 gate2 W={W} L={L} ID={ID}
@@ -249,30 +219,15 @@ M1 drain1 drain2 gate1 gate2 CMOS18ND
 .param
 * device equations EKV model
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
-+ IC_CRIT = {1/(4*(N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ g_m     = {ID/(N_s*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
-+ g_o     = {ID/VAL/L}
-+ c_gs    = {2/3*W*L*C_OX + CGSO*W} 
-+ c_dg    = {CGSO*W}
-+ c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
-+ c_db    = {CJB0*W*LDS}
-+ IC      = {ID*L/W/I_0}
-+ I_0     = {2*N_s*u_0*C_OX*U_T^2}
-+ C_OX    = {epsilon_0*epsilon_SiO2/TOX}
-+ V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC))-1)+Vth}
-* technology parameters (SI units)
-+ Vth     = 0.36 ; threshold voltage
-+ CGBO    = 1p   ; gate-bulk overlap capacitance
-+ CGSO    = 300p ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m   ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n ; length of drain and source
-+ Theta   = 0.28 ; vertical field mobility reduction factor
-+ E_CRIT  = 5.6M ; lateral field strength for velocity saturation
-+ N_s     = 1.35 ; substrate factor
-+ VAL     = 40M  ; Early voltage per unit of length
-+ u_0     = 42.2m; zero field carrier mobility
-+ TOX     = 4.1n ; oxide thickness
-
++ IC_CRIT = {1/(4*(N_s_N18*U_T)*(Theta_N18+1/L/E_CRIT_N18))^2}
++ g_m     = {ID/(N_s_N18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ g_o     = {ID/VAL_N18/L}
++ c_gs    = {2/3*W*L*C_OX_N18 + CGSO_N18*W} 
++ c_dg    = {CGSO_N18*W}
++ c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
++ c_db    = {CJB0_N18*W*LDS_N18}
++ IC      = {ID*L/W/I_0_N18}
++ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC))-1)+Vth_N18}
 .ends
 
 .subckt CMOS18P drain gate source bulk W={W} L={L} ID={ID}
@@ -294,34 +249,19 @@ M1 drain gate source bulk CMOS18P
 .param
 * device equations EKV model
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
-+ IC_CRIT = {1/(4*(N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ g_m     = {ID/(N_s*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
-+ g_o     = {ID/VAL/L} 
-+ g_b     = {(N_s-1)*g_m}
-+ c_gs    = {2/3*W*L*C_OX + CGSO*W} 
-+ c_dg    = {CGSO*W}
-+ c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
-+ c_db    = {CJB0*W*LDS}
-+ c_sb    = {CJB0*W*LDS}
-+ IC      = {ID*L/W/I_0}
-+ I_0     = {2*N_s*u_0*C_OX*U_T^2}
-+ C_OX    = {epsilon_0*epsilon_SiO2/TOX}
-+ V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC))-1)+Vth}
++ IC_CRIT = {1/(4*(N_s_P18*U_T)*(Theta_P18+1/L/E_CRIT_P18))^2}
++ g_m     = {ID/(N_s_P18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ g_o     = {ID/VAL_P18/L} 
++ g_b     = {(N_s_P18-1)*g_m}
++ c_gs    = {2/3*W*L*C_OX_P18 + CGSO_P18*W} 
++ c_dg    = {CGSO_P18*W}
++ c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
++ c_db    = {CJB0_P18*W*LDS_P18}
++ c_sb    = {CJB0_P18*W*LDS_P18}
++ IC      = {ID*L/W/I_0_P18}
++ V_GS    = {2*N_s_P18*U_T*ln(exp(sqrt(IC))-1)+Vth_P18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
-* technology parameters (SI units)
-+ Vth     = 0.36 ; threshold voltage
-+ CGBO    = 1p   ; gate-bulk overlap capacitance
-+ CGSO    = 300p ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m   ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n ; length of drain and source
-+ TOX     = 4.1n ; oxide thickness
-+ Theta   = 0.35 ; vertical field mobility reduction factor
-+ E_CRIT  = 14M  ; lateral field strength for velocity saturation
-+ N_s     = 1.35 ; substrate factor
-+ VAL     = 40M  ; Early voltage per unit of length
-+ u_0     = 8.92m; zero field carrier mobility
-
 .ends
 
 .subckt CMOS18P_V drain gate source bulk W={W} L={L} VD={VD} VG={VG} VS={VS}
@@ -345,51 +285,35 @@ M1 drain gate source bulk CMOS18P_V
 * device equations EKV model
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
 * See EKV2.6 model manual
-+ V_A     = {VAL*L}
-+ C_gso   = {CGSO*W}
-+ C_gdo   = {CGSO*W}
-+ C_gbo   = {CGBO*2*L}
-+ C_sb0   = {CJB0*W*LDS}
-+ C_db0   = {CJB0*W*LDS}
-+ COX     = {epsilon_0*epsilon_SiO2/TOX}
-+ C_OX    = {COX*W*L}
-+ I_0     = {2*N_s*u_0*COX*U_T^2}
-+ IC_CRIT = {1/((4*N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ V_effF  = {(VG-Vth-N_s*VS)/N_s/U_T}
-+ V_effR  = {(VG-Vth-N_s*VD)/N_s/U_T}
++ V_A     = {VAL_P18*L}
++ C_gso   = {CGSO_P18*W}
++ C_gdo   = {CGSO_P18*W}
++ C_gbo   = {CGBO_P18*2*L}
++ C_sb0   = {CJB0_P18*W*LDS_P18}
++ C_db0   = {CJB0_P18*W*LDS_P18}
++ IC_CRIT = {1/((4*N_s_P18*U_T)*(Theta_P18+1/L/E_CRIT_P18))^2}
++ V_effF  = {(VG-Vth_P18-N_s_P18*VS)/N_s_P18/U_T}
++ V_effR  = {(VG-Vth_P18-N_s_P18*VD)/N_s_P18/U_T}
 + IC_F    = {(ln(1+exp(V_effF/2)))^2}
 + IC_R    = {(ln(1+exp(V_effR/2)))^2}
 + x_f     = {sqrt(1/4+IC_F)}
 + x_r     = {sqrt(1/4+IC_R)}
-+ I_DS    = {W/L*I_0*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta+1/L/E_CRIT)*2*U_T*sqrt(IC_F))}
-+ V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC_F))-1)+Vth}
-+ g_mF    = {W/L*I_0*IC_F*(1+(VD-VS)/V_A)/(N_s*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
-+ g_mR    = {W/L*I_0*IC_R/(N_s*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
++ I_DS    = {W/L*I_0_P18*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_P18+1/L/E_CRIT_P18)*2*U_T*sqrt(IC_F))}
++ V_GS    = {2*N_s_P18*U_T*ln(exp(sqrt(IC_F))-1)+Vth_P18}
++ g_mF    = {W/L*I_0_P18*IC_F*(1+(VD-VS)/V_A)/(N_s_P18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
++ g_mR    = {W/L*I_0_P18*IC_R/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
-+ g_o     = {I_DS/(V_A+VD-VS) + u_0*C_OX/(1+Theta*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
-+ g_b     = {(N_s-1)*g_m}
-+ c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX} 
-+ c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX}
++ g_o     = {I_DS/(V_A+VD-VS) + u_0_P18*C_OX_P18*W*L/(1+Theta_P18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
++ g_b     = {(N_s_P18-1)*g_m}
++ c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX*W*L} 
++ c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX*W*L}
 + c_gs    = {c_gsi+C_gso}
 + c_dg    = {c_dgi+C_gdo}
-+ c_gb    = {(N_s-1)/N_s*(C_OX-c_gsi-c_dgi)+C_gbo}
-+ c_db    = {(N_s-1)*c_dgi+C_db0}
-+ c_sb    = {(N_s-1)*c_gsi+C_sb0}
++ c_gb    = {(N_s_P18-1)/N_s_P18*(C_OX_P18*W*L-c_gsi-c_dgi)+C_gbo}
++ c_db    = {(N_s_P18-1)*c_dgi+C_db0}
++ c_sb    = {(N_s_P18-1)*c_gsi+C_sb0}
 + c_iss   = {c_gs+c_dg+c_gb}
 + f_T     = {g_m/2/pi/c_iss}
-* technology parameters (SI units)
-+ Vth     = 0.36; threshold voltage
-+ CGBO    = 1p   ; gate-bulk overlap capacitance
-+ CGSO    = 300p ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m   ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n ; length of drain and source
-+ TOX     = 4.1n ; oxide thickness
-+ Theta   = 0.35 ; vertical field mobility reduction factor
-+ E_CRIT  = 14M  ; lateral field strength for velocity saturation
-+ N_s     = 1.35 ; substrate factor
-+ VAL     = 40M  ; Early voltage per unit of length
-+ u_0     = 8.92m; zero field carrier mobility
-
 .ends
 
 .subckt CMOS18PD drain gate source bulk W={W} L={L} ID={ID}
@@ -411,30 +335,15 @@ M1 drain gate source bulk CMOS18PD
 .param
 * device equations EKV model
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
-+ IC_CRIT = {1/(4*(N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ g_m     = {ID/(N_s*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
-+ g_o     = {ID/VAL/L}
-+ c_gs    = {2/3*W*L*C_OX + CGS0*W} 
-+ c_dg    = {CGSO*W}
-+ c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
-+ c_db    = {CJB0*W*LDS}
-+ IC      = {ID*L/W/I_0}
-+ I_0     = {2*N_s*u_0*C_OX*U_T^2}
-+ C_OX    = {epsilon_0*epsilon_SiO2/TOX}
-+ V_GS    = {2*N_s*U_T*ln(exp(sqrt(IC))-1)+Vth}
-* technology parameters (SI units)
-+ Vth     = 0.36; threshold voltage
-+ CGBO    = 1p   ; gate-bulk overlap capacitance
-+ CGSO    = 300p ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m   ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n ; length of drain and source
-+ Theta   = 0.35 ; vertical field mobility reduction factor
-+ E_CRIT  = 14M  ; lateral field strength for velocity saturation
-+ N_s     = 1.35 ; substrate factor
-+ TOX     = 4.1n ; oxide thickness
-+ VAL     = 40M  ; Early voltage per unit of length
-+ u_0     = 8.92m; zero field carrier mobility
-
++ IC_CRIT = {1/(4*(N_s_P18*U_T)*(Theta_P18+1/L/E_CRIT_P18))^2}
++ g_m     = {ID/(N_s_P18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ g_o     = {ID/VAL_P18/L}
++ c_gs    = {2/3*W*L*C_OX_P18 + CGS0_P18*W} 
++ c_dg    = {CGSO_P18*W}
++ c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
++ c_db    = {CJB0_P18*W*LDS_P18}
++ IC      = {ID*L/W/I_0_P18}
++ V_GS    = {2*N_s_P18*U_T*ln(exp(sqrt(IC))-1)+Vth_P18}
 .ends
 
 .subckt BJTV4 collector base emitter bulk IC={IC} VCE={VCE}
@@ -468,7 +377,6 @@ Q1 collector base emitter bulk BJTV4
 + CJC     = 1p    ; zero bias collector-base capacitance
 + CJE     = 5p    ; zero bias emitter-base capacitance
 + tau_F   = 1n    ; forward transit time
-
 .ends
 
 .subckt BJTL4 collector base emitter bulk IC={IC} VCE={VCE}
@@ -503,7 +411,6 @@ Q1 collector base emitter bulk BJTL4
 + CJC     = 1p    ; zero bias collector-base capacitance
 + CJE     = 5p    ; zero bias emitter-base capacitance
 + tau_F   = 1n    ; forward transit time
-
 .ends
 
 .subckt BJTD collector1 collector2 base1 base2 IC={IC} VCE={VCE}
@@ -536,79 +443,50 @@ Q1 collector1 collector2 base1 base2 BJTD
 + CJC     = 1p
 + CJE     = 5p
 + tau_F   = 1n
-
 .ends
 
 .subckt NM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * intrinsic noise sources, gate resistance should be added externally
 * CMOS18 N device: copy and modify this model for other devices
-I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f^AF)} ; channel noise current
+I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f^AF_N18)} ; channel noise current
 H1 ext int 1 10 {1/g_m}       ; equivalent-input voltage noise
 F1 ext comm 10 0 {s/2/pi/f_T} ; gate-induced noise
 I2 ext comm I value=0 noise={2*q*IG} ; gate shot noise
 .param
 * device equations MKV model saturated region
-+ R_N     = {(1+IC)/(1/2 + 2/3*IC)/N_s/g_m}
-+ IC_CRIT = {1/((4*N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ g_m     = {ID/(N_s*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
-+ c_gs    = {2/3*W*L*C_OX + CGSO*W} 
-+ c_dg    = {CGSO*W}
-+ c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
-+ c_db    = {CJB0*W*LDS}
++ R_N     = {(1+IC)/(1/2 + 2/3*IC)/N_s_N18/g_m}
++ IC_CRIT = {1/((4*N_s_N18*U_T)*(Theta+1/L/E_CRIT))^2}
++ g_m     = {ID/(N_s_N18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ c_gs    = {2/3*W*L*C_OX_N18 + CGSO_N18*W} 
++ c_dg    = {CGSO_N18*W}
++ c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
++ c_db    = {CJB0_N18*W*LDS_N18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
-+ IC      = {ID*L/W/I_0}
-+ I_0     = {2*N_s*u_0*C_OX*U_T^2}
-+ C_OX    = {epsilon_0 * epsilon_SiO2 / TOX}
-+ f_ell   = {(g_m*KF/4/k/T/N_s/C_OX/W/L*((1/2 + (2/3)*IC*(1+IC/IC_CRIT))))^(1/AF)}
-* technology parameters (SI units)
-+ Theta   = 0.28  ; vertical field mobility reduction coefficient
-+ E_CRIT  = 5.6M  ; critical field strength
-+ N_s     = 1.35  ; substrate factor
-+ u_0     = 42.2m ; zero field carrier mobility
-+ CGBO    = 1p    ; gate-bulk overlap capacitance
-+ CGSO    = 300p  ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m    ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n  ; length of drain and source
-+ TOX     = 4.1n  ; oxide thickness
-+ AF      = 0.85  ; flicker noise exponent
-+ KF      = 5e-27 ; flicker noise coefficient, set to zero for f_ell=0
++ IC      = {ID*L/W/I_0_N18}
++ f_ell   = {(g_m*KF_N18/4/k/T/N_s_N18/C_OX_N18/W/L*((1/2 + (2/3)*IC*(1+IC/IC_CRIT))))^(1/AF_N18)}
 .ends
 
 .subckt PM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * intrinsic noise sources, gate resistance should be added externally
 * CMOS18 P device: copy and modify this model for other devices
-I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f^AF)}     ; channel noise current
+I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f^AF_P18)}     ; channel noise current
 H1 ext int 1 10 {1/g_m}                               ; equivalent-input voltage noise
 F1 ext comm 10 0 {s/2/pi/f_T}                         ; gate-induced input current noise
 I2 ext comm I value=0 noise={2*q*IG}                  ; gate shot noise
 .param
 * device equations MKV model saturated region
-+ R_N     = {(1+IC)/(1/2 + 2/3*IC)/N_s/g_m}
-+ IC_CRIT = {1/((4*N_s*U_T)*(Theta+1/L/E_CRIT))^2}
-+ g_m     = {ID/(N_s*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
-+ c_gs    = {2/3*W*L*C_OX + CGSO*W} 
-+ c_dg    = {CGSO*W}
-+ c_gb    = {CGBO*2*L+(N_s-1)/N_s*C_OX*W*L/3}
-+ c_db    = {CJB0*W*LDS}
++ R_N     = {(1+IC)/(1/2 + 2/3*IC)/N_s_P18/g_m}
++ IC_CRIT = {1/((4*N_s_P18*U_T)*(Theta_P18+1/L/E_CRIT_P18))^2}
++ g_m     = {ID/(N_s_P18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ c_gs    = {2/3*W*L*C_OX_P18 + CGSO_P18*W} 
++ c_dg    = {CGSO_P18*W}
++ c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
++ c_db    = {CJB0_P18*W*LDS_P18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
-+ IC      = {ID*L/W/I_0}
-+ I_0     = {2*N_s*u_0*C_OX*U_T^2}
-+ C_OX    = {epsilon_0 * epsilon_SiO2 / TOX}
-+ f_ell   = {(g_m*KF/4/k/T/N_s/C_OX/W/L*((1/2 + (2/3)*IC*(1+IC/IC_CRIT))))^(1/AF)}
-* technology parameters (SI units)
-+ Theta   = 0.28  ; vertical field mobility reduction coefficient
-+ E_CRIT  = 14M   ; critical field strength
-+ N_s     = 1.35  ; substrate factor
-+ u_0     = 8.92m ; zero field carrier mobility
-+ CGBO    = 1p    ; gate-bulk overlap capacitance
-+ CGSO    = 300p  ; gate-source and gate-drain overlap capacitance
-+ CJB0    = 1m    ; source/bulk drain/bulk capacitance per m^2
-+ LDS     = 180n  ; length of drain and source
-+ TOX     = 4.1n  ; oxide thickness
-+ AF      = 1.05  ; flicker noise exponent
-+ KF      = 1e-27 ; flicker noise coefficient, (2.38 ... 27.2)x1e-27 for NMOS18, set to zero for f_ell=0
++ IC      = {ID*L/W/I_0_P18}
++ f_ell   = {(g_m*KF_P18/4/k/T/N_s_P18/C_OX_P18/W/L*((1/2 + (2/3)*IC*(1+IC/IC_CRIT))))^(1/AF_P18)}
 .ends
 
 .subckt J_noise ext comm int ID={ID} IG={IG} W={W} L={L}

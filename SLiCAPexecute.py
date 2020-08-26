@@ -208,8 +208,11 @@ def doInstruction(instObj):
                         instObj.parDefs[instObj.stepVars[j]] = instObj.stepArray[j][i]
                     doDataType(instObj)
     else:
-        # No parameter stepping, just do the non-stepped instruction.
-        instObj.parDefs = instObj.circuit.parDefs
+        # Create a deep copy of de circuit parameter definitions and do the 
+        # non-stepped instruction.
+        instObj.parDefs = {}
+        for key in instObj.circuit.parDefs.keys():
+            instObj.parDefs[key] = instObj.circuit.parDefs[key]
         doDataType(instObj)
     return instObj
 
