@@ -1,0 +1,883 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SLiCAPmath.py &mdash; SLiCAP 1.0.2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+  
+
+  
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
+        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
+        <link rel="next" title="SLiCAPlex.py" href="SLiCAPlex.html"/>
+        <link rel="prev" title="SLiCAPprotos.py" href="SLiCAPprotos.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SLiCAP
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/SLiCAPintroduction.html">SLiCAP introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/SLiCAPuserguide.html">SLiCAP user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="SLiCAPreference.html">SLiCAP reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPexecute.html">SLiCAPexecute.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPyacc.html">SLiCAPyacc.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPhtml.html">SLiCAPhtml.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPplots.html">SLiCAPplots.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPpythonMaxima.html">SLiCAPpythonMaxima.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPmatrices.html">SLiCAPmatrices.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPprotos.html">SLiCAPprotos.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAPmath.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SLiCAP</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="SLiCAPreference.html">SLiCAP reference</a> &raquo;</li>
+        
+      <li>SLiCAPmath.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/SLiCAPmath.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-SLiCAPmath">
+<span id="slicapmath-py"></span><h1>SLiCAPmath.py<a class="headerlink" href="#module-SLiCAPmath" title="Permalink to this headline">¶</a></h1>
+<p>SLiCAP module with extended matrix class and SLiCAP math functions.</p>
+<p>Imported by the module <strong>SLiCAPprotos.py</strong>.</p>
+<dl class="function">
+<dt id="SLiCAPmath.assumePosParams">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">assumePosParams</code><span class="sig-paren">(</span><em>expr</em>, <em>params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.assumePosParams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sympy expression ‘expr’ in which  variables, except the 
+Laplace variable, have been redefined as real.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em>) – Sympy expression</li>
+<li><strong>params</strong> (<em>list</em><em>, </em><em>str</em>) – List with variable names (<em>str</em>), or ‘all’ or a variable name (<em>str</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Expression with redefined variables.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, sympy.Symbol</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.assumeRealParams">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">assumeRealParams</code><span class="sig-paren">(</span><em>expr</em>, <em>params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.assumeRealParams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sympy expression ‘expr’ in which variables, except the 
+Laplace variable, have been redefined as real.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em>) – Sympy expression</li>
+<li><strong>params</strong> (<em>list</em><em>, </em><em>str</em>) – List with variable names (<em>str</em>), or ‘all’ or a variable name (<em>str</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Expression with redefined variables.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, sympy.Symbol</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.cancelPZ">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">cancelPZ</code><span class="sig-paren">(</span><em>poles</em>, <em>zeros</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.cancelPZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancels poles and zeros that coincide within the displayed accuracy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p>The display accuracy (number of digits) is defined by ini.disp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>poles</strong> (<em>list</em>) – List with poles (<em>float</em>) of a Laplace rational function.</li>
+<li><strong>zeros</strong> (<em>list</em>) – List with zeros (<em>float</em>) of a Laplace rational function.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple with a list with poles (<em>float</em>) and a list with zeros (<em>float</em>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.checkNumber">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">checkNumber</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.checkNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a number with its value represented by var, or None if var
+does not represent a number.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>var</strong> (<em>str</em><em>, </em><em>sympy object</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Variable that may represent a number.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Numeric value (<em>int, float</em>) or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int, float, bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.coeffsTransfer">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">coeffsTransfer</code><span class="sig-paren">(</span><em>LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.coeffsTransfer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a nested list with the coefficients of the Laplace variable of the 
+numerator and of the denominator of ‘LaplaceRational’.</p>
+<p>The coefficients are in ascending order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>LaplaceRational</strong> (<em>sympy.Expr</em>) – Rational function of the Laplace variable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tuple with gain and two lists: [gain, numerCoeffs, denomCoeffs]<ol class="arabic simple">
+<li>gain (<em>sympy.Expr</em>): ratio of the nonzero coefficient of the 
+lowest order of the numerator and the coefficient of the 
+nonzero coefficient of the lowest order of the denominator.</li>
+<li>numerCoeffs  (<em>list</em>): List with all coeffcients of the 
+numerator in ascending order.</li>
+<li>denomCoeffs  (<em>list</em>): List with all coeffcients of the 
+denominator in ascending order.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.dBmagFunc_f">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">dBmagFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.dBmagFunc_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the dB magnitude at the real frequency f (Fourier) from the 
+univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
+<p>If ini.Hz == true, the Laplace variable will be replaced with 
+2*sp.pi*sp.I*ini.frequency.</p>
+<p>If ini.Hz == False, the Laplace variable will be replaced with 
+sp.I*ini.frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>LaplaceExpr</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>f</strong> – Frequency value (<em>float</em>), or a numpy array with frequency values
+(<em>float</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">dB Magnitude at the specified frequency, or list with dB magnitudes 
+at the specified frequencies.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float, numpy.array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.delayFunc_f">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">delayFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>delta=0.0001</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the group delay at the real frequency f (Fourier) from the 
+univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
+<p>If ini.Hz == true, the Laplace variable will be replaced with 
+2*sp.pi*sp.I*ini.frequency.</p>
+<p>If ini.Hz == False, the Laplace variable will be replaced with 
+sp.I*ini.frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>LaplaceExpr</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>f</strong> – Frequency value (<em>float</em>), or a numpy array with frequency values
+(<em>float</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Group delay at the specified frequency, or list with group delays
+at the specified frequencies.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float, numpy.array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.findServoBandwidth">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">findServoBandwidth</code><span class="sig-paren">(</span><em>loopgainRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.findServoBandwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the intersection points of the asymptotes of the magnitude of
+the loopgain with unity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>loopgainRational</strong> – Rational function of the Laplace variable, that 
+represents the loop gain of a circuit.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary with key-value pairs:<ul class="simple">
+<li>hpf: frequency of high-pass intersection</li>
+<li>hpo: order at high-pass intersection</li>
+<li>lpf: frequency of low-pass intersection</li>
+<li>lpo: order at low-pass intersection</li>
+<li>mbv: mid-band value of the loopgain (highest value at order = zero)</li>
+<li>mbf: lowest freqency of mbv</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.fullSubs">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">fullSubs</code><span class="sig-paren">(</span><em>valExpr</em>, <em>parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.fullSubs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ‘valExpr’ after all parameters of ‘parDefs’ have been substituted
+into it recursively until no changes occur or until the maximum number of 
+substitutions is achieved.</p>
+<p>The maximum number opf recursive substitutions is set by ini.maxRexSubst.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>valExpr</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Eympy expression in which the parameters should be substituted.</li>
+<li><strong>parDefs</strong> – <p>Dictionary with key-value pairs:</p>
+<ul>
+<li>key (<em>sympy.Symbol</em>): parameter name</li>
+<li>value (<em>sympy object, int, float</em>): value of the parameter</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Expression or value obtained from recursive substitutions of 
+parameter definitions into ‘valExpr’.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy object, int, float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.invLaplace">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">invLaplace</code><span class="sig-paren">(</span><em>numer</em>, <em>denom</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.invLaplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Inverse Laplace Transform of a numerical rational expression
+of which the sympy polynomials of the numerator and the denominator are 
+passed as arguments, respecively.</p>
+<p>ToDo: This function is not used because of observed problems with residues
+at dominant pole-zero pairs. Instead maxILT() is used, which also supports
+the symbolic inverse Laplace Transform.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>numer</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>denom</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Inverse Laplace transform of numer/denom.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.magFunc_f">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">magFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.magFunc_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the magnitude at the real frequency f (Fourier) from the 
+univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
+<p>If ini.Hz == true, the Laplace variable will be replaced with 
+2*sp.pi*sp.I*ini.frequency.</p>
+<p>If ini.Hz == False, the Laplace variable will be replaced with 
+sp.I*ini.frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>LaplaceExpr</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>f</strong> – Frequency value (<em>float</em>), or a numpy array with frequency values
+(<em>float</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Magnitude at the specified frequency, or list with magnitudes at
+the specified frequencies.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float, numpy.array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.mag_f">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">mag_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.mag_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the magnitude as a function of the real frequency f (Fourier) 
+from the Laplace function ‘LaplaceExpr’.</p>
+<p>If ini.Hz == true, the Laplace variable will be replaced with 
+2*sp.pi*sp.I*ini.frequency.</p>
+<p>If ini.Hz == False, the Laplace variable will be replaced with 
+sp.I*ini.frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>LaplaceExpr</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>f</strong> – Frequency value (<em>float</em>), or a numpy array with frequency values
+(<em>float</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Sympy expression representing the magnitude of the Fourier Transform.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.makeLaplaceRational">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">makeLaplaceRational</code><span class="sig-paren">(</span><em>gain</em>, <em>zeros</em>, <em>poles</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.makeLaplaceRational" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Laplace rational from a gain factor, a list of zeros and a list
+of poles:</p>
+<div class="math">
+\[F(s) = gain \frac{ \prod_j(s-z_j)} {\prod_i(s-p_i)}\]</div>
+<p>Terms with complex conjugated poles or zeros will be combined into 
+quadratic terms.</p>
+<p>The gain factor should be taken as</p>
+<p>This function is used for evaluation of the inverse Laplace transform
+of rational functions in the Laplace variable ‘s’ with Maxima CAS.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gain</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em>) – The ratio of the coefficients of the highest order of the 
+Laplace variable of the numerator and the denominator;
+this is not the DC gain!</li>
+<li><strong>zeros</strong> – List with solutions of the Laplace variable of the numerator
+of <span class="math">\(F(s)\)</span>.</li>
+<li><strong>poles</strong> – List with solutions of the Laplace variable of the 
+denominator of <span class="math">\(F(s)\)</span>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><span class="math">\(F(s)\)</span></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="SLiCAPmath.matrix">
+<em class="property">class </em><code class="descclassname">SLiCAPmath.</code><code class="descname">matrix</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLiCAP matrix class for symbolic calculations.</p>
+<p>This class is an extension to the sympy Matrix class. It calculates
+determinants using minor expansion. This is slow for large matrices.</p>
+<p>SLiCAP uses Maxima CAS for calculation of determinants.</p>
+<p>Return types for matrices are &lt;class ‘sympy.matrices.matrices.Matrix’&gt;.</p>
+<p>Adapted from: from “Bill McNeill &lt;<a class="reference external" href="mailto:billmcn&#37;&#52;&#48;speakeasy&#46;net">billmcn<span>&#64;</span>speakeasy<span>&#46;</span>net</a>&gt;”</p>
+<p><strong>Added</strong></p>
+<ul class="simple">
+<li>Test for matrix element == zero, speeds up calculation of sparse matrices.</li>
+</ul>
+<p><strong>Removed</strong></p>
+<ul class="simple">
+<li>Checks for square matrices: the matrix generated by SLiCAP is square.</li>
+</ul>
+<p><strong>Modified</strong></p>
+<ul class="simple">
+<li>Updated to the latest version of sympy.</li>
+</ul>
+<dl class="method">
+<dt id="SLiCAPmath.matrix.Cramer">
+<code class="descname">Cramer</code><span class="sig-paren">(</span><em>colVector</em>, <em>colNumber</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.Cramer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns matrix with colVector substituted in column colNumber</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.adjugate">
+<code class="descname">adjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.adjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the adjugate (transposed cofactor matrix) matrix of M.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.coFactor">
+<code class="descname">coFactor</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.coFactor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns cofactor C(i,j).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.coFactorMatrix">
+<code class="descname">coFactorMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.coFactorMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the cofactor matrix of M.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.determinant">
+<code class="descname">determinant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.determinant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns determinant of a 2 x 2 matrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.dot">
+<code class="descname">dot</code><span class="sig-paren">(</span><em>M2</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dot product of two matrices M1 and M2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.dotV">
+<code class="descname">dotV</code><span class="sig-paren">(</span><em>Vr</em>, <em>Vc</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.dotV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dot product of row vector Vr and column vector Vc.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.expandByMinors">
+<code class="descname">expandByMinors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.expandByMinors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates (sub)determinant by expansion of minors.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.inverse">
+<code class="descname">inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns inverse matrix of M</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAPmath.matrix.minor">
+<code class="descname">minor</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.matrix.minor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns determinant of M after deleting row i and column j.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.normalizeLaplaceRational">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">normalizeLaplaceRational</code><span class="sig-paren">(</span><em>LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.normalizeLaplaceRational" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes a Laplace rational to:</p>
+<div class="math">
+\[F(s) = gain\,s^{\ell}  \frac{1+b_1s + ... + b_ms^m}{1+a_1s + ... + a_ns^n}\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>LaplaceRational</strong> (<em>sympy.Expr</em>) – Rational function of the Laplace variable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized rational function of the Laplace variable.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.numRoots">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">numRoots</code><span class="sig-paren">(</span><em>expr</em>, <em>var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.numRoots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the roots of the polynomial ‘expr’ with indeterminate ‘var’.</p>
+<p>This function uses numpy for calculation of numeric roots.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p>See: <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.polynomial.polynomial.polyroots.html">https://docs.scipy.org/doc/numpy/reference/generated/numpy.polynomial.polynomial.polyroots.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>expr</strong> (<em>sympy.Expr</em>) – Univariate function.</li>
+<li><strong>var</strong> (<em>sympy.Symbol</em>) – Indeterminate of ‘expr’.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.phaseFunc_f">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">phaseFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the phase angle at the real frequency f (Fourier) from the 
+univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
+<p>If ini.Hz == true, the Laplace variable will be replaced with 
+2*sp.pi*sp.I*ini.frequency.</p>
+<p>If ini.Hz == False, the Laplace variable will be replaced with 
+sp.I*ini.frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>LaplaceExpr</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>f</strong> – Frequency value (<em>float</em>), or a numpy array with frequency values
+(<em>float</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Angle at the specified frequency, or list with angles at
+the specified frequencies.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float, numpy.array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.phaseMargin">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">phaseMargin</code><span class="sig-paren">(</span><em>LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.phaseMargin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the phase margin assuming a loop gain definition according to 
+the asymptotic gain model.</p>
+<p>This function uses <strong>scipy.newton()</strong> for determination of the the 
+unity-gain frequency. It uses the function <strong>SLiCAPmath.findServoBandwidth()</strong>
+for the initial guess, and ini.disp for the relative accuracy.</p>
+<p>if ini.Hz == True, the units will be degrees and Hz, else radians and 
+radians per seconds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>LaplaceExpr</strong> (<em>sympy.Expr</em><em>, </em><em>list</em>) – Univariate function (sympy.Expr*) or list with 
+univariate functions (sympy.Expr*) of the Laplace 
+variable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tuple with phase margin (<em>float</em>) and unity-gain frequency 
+(<em>float</em>), or Tuple with lists with phase margins (<em>float</em>) and
+unity-gain frequencies (<em>float</em>).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.phase_f">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">phase_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.phase_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the magnitude as a function of the real frequency f (Fourier) 
+from the Laplace function ‘LaplaceExpr’.</p>
+<p>If ini.Hz == true, the Laplace variable will be replaced with 
+2*sp.pi*sp.I*ini.frequency.</p>
+<p>If ini.Hz == False, the Laplace variable will be replaced with 
+sp.I*ini.frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>LaplaceExpr</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>f</strong> – Frequency value (<em>float</em>), or a numpy array with frequency values
+(<em>float</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Sympy expression representing the phase of the Fourier Transform.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPmath.polyCoeffs">
+<code class="descclassname">SLiCAPmath.</code><code class="descname">polyCoeffs</code><span class="sig-paren">(</span><em>expr</em>, <em>var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPmath.polyCoeffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with coefficients of ‘var’ in descending order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<em>sympy.Expr</em>) – Sympy expression</li>
+<li><strong>var</strong> (<em>sympy.Symbol</em>) – Indeterminate of the polynomial.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List with coefficients (<em>sympy.Expr</em>) in descending order.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLiCAPlex.html" class="btn btn-neutral float-right" title="SLiCAPlex.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SLiCAPprotos.html" class="btn btn-neutral" title="SLiCAPprotos.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SLiCAP development team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.2020',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
