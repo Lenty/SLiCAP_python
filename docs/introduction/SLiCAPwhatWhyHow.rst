@@ -106,6 +106,6 @@ Working with SLiCAP usually requires the following steps:
    - SLiCAP has predefined functions for plotting, displaying tables and generation of web pages with beautifully typeset expressions, tables, figures and files. 
    - SLiCAP has a lot of postprocessing functions available for finding budgets for all kinds of performance parameters of electronic devices. 
    - There are many examples available for the design of the dynamic behavior and the noise behavior of amplifiers. 
-   - It will be clear that once you have the (symbolic) matrix equation of a circuit, you have sufficient knowledge of Structured Analog Design, SLiCAP can help you with setting up and solving design equations for almost any design problem and, ultimately, with the automation of design engineering. B
+   - It will be clear that once you have the (symbolic) matrix equation of a circuit, you have sufficient knowledge of Structured Analog Design, SLiCAP can help you with setting up and solving design equations for almost any design problem and, ultimately, with the automation of design engineering.
    - While doing your design work with SLiCAP, you concurrently generate a collection of linked html pages that document your work and help you to discuss your work with colleagues and present it to others on any platform with a web browser.
 

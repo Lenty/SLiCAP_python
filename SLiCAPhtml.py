@@ -862,6 +862,10 @@ def coeffsTransfer2html(transferCoeffs, label = '', labelText = ''):
 
 def stepArray2html(stepVars, stepArray):
     """
+    Displays the step array on the active HTML page.
+    
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
     """
     numVars = len(stepVars)
     numRuns = len(stepArray[0])
@@ -944,6 +948,20 @@ def href(label, fileName = ''):
     return html
 
 def links2html():
+    """
+    Returns the HTML code for placing links to all labeled HTML objects.
+    
+    Links will be grouped as follows:
+        
+    #. Links to headings
+    #. Links to circuit data and imported tables
+    #. Links to figures
+    #. Links to equations
+    #. Links to analysis results (from noise2html, pz2html, etc.)
+    
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
+    """
     htmlPage('Links')
     labelDict = {}
     html = ''

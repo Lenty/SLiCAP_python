@@ -1,0 +1,481 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SLiCAPyacc.py &mdash; SLiCAP 1.0.2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+  
+
+  
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
+        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
+        <link rel="next" title="SLiCAPhtml.py" href="SLiCAPhtml.html"/>
+        <link rel="prev" title="SLiCAPexecute.py" href="SLiCAPexecute.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SLiCAP
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/SLiCAPintroduction.html">SLiCAP introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/SLiCAPuserguide.html">SLiCAP user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="SLiCAPreference.html">SLiCAP reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPexecute.html">SLiCAPexecute.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAPyacc.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPhtml.html">SLiCAPhtml.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPplots.html">SLiCAPplots.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPpythonMaxima.html">SLiCAPpythonMaxima.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPmatrices.html">SLiCAPmatrices.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPprotos.html">SLiCAPprotos.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SLiCAP</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="SLiCAPreference.html">SLiCAP reference</a> &raquo;</li>
+        
+      <li>SLiCAPyacc.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/SLiCAPyacc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-SLiCAPyacc">
+<span id="slicapyacc-py"></span><h1>SLiCAPyacc.py<a class="headerlink" href="#module-SLiCAPyacc" title="Permalink to this headline">¶</a></h1>
+<p>SLiCAP netlist parser: functions for converting a netlist into a circuit object.</p>
+<p>Tokenizes the netlist and creates a ‘flattened’ circuit object.</p>
+<p>Imported by the module <strong>SLiCAPexecute.py</strong>.</p>
+<dl class="function">
+<dt id="SLiCAPyacc.addGlobals">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">addGlobals</code><span class="sig-paren">(</span><em>parDefs</em>, <em>par</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.addGlobals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds value or expression of the parameter ‘par’ as well as the parameters 
+in this expression given in the library to the parameter definitions in the
+dict ‘parDefs’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parDefs</strong> (<em>dict</em>) – Dictionary with key-value pair of parameters to which the 
+definition of the parameter ‘par’ needs to added.</li>
+<li><strong>par</strong> (<em>sympy.Symbol</em>) – Parameter of which the definition needs to be added to the dict
+‘parDefs’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">parDefs: dict with added parameter definitions</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.addUserLibs">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">addUserLibs</code><span class="sig-paren">(</span><em>fileNames</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.addUserLibs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds pre compiled user libraries to LIB.</p>
+<p>Overwrites existing keys in LIB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fileNames</strong> (<em>list</em>) – List with file names (<em>str</em>) of user libraries.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.checkCircuit">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">checkCircuit</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.checkCircuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks a netlist and converts it into a circuit object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fileName</strong> – Name of the netlist file, relative to the circuit directory.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">cir</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.expandCircuit">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">expandCircuit</code><span class="sig-paren">(</span><em>elmt</em>, <em>parentCircuit</em>, <em>childCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.expandCircuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expands an element ‘elmt’ of ‘parentCircuit’ based on the prototype 
+‘childCircuit’.</p>
+<p>After expansion the element ‘elmt’ will be removed from ‘parentCircuit’.</p>
+<p>This proceeds as follows:</p>
+<ol class="arabic simple">
+<li>New circuit elements<ol class="arabic">
+<li>Each element of the child circuit will be added to the parent.</li>
+<li>The name (refdes) of this element childID_parentID, where
+‘childID’ is the name of the element of the child circuit and 
+‘parentID is the name of the element of the parent circuit that
+needed to be expanded (e.g. Xnnn or Mnnn).</li>
+</ol>
+</li>
+<li>Node names<ol class="arabic">
+<li>If a node ID of the child element is found in the connecting nodes of
+the child circuit, the corresponding node of the new element obtains 
+this node ID.</li>
+<li>If the node of the child element is the global ground node: ‘0’, the 
+corresponding node of the new element is also ‘0’.</li>
+<li>In other case we have a local node. The corresponding node of the new 
+element will then be the node ID of the element of the child circuit
+with added suffix: ‘_parentID.</li>
+</ol>
+</li>
+<li>Reference names<ol class="arabic">
+<li>References to other elements are always local. The names of referenced
+elements will obtain the suffix: ‘_parentID’.</li>
+</ol>
+</li>
+<li>Parameter names<ol class="arabic">
+<li>Parameter definitions used in ‘elmt’ will be passed tho parameters
+of the child circuit</li>
+<li>All other parameter names used in both element definitions and 
+parameter definitions of the child circuit will obtain the suffix ‘_parentID’.</li>
+</ol>
+</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>elmt</strong> – Element of the parent circuit that requires expansion</li>
+<li><strong>parentCircuit</strong> (<em>SLiCAP.protos.circuit</em>) – Circuit object of the circuit with the element ‘elmt’</li>
+<li><strong>childCircuit</strong> (<em>SLiCAP.protos.circuit</em>) – Prototype circuit used for expansion of ‘elmt’</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">parentCircuit Circuit in which ‘elmt’ is replaced with elements
+of the child circuit.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.expandModelsCircuits">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">expandModelsCircuits</code><span class="sig-paren">(</span><em>circuitObject</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.expandModelsCircuits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expands the subcircuits and the models that require expansion.</p>
+<p>This proceeds as follows:</p>
+<ol class="arabic simple">
+<li>Check if models and model parameters used with element definitions can
+be found in built-in models, models defined with the circuit, or in
+precompiled libraries.</li>
+<li>If element models are not ‘stamp’ models, expand them by using their
+prototype subcircuit.</li>
+<li>If element models refer to sub circuits, check for a hierarchical loop 
+and if this does not exists, expand them by using their prototype 
+subcircuit.</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>circuitObject</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit object to which the data will be added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">circuitObject with expanded circuits or models</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.makeCircuit">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">makeCircuit</code><span class="sig-paren">(</span><em>cir</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.makeCircuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a nested circuit object from the tokens in cir.lexer.</p>
+<p>Called by: <strong>checkCircuit()</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cir</strong> (<em>SLiCAP.protos.circuit</em>) – Circuit object with lexer data in cir.lexer to which data will
+be added</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">cir: circuit object with all data of the ‘flattened’ circuit.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.makeLibraries">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">makeLibraries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.makeLibraries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compiles the library ‘lib/SLiCAPmodels.lib’.</p>
+<p>Returns a circuit object with subcircuits, model definitions and parameter
+definitions from this library.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">LIB: circuit object with subcircuits, model definitions and parameter
+definitions from  ‘lib/SLiCAPmodels.lib’.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAPyacc.updateCirData">
+<code class="descclassname">SLiCAPyacc.</code><code class="descname">updateCirData</code><span class="sig-paren">(</span><em>mainCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPyacc.updateCirData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates circuit data required for instructions.</p>
+<ul class="simple">
+<li>Updates the lists with dependent variables (detectors), sources 
+(independent variables) and controlled sources (possible loop gain 
+references).</li>
+<li>If global parameters are used in the circuit, their definition is added
+to the ‘.parDefs’ attribute of the circuit.</li>
+<li>Checks if the global ground node ‘0’ is used in the circuit.</li>
+<li>Checks if the circuit has at least two nodes.</li>
+<li>Checks if the referenced elements exist.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mainCircuit</strong> (<em>SLiCAP.protos.circuit</em>) – Main (fully expanded) circuit object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">mainCircuit: Main circuit with updated circuit information for instructions.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLiCAPhtml.html" class="btn btn-neutral float-right" title="SLiCAPhtml.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SLiCAPexecute.html" class="btn btn-neutral" title="SLiCAPexecute.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SLiCAP development team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.2020',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

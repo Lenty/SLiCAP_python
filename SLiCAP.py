@@ -99,7 +99,53 @@ def initProject(name):
     startHTML(name)
     # Create the libraries
     makeLibraries()
-    return prj
+    return prj    
+
+def makeNetlist(fileName, cirTitle):
+    """
+    Creates a netlist from a schematic file generated with LTspice or gschem.
+    
+    - LTspice: '.asc' file
+    - gschem: '.sch' file
+    
+    :param fileName: Name of the file, relative to **ini.circuitPath**
+    :type fileName: str
+    
+    :param cirTitle: Title of the schematic.
+    :type cirTitle: str
+    """
+    if not os.path.isfile(ini.circuitPath + fileName):
+        print "Error: could not open: '%s'."%(ini.circuitPath + fileName)
+        return
+    else:
+        fileNameParts = fileName.split('.')
+        fileType = fileNameParts[-1].lower()
+        baseFileName = ini.circuitPath + '.'.join(fileNameParts[0:-1])
+        if fileType == 'asc':
+            os.system(ini.ltspice + baseFileName + '.asc')
+            try:
+                f = open(baseFileName + '.net', 'r')
+                netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()
+                f.close()
+                f = open(baseFileName + '.cir', 'w')
+                f.writelines(netlistLines)
+                f.close()
+            except:
+                print "Error: could not open: '%s'."%(baseFileName + '.net')
+        elif fileType == 'sch':
+            cmd = 'gnetlist -q -g spice-noqsi -o ' + baseFileName + '.net ' + baseFileName + '.sch'
+            print cmd
+            os.system(cmd)
+            try:
+                f = open(baseFileName + '.net', 'r')
+                netlistLines = ['"' + cirTitle + '"\n'] + f.readlines() + ['.end\n']
+                f.close()
+                f = open(baseFileName + '.cir', 'w')
+                f.writelines(netlistLines)
+                f.close()
+            except:
+                print "Error: could not open: '%s'."%(baseFileName + '.net')
+    return
 
 if __name__ == '__main__':
     """

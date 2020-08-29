@@ -20,4 +20,4 @@ IMGPATH         = 'img/'    # path for image files
 PROJECT    = 'NMOS EKV polts'
 AUTHOR     = 'anton'
 CREATED    = '2020-07-12 15:48:58.604973'
-LASTUPDATE = '2020-08-13 13:05:27.999404'
+LASTUPDATE = '2020-08-22 23:35:54.779925'

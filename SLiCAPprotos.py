@@ -898,8 +898,8 @@ initAll() # Initialize all models, devices, etc.
 
 class allResults(object):
     """
-    Return  structure for results, has attributes for all data types and
-    instruction data.
+    Return  structure for results, has attributes with 
+    instruction data and execution results.
     """
     def __init__(self):
         self.DCvalue     = []
@@ -1006,7 +1006,7 @@ class allResults(object):
 
         self.solve       = []
         """
-        Laplace solutions of the network.
+        Solutions of the network.
         """
 
         self.time        = []
@@ -1113,18 +1113,18 @@ class allResults(object):
 
         self.stepList = []
         """
-        List with values for step method 'list'.
-
-        Will be copied from **SLiCAPinstruction.instruction** at the start of
-        the execution of the instruction.
+        List with values for step method 'list'.  
+        
+        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        the execution of the instruction. This instance will be a deep copy.
         """
 
         self.stepArray = []
         """
-        Array (*list of lists*) with values for step method array.
-
-        Will be copied from **SLiCAPinstruction.instruction** at the start of
-        the execution of the instruction.
+        Array (*list of lists*) with values for step method array. 
+        
+        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        the execution of the instruction. This instance will be a deep copy.
         """
 
         self.source = None
@@ -1153,10 +1153,11 @@ class allResults(object):
 
         self.circuit = None
         """
-        Circuit (*SLiCAPprotos.circuit*) used for this instruction.
-
-        Will be copied from **SLiCAPinstruction.instruction** at the start of
-        the execution of the instruction.
+        Circuit (*SLiCAPprotos.circuit*) used for this instruction.  
+        
+        Will be copied from **SLiCAPinstruction.instruction.circuit** at the 
+        start of the execution of the instruction. This instance will not be a 
+        deep copy.
         """
 
         self.numeric = None
@@ -1201,10 +1202,10 @@ class allResults(object):
 
         self.parDefs = None
         """
-        Parameter definitions for the instruction.
-
-        Will be copied from **SLiCAPinstruction.instruction** at the start of
-        the execution of the instruction.
+        Parameter definitions for the instruction.  
+        
+        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        the execution of the instruction. This instance will be e deep copy.
         """
 
 def makeDir(dirName):

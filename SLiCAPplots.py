@@ -888,7 +888,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
         pz.xLim = [checkNumber(xmin), checkNumber(xmax)]
     if ymin != None and xmax != None:
         pz.yLim = [checkNumber(ymin), checkNumber(ymax)]
-    if type(results) == type(allResults()):
+    if type(results) != list:
         results = [results]
     colNum = 0
     numColors = len(ini.defaultColors)
@@ -923,7 +923,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 zerosTrace.label = 'zeros ' + result.gainType
                 pzTraces.append(zerosTrace)
             if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
-                print("Error: wrong data type '%s' for 'plotTime()'."%(result.dataType))
+                print("Error: wrong data type '%s' for 'plotPZ()'."%(result.dataType))
                 return fig
         elif result.dataType == 'poles' or result.dataType == 'pz':
             poles = result.poles

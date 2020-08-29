@@ -96,6 +96,13 @@ def t_PARAMS(t):
     """
     pass
 
+def t_RETURN(t):
+    r'\r'
+    """
+    Skip return character.
+    """
+    pass
+
 def t_EXPR(t):
     r'{[\w\(\)\/*+-\^ .]*}'
     """
@@ -257,7 +264,7 @@ lexer = lex.lex()
 lexer.errCount = 0
 
 if __name__ == '__main__':
-    fi = ini.installPath + 'examples/dcVarTest/cir/VampBias.cir'
+    fi = ini.installPath + 'examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir'
     print(fi)
     lexer = tokenize(fi)
     tok = lexer.token()

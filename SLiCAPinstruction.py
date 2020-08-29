@@ -1083,10 +1083,9 @@ class instruction(object):
         >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
-        >>> my_instr.defPars({'R': '2k', 'C': '5p')
-
-        :note:
-
+        >>> my_instr.defPars({'R': '2k', 'C': '5p'})
+        
+        :note: 
         Do not enter a number as parameter name, this will not be checked!
         """
         # define multiple parameters.
@@ -1425,13 +1424,27 @@ class instruction(object):
             r.dataType       = self.dataType
             r.step           = self.step
             r.stepVar        = self.stepVar
-            r.stepVars       = self.stepVars
+            r.stepVars       = []
+            # Make a deep copy of the list
+            if type(self.stepVars) == list:
+                for var in self.stepVars:
+                    r.stepVars.append(var)
             r.stepMethod     = self.stepMethod
             r.stepStart      = self.stepStart
             r.stepStop       = self.stepStop
             r.stepNum        = self.stepNum
-            r.stepList       = self.stepList
-            r.stepArray      = self.stepArray
+            r.stepList       = []
+            # Make a deep copy of the list
+            for num in self.stepList:
+                r.stepList.append(num)
+            r.stepArray      = []
+            # Make a deep copy of the Array
+            for row in self.stepArray:
+                if type(row) == list:
+                    rowCopy = []
+                    for num in row:
+                        rowCopy.append(num)
+                    r.stepArray.append(rowCopy)
             r.source         = self.source
             r.detector       = self.detector
             r.lgRef          = self.lgRef
@@ -1444,7 +1457,6 @@ class instruction(object):
             if self.dataType == 'params':
                 # If data type is set to 'params', only two things need to be \
                 # done:
-
                 # 1. Check the definitions required for parameter stepping
                 # 2. Return an allResult() object with instruction data.
                 return r
