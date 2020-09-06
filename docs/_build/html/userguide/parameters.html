@@ -198,7 +198,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">all_param_names</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_param_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">all_param_names</span><span class="p">)</span>
 <span class="go">[f_c, C, R]</span>
 </pre></div>

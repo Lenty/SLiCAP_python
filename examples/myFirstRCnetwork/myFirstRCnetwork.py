@@ -179,4 +179,4 @@ eqn2html(R, Rvalue, label = 'Rvalue', labelText = 'Numeric value of $R$')
 #
 links2html()
 t2 = time()
-print "Total time: %3.1fs"%(t2-t1)
+print("Total time: %3.1fs"%(t2-t1))

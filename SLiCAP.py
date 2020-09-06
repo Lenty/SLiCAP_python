@@ -115,7 +115,7 @@ def makeNetlist(fileName, cirTitle):
     :type cirTitle: str
     """
     if not os.path.isfile(ini.circuitPath + fileName):
-        print "Error: could not open: '%s'."%(ini.circuitPath + fileName)
+        print("Error: could not open: '%s'."%(ini.circuitPath + fileName))
         return
     else:
         fileNameParts = fileName.split('.')
@@ -131,10 +131,9 @@ def makeNetlist(fileName, cirTitle):
                 f.writelines(netlistLines)
                 f.close()
             except:
-                print "Error: could not open: '%s'."%(baseFileName + '.net')
+                print("Error: could not open: '%s'."%(baseFileName + '.net'))
         elif fileType == 'sch':
             cmd = 'gnetlist -q -g spice-noqsi -o ' + baseFileName + '.net ' + baseFileName + '.sch'
-            print cmd
             os.system(cmd)
             try:
                 f = open(baseFileName + '.net', 'r')
@@ -144,7 +143,7 @@ def makeNetlist(fileName, cirTitle):
                 f.writelines(netlistLines)
                 f.close()
             except:
-                print "Error: could not open: '%s'."%(baseFileName + '.net')
+                print("Error: could not open: '%s'."%(baseFileName + '.net'))
     return
 
 if __name__ == '__main__':
@@ -161,7 +160,7 @@ if __name__ == '__main__':
     a = sp.Symbol('a')
     b = sp.Symbol('b')
     c = a+sp.I*b
-    print sp.re(c), sp.im(c)
+    print(sp.re(c), sp.im(c))
     c = c.xreplace({symbol: sp.Symbol(str(symbol), real = True) for symbol in c.atoms(sp.Symbol)})
-    print sp.re(c), sp.im(c)
-    print c.as_real_imag()
+    print(sp.re(c), sp.im(c))
+    print(c.as_real_imag())

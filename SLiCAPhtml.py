@@ -87,7 +87,7 @@ def HTMLhead(pageTitle):
     html += '<meta name="Language" content="English"/>\n'
     html += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
     if ini.mathml == True:
-        print 'MathML is not (yet) supported. Only MathJaX cloud is supported!'
+        print('MathML is not (yet) supported. Only MathJaX cloud is supported!')
     else:
         html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
         html += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
@@ -142,7 +142,7 @@ def readFile(fileName):
         txt = f.read()
         f.close()
     except:
-        print "Error: could note open '%s'."%(fileName)
+        print("Error: could note open '%s'."%(fileName))
         txt = ''
     return txt
 
@@ -293,7 +293,7 @@ def netlist2html(fileName, label=''):
         html = '<h2>' + label + 'Netlist: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
-        print "Error: could not open netlist file: '%s'."%(fileName)
+        print("Error: could not open netlist file: '%s'."%(fileName))
     return html
 
 def elementData2html(circuitObject, label = '', caption = ''):
@@ -325,7 +325,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
     caption = "<caption>Table: Element data of expanded netlist '%s'</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
-    elementNames = circuitObject.elements.keys()
+    elementNames = list(circuitObject.elements.keys())
     elementNames.sort()
     for el in elementNames:
         elmt = circuitObject.elements[el]
@@ -336,7 +336,7 @@ def elementData2html(circuitObject, label = '', caption = ''):
         for ref in elmt.refs:
             html += ref + ' '
         html += '</td><td class = "left">' + elmt.model +'</td>\n'
-        parNames = elmt.params.keys()
+        parNames = list(elmt.params.keys())
         if len(parNames) == 0:
             html += '<td></td><td></td><td></td><tr>'
         else:
@@ -377,7 +377,7 @@ def params2html(circuitObject, label = '', caption = ''):
     caption = "<caption>Table: Parameter definitions in '%s'.</caption>"%(circuitObject.title)
     html = '%s<table>%s\n'%(label, caption)
     html += '<tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>\n'
-    parNames = circuitObject.parDefs.keys()
+    parNames = list(circuitObject.parDefs.keys())
     # Sort the list with symbolic keys such that elements are grouped and 
     # sorted per sub circuit
     parNames = [str(parNames[i]) for i in range(len(parNames))]
@@ -510,7 +510,7 @@ def expr2html(expr, units = ''):
         html = '$' + sp.latex(roundN(expr)) + units + '$'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     else:
-        print "Error: expr2html, expected a Sympy expression."
+        print("Error: expr2html, expected a Sympy expression.")
         html = ''
     if ini.notebook:
         html = html.replace('$', '$$')
@@ -568,10 +568,10 @@ def matrices2html(instrObj, label = '', labelText = ''):
     :rtype: str
     """
     if instrObj.errors != 0:
-        print "Errors found during executeion."
+        print("Errors found during executeion.")
         return ''
     elif instrObj.dataType != 'matrix':
-        print "Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType)
+        print("Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType))
         return ''
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
@@ -590,7 +590,7 @@ def matrices2html(instrObj, label = '', labelText = ''):
         html += '\\end{equation}\n'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
-        print "Error: unexpected input for 'matrices2html()'."
+        print("Error: unexpected input for 'matrices2html()'.")
     if ini.notebook:
         html = html.replace('$', '$$')
     return html
@@ -612,15 +612,14 @@ def pz2html(instObj, label = '', labelText = ''):
     :rtype: str
     """
     if instObj.errors != 0:
-        print "Errors found in instruction."
+        print("Errors found in instruction.")
         return
     elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
-        print "Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType)
+        print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print "Error: parameter stepping not yet implemented for 'pz2html()'."
+        print("Error: parameter stepping not yet implemented for 'pz2html()'.")
         return  
-    
     if label != '':
         if labelText == '':
             labelText = label
@@ -715,13 +714,13 @@ def noise2html(instObj, label = '', labelText = ''):
     :rtype: str
     """
     if instObj.errors != 0:
-        print "Errors found in instruction."
+        print("Errors found in instruction.")
         return
     elif instObj.dataType != 'noise':
-        print "Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType)
+        print("Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print "Error: parameter stepping not yet implemented for 'noise2html()'."
+        print("Error: parameter stepping not yet implemented for 'noise2html()'.")
         return  
     if label != '':
         if labelText == '':
@@ -743,7 +742,7 @@ def noise2html(instObj, label = '', labelText = ''):
         html += '<h3>Source-referred noise spectrum</h3>\n'
         html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual noise sources</h3><table>\n'    
-    keys = instObj.snoiseTerms.keys()
+    keys = list(instObj.snoiseTerms.keys())
     keys.sort()
     for key in keys:
         nUnits = key[0].upper()
@@ -781,13 +780,13 @@ def dcVar2html(instObj, label = '', labelText = ''):
     :rtype: str
     """
     if instObj.errors != 0:
-        print "Errors found in instruction."
+        print("Errors found in instruction.")
         return
     elif instObj.dataType != 'dcvar':
-        print "Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType)
+        print("Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print "Error: parameter stepping not yet implemented for 'dcvar2html()'."
+        print("Error: parameter stepping not yet implemented for 'dcvar2html()'.")
         return  
     if label != '':
         if labelText == '':
@@ -811,7 +810,7 @@ def dcVar2html(instObj, label = '', labelText = ''):
         html += '<h3>Source-referred variance</h3>\n'
         html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual component variances</h3><table>\n'    
-    keys = instObj.svarTerms.keys()
+    keys = list(instObj.svarTerms.keys())
     keys.sort()
     for key in keys:
         nUnits = key[0].upper()
@@ -907,6 +906,21 @@ def fig2html(figureObject, width, label = '', caption = ''):
         print("Error: could not copy: '%s'."%(ini.imgPath + figureObject.fileName))
     return '%s'%(ini.htmlPath + 'img/' + figureObject.fileName)
 
+def file2html(fileName):
+    """
+    Writes the contents of a file to the active html page.
+    
+    :param fileName: Name of the file (relative to ini.textPath)
+    :type fileName: str
+    :return: html code
+    :rtype: str
+    """
+    f = open(ini.txtPath + fileName)
+    html = f.read()
+    f.close()
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    return html
+
 def roundN(expr, numeric=False):
     """
     Rounds all number atoms in an expression to ini.disp digits, but only
@@ -967,7 +981,7 @@ def links2html():
     html = ''
     for labelType in LABELTYPES:
         labelDict[labelType] = []
-    for labelName in ini.htmlLabels.keys():
+    for labelName in list(ini.htmlLabels.keys()):
         labelDict[ini.htmlLabels[labelName].type].append(labelName)
     for labelType in LABELTYPES:
         if len(labelDict[labelType]) != 0:

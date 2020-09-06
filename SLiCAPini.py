@@ -412,28 +412,34 @@ class settings(object):
         for attr in dir(self):
             dct = getattr(self, attr)
             if type(dct) == dict:
-                keys = dct.keys()
+                keys = list(dct.keys())
                 keys.sort()
                 for key in keys:
                     if key not in disallowed and type(dct[key]) in printTypes:
                         if key != 'htmlLabels':
                             ndots = tabWidth - len(key)
-                            print key,
+                            # python 2
+                            print(key)
+                            # python 3
+                            #print(key, end = '')
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
-                            print dots,':', dct[key]
+                            print(dots,':', dct[key])
                         elif key == 'htmlLabels':
                             dispkey = key + '.keys()'
                             ndots = tabWidth - len(dispkey)
-                            print dispkey,
+                            # python 2
+                            print(dispkey,)
+                            # python 3
+                            #print(dispkey, end = '')
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
                             if type(dct[key]) == dict:
-                                print dots,':', dct[key].keys()
+                                print(dots,':', list(dct[key].keys()))
                             else:
-                                print dots,':', dct[key]
+                                print(dots,':', dct[key])
                             
     def updatePaths(self, projectPath):
         """

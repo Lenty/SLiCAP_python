@@ -246,10 +246,10 @@ class instruction(object):
                 self.simType = 'numeric'
                 self.numeric = True
             else:
-                print "Error: unknown simulation type: '%s'."%(str(self.symType))
+                print("Error: unknown simulation type: '%s'."%(str(self.symType)))
                 self.errors += 1
         else:
-            print "Error: argument type must be type 'str'."
+            print("Error: argument type must be type 'str'.")
             self.errors += 1
             
     def setGainType(self, gainType):       
@@ -280,12 +280,12 @@ class instruction(object):
             if self.gainType.lower() in GAINTYPES:
                 self.gainType = self.gainType.lower()
             else:
-                print "Error: unknown gain type: '%s'."%(str(self.gainType))
+                print("Error: unknown gain type: '%s'."%(str(self.gainType)))
                 self.errors += 1
         elif self.gainType == None:
-            print "Error: missing gain type."
+            print("Error: missing gain type.")
         else:
-            print "Error: argument type must be type 'str'."
+            print("Error: argument type must be type 'str'.")
             self.errors += 1
         return  
 
@@ -319,13 +319,13 @@ class instruction(object):
             if self.dataType.lower() in DATATYPES:
                 self.dataType = self.dataType.lower()
             else:
-                print "Error: unknown data type: '%s'."%(str(dataType))
+                print("Error: unknown data type: '%s'."%(str(dataType)))
                 self.errors += 1
         elif self.dataType == None:
             self.errors += 1
-            print "Error: missing data type specification."
+            print("Error: missing data type specification.")
         else:
-            print "Error: data type must be type 'str' or 'None'."
+            print("Error: data type must be type 'str' or 'None'.")
         return
     
     def stepOn(self):
@@ -403,7 +403,7 @@ class instruction(object):
         """
         if self.stepVar == None:
             self.errors += 1
-            print "Error: missing step variable."
+            print("Error: missing step variable.")
         elif checkNumber(self.stepVar) == None:
             if isinstance(self.stepVar, sp.symbol.Symbol):
                 pass
@@ -411,9 +411,9 @@ class instruction(object):
                 self.stepVar = sp.Symbol(self.stepVar)
             else:
                 self.errors += 1
-                print "Error: argument type must be 'str' or 'sympy.symbol.Symbol'."
+                print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
             if self.stepVar not in self.circuit.parDefs.keys() and self.stepVar not in self.circuit.params:
-                print "Warning: unknown step parameter '%s'."%(self.stepVar)
+                print("Warning: unknown step parameter '%s'."%(self.stepVar))
         return
 
     def setStepVars(self, stepVars):
@@ -467,7 +467,7 @@ class instruction(object):
         """
         if self.stepVars == None:
             self.errors += 1
-            print "Error: missing list stepVars."
+            print("Error: missing list stepVars.")
             return
         errors = 0
         if type(self.stepVars) == list:
@@ -479,21 +479,21 @@ class instruction(object):
                                 self.stepVars[i] = sp.Symbol(self.stepVars[i])
                             except:
                                 errors += 1
-                                print "Error: step variable '%s' is not a parameter."%(self.stepVars[i])
+                                print("Error: step variable '%s' is not a parameter."%(self.stepVars[i]))
                         if isinstance(self.stepVars[i], sp.symbol.Symbol):
                             if self.stepVars[i] not in self.circuit.parDefs.keys() and self.stepVars[i] not in self.circuit.params:
-                                print "Warning: unknown step parameter '%s'."%(str(stepVar))
+                                print("Warning: unknown step parameter '%s'."%(str(stepVar)))
                         else:
                             errors += 1
-                            print "Error: argument type must be 'str' or 'sympy.symbol.Symbol'."
+                            print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
                     else:
                         errors += 1
-                        print "Error: step variable cannot be numeric."
+                        print("Error: step variable cannot be numeric.")
             else:  
                 errors += 1
-                print "Error: empty stepVars." 
+                print("Error: empty stepVars.")
         else:
-            print "Error: argument should be a list."
+            print("Error: argument should be a list.")
             errors += 1
         self.errors += errors 
         return
@@ -529,15 +529,15 @@ class instruction(object):
         """
         if self.stepMethod == None:
             self.errors += 1
-            print "Error: missing step method definition."
+            print("Error: missing step method definition.")
         elif type(self.stepMethod) != str:
             self.errors += 1
-            print "Error: stepMethod should be type 'str'."
+            print("Error: stepMethod should be type 'str'.")
         else:
             stepMethods = ['lin', 'log', 'list', 'array']
             if self.stepMethod.lower() not in stepMethods:
                 self.errors += 1
-                print "Error: unknown step method '%s',"%(self.stepMethod)
+                print("Error: unknown step method '%s',"%(self.stepMethod))
             else:
                 self.stepMethod == self.stepMethod.lower()
         return
@@ -577,12 +577,12 @@ class instruction(object):
         """
         if self.stepStart == None:
             self.errors += 1
-            print "Error: missing stepStart value."
+            print("Error: missing stepStart value.")
         else:
             value = checkNumber(self.stepStart)
             if value == None:
                 self.errors += 1
-                print "Error: cannot determine numeric value of stepStart."
+                print("Error: cannot determine numeric value of stepStart.")
             else:
                 self.stepStart = value
         return
@@ -621,12 +621,12 @@ class instruction(object):
         """
         if self.stepStop == None:
             self.errors += 1
-            print "Error: missing stepStop value."
+            print("Error: missing stepStop value.")
         else:
             value = checkNumber(self.stepStop)
             if value == None:
                 self.errors += 1
-                print "Error: cannot determine numeric value of stepStop."
+                print("Error: cannot determine numeric value of stepStop.")
             else:
                 self.stepStop = value
         return
@@ -667,15 +667,15 @@ class instruction(object):
         """
         if self.stepNum == None:
             self.errors += 1
-            print "Error: missing stepNum value."
+            print("Error: missing stepNum value.")
         else:
             if type(self.stepNum) == int:
                 if self.stepNum <= 0:
                     self.errors += 1
-                    print "Error: step number must be a positive nonzero integer."
+                    print("Error: step number must be a positive nonzero integer.")
             else:
                 self.errors += 1
-                print "Error: step number type must be 'int'."
+                print("Error: step number type must be 'int'.")
         return
     
     def setStepList(self, stepList):
@@ -715,21 +715,21 @@ class instruction(object):
         """
         if self.stepList == None:
             self.errors += 1
-            print "Error: missing stepList."
+            print("Error: missing stepList.")
         elif type(self.stepList) == list:
             if len(self.stepList) == 0:
                 self.errors += 1
-                print "Error: empty stepList."
+                print("Error: empty stepList.")
             for i in range(len(self.stepList)):
                 value = checkNumber(stepVal)
                 if value == None:
                     self.errors += 1
-                    print "Error: cannot determine numeric value of stepList[%s]."%(i)
+                    print("Error: cannot determine numeric value of stepList[%s]."%(i))
                 else:
                     stepList[i] = value              
         else:
             self.errors += 1
-            print "Error: expected a list type for 'stepValues'."
+            print("Error: expected a list type for 'stepValues'.")
         return
     
     def setStepArray(self, stepArray):
@@ -774,24 +774,24 @@ class instruction(object):
         """
         if self.stepArray == None:
             self.errors += 1
-            print "Error: missing stepArray."
+            print("Error: missing stepArray.")
         elif type(self.stepArray) == list:
             numVars = len(self.stepArray)
             if numVars != len(self.stepVars):
                 self.errors += 1
-                print "Error: mismatch between dimensions of stepArray and stepVars."
+                print("Error: mismatch between dimensions of stepArray and stepVars.")
             else:
                 numSteps = len(self.stepArray[0])
                 for i in range(numVars):
                     if len(self.stepArray[i]) != numSteps:
                         self.errors += 1
-                        print "Error: unequal number of steps for step variables."
+                        print("Error: unequal number of steps for step variables.")
                     if self.errors == 0:
                         for j in range(numSteps):
                             value = checkNumber(self.stepArray[i][j])
                             if value == None:
                                 self.errors += 1
-                                print "Error: cannot determine numeric value of stepArray[%s, %s]."%(i, j)
+                                print("Error: cannot determine numeric value of stepArray[%s, %s]."%(i, j))
                             else:
                                 self.stepArray[i][j] = value   
         return
@@ -852,10 +852,10 @@ class instruction(object):
         if type(self.source) == bool:
             if need:
                 self.errors += 1
-                print "Error: missing source definition."
+                print("Error: missing source definition.")
         elif self.source not in self.circuit.indepVars:
             self.errors += 1
-            print "Error: unkown source: '%s'."%(self.source)
+            print("Error: unkown source: '%s'."%(self.source))
         else:
             self.srcUnits = self.source[0].upper()
             if self.srcUnits == 'I':
@@ -921,38 +921,38 @@ class instruction(object):
                 numDets = len(self.detector)
                 if numDets == 0:
                     self.errors += 1
-                    print "Error: missing detector specification"
+                    print("Error: missing detector specification")
                 elif numDets == 1:
                     self.detector = [self.detector[0], None]
                 elif numDets > 2:
                     self.errors += 1
-                    print "Error: to many detectors."
+                    print("Error: to many detectors.")
             if self.errors !=0:
                 return
             detP = self.detector[0]
             detN = self.detector[1]
             if detP == None and detN == None:
                 self.errors += 1
-                print "Error: missing detector specification."
+                print("Error: missing detector specification.")
                 return
             # detectors must be of the same type
             if detP == None or detN == None:
                 pass
             elif detP[0] != detN[0]:
                 self.errors += 1
-                print "Error: two detectors must be of the same type."
+                print("Error: two detectors must be of the same type.")
             if detP != None and detP not in self.circuit.depVars:
                 self.errors += 1
-                print "Error: unkown detector: '%s'."%(detP)
+                print("Error: unkown detector: '%s'."%(detP))
             if detN != None and detN not in self.circuit.depVars:
                 self.errors += 1
-                print "Error: unkown detector: '%s'."%(detN)
+                print("Error: unkown detector: '%s'."%(detN))
             if self.lgRef != None:
                 # Impossible to calculate the asymptotic gain with these values
                 forbidden = 'I_i_' + self.lgRef
                 if detP == forbidden or detN == forbidden:
                     self.errors += 1
-                    print "Error: forbidden combination of lgRef and detector."
+                    print("Error: forbidden combination of lgRef and detector.")
             # Node zero does not exist in the matrix. It is the reference node.
             if detP == 'V_0':
                 self.detector[0] = None
@@ -968,7 +968,7 @@ class instruction(object):
                 self.detUnits = 'A'
         else:
             self.errors += 1
-            print "Error: missing detector definition."
+            print("Error: missing detector definition.")
         return
     
     def setLGref(self, lgRef):
@@ -1004,10 +1004,10 @@ class instruction(object):
         """
         if type(self.lgRef) == bool:
             self.errors += 1
-            print "Error: missing loop gain reference definition."
+            print("Error: missing loop gain reference definition.")
         elif self.lgRef not in self.circuit.controlled:
             self.errors += 1
-            print "Error: unkown loop gain reference: '%s'."%(self.lgRef)
+            print("Error: unkown loop gain reference: '%s'."%(self.lgRef))
         return
 
     def delPar(self, parName):
@@ -1221,13 +1221,13 @@ class instruction(object):
         """
         if self.circuit == None:
             self.errors += 1
-            print "Error: missing circuit definition."
+            print("Error: missing circuit definition.")
         elif type(self.circuit.params) == dict:
             self.errors += 1
-            print "Error: empty circuit object for this instruction."
+            print("Error: empty circuit object for this instruction.")
         elif type(self.circuit) != type(circuit()):
             self.errors += 1
-            print "Error: not SLiCAP a circuit object for this instruction."
+            print("Error: not SLiCAP a circuit object for this instruction.")
         return
         
     def check(self):
@@ -1279,7 +1279,7 @@ class instruction(object):
                         pass
                     else:
                         self.errors += 1
-                        print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
+                        print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
                 elif self.gainType != 'loopgain':
                     if self.dataType == 'laplace':
                         # need source and detector
@@ -1315,7 +1315,7 @@ class instruction(object):
                         self.checkSource()
                     else:
                         self.errors += 1
-                        print "Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType)
+                        print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
                 if self.gainType == 'asymptotic' or self.gainType == 'direct' or self.gainType == 'loopgain' or self.gainType == 'servo':
                     # need loop gain reference
                     self.checkLGref()
@@ -1324,10 +1324,10 @@ class instruction(object):
         if self.step == True:
             if not self.numeric and self.dataType != 'params':
                 self.errors += 1
-                print "Error: symbolic stepping has not been implemented, use substitution instead."
+                print("Error: symbolic stepping has not been implemented, use substitution instead.")
             elif self.dataType == 'matrix':
                 self.errors += 1
-                print "Error: parameter stepping with dataType 'matrix' has not been implemented."
+                print("Error: parameter stepping with dataType 'matrix' has not been implemented.")
             else:
                 # Check step parameters
                 self.checkStep()
@@ -1343,7 +1343,7 @@ class instruction(object):
         """
         if not self.numeric:
             self.errors += 1
-            print "Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType)
+            print("Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType))
         return
     
     def checkStep(self):
@@ -1373,7 +1373,7 @@ class instruction(object):
                     self.stepList = np.geomspace(self.stepStart, self.stepStop, self.stepNum)
                 else:
                     self.errors += 1
-                    print "Error: logarithmic stepping cannot include zero."
+                    print("Error: logarithmic stepping cannot include zero.")
             elif self.stepMethod == 'list':
                 self.checkStepVar()
                 self.checkStepList()
@@ -1413,7 +1413,7 @@ class instruction(object):
         """
         self.check()
         if self.errors != 0:
-            print "Errors found. Instruction will not be executed."
+            print("Errors found. Instruction will not be executed.")
             return(allResults())
         else: 
             # Create an instance of allResults() and copy instruction data.

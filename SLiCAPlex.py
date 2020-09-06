@@ -235,7 +235,7 @@ def printError(msg, line, pos):
     for i in range(pos-1):
         out += '.'
     out += '|\n' + msg
-    print out
+    print(out)
 
 # Initialize the lexer
 lexer = lex.lex()
@@ -243,10 +243,10 @@ lexer.errCount = 0
    
 if __name__ == '__main__':
     fi = ini.installPath + 'examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir'
-    print fi
+    print(fi)
     lexer = tokenize(fi)
     tok = lexer.token()
     while tok:
-        print tok
+        print(tok)
         tok = lexer.token() 
-    print '\nnumber of errors =', lexer.errCount, '\n'
+    print("\nnumber of errors =", lexer.errCount, '\n')

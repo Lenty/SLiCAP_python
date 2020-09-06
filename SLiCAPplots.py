@@ -38,7 +38,7 @@ class trace(object):
         
         try:
             if len(self.xData) != len(self.yData):
-                print 'Error in plot data.'
+                print("Error in plot data.")
         except:
             pass
         
@@ -249,7 +249,7 @@ class figure(object):
         try:
             rows, cols = axes.shape
         except:
-            print 'Attribute of <figure>.axes must be a list of lists or a two-dimensional array.'
+            print("Attribute of <figure>.axes must be a list of lists or a two-dimensional array.")
             return False
         axesList = []
         # Make a single list of plots to be plotted left -> right, then top -> bottom
@@ -257,7 +257,7 @@ class figure(object):
             for j in range(cols):
                 axesList.append(axes[i][j])
         if len(axesList) == 0:
-            print 'Error: no plot data available; plotting skipped.'
+            print("Error: no plot data available; plotting skipped.")
             return False
         # Define the matplotlib figure object
         fig = plt.figure(figsize = (self.axisWidth*cols, rows*self.axisHeight))
@@ -301,7 +301,7 @@ class figure(object):
                     except:
                         pass
                 if len(axesList[i].traces) == 0:
-                    print 'Error: Missing trace data for plotting!'
+                    print("Error: Missing trace data for plotting!")
                     return False
 
                 for j in range(len(axesList[i].traces)):
@@ -329,7 +329,7 @@ class figure(object):
                         plt.plot(axesList[i].traces[j].xData/scaleX, axesList[i].traces[j].yData/scaleY, label = axesList[i].traces[j].label, linewidth = axesList[i].traces[j].lineWidth,
                                  color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = axesList[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = axesList[i].traces[j].markerFaceColor, linestyle = axesList[i].traces[j].lineType)
                     except:
-                        print 'Error in plot data of %s.'%self.fileName
+                        print("Error in plot data of %s."%(self.fileName))
                     if axesList[i].text:
                         X, Y, txt = axesList[i].text
                         plt.text(X, Y, txt, fontsize = ini.plotFontSize)  
@@ -485,7 +485,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     # first results defines the axis type and labels
     result = results[0]
     if result.dataType not in plotDataTypes:
-        print "Error: cannot plot dataType '%s' with 'plotSweep()'."%(result.dataType)
+        print("Error: cannot plot dataType '%s' with 'plotSweep()'."%(result.dataType))
         return fig
     if funcType == 'auto':
         if result.dataType == 'noise':
@@ -496,16 +496,16 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
             funcType = 'time'
     elif funcType == 'param':
         if sweepVar == 'auto':
-            print "Error: undefined sweep variable."
+            print("Error: undefined sweep variable.")
             return fig
         if yVar == 'auto':
-            print "Error: missing parameter to be plotted."
+            print("Error: missing parameter to be plotted.")
             return fig
         if xVar == 'auto':
             xVar = sweepVar
             xScale = sweepScale
     elif funcType not in funcTypes:
-        print "Error: unknown funcType: '%s'."%(funcType)
+        print("Error: unknown funcType: '%s'."%(funcType))
         return fig
     if axisType == 'auto':
         if funcType == 'param':
@@ -517,7 +517,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
         elif funcType == 'time':
             axisType = 'lin'
     elif axisType not in axisTypes:
-        print "Error: unknown axisType: '%s'."%(axisType)
+        print("Error: unknown axisType: '%s'."%(axisType))
         return fig
     if axisType == 'lin':
         ax.xScale = 'lin'
@@ -659,6 +659,10 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         y = np.real(func(x))
                         newTrace = trace([x, y])
                 if result.dataType != 'noise':
+                    if result.gainType == 'vi':
+                        newTrace.label = result.detLabel
+                    else:
+                        newTrace.label = result.gainType
                     try:
                         newTrace.color = ini.gainColors[result.gainType]
                     except:
@@ -728,7 +732,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                 ax.traces.append(noiseTrace)
                                 colNum += 1
                     else:
-                        print 'Error: cannot understand "sources=%s".'%(str(sources))
+                        print("Error: cannot understand 'sources=%s'."%(str(sources)))
                         return fig
             else:
                 if result.stepMethod != 'array':
@@ -923,7 +927,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 zerosTrace.label = 'zeros ' + result.gainType
                 pzTraces.append(zerosTrace)
             if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
-                print "Error: wrong data type '%s' for 'plotPZ()'."%(result.dataType)
+                print("Error: wrong data type '%s' for 'plotPZ()'."%(result.dataType))
                 return fig
         elif result.dataType == 'poles' or result.dataType == 'pz':
             poles = result.poles
@@ -1117,7 +1121,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
         ax.polar = True
         ax.yScale = 'lin'
     else:
-        print "Error: unknown axis type '%s'."%(axisType)
+        print("Error: unknown axis type '%s'."%(axisType))
         return fig
     ax.xScaleFactor = xScale
     ax.yScaleFactor = yScale
@@ -1175,21 +1179,21 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
     yValues = {}
     # check the input
     if xVar == None:
-         print "Error: missing x variable."
+         print("Error: missing x variable.")
          errors +=1
     elif sp.Symbol(xVar) not in parNames:
-        print "Error: unknown parameter: '%s' for 'x variable'."%(xVar)
+        print("Error: unknown parameter: '%s' for 'x variable'."%(xVar))
         errors += 1
     if sVar == None:
          svar = xVar
     elif sp.Symbol(xVar) not in parNames:
-        print "Error: unknown parameter: '%s' for sweep variable."%(xVar)
+        print("Error: unknown parameter: '%s' for sweep variable."%(xVar))
         errors += 1
     if yVar == None:
-         print "Error: missing y variable."
+         print("Error: missing y variable.")
          errors +=1
     elif sp.Symbol(yVar) not in parNames:
-        print "Error: unknown parameter: '%s' for y variable."%(yVar)
+        print("Error: unknown parameter: '%s' for y variable."%(yVar))
         errors += 1
     if errors == 0 and results.step:
         if results.stepMethod.lower() == 'lin':

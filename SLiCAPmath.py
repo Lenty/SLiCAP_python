@@ -130,7 +130,7 @@ class matrix(sp.Matrix):
                     mult[i,j] = self.dotV(self[i,:],M2[:,j])
             return mult
         else:
-            print 'Incompatible matrix dimensions'
+            print("Incompatible matrix dimensions.")
             
     def Cramer(self, colVector, colNumber):
         """
@@ -183,7 +183,7 @@ def numRoots(expr, var):
         try:
             params.remove(var)
             if len(params) != 0:
-                print "Error: symbolic variables found, cannot determine roots."
+                print("Error: symbolic variables found, cannot determine roots.")
                 return []
         except:
             return []
@@ -537,7 +537,7 @@ def fullSubs(valExpr, parDefs):
         valExpr = newvalExpr.xreplace(substDict)
         i += 1
     if i == ini.maxRecSubst:
-        print "Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr)
+        print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
     return valExpr
 
 def assumeRealParams(expr, params = 'all'):
@@ -570,7 +570,7 @@ def assumeRealParams(expr, params = 'all'):
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, real = True)})
     else:
-        print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
+        print("Error: expected type 'str' or 'lst', got '%s'."%(type(params)))
     return expr
 
 def assumePosParams(expr, params = 'all'):
@@ -603,7 +603,7 @@ def assumePosParams(expr, params = 'all'):
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, positive = True)})
     else:
-        print "Error: expected type 'str' or 'lst', got '%s'."%(type(params))
+        print("Error: expected type 'str' or 'lst', got '%s'."%(type(params)))
     return expr
             
 def invLaplace(numer, denom):
@@ -682,7 +682,7 @@ def phaseMargin(LaplaceExpr):
             freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
             mrgn = phaseFunc_f(expr, freq)
         except:
-            print "Error: could not determine unity-gain frequency for phase margin."
+            print("Error: could not determine unity-gain frequency for phase margin.")
             freq = None
             mrgn = None
         freqs.append(freq)
@@ -911,13 +911,13 @@ if __name__ == "__main__":
     t1=time()
     roots1 = numRoots(DET,s)
     t2=time()
-    print roots1, t2-t1
+    print(roots1, t2-t1)
     MOD = MNA.Cramer([0,0,0,1,0,-1,0,0,0],3)
     DET = MOD.determinant()
     roots2 = numRoots(DET,s)
-    print roots2
+    print(roots2)
     a = phase_f(DET)
-    print sp.N(a.subs(ini.frequency, 100))
+    print(sp.N(a.subs(ini.frequency, 100)))
     loopgain_numer   = sp.sympify('-s*(1 + s/20)*(1 + s/40)/2')
     loopgain_denom   = sp.sympify('(s + 1)^2*(1 + s/4e3)*(1 + s/50e3)*(1 + s/1e6)')
     loopgain         = loopgain_numer/loopgain_denom

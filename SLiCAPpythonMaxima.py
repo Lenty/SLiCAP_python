@@ -45,6 +45,8 @@ def maxEval(maxExpr):
     maxStringConv = ":lisp (mfuncall '$string $result);"
     maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
     maxInput = maxAssume + maxExpr + maxStringConv 
+    #
+    # python 2
     p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
                                maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Define a function for killing the process
@@ -60,6 +62,12 @@ def maxEval(maxExpr):
     # Cancel the timer because the process does not exsists after succesfully
     # reading its output
     maxTimer.cancel()
+    # end python 2
+    #
+    # python 3
+    #result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
+    # end python 3
+    #
     # Convert the result such that it can be 'sympified'
     if result != '':
         # Convert big float notation '12345b+123' to float notation '12345e+123':
@@ -122,7 +130,7 @@ def maxILT(numer, denom, numeric = True):
             try:
                 params.remove(ini.Laplace)
                 if len(params) != 0:
-                    print "Error: symbolic variables found, cannot determine roots."
+                    print("Error: symbolic variables found, cannot determine roots.")
                     return sp.Symbol('ft')
                 else:
                     ncoeffs = polyCoeffs(numer, ini.Laplace)
@@ -133,14 +141,14 @@ def maxILT(numer, denom, numeric = True):
                     maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
                     result = maxEval(maxExpr)
                 if len(result) > 3 and result[1:5] == 'ilt(':
-                    print "Error: could not determine the inverse Laplace transform."
+                    print("Error: could not determine the inverse Laplace transform.")
                     return sp.Symbol('ft')
 
             except:
-                print "Error: could not determine the inverse Laplace transform."
+                print("Error: could not determine the inverse Laplace transform.")
                 return sp.Symbol('ft')                
     elif result == '':
-            print "Error: Maxima CAS processing error."
+            print("Error: Maxima CAS processing error.")
             return sp.Symbol('ft')
     return sp.sympify(result)
 
@@ -486,7 +494,7 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     try:
         result = sp.sympify(result)
     except:
-        print 'Error: could not integrate expression: %s.'%(str(expr))
+        print("Error: could not integrate expression: %s."%(str(expr)))
         result = sp.sympify('Error')
     return result
 
@@ -540,7 +548,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     gainP, pN, pD = coeffsTransfer(protoType)
     gainT, tN, tD = coeffsTransfer(transfer)
     if len(pN) != len(tN) or len(pD) != len(tD):
-        print 'Error: unequal orders of prototype and target.'
+        print("Error: unequal orders of prototype and target.")
         return values
     values = {}
     if ini.maxSolve:
@@ -567,7 +575,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
                 name = sp.Symbol(name.strip())
                 values[name] = sp.N(sp.sympify(value))
         except:
-            print 'Error: could not solve equations.'
+            print("Error: could not solve equations.")
     else:
         equations = []
         for i in range(len(pN)):
@@ -590,7 +598,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
                 for i in range(len(params)):
                     values[params[i]] = solution[i]
         except:
-            print 'Error: could not solve equations.'
+            print("Error: could not solve equations.")
     return values
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
@@ -620,7 +628,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     :rtype: int, float, sympy.Expr, list
     """
     if fmin == None or fmax == None:
-        print "Error in frequency range specification."
+        print("Error in frequency range specification.")
         return None
     fMi = checkNumber(fmin)
     fMa = checkNumber(fmax)
@@ -630,10 +638,10 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         fmax = fMa
     if fmin != None and fmax != None:
         if fMi != None and  fMa != None and fmin >= fmax:
-            print "Error in frequency range specification."
+            print("Error in frequency range specification.")
             return None
     if noiseResult.dataType != 'noise':
-        print "Error: expected dataType noise, got: '%s'."%(noiseResult.dataType)
+        print("Error: expected dataType noise, got: '%s'."%(noiseResult.dataType))
         rms = None
     keys = noiseResult.onoiseTerms.keys()
     if noise == 'inoise':
@@ -642,7 +650,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         elif source in keys:
             noiseData = noiseResult.inoiseTerms[source]
         else:
-            print "Error: unknown noise source: '%s'."%(source)
+            print("Error: unknown noise source: '%s'."%(source))
             rms = None
     elif noise == 'onoise':
         if source == None:
@@ -650,10 +658,10 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         elif source in keys:
             noiseData = noiseResult.onoiseTerms[source]
         else:
-            print "Error: unknown noise source: '%s'."%(source)
+            print("Error: unknown noise source: '%s'."%(source))
             rms = None
     else:
-        print "Error: unknown noise type: '%s'."%(noise)
+        print("Error: unknown noise type: '%s'."%(noise))
         rms = None
     if type(noiseData) != list:
         noiseData = [noiseData]    
@@ -663,11 +671,11 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     return rms
 
 if __name__ == '__main__':
-    print maxILT(1, ini.Laplace**2 + sp.Symbol('a')**2, numeric = False)
+    print(maxILT(1, ini.Laplace**2 + sp.Symbol('a')**2, numeric = False))
     proto_transfer = sp.sympify('0.3*(1/(1+s*0.6))')
     circuit_transfer = sp.sympify('R_1/(R_1 + R_2)/(1 + s*R_1*R_2/(R_1 + R_2)*10e-6)')
     circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer)
-    print circuit_component_values
+    print(circuit_component_values)
     proto_transfer = sp.sympify('A/(1+s*tau)')
     circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer, noSolve=['A','tau'], numeric=False)
-    print circuit_component_values
+    print(circuit_component_values)

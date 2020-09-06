@@ -96,7 +96,7 @@ def doInstruction(instObj):
                     try:
                         instObj.stepResp.append(maxILT(numers[i], denoms[i], numeric = instObj.numeric))
                     except:
-                        print "Warning: could not calculate the unit impulse response."
+                        print("Warning: could not calculate the unit impulse response.")
             elif instObj.dataType == 'numer':
                 numer = doNumer(instObj)
                 instObj.numer = stepFunctions(instObj, numer)
@@ -309,12 +309,12 @@ def doDataType(instObj):
             try:
                 instObj.impulse = maxILT(numer, denom, numeric = instObj.numeric)
             except:
-                print "Warning: could not calculate the unit impulse response."
+                print("Warning: could not calculate the unit impulse response.")
         elif instObj.dataType == 'time':
             try:
                 instObj.time = maxILT(numer, denom, numeric = instObj.numeric)
             except:
-                print "Warning: could not calculate the time response."
+                print("Warning: could not calculate the time response.")
     elif instObj.dataType == 'solve':
         if instObj.step:
             instObj.solve.append(doSolve(instObj))
@@ -707,7 +707,7 @@ def makeSrcDetPos(instObj):
                     srcP = detectors.index('V_' + nodes[0])
                 else:
                     scrP = None
-                if nodes[1] != 0:
+                if nodes[1] != '0':
                     srcN = detectors.index('V_' + nodes[1])
                 else:
                     srcN = None
@@ -1008,4 +1008,4 @@ if __name__ == '__main__':
     loopGainDenom = (s + 1)**2*(1 + s/4e3)*(1 + s/50e3)*(1 + s/1e6)
     loopGain        = loopGainNumer/loopGainDenom
     r = findServoBandwidth(loopGain)
-    print r
+    print(r)
