@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP user guide" href="SLiCAPuserguide.html"/>
-        <link rel="next" title="Define a circuit" href="circuit.html"/>
-        <link rel="prev" title="SLiCAP user guide" href="SLiCAPuserguide.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Define a circuit" href="circuit.html" />
+    <link rel="prev" title="SLiCAP user guide" href="SLiCAPuserguide.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -137,7 +131,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -145,9 +139,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -204,7 +199,7 @@
 </div>
 <div class="section" id="install-slicap">
 <h3>Install SLiCAP<a class="headerlink" href="#install-slicap" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">slicap</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">slicap</span>
 </pre></div>
 </div>
 </div>
@@ -214,16 +209,16 @@
 <p>You can configure SLiCAP options after you have created a project. To this end you create a python file
 in a project directory. The minimum content of this file is:</p>
 <p>You can modify the directory structure and update the paths for circuit files, library files, etc in the
-<code class="docutils literal"><span class="pre">SLiCAPconfig.py</span></code> file, which is created in the project directory.</p>
+<code class="docutils literal notranslate"><span class="pre">SLiCAPconfig.py</span></code> file, which is created in the project directory.</p>
 <div class="section" id="mathjax">
 <h3>MathJax<a class="headerlink" href="#mathjax" title="Permalink to this headline">¶</a></h3>
 <p>SLiCAP uses MathJax to render LaTeX embedded in html. LaTeX is used for expressions. MathJax rendering of equations requires an Internet connection. The scripts of the <a class="reference external" href="https://www.mathjax.org/">MathJax CDN</a> will then be used for this purpose. For proper rendering of equations you need to have JavaScript enabled in your browser.</p>
 </div>
 <div class="section" id="global-parameters">
 <h3>Global parameters<a class="headerlink" href="#global-parameters" title="Permalink to this headline">¶</a></h3>
-<p>SLiCAP has a number of built-in parameters. These parameters are defined in the <code class="docutils literal"><span class="pre">SLiCAPmodels.lib</span></code> library file.
+<p>SLiCAP has a number of built-in parameters. These parameters are defined in the <code class="docutils literal notranslate"><span class="pre">SLiCAPmodels.lib</span></code> library file.
 You can define other global parameters by adding SPICE .param declarations.</p>
-<div class="highlight-text"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-text notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -336,7 +331,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <div class="section" id="path-settings">
 <h3>Path settings<a class="headerlink" href="#path-settings" title="Permalink to this headline">¶</a></h3>
 <p>The project path setting are defined in the file <strong>SLiCAPconflig.py</strong>. This file is created in the project directory the by <strong>initProject()</strong>. Once created, it can be edited to modify the path settings. The default values are:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -350,7 +345,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 12
 13
 14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">SLiCAP module with user-defined path settings.</span>
@@ -372,22 +367,20 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <h3>SLiCAP configuration parameters<a class="headerlink" href="#slicap-configuration-parameters" title="Permalink to this headline">¶</a></h3>
 <p>The configuration parameters for SLiCAP are described in <a class="reference external" href="../reference/SLiCAPini.html#module-SLiCAPini">SLiCAPini.py</a>.</p>
 <p>To list the values of the SLiCAP configuration parameters enter:</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="getting-help">
 <h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
-<p>For help open the <code class="docutils literal"><span class="pre">doc/index.html</span></code> file in the SLiCAP install path.</p>
+<p>For help open the <code class="docutils literal notranslate"><span class="pre">doc/index.html</span></code> file in the SLiCAP install path.</p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -396,7 +389,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
         <a href="circuit.html" class="btn btn-neutral float-right" title="Define a circuit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPuserguide.html" class="btn btn-neutral" title="SLiCAP user guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPuserguide.html" class="btn btn-neutral float-left" title="SLiCAP user guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -405,11 +398,11 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -422,37 +415,15 @@ You can define other global parameters by adding SPICE .param declarations.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

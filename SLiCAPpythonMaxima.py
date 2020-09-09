@@ -517,18 +517,24 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     :note: if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.
     :param protoType: Prototype rational expression of the Laplace variable
     :type protoType: sympy.Expr
-    :param transfer: Transfer fucntion of which the parameters need to be
-                     solved. The numerator and the denominator of this rational
-                     expression should be of the same order as those of the
-                     prototype.
+    :param transfer:
+        
+    Transfer fucntion of which the parameters need to be
+    solved. The numerator and the denominator of this rational
+    expression should be of the same order as those of the
+    prototype.
+                     
     :type transfer: sympy.Expr    
+    
     :param noSolve: List with variables (*str, sympy.Symbol*) that do not need 
                     to be solved. These parameters will remain symbolic in the 
                     solutions.
+                    
     :type noSolve: list
 
     :param numeric: True will force Maxima to use (big) floats for numeric
                     values.
+                    
     :type numeric: bool
 
     :return: Dictionary with key-value pairs:

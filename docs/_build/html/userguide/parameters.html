@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP user guide" href="SLiCAPuserguide.html"/>
-        <link rel="next" title="Parameter stepping" href="parameterStepping.html"/>
-        <link rel="prev" title="Define a circuit" href="circuit.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parameter stepping" href="parameterStepping.html" />
+    <link rel="prev" title="Define a circuit" href="circuit.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -131,7 +125,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -139,9 +133,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -192,7 +187,7 @@
 <div class="section" id="get-all-circuit-parameters">
 <h2>Get all circuit parameters<a class="headerlink" href="#get-all-circuit-parameters" title="Permalink to this headline">¶</a></h2>
 <p>A list with all circuit parameters can be obtained as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -207,7 +202,7 @@
 <div class="section" id="get-all-parameter-definitions">
 <h2>Get all parameter definitions<a class="headerlink" href="#get-all-parameter-definitions" title="Permalink to this headline">¶</a></h2>
 <p>A dictionary with key-value pairs of all circuit parameter definitions can be obtained as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -222,7 +217,7 @@
 <div class="section" id="assign-a-value-to-a-parameter">
 <h2>Assign a value to a parameter<a class="headerlink" href="#assign-a-value-to-a-parameter" title="Permalink to this headline">¶</a></h2>
 <p>The method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong> sets the value of a parameter.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -239,7 +234,7 @@
 <div class="section" id="get-the-value-of-a-parameter">
 <h2>Get the value of a parameter<a class="headerlink" href="#get-the-value-of-a-parameter" title="Permalink to this headline">¶</a></h2>
 <p>The method <strong>SLiCAPinstruction.instruction.getParValue(*args)</strong> returns the value of a parameter. If the simulation type (SLiCAPinstruction.instruction.simType) has been set to ‘symbolic’ it returns the symbolic definition of the parameter. If the simulation type has been set to ‘numeric’ it returns its value after recursive substitution of all parameter definitions:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -262,7 +257,7 @@
 <div class="section" id="get-the-values-of-multiple-parameters">
 <h2>Get the values of multiple parameters<a class="headerlink" href="#get-the-values-of-multiple-parameters" title="Permalink to this headline">¶</a></h2>
 <p>If the argument of the method <strong>SLiCAPinstruction.instruction.getParValues(*args)</strong> is a list with parameter names, this method returns a dict with key-value pairs of those parameters. If the simulation type (SLiCAPinstruction.instruction.simType) has been set to ‘symbolic’ it returns the symbolic definitions. If the simulation type has been set to ‘numeric’ it returns the values after recursive substitution of all parameter definitions:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -285,7 +280,7 @@
 <div class="section" id="assign-values-to-multiple-parameters">
 <h2>Assign values to multiple parameters<a class="headerlink" href="#assign-values-to-multiple-parameters" title="Permalink to this headline">¶</a></h2>
 <p>Multiple parameters can be assigned by passing a dictionary with key-value pairs of parameters as argument of the method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -301,7 +296,7 @@
 <div class="section" id="delete-a-parameter-definition">
 <h2>Delete a parameter definition<a class="headerlink" href="#delete-a-parameter-definition" title="Permalink to this headline">¶</a></h2>
 <p>You can delete a parameter definition using the method <strong>SLiCAPinstruction.instruction.delPar(*args)</strong>. This method does not delete the circuit parameter itself: it only clears its definition so that it can be used as a symbolic variable in numeric simulations.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -320,9 +315,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -331,7 +324,7 @@
         <a href="parameterStepping.html" class="btn btn-neutral float-right" title="Parameter stepping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="circuit.html" class="btn btn-neutral" title="Define a circuit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="circuit.html" class="btn btn-neutral float-left" title="Define a circuit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -340,11 +333,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -357,37 +350,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

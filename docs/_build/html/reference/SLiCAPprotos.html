@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
-        <link rel="next" title="SLiCAPmath.py" href="SLiCAPmath.html"/>
-        <link rel="prev" title="SLiCAPmatrices.py" href="SLiCAPmatrices.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLiCAPmath.py" href="SLiCAPmath.html" />
+    <link rel="prev" title="SLiCAPmatrices.py" href="SLiCAPmatrices.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -125,7 +119,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -133,9 +127,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -216,8 +211,8 @@ instruction data and execution results.</p>
 <dt id="SLiCAPprotos.allResults.circuit">
 <code class="descname">circuit</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPprotos.allResults.circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Circuit (<em>SLiCAPprotos.circuit</em>) used for this instruction.</p>
-<p>Will be copied from <strong>SLiCAPinstruction.instruction.circuit</strong> at the
-start of the execution of the instruction. This instance will not be a
+<p>Will be copied from <strong>SLiCAPinstruction.instruction.circuit</strong> at the 
+start of the execution of the instruction. This instance will not be a 
 deep copy.</p>
 </dd></dl>
 
@@ -373,7 +368,7 @@ the execution of the instruction.</p>
 <dt id="SLiCAPprotos.allResults.parDefs">
 <code class="descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPprotos.allResults.parDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameter definitions for the instruction.</p>
-<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
+<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
 the execution of the instruction. This instance will be e deep copy.</p>
 </dd></dl>
 
@@ -437,7 +432,7 @@ the execution of the instruction.</p>
 <dt id="SLiCAPprotos.allResults.stepArray">
 <code class="descname">stepArray</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPprotos.allResults.stepArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array (<em>list of lists</em>) with values for step method array.</p>
-<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
+<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
 the execution of the instruction. This instance will be a deep copy.</p>
 </dd></dl>
 
@@ -445,7 +440,7 @@ the execution of the instruction. This instance will be a deep copy.</p>
 <dt id="SLiCAPprotos.allResults.stepList">
 <code class="descname">stepList</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPprotos.allResults.stepList" title="Permalink to this definition">¶</a></dt>
 <dd><p>List with values for step method ‘list’.</p>
-<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
+<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
 the execution of the instruction. This instance will be a deep copy.</p>
 </dd></dl>
 
@@ -546,8 +541,8 @@ the execution of the instruction.</p>
 <dl class="method">
 <dt id="SLiCAPprotos.circuit.defPar">
 <code class="descname">defPar</code><span class="sig-paren">(</span><em>parName</em>, <em>parValue</em>, <em>units=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.defPar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates or adds a parameter definition and updates the list 
-<strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.Symbol</em>) of 
+<dd><p>Updates or adds a parameter definition and updates the list
+<strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.Symbol</em>) of
 undefined parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -564,7 +559,7 @@ undefined parameters.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="p">)</span>
@@ -593,7 +588,7 @@ undefined parameters.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the units of &#39;R&#39; and &#39;C&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defParUnits</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;Omega&#39;</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="n">F</span><span class="p">})</span>
@@ -604,7 +599,7 @@ undefined parameters.</p>
 <dl class="method">
 <dt id="SLiCAPprotos.circuit.defPars">
 <code class="descname">defPars</code><span class="sig-paren">(</span><em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.defPars" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds or modifies multiple parameter definitions and updates the list 
+<dd><p>Adds or modifies multiple parameter definitions and updates the list
 <strong>circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -612,9 +607,9 @@ undefined parameters.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Params parDict:</th><td class="field-body"><p class="first">Dictionary with key-value pairs:</p>
 <ul class="simple">
-<li>key: parName (<em>str, sympy.Symbol</em>): name of the 
+<li>key: parName (<em>str, sympy.Symbol</em>): name of the
 parameter.</li>
-<li>value: parValue (<em>str, float, int, sympy object</em>): 
+<li>value: parValue (<em>str, float, int, sympy object</em>):
 value or expression of the parameter.</li>
 </ul>
 </td>
@@ -623,7 +618,7 @@ value or expression of the parameter.</li>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defPars</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;5p&#39;</span><span class="p">)</span>
@@ -634,7 +629,7 @@ value or expression of the parameter.</li>
 <dl class="method">
 <dt id="SLiCAPprotos.circuit.delPar">
 <code class="descname">delPar</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.delPar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a parameter definition and updates the list 
+<dd><p>Deletes a parameter definition and updates the list
 <strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.Symbol</em>) of
 undefined parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -647,7 +642,7 @@ undefined parameters.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Delete the definition for the parameter &#39;R&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">delPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
@@ -727,8 +722,8 @@ Defaults to 0.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define and obtain the units of &#39;R&#39; and &#39;C&#39;:</span>
@@ -764,8 +759,8 @@ all circuit parameter definitions.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain the numeric parameter definitions of of &#39;R&#39; and &#39;C&#39;:</span>
@@ -875,7 +870,7 @@ sub circuit.</li>
 <dl class="method">
 <dt id="SLiCAPprotos.circuit.updateParams">
 <code class="descname">updateParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.updateParams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates self.params (list with undefined parameters) after modification 
+<dd><p>Updates self.params (list with undefined parameters) after modification
 of parameter definitions in self.parDefs.</p>
 </dd></dl>
 
@@ -1086,9 +1081,7 @@ model.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -1097,7 +1090,7 @@ model.</p>
         <a href="SLiCAPmath.html" class="btn btn-neutral float-right" title="SLiCAPmath.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPmatrices.html" class="btn btn-neutral" title="SLiCAPmatrices.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPmatrices.html" class="btn btn-neutral float-left" title="SLiCAPmatrices.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1106,11 +1099,11 @@ model.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1123,37 +1116,15 @@ model.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

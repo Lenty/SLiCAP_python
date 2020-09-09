@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP netlist syntax" href="SLiCAPnetlistSyntax.html"/>
-        <link rel="next" title="Schematic capture for SLiCAP" href="schematics.html"/>
-        <link rel="prev" title="Netlist lines" href="netlist.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Schematic capture for SLiCAP" href="schematics.html" />
+    <link rel="prev" title="Netlist lines" href="netlist.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -247,7 +241,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -255,9 +249,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -313,27 +308,27 @@
 <p>Model data will be listed in tables. The fields in these tables have the following meaning:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first"><code class="docutils literal"><span class="pre">name</span></code>: the name of the model. This name is associated with the implementation type:</p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">name</span></code>: the name of the model. This name is associated with the implementation type:</p>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">type</span></code>: the implementation type of the model:</p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">type</span></code>: the implementation type of the model:</p>
 <blockquote>
-<div><p>a <code class="docutils literal"><span class="pre">stamp</span></code>: a matrix stamp is associated with the model</p>
-<p>b <code class="docutils literal"><span class="pre">expansion</span></code>: the model is expanded into elements with models that have associated matrix stamps</p>
+<div><p>a <code class="docutils literal notranslate"><span class="pre">stamp</span></code>: a matrix stamp is associated with the model</p>
+<p>b <code class="docutils literal notranslate"><span class="pre">expansion</span></code>: the model is expanded into elements with models that have associated matrix stamps</p>
 </div></blockquote>
 </li>
 </ol>
-<p>3. <code class="docutils literal"><span class="pre">Ii</span></code>: <code class="docutils literal"><span class="pre">TRUE</span></code> if a dependent variable for an input current is added to the vector
-with dependent variables else: <code class="docutils literal"><span class="pre">FALSE</span></code>. This field applies only for models with <code class="docutils literal"><span class="pre">type=stamp</span></code>. The name of this current is the
+<p>3. <code class="docutils literal notranslate"><span class="pre">Ii</span></code>: <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> if a dependent variable for an input current is added to the vector
+with dependent variables else: <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>. This field applies only for models with <code class="docutils literal notranslate"><span class="pre">type=stamp</span></code>. The name of this current is the
 concatenation of two strings:</p>
 <blockquote>
-<div><p>a <code class="docutils literal"><span class="pre">&quot;Ii_&quot;</span></code> and the device name for two-port elements with model type <code class="docutils literal"><span class="pre">H</span></code> and <code class="docutils literal"><span class="pre">HZ</span></code></p>
-<p>b <code class="docutils literal"><span class="pre">&quot;I_&quot;</span></code> and the device name for twoport elements with model type <code class="docutils literal"><span class="pre">F</span></code></p>
+<div><p>a <code class="docutils literal notranslate"><span class="pre">&quot;Ii_&quot;</span></code> and the device name for two-port elements with model type <code class="docutils literal notranslate"><span class="pre">H</span></code> and <code class="docutils literal notranslate"><span class="pre">HZ</span></code></p>
+<p>b <code class="docutils literal notranslate"><span class="pre">&quot;I_&quot;</span></code> and the device name for twoport elements with model type <code class="docutils literal notranslate"><span class="pre">F</span></code></p>
 </div></blockquote>
 <ol class="arabic" start="4">
-<li><p class="first"><code class="docutils literal"><span class="pre">Io</span></code>: <code class="docutils literal"><span class="pre">TRUE</span></code> if an output current is added to the vector with dependent variables, else: <code class="docutils literal"><span class="pre">FALSE</span></code>. This field applies only for models with <code class="docutils literal"><span class="pre">type=stamp</span></code>. The name of this current is the concatenation of two strings:</p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">Io</span></code>: <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> if an output current is added to the vector with dependent variables, else: <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>. This field applies only for models with <code class="docutils literal notranslate"><span class="pre">type=stamp</span></code>. The name of this current is the concatenation of two strings:</p>
 <blockquote>
-<div><p>a <code class="docutils literal"><span class="pre">&quot;Io_&quot;</span></code> and the device name for two-port elements that have model type <code class="docutils literal"><span class="pre">E</span></code>, <code class="docutils literal"><span class="pre">EZ</span></code>, <code class="docutils literal"><span class="pre">G</span></code>, <code class="docutils literal"><span class="pre">H</span></code>, <code class="docutils literal"><span class="pre">HZ</span></code> or <code class="docutils literal"><span class="pre">N</span></code></p>
-<p>b <code class="docutils literal"><span class="pre">&quot;I_&quot;</span></code> and the device name for one port elements with model type <code class="docutils literal"><span class="pre">L</span></code>, <code class="docutils literal"><span class="pre">r</span></code>, <code class="docutils literal"><span class="pre">V</span></code> and <code class="docutils literal"><span class="pre">Z</span></code></p>
+<div><p>a <code class="docutils literal notranslate"><span class="pre">&quot;Io_&quot;</span></code> and the device name for two-port elements that have model type <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">EZ</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">H</span></code>, <code class="docutils literal notranslate"><span class="pre">HZ</span></code> or <code class="docutils literal notranslate"><span class="pre">N</span></code></p>
+<p>b <code class="docutils literal notranslate"><span class="pre">&quot;I_&quot;</span></code> and the device name for one port elements with model type <code class="docutils literal notranslate"><span class="pre">L</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">V</span></code> and <code class="docutils literal notranslate"><span class="pre">Z</span></code></p>
 </div></blockquote>
 </li>
 </ol>
@@ -341,10 +336,10 @@ concatenation of two strings:</p>
 <p>Valid model parameters and their default values are listed in the subsequent rows of the table:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><code class="docutils literal"><span class="pre">param</span></code>: the name of the parameter (case sensitive)</li>
-<li><code class="docutils literal"><span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expression}</span></code>: the default value or expression for the model parameter</li>
-<li><code class="docutils literal"><span class="pre">Laplace</span></code>: a boolean <code class="docutils literal"><span class="pre">TRUE</span> <span class="pre">|</span> <span class="pre">FALSE</span></code> indicating if the Laplace variable <code class="docutils literal"><span class="pre">s</span></code> is allowed in the device expression</li>
-<li><code class="docutils literal"><span class="pre">description</span></code>: a description of the parameter</li>
+<li><code class="docutils literal notranslate"><span class="pre">param</span></code>: the name of the parameter (case sensitive)</li>
+<li><code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expression}</span></code>: the default value or expression for the model parameter</li>
+<li><code class="docutils literal notranslate"><span class="pre">Laplace</span></code>: a boolean <code class="docutils literal notranslate"><span class="pre">TRUE</span> <span class="pre">|</span> <span class="pre">FALSE</span></code> indicating if the Laplace variable <code class="docutils literal notranslate"><span class="pre">s</span></code> is allowed in the device expression</li>
+<li><code class="docutils literal notranslate"><span class="pre">description</span></code>: a description of the parameter</li>
 </ol>
 </div></blockquote>
 <div class="section" id="c-capacitor">
@@ -413,19 +408,19 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>C1 nodeP nodeN 100n                ; Capacitor of 100n between nodeP and nodeN
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN 100n                ; Capacitor of 100n between nodeP and nodeN
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = 100n      ; Same as above
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = 100n      ; Same as above
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>C1 nodeP nodeN {1/tau/R}           ; Capacitance as an expression
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN {1/tau/R}           ; Capacitance as an expression
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = {1/tau/R} ; Same as above
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = {1/tau/R} ; Same as above
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>C1 nodeP nodeN myCap               ; Same as above with a .model line
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN myCap               ; Same as above with a .model line
 .model myCap C value={1/tau/R}
 </pre></div>
 </div>
@@ -501,10 +496,10 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="id1">
 <h3>Examples<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>D1 nodeA nodeC D ; Diode anode connected to nodeA cathode to nodeC and default parameters.
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>D1 nodeA nodeC D ; Diode anode connected to nodeA cathode to nodeC and default parameters.
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>D1 nodeA nodeC D1N4148
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>D1 nodeA nodeC D1N4148
 + gd = {q_e*I_D/K_b/T_A}
 + cd = {q_e*I_D/K_b/T_A/2/PI/tau_F}
 + rs = 25
@@ -632,18 +627,18 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="id2">
 <h3>Examples<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>E1 outP outN inP inN 1M
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>E1 outP outN inP inN 1M
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>E1 outP outN inP inN {1M/(1 + s/2/PI/f_-3dB)}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>E1 outP outN inP inN {1M/(1 + s/2/PI/f_-3dB)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>E1 outP outN inP inN EZ
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>E1 outP outN inP inN EZ
 + value = {A_0/(1 + s*tau)}
 + zs = {R_out*(1 + s*L_out/R_out}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>E2 outP outN inP inN simpleOpamp
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>E2 outP outN inP inN simpleOpamp
 .model simpleOpamp EZ
 + value = {A_0/(1 + s*tau)}
 + zs = {R_out*(1 + s*L_out/R_out}
@@ -661,7 +656,7 @@ concatenation of two strings:</p>
 <a class="reference internal image-reference" href="../_images/stampF.svg"><img alt="Syntax, symbol and matrix stamp of a CCCS: model F" src="../_images/stampF.svg" width="800px" /></a>
 <p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCCS model F</span></p>
 </div>
-<p>Please notice the independent variable <span class="math">\(I_{Fx}\)</span> which is added to the vector of independent variables equals the product of the denominator of the current gain <span class="math">\(Df_s\)</span> and the input current <span class="math">\(Ii_{Fx}\)</span>, rather than the input current.</p>
+<p>Please notice the independent variable <span class="math notranslate nohighlight">\(I_{Fx}\)</span> which is added to the vector of independent variables equals the product of the denominator of the current gain <span class="math notranslate nohighlight">\(Df_s\)</span> and the input current <span class="math notranslate nohighlight">\(Ii_{Fx}\)</span>, rather than the input current.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
@@ -718,16 +713,16 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="id3">
 <h3>Examples<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>F1 outP outN inP inN 20
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>F1 outP outN inP inN 20
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>F1 outP outN inP inN {100/(1 + s/2/PI/f_-3dB)}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>F1 outP outN inP inN {100/(1 + s/2/PI/f_-3dB)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>F1 outP outN inP inN F value={A_i/(1 + s*tau)}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>F1 outP outN inP inN F value={A_i/(1 + s*tau)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>F2 outP outN inP inN myCCCS
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>F2 outP outN inP inN myCCCS
 .model myCCCS F value = {A_i/(1 + s*tau)}
 </pre></div>
 </div>
@@ -847,23 +842,23 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="id7">
 <h3>Examples<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>G1 outP outN inP inN 20m
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G1 outP outN inP inN 20m
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>G1 outP outN inP inN {1m/(1 + s/2/PI/f_-3dB)}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G1 outP outN inP inN {1m/(1 + s/2/PI/f_-3dB)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>G1 outP outN inP inN G value = {A_y/(1 + s*tau)}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G1 outP outN inP inN G value = {A_y/(1 + s*tau)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>G2 outP outN inP inN myVCCS
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G2 outP outN inP inN myVCCS
 .model myVCCS G valu e= {A_y/(1 + s*tau)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>G3 outP outN inP inN g value = 1m
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G3 outP outN inP inN g value = 1m
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>G3 outP outN inP inN g value = {q*I_c/k/T}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G3 outP outN inP inN g value = {q*I_c/k/T}
 </pre></div>
 </div>
 </div>
@@ -986,18 +981,18 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="id9">
 <h3>Examples<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>H1 outP outN inP inN 1M
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H1 outP outN inP inN 1M
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>H1 outP outN inP inN {1M/(1 + s/2/PI/f_-3dB)}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H1 outP outN inP inN {1M/(1 + s/2/PI/f_-3dB)}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>H1 outP outN inP inN HZ
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H1 outP outN inP inN HZ
 + value = {R_T/(1 + s*tau)}
 + zs = {R_out*(1 + s*L_out/R_out}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>H2 outP outN inP inN simpleTransimpedanceAmp
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H2 outP outN inP inN simpleTransimpedanceAmp
 .model simpleTransimpedanceAmp HZ
 + value = {R_T/(1 + s*tau)}
 + zs = {R_out*(1 + s*L_out/R_out}
@@ -1086,12 +1081,12 @@ concatenation of two strings:</p>
 </div>
 <div class="section" id="id10">
 <h3>Examples<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>* Both definitions are equivalent:
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>* Both definitions are equivalent:
 I1 n1 n2 1m
 I1 n1 n2 I value = 1m
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Iin 0 input I value = {I_s} noise = 1e-24 dc=10n dcvar = 4e-18
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Iin 0 input I value = {I_s} noise = 1e-24 dc=10n dcvar = 4e-18
 .param I_s = {1m/s}; Step of 1mA starting at t=0
 </pre></div>
 </div>
@@ -1172,7 +1167,7 @@ I1 n1 n2 I value = 1m
 </div>
 <div class="section" id="id11">
 <h3>Examples<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>J1 nodeD nodeG nodeS myJFET
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>J1 nodeD nodeG nodeS myJFET
 .model myJFET J cgs=20p cdg=1p gm=15m go=500u
 </pre></div>
 </div>
@@ -1244,7 +1239,7 @@ I1 n1 n2 I value = 1m
 </div>
 <div class="section" id="id12">
 <h3>Examples<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>L1 n1 n2 {L_a}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 n1 n2 {L_a}
 L2 n3 n4 {L_b}
 k12 L1 L2 0.98
 </pre></div>
@@ -1317,13 +1312,13 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id13">
 <h3>Examples<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>L1 n1 n2 {L_a}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 n1 n2 {L_a}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>L1 n1 n2 L value = {L_a}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 n1 n2 L value = {L_a}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>L1 n1 n2 L myL
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 n1 n2 L myL
 .model myL L value = {L_a}
 </pre></div>
 </div>
@@ -1489,22 +1484,22 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id15">
 <h3>Examples<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
-<p>Below three ways of defining a MOS in a circuit. The first example calls the mos model M with its default parameters and then overrides these parameters by local definitions in the call. The model parameter <code class="docutils literal"><span class="pre">gm</span></code> is passed as global parameter <code class="docutils literal"><span class="pre">gm</span></code>.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>M1 D G S B M gm={g_m} gb = 150u go = 100u cgs = 0.2p cdg = 10f
+<p>Below three ways of defining a MOS in a circuit. The first example calls the mos model M with its default parameters and then overrides these parameters by local definitions in the call. The model parameter <code class="docutils literal notranslate"><span class="pre">gm</span></code> is passed as global parameter <code class="docutils literal notranslate"><span class="pre">gm</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>M1 D G S B M gm={g_m} gb = 150u go = 100u cgs = 0.2p cdg = 10f
 </pre></div>
 </div>
-<p>The second example calls the model from a library file and redefines <code class="docutils literal"><span class="pre">g_m</span></code> as a global parameter.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>M1 D G S B myMOS gm = {g_m}
+<p>The second example calls the model from a library file and redefines <code class="docutils literal notranslate"><span class="pre">g_m</span></code> as a global parameter.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>M1 D G S B myMOS gm = {g_m}
 .include myMOS.lib
 </pre></div>
 </div>
 <p>The third example calls a model and its parameters. For a given process, geometry and device operating point, these small-signal parameters can be obtained from a SPICE simulation.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>M1 D G S B M1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>M1 D G S B M1
 .model M1 M gm = 2m gb = 150u go = 100u cgs = 0.2p cdg = 10f
 </pre></div>
 </div>
 <p>The next example shows the application of a differential-pair MOS.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>M1 D1 D2 G1 G2 myDiffPairMOS
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>M1 D1 D2 G1 G2 myDiffPairMOS
 *parameters of the single MOS
 .param g_m = 1m g_o = 100u c_gs = 0.2p c_dg = 10f c_db = 5f
 *parameters of the diff. pair MOS
@@ -1556,7 +1551,7 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id16">
 <h3>Examples<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>N_amp out 0 in+ in-
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>N_amp out 0 in+ in-
 </pre></div>
 </div>
 </div>
@@ -1724,7 +1719,7 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id18">
 <h3>Examples<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>O1 inP inN out 0 AD8610
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>O1 inP inN out 0 AD8610
 .model AD8610 OV
 + cd = 15p
 + cc = 8p
@@ -1732,7 +1727,7 @@ k12 L1 L2 0.98
 + zo = 20
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>O1 inP inN out 0 LT1223
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>O1 inP inN out 0 LT1223
 .model LT1223 OC
 + cp = 1.5p
 + gp = 100n
@@ -2014,8 +2009,8 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id20">
 <h3>Examples<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
-<p>Below a specification of a BJT of which the model parameters are expressed in SPICE model parameters, the operating point current <code class="docutils literal"><span class="pre">I_C</span></code> and the operating voltage <code class="docutils literal"><span class="pre">V_CE</span></code>. The expressions are simplifications of the nonlinear device equations for a bipolar transistor.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Q1 C B E S QV
+<p>Below a specification of a BJT of which the model parameters are expressed in SPICE model parameters, the operating point current <code class="docutils literal notranslate"><span class="pre">I_C</span></code> and the operating voltage <code class="docutils literal notranslate"><span class="pre">V_CE</span></code>. The expressions are simplifications of the nonlinear device equations for a bipolar transistor.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Q1 C B E S QV
 + gm  = {g_m}
 + gpi = {g_m/beta_F}
 + go  = {(I_c+V_ce)/VAF}
@@ -2028,7 +2023,7 @@ k12 L1 L2 0.98
 </pre></div>
 </div>
 <p>Below a specification of a BJT that uses small-signal parameters in an operating point as they can be determined with the aid of a SPICE operating point simulation.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Q1 C B E S Q1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Q1 C B E S Q1
 .model Q1 QV
 + gm  = 20m
 + rb  = 50
@@ -2041,7 +2036,7 @@ k12 L1 L2 0.98
 </pre></div>
 </div>
 <p>Below a specification of a lateral BJT that uses small-signal parameters in an operating point as they can be determined with the aid of a SPICE operating point simulation.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Q1 C B E S Q1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Q1 C B E S Q1
 .model Q1 QL
 + gm=20m
 + rb=50
@@ -2054,7 +2049,7 @@ k12 L1 L2 0.98
 </pre></div>
 </div>
 <p>Below an example of a differential pair BJT of which the parameters are related to those of the single transistor stage, biased in the same operating point as the transistors of the differential pair.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Q1 C1 C2 B1 B2 myDiffPairBJT
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Q1 C1 C2 B1 B2 myDiffPairBJT
 .model myDiffPairBJT QD
 + gm  = {I_c/2/U_T}
 + gpi = {I_c/2/U_T/beta_AC}
@@ -2190,16 +2185,16 @@ k12 L1 L2 0.98
 <div class="section" id="id24">
 <h3>Examples<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <p>The examples below illustrates four different ways for specifying a resistor that is connected between the nodes nP and nN and has a numerical value of 10kOhm.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>R1 nP nN 10k
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN 10k
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>R1 nP nN {20 * alpha}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN {20 * alpha}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>R1 nP nN r value = {R_a} dcvar = {(sigma * R_a)^2}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN r value = {R_a} dcvar = {(sigma * R_a)^2}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>R1 nP nN myR
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN myR
 .model myR R value = {20 * alpha}
 .param alpha = 500
 </pre></div>
@@ -2272,16 +2267,16 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id25">
 <h3>Examples<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>T1 secP secN priP priN {Vpri/Vsec}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>T1 secP secN priP priN {Vpri/Vsec}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>T1 secP secN priP priN T value={Vpri/Vsec}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>T1 secP secN priP priN T value={Vpri/Vsec}
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>T1 secP secN priP priN myTrafo
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>T1 secP secN priP priN myTrafo
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.model myTrafo T value={Vpri/Vsec}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.model myTrafo T value={Vpri/Vsec}
 </pre></div>
 </div>
 </div>
@@ -2366,12 +2361,12 @@ k12 L1 L2 0.98
 </div>
 <div class="section" id="id26">
 <h3>Examples<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>* Both definitions are equivalent:
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>* Both definitions are equivalent:
 V1 n1 n2 20m
 V1 n1 n2 V value = 20m
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Vin 0 input V value = {V_s} noise = 1e-16 dc = 0 dcvar = 10e-8
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Vin 0 input V value = {V_s} noise = 1e-16 dc = 0 dcvar = 10e-8
 .param V_s = {1/s}; Step of 1V starting at t = 0
 </pre></div>
 </div>
@@ -2443,10 +2438,10 @@ V1 n1 n2 V value = 20m
 <div class="section" id="id27">
 <h3>Examples<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
 <p>Below two definitions of a gyrator with a conversion gain of 10mA/V.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>W1 outP outN inP inN 10m
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>W1 outP outN inP inN 10m
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>W1 outP outN inP inN W value = 10m
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>W1 outP outN inP inN W value = 10m
 </pre></div>
 </div>
 </div>
@@ -2459,9 +2454,7 @@ V1 n1 n2 V value = 20m
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -2470,7 +2463,7 @@ V1 n1 n2 V value = 20m
         <a href="schematics.html" class="btn btn-neutral float-right" title="Schematic capture for SLiCAP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="netlist.html" class="btn btn-neutral" title="Netlist lines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="netlist.html" class="btn btn-neutral float-left" title="Netlist lines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2479,11 +2472,11 @@ V1 n1 n2 V value = 20m
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -2496,37 +2489,15 @@ V1 n1 n2 V value = 20m
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

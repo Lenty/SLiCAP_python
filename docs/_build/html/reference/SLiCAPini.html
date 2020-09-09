@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
-        <link rel="next" title="SLiCAPconfig.py" href="SLiCAPconfig.html"/>
-        <link rel="prev" title="SLiCAPlex.py" href="SLiCAPlex.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLiCAPconfig.py" href="SLiCAPconfig.html" />
+    <link rel="prev" title="SLiCAPlex.py" href="SLiCAPlex.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -125,7 +119,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -133,9 +127,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -286,6 +281,10 @@ required by Jupyter notebook</li>
 <li>ltspice : os command for batch netlist creation with LTspice</li>
 </ul>
 </li>
+<li>Maxima command setting (only required for MSWindows)<ul>
+<li>maxima: command to start maxima under MSWindows</li>
+</ul>
+</li>
 </ol>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.Hz">
@@ -315,14 +314,14 @@ to 5.</p>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.axisXscale">
 <code class="descname">axisXscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.axisXscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default x axis type (<em>str</em>) for plots. Can be ‘lin’ or ‘log’.
+<dd><p>Default x axis type (<em>str</em>) for plots. Can be ‘lin’ or ‘log’. 
 Defaults to ‘lin’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAPini.settings.axisYscale">
 <code class="descname">axisYscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.axisYscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default y axis type (<em>str</em>) for plots.  Can be ‘lin’ or ‘log’.
+<dd><p>Default y axis type (<em>str</em>) for plots.  Can be ‘lin’ or ‘log’. 
 Defaults to ‘lin’.</p>
 </dd></dl>
 
@@ -411,14 +410,14 @@ gain types:</p>
 <li>key: gain type: (<em>str</em>)</li>
 <li>value: matplotlib color name (<em>str</em>) for traces in plots.</li>
 </ul>
-<p>Defaults to: {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’,
+<p>Defaults to: {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’, 
 ‘direct’: ‘g’, ‘servo’: ‘m’, ‘vi’: ‘c’}</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAPini.settings.htmlIndex">
 <code class="descname">htmlIndex</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.htmlIndex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of the active html index file.
+<dd><p>Name (<em>str</em>) of the active html index file. 
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
@@ -436,7 +435,7 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.htmlPage">
 <code class="descname">htmlPage</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.htmlPage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of the active html file.
+<dd><p>Name (<em>str</em>) of the active html file. 
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
@@ -456,7 +455,7 @@ Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.htmlPrefix">
 <code class="descname">htmlPrefix</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.htmlPrefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of athe ctive html prefix (first part of the file name).
+<dd><p>Name (<em>str</em>) of athe ctive html prefix (first part of the file name). 
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
@@ -475,7 +474,7 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.lastUpdate">
 <code class="descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.lastUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project
+<dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project 
 update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 </dd></dl>
 
@@ -488,8 +487,8 @@ update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.legendLoc">
 <code class="descname">legendLoc</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.legendLoc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default legend position (<em>str</em>) in plots. Cab be: ‘upper left’,
-‘upper right’, ‘lower left’, ‘lower right’, ‘upper center’, ‘lower center’,
+<dd><p>Default legend position (<em>str</em>) in plots. Cab be: ‘upper left’, 
+‘upper right’, ‘lower left’, ‘lower right’, ‘upper center’, ‘lower center’, 
 ‘center left’, ‘center right’, ‘center’ or ‘best’.</p>
 <p>Defaults to ‘best’.</p>
 </dd></dl>
@@ -503,7 +502,7 @@ update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 <dl class="attribute">
 <dt id="SLiCAPini.settings.ltspice">
 <code class="descname">ltspice</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.ltspice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operating system command prefix for batch generation of a netlist from an
+<dd><p>Operating system command prefix for batch generation of a netlist from an 
 LTspice circuit.</p>
 <ul class="simple">
 <li>windows: ‘C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
@@ -546,6 +545,13 @@ Defaults to 10.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="SLiCAPini.settings.maxima">
+<code class="descname">maxima</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.maxima" title="Permalink to this definition">¶</a></dt>
+<dd><p>MSWindows command for starting Maxima.</p>
+<p>Defaults to ‘C:maxima-5.44.0binmaxima.bat’</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="SLiCAPini.settings.normalize">
 <code class="descname">normalize</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>) setting for normalization of rational functions.</p>
@@ -560,7 +566,7 @@ Defaults to 10.</p>
 <code class="descname">notebook</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
 <ul class="simple">
-<li>True: Places html math output between double dollar signs for correct
+<li>True: Places html math output between double dollar signs for correct 
 rendering of latex in Jupyter notebooks.</li>
 </ul>
 <p>Defaults to False.</p>
@@ -632,9 +638,7 @@ rendering of latex in Jupyter notebooks.</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -643,7 +647,7 @@ rendering of latex in Jupyter notebooks.</li>
         <a href="SLiCAPconfig.html" class="btn btn-neutral float-right" title="SLiCAPconfig.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPlex.html" class="btn btn-neutral" title="SLiCAPlex.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPlex.html" class="btn btn-neutral float-left" title="SLiCAPlex.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -652,11 +656,11 @@ rendering of latex in Jupyter notebooks.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -669,37 +673,15 @@ rendering of latex in Jupyter notebooks.</li>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP user guide" href="SLiCAPuserguide.html"/>
-        <link rel="next" title="Define an instruction" href="instruction.html"/>
-        <link rel="prev" title="Work with parameters" href="parameters.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Define an instruction" href="instruction.html" />
+    <link rel="prev" title="Work with parameters" href="parameters.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -137,7 +131,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -145,9 +139,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -211,7 +206,7 @@
 </li>
 </ol>
 <p>The step method is defined with by the method <strong>SLiCAPinstruction.instruction.setStepMethod(*args)</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>         <span class="c1"># Create an instance of the instruction object</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>         <span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepmethod</span><span class="p">(</span><span class="s1">&#39;lin&#39;</span><span class="p">)</span>    <span class="c1"># linear stepping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepMethod</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>    <span class="c1"># logarithmic stepping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepMethod</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>   <span class="c1"># stepping through a list</span>
@@ -224,7 +219,7 @@
 <div class="section" id="linear-log-and-list-stepping">
 <h3>Linear, log and list stepping<a class="headerlink" href="#linear-log-and-list-stepping" title="Permalink to this headline">¶</a></h3>
 <p>The step variable for linear logarithmic and list stepping can be selected from the available circuit parameters.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -242,7 +237,7 @@
 <div class="section" id="array-stepping">
 <h3>Array stepping<a class="headerlink" href="#array-stepping" title="Permalink to this headline">¶</a></h3>
 <p>As with single parameters stepping, the step variables can be selected from all available circuit parameters:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>         <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -263,7 +258,7 @@
 <div class="section" id="linear-and-logarithmic-stepping">
 <h3>Linear and logarithmic stepping<a class="headerlink" href="#linear-and-logarithmic-stepping" title="Permalink to this headline">¶</a></h3>
 <p>Linear and logarithmic stepping required the definition of the step variable, the start value, the stop value and the number of steps.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -285,7 +280,7 @@
 <div class="section" id="stepping-through-a-list-of-values">
 <h3>Stepping through a list of values<a class="headerlink" href="#stepping-through-a-list-of-values" title="Permalink to this headline">¶</a></h3>
 <p>The function <cite>stepList(&lt;listOfValues&gt;)</cite> is used to define a list of step values for a step variable.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -304,7 +299,7 @@
 <div class="section" id="id1">
 <h3>Array stepping<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>For array stepping the step values need to be provided in the form of a matrix. Row i in the matrix carries the values of SLiCAPinstruction.instruction.stepVars[i]. Hence, the number of rows equals the number of times the instruction will be executed.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -324,7 +319,7 @@
 <div class="section" id="enable-or-disable-parameter-stepping">
 <h2>Enable or disable parameter stepping<a class="headerlink" href="#enable-or-disable-parameter-stepping" title="Permalink to this headline">¶</a></h2>
 <p>Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step mthod, etc.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
@@ -339,9 +334,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -350,7 +343,7 @@
         <a href="instruction.html" class="btn btn-neutral float-right" title="Define an instruction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="parameters.html" class="btn btn-neutral" title="Work with parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="parameters.html" class="btn btn-neutral float-left" title="Work with parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -359,11 +352,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -376,37 +369,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -17,43 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
-        <link rel="next" title="SLiCAPpythonMaxima.py" href="SLiCAPpythonMaxima.html"/>
-        <link rel="prev" title="SLiCAPhtml.py" href="SLiCAPhtml.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLiCAPpythonMaxima.py" href="SLiCAPpythonMaxima.html" />
+    <link rel="prev" title="SLiCAPhtml.py" href="SLiCAPhtml.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -125,7 +119,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -133,9 +127,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -325,7 +320,7 @@ Defaults to [].</p>
 <dl class="method">
 <dt id="SLiCAPplots.figure.plot">
 <code class="descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPplots.figure.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the figure, displays it if SLiCAPplots.figure.show == True and 
+<dd><p>Creates the figure, displays it if SLiCAPplots.figure.show == True and
 saves it to disk.</p>
 </dd></dl>
 
@@ -375,7 +370,7 @@ saves it to disk.</p>
 <dt id="SLiCAPplots.plotPZ">
 <code class="descclassname">SLiCAPplots.</code><code class="descname">plotPZ</code><span class="sig-paren">(</span><em>fileName</em>, <em>title</em>, <em>results</em>, <em>xmin=None</em>, <em>xmax=None</em>, <em>ymin=None</em>, <em>ymax=None</em>, <em>xscale=''</em>, <em>yscale=''</em>, <em>show=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPplots.plotPZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a pole-zero scatter plot.</p>
-<p>If parameter stepping of the instruction is enabled, a root locus is drawn 
+<p>If parameter stepping of the instruction is enabled, a root locus is drawn
 with the parameter as root locus variable.</p>
 <p>In such cases special begin end endpoint markers are used:</p>
 <ul class="simple">
@@ -426,7 +421,7 @@ instructions should be ‘poles’, ‘zeros’ or ‘pz’.</li>
 <ul class="simple">
 <li>If funcType == ‘params’, the variable ‘yVar’ must be the name of a circuit
 parameter.</li>
-<li>If funcType == ‘auto’, the default function that will be plotted depends 
+<li>If funcType == ‘auto’, the default function that will be plotted depends
 on the data type of the instruction:<ul>
 <li>data type == ‘noise’: funcType = ‘onoise’</li>
 <li>data type == ‘laplace’, ‘numer’ or ‘denom’: funcType = ‘mag’</li>
@@ -435,7 +430,7 @@ on the data type of the instruction:<ul>
 </li>
 </ul>
 <p>The variable plotted along the x-axis defaults to the sweep variable. However,
-for multivariate functions obtained with data type ‘params’, the x variable 
+for multivariate functions obtained with data type ‘params’, the x variable
 can be choosen from all circuit parameters.</p>
 <ul class="simple">
 <li>If sweepVar == ‘auto’, the sweep variable will be determined from the data type:<ul>
@@ -461,7 +456,7 @@ SLiCAPprotos.allResults objects.</li>
 <li><strong>sweepStop</strong> (<em>float</em><em>, </em><em>int</em><em>, </em><em>str</em>) – Stop value of the sweep parameter</li>
 <li><strong>sweepNum</strong> (<em>int</em>) – Number of points of the sweep parameter</li>
 <li><strong>sweepVar</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Name of the sweep variable</li>
-<li><strong>sweepScale</strong> (<em>str</em>) – Scale factor of the sweep variable. Both the start and 
+<li><strong>sweepScale</strong> (<em>str</em>) – Scale factor of the sweep variable. Both the start and
 the stop value will be multiplied with a factor that
 corresponds with this scale factor.</li>
 <li><strong>xVar</strong> – Name of the variable to be plotted along the x axis</li>
@@ -552,9 +547,9 @@ ID of a noise source.</li>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sin_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">([</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">])</span>    
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sin_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">([</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">])</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -598,11 +593,11 @@ columns</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sin_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">([</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sin_trace</span> <span class="o">=</span> <span class="n">trace</span><span class="p">([</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sin_trace</span><span class="o">.</span><span class="n">yName</span> <span class="o">=</span> <span class="s1">&#39;sin(x)&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">sin_trace</span><span class="o">.</span><span class="n">makeTable</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sin_trace</span><span class="o">.</span><span class="n">makeTable</span><span class="p">())</span>
 <span class="go">x,sin(x)</span>
 <span class="go">  0.000000000000e+00,   0.000000000000e+00</span>
 <span class="go">  6.981317007977e-01,   6.427876096865e-01</span>
@@ -674,9 +669,7 @@ the radius.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -685,7 +678,7 @@ the radius.</p>
         <a href="SLiCAPpythonMaxima.html" class="btn btn-neutral float-right" title="SLiCAPpythonMaxima.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPhtml.html" class="btn btn-neutral" title="SLiCAPhtml.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPhtml.html" class="btn btn-neutral float-left" title="SLiCAPhtml.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -694,11 +687,11 @@ the radius.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -711,37 +704,15 @@ the radius.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -1056,10 +1056,7 @@ class instruction(object):
         >>> my_instr.defPar('R', '2k')
         >>> # Or:
         >>> my_instr.defPar('R', 2e3)
-
-        :note:
-
-        Do not enter a number as parameter name, this will not be checked!
+        
         """
         self.circuit.defPar(str(parName), parValue)
         return
@@ -1085,8 +1082,6 @@ class instruction(object):
         >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
         >>> my_instr.defPars({'R': '2k', 'C': '5p'})
         
-        :note: 
-        Do not enter a number as parameter name, this will not be checked!
         """
         # define multiple parameters.
         self.circuit.defPars(parDict)
