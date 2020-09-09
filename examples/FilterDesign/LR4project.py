@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jun 21 10:48:40 2020
@@ -63,4 +63,4 @@ head2html('Plots')
 fig2html(figdBmag, 600, caption='dB magnitude of the LR4 filter transfer.')  
 fig2html(figPgase, 600, caption='phase plot of the LR4 filter transfer.')    
 t2 = time()
-print t2-t1, 's'
+print(t2-t1, 's')

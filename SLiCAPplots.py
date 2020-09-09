@@ -1,5 +1,5 @@
-#!/usr/bin/python
-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 SLiCAP module with plot functions.
 
@@ -106,7 +106,7 @@ class trace(object):
         >>> y_data = np.sin(x_data)
         >>> sin_trace = trace([x_data, y_data])
         >>> sin_trace.yName = 'sin(x)'
-        >>> print sin_trace.makeTable()
+        >>> print(sin_trace.makeTable())
         x,sin(x)
           0.000000000000e+00,   0.000000000000e+00
           6.981317007977e-01,   6.427876096865e-01
@@ -318,11 +318,11 @@ class figure(object):
                     else:
                         MarkerColor = ini.defaultColors[j % len(ini.defaultColors)]
                     try:
-                        if axesList[i].xScaleFactor in SCALEFACTORS.keys():
+                        if axesList[i].xScaleFactor in list(SCALEFACTORS.keys()):
                             scaleX = 10**eval(SCALEFACTORS[axesList[i].xScaleFactor])
                         else:
                             scaleX = 1
-                        if axesList[i].yScaleFactor in SCALEFACTORS.keys():
+                        if axesList[i].yScaleFactor in list(SCALEFACTORS.keys()):
                             scaleY = 10**eval(SCALEFACTORS[axesList[i].yScaleFactor])
                         else:
                             scaleY = 1
@@ -577,9 +577,9 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     elif funcType == 'time':
         ax.yLabel = '[' + yScale + yUnits + ']'
     elif funcType == 'onoise':
-        ax.yLabel = 'spectral density [' + yScale + yUnits +'^2/Hz]'
+        ax.yLabel = 'spectral density [$' + yScale + yUnits +'^2/Hz$]'
     elif funcType == 'inoise':
-        ax.yLabel = 'spectral density [' + yScale + yUnits +'^2/Hz]'
+        ax.yLabel = 'spectral density [$' + yScale + yUnits +'^2/Hz$]'
     # Create the sweep, lin or log depending on the x-axis type
     try:
         xScaleFactor = 10**int(SCALEFACTORS[sweepScale])
@@ -595,7 +595,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     if funcType == 'param':
         xData, yData = stepParams(result, xVar, yVar, sweepVar, x)
         if type(xData) == dict:
-            keys = sorted(xData.keys())
+            keys = sorted(list(xData.keys()))
             for i in range(len(keys)):
                 newTrace = trace([xData[keys[i]], yData[keys[i]]])
                 newTrace.label = '$%s$ = %8.1e'%(sp.latex(result.stepVar), result.stepList[i])
@@ -659,6 +659,10 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         y = np.real(func(x))
                         newTrace = trace([x, y])
                 if result.dataType != 'noise':
+                    if result.gainType == 'vi':
+                        newTrace.label = result.detLabel
+                    else:
+                        newTrace.label = result.gainType
                     try:
                         newTrace.color = ini.gainColors[result.gainType]
                     except:
@@ -673,7 +677,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                     except:
                         pass
                 else:
-                    keys = result.onoiseTerms.keys()
+                    keys = list(result.onoiseTerms.keys())
                     if noiseSources == None:
                         if funcType == 'onoise':
                             yData = result.onoise
@@ -1125,7 +1129,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     # Create the axis labels
     ax.xLabel = xName + ' [' + xScale + xUnits + ']'
     ax.yLabel = yName + ' [' + yScale + yUnits + ']'
-    for key in sorted(plotData.keys()):
+    for key in list(sorted(plotData.keys())):
         newTrace = trace(plotData[key])
         newTrace.label = key
         newTrace.color = ini.defaultColors[colNum % numColors]
@@ -1198,7 +1202,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
             p = np.geomspace(results.stepStart, results.stepStop, num = results.stepNum)
     if errors == 0:
         substitutions = {}
-        for parName in results.circuit.parDefs.keys():
+        for parName in list(results.circuit.parDefs.keys()):
             if parName != sp.Symbol(sVar) and parName != results.stepVar:
                 substitutions[parName] = results.circuit.parDefs[parName]\
         # Obtain the y-variable as a function of the sweep and the step variable:

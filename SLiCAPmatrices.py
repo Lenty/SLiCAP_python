@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 SLiCAP module for building the MNA matrix and the associated vectors.
 
@@ -71,7 +73,7 @@ def getValue(elmt, param, numeric, parDefs):
     :return: value: sympy expresssion or numeric value of the element parameter
     :return type: sympy.Expr, int, float, sympy.Float
     """
-    if param not in elmt.params.keys():
+    if param not in list(elmt.params.keys()):
         return 0
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
@@ -146,12 +148,12 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
         cir.elements[lgRef].model = 'N'
         cir.updateMdata()
     varIndex = cir.varIndex
-    dim = len(cir.varIndex.keys())
+    dim = len(list(cir.varIndex.keys()))
     Dv = [0 for i in range(dim)]
     M  = [[0 for i in range(dim)] for i in range(dim)]
     for i in range(len(cir.depVars)):
         Dv[i] = sp.Symbol(cir.depVars[i])
-    for el in cir.elements.keys():
+    for el in list(cir.elements.keys()):
         elmt = cir.elements[el]
         if elmt.model == 'C':
             pos0 = varIndex[elmt.nodes[0]]
@@ -405,13 +407,13 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
     """
     # varIndex holds the position of dependent variables in the matrix.
     varIndex = cir.varIndex
-    dim = len(cir.varIndex.keys())
+    dim = len(list(cir.varIndex.keys()))
     # Define the vector
     Iv = [0 for i in range(dim)]
     # Select the elements of interest
     if elid == 'all':
-        elements = [cir.elements[key] for key in cir.elements.keys()]
-    elif elid in cir.elements.keys():
+        elements = [cir.elements[key] for key in list(cir.elements.keys())]
+    elif elid in list(cir.elements.keys()):
         elements = [cir.elements[elid]]
     for elmt in elements:
         # subsititute the element parameters of interest in the vecor Iv

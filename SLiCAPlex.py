@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SLiCAP tokenizer for netlist files.
@@ -23,8 +23,6 @@ t_FNAME   = r'/?[^\s]+\.[a-zA-Z]+'
 t_ID      = r'[a-zA-Z]\w*'
 t_QSTRING = r'"(.*)"'
 t_PLUS    = r'\+'
-
-
 
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}

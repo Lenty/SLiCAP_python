@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SLiCAP module with functions for execution of instructions.
@@ -32,11 +32,11 @@ def doInstruction(instObj):
             # Create a substitution dictionary that does not contain step parameters
             subsDict = {}
             if instObj.stepMethod == 'array':
-                for key in instObj.circuit.parDefs.keys():
+                for key in list(instObj.circuit.parDefs.keys()):
                     if key not in instObj.stepVars:
                         subsDict[key] = instObj.circuit.parDefs[key]
             else:
-                for key in instObj.circuit.parDefs.keys():
+                for key in list(instObj.circuit.parDefs.keys()):
                     if key != instObj.stepVar:
                         subsDict[key] = instObj.circuit.parDefs[key]
             instObj.parDefs = subsDict
@@ -136,7 +136,7 @@ def doInstruction(instObj):
                 # spectral density of the total output noise
                 onoiseTerms = doNoise(instObj, detP, detN)
                 # apply function stepping
-                for elID in onoiseTerms.keys():
+                for elID in list(onoiseTerms.keys()):
                     if instObj.source != None:
                         instObj.inoiseTerms[elID] = stepFunctions(instObj, sp.simplify(onoiseTerms[elID]/gain2))
                     instObj.onoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID])
@@ -146,7 +146,7 @@ def doInstruction(instObj):
                     # calcuate onoise and inoise for each run
                     onoise = 0
                     inoise = 0
-                    for elID in onoiseTerms.keys():
+                    for elID in list(onoiseTerms.keys()):
                         onoise += instObj.onoiseTerms[elID][i]
                         if instObj.source != None:
                             inoise += instObj.inoiseTerms[elID][i]
@@ -170,7 +170,7 @@ def doInstruction(instObj):
                 # variance at the detector
                 ovarTerms, dcSol = doDCvar(instObj, detP, detN)
                 # apply function stepping
-                for elID in ovarTerms.keys():
+                for elID in list(ovarTerms.keys()):
                     if instObj.source != None:
                         instObj.ivarTerms[elID] = stepFunctions(instObj, sp.simplify(ovarTerms[elID]/gain2))
                     instObj.ovarTerms[elID] = stepFunctions(instObj, ovarTerms[elID])
@@ -180,7 +180,7 @@ def doInstruction(instObj):
                     # calcuate ovar and ivar for each run
                     ovar = 0
                     ivar = 0
-                    for elID in ovarTerms.keys():
+                    for elID in list(ovarTerms.keys()):
                         ovar += instObj.ovarTerms[elID][i]
                         if instObj.source != None:
                             ivar += instObj.ivarTerms[elID][i]
@@ -190,7 +190,7 @@ def doInstruction(instObj):
         else:
             # Create a deep copy of the substitution dictionary
             subsDict = {}
-            for key in instObj.circuit.parDefs.keys():
+            for key in list(instObj.circuit.parDefs.keys()):
                 subsDict[key] = instObj.circuit.parDefs[key]
             instObj.parDefs = subsDict
             # For each set of step variable create the numeric substitution
@@ -211,7 +211,7 @@ def doInstruction(instObj):
         # Create a deep copy of de circuit parameter definitions and do the 
         # non-stepped instruction.
         instObj.parDefs = {}
-        for key in instObj.circuit.parDefs.keys():
+        for key in list(instObj.circuit.parDefs.keys()):
             instObj.parDefs[key] = instObj.circuit.parDefs[key]
         doDataType(instObj)
     return instObj
@@ -328,14 +328,14 @@ def doDataType(instObj):
         inoiseTerms = {}
         snoiseTerms = {}
         onoise      = 0
-        alreadyKeys = instObj.onoiseTerms.keys()
+        alreadyKeys = list(instObj.onoiseTerms.keys())
         if instObj.source != None:
             # Calculate the squared gain from source to detector as a
             # function of ini.frequency
             gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = instObj.numeric)
             gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = instObj.numeric))
             inoise = 0
-        for key in onoiseTerms.keys():
+        for key in list(onoiseTerms.keys()):
             onoise += onoiseTerms[key]
             snoiseTerms[key] = instObj.circuit.elements[key].params['noise']
             if instObj.source != None:
@@ -385,13 +385,13 @@ def doDataType(instObj):
         ivarTerms = {}
         svarTerms = {}
         ovar      = 0
-        alreadyKeys = instObj.ovarTerms.keys()
+        alreadyKeys = list(instObj.ovarTerms.keys())
         if instObj.source != None:
             # Calculate the squared DC gain from source to detector
             gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = True, numeric = instObj.numeric)
             gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = True, numeric = instObj.numeric))
             ivar = 0
-        for key in ovarTerms.keys():
+        for key in list(ovarTerms.keys()):
             ovar += ovarTerms[key]
             svarTerms[key] = instObj.circuit.elements[key].params['dcvar']
             if instObj.source != None:
@@ -881,7 +881,7 @@ def doNoise(instObj, detP, detN):
     denom2 = maxDet2(instObj.M, dc=False, numeric = instObj.numeric)
     onoiseTerms = {}
     for src in instObj.circuit.indepVars:
-        if 'noise' in instObj.circuit.elements[src].params.keys() and instObj.circuit.elements[src].params['noise'] != 0:
+        if 'noise' in list(instObj.circuit.elements[src].params.keys()) and instObj.circuit.elements[src].params['noise'] != 0:
             if instObj.numeric:
                 value = fullSubs(instObj.circuit.elements[src].params['noise'], instObj.parDefs)
             else:
@@ -964,9 +964,9 @@ def doDCvar(instObj, detP, detN):
         variable = str(variable)
         varType = variable[0]
         refDes  = variable[2:]
-        if varType.upper() == 'I' and refDes[0].upper() == 'R' and 'dcvar' in instObj.circuit.elements[refDes].params.keys():
+        if varType.upper() == 'I' and refDes[0].upper() == 'R' and 'dcvar' in list(instObj.circuit.elements[refDes].params.keys()):
             # Delete DC variance sources added by a previous dcVar analysis
-            if variable in instObj.circuit.elements.keys():
+            if variable in list(instObj.circuit.elements.keys()):
                 del(instObj.circuit.elements[variable])
                 instObj.circuit.depVars.remove(variable)
             # Calculate the error current
@@ -990,7 +990,7 @@ def doDCvar(instObj, detP, detN):
     ovarTerms = {}
     for src in instObj.circuit.indepVars:
         # Now the squared numerator for sources that have a nonzero dcVar value.
-        if 'dcvar' in instObj.circuit.elements[src].params.keys() and instObj.circuit.elements[src].params['dcvar'] != 0:
+        if 'dcvar' in list(instObj.circuit.elements[src].params.keys()) and instObj.circuit.elements[src].params['dcvar'] != 0:
             if instObj.numeric:
                 # Calculate the numeric value of the source
                 value = fullSubs(instObj.circuit.elements[src].params['dcvar'], instObj.parDefs)

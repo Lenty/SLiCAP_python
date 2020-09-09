@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Main module for working with SLiCAP from within Jupyter Notebook or Jupyter Lab.

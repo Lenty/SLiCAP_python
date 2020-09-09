@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Main module for running SLiCAP from a console or from within a Python IDE.
@@ -33,8 +33,6 @@ class SLiCAPproject(object):
         SLiCAPproject.initProject(<name>)
         """
 
-        ini.lastUpdate = self.lastUpdate
-
 def initProject(name):
     """
     Initializes a SLiCAP project.
@@ -63,6 +61,7 @@ def initProject(name):
     """
     ini.updatePaths(os.path.abspath('.') + '/')
     prj = SLiCAPproject(name)
+    ini.lastUpdate = prj.lastUpdate
     if not os.path.exists(ini.projectPath + 'SLiCAPconfig.py'):
         f = open(ini.installPath + 'SLiCAPconfig.py', 'r')
         txt = f.read()
@@ -115,7 +114,7 @@ def makeNetlist(fileName, cirTitle):
     :type cirTitle: str
     """
     if not os.path.isfile(ini.circuitPath + fileName):
-        print "Error: could not open: '%s'."%(ini.circuitPath + fileName)
+        print("Error: could not open: '%s'."%(ini.circuitPath + fileName))
         return
     else:
         fileNameParts = fileName.split('.')
@@ -131,10 +130,10 @@ def makeNetlist(fileName, cirTitle):
                 f.writelines(netlistLines)
                 f.close()
             except:
-                print "Error: could not open: '%s'."%(baseFileName + '.net')
+                print("Error: could not open: '%s'."%(baseFileName + '.net'))
         elif fileType == 'sch':
             cmd = 'gnetlist -q -g spice-noqsi -o ' + baseFileName + '.net ' + baseFileName + '.sch'
-            print cmd
+            print(cmd)
             os.system(cmd)
             try:
                 f = open(baseFileName + '.net', 'r')
@@ -144,7 +143,7 @@ def makeNetlist(fileName, cirTitle):
                 f.writelines(netlistLines)
                 f.close()
             except:
-                print "Error: could not open: '%s'."%(baseFileName + '.net')
+                print("Error: could not open: '%s'."%(baseFileName + '.net'))
     return
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SLiCAP module with symbolic math functions executed by maxima CAS.
@@ -45,6 +45,8 @@ def maxEval(maxExpr):
     maxStringConv = ":lisp (mfuncall '$string $result);"
     maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
     maxInput = maxAssume + maxExpr + maxStringConv
+    """
+    OLD
     #Check system we are running on
     if platform.system() =='Linux' or platform.system() =='Darwin':
         p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
@@ -66,12 +68,15 @@ def maxEval(maxExpr):
         stdout = stdout.decode("utf-8")
     except (UnicodeDecodeError, AttributeError):
         pass
-
-    result = stdout.split('\n')[-1]
-    # Cancel the timer because the process does not exsists after succesfully
-    # reading its output
     maxTimer.cancel()
-    # Convert the result such that it can be 'sympified'
+    result = stdout.split('\n')[-1]
+    """
+    # Check system we are running on and read the output
+    if platform.system() == 'Windows':
+        result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
+    else:    
+        result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
+    # Convert the result such that it can be 'sympified' by sympy
     if result != '':
         # Convert big float notation '12345b+123' to float notation '12345e+123':
         result = re.sub(r'(([+-]?)(\d+)(\.?)(\d*))b(([+-]?)(\d+))', r'\1e\6', result)
@@ -128,7 +133,7 @@ def maxILT(numer, denom, numeric = True):
     maxExpr = 'result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
     result = maxEval(maxExpr)
     if len(result) > 3 and result[1:5] == 'ilt(':
-        if isinstance(Fs, tuple(sp.core.all_classes)):
+        if isinstance(Fs, sp.Basic):
             params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
             try:
                 params.remove(ini.Laplace)
@@ -544,7 +549,6 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     for par in pars:
         if par != ini.Laplace and par not in noSolve:
             params.append(par)
-
     gainP, pN, pD = coeffsTransfer(protoType)
     gainT, tN, tD = coeffsTransfer(transfer)
     if len(pN) != len(tN) or len(pD) != len(tD):
@@ -643,7 +647,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     if noiseResult.dataType != 'noise':
         print("Error: expected dataType noise, got: '%s'."%(noiseResult.dataType))
         rms = None
-    keys = noiseResult.onoiseTerms.keys()
+    keys = list(noiseResult.onoiseTerms.keys())
     if noise == 'inoise':
         if source == None:
             noiseData = noiseResult.inoise

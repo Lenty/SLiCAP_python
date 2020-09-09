@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 SLiCAP initialization module, imports external modules and defines settings.
 
@@ -16,9 +18,10 @@ from time import time
 from datetime import datetime
 import re
 import subprocess
-from threading import Timer
+import platform
 import os
 import getpass
+import inspect
 import matplotlib._pylab_helpers as plotHelp
 from matplotlib import pyplot as plt
 plt.ioff() # Turn off the interactive mode for plotting
@@ -125,6 +128,10 @@ class settings(object):
     #. Netlister settings:
    
        - ltspice : os command for batch netlist creation with LTspice
+       
+    #. Maxima command setting (only required for MSWindows)
+    
+       - maxima: command to start maxima under MSWindows
     """
     def __init__(self):
         """
@@ -401,7 +408,14 @@ class settings(object):
         
         This prefix will be followed by the name of the schematic file.
         """
-
+        
+        self.maxima             = 'C:\\maxima-5.44.0\\bin\\maxima.bat'
+        """
+        MSWindows command for starting Maxima.
+        
+        Defaults to 'C:\\maxima-5.44.0\\bin\\maxima.bat'
+        """
+        
     def dump(self):
         """
         Prints the global variables and their values.
@@ -412,28 +426,28 @@ class settings(object):
         for attr in dir(self):
             dct = getattr(self, attr)
             if type(dct) == dict:
-                keys = dct.keys()
+                keys = list(dct.keys())
                 keys.sort()
                 for key in keys:
                     if key not in disallowed and type(dct[key]) in printTypes:
                         if key != 'htmlLabels':
                             ndots = tabWidth - len(key)
-                            print key,
+                            print(key, end = '')
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
-                            print dots,':', dct[key]
+                            print(dots,':', dct[key])
                         elif key == 'htmlLabels':
                             dispkey = key + '.keys()'
                             ndots = tabWidth - len(dispkey)
-                            print dispkey,
+                            print(dispkey, end = '')
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
                             if type(dct[key]) == dict:
-                                print dots,':', dct[key].keys()
+                                print(dots,':', list(dct[key].keys()))
                             else:
-                                print dots,':', dct[key]
+                                print(dots,':', dct[key])
                             
     def updatePaths(self, projectPath):
         """
@@ -457,7 +471,9 @@ ini = settings()
 # Create an instance of globals
 # Automatic detection of install and project paths
 # Get the installation path
-ini.installPath  = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
+# ini.installPath  = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
+ini.installPath = inspect.getfile(settings).replace('\\', '/').split('/')
+ini.installPath = '/'.join(ini.installPath[0:-1]) + '/'
 # Copy path settings from user configuration.
 if PROJECTPATH == None:
     # Get the project path (the path of the script that imported SLiCAP.ini)

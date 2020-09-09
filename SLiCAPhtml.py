@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SLiCAP module with HTML functions.
@@ -504,7 +504,7 @@ def expr2html(expr, units = ''):
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
-    if isinstance(expr, tuple(sp.core.all_classes)):
+    if isinstance(expr, sp.Basic):
         if units != '':
             units = '\\left[\\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
         html = '$' + sp.latex(roundN(expr)) + units + '$'
@@ -533,10 +533,8 @@ def eqn2html(arg1, arg2, units = '', label = '', labelText = ''):
     """
     if arg1 == None or arg2 == None:
         return
-    if not isinstance(arg1, tuple(sp.core.all_classes)):
-        arg1 = sp.sympify(arg1)
-    if not isinstance(arg2, tuple(sp.core.all_classes)):
-        arg2 = sp.sympify(arg2)
+    arg1 = sp.sympify(str(arg1))
+    arg2 = sp.sympify(str(arg2))
     if units != '':
         units = '\\,\\left[ \\mathrm{' + sp.latex(sp.sympify(units)) + '}\\right]'
 
@@ -907,6 +905,21 @@ def fig2html(figureObject, width, label = '', caption = ''):
         print("Error: could not copy: '%s'."%(ini.imgPath + figureObject.fileName))
     return '%s'%(ini.htmlPath + 'img/' + figureObject.fileName)
 
+def file2html(fileName):
+    """
+    Writes the contents of a file to the active html page.
+    
+    :param fileName: Name of the file (relative to ini.textPath)
+    :type fileName: str
+    :return: html code
+    :rtype: str
+    """
+    f = open(ini.txtPath + fileName)
+    html = f.read()
+    f.close()
+    insertHTML(ini.htmlPath + ini.htmlPage, html)
+    return html
+
 def roundN(expr, numeric=False):
     """
     Rounds all number atoms in an expression to ini.disp digits, but only
@@ -967,7 +980,7 @@ def links2html():
     html = ''
     for labelType in LABELTYPES:
         labelDict[labelType] = []
-    for labelName in ini.htmlLabels.keys():
+    for labelName in list(ini.htmlLabels.keys()):
         labelDict[ini.htmlLabels[labelName].type].append(labelName)
     for labelType in LABELTYPES:
         if len(labelDict[labelType]) != 0:

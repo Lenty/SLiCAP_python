@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SLiCAP instruction class definition.
@@ -389,7 +389,7 @@ class instruction(object):
         >>> # instruction:
         >>> my_instr.setCircuit('my_circuit.cir')
         >>> # print the list with names of all parameters that can be stepped:
-        >>> print instr.circuit.params + instr.circuit.parDefs.keys()
+        >>> print instr.circuit.params + list(instr.circuit.parDefs.keys())
         """
         self.stepVar = stepVar
         self.checkStepVar()
@@ -412,7 +412,7 @@ class instruction(object):
             else:
                 self.errors += 1
                 print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
-            if self.stepVar not in self.circuit.parDefs.keys() and self.stepVar not in self.circuit.params:
+            if self.stepVar not in list(self.circuit.parDefs.keys()) and self.stepVar not in self.circuit.params:
                 print("Warning: unknown step parameter '%s'."%(self.stepVar))
         return
 
@@ -453,7 +453,7 @@ class instruction(object):
         >>> # instruction:
         >>> my_instr.setCircuit('my_circuit.cir')
         >>> # print the list with names of all parameters that can be stepped:
-        >>> print instr.circuit.params + instr.circuit.parDefs.keys()
+        >>> print instr.circuit.params + list(instr.circuit.parDefs.keys())
         """
         self.stepVars = stepVars
         self.checkStepVars()
@@ -481,7 +481,7 @@ class instruction(object):
                                 errors += 1
                                 print("Error: step variable '%s' is not a parameter."%(self.stepVars[i]))
                         if isinstance(self.stepVars[i], sp.symbol.Symbol):
-                            if self.stepVars[i] not in self.circuit.parDefs.keys() and self.stepVars[i] not in self.circuit.params:
+                            if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
                                 print("Warning: unknown step parameter '%s'."%(str(stepVar)))
                         else:
                             errors += 1

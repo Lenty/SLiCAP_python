@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 SLiCAP module with basic SLiCAP classes and functions.
 
@@ -237,7 +239,7 @@ class circuit(object):
         >>> my_circuit.defParUnits({'R': 'Omega', C: F})
         """
         if type(parDict) == dict:
-            for key in parDict.keys():
+            for key in list(parDict.keys()):
                 if checkNumber(key) == None:
                     if type(parDict[key]) == str:
                         self.parUnits[key] = parDict[key]
@@ -270,7 +272,7 @@ class circuit(object):
         >>> my_circuit.defPars({'R': '2k', 'C': '5p')
         """
         if type(parDict) == dict:
-            for key in parDict.keys():
+            for key in list(parDict.keys()):
                 if checkNumber(key) == None:
                     parName = sp.Symbol(str(key))
                     parValue = str(parDict[key])
@@ -319,7 +321,7 @@ class circuit(object):
             parValues = {}
             for par in parNames:
                 par = sp.Symbol(str(par))
-                for key in self.parDefs.keys():
+                for key in list(self.parDefs.keys()):
                     if par == key:
                         if numeric == True:
                             parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
@@ -366,7 +368,7 @@ class circuit(object):
             parValues = {}
             for par in parNames:
                 par = sp.Symbol(str(par))
-                for key in self.parDefs.keys():
+                for key in list(self.parDefs.keys()):
                     if par == key:
                         if numeric == True:
                             parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
@@ -391,14 +393,14 @@ class circuit(object):
         """
         self.params =[]
         # Get all the parameters used in element values
-        for elmt in self.elements.keys():
-            for par in self.elements[elmt].params.keys():
+        for elmt in list(self.elements.keys()):
+            for par in list(self.elements[elmt].params.keys()):
                 try:
                     self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
                 except:
                     pass
         # Get all the parameters used in parameter definitions
-        for par in self.parDefs.keys():
+        for par in list(self.parDefs.keys()):
             try:
                 self.params += list(self.parDefs[par].atoms(sp.Symbol))
             except:
@@ -408,7 +410,7 @@ class circuit(object):
         undefined = []
         # If these parameters are not found in parDefs.keys, they are undefined.
         for par in self.params:
-            if par != ini.Laplace and par != ini.frequency and par not in self.parDefs.keys():
+            if par != ini.Laplace and par != ini.frequency and par not in list(self.parDefs.keys()):
                 undefined.append(par)
             else:
                 self.params.remove(par)
@@ -422,7 +424,7 @@ class circuit(object):
         self.depVars = []
         self.varIndex = {}
         varIndexPos = 0
-        for elmt in self.elements.keys():
+        for elmt in list(self.elements.keys()):
             for i in range(len(MODELS[self.elements[elmt].model].depVars)):
                 depVar = MODELS[self.elements[elmt].model].depVars[i]
                 self.depVars.append(depVar + '_' + elmt)

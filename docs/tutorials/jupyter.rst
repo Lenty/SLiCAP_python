@@ -25,7 +25,3 @@ SLiCAP tutorials written in Jupyter lab
 - `FilterDesign.zip <../../../../examples/FilterDesign/FilterDesign.zip>`_
 
   This tutorial illustrates the use of SLiCAP for designing a fourth-order Linkwitz-Reily filter using a prototype circuit and a prototype transfer function.
-
-- `chargeDriver.zip <../../../../examples/chargeDriver/chargeDriver.zip>`_
-
-  This tutorial shows the analysis of the dynamic response and the stability of a piezo charge driver circuit. It illustrates the use of different data types and the creation of various types of plots.

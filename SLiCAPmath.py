@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 SLiCAP module with extended matrix class and SLiCAP math functions.
 
@@ -157,9 +159,10 @@ def polyCoeffs(expr, var):
     :rtype: list
     """
 
-    if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
+    if isinstance(expr, sp.Basic) and isinstance(var, sp.Basic):
         return sp.Poly(expr, var).all_coeffs()
-    return []
+    else:
+        return []
 
 def numRoots(expr, var):
     """
@@ -178,7 +181,7 @@ def numRoots(expr, var):
     :type var: sympy.Symbol
     """
 
-    if isinstance(expr, tuple(sp.core.all_classes)) and isinstance(var, tuple(sp.core.all_classes)):
+    if isinstance(expr, sp.Basic) and isinstance(var, sp.Basic):
         params = list(expr.atoms(sp.Symbol))
         try:
             params.remove(var)
@@ -525,12 +528,12 @@ def fullSubs(valExpr, parDefs):
     strValExpr = str(valExpr)
     i = 0
     newvalExpr = 0
-    while valExpr != newvalExpr and i < ini.maxRecSubst and isinstance(valExpr, tuple(sp.core.all_classes)):
+    while valExpr != newvalExpr and i < ini.maxRecSubst and isinstance(valExpr, sp.Basic):
         # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
         substDict = {}
         params = list(valExpr.atoms(sp.Symbol))
         for param in params:
-            if param in parDefs.keys():
+            if param in list(parDefs.keys()):
                 substDict[param] = parDefs[param]
         # perform the substitution
         newvalExpr = valExpr
