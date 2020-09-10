@@ -246,7 +246,7 @@ class instruction(object):
                 self.simType = 'numeric'
                 self.numeric = True
             else:
-                print("Error: unknown simulation type: '%s'."%(str(self.symType)))
+                print("Error: unknown simulation type: '{0}'.".format(self.symType))
                 self.errors += 1
         else:
             print("Error: argument type must be type 'str'.")
@@ -280,7 +280,7 @@ class instruction(object):
             if self.gainType.lower() in GAINTYPES:
                 self.gainType = self.gainType.lower()
             else:
-                print("Error: unknown gain type: '%s'."%(str(self.gainType)))
+                print("Error: unknown gain type: '{0}'.".format(self.gainType))
                 self.errors += 1
         elif self.gainType == None:
             print("Error: missing gain type.")
@@ -319,7 +319,7 @@ class instruction(object):
             if self.dataType.lower() in DATATYPES:
                 self.dataType = self.dataType.lower()
             else:
-                print("Error: unknown data type: '%s'."%(str(dataType)))
+                print("Error: unknown data type: '{0}'.".format(self.dataType))
                 self.errors += 1
         elif self.dataType == None:
             self.errors += 1
@@ -413,7 +413,7 @@ class instruction(object):
                 self.errors += 1
                 print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
             if self.stepVar not in list(self.circuit.parDefs.keys()) and self.stepVar not in self.circuit.params:
-                print("Warning: unknown step parameter '%s'."%(self.stepVar))
+                print("Warning: unknown step parameter '{0}'.".format(self.stepVar))
         return
 
     def setStepVars(self, stepVars):
@@ -479,10 +479,10 @@ class instruction(object):
                                 self.stepVars[i] = sp.Symbol(self.stepVars[i])
                             except:
                                 errors += 1
-                                print("Error: step variable '%s' is not a parameter."%(self.stepVars[i]))
+                                print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
                         if isinstance(self.stepVars[i], sp.symbol.Symbol):
                             if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
-                                print("Warning: unknown step parameter '%s'."%(str(stepVar)))
+                                print("Warning: unknown step parameter '{0}'.".format(str(stepVar)))
                         else:
                             errors += 1
                             print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
@@ -537,7 +537,7 @@ class instruction(object):
             stepMethods = ['lin', 'log', 'list', 'array']
             if self.stepMethod.lower() not in stepMethods:
                 self.errors += 1
-                print("Error: unknown step method '%s',"%(self.stepMethod))
+                print("Error: unknown step method '{0}',".format(self.stepMethod))
             else:
                 self.stepMethod == self.stepMethod.lower()
         return
@@ -724,7 +724,7 @@ class instruction(object):
                 value = checkNumber(stepVal)
                 if value == None:
                     self.errors += 1
-                    print("Error: cannot determine numeric value of stepList[%s]."%(i))
+                    print("Error: cannot determine numeric value of stepList[{0}].".format(i))
                 else:
                     stepList[i] = value
         else:
@@ -791,7 +791,7 @@ class instruction(object):
                             value = checkNumber(self.stepArray[i][j])
                             if value == None:
                                 self.errors += 1
-                                print("Error: cannot determine numeric value of stepArray[%s, %s]."%(i, j))
+                                print("Error: cannot determine numeric value of stepArray[{0}, {1}].".format(i, j))
                             else:
                                 self.stepArray[i][j] = value
         return
@@ -855,7 +855,7 @@ class instruction(object):
                 print("Error: missing source definition.")
         elif self.source not in self.circuit.indepVars:
             self.errors += 1
-            print("Error: unkown source: '%s'."%(self.source))
+            print("Error: unkown source: '{0}'.".format(self.source))
         else:
             self.srcUnits = self.source[0].upper()
             if self.srcUnits == 'I':
@@ -943,10 +943,10 @@ class instruction(object):
                 print("Error: two detectors must be of the same type.")
             if detP != None and detP not in self.circuit.depVars:
                 self.errors += 1
-                print("Error: unkown detector: '%s'."%(detP))
+                print("Error: unkown detector: '{0}'.".format(detP))
             if detN != None and detN not in self.circuit.depVars:
                 self.errors += 1
-                print("Error: unkown detector: '%s'."%(detN))
+                print("Error: unkown detector: '{0}'.".format(detN))
             if self.lgRef != None:
                 # Impossible to calculate the asymptotic gain with these values
                 forbidden = 'I_i_' + self.lgRef
@@ -1007,7 +1007,7 @@ class instruction(object):
             print("Error: missing loop gain reference definition.")
         elif self.lgRef not in self.circuit.controlled:
             self.errors += 1
-            print("Error: unkown loop gain reference: '%s'."%(self.lgRef))
+            print("Error: unkown loop gain reference: '{0}'.".format(self.lgRef))
         return
 
     def delPar(self, parName):
@@ -1126,6 +1126,58 @@ class instruction(object):
         else:
             self.numeric = False
         return self.circuit.getParValue(parName, self.numeric)
+    
+    def getElementValue(self, elementID, param = 'value'):
+        """
+        Returns the value or expression of one or more circuit elements.
+        
+        If instruction.numeric == True it will perform a full recursive 
+        substitution of all circuit parameter definitions.
+        
+        This method calls instruction.circuit.getElementValue() with
+        numeric = True if instruction.simType is set to 'numeric'.
+        
+        :param elementID: name(s) of the element(s)
+        :type elementID: str, list 
+        
+        :param param: name of the parameter (equal for all elements):
+            
+                      - 'value': Laplace value
+                      - 'dc': DC value (independent sources only)
+                      - 'noise': Noise spectral density (independent sources only)
+                      - 'dcvar': DC variance (independent sources only)
+                      
+                      Defaults to 'value'.
+                      
+        :type param: str
+        
+        :return: if type(parNames) == list:
+            
+                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
+                 name of the parameter, value (*int, float, sympy expression*): 
+                 value of the parameter
+                 
+                 else:
+                 value or expression
+                 
+        :rtype: dict, float, int, sympy.Expr
+        
+        :Example:
+         
+        >>> # Create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()  
+        >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.setCircuit('myFirstRCnetwork.cir')
+        >>> # Obtain the numeric value of 'R1' and 'C1':
+        >>> my_instr.symType = 'numeric'
+        >>> print my_instr.getElementValue(['R1', 'C1'])
+        {'C1': 5.0e-7/pi, 'R1': 1000.00000000000}
+        """
+        if self.simType == 'numeric':
+            self.numeric = True
+        else:
+            self.numeric = False
+        return self.circuit.getElementValue(elementID, param, self.numeric)
 
     def indepVars(self):
         """
@@ -1273,7 +1325,7 @@ class instruction(object):
                         pass
                     else:
                         self.errors += 1
-                        print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
+                        print("Error: dataType '{0}' not available for gainType: '{1}'.".format(self.dataType, self.gainType))
                 elif self.gainType != 'loopgain':
                     if self.dataType == 'laplace':
                         # need source and detector
@@ -1309,7 +1361,7 @@ class instruction(object):
                         self.checkSource()
                     else:
                         self.errors += 1
-                        print("Error: dataType '%s' not available for gainType: '%s'."%(self.dataType, self.gainType))
+                        print("Error: dataType '{0}' not available for gainType: '{1}'.".format(self.dataType, self.gainType))
                 if self.gainType == 'asymptotic' or self.gainType == 'direct' or self.gainType == 'loopgain' or self.gainType == 'servo':
                     # need loop gain reference
                     self.checkLGref()
@@ -1337,7 +1389,7 @@ class instruction(object):
         """
         if not self.numeric:
             self.errors += 1
-            print("Error: dataType '%s' not available for simType: '%s'."%(self.dataType, self.simType))
+            print("Error: dataType '{0}' not available for simType: '{1}'.".format(self.dataType, self.simType))
         return
 
     def checkStep(self):

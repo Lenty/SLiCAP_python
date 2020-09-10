@@ -143,7 +143,7 @@ def makeNetlist(fileName, cirTitle):
                 f.writelines(netlistLines)
                 f.close()
             except:
-                print("Error: could not open: '%s'."%(baseFileName + '.net'))
+                print("Error: could not open: '{0}'.".format(baseFileName + '.net'))
     return
 
 if __name__ == '__main__':

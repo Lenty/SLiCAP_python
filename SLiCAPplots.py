@@ -329,7 +329,7 @@ class figure(object):
                         plt.plot(axesList[i].traces[j].xData/scaleX, axesList[i].traces[j].yData/scaleY, label = axesList[i].traces[j].label, linewidth = axesList[i].traces[j].lineWidth,
                                  color = Color, marker = Marker, markeredgecolor = MarkerColor, markersize = axesList[i].traces[j].markerSize, markeredgewidth = 2, markerfacecolor = axesList[i].traces[j].markerFaceColor, linestyle = axesList[i].traces[j].lineType)
                     except:
-                        print('Error in plot data of %s.'%self.fileName)
+                        print("Error in plot data of '{0}'.".format(self.fileName))
                     if axesList[i].text:
                         X, Y, txt = axesList[i].text
                         plt.text(X, Y, txt, fontsize = ini.plotFontSize)
@@ -485,7 +485,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     # first results defines the axis type and labels
     result = results[0]
     if result.dataType not in plotDataTypes:
-        print("Error: cannot plot dataType '%s' with 'plotSweep()'."%(result.dataType))
+        print("Error: cannot plot dataType '{0}' with 'plotSweep()'.".format(result.dataType))
         return fig
     if funcType == 'auto':
         if result.dataType == 'noise':
@@ -505,7 +505,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
             xVar = sweepVar
             xScale = sweepScale
     elif funcType not in funcTypes:
-        print("Error: unknown funcType: '%s'."%(funcType))
+        print("Error: unknown funcType: '{0}'.".format(funcType))
         return fig
     if axisType == 'auto':
         if funcType == 'param':
@@ -517,7 +517,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
         elif funcType == 'time':
             axisType = 'lin'
     elif axisType not in axisTypes:
-        print("Error: unknown axisType: '%s'."%(axisType))
+        print("Error: unknown axisType: '{0}'.".format(axisType))
         return fig
     if axisType == 'lin':
         ax.xScale = 'lin'
@@ -732,7 +732,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                 ax.traces.append(noiseTrace)
                                 colNum += 1
                     else:
-                        print('Error: cannot understand "sources=%s".'%(str(sources)))
+                        print("Error: cannot understand 'sources={0}'.".format(str(sources)))
                         return fig
             else:
                 if result.stepMethod != 'array':
@@ -927,7 +927,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 zerosTrace.label = 'zeros ' + result.gainType
                 pzTraces.append(zerosTrace)
             if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
-                print("Error: wrong data type '%s' for 'plotPZ()'."%(result.dataType))
+                print("Error: wrong data type '{0}' for 'plotPZ()'.".format(result.dataType))
                 return fig
         elif result.dataType == 'poles' or result.dataType == 'pz':
             poles = result.poles
@@ -1121,7 +1121,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
         ax.polar = True
         ax.yScale = 'lin'
     else:
-        print("Error: unknown axis type '%s'."%(axisType))
+        print("Error: unknown axis type '{0}'.".format(axisType))
         return fig
     ax.xScaleFactor = xScale
     ax.yScaleFactor = yScale
@@ -1182,18 +1182,18 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
          print("Error: missing x variable.")
          errors +=1
     elif sp.Symbol(xVar) not in parNames:
-        print("Error: unknown parameter: '%s' for 'x variable'."%(xVar))
+        print("Error: unknown parameter: '{0}' for 'x variable'.".format(xVar))
         errors += 1
     if sVar == None:
          svar = xVar
     elif sp.Symbol(xVar) not in parNames:
-        print("Error: unknown parameter: '%s' for sweep variable."%(xVar))
+        print("Error: unknown parameter: '{0}' for sweep variable.".format(xVar))
         errors += 1
     if yVar == None:
          print("Error: missing y variable.")
          errors +=1
     elif sp.Symbol(yVar) not in parNames:
-        print("Error: unknown parameter: '%s' for y variable."%(yVar))
+        print("Error: unknown parameter: '{0}' for y variable.".format(yVar))
         errors += 1
     if errors == 0 and results.step:
         if results.stepMethod.lower() == 'lin':

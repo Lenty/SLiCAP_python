@@ -45,32 +45,6 @@ def maxEval(maxExpr):
     maxStringConv = ":lisp (mfuncall '$string $result);"
     maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
     maxInput = maxAssume + maxExpr + maxStringConv
-    """
-    OLD
-    #Check system we are running on
-    if platform.system() =='Linux' or platform.system() =='Darwin':
-        p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
-                               maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-    if platform.system() =='Windows':
-        p = subprocess.Popen(['C:\\maxima-5.42.2\\bin\\maxima.bat', '--very-quiet', '-batch-string', \
-                               maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    # Define a function for killing the process
-    kill     = lambda process: process.kill()
-    # Define the timer for killing the process
-    maxTimer = Timer(ini.MaximaTimeOut, kill, [p])
-    # Start the timer
-    maxTimer.start()
-    # Get the ouput from the subprocess
-    stdout, stderr = p.communicate()
-    # The last line of the output stream is the result
-    try:
-        stdout = stdout.decode("utf-8")
-    except (UnicodeDecodeError, AttributeError):
-        pass
-    maxTimer.cancel()
-    result = stdout.split('\n')[-1]
-    """
     # Check system we are running on and read the output
     if platform.system() == 'Windows':
         result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
@@ -345,8 +319,8 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     """
     Returns the numerator of the squared transfer from a source to the detector
     in Sympy format, with the Laplace variable replaced with
-    '2*%pi*%i*ini.frequency' for noise, or with 0, for noise or for dcVar
-    calculations, respectively.
+    '2*%pi*%i*ini.frequency' or with 0, for noise or for dcVar calculations, 
+    respectively.
 
     :param cir: Circuit object
     :type cir: SLiCAPprotos.circuit
@@ -502,7 +476,7 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     try:
         result = sp.sympify(result)
     except:
-        print('Error: could not integrate expression: %s.'%(str(expr)))
+        print("Error: could not integrate expression: '{0}'.".format(str(expr)))
         result = sp.sympify('Error')
     return result
 
@@ -651,7 +625,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
             print("Error in frequency range specification.")
             return None
     if noiseResult.dataType != 'noise':
-        print("Error: expected dataType noise, got: '%s'."%(noiseResult.dataType))
+        print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
         rms = None
     keys = list(noiseResult.onoiseTerms.keys())
     if noise == 'inoise':
@@ -660,7 +634,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         elif source in keys:
             noiseData = noiseResult.inoiseTerms[source]
         else:
-            print("Error: unknown noise source: '%s'."%(source))
+            print("Error: unknown noise source: '{0}'.".format(source))
             rms = None
     elif noise == 'onoise':
         if source == None:
@@ -668,10 +642,10 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         elif source in keys:
             noiseData = noiseResult.onoiseTerms[source]
         else:
-            print("Error: unknown noise source: '%s'."%(source))
+            print("Error: unknown noise source: '{0}'.".format(source))
             rms = None
     else:
-        print("Error: unknown noise type: '%s'."%(noise))
+        print("Error: unknown noise type: '{0}'.".format(noise))
         rms = None
     if type(noiseData) != list:
         noiseData = [noiseData]

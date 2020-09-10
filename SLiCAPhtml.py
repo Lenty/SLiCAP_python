@@ -142,7 +142,7 @@ def readFile(fileName):
         txt = f.read()
         f.close()
     except:
-        print("Error: could note open '%s'."%(fileName))
+        print("Error: could note open '{0}'.".format(fileName))
         txt = ''
     return txt
 
@@ -293,7 +293,7 @@ def netlist2html(fileName, label=''):
         html = '<h2>' + label + 'Netlist: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
-        print("Error: could not open netlist file: '%s'."%(fileName))
+        print("Error: could not open netlist file: '{0}'.".format(fileName))
     return html
 
 def elementData2html(circuitObject, label = '', caption = ''):
@@ -442,8 +442,8 @@ def img2html(fileName, width, label = '', caption = ''):
     try:
         cp(ini.imgPath + fileName, ini.htmlPath + 'img/' + fileName)
     except:
-        print("Error: could not copy: '%s'."%(fileName))
-    html = '<figure>%s<img src="img/%s" alt="%s" style="width:%spx">\n'%(label, fileName, caption, width)
+        print("Error: could not copy: '{0}'.".format(fileName))
+    html = '<figure>{0}<img src="img/{1}" alt="{2}" style="width:{3}px">\n'.format(label, fileName, caption, width)
     if caption != '':
         html+='<figcaption>Figure: %s<br>%s</figcaption>\n'%(fileName, caption)
     html += '</figure>\n'
@@ -566,10 +566,10 @@ def matrices2html(instrObj, label = '', labelText = ''):
     :rtype: str
     """
     if instrObj.errors != 0:
-        print("Errors found during executeion.")
+        print("Errors found during execution.")
         return ''
     elif instrObj.dataType != 'matrix':
-        print("Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType))
+        print("Error: expected dataType 'matrix' for 'matrices2html()', got: '{0}'.".format(instrObj.dataType))
         return ''
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
@@ -613,10 +613,10 @@ def pz2html(instObj, label = '', labelText = ''):
         print("Errors found in instruction.")
         return
     elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
-        print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType))
+        print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '{0}'.".format(instObj.dataType))
         return
     elif instObj.step == True :
-        print("Error: parameter stepping not yet implemented for 'pz2html()'.")
+        print("Error: parameter stepping not implemented for 'pz2html()'.")
         return
 
     if label != '':
@@ -716,10 +716,10 @@ def noise2html(instObj, label = '', labelText = ''):
         print("Errors found in instruction.")
         return
     elif instObj.dataType != 'noise':
-        print("Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType))
+        print("Error: 'noise2html()' expected dataType: 'noise', got: '{0}'.".format(instObj.dataType))
         return
     elif instObj.step == True :
-        print("Error: parameter stepping not yet implemented for 'noise2html()'.")
+        print("Error: parameter stepping not implemented for 'noise2html()'.")
         return
     if label != '':
         if labelText == '':
@@ -782,10 +782,10 @@ def dcVar2html(instObj, label = '', labelText = ''):
         print("Errors found in instruction.")
         return
     elif instObj.dataType != 'dcvar':
-        print("Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType))
+        print("Error: 'dcvar2html()' expected dataType: 'dcvar', got: '{0}'.".format(instObj.dataType))
         return
     elif instObj.step == True :
-        print("Error: parameter stepping not yet implemented for 'dcvar2html()'.")
+        print("Error: parameter stepping not implemented for 'dcvar2html()'.")
         return
     if label != '':
         if labelText == '':
@@ -902,8 +902,8 @@ def fig2html(figureObject, width, label = '', caption = ''):
     try:
         cp(ini.imgPath + figureObject.fileName, ini.htmlPath + 'img/' + figureObject.fileName)
     except:
-        print("Error: could not copy: '%s'."%(ini.imgPath + figureObject.fileName))
-    return '%s'%(ini.htmlPath + 'img/' + figureObject.fileName)
+        print("Error: could not copy: '{0}'.".format(ini.imgPath + figureObject.fileName))
+    return ini.htmlPath + 'img/' + figureObject.fileName
 
 def file2html(fileName):
     """
@@ -1009,6 +1009,7 @@ def links2html():
     return
 
 if __name__ == '__main__':
-    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.projectPath = ini.installPath + 'examples/CSstage/'
     ini.htmlPath    = ini.projectPath + 'html/'
+    ini.lastUpdate  = datetime.now()
     startHTML('Test project')

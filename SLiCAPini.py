@@ -24,7 +24,7 @@ import getpass
 import inspect
 import matplotlib._pylab_helpers as plotHelp
 from matplotlib import pyplot as plt
-plt.ioff() # Turn off the interactive mode for plotting
+#plt.ioff() # Turn off the interactive mode for plotting
 
 class settings(object):
     """
@@ -398,22 +398,24 @@ class settings(object):
         to 5.
         """
         
-        self.ltspice = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        self.ltspice = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist'
         """
         Operating system command prefix for batch generation of a netlist from an 
         LTspice circuit.
         
-        - windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
-        - linux (wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        - Windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        - Linux (Wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        
+        Defaults to *SLiCAPconfig.LTSPICE*
         
         This prefix will be followed by the name of the schematic file.
         """
         
-        self.maxima             = 'C:\\maxima-5.44.0\\bin\\maxima.bat'
+        self.maxima             = None
         """
         MSWindows command for starting Maxima.
         
-        Defaults to 'C:\\maxima-5.44.0\\bin\\maxima.bat'
+        Defaults to *SLiCAPconfig.MAXIMA*
         """
         
     def dump(self):
@@ -465,6 +467,8 @@ class settings(object):
         self.latexPath        = projectPath + LATEXPATH
         self.mathmlPath       = projectPath + MATHMLPATH
         self.imgPath          = projectPath + IMGPATH
+        self.maxima           = MAXIMA
+        self.ltspice          = LTSPICE
                                     
 ini = settings()
     

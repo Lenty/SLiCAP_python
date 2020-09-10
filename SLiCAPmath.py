@@ -540,7 +540,7 @@ def fullSubs(valExpr, parDefs):
         valExpr = newvalExpr.xreplace(substDict)
         i += 1
     if i == ini.maxRecSubst:
-        print("Warning: reached maximum number of substitutions for expression '%s'"%(strValExpr))
+        print("Warning: reached maximum number of substitutions for expression '{0}'".format(strValExpr))
     return valExpr
 
 def assumeRealParams(expr, params = 'all'):
@@ -573,7 +573,7 @@ def assumeRealParams(expr, params = 'all'):
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, real = True)})
     else:
-        print("Error: expected type 'str' or 'lst', got '%s'."%(type(params)))
+        print("Error: expected type 'str' or 'lst', got '{0}'.".format(type(params)))
     return expr
 
 def assumePosParams(expr, params = 'all'):
@@ -606,7 +606,7 @@ def assumePosParams(expr, params = 'all'):
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, positive = True)})
     else:
-        print("Error: expected type 'str' or 'lst', got '%s'."%(type(params)))
+        print("Error: expected type 'str' or 'lst', got '{0}'.".format(type(params)))
     return expr
 
 def invLaplace(numer, denom):

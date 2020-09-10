@@ -53,4 +53,4 @@ fig_CissVg  = plotSweep('CissVg', '$c_{iss}(V_{gs})$', result, 0, 1.8, 50, sweep
 fig2html(fig_CissVg, 600)
 
 t2=time()
-print t2-t1,'s'
+print(t2-t1,'s')
