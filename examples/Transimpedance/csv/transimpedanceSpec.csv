@@ -1,0 +1,13 @@
+symbol,description,value,units
+$V_{R}$,PIN diode reverse bias voltage,2...5,V
+$C_{s}$,Sensor capacitance,10...20,pF
+$I_{D}$,Sensor dark current,20...50,nA
+$I_{peak}$,Peak signal current of sensor,20,$\mathrm{\mu A}$
+$\left( \frac{dI}{dt} \right)_{max}$,Max rate of change sensor current,100,A/s
+$R_{\ell}$,Load resistance,1 $\cdots \infty$, $\mathrm{k \Omega}$
+$C_{\ell}$,Load capacitance,0...20,pF
+$Z_t$,Transimpedance gain,100,$\mathrm{k \Omega}$
+$V_{onoise}$,Maximum RMS noise voltage across load,100,$\mathrm{\mu V}$
+$V_{off}$,Maximum offset voltage across load,100,mV
+$B_{f}$,MFM -3dB cut-off frequency of transimpedance gain,0.5,MHz
+$\delta$,Maximum of absolute static (gain) inaccuracy,2,%

@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SLiCAP.py &mdash; SLiCAP Programming 1.0.2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/myStyle.css" type="text/css" />
+  
+
+  
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="SLiCAP Programming 1.0.2020 documentation" href="index.html"/>
+        <link rel="up" title="SLiCAP Reference" href="SLiCAPreference.html"/>
+        <link rel="next" title="SLiCAPinstruction.py" href="SLiCAPinstruction.html"/>
+        <link rel="prev" title="SLiCAP Reference" href="SLiCAPreference.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="slicap-programming.html" class="icon icon-home"> SLiCAP Programming
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">SLiCAP open-source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ToDo.html">ToDo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure.html">SLiCAP configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">SLiCAP math library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="SLiCAPreference.html">SLiCAP Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAP.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPexecute.html">SLiCAPexecute.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPyacc.html">SLiCAPyacc.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPhtml.html">SLiCAPhtml.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPplots.html">SLiCAPplots.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPpythonMaxima.html">SLiCAPpythonMaxima.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPmatrices.html">SLiCAPmatrices.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPprotos.html">SLiCAPprotos.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="slicap-programming.html">SLiCAP Programming</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="slicap-programming.html">Docs</a> &raquo;</li>
+        
+          <li><a href="SLiCAPreference.html">SLiCAP Reference</a> &raquo;</li>
+        
+      <li>SLiCAP.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/SLiCAP.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-SLiCAP">
+<span id="slicap-py"></span><h1>SLiCAP.py<a class="headerlink" href="#module-SLiCAP" title="Permalink to this headline">¶</a></h1>
+<p>Main module for running SLiCAP from a console or from within a Python IDE.</p>
+<p>When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py. 
+It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and 
+RST in the Jupyter notebooks.</p>
+<dl class="class">
+<dt id="SLiCAP.SLiCAPproject">
+<em class="property">class </em><code class="descclassname">SLiCAP.</code><code class="descname">SLiCAPproject</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPproject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prototype of a SLiCAPproject.</p>
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPproject.author">
+<code class="descname">author</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPproject.author" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLiCAPproject.author (str) Will be updated by running:
+SLiCAPproject.initProject(&lt;name&gt;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPproject.lastUpdate">
+<code class="descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPproject.lastUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLiCAPproject.lastUpdate (datetime.datetime) will be updated by
+running: SLiCAPproject.initProject(&lt;name&gt;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPproject.name">
+<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPproject.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLiCAPproject.name (str) is the name of the project. It will appear
+on the main html index page</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.initProject">
+<code class="descclassname">SLiCAP.</code><code class="descname">initProject</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a SLiCAP project.</p>
+<ul class="simple">
+<li>Copies the directory structure from the templates subdirectory to the
+project directory in the case it has not yet been created.</li>
+<li>Creates index.html in the html directory with the project name in the
+title bar</li>
+<li>Compiles the system libraries</li>
+<li>Creates or updates ‘SLiCAPconfig.py’ in the project directory</li>
+<li>Creates instance of SLiCAPproject object</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the project will be passed to an instance of the 
+SLiCAPproject object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SLiCAPproject</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#SLiCAP.SLiCAPproject" title="SLiCAP.SLiCAPproject">SLiCAP.SLiCAPproject</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my first SLiCAP project&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">prj</span><span class="o">.</span><span class="n">author</span>
+<span class="go">anton</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLiCAPinstruction.html" class="btn btn-neutral float-right" title="SLiCAPinstruction.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SLiCAPreference.html" class="btn btn-neutral" title="SLiCAP Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SLiCAP development team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.2020',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

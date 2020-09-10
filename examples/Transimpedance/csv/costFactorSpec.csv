@@ -1,0 +1,5 @@
+symbol,description,value,units
+$V_{p}$,Maximum positive supply voltage,5,V
+$V_{n}$,Maximum negative supply voltage,-5,V
+$\epsilon$,Maximum inaccuracy of SMD resistors,1,%
+,SMT devices only, ,

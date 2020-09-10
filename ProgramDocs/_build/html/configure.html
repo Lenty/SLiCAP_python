@@ -1,0 +1,2714 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SLiCAP configuration &mdash; SLiCAP Programming 1.0.2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/myStyle.css" type="text/css" />
+  
+
+  
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="SLiCAP Programming 1.0.2020 documentation" href="index.html"/>
+        <link rel="next" title="SLiCAP math library" href="math.html"/>
+        <link rel="prev" title="ToDo" href="ToDo.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="slicap-programming.html" class="icon icon-home"> SLiCAP Programming
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">SLiCAP open-source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ToDo.html">ToDo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SLiCAP configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-user-configuration">Basic user configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-slicap-configuration">Basic SLiCAP configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-or-add-built-in-models-and-devices">Change or add built-in models and devices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">SLiCAP math library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrices.html">Building the MNA matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonMaximaInterface.html">Python-Maxima interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">HTML reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parser.html">SLiCAP netlist parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsingMethod.html">Parsing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelParams.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subCircuits.html">Sub circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">SLiCAP Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute.html">Execute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPreference.html">SLiCAP Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="slicap-programming.html">SLiCAP Programming</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="slicap-programming.html">Docs</a> &raquo;</li>
+        
+      <li>SLiCAP configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/configure.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="slicap-configuration">
+<h1>SLiCAP configuration<a class="headerlink" href="#slicap-configuration" title="Permalink to this headline">¶</a></h1>
+<p>SLiCAP uses several configuration files.</p>
+<div class="section" id="basic-user-configuration">
+<h2>Basic user configuration<a class="headerlink" href="#basic-user-configuration" title="Permalink to this headline">¶</a></h2>
+<p>A user configuration file will be created in the project directory by initPtoject().
+Once created it can be modified and modifications will not be overwritten by initProject().</p>
+<ul class="simple">
+<li>Symbols for frequency, angular frequency and Laplace variable</li>
+<li>Number of recursive substitutions in expressions</li>
+<li>Number of digits for float display</li>
+<li>Frequency output in [Hz] or in [rad/s]</li>
+<li>Path settings</li>
+<li>Plot settings</li>
+</ul>
+<p>These settings are in the file: <code class="docutils literal"><span class="pre">SLiCAPconfig.py</span></code>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python2</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SLiCAP module with user-defined path settings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">PROJECTPATH</span>     <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># Leave it for automatic detection</span>
+<span class="c1"># PATHS: relative to the project path</span>
+<span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
+<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
+<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>    <span class="c1"># path for include and library files</span>
+<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
+<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
+<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
+<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
+<span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="basic-slicap-configuration">
+<h2>Basic SLiCAP configuration<a class="headerlink" href="#basic-slicap-configuration" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Import of python modules</li>
+<li>Detection of install path</li>
+<li>Detection of project path</li>
+<li>Some type conversions for user-defined constants</li>
+</ul>
+<p>These settings are in the file: <code class="docutils literal"><span class="pre">SLiCAPini.py</span></code>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SLiCAP initialization module, imports external modules and defines settings.</span>
+
+<span class="sd">Imported by the module **SLiCAini.py**</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">SLiCAPconfig</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">docutils.core</span>
+<span class="kn">import</span> <span class="nn">docutils.writers.html5_polyglot</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">residue</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">newton</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="k">as</span> <span class="nn">lex</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy2</span> <span class="k">as</span> <span class="n">cp</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">import</span> <span class="nn">matplotlib._pylab_helpers</span> <span class="k">as</span> <span class="nn">plotHelp</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span> <span class="c1"># Turn off the interactive mode for plotting</span>
+
+<span class="k">class</span> <span class="nc">settings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A class for global variables</span>
+<span class="sd">    </span>
+<span class="sd">    The following globals are defined:</span>
+<span class="sd">        </span>
+<span class="sd">    #. path settings</span>
+<span class="sd">    </span>
+<span class="sd">       - installPath       : Directory with SLiCAP modules files</span>
+<span class="sd">       - projectPath       : Directory with SLiCAP project files</span>
+<span class="sd">       - htmlPath          : Directory with SLiCAP HTML output</span>
+<span class="sd">       - circuitPath       : Directory with SLiCAP project circuit files</span>
+<span class="sd">       - libraryPath       : Directory with SLiCAP user libraries</span>
+<span class="sd">       - txtPath           : Directory with text files for HTML output</span>
+<span class="sd">       - csvPath           : Directory with csv files for HTML tables</span>
+<span class="sd">       - latexPath         : Directory with csv files for HTML tables</span>
+<span class="sd">       - mathmlPath        : Directory fro mathML output</span>
+<span class="sd">       - imgPath           : Directory with images for HTML output</span>
+<span class="sd">    </span>
+<span class="sd">    #. active HTML pages and active HTMLfile prefix</span>
+<span class="sd">    </span>
+<span class="sd">       - htmlIndex         : Active HTML index page</span>
+<span class="sd">       - htmlPage          : Active HTML page</span>
+<span class="sd">       - htmlPrefix        : Active HTML prefix</span>
+<span class="sd">    </span>
+<span class="sd">    #. HTML labels and page names</span>
+<span class="sd">    </span>
+<span class="sd">       - htmlLabels        : Dict with HTML labels:</span>
+<span class="sd">           </span>
+<span class="sd">         - key   = labelName  : name of the label</span>
+<span class="sd">         - value = pageName   : page of the label</span>
+<span class="sd">         </span>
+<span class="sd">       - htmlEqLabels      : Dict with HTML equation labels:</span>
+<span class="sd">         </span>
+<span class="sd">         - key   = labelName  : name of the label</span>
+<span class="sd">         - value = pageName   : page of the label</span>
+<span class="sd">         </span>
+<span class="sd">       - htmlPages         : List with names of HTML pages</span>
+<span class="sd">    </span>
+<span class="sd">    #. Math settings</span>
+<span class="sd">    </span>
+<span class="sd">       - maxSolve:</span>
+<span class="sd">        </span>
+<span class="sd">         - True  : use Maxima for solving equations</span>
+<span class="sd">         -  False : use Sympy for solving equations</span>
+<span class="sd">      </span>
+<span class="sd">       - stepFunction: </span>
+<span class="sd">      </span>
+<span class="sd">         - True: use Sympy.lambify for parameter stepping</span>
+<span class="sd">         - False : substitute step parameters in matrix</span>
+<span class="sd">      </span>
+<span class="sd">       - Hz:</span>
+<span class="sd">        </span>
+<span class="sd">         - True: frequency in Hz and phase in degrees</span>
+<span class="sd">         - False : frequency in radians/s and phase in radians</span>
+<span class="sd">      </span>
+<span class="sd">       - Laplace           : Parameter used for Laplace variable</span>
+<span class="sd">       - frequency         : Parameter used for frequency variable</span>
+<span class="sd">       - maxRecSubst       : Maximum number of recursive substitutions</span>
+<span class="sd">       - simplify          : True: simplify transfer functions</span>
+<span class="sd">       - normalize: True: normalize transfer functions: lowest order  coefficient </span>
+<span class="sd">         of the Laplace variable will be normalized to unity.</span>
+<span class="sd">       - factor: : Try to write the numerator and denominator of expressions as </span>
+<span class="sd">         a product of factors.</span>
+<span class="sd">    </span>
+<span class="sd">    #. Display settings</span>
+<span class="sd">    </span>
+<span class="sd">       - disp              : Number of digits for displaying floats on html pages</span>
+<span class="sd">       - mathml:</span>
+<span class="sd">      </span>
+<span class="sd">         - True  : math in mathml in html pages </span>
+<span class="sd">         - False : math in latex in html pages and MathJaX cloud</span>
+<span class="sd">      </span>
+<span class="sd">       - language: language for error messages</span>
+<span class="sd">    </span>
+<span class="sd">    #. Plot settings</span>
+<span class="sd">    </span>
+<span class="sd">       - figureAxisHeight  : Height of the axis in inches (72dpi), pole-zero </span>
+<span class="sd">         and polar plots are square and have their height set to their width.</span>
+<span class="sd">       - figureAxisWidth   : Width of an axis in inches (72dpi)</span>
+<span class="sd">       - defaultColors     : List with matplotlib color names for param. stepping</span>
+<span class="sd">       - gainColors        : dict with color names for gain types:</span>
+<span class="sd">           </span>
+<span class="sd">         - key   = gainType</span>
+<span class="sd">         - value = matplotlib color name</span>
+<span class="sd">         </span>
+<span class="sd">       - defaultMarkers    : list with matplotlib markers</span>
+<span class="sd">       - tableFileType     : file type for saving traces as tables</span>
+<span class="sd">       - figureFileType    : graphic file type for saving plots</span>
+<span class="sd">       - axisXscale        : default x-axis scale type</span>
+<span class="sd">       - axisYscale        : default y-axis scale type</span>
+<span class="sd">       - legendLoc         : default plot legend location</span>
+<span class="sd">       - plotFontSize      : default plot font size</span>
+<span class="sd">    </span>
+<span class="sd">    #. Jupyter notebook settings</span>
+<span class="sd">    </span>
+<span class="sd">       - notebook: True adapts HTML math return variables to markdown format </span>
+<span class="sd">         required by Jupyter notebook</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the start-up values of the global parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Sage</span>               <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">installPath</span>        <span class="o">=</span> <span class="kc">None</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectPath</span>        <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPath</span>           <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuitPath</span>        <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libraryPath</span>        <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPath</span>            <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csvPath</span>            <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latexPath</span>          <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathmlPath</span>         <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imgPath</span>            <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathml</span>             <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span>           <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span>          <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factor</span>             <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlIndex</span>          <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPage</span>           <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPrefix</span>         <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlLabels</span>         <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPages</span>          <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepFunction</span>       <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxSolve</span>           <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxRecSubst</span>        <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disp</span>               <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Hz</span>                 <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Laplace</span>            <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>          <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figureAxisHeight</span>   <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figureAxisWidth</span>    <span class="o">=</span> <span class="mi">7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultColors</span>      <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gainColors</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;asymptotic&#39;</span><span class="p">:</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+                                   <span class="s1">&#39;loopgain&#39;</span><span class="p">:</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">:</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> 
+                                   <span class="s1">&#39;servo&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;vi&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultMarkers</span>     <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tableFileType</span>      <span class="o">=</span> <span class="s1">&#39;csv&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figureFileType</span>     <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axisXscale</span>         <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axisYscale</span>         <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legendLoc</span>          <span class="o">=</span> <span class="s1">&#39;best&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span>           <span class="o">=</span> <span class="kc">False</span> <span class="c1"># places html math output between </span>
+                                        <span class="c1"># double dollar signs: &#39;$$&lt;latex&gt;&#39;$$&#39; </span>
+                                        <span class="c1"># for correct display in Jupyter </span>
+                                        <span class="c1"># notebooks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotFontSize</span>       <span class="o">=</span> <span class="mi">12</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastUpdate</span>         <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MaximaTimeOut</span>      <span class="o">=</span> <span class="mi">5</span>     <span class="c1"># Maximum time for subprocess to run Maxima</span>
+    
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints the global variables that are available to the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">disallowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;asymptotic&#39;</span><span class="p">,</span> <span class="s1">&#39;servo&#39;</span><span class="p">,</span> <span class="s1">&#39;vi&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">,</span> <span class="s1">&#39;loopgain&#39;</span><span class="p">,</span> <span class="s1">&#39;gain&#39;</span><span class="p">]</span>
+        <span class="n">printTypes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+        <span class="n">tabWidth</span>   <span class="o">=</span> <span class="mi">18</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">dct</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="n">keys</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="n">keys</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="ow">in</span> <span class="n">printTypes</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;htmlLabels&#39;</span><span class="p">:</span>
+                            <span class="n">ndots</span> <span class="o">=</span> <span class="n">tabWidth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                            <span class="nb">print</span> <span class="n">key</span><span class="p">,</span>
+                            <span class="n">dots</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndots</span><span class="p">):</span>
+                                <span class="n">dots</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+                            <span class="nb">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;htmlLabels&#39;</span><span class="p">:</span>
+                            <span class="n">dispkey</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;.keys()&#39;</span>
+                            <span class="n">ndots</span> <span class="o">=</span> <span class="n">tabWidth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">dispkey</span><span class="p">)</span>
+                            <span class="nb">print</span> <span class="n">dispkey</span><span class="p">,</span>
+                            <span class="n">dots</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndots</span><span class="p">):</span>
+                                <span class="n">dots</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+                            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+                                <span class="nb">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="nb">print</span> <span class="n">dots</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                            
+    <span class="k">def</span> <span class="nf">updatePaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectPath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the file locations according to the project path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectPath</span>      <span class="o">=</span> <span class="n">projectPath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">htmlPath</span>         <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">HTMLPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuitPath</span>      <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">CIRCUITPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libraryPath</span>      <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">LIBRARYPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPath</span>          <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">TXTPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csvPath</span>          <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">CSVPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latexPath</span>        <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">LATEXPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mathmlPath</span>       <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">MATHMLPATH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imgPath</span>          <span class="o">=</span> <span class="n">projectPath</span> <span class="o">+</span> <span class="n">IMGPATH</span>
+                                    
+<span class="n">ini</span> <span class="o">=</span> <span class="n">settings</span><span class="p">()</span>
+    
+<span class="c1"># Create an instance of globals</span>
+<span class="c1"># Automatic detection of install and project paths</span>
+<span class="c1"># Get the installation path</span>
+<span class="n">ini</span><span class="o">.</span><span class="n">installPath</span>  <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+<span class="c1"># Copy path settings from user configuration.</span>
+<span class="k">if</span> <span class="n">PROJECTPATH</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># Get the project path (the path of the script that imported SLiCAP.ini)</span>
+    <span class="n">PROJECTPATH</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+    
+<span class="n">ini</span><span class="o">.</span><span class="n">updatePaths</span><span class="p">(</span><span class="n">PROJECTPATH</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>After this file has been copied to the project directory, product data will be added.
+An example of product data is shown below. The variable LASTUPDATE will be updated by initProject().</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Project information</span>
+<span class="n">PROJECT</span>    <span class="o">=</span> <span class="s1">&#39;My first SLiCAP project&#39;</span>
+<span class="n">AUTHOR</span>     <span class="o">=</span> <span class="s1">&#39;anton&#39;</span>
+<span class="n">CREATED</span>    <span class="o">=</span> <span class="s1">&#39;2020-06-04 16:17:06.407070&#39;</span>
+<span class="n">LASTUPDATE</span> <span class="o">=</span> <span class="s1">&#39;2020-06-04 17:02:35.948693&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-or-add-built-in-models-and-devices">
+<h2>Change or add built-in models and devices<a class="headerlink" href="#change-or-add-built-in-models-and-devices" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>DEVICES: built-in devices</li>
+<li>MODELS: built-in models</li>
+<li>HIERARCHY: Last-in first-out list for checking hierarchical loops in nested circuits</li>
+</ul>
+<p>Built-in devices, models and parameters are found in the file: <code class="docutils literal"><span class="pre">SLiCAPprotos.py</span></code>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SLiCAP module with basic classes and functions.</span>
+
+<span class="sd">Imported by the module **SLiCAPmatrices.py**.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">SLiCAPmath</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Globals used by this script and by SLiCAPyacc.py:</span>
+
+<span class="n">MODELS</span>      <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with SLiCAP built-in models</span>
+                                <span class="c1">#   key   : model name</span>
+                                <span class="c1">#   value : associated model object</span>
+<span class="n">DEVICES</span>     <span class="o">=</span> <span class="p">{}</span>                <span class="c1"># Dictionary with SLiCAP built-in devices</span>
+                                <span class="c1">#   key   : device name</span>
+                                <span class="c1">#   value : associated device object</span>
+<span class="k">class</span> <span class="nc">circuit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype (sub)circuit object. It has the following attributes with their</span>
+<span class="sd">    default values:</span>
+<span class="sd">        </span>
+<span class="sd">    title      = &#39;&#39;    # Title of (sub) circuit</span>
+<span class="sd">    file       = []    # Name of the netlist file</span>
+<span class="sd">    lexer      = None  # Tokenized input file</span>
+<span class="sd">    subCKT     = False # True if sub circuit</span>
+<span class="sd">    elements   = {}    # Dictionary with the circuit&#39;s element  objects</span>
+<span class="sd">                       #   key (str)  : element refDes</span>
+<span class="sd">                       #   value (obj): associated element object</span>
+<span class="sd">    nodes      = []    # Connecting nodes to parent circuit</span>
+<span class="sd">    params     = {}    # Before expansion: Parameters that can be be passed </span>
+<span class="sd">                       # from parent circuit (sub circuit only)</span>
+<span class="sd">                       # key (sympy.Symbol)                  : model parameter </span>
+<span class="sd">                       #                                       name</span>
+<span class="sd">                       # value (sympy expression, int, float): parameter value </span>
+<span class="sd">                       #                                       or expression</span>
+<span class="sd">                       # After expansion: List with undefined parameters </span>
+<span class="sd">                       # (sympy.Symbol) </span>
+<span class="sd">    parDefs    = {}    # Dictionary with paremeter definitions</span>
+<span class="sd">                       # key (sympy.Symbol)                  : parameter name</span>
+<span class="sd">                       # value (sympy expression, int, float): parameter value </span>
+<span class="sd">                       #                                       or expression                                      </span>
+<span class="sd">    modelDefs  = {}    # Dictionary with model definitions found in </span>
+<span class="sd">                       # the circuit:</span>
+<span class="sd">                       #   key (str)  : model name</span>
+<span class="sd">                       #   value (obj): modelDef object</span>
+<span class="sd">    circuits   = {}    # Dict with sub circuit definitions found in</span>
+<span class="sd">                       # the netlist (before expansion)</span>
+<span class="sd">                       #   key (str)  : sub circuit name</span>
+<span class="sd">                       #   value (obj): circuit object</span>
+<span class="sd">    errors     = 0     # Number of errors found during checking (int)</span>
+<span class="sd">    libs       = []    # List with library files</span>
+<span class="sd">    indepVars  = []    # List with sources that can be used as signal source</span>
+<span class="sd">    depVars    = []    # List with dependent variables that can be used as </span>
+<span class="sd">                       # detector</span>
+<span class="sd">    controlled = []    # List with controlles sources that can be used as loop</span>
+<span class="sd">                       # gain reference</span>
+<span class="sd">    varIndex   = {}    # Dictionary with index of node or dependent</span>
+<span class="sd">                       # current (speeds up the building of the matrix)</span>
+<span class="sd">                       #   key (str)  : node name or current name</span>
+<span class="sd">                       #   value (int): row position in the vector with</span>
+<span class="sd">                       #                dependent variables, before removal of</span>
+<span class="sd">                       #                row with reference node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the circuit object, see description above.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span>       <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span>      <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subCKT</span>     <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>   <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>      <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span>    <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span>   <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelDefs</span>  <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuits</span>   <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span>     <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libs</span>       <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indepVars</span>  <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controlled</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span>   <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">def</span> <span class="nf">delPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes a parameter definition and updates the list </span>
+<span class="sd">        **circuit.params** with names (*sympy.Symbol*) of</span>
+<span class="sd">        undefined parameters.</span>
+<span class="sd">        </span>
+<span class="sd">        :param parName: Name of the parameter.</span>
+<span class="sd">        :type parName: str, sympy.Symbol</span>
+<span class="sd">        </span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">            </span>
+<span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Delete the definition for the parameter &#39;R&#39;:</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.delPar(&#39;R&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">return</span>
+        
+    <span class="k">def</span> <span class="nf">defPar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parName</span><span class="p">,</span> <span class="n">parValue</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates or adds a parameter definition and updates the list </span>
+<span class="sd">        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.</span>
+<span class="sd">        </span>
+<span class="sd">        :param parName: Name of the parameter.</span>
+<span class="sd">        :type parName: str, sympy.Symbol</span>
+<span class="sd">        </span>
+<span class="sd">        :param parValue: Value of the parameter.</span>
+<span class="sd">        :type parValue: str, sympy.Symbol, sympy.Expr, int, float</span>
+<span class="sd">        </span>
+<span class="sd">        :param units: Value of the parameter, defaults to None</span>
+<span class="sd">        :type units: str, sympy.Symbol, sympy.Expr, int, float</span>
+<span class="sd">        </span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">            </span>
+<span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define the value of &#39;R&#39; as 2000</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, &#39;2k&#39;, )</span>
+<span class="sd">        &gt;&gt;&gt; # Or:</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPar(&#39;R&#39;, 2e3)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">parName</span><span class="p">)</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parName</span><span class="p">))</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="c1"># ToDo: checkUnits() calculate wir SI units.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Error: cannot define a number as parameter.&quot;</span>
+        <span class="k">return</span>
+    
+    <span class="k">def</span> <span class="nf">defParUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the units of a parameter.</span>
+<span class="sd">        </span>
+<span class="sd">        :param parDict: Dictionary with key-value pairs:</span>
+<span class="sd">        </span>
+<span class="sd">                        key(*str, sp.Symbol*): parameter name </span>
+<span class="sd">                        value(*str*): parameter units </span>
+<span class="sd">        :type parDict: dict</span>
+<span class="sd">        </span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">            </span>
+<span class="sd">        &gt;&gt;&gt; # create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define the units of &#39;R&#39; and &#39;C&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defParUnits({&#39;R&#39;: &#39;Omega&#39;, C: F})</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parDict</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parUnits</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span> <span class="s2">&quot;Error: cannot use a number as parameter.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Error: expected a dict type argument.&quot;</span>
+        <span class="k">return</span>
+    
+    <span class="k">def</span> <span class="nf">defPars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds or modifies multiple parameter definitions and updates the list </span>
+<span class="sd">        **circuit.params** with names (*sympy.Symbol*) of undefined parameters.</span>
+<span class="sd">                </span>
+<span class="sd">        :params parDict: Dictionary with key-value pairs:</span>
+<span class="sd">                         key: parName (*str, sympy.Symbol*): name of the parameter.</span>
+<span class="sd">                         value: parValue (*str, float, int, sp.Symbol*) : value </span>
+<span class="sd">                         or expression of the parameter.</span>
+<span class="sd">        :type parDict:   dict</span>
+<span class="sd">        </span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :return type: None</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; # Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit = checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
+<span class="sd">        &gt;&gt;&gt; my_circuit.defPars({&#39;R&#39;: &#39;2k&#39;, &#39;C&#39;: &#39;5p&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parDict</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">checkNumber</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">parName</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                    <span class="n">parValue</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">parDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                    <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">replaceScaleFactors</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parValue</span><span class="p">)))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parName</span><span class="p">]</span> <span class="o">=</span> <span class="n">parValue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span> <span class="s2">&quot;Error: cannot define a number as parameter.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Error: expected a dict type argument.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateParams</span><span class="p">()</span>
+        <span class="k">return</span>
+        
+    <span class="k">def</span> <span class="nf">getParValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parNames</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the value or expression of one or more parameters.</span>
+<span class="sd">        </span>
+<span class="sd">        If numeric == True it will perform a full recursive substitution of</span>
+<span class="sd">        all circuit parameter definitions.</span>
+<span class="sd">        </span>
+<span class="sd">        :param parNames: name(s) of the parameter(s)</span>
+<span class="sd">        :type parNames: str, sympy.Symbol, list </span>
+<span class="sd">        </span>
+<span class="sd">        :return: if type(parNames) == list:</span>
+<span class="sd">            </span>
+<span class="sd">                 return value = dict with key-value pairs: key (*sympy.Symbol*): </span>
+<span class="sd">                 name of the parameter, value (*int, float, sympy expression*): </span>
+<span class="sd">                 value of the parameter</span>
+<span class="sd">                 </span>
+<span class="sd">                 else:</span>
+<span class="sd">                 value or expression</span>
+<span class="sd">                 </span>
+<span class="sd">        :return type: dict, float, int, sympy obj</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">         </span>
+<span class="sd">        &gt;&gt;&gt; # create an instance if a SLiCAP instruction</span>
+<span class="sd">        &gt;&gt;&gt; my_instr = instruction()  </span>
+<span class="sd">        &gt;&gt;&gt; # create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Obtain the numeric parameter definitions of of &#39;R&#39; and &#39;C&#39;:</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.symType = &#39;numeric&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.getParValues([&#39;R&#39;, &#39;C&#39;])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">parNames</span><span class="p">:</span>
+                <span class="n">par</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">par</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">par</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">numeric</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                            <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>          
+            <span class="k">return</span> <span class="n">parValues</span>
+        <span class="n">parNames</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">numeric</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Error: parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has not been defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">parValue</span>
+    
+    <span class="k">def</span> <span class="nf">getParUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parNames</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the units of one or more parameters.</span>
+<span class="sd">        </span>
+<span class="sd">        :param parNames: name(s) of the parameter(s)</span>
+<span class="sd">        :type parNames: str, sympy.Symbol, list </span>
+<span class="sd">        </span>
+<span class="sd">        :return: if type(parNames) == list:</span>
+<span class="sd">            </span>
+<span class="sd">                 return value = list with units of the parameters</span>
+<span class="sd">                 </span>
+<span class="sd">                 else:</span>
+<span class="sd">                 units (str)</span>
+<span class="sd">                 </span>
+<span class="sd">        :return type: list, str</span>
+<span class="sd">        </span>
+<span class="sd">        :Example:</span>
+<span class="sd">         </span>
+<span class="sd">        &gt;&gt;&gt; # create an instance if a SLiCAP instruction</span>
+<span class="sd">        &gt;&gt;&gt; my_instr = instruction()  </span>
+<span class="sd">        &gt;&gt;&gt; # create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.checkCircuit(&#39;myFirstRCnetwork.cir&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Define and obtain the units of &#39;R&#39; and &#39;C&#39;:</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.symType = &#39;numeric&#39;</span>
+<span class="sd">        &gt;&gt;&gt; my_instr.getParValues([&#39;R&#39;, &#39;C&#39;])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parNames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">parValues</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">parNames</span><span class="p">:</span>
+                <span class="n">par</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">par</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">par</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">numeric</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                            <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">parValues</span><span class="p">[</span><span class="n">par</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>          
+            <span class="k">return</span> <span class="n">parValues</span>
+        <span class="n">parNames</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">numeric</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">fullSubs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">parNames</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Error: parameter &#39;</span><span class="si">%s</span><span class="s2">&#39; has not been defined.&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parNames</span><span class="p">))</span>
+            <span class="n">parValue</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">parValue</span>
+
+    <span class="k">def</span> <span class="nf">updateParams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates self.params (list with undefined parameters) after modification </span>
+<span class="sd">        of parameter definitions in self.parDefs.</span>
+<span class="sd">            </span>
+<span class="sd">            return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="c1"># Get all the parameters used in element values</span>
+        <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="c1"># Get all the parameters used in parameter definitions</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="p">[</span><span class="n">par</span><span class="p">]</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="c1"># Remove duplicates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
+        <span class="n">undefined</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># If these parameters are not found in parDefs.keys, they are undefined.</span>
+        <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span> <span class="ow">and</span> <span class="n">par</span> <span class="o">!=</span> <span class="n">ini</span><span class="o">.</span><span class="n">frequency</span> <span class="ow">and</span> <span class="n">par</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">undefined</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">undefined</span>
+        <span class="k">return</span>
+        
+    <span class="k">def</span> <span class="nf">updateMdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates data for building matrices: self.depVars and self.varIndex.</span>
+<span class="sd">        </span>
+<span class="sd">        self.depVars    : vector with dependent variables</span>
+<span class="sd">        self.varIndex   : dict with key-value pairs:</span>
+<span class="sd">            key (str)   : name of the dependent variable</span>
+<span class="sd">            value (int) : row position in the matrices before removing</span>
+<span class="sd">                          the row and column that corresponds with node &#39;0&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">varIndexPos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">elmt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">MODELS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">depVars</span><span class="p">)):</span>
+                <span class="n">depVar</span> <span class="o">=</span> <span class="n">MODELS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elmt</span><span class="p">]</span><span class="o">.</span><span class="n">model</span><span class="p">]</span><span class="o">.</span><span class="n">depVars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">depVar</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span><span class="p">[</span><span class="n">depVar</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">elmt</span><span class="p">]</span> <span class="o">=</span> <span class="n">varIndexPos</span>
+                <span class="n">varIndexPos</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;V_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">varIndex</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">varIndexPos</span>
+            <span class="n">varIndexPos</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span>
+
+<span class="k">class</span> <span class="nc">element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype circuit element object. It has the following attributes:</span>
+<span class="sd">        </span>
+
+<span class="sd">    refDes     = &#39;&#39;    # Element reference designator (refdes)</span>
+<span class="sd">    type       = &#39;&#39;    # First letter of refdes</span>
+<span class="sd">    nodes      = []    # Node list</span>
+<span class="sd">    refs       = []    # Reference list</span>
+<span class="sd">    params     = {}    # Dictionary with model parameters</span>
+<span class="sd">                       #   key   : model parameter name</span>
+<span class="sd">                       #   value : parameter value or </span>
+<span class="sd">                       #           expression; value = [numer, denom] </span>
+<span class="sd">                       #           if Laplace rational</span>
+<span class="sd">    model      = &#39;&#39;    # Model for this element</span>
+<span class="sd">            </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refDes</span>     <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Element reference designator (refdes)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># First letter of refdes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>      <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Node list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refs</span>       <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Reference list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model parameters</span>
+                                <span class="c1">#   key   : model parameter name</span>
+                                <span class="c1">#   value : parameter value or </span>
+                                <span class="c1">#           expression; value = [numer, denom] </span>
+                                <span class="c1">#           if Laplace rational</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model for this element</span>
+        
+<span class="k">class</span> <span class="nc">device</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prototype for devices that can be used in SLiCAP. It has the following </span>
+<span class="sd">    attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    ID     = &#39;&#39;        # ID of the device, e.g. &#39;V&#39; for voltage source</span>
+<span class="sd">    nNodes     = 0     # Number of nodes of the device</span>
+<span class="sd">    nRefs      = 0     # Number of IDs of referenced devices</span>
+<span class="sd">    value      = True  # True if model or value is required</span>
+<span class="sd">    models     = []    # list with valid models for the device. </span>
+<span class="sd">                       # Model names refer to model.name of a model</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span>     <span class="o">=</span> <span class="s1">&#39;&#39;</span>        <span class="c1"># ID of the device, e.g. &#39;V&#39; for voltage source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nNodes</span>     <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Number of nodes of the device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nRefs</span>      <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Number of IDs of referenced devices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span>      <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># True if model or value is required</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span>     <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># list with valid models for the device. </span>
+                                <span class="c1"># Model names refer to model.name of a model</span>
+        
+<span class="k">class</span> <span class="nc">model</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    # Protpotype for element models that can be used in SLiCAP. It has the </span>
+<span class="sd">    following attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    name       = &#39;&#39;    # Model name</span>
+<span class="sd">    stamp      = True  # True if model has associated matrix stamp, </span>
+<span class="sd">                       # False if it requires expansion</span>
+<span class="sd">    depVars    = []    # Namens of dependent vars. in matrix stamp</span>
+<span class="sd">    params     = {}    # Dictionary with model parameters</span>
+<span class="sd">                       #   key   : model parameter name</span>
+<span class="sd">                       #   value : True: if Laplace is allowed in the</span>
+<span class="sd">                       #           expression for this parameter,</span>
+<span class="sd">                       #           else: False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span>      <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># True if model has associated matrix stamp, </span>
+                                <span class="c1"># False if it requires expansion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depVars</span>    <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Namens of dependent vars. in matrix stamp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model parameters</span>
+                                <span class="c1">#   key   : model parameter name</span>
+                                <span class="c1">#   value : True: if Laplace is allowed in the</span>
+                                <span class="c1">#           expression for this parameter,</span>
+                                <span class="c1">#           else: False</span>
+
+<span class="k">class</span> <span class="nc">modelDef</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Protpotype for model definitions that can be added to SLiCAP. It has the </span>
+<span class="sd">    following attributes:</span>
+<span class="sd">        </span>
+<span class="sd">    name       = &#39;&#39;    # Model name</span>
+<span class="sd">    type       = &#39;&#39;    # Must be a built-in model type</span>
+<span class="sd">    params     = {}    # Dictionary with model parameters</span>
+<span class="sd">                       #   key   : model parameter name</span>
+<span class="sd">                       #   value : value or expression </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Model name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Must be a built-in model type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>     <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with model parameters</span>
+                                <span class="c1">#   key   : model parameter name</span>
+                                <span class="c1">#   value : value or expression </span>
+                                
+<span class="k">def</span> <span class="nf">initAll</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes the models and the devices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">MODELS</span><span class="p">,</span> <span class="n">DEVICES</span>
+
+    <span class="c1"># Generate the dictionary with SLiCAP models</span>
+    <span class="c1"># Capacitor</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;C&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Diode</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rs&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gd&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># VCVS</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;E&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># VCVS with series impedance</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;EZ&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># CCCS</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_i&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># VCCS</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;G&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># VCCS no Laplace</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;g&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># CCVS</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">,</span> <span class="s1">&#39;I_i&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># CCVS with source impedance</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;HZ&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">,</span> <span class="s1">&#39;I_i&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Independent current source</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;I&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># JFET</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;J&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgs&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Coupling factor</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Inductor</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># MOSFET</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;M&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgs&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cdb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;csb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cgb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># MOS differential pair</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;MD&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cgg&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cdg&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cdd&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Nullor</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Current feedback operational amplifier</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;OC&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cp&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gp&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cpn&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gpn&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;zt&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Voltage feedback operational amplifier</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;OV&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gd&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;av&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Vertical BJT</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;QV&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cbx&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Lateral BJT</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;QL&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cbx&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cs&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gpi&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># BJT differential pair</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;QD&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">False</span>          
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cbb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;cbc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gbb&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gm&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Resistor (resistance cannot be zero)</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;R&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Resistor (resistance can be zero)</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Ideal transformer</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;T&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I_o&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Independent voltage source</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;V&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;dcvar&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    <span class="c1"># Gyrator</span>
+    <span class="n">newModel</span>                <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">name</span>           <span class="o">=</span> <span class="s1">&#39;W&#39;</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">stamp</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">depVars</span>        <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newModel</span><span class="o">.</span><span class="n">params</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">MODELS</span><span class="p">[</span><span class="n">newModel</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>   <span class="o">=</span> <span class="n">newModel</span>
+    
+    <span class="c1"># Generate the dictionary with SLiCAP devices</span>
+    <span class="c1"># Capacitor</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;C&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Diode</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># VCVS</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;E&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;EZ&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># CCCS</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span> <span class="c1"># 4 if independent input voltage source</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 0 if independent input voltage source</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># VCCS</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;G&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># CCVS</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span> <span class="c1"># 4 if independent input voltage source</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 4 if independent input voltage source</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;HZ&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Independent current source</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;I&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># JFET</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;J&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;J&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Coupling factor</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Inductor</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># MOSFET</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;M&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;MD&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Nullor</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Operational amplifier</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OC&#39;</span><span class="p">,</span> <span class="s1">&#39;OV&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># BJT</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;Q&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;QV&#39;</span><span class="p">,</span> <span class="s1">&#39;QD&#39;</span><span class="p">,</span> <span class="s1">&#39;QL&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Resistor</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;R&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Ideal transformer</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;T&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Independent voltage source</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;V&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Gyrator</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;W&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;W&#39;</span><span class="p">]</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="c1"># Sub circuit</span>
+    <span class="n">newDev</span>                  <span class="o">=</span> <span class="n">device</span><span class="p">()</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">ID</span>               <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nNodes</span>           <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>   <span class="c1"># More than two nodes!</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">nRefs</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">value</span>            <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Only model name</span>
+    <span class="n">newDev</span><span class="o">.</span><span class="n">models</span>           <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># No models</span>
+    <span class="n">DEVICES</span><span class="p">[</span><span class="n">newDev</span><span class="o">.</span><span class="n">ID</span><span class="p">]</span>  <span class="o">=</span> <span class="n">newDev</span>
+    <span class="k">return</span>
+
+<span class="n">initAll</span><span class="p">()</span> <span class="c1"># Initialize all models, devices, etc.</span>
+
+<span class="c1">#### Return structure for instruction</span>
+        
+<span class="k">class</span> <span class="nc">allResults</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return  structure for results, has attributes for all data types and</span>
+<span class="sd">    instruction data. It has the following attributes:</span>
+<span class="sd">    </span>
+<span class="sd">    # Instruction results:</span>
+<span class="sd">    </span>
+<span class="sd">    DCvalue     = []   # Zero-frequency value in case of </span>
+<span class="sd">                            # dataType &#39;pz&#39;</span>
+<span class="sd">    poles       = []   # Complex frequencies in [rad/s] or [Hz]</span>
+<span class="sd">    zeros       = []   # Complex frequencies in [rad/s] or [Hz]</span>
+<span class="sd">    svarTerms   = {}   # Dict with lists with source variances</span>
+<span class="sd">    ivarTerms   = {}   # Dict with lists with contributions to </span>
+<span class="sd">                            # source-referred variance</span>
+<span class="sd">    ovarTerms   = {}   # Dict with lists with contributions to </span>
+<span class="sd">                            # detector-referred variance</span>
+<span class="sd">    ivar        = []   # Total source-referred variance</span>
+<span class="sd">    ovar        = []   # Total detector-referred variance</span>
+<span class="sd">    dcSolve     = []   # DC solution of the network</span>
+<span class="sd">    dc          = []   # DC solution at the detector</span>
+<span class="sd">    snoiseTerms = {}   # Dict with lists with source noise spectra</span>
+<span class="sd">    inoiseTerms = {}   # Dict with lists with contributions</span>
+<span class="sd">                            # to source-referred noise</span>
+<span class="sd">    onoiseTerms = {}   # Dict with lists with contributions</span>
+<span class="sd">                            # to detector-referred noise</span>
+<span class="sd">    inoise      = []   # Total source-referred noise spectral density</span>
+<span class="sd">    onoise      = []   # Total detector-referred noise spectral </span>
+<span class="sd">    Iv          = None # Vector with independent variables</span>
+<span class="sd">    M           = None # MNA matrix</span>
+<span class="sd">    Dv          = None # Vector with dependent variables</span>
+<span class="sd">    denom       = []   # Laplace poly of denominator</span>
+<span class="sd">    numer       = []   # Laplace poly of numerator</span>
+<span class="sd">    laplace     = []   # Laplace transfer functions</span>
+<span class="sd">    solve       = []   # Laplace solutions of the network</span>
+<span class="sd">    time        = []   # Time-domain responses</span>
+<span class="sd">    impulse     = []   # Unit impulse responses</span>
+<span class="sd">    stepResp    = []   # Unit step responses</span>
+<span class="sd">    </span>
+<span class="sd">    # instruction settings:</span>
+<span class="sd">    </span>
+<span class="sd">    simType     = None # Simulation type: &#39;symbolic&#39; or &#39;numeric&#39;</span>
+<span class="sd">    gainType    = None # Gain type  : &#39;gain&#39;, &#39;asymptotic&#39;, &#39;loopgain&#39;, &#39;servo&#39;</span>
+<span class="sd">                       #              &#39;direct&#39;, or &#39;vi&#39;</span>
+<span class="sd">    dataType    = None # Data type  : &#39;dc&#39;, &#39;dcsolve&#39;, &#39;dcvar&#39;, &#39;denom&#39;, </span>
+<span class="sd">                                      &#39;impulse&#39;, &#39;laplace&#39;, &#39;matrix&#39;, &#39;noise&#39;,</span>
+<span class="sd">                                      &#39;numer&#39;, &#39;poles&#39;, &#39;pz&#39;, &#39;solve&#39;, &#39;step&#39;, </span>
+<span class="sd">                                      &#39;time&#39;,&#39;zeros&#39; or &#39;param&#39;</span>
+<span class="sd">    sweepVar    = None # Sweep parameter for data type &#39;param&#39;</span>
+<span class="sd">    step        = None # True       : enables parameter stepping</span>
+<span class="sd">    stepVar     = None # Step variable for step types &#39;lin&#39;, &#39;log&#39; and &#39;list&#39;</span>
+<span class="sd">    stepVars    = None # List with step variables for &#39;array&#39; type stepping</span>
+<span class="sd">    stepMethod  = None # Step method: &#39;lin&#39;, &#39;log&#39;, &#39;list&#39;, &#39;array&#39;</span>
+<span class="sd">    stepStart   = None # Start value for step methods &#39;lin&#39; and &#39;log&#39;</span>
+<span class="sd">    stepStop    = None # Stop value for step methods &#39;lin&#39; and &#39;log&#39;</span>
+<span class="sd">    stepNum     = None # Number of steps for step methods &#39;lin&#39; and &#39;log&#39;</span>
+<span class="sd">    stepList    = []   # List with values for step method &#39;list&#39;</span>
+<span class="sd">    stepArray   = []   # Array with values for step method array:</span>
+<span class="sd">                       # Nested list: list[i] carries the values for the step </span>
+<span class="sd">                       # variable in stepVars[i]. The lists should have equal</span>
+<span class="sd">                       # lengths.</span>
+<span class="sd">    source      = None # Refdes of the source (independent v or i source)</span>
+<span class="sd">    detector    = None # Names of one or two nodal voltages or names of one</span>
+<span class="sd">                       # or two dependent currents (see detector specification)</span>
+<span class="sd">    lgRef       = None # Refdes of controlled source that is assigned as loop</span>
+<span class="sd">                       # gain reference</span>
+<span class="sd">    circuit     = None # Circuit object used for this instruction</span>
+<span class="sd">    parDefs     = None # Parameter definitions used for this instruction</span>
+<span class="sd">    numeric     = None # Variable used during analysis an presentation of </span>
+<span class="sd">                       # analysis results</span>
+<span class="sd">    errors      = 0    # Number of errors found in the definition of this </span>
+<span class="sd">                       # instruction</span>
+<span class="sd">    detUnits    = None # Detector units &#39;V&#39; or &#39;A&#39; (automatically detected)</span>
+<span class="sd">    srcUnits    = None # Source units &#39;V&#39; or &#39;A&#39; (automatically detected)</span>
+<span class="sd">    detLabel    = None # Name to be used in expressions or plots</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DCvalue</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Zero-frequency value in case of </span>
+                                <span class="c1"># dataType &#39;pz&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poles</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Complex frequencies in [rad/s] or [Hz]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zeros</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Complex frequencies in [rad/s] or [Hz]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">svarTerms</span>   <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with source variances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivarTerms</span>   <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions to </span>
+                                <span class="c1"># source-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ovarTerms</span>   <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions to </span>
+                                <span class="c1"># detector-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivar</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total source-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ovar</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total detector-referred variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dcSolve</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># DC solution of the network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dc</span>          <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># DC solution at the detector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snoiseTerms</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with source noise spectra</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inoiseTerms</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions</span>
+                                <span class="c1"># to source-referred noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onoiseTerms</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Dict with lists with contributions</span>
+                                <span class="c1"># to detector-referred noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inoise</span>      <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total source-referred noise spectral density</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onoise</span>      <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Total detector-referred noise spectral </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Iv</span>          <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Vector with independent variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span>           <span class="o">=</span> <span class="kc">None</span> <span class="c1"># MNA matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dv</span>          <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Vector with dependent variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">denom</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace poly of denominator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numer</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace poly of numerator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">laplace</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace transfer functions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solve</span>       <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Laplace solutions of the network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span>        <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Time-domain responses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">impulse</span>     <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Unit impulse responses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepResp</span>    <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># Unit step responses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span>      <span class="o">=</span> <span class="p">{}</span>   <span class="c1"># Results of parameter sweep (dataType = &#39;param&#39;)</span>
+        <span class="c1"># instruction settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simType</span>     <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gainType</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataType</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sweepVar</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span>        <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepVar</span>     <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepVars</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepMethod</span>  <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepStart</span>   <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepStop</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepNum</span>     <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepList</span>    <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepArray</span>   <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span>      <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lgRef</span>       <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span>     <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parDefs</span>     <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numeric</span>     <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span>      <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detUnits</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">srcUnits</span>    <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detLabel</span>    <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Name to be used in expressions or plots</span>
+        
+<span class="k">def</span> <span class="nf">makeDir</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates the directory &#39;dirName&#39; if it does not yet exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirName</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">copyNotOverwrite</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copies the file &#39;src&#39; to &#39;dest&#39; if the latter one does not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dest</span><span class="p">):</span>
+        <span class="n">cp</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+    <span class="k">return</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="math.html" class="btn btn-neutral float-right" title="SLiCAP math library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ToDo.html" class="btn btn-neutral" title="ToDo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SLiCAP development team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.2020',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

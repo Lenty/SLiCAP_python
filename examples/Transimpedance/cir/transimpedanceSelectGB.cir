@@ -1,0 +1,12 @@
+"OpAmp GB product budget"
+* Z:\home\anton\DATA\SLiCAP\Examples\transimpedance\transimpedanceSelectGB.asc
+C1 N001 0 {C_s}
+I1 N001 0 I value={I_s} dc=0 dcvar=0 noise=0
+R2 out 0 {R_ell}
+C2 out 0 {C_ell}
+R1 out N001 {R_f}
+E1 out 0 N001 0 EZ value={-A_0/(1+s*A_0/2/PI/G_B)} zs={R_o}
+C3 N001 0 {C_i}
+.param C_s=20p R_f=100k R_ell=1k C_ell=20p I_s=1
+.backanno
+.end

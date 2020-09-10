@@ -1,0 +1,3 @@
+*.pyc
+examples/**/*.pyc
+exemples/Transimpedance/

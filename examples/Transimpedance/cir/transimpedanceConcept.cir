@@ -1,0 +1,11 @@
+"Concept design"
+* Z:\home\anton\DATA\SLiCAP\Examples\transimpedance\transimpedanceConcept.asc
+X1 out 0 N001 0 ABCD A=0 B=0 C=-10u D=0
+C1 N001 0 {C_s}
+I1 N001 0 I value={I_s} dc=0 dcvar=0 noise=0
+R1 out 0 {R_ell}
+C2 out 0 {C_ell}
+.param C_s=20p R_ell=1k C_ell=20p
+.lib SLiCAP.lib
+.backanno
+.end

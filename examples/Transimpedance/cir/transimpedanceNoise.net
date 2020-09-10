@@ -1,0 +1,12 @@
+* Z:\home\anton\DATA\SLiCAP\Examples\transimpedance\transimpedanceNoise.asc
+C1 N001 0 {C_s}
+I1 N001 0 I value={I_s} dc=0 dcvar=0 noise={2*q*I_D}
+R1 out 0 {R_ell}
+C2 out 0 {C_ell}
+R2 out N001 {R_f}
+XU1 N001 0 out 0 N_noise si={S_i} sv={S_v}
+I2 N001 out I value=0 dc=0 dcvar=0 noise={4*k*T/R_f}
+.param C_s=20p R_f=100k C_ell=20p R_ell=1k I_D=50n
+.lib SLiCAP.lib
+.backanno
+.end

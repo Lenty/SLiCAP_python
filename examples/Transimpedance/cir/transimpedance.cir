@@ -1,0 +1,13 @@
+"AD8610 transimpedance"
+* Z:\home\anton\DATA\SLiCAP\Examples\transimpedance\transimpedance.asc
+C1 N001 0 {C_s}
+I1 N001 0 I value={I_s} dc=0 dcvar=0 noise=0
+R2 out 0 {R_ell}
+C2 out 0 {C_ell}
+R1 out N001 {R_f}
+O1 0 N001 out 0 AD8610_A0
+C4 out N001 {C_c}
+.param C_s=20p R_f=100k R_ell=1k C_ell=20p I_s=1 C_c=0 A_0=300k
+.lib SLiCAP.lib
+.backanno
+.end

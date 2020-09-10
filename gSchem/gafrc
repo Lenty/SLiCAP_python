@@ -1,0 +1,2 @@
+(reset-component-library)
+(component-library "<The path where you installed SLiCAP>/gSchem/symbols" "SLiCAP")
