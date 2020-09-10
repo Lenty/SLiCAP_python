@@ -218,37 +218,6 @@ class circuit(object):
             print("Error: cannot define a number as parameter.")
         return
     
-    def defParUnits(self, parDict):
-        """
-        Defines the units of a parameter.
-        
-        :param parDict: Dictionary with key-value pairs:
-        
-                        - key (*str, sp.Symbol*): parameter name 
-                        - value (*str*): parameter units 
-                        
-        :type parDict: dict
-        
-        :Example:
-            
-        >>> # create my_circuit from the netlist 'myFirstRCnetwork.cir'
-        >>> my_circuit = checkCircuit('myFirstRCnetwork.cir')
-        >>> # Define the units of 'R' and 'C'
-        >>> my_circuit.defParUnits({'R': 'Omega', C: F})
-        """
-        if type(parDict) == dict:
-            for key in parDict.keys():
-                if checkNumber(key) == None:
-                    if type(parDict[key]) == str:
-                        self.parUnits[key] = parDict[key]
-                    else:
-                        self.parUnits[key] = ''
-                else:
-                    print("Error: cannot use a number as parameter.")
-        else:
-            print("Error: expected a dict type argument.")
-        return
-    
     def defPars(self, parDict):
         """
         Adds or modifies multiple parameter definitions and updates the list 
@@ -277,9 +246,9 @@ class circuit(object):
                     parValue = sp.sympify(replaceScaleFactors(str(parValue)))
                     self.parDefs[parName] = parValue
                 else:
-                    print("Error: cannot define a number as parameter.")
+                    print("Error: defPars: cannot define a number as parameter.")
         else:
-            print("Error: expected a dict type argument.")
+            print("Error: defPars: expected a dict type argument.")
         self.updateParams()
         return
         
@@ -287,80 +256,36 @@ class circuit(object):
         """
         Returns the value or expression of one or more parameters.
         
-        If numeric == True it will perform a full recursive substitution of
-        all circuit parameter definitions.
+        If instruction.numeric == True it will perform a full recursive 
+        substitution of all circuit parameter definitions.
         
-        :param parNames: name(s) of the parameter(s)
-        :type parNames: str, sympy.Symbol, list 
+        This method is called by instruction.circuit.getParValue() with keyword
+         arg numeric = True if instruction.simType is set to 'numeric'.
         
-        :return: If type(parNames) == list:
+        :param parName: name(s) of the parameter(s)
+        :type parName: str, sympy.Symbol, list 
+        
+        :return: if type(parNames) == list:
             
-                 (*dict*) with key-value pairs: 
-                     
-                 - key (*sympy.Symbol*): name of the parameter
-                   
-                 - value (*int, float, sympy object*): value of the parameter
+                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
+                 name of the parameter, value (*int, float, sympy expression*): 
+                 value of the parameter
                  
-                 Else: value or expression (*int, float, sympy object*).
+                 else:
+                 value or expression
                  
-        :rtype: dict, float, int, sympy obj
+        :rtype: dict, float, int, sympy.Expr
         
         :Example:
          
-        >>> # create an instance if a SLiCAP instruction
+        >>> # Create an instance if a SLiCAP instruction
         >>> my_instr = instruction()  
-        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
-        >>> my_instr.checkCircuit('myFirstRCnetwork.cir')
-        >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
+        >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.setCircuit('myFirstRCnetwork.cir')
+        >>> # Obtain the numeric parameter definitions of 'R' and 'C':
         >>> my_instr.symType = 'numeric'
-        >>> my_instr.getParValues(['R', 'C'])
-        """
-        if type(parNames) == list:
-            parValues = {}
-            for par in parNames:
-                par = sp.Symbol(str(par))
-                for key in self.parDefs.keys():
-                    if par == key:
-                        if numeric == True:
-                            parValues[par] = fullSubs(self.parDefs[key], self.parDefs)
-                        else:
-                           parValues[par] = self.parDefs[key]          
-            return parValues
-        parNames = sp.Symbol(str(parNames))
-        try:
-            if numeric:
-                parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
-            else:
-                parValue = self.parDefs[parNames]
-        except:
-            print("Error: parameter '%s' has not been defined."%(str(parNames)))
-            parValue = None
-        return parValue
-    
-    def getParUnits(self, parNames):
-        """
-        Returns the units of one or more parameters.
-        
-        :param parNames: name(s) of the parameter(s)
-        :type parNames: str, sympy.Symbol, list 
-        
-        :return: If type(parNames) == list:
-            
-                 (*list*) with units (*str*) of the parameters
-                 
-                 Else: units (*str*)
-                 
-        :rtype: list, str
-        
-        :Example:
-         
-        >>> # create an instance if a SLiCAP instruction
-        >>> my_instr = instruction()  
-        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
-        >>> my_instr.checkCircuit('myFirstRCnetwork.cir')
-        >>> # Define and obtain the units of 'R' and 'C':
-        >>> my_instr.symType = 'numeric'
-        >>> my_instr.getParValues(['R', 'C'])
+        >>> print my_instr.getParValue(['R', 'C'])
+        {C: 5.0e-7/pi, R: 1000.00000000000}
         """
         if type(parNames) == list:
             parValues = {}
@@ -433,6 +358,77 @@ class circuit(object):
             self.varIndex[self.nodes[i]] = varIndexPos
             varIndexPos += 1
         return
+        
+    def getElementValue(self, elementID, param, numeric):
+        """
+        Returns the value or expression of one or more circuit elements.
+        
+        If instruction.numeric == True it will perform a full recursive 
+        substitution of all circuit parameter definitions.
+        
+        This method is called by instruction.circuit.getElementValue() with 
+        keyword arg numeric = True if instruction.simType is set to 'numeric'.
+        
+        :param elementID: name(s) of the element(s)
+        :type elementID: str, list 
+        
+        :param param: name of the parameter (equal for all elements):
+            
+                      - 'value': Laplace value
+                      - 'dc': DC value (independent sources only)
+                      - 'noise': Noise spectral density (independent sources only)
+                      - 'dcvar': DC variance (independent sources only)
+                      
+        :type param: str
+        
+        :return: if type(parNames) == list:
+            
+                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
+                 name of the parameter, value (*int, float, sympy expression*): 
+                 value of the parameter
+                 
+                 else:
+                 value or expression
+                 
+        :rtype: dict, float, int, sympy.Expr
+        
+        :Example:
+         
+        >>> # Create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()  
+        >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.setCircuit('myFirstRCnetwork.cir')
+        >>> # Obtain the numeric value of 'R1' and 'C1':
+        >>> my_instr.symType = 'numeric'
+        >>> print my_instr.getElementValue(['R1', 'C1'])
+        {'C1': 5.0e-7/pi, 'R1': 1000.00000000000}
+        """
+        if type(elementID) == list:
+            elementValues = {}
+            for elID in elementID:
+                if elID in self.elements.keys():
+                    if param in self.elements[elID].params.keys():
+                        value = self.elements[elID].params[param]
+                        if numeric:
+                            value = fullSubs(value, self.parDefs)
+                        elementValues[elID] = value
+                    else:
+                        print("Error: Parameter '%s' undefined for element '%s'."%(param, elID))
+                else:
+                    print("Error: Unknown circuit element '%s'."%(elID))
+        else:
+            elementValues = None
+            if elementID in self.elements.keys():
+                if param in self.elements[elementID].params.keys():
+                    value = self.elements[elementID].params[param]
+                    if numeric:
+                        value = fullSubs(value, self.parDefs)
+                    elementValues = value
+                else:
+                    print("Error: Parameter '%s' undefined for element '%s'."%(param, elementID))
+            else:
+                print("Error: Unknown circuit element '%s'."%(elementID))
+        return elementValues
 
 class element(object):
     """

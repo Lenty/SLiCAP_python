@@ -46,9 +46,10 @@ def maxEval(maxExpr):
     maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
     maxInput = maxAssume + maxExpr + maxStringConv 
     #
-    # python 2
-    p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', \
-                               maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if platform.system() == 'Windows':
+        p = subprocess.Popen([ini.maxima, '--very-quiet', '-batch-string', maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    else:
+        p = subprocess.Popen(['maxima', '--very-quiet', '-batch-string', maxInput], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Define a function for killing the process
     kill     = lambda process: process.kill()
     # Define the timer for killing the process
@@ -56,18 +57,17 @@ def maxEval(maxExpr):
     # Start the timer
     maxTimer.start()
     # Get the ouput from the subprocess
-    stdout, stderr = p.communicate()
+    stdout, stderr = p.communicate()    
+    try:
+        stdout = stdout.decode("utf-8")
+    except (UnicodeDecodeError, AttributeError):
+        pass
     # The last line of the output stream is the result   
     result = stdout.split('\n')[-1]
     # Cancel the timer because the process does not exsists after succesfully
     # reading its output
     maxTimer.cancel()
-    # end python 2
-    #
-    # python 3
-    #result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
-    # end python 3
-    #
+
     # Convert the result such that it can be 'sympified'
     if result != '':
         # Convert big float notation '12345b+123' to float notation '12345e+123':
@@ -337,8 +337,8 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     """    
     Returns the numerator of the squared transfer from a source to the detector
     in Sympy format, with the Laplace variable replaced with
-    '2*%pi*%i*ini.frequency' for noise, or with 0, for noise or for dcVar 
-    calculations, respectively.
+    '2*%pi*%i*ini.frequency' or with 0, for noise or for dcVar calculations, 
+    respectively.
     
     :param cir: Circuit object
     :type cir: SLiCAPprotos.circuit

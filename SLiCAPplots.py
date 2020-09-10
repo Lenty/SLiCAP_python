@@ -577,9 +577,9 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     elif funcType == 'time':
         ax.yLabel = '[' + yScale + yUnits + ']'
     elif funcType == 'onoise':
-        ax.yLabel = 'spectral density [' + yScale + yUnits +'^2/Hz]'
+        ax.yLabel = 'spectral density [$' + yScale + yUnits +'^2/Hz$]'
     elif funcType == 'inoise':
-        ax.yLabel = 'spectral density [' + yScale + yUnits +'^2/Hz]'
+        ax.yLabel = 'spectral density [$' + yScale + yUnits +'^2/Hz$]'
     # Create the sweep, lin or log depending on the x-axis type
     try:
         xScaleFactor = 10**int(SCALEFACTORS[sweepScale])

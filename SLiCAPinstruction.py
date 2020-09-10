@@ -249,7 +249,7 @@ class instruction(object):
                 print("Error: unknown simulation type: '%s'."%(str(self.symType)))
                 self.errors += 1
         else:
-            print("Error: argument type must be type 'str'.")
+            print("Error: simulation type must be type 'str'.")
             self.errors += 1
             
     def setGainType(self, gainType):       
@@ -285,7 +285,7 @@ class instruction(object):
         elif self.gainType == None:
             print("Error: missing gain type.")
         else:
-            print("Error: argument type must be type 'str'.")
+            print("Error: gain type must be type 'str'.")
             self.errors += 1
         return  
 
@@ -411,7 +411,7 @@ class instruction(object):
                 self.stepVar = sp.Symbol(self.stepVar)
             else:
                 self.errors += 1
-                print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
+                print("Error: step variable type must be 'str' or 'sympy.symbol.Symbol'.")
             if self.stepVar not in self.circuit.parDefs.keys() and self.stepVar not in self.circuit.params:
                 print("Warning: unknown step parameter '%s'."%(self.stepVar))
         return
@@ -485,7 +485,7 @@ class instruction(object):
                                 print("Warning: unknown step parameter '%s'."%(str(stepVar)))
                         else:
                             errors += 1
-                            print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
+                            print("Error: step variable type must be 'str' or 'sympy.symbol.Symbol'.")
                     else:
                         errors += 1
                         print("Error: step variable cannot be numeric.")
@@ -493,7 +493,7 @@ class instruction(object):
                 errors += 1
                 print("Error: empty stepVars.")
         else:
-            print("Error: argument should be a list.")
+            print("Error: step varibles should be a list.")
             errors += 1
         self.errors += errors 
         return
@@ -1119,19 +1119,72 @@ class instruction(object):
         
         :Example:
          
-        >>> # create an instance if a SLiCAP instruction
+        >>> # Create an instance if a SLiCAP instruction
         >>> my_instr = instruction()  
-        >>> # create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
-        >>> # Obtain the numeric parameter definitions of of 'R' and 'C':
+        >>> # Obtain the numeric parameter definitions of 'R' and 'C':
         >>> my_instr.symType = 'numeric'
         >>> my_instr.getParValue(['R', 'C'])
+        {C: 5.0e-7/pi, R: 1000.00000000000}
         """
         if self.simType == 'numeric':
             self.numeric = True
         else:
             self.numeric = False
-        return self.circuit.getParValue(parName, self.numeric)
+        return self.circuit.getParValue(parName, numeric = self.numeric)
+    
+    def getElementValue(self, elementID, param = 'value'):
+        """
+        Returns the value or expression of one or more circuit elements.
+        
+        If instruction.numeric == True it will perform a full recursive 
+        substitution of all circuit parameter definitions.
+        
+        This method calls instruction.circuit.getElementValue() with
+        numeric = True if instruction.simType is set to 'numeric'.
+        
+        :param elementID: name(s) of the element(s)
+        :type elementID: str, list 
+        
+        :param param: name of the parameter (equal for all elements):
+            
+                      - 'value': Laplace value
+                      - 'dc': DC value (independent sources only)
+                      - 'noise': Noise spectral density (independent sources only)
+                      - 'dcvar': DC variance (independent sources only)
+                      
+                      Defaults to 'value'.
+                      
+        :type param: str
+        
+        :return: if type(parNames) == list:
+            
+                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
+                 name of the parameter, value (*int, float, sympy expression*): 
+                 value of the parameter
+                 
+                 else:
+                 value or expression
+                 
+        :rtype: dict, float, int, sympy.Expr
+        
+        :Example:
+         
+        >>> # Create an instance if a SLiCAP instruction
+        >>> my_instr = instruction()  
+        >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
+        >>> my_instr.setCircuit('myFirstRCnetwork.cir')
+        >>> # Obtain the numeric value of 'R1' and 'C1':
+        >>> my_instr.symType = 'numeric'
+        >>> print my_instr.getElementValue(['R1', 'C1'])
+        {'C1': 5.0e-7/pi, 'R1': 1000.00000000000}
+        """
+        if self.simType == 'numeric':
+            self.numeric = True
+        else:
+            self.numeric = False
+        return self.circuit.getElementValue(elementID, param, self.numeric)
     
     def indepVars(self):
         """
@@ -1227,7 +1280,7 @@ class instruction(object):
             print("Error: empty circuit object for this instruction.")
         elif type(self.circuit) != type(circuit()):
             self.errors += 1
-            print("Error: not SLiCAP a circuit object for this instruction.")
+            print("Error: expected a SLiCAP circuit object for this instruction.")
         return
         
     def check(self):

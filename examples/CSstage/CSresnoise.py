@@ -14,7 +14,7 @@ i1 = instruction()
 i1.setCircuit(fileName)
 # Set value of 1/f noise to zero and define drain current at critical inversion
 i1.simType = 'numeric'
-i1.defPar('KF_X1', 0)
+i1.defPar('KF_N18', 0)
 I_D     = i1.getParValue('ID')
 IC      = i1.getParValue('IC_X1')
 IC_CRIT = i1.getParValue('IC_CRIT_X1')
@@ -85,4 +85,4 @@ result = i1.execute()
 # Plot the function
 fig_NF_W = plotSweep('NF_W', 'Noise Figure versus width, $f_{min}$ = 200MHz', result, 10, 200, 50, sweepVar = 'W', sweepScale = 'u', funcType = 'param', xUnits = 'm', yVar = 'NF', yUnits = 'dB', show = True)
 t2 = time()
-print t2-t1, s
+print(t2-t1, 's')

@@ -568,7 +568,7 @@ def matrices2html(instrObj, label = '', labelText = ''):
     :rtype: str
     """
     if instrObj.errors != 0:
-        print("Errors found during executeion.")
+        print("Errors found during execution.")
         return ''
     elif instrObj.dataType != 'matrix':
         print("Error: expected dataType 'matrix' for 'matrices2html()', got: '%s'."%(instrObj.dataType))
@@ -618,7 +618,7 @@ def pz2html(instObj, label = '', labelText = ''):
         print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print("Error: parameter stepping not yet implemented for 'pz2html()'.")
+        print("Error: parameter stepping not implemented for 'pz2html()'.")
         return  
     if label != '':
         if labelText == '':
@@ -720,7 +720,7 @@ def noise2html(instObj, label = '', labelText = ''):
         print("Error: 'noise2html()' expected dataType: 'noise', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print("Error: parameter stepping not yet implemented for 'noise2html()'.")
+        print("Error: parameter stepping not implemented for 'noise2html()'.")
         return  
     if label != '':
         if labelText == '':
@@ -786,7 +786,7 @@ def dcVar2html(instObj, label = '', labelText = ''):
         print("Error: 'dcvar2html()' expected dataType: 'dcvar', got: '%s'."%(instObj.dataType))
         return
     elif instObj.step == True :
-        print("Error: parameter stepping not yet implemented for 'dcvar2html()'.")
+        print("Error: parameter stepping not implemented for 'dcvar2html()'.")
         return  
     if label != '':
         if labelText == '':
@@ -1010,6 +1010,7 @@ def links2html():
     return
 
 if __name__ == '__main__':
-    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.projectPath = ini.installPath + 'examples/CStage/'
     ini.htmlPath    = ini.projectPath + 'html/'
+    ini.lastUpdate  = datetime.now()
     startHTML('Test project') 

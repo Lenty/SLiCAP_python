@@ -16,12 +16,13 @@ from time import time
 from datetime import datetime
 import re
 import subprocess
+import platform
 from threading import Timer
 import os
 import getpass
 import matplotlib._pylab_helpers as plotHelp
 from matplotlib import pyplot as plt
-plt.ioff() # Turn off the interactive mode for plotting
+#plt.ioff() # Turn off the interactive mode for plotting
 
 class settings(object):
     """
@@ -391,15 +392,24 @@ class settings(object):
         to 5.
         """
         
-        self.ltspice = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        self.ltspice = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist'
         """
         Operating system command prefix for batch generation of a netlist from an 
         LTspice circuit.
         
-        - windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
-        - linux (wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        - Windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        - Linux (Wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
+        
+        Defaults to *SLiCAPconfig.LTSPICE*
         
         This prefix will be followed by the name of the schematic file.
+        """
+        
+        self.maxima             = None
+        """
+        MSWindows command for starting Maxima.
+        
+        Defaults to *SLiCAPconfig.MAXIMA*
         """
 
     def dump(self):
@@ -419,27 +429,27 @@ class settings(object):
                         if key != 'htmlLabels':
                             ndots = tabWidth - len(key)
                             # python 2
-                            print(key)
+                            print key,
                             # python 3
                             #print(key, end = '')
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
-                            print(dots,':', dct[key])
+                            print dots,':', dct[key]
                         elif key == 'htmlLabels':
                             dispkey = key + '.keys()'
                             ndots = tabWidth - len(dispkey)
                             # python 2
-                            print(dispkey,)
+                            print dispkey,
                             # python 3
                             #print(dispkey, end = '')
                             dots = ''
                             for i in range(ndots):
                                 dots += '.'
                             if type(dct[key]) == dict:
-                                print(dots,':', list(dct[key].keys()))
+                                print dots,':', list(dct[key].keys())
                             else:
-                                print(dots,':', dct[key])
+                                print dots,':', dct[key]
                             
     def updatePaths(self, projectPath):
         """
@@ -457,6 +467,8 @@ class settings(object):
         self.latexPath        = projectPath + LATEXPATH
         self.mathmlPath       = projectPath + MATHMLPATH
         self.imgPath          = projectPath + IMGPATH
+        self.maxima           = MAXIMA
+        self.ltspice          = LTSPICE
                                     
 ini = settings()
     

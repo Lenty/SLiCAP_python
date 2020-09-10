@@ -29,12 +29,15 @@ f_o         = sp.Symbol('f_o')
 protoType   = sp.sympify('1/(1 + sqrt(2)*s/2/pi/f_o + (s/2/pi/f_o)^2)^2')
 # Define the cross-over frequency of the filter
 protoType   = protoType.subs(f_o, 2000)
-# Calculate the circuit component values
-compValues  = equateCoeffs(protoType, transfer, noSolve = [f_o])
-# Define the component values
-i1.defPars(compValues)
+# Calculate the circuit parameters
+paramValues  = equateCoeffs(protoType, transfer, noSolve = [f_o])
+# Obtain the numeric element values
+# Define the circuit parameters
+i1.defPars(paramValues)
+i1.setSimType('numeric')
+elementValues = i1.getElementValue(['C1', 'C2', 'L1', 'L2'])
+print(elementValues)
 # Check the transfer 
-i1.simType  = 'numeric'
 i1.gainType = 'gain'
 i1.dataType = 'laplace'
 result      = i1.execute()
@@ -53,9 +56,9 @@ img2html('LowPassLR.svg', 400)
 head2html('Transfer of the network')
 eqn2html('T_s', transfer)
 
-head2html('Component values')
-for key in compValues.keys():
-    eqn2html(key, compValues[key])
+head2html('Parameter values')
+for key in paramValues.keys():
+    eqn2html(key, paramValues[key])
 elementData2html(i1.circuit)  
 params2html(i1.circuit)
 

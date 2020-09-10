@@ -143,7 +143,6 @@ def makeCircuit(cir):
         # Here we have the first token of the second line of the sub circuit
         # definition. Further checking is identical as with the main circuit,
         # except for a '.ends' command token at the end.
-        #print tok,
     else:
         printError("Error: expected a circuit title.", 
                    lines[cir.lexer.lineno], find_column(tok))
@@ -151,7 +150,6 @@ def makeCircuit(cir):
         # Here we have the first token of the second line of the circuit 
         # definition. Further checking is identical as with the sub circuit,
         # except for a '.end' command token at the end.
-    #print cir.title, cir.nodes, tok
     while tok:
         if tok.type == 'ID' and tok.value[0].upper() in list(DEVICES.keys()):
             # We have an element definition line, the number of required fields
@@ -375,7 +373,7 @@ def makeCircuit(cir):
                                 break
                     cir.modelDefs[newModel.name] = newModel
                 else:
-                    print("Error: missing model dedinition.")
+                    print("Error: missing model definition.")
             elif tok.value == 'PARAM':
                 tok = cir.lexer.token()
                 if tok:
@@ -389,9 +387,6 @@ def makeCircuit(cir):
                                 cir.parDefs[tok.value[0]] = tok.value[1]
                             else:
                                 # This parameter has already been defined!
-                                #printError("Error: parameter has already been defined.", 
-                                #           lines[cir.lexer.lineno], find_column(tok))
-                                #cir.errors += 1
                                 pass
                             tok = cir.lexer.token()
                             if not tok:
@@ -814,7 +809,7 @@ def makeLibraries():
     LIB.lexer = tokenize(fileName)
     LIB = makeCircuit(LIB)
     if LIB.errors != 0:
-        print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
+        print("Errors found in library: '%s'."%(fileName))
         return LIB
     else:
         # Do this also for other libs
@@ -832,7 +827,7 @@ def makeLibraries():
         cir = makeCircuit(cir)
         
         if cir.errors != 0:
-            print("Errors found in library: '%s'. SLiCAP will not work!"%(fileName))
+            print("Errors found in library: '%s'."%(fileName))
             LIB.errors = cir.errors
             return LIB
         CIRTITLES = []
@@ -898,7 +893,7 @@ if __name__ == '__main__':
     """
     Since we are not running a project, we need to define project data.
     """
-    ini.projectPath = ini.installPath + 'testProjects/MOSamp/'
+    ini.projectPath = ini.installPath + 'examples/CSstage/'
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
@@ -906,8 +901,8 @@ if __name__ == '__main__':
     t1=time()
     LIB = makeLibraries()
     t2=time()  
-    fi = 'MOSamp.cir'
-    print("\nCheking:", fi)
+    fi = 'CSresNoise.cir'
+    print("\nChecking:", fi)
     myCir = checkCircuit(fi)
     t3=time()
     keys = list(myCir.elements.keys())
