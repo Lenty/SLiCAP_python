@@ -306,7 +306,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 + LDS_N18     = 180n  ; length of drain and source [m]
 + TOX_N18     = 4.1n  ; oxide thickness [m]
 + VAL_N18     = 40M   ; Early voltage per unit of length [V/m]
-+ KF_N18      = 3E-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
++ KF_N18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
 + C_OX_N18    = {epsilon_0 * epsilon_SiO2 / TOX_N18}; oxide capacitance per unit of area [F/m^2]
 + I_0_N18     = {2*N_s_N18*u_0_N18*C_OX_N18*U_T^2}  ; technology current [A]
 
@@ -322,7 +322,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 + LDS_P18     = 180n  ; length of drain and source [m]
 + TOX_P18     = 4.1n  ; oxide thickness [m]
 + VAL_P18     = 40M   ; Early voltage per unit of length [V/m]
-+ KF_P18      = 3E-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
++ KF_P18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
 + C_OX_P18    = {epsilon_0 * epsilon_SiO2 / TOX_P18}; oxide capacitance per unit of area [F/m^2]
 + I_0_P18     = {2*N_s_P18*u_0_P18*C_OX_P18*U_T^2} ; technology current [A]
 </pre></div>
@@ -345,21 +345,25 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 12
 13
 14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">SLiCAP module with user-defined path settings.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">PROJECTPATH</span>     <span class="o">=</span> <span class="bp">None</span>      <span class="c1"># Leave it for automatic detection</span>
+<span class="n">PROJECTPATH</span> <span class="o">=</span> <span class="bp">None</span>      <span class="c1"># Leave it for automatic detection</span>
 <span class="c1"># PATHS: relative to the project path</span>
-<span class="n">HTMLPATH</span>        <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
-<span class="n">CIRCUITPATH</span>     <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
-<span class="n">LIBRARYPATH</span>     <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>    <span class="c1"># path for include and library files</span>
-<span class="n">TXTPATH</span>         <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
-<span class="n">CSVPATH</span>         <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
-<span class="n">LATEXPATH</span>       <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
-<span class="n">MATHMLPATH</span>      <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
-<span class="n">IMGPATH</span>         <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
+<span class="n">HTMLPATH</span>    <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
+<span class="n">CIRCUITPATH</span> <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
+<span class="n">LIBRARYPATH</span> <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>    <span class="c1"># path for include and library files</span>
+<span class="n">TXTPATH</span>     <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
+<span class="n">CSVPATH</span>     <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
+<span class="n">LATEXPATH</span>   <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
+<span class="n">MATHMLPATH</span>  <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
+<span class="n">IMGPATH</span>     <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
+<span class="n">MAXIMA</span>      <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">maxima-5.44.0</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">maxima.bat&#39;</span> <span class="c1"># Windows command for maxima</span>
+<span class="n">LTSPICE</span>     <span class="o">=</span> <span class="s1">&#39;wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist &#39;</span>  
 </pre></div>
 </td></tr></table></div>
 </div>

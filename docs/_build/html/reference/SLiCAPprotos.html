@@ -570,33 +570,6 @@ undefined parameters.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SLiCAPprotos.circuit.defParUnits">
-<code class="descname">defParUnits</code><span class="sig-paren">(</span><em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.defParUnits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines the units of a parameter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parDict</strong> (<em>dict</em>) – <p>Dictionary with key-value pairs:</p>
-<ul class="simple">
-<li>key (<em>str, sp.Symbol</em>): parameter name</li>
-<li>value (<em>str</em>): parameter units</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the units of &#39;R&#39; and &#39;C&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defParUnits</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;Omega&#39;</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="n">F</span><span class="p">})</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
 <dt id="SLiCAPprotos.circuit.defPars">
 <code class="descname">defPars</code><span class="sig-paren">(</span><em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.defPars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds or modifies multiple parameter definitions and updates the list
@@ -703,32 +676,54 @@ Defaults to 0.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="SLiCAPprotos.circuit.getParUnits">
-<code class="descname">getParUnits</code><span class="sig-paren">(</span><em>parNames</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.getParUnits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the units of one or more parameters.</p>
+<dt id="SLiCAPprotos.circuit.getElementValue">
+<code class="descname">getElementValue</code><span class="sig-paren">(</span><em>elementID</em>, <em>param</em>, <em>numeric</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPprotos.circuit.getElementValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value or expression of one or more circuit elements.</p>
+<p>If instruction.numeric == True it will perform a full recursive 
+substitution of all circuit parameter definitions.</p>
+<p>This method is called by instruction.circuit.getElementValue() with 
+keyword arg numeric = True if instruction.simType is set to ‘numeric’.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parNames</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>list</em>) – name(s) of the parameter(s)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">If type(parNames) == list:<p>(<em>list</em>) with units (<em>str</em>) of the parameters</p>
-<p>Else: units (<em>str</em>)</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>elementID</strong> (<em>str</em><em>, </em><em>list</em>) – name(s) of the element(s)</li>
+<li><strong>param</strong> (<em>str</em>) – <p>name of the parameter (equal for all elements):</p>
+<ul>
+<li>’value’: Laplace value</li>
+<li>’dc’: DC value (independent sources only)</li>
+<li>’noise’: Noise spectral density (independent sources only)</li>
+<li>’dcvar’: DC variance (independent sources only)</li>
+</ul>
+</li>
+</ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list, str</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>if type(parNames) == list:</p>
+<p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>): 
+name of the parameter, value (<em>int, float, sympy expression</em>): 
+value of the parameter</p>
+<p>else:
+value or expression</p>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict, float, int, sympy.Expr</p>
+</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define and obtain the units of &#39;R&#39; and &#39;C&#39;:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain the numeric value of &#39;R1&#39; and &#39;C1&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">symType</span> <span class="o">=</span> <span class="s1">&#39;numeric&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">getParValues</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">my_instr</span><span class="o">.</span><span class="n">getElementValue</span><span class="p">([</span><span class="s1">&#39;R1&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">])</span>
+<span class="go">{&#39;C1&#39;: 5.0e-7/pi, &#39;R1&#39;: 1000.00000000000}</span>
 </pre></div>
 </div>
 </dd></dl>

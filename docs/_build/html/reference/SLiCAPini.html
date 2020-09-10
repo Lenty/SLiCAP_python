@@ -505,9 +505,10 @@ update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 <dd><p>Operating system command prefix for batch generation of a netlist from an 
 LTspice circuit.</p>
 <ul class="simple">
-<li>windows: ‘C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
-<li>linux (wine): ‘wine ~/.wine/drive_c/ProgramFiles/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
+<li>Windows: ‘C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
+<li>Linux (Wine): ‘wine ~/.wine/drive_c/ProgramFiles/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
 </ul>
+<p>Defaults to <em>SLiCAPconfig.LTSPICE</em></p>
 <p>This prefix will be followed by the name of the schematic file.</p>
 </dd></dl>
 
@@ -548,7 +549,7 @@ Defaults to 10.</p>
 <dt id="SLiCAPini.settings.maxima">
 <code class="descname">maxima</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAPini.settings.maxima" title="Permalink to this definition">¶</a></dt>
 <dd><p>MSWindows command for starting Maxima.</p>
-<p>Defaults to ‘C:maxima-5.44.0binmaxima.bat’</p>
+<p>Defaults to <em>SLiCAPconfig.MAXIMA</em></p>
 </dd></dl>
 
 <dl class="attribute">
