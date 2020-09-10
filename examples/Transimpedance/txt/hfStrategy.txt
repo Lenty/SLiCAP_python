@@ -1,8 +1,0 @@
-## Selection procedure OpAmp with respect to the HF performance of the circuit
-
-This procedure is meant for OpAmps with resistive output
-
-1. Only select operational amplifiers with $R_o \le R_f$
-   a. Calculate the bandwidth as the second order bandwidth
-   b. If $\frac{1}{2\pi R_o C_{\ell}}$ is less than two times the required bandwidth then calculate the bandwidth as the third order bandwidth
-2. Select the operational amplifier if the calculated bandwidth is large enough.
