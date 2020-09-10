@@ -63,10 +63,6 @@ def maxEval(maxExpr):
     except (UnicodeDecodeError, AttributeError):
         pass
     # The last line of the output stream is the result   
-    try:
-        stdout = stdout.decode("utf-8")
-    except (UnicodeDecodeError, AttributeError):
-        pass
     result = stdout.split('\n')[-1]
     # Cancel the timer because the process does not exsists after succesfully
     # reading its output
