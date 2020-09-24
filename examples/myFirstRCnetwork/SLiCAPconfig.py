@@ -20,4 +20,4 @@ LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -
 PROJECT    = 'My first RC network'
 AUTHOR     = 'Anton'
 CREATED    = '2020-09-10 10:47:02.558889'
-LASTUPDATE = '2020-09-10 14:12:02.268407'
+LASTUPDATE = '2020-09-23 19:31:49.144157'
