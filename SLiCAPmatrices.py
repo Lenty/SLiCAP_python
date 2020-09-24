@@ -305,14 +305,14 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += value
-            M[pos1][dVarPos] -= value
-            M[pos2][dVarPos] += 1
-            M[pos3][dVarPos] -= 1
-            M[dVarPos][pos0] += value
-            M[dVarPos][pos1] -= value
-            M[dVarPos][pos2] += 1
-            M[dVarPos][pos3] -= 1
+            M[pos0][dVarPos] += 1
+            M[pos1][dVarPos] -= 1
+            M[pos2][dVarPos] -= value
+            M[pos3][dVarPos] += value
+            M[dVarPos][pos0] += 1
+            M[dVarPos][pos1] -= 1
+            M[dVarPos][pos2] -= value
+            M[dVarPos][pos3] += value
         elif elmt.model == 'V':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
