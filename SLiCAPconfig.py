@@ -14,4 +14,5 @@ LATEXPATH   = 'tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH  = 'mathml/' # path for mathML output saveMathML()
 IMGPATH     = 'img/'    # path for image files
 MAXIMA      = 'C:\\maxima-5.44.0\\bin\\maxima.bat' # Windows command for maxima
-LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '  
+LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist' # Command for netlist generation with LTspice
+NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation with gschem or lepton-eda

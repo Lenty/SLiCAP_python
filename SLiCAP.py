@@ -121,7 +121,7 @@ def makeNetlist(fileName, cirTitle):
         fileType = fileNameParts[-1].lower()
         baseFileName = ini.circuitPath + '.'.join(fileNameParts[0:-1])
         if fileType == 'asc':
-            os.system(ini.ltspice + baseFileName + '.asc')
+            os.system(ini.ltspice + ' ' + baseFileName + '.asc')
             try:
                 f = open(baseFileName + '.net', 'r')
                 netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()
@@ -132,12 +132,12 @@ def makeNetlist(fileName, cirTitle):
             except:
                 print("Error: could not open: '%s'."%(baseFileName + '.net'))
         elif fileType == 'sch':
-            cmd = 'gnetlist -q -g spice-noqsi -o ' + baseFileName + '.net ' + baseFileName + '.sch'
+            cmd = ini.netlist + ' -o ' + baseFileName + '.net ' + baseFileName + '.sch'
             print(cmd)
             os.system(cmd)
             try:
                 f = open(baseFileName + '.net', 'r')
-                netlistLines = ['"' + cirTitle + '"\n'] + f.readlines() + ['.end\n']
+                netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()[1:] + ['.end\n']
                 f.close()
                 f = open(baseFileName + '.cir', 'w')
                 f.writelines(netlistLines)

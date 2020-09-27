@@ -23,8 +23,8 @@ import os
 import getpass
 import inspect
 import matplotlib._pylab_helpers as plotHelp
-from matplotlib import pyplot as plt
-#plt.ioff() # Turn off the interactive mode for plotting
+import matplotlib.pyplot as plt
+plt.ioff() # Turn off the interactive mode for plotting
 
 class settings(object):
     """
@@ -128,6 +128,7 @@ class settings(object):
     #. Netlister settings:
    
        - ltspice : os command for batch netlist creation with LTspice
+       - netlist : os command for batch netlist creation with gschem or lepton-eda
        
     #. Maxima command setting (only required for MSWindows)
     
@@ -398,15 +399,15 @@ class settings(object):
         to 5.
         """
         
-        self.ltspice = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist'
+        self.ltspice = None
         """
         Operating system command prefix for batch generation of a netlist from an 
         LTspice circuit.
         
+        Defaults to *SLiCAPconfig.LTSPICE*
+        
         - Windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
         - Linux (Wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
-        
-        Defaults to *SLiCAPconfig.LTSPICE*
         
         This prefix will be followed by the name of the schematic file.
         """
@@ -416,6 +417,30 @@ class settings(object):
         MSWindows command for starting Maxima.
         
         Defaults to *SLiCAPconfig.MAXIMA*
+        """
+        
+        self.netlist            = None
+        """
+        gschem or lepton-schematic command for generating a netlist.
+        
+        Defaults to *SLiCAPconfig.NETLIST*
+        
+        For lepton-schematic use 'lepton-netlist -g spice-noqsi'.
+        
+        For gschem (deprecated) use: 'gnetlist -q -g spice-noqsi'.
+        
+        The netlister: *gnet-spice-noqsi.scm* must be stored in the gschem or 
+        lepton-geda directory with the other netlisters. Commonly used 
+        locations are:
+        
+        - Linux systems:
+            
+          - *lepton-eda:* /usr/share/lepton-eda/scheme/backend/
+          - *gschem:* /usr/share/gEDA/scheme/
+          
+        - MS Windows systems:
+            
+          - *gschem*:  'C:\Program Files (x86)\gEDA\gEDA\share\gEDA\scheme\'
         """
         
     def dump(self):
@@ -469,6 +494,7 @@ class settings(object):
         self.imgPath          = projectPath + IMGPATH
         self.maxima           = MAXIMA
         self.ltspice          = LTSPICE
+        self.netlist          = NETLIST
                                     
 ini = settings()
     

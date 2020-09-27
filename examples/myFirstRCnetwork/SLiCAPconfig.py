@@ -14,10 +14,10 @@ LATEXPATH   = 'tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH  = 'mathml/' # path for mathML output saveMathML()
 IMGPATH     = 'img/'    # path for image files
 MAXIMA      = 'C:\\maxima-5.44.0\\bin\\maxima.bat' # Windows command for maxima
-LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '  
+LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist '# Command for netlist generation with LTspice
 
 # Project information
 PROJECT    = 'My first RC network'
-AUTHOR     = 'Anton'
-CREATED    = '2020-09-10 10:47:02.558889'
-LASTUPDATE = '2020-09-23 19:31:49.144157'
+AUTHOR     = 'anton'
+CREATED    = '2020-09-26 21:04:24.362175'
+LASTUPDATE = '2020-09-27 00:23:51.754258'

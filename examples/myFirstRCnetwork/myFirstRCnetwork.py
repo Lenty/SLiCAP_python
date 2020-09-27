@@ -14,7 +14,7 @@ prj = initProject('My first RC network') # Sets all the paths and creates the HT
 
 baseFileName = 'myFirstRCnetwork'
 fileName = baseFileName + '.cir'
-schematicFile = baseFileName + '.asc'
+schematicFile = baseFileName + '.sch'
 
 makeNetlist(schematicFile, 'My first RC network')
 i1 = instruction()                       # Creates an instance of an instruction object
