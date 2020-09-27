@@ -1,0 +1,2 @@
+(reset-component-library)
+(component-library "<SLiCAP_INSTALL_PATH>/lepton-eda/symbols" "SLiCAP")

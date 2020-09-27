@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,52 +11,48 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP netlist syntax" href="SLiCAPnetlistSyntax.html"/>
-        <link rel="next" title="SLiCAP reference" href="../reference/SLiCAPreference.html"/>
-        <link rel="prev" title="Devices and built-in models" href="devices.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLiCAP reference" href="../reference/SLiCAPreference.html" />
+    <link rel="prev" title="Devices and built-in models" href="devices.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> SLiCAP
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> SLiCAP
           
 
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -123,13 +119,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -137,9 +134,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -160,7 +158,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a> &raquo;</li>
         
@@ -187,7 +185,7 @@
 <h1>Schematic capture for SLiCAP<a class="headerlink" href="#schematic-capture-for-slicap" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="ltspice">
 <h2>LTSpice<a class="headerlink" href="#ltspice" title="Permalink to this headline">¶</a></h2>
-<p>A symbol set for schematic capture and netlist generation with LTSpice can be found in the <code class="docutils literal"><span class="pre">LTspice/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal"><span class="pre">slicap.lib</span></code> file.</p>
+<p>A symbol set for schematic capture and netlist generation with LTSpice can be found in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal notranslate"><span class="pre">slicap.lib</span></code> file.</p>
 <p>The following table gives an overview of the available symbols. Model descriptions can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section.</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -379,12 +377,12 @@
 </div>
 <div class="section" id="spice-directives">
 <h3>SPICE directives<a class="headerlink" href="#spice-directives" title="Permalink to this headline">¶</a></h3>
-<p>Parameter definitions <code class="docutils literal"><span class="pre">.param</span></code>, model definitions <code class="docutils literal"><span class="pre">.model</span></code>, library definitions <code class="docutils literal"><span class="pre">.lib</span></code> can be placed on a schematic page using <strong>spice directives</strong>. LTSpice also defines the coupling between inductors with the aid of spice directives.</p>
+<p>Parameter definitions <code class="docutils literal notranslate"><span class="pre">.param</span></code>, model definitions <code class="docutils literal notranslate"><span class="pre">.model</span></code>, library definitions <code class="docutils literal notranslate"><span class="pre">.lib</span></code> can be placed on a schematic page using <strong>spice directives</strong>. LTSpice also defines the coupling between inductors with the aid of spice directives.</p>
 </div>
 </div>
 <div class="section" id="gschem">
 <h2>gSchem<a class="headerlink" href="#gschem" title="Permalink to this headline">¶</a></h2>
-<p>A symbol set for schematic capture and netlist generation with gSchem can be found in the <code class="docutils literal"><span class="pre">gSchem/symbols/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal"><span class="pre">slicap.lib</span></code> file.</p>
+<p>A symbol set for schematic capture and netlist generation with gSchem can be found in the <code class="docutils literal notranslate"><span class="pre">gSchem/symbols/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal notranslate"><span class="pre">slicap.lib</span></code> file.</p>
 <p>The following table gives an overview of the available symbols. Model descriptions can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section. Please scroll the table to the left to see the associated sub circuits.</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -635,14 +633,14 @@
 </div>
 <div class="section" id="id1">
 <h3>SPICE directives<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Parameter definitions <code class="docutils literal"><span class="pre">.param</span></code>, model definitions <code class="docutils literal"><span class="pre">.model</span></code>, library definitions <code class="docutils literal"><span class="pre">.lib</span></code> can be placed on a schematic page using the corresponding symbols.</p>
+<p>Parameter definitions <code class="docutils literal notranslate"><span class="pre">.param</span></code>, model definitions <code class="docutils literal notranslate"><span class="pre">.model</span></code>, library definitions <code class="docutils literal notranslate"><span class="pre">.lib</span></code> can be placed on a schematic page using the corresponding symbols.</p>
 </div>
 </div>
 <div class="section" id="slicap-library">
 <h2>SLiCAP library<a class="headerlink" href="#slicap-library" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP comes with a library with device models and sub circuits.</p>
-<p>Models of devices and sub circuits are located in the <code class="docutils literal"><span class="pre">/lib</span></code> sub directory of your SLiCAP installation folder. You can adapt these models to your needs, and
-save them under a <strong>different</strong> name in your project directory or in the lib directory and call them from your circuit or schematic with the <code class="docutils literal"><span class="pre">.lib</span></code> spice directive.</p>
+<p>Models of devices and sub circuits are located in the <code class="docutils literal notranslate"><span class="pre">/lib</span></code> sub directory of your SLiCAP installation folder. You can adapt these models to your needs, and
+save them under a <strong>different</strong> name in your project directory or in the lib directory and call them from your circuit or schematic with the <code class="docutils literal notranslate"><span class="pre">.lib</span></code> spice directive.</p>
 <div class="section" id="slicap-lib">
 <h3>slicap.lib<a class="headerlink" href="#slicap-lib" title="Permalink to this headline">¶</a></h3>
 <p>The table below gives an overview of the slicap.lib file.</p>
@@ -880,9 +878,7 @@ save them under a <strong>different</strong> name in your project directory or i
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -891,7 +887,7 @@ save them under a <strong>different</strong> name in your project directory or i
         <a href="../reference/SLiCAPreference.html" class="btn btn-neutral float-right" title="SLiCAP reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="devices.html" class="btn btn-neutral" title="Devices and built-in models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="devices.html" class="btn btn-neutral float-left" title="Devices and built-in models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -900,11 +896,19 @@ save them under a <strong>different</strong> name in your project directory or i
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -916,38 +920,15 @@ save them under a <strong>different</strong> name in your project directory or i
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

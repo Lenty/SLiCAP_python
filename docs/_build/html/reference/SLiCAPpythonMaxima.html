@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,52 +11,48 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
-        <link rel="next" title="SLiCAPmatrices.py" href="SLiCAPmatrices.html"/>
-        <link rel="prev" title="SLiCAPplots.py" href="SLiCAPplots.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLiCAPmatrices.py" href="SLiCAPmatrices.html" />
+    <link rel="prev" title="SLiCAPplots.py" href="SLiCAPplots.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> SLiCAP
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> SLiCAP
           
 
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -119,13 +115,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -133,9 +130,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -156,7 +154,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="SLiCAPreference.html">SLiCAP reference</a> &raquo;</li>
         
@@ -188,22 +186,22 @@
 <code class="descclassname">SLiCAPpythonMaxima.</code><code class="descname">equateCoeffs</code><span class="sig-paren">(</span><em>protoType</em>, <em>transfer</em>, <em>noSolve=[]</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solutions of the equation transferFunction = protoTypeFunction.</p>
 <p>Both transfer and prototype should be Laplace rational functions.
-Their numerators should be polynomials of the Laplace variable of equal 
+Their numerators should be polynomials of the Laplace variable of equal
 order and their denominators should be polynomials of the Laplace variable
-of equal order.</p>
+of equal order.    
+:note: if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.
+:param protoType: Prototype rational expression of the Laplace variable
+:type protoType: sympy.Expr
+:param transfer:</p>
+<p>Transfer fucntion of which the parameters need to be
+solved. The numerator and the denominator of this rational
+expression should be of the same order as those of the
+prototype.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>protoType</strong> (<em>sympy.Expr</em>) – Prototype rational expression of the Laplace variable</li>
-<li><strong>transfer</strong> (<em>sympy.Expr</em>) – Transfer fucntion of which the parameters need to be
-solved. The numerator and the denominator of this rational 
-expression should be of the same order as those of the 
-prototype.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.Symbol</em>) that do not need 
 to be solved. These parameters will remain symbolic in the 
 solutions.</li>
@@ -212,7 +210,7 @@ values.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Dictionary with key-value pairs:</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Dictionary with key-value pairs:</p>
 <ul class="simple">
 <li>key: name of the parameter (<em>sympy.Symbol</em>)</li>
 <li>value: solution of this parameter: (<em>sympy.Expr, int, float</em>)</li>
@@ -220,7 +218,7 @@ values.</li>
 </p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
 </td>
 </tr>
 </tbody>
@@ -245,11 +243,11 @@ respectively.</p>
 needs to be evaluated.</li>
 <li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
-or None if the positive node is the ground node or a positive 
+or None if the positive node is the ground node or a positive
 current is not used.</li>
 <li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
-or None if the negative node is the ground node or a negative 
+or None if the negative node is the ground node or a negative
 current is not used.</li>
 <li><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</li>
 <li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
@@ -286,11 +284,11 @@ excitations from one or more sources.</p>
 <li><strong>Iv</strong> (<em>sympy.Matrix</em>) – Vector with independent variables</li>
 <li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
-or None if the positive node is the ground node or a positive 
+or None if the positive node is the ground node or a positive
 current is not used.</li>
 <li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
-or None if the negative node is the ground node or a negative 
+or None if the negative node is the ground node or a negative
 current is not used.</li>
 <li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
 values.</li>
@@ -332,9 +330,9 @@ values.</li>
 <dl class="function">
 <dt id="SLiCAPpythonMaxima.maxDet2">
 <code class="descclassname">SLiCAPpythonMaxima.</code><code class="descname">maxDet2</code><span class="sig-paren">(</span><em>M</em>, <em>dc=False</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPpythonMaxima.maxDet2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the squared magnitude of the determinant of matrix ‘M’ in Sympy 
+<dd><p>Returns the squared magnitude of the determinant of matrix ‘M’ in Sympy
 format, with the Laplace variable replaced with
-‘2*%pi*%i* + ini.frequency’, or with 0, for noise or for dcVar calculations, 
+‘2*%pi*%i* + ini.frequency’, or with 0, for noise or for dcVar calculations,
 respectively.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -363,7 +361,7 @@ values.</li>
 <code class="descclassname">SLiCAPpythonMaxima.</code><code class="descname">maxEval</code><span class="sig-paren">(</span><em>maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
 <p>Starts a subprocess that evaluates maxExpr with Maxima CAS and returns the
-resulting expression in text format. The variable that needs to be output 
+resulting expression in text format. The variable that needs to be output
 must be named: ‘result’.</p>
 <p>In some cases Maxima CAS will ask for extra input.
 This will be ignored and a time out will kill the subprocess.</p>
@@ -380,7 +378,7 @@ This will be ignored and a time out will kill the subprocess.</p>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
 <span class="go">&#39;sin(a*t)/a&#39;</span>
 </pre></div>
 </div>
@@ -410,14 +408,14 @@ ini.laplace and then calculates the ILT of this rational expression.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
 values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Sympy expression of the time function if the ILT succeeded, or 
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Sympy expression of the time function if the ILT succeeded, or
 sp.Symbol(‘ft’) if the ILT failed.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="go">2*sqrt(3)*sin(sqrt(3)*a*t/3)/(3*a)</span>
 </pre></div>
 </div>
@@ -429,7 +427,7 @@ sp.Symbol(‘ft’) if the ILT failed.</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="go">1.154700538379252*sin(0.5773502691896258*a*t)/a</span>
 </pre></div>
 </div>
@@ -506,7 +504,7 @@ the determinants are calculated with Maxima.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">In Sympy a minor is defined as the determinant of the minor 
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">In Sympy a minor is defined as the determinant of the minor
 matrix. Use sympy.Matrix.minor_submatrix to get the matrix only.</p>
 <p>In Maxima a minor is the minor matrix itself.</p>
 </td>
@@ -515,18 +513,18 @@ matrix. Use sympy.Matrix.minor_submatrix to get the matrix only.</p>
 <li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
 <li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
-or None if the positive node is the ground node or a positive 
+or None if the positive node is the ground node or a positive
 current is not used.</li>
 <li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
-or None if the negative node is the ground node or a negative 
+or None if the negative node is the ground node or a negative
 current is not used.</li>
-<li><strong>srcP</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with 
+<li><strong>srcP</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with
 dependent variables.</p>
-<p>Voltage source: position of current through this source in the 
+<p>Voltage source: position of current through this source in the
 vector with dependent variables.</p>
 </li>
-<li><strong>srcN</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with dependent 
+<li><strong>srcN</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with dependent
 variables.</p>
 <p>Voltage source: None</p>
 </li>
@@ -574,7 +572,7 @@ values.</li>
 <dl class="function">
 <dt id="SLiCAPpythonMaxima.rmsNoise">
 <code class="descclassname">SLiCAPpythonMaxima.</code><code class="descname">rmsNoise</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>noise</em>, <em>fmin</em>, <em>fmax</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPpythonMaxima.rmsNoise" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the RMS source-referred noise or detector-referred noise, 
+<dd><p>Calculates the RMS source-referred noise or detector-referred noise,
 or the contribution of a specific noise source to it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -586,7 +584,7 @@ or the contribution of a specific noise source to it.</p>
 referred noise, respectively.</li>
 <li><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</li>
 <li><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</li>
-<li><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the 
+<li><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
 contribution to the RMS noise needs to be evaluated.</li>
 </ul>
 </td>
@@ -628,9 +626,7 @@ contribution to the RMS noise needs to be evaluated.</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -639,7 +635,7 @@ contribution to the RMS noise needs to be evaluated.</li>
         <a href="SLiCAPmatrices.html" class="btn btn-neutral float-right" title="SLiCAPmatrices.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPplots.html" class="btn btn-neutral" title="SLiCAPplots.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPplots.html" class="btn btn-neutral float-left" title="SLiCAPplots.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -648,11 +644,19 @@ contribution to the RMS noise needs to be evaluated.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -664,38 +668,15 @@ contribution to the RMS noise needs to be evaluated.</li>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

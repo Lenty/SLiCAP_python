@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,52 +11,48 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP user guide" href="SLiCAPuserguide.html"/>
-        <link rel="next" title="Noise design" href="noise.html"/>
-        <link rel="prev" title="Work with the results" href="postproc.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Noise design" href="noise.html" />
+    <link rel="prev" title="Work with the results" href="postproc.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> SLiCAP
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> SLiCAP
           
 
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -121,13 +117,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -135,9 +132,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -158,7 +156,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="SLiCAPuserguide.html">SLiCAP user guide</a> &raquo;</li>
         
@@ -193,14 +191,14 @@
 <li>A list of coefficients of the Laplace variable of the denominator in ascending order</li>
 </ul>
 <p>All coefficients have been normalized to obtain unity for the coefficient of the lowest order of the denominator. The gain is then defined as the ratio of the coefficients of the lowest order of the numerator and the denominator.Both lists carry the coefficients in ascending order.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rational_expr</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;(b_0 + b_2*s^2)/(a_0 + a_1*s + a_2*s^2 + a_4*s^4)&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">gain</span><span class="p">,</span> <span class="n">coeffs_numer</span><span class="p">,</span> <span class="n">coeffs_denom</span><span class="p">)</span> <span class="o">=</span> <span class="n">coeffsTransfer</span><span class="p">(</span><span class="n">rational_expr</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">gain</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">gain</span><span class="p">)</span>
 <span class="go">b_0/a_0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">coeffs_numer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">coeffs_numer</span><span class="p">)</span>
 <span class="go">[1, 0, b_2/b_0]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">coeffs_denom</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">coeffs_denom</span><span class="p">)</span>
 <span class="go">[1, a_1/a_0, a_2/a_0, 0, a_4/a_0]</span>
 </pre></div>
 </div>
@@ -208,16 +206,16 @@
 <div class="section" id="determine-circuit-parameters-from-a-prototype-transfer">
 <h2>Determine circuit parameters from a prototype transfer<a class="headerlink" href="#determine-circuit-parameters-from-a-prototype-transfer" title="Permalink to this headline">¶</a></h2>
 <p>The function <strong>SLiCAPpythonMaxima.equateCoeffs(*args)</strong> can be used to find values of circuit elements such that the dynamic transfer of that circuit equals that of a prototype. This function is is particularly useful for the design of passive and active filters.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">proto_transfer</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;0.3*(1/(1+s*0.6))&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># This could be a Laplace expression generated by SLiCAP:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">circuit_transfer</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;R_1/(R_1 + R_2)/(1 + s*R_1*R_2/(R_1 + R_2)*10e-6)&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">circuit_component_values</span> <span class="o">=</span> <span class="n">equateCoeffs</span><span class="p">(</span><span class="n">proto_transfer</span><span class="p">,</span> <span class="n">circuit_transfer</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">circuit_component_values</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">circuit_component_values</span><span class="p">)</span>
 <span class="go">{R_2: 200000.000000000, R_1: 85714.2857142857}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">proto_transfer</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;A/(1+s*tau)&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">circuit_component_values</span> <span class="o">=</span> <span class="n">equateCoeffs</span><span class="p">(</span><span class="n">proto_transfer</span><span class="p">,</span> <span class="n">circuit_transfer</span><span class="p">,</span> <span class="n">noSolve</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;tau&#39;</span><span class="p">],</span> <span class="n">numeric</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">circuit_component_values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circuit_component_values</span> <span class="o">=</span> <span class="n">equateCoeffs</span><span class="p">(</span><span class="n">proto_transfer</span><span class="p">,</span> <span class="n">circuit_transfer</span><span class="p">,</span> <span class="n">noSolve</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;tau&#39;</span><span class="p">],</span> <span class="n">numeric</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">circuit_component_values</span>
 <span class="go">{R_2: 100000.0*tau/A, R_1: -100000.0*tau/(A - 1.0)}</span>
 </pre></div>
 </div>
@@ -233,12 +231,12 @@
 <li>The maximum asymptotic value of the magnitude of the loop gain and its first frequency of occurence.</li>
 </ul>
 <p>The function argument can be obtained from the execution of an instruction with the data type set to <em>laplace</em> and its gain type set to <em>loopgain</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">loopgain_numer</span>   <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;-s*(1 + s/20)*(1 + s/40)/2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">loopgain_denom</span>   <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;(s + 1)^2*(1 + s/4e3)*(1 + s/50e3)*(1 + s/1e6)&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">loopgain</span>         <span class="o">=</span> <span class="n">loopgain_numer</span><span class="o">/</span><span class="n">loopgain_denom</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">servo_info</span>       <span class="o">=</span> <span class="n">findServoBandwidth</span><span class="p">(</span><span class="n">loopgain</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">servo_info</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">servo_info</span><span class="p">)</span>
 <span class="go">{&#39;mbf&#39;: 636.61977236758094, &#39;lpo&#39;: -1.0, &#39;hpo&#39;: 1.0, &#39;lpf&#39;: 19894.367886486925, &#39;mbv&#39;: 2.5000000000000009, &#39;hpf&#39;: 254.64790894703231}</span>
 </pre></div>
 </div>
@@ -254,9 +252,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -265,7 +261,7 @@
         <a href="noise.html" class="btn btn-neutral float-right" title="Noise design" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="postproc.html" class="btn btn-neutral" title="Work with the results" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="postproc.html" class="btn btn-neutral float-left" title="Work with the results" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -274,11 +270,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -290,38 +294,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

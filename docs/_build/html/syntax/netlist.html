@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,52 +11,48 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP netlist syntax" href="SLiCAPnetlistSyntax.html"/>
-        <link rel="next" title="Devices and built-in models" href="devices.html"/>
-        <link rel="prev" title="SLiCAP netlist syntax" href="SLiCAPnetlistSyntax.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Devices and built-in models" href="devices.html" />
+    <link rel="prev" title="SLiCAP netlist syntax" href="SLiCAPnetlistSyntax.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> SLiCAP
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> SLiCAP
           
 
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -127,13 +123,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -141,9 +138,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -164,7 +162,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a> &raquo;</li>
         
@@ -193,15 +191,15 @@
 <p>Since there exist various SPICE dialects, and since symbolic simulation requires a more complex handling of parameters in sub circuits and models, the correct SLiCAP netlist syntax has been described in the following sub sections.</p>
 <div class="section" id="breaking-long-lines">
 <h2>Breaking long lines<a class="headerlink" href="#breaking-long-lines" title="Permalink to this headline">¶</a></h2>
-<p>Long input lines can be split into a multiple of shorter lines. Lines starting with a plus sign <code class="docutils literal"><span class="pre">+</span></code> will be added to the previous line; without the plus sign itself. Leading and trailing white space characters of netlist lines are ignored.</p>
+<p>Long input lines can be split into a multiple of shorter lines. Lines starting with a plus sign <code class="docutils literal notranslate"><span class="pre">+</span></code> will be added to the previous line; without the plus sign itself. Leading and trailing white space characters of netlist lines are ignored.</p>
 </div>
 <div class="section" id="comment">
 <h2>Comment<a class="headerlink" href="#comment" title="Permalink to this headline">¶</a></h2>
-<p>Any line starting with an asterix: <code class="docutils literal"><span class="pre">*</span></code> is considered as comment and will not be processed by the netlist parser. Any input following a semicolon <code class="docutils literal"><span class="pre">;</span></code> is also considered as comment and ignored.</p>
+<p>Any line starting with an asterix: <code class="docutils literal notranslate"><span class="pre">*</span></code> is considered as comment and will not be processed by the netlist parser. Any input following a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code> is also considered as comment and ignored.</p>
 </div>
 <div class="section" id="numbers">
 <h2>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h2>
-<p>Numeric values can be given in scientific notation: <code class="docutils literal"><span class="pre">0.001</span> <span class="pre">=</span> <span class="pre">1E-3</span> <span class="pre">=</span> <span class="pre">1e-3</span></code> or use metric prefixes: <code class="docutils literal"><span class="pre">2.2k</span> <span class="pre">=</span> <span class="pre">2200</span></code>. The following metric prefixes can be used:</p>
+<p>Numeric values can be given in scientific notation: <code class="docutils literal notranslate"><span class="pre">0.001</span> <span class="pre">=</span> <span class="pre">1E-3</span> <span class="pre">=</span> <span class="pre">1e-3</span></code> or use metric prefixes: <code class="docutils literal notranslate"><span class="pre">2.2k</span> <span class="pre">=</span> <span class="pre">2200</span></code>. The following metric prefixes can be used:</p>
 <table border="1" class="colwidths-given docutils" id="id1">
 <caption><span class="caption-text">SLiCAP metric prefixes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -218,98 +216,98 @@
 <tbody valign="top">
 <tr class="row-even"><td>peta</td>
 <td>P</td>
-<td><span class="math">\(10^{15}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{15}\)</span></td>
 </tr>
 <tr class="row-odd"><td>tera</td>
 <td>T</td>
-<td><span class="math">\(10^{12}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{12}\)</span></td>
 </tr>
 <tr class="row-even"><td>giga</td>
 <td>G</td>
-<td><span class="math">\(10^{9}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{9}\)</span></td>
 </tr>
 <tr class="row-odd"><td>mega</td>
 <td>M</td>
-<td><span class="math">\(10^{6}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{6}\)</span></td>
 </tr>
 <tr class="row-even"><td>kilo</td>
 <td>k</td>
-<td><span class="math">\(10^{3}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{3}\)</span></td>
 </tr>
 <tr class="row-odd"><td>mili</td>
 <td>m</td>
-<td><span class="math">\(10^{-3}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{-3}\)</span></td>
 </tr>
 <tr class="row-even"><td>micro</td>
 <td>u</td>
-<td><span class="math">\(10^{-6}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{-6}\)</span></td>
 </tr>
 <tr class="row-odd"><td>nano</td>
 <td>n</td>
-<td><span class="math">\(10^{-9}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{-9}\)</span></td>
 </tr>
 <tr class="row-even"><td>pico</td>
 <td>p</td>
-<td><span class="math">\(10^{-12}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{-12}\)</span></td>
 </tr>
 <tr class="row-odd"><td>femto</td>
 <td>f</td>
-<td><span class="math">\(10^{-15}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{-15}\)</span></td>
 </tr>
 <tr class="row-even"><td>atto</td>
 <td>a</td>
-<td><span class="math">\(10^{-18}\)</span></td>
+<td><span class="math notranslate nohighlight">\(10^{-18}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>Please noitice these prefixes are case sentitive, and <code class="docutils literal"><span class="pre">MEG</span></code> and <code class="docutils literal"><span class="pre">meg</span></code> are not recognized as metric prefixes. This differs from the standard SPICE syntax.</p>
+<p>Please noitice these prefixes are case sentitive, and <code class="docutils literal notranslate"><span class="pre">MEG</span></code> and <code class="docutils literal notranslate"><span class="pre">meg</span></code> are not recognized as metric prefixes. This differs from the standard SPICE syntax.</p>
 <p>From version 0.4 build 1350 the expression syntax checker can handle parameter names identical to metric prefixes.</p>
 </div>
 <div class="section" id="expressions">
 <h2>Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h2>
-<p>As with SPICE, expressions should be placed between curly brackets: <code class="docutils literal"><span class="pre">{&lt;</span> <span class="pre">myExpression</span> <span class="pre">&gt;}</span></code>. Metric prefixes as well as white space characters and line break characters: <code class="docutils literal"><span class="pre">+</span></code>, can be included in expressions.</p>
+<p>As with SPICE, expressions should be placed between curly brackets: <code class="docutils literal notranslate"><span class="pre">{&lt;</span> <span class="pre">myExpression</span> <span class="pre">&gt;}</span></code>. Metric prefixes as well as white space characters and line break characters: <code class="docutils literal notranslate"><span class="pre">+</span></code>, can be included in expressions.</p>
 </div>
 <div class="section" id="title-line">
 <span id="title"></span><h2>Title line<a class="headerlink" href="#title-line" title="Permalink to this headline">¶</a></h2>
 <p>The title definitions differs from SPICE:</p>
-<p><strong>The first word or double quoted string of an uncommented line of the netlist file is considered the title of the main circuit.</strong> If a title comprises several words separated by white space characters it should be placed between double quotation marks: <code class="docutils literal"><span class="pre">&quot;</span></code>. Examples are listed below.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>* myCircuit         ; a comment, not interpreted as title.
+<p><strong>The first word or double quoted string of an uncommented line of the netlist file is considered the title of the main circuit.</strong> If a title comprises several words separated by white space characters it should be placed between double quotation marks: <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>. Examples are listed below.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>* myCircuit         ; a comment, not interpreted as title.
 * Lines with elements or directives
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>myCircuit           ; a title without spaces
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>myCircuit           ; a title without spaces
 * Lines with elements or directives
 </pre></div>
 </div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>&quot;My first circuit&quot;  ; a tittle including spaces
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;My first circuit&quot;  ; a tittle including spaces
 * Lines with elements or directives
 </pre></div>
 </div>
 </div>
 <div class="section" id="lib-line">
 <h2>.lib line<a class="headerlink" href="#lib-line" title="Permalink to this headline">¶</a></h2>
-<p>Library files containing model definitions and/or sub circuit definitions need to be included in the search path with the aid of the <code class="docutils literal"><span class="pre">.lib</span></code> instruction. Multiple library definitions can be included in one <code class="docutils literal"><span class="pre">.lib</span></code> line. Library files containing white space characters should be places between double quotation marks: <code class="docutils literal"><span class="pre">&quot;</span></code>. The search path for the library file is specified by the variable <code class="docutils literal"><span class="pre">LIBRARYPATH</span></code> in <code class="docutils literal"><span class="pre">SLiCAPconfig.py</span></code> in the project directory.
-Library definitions should be declared before called. A call to a library occurs if a model name or sub circuit name occurs in an element definition while that model or sub circuit is not specified by a <code class="docutils literal"><span class="pre">.model</span></code> or a <code class="docutils literal"><span class="pre">.subckt</span></code> definition in the netlist itself. Valid library specifications look like:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.lib myLibrary.lib &quot;my very own circuits.lib&quot;
+<p>Library files containing model definitions and/or sub circuit definitions need to be included in the search path with the aid of the <code class="docutils literal notranslate"><span class="pre">.lib</span></code> instruction. Multiple library definitions can be included in one <code class="docutils literal notranslate"><span class="pre">.lib</span></code> line. Library files containing white space characters should be places between double quotation marks: <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>. The search path for the library file is specified by the variable <code class="docutils literal notranslate"><span class="pre">LIBRARYPATH</span></code> in <code class="docutils literal notranslate"><span class="pre">SLiCAPconfig.py</span></code> in the project directory.
+Library definitions should be declared before called. A call to a library occurs if a model name or sub circuit name occurs in an element definition while that model or sub circuit is not specified by a <code class="docutils literal notranslate"><span class="pre">.model</span></code> or a <code class="docutils literal notranslate"><span class="pre">.subckt</span></code> definition in the netlist itself. Valid library specifications look like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.lib myLibrary.lib &quot;my very own circuits.lib&quot;
 </pre></div>
 </div>
 </div>
 <div class="section" id="subckt-ends-lines">
 <span id="subckt"></span><h2>.subckt … .ends lines<a class="headerlink" href="#subckt-ends-lines" title="Permalink to this headline">¶</a></h2>
 <p>Although SLiCAP is intended for the design and the analysis of rather small circuits, it allows you to use an unlimited hierarchy. It also checks for hierarchical loops. The structure of a sub circuit definition is as follows:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.subckt &lt; name &gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.subckt &lt; name &gt;
 + &lt; node1 &gt; &lt; node2 &gt; ( &lt; node3 &gt; ... )
 + ( &lt; param1 = value1 | {expr1} param2 = value2 | {expr2} &gt; ...)
 * circuit lines
 .ends
 </pre></div>
 </div>
-<p>The input field <code class="docutils literal"><span class="pre">name</span></code> and a number of fields with the node names <code class="docutils literal"><span class="pre">node1</span> <span class="pre">node2</span> <span class="pre">...</span></code> are required. Each parameter definition consists of a parameter name followed by an equal sign and a value or an expression. Parameter definitions should <strong>not</strong> be placed between brackets <code class="docutils literal"><span class="pre">()</span></code>.</p>
+<p>The input field <code class="docutils literal notranslate"><span class="pre">name</span></code> and a number of fields with the node names <code class="docutils literal notranslate"><span class="pre">node1</span> <span class="pre">node2</span> <span class="pre">...</span></code> are required. Each parameter definition consists of a parameter name followed by an equal sign and a value or an expression. Parameter definitions should <strong>not</strong> be placed between brackets <code class="docutils literal notranslate"><span class="pre">()</span></code>.</p>
 <div class="section" id="passing-sub-circuit-parameters">
 <h3>Passing sub circuit parameters<a class="headerlink" href="#passing-sub-circuit-parameters" title="Permalink to this headline">¶</a></h3>
-<p>Parameters specified in the <code class="docutils literal"><span class="pre">.subckt</span></code> definition line are passed to the parent circuit. Other parameters used in element expressions and in parameter definitions between the <code class="docutils literal"><span class="pre">.subckt</span></code> and its corresponding <code class="docutils literal"><span class="pre">.ends</span></code> input lines remain local. Parameter values can be numerical or may be expressions comprising other parameters. Expressions need to be placed between curly brackets: <code class="docutils literal"><span class="pre">{&lt;</span> <span class="pre">myExpression</span> <span class="pre">&gt;}</span></code>. Input lines between the <code class="docutils literal"><span class="pre">.subckt</span></code> and its corresponding <code class="docutils literal"><span class="pre">.ends</span></code> instruction can be of any type. Hence, nesting of sub circuits is allowed.</p>
-<p>Below an example of a netlist file with a sub circuit definition and a call to this sub circuit. The netlist file with the name <code class="docutils literal"><span class="pre">subckt.cir</span></code> is stored in the project directory. Please notice that this file only demonstrates the use of sub circuits with parameters. It is not at all a complete circuit description.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>testCircuit
+<p>Parameters specified in the <code class="docutils literal notranslate"><span class="pre">.subckt</span></code> definition line are passed to the parent circuit. Other parameters used in element expressions and in parameter definitions between the <code class="docutils literal notranslate"><span class="pre">.subckt</span></code> and its corresponding <code class="docutils literal notranslate"><span class="pre">.ends</span></code> input lines remain local. Parameter values can be numerical or may be expressions comprising other parameters. Expressions need to be placed between curly brackets: <code class="docutils literal notranslate"><span class="pre">{&lt;</span> <span class="pre">myExpression</span> <span class="pre">&gt;}</span></code>. Input lines between the <code class="docutils literal notranslate"><span class="pre">.subckt</span></code> and its corresponding <code class="docutils literal notranslate"><span class="pre">.ends</span></code> instruction can be of any type. Hence, nesting of sub circuits is allowed.</p>
+<p>Below an example of a netlist file with a sub circuit definition and a call to this sub circuit. The netlist file with the name <code class="docutils literal notranslate"><span class="pre">subckt.cir</span></code> is stored in the project directory. Please notice that this file only demonstrates the use of sub circuits with parameters. It is not at all a complete circuit description.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>testCircuit
 .subckt myOpamp in+ in- out GND A_0 = {A_1} tau={t} R_o = 0.5k
 E1 1 GND in+ in- {A_0/(1+s*tau)}
 R1 1 out {R_o}
@@ -321,35 +319,35 @@ X1 1 2 3 0 myOpamp tau = {t_a} R_o = 200
 .end
 </pre></div>
 </div>
-<p>Parameters given in the <code class="docutils literal"><span class="pre">.subckt</span></code> line are passed to the parent circuit. They can be redefined in the sub circuit call. Hence, <code class="docutils literal"><span class="pre">A_0</span></code>, <code class="docutils literal"><span class="pre">tau</span></code> and <code class="docutils literal"><span class="pre">R_o</span></code> become parameters in the parent circuit. They can been assigned new values in the sub circuit call, in this example, this is the line:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>X1 1 2 3 0 myOpamp tau = {t_a} R_o = 200
+<p>Parameters given in the <code class="docutils literal notranslate"><span class="pre">.subckt</span></code> line are passed to the parent circuit. They can be redefined in the sub circuit call. Hence, <code class="docutils literal notranslate"><span class="pre">A_0</span></code>, <code class="docutils literal notranslate"><span class="pre">tau</span></code> and <code class="docutils literal notranslate"><span class="pre">R_o</span></code> become parameters in the parent circuit. They can been assigned new values in the sub circuit call, in this example, this is the line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>X1 1 2 3 0 myOpamp tau = {t_a} R_o = 200
 </pre></div>
 </div>
 <p>or in parameter definition lines. In this example this is the line:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.param A_1 = {g_m*Z_t} t_a = 1m g_m=10m Z_t=100M
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.param A_1 = {g_m*Z_t} t_a = 1m g_m=10m Z_t=100M
 </pre></div>
 </div>
 <p>All other parameters in expressions and in parameter definitions of the sub circuit remain local. This will be done by adding the device name of the calling device as suffix to the parameter name:</p>
 <ul class="simple">
-<li>For nodes a dot <code class="docutils literal"><span class="pre">_</span></code> will be placed between the node name and the device name.</li>
-<li>For parameters <code class="docutils literal"><span class="pre">_</span></code> will be placed between the parameter name and the device name.</li>
+<li>For nodes a dot <code class="docutils literal notranslate"><span class="pre">_</span></code> will be placed between the node name and the device name.</li>
+<li>For parameters <code class="docutils literal notranslate"><span class="pre">_</span></code> will be placed between the parameter name and the device name.</li>
 </ul>
-<p>All nodes except the connecting nodes and the ground node <code class="docutils literal"><span class="pre">&quot;0&quot;</span></code> are local.</p>
+<p>All nodes except the connecting nodes and the ground node <code class="docutils literal notranslate"><span class="pre">&quot;0&quot;</span></code> are local.</p>
 </div>
 </div>
 <div class="section" id="model-line">
 <h2>.model line<a class="headerlink" href="#model-line" title="Permalink to this headline">¶</a></h2>
-<p>Models can be defined in a line starting with the keyword <code class="docutils literal"><span class="pre">.model</span></code> (not case sensitive). The syntax for a <code class="docutils literal"><span class="pre">.model</span></code> line is:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.model &lt; modelName &gt; &lt; modelType &gt;
+<p>Models can be defined in a line starting with the keyword <code class="docutils literal notranslate"><span class="pre">.model</span></code> (not case sensitive). The syntax for a <code class="docutils literal notranslate"><span class="pre">.model</span></code> line is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.model &lt; modelName &gt; &lt; modelType &gt;
 + ( &lt; param1 = value1 | {expr1} &gt; &lt; param2 = value2 | {expr2} &gt; ...)
 </pre></div>
 </div>
-<p>The fields <code class="docutils literal"><span class="pre">modelName</span></code> and <code class="docutils literal"><span class="pre">modelType</span></code> are required. Parameter definition fields are optional. If no parameter definitions are given, defaults values are assumed. A model name should not start with a number. This would result in misinterpretation by the netlist parser. Hence, a model name like <code class="docutils literal"><span class="pre">2n3904</span></code> could be interpreted as <code class="docutils literal"><span class="pre">2e-9</span></code> followed by <code class="docutils literal"><span class="pre">3904</span></code> which yields a syntax error in a value. Such errors can be prevented using a letter as first character in a model name, e.g. <code class="docutils literal"><span class="pre">Q2n3904</span></code>. This is common practice in SPICE.</p>
-<p>Parameter definitions need not to be placed between brackets <code class="docutils literal"><span class="pre">()</span></code>. This may differ from some SPICE dialects.</p>
+<p>The fields <code class="docutils literal notranslate"><span class="pre">modelName</span></code> and <code class="docutils literal notranslate"><span class="pre">modelType</span></code> are required. Parameter definition fields are optional. If no parameter definitions are given, defaults values are assumed. A model name should not start with a number. This would result in misinterpretation by the netlist parser. Hence, a model name like <code class="docutils literal notranslate"><span class="pre">2n3904</span></code> could be interpreted as <code class="docutils literal notranslate"><span class="pre">2e-9</span></code> followed by <code class="docutils literal notranslate"><span class="pre">3904</span></code> which yields a syntax error in a value. Such errors can be prevented using a letter as first character in a model name, e.g. <code class="docutils literal notranslate"><span class="pre">Q2n3904</span></code>. This is common practice in SPICE.</p>
+<p>Parameter definitions need not to be placed between brackets <code class="docutils literal notranslate"><span class="pre">()</span></code>. This may differ from some SPICE dialects.</p>
 <div class="section" id="passing-model-parameters">
 <h3>Passing model parameters<a class="headerlink" href="#passing-model-parameters" title="Permalink to this headline">¶</a></h3>
 <p>Passing model parameters tworks similar as passing sub circuit parameters. This is elucidated in the example below. Consider hereto the following netlist file with a model definition:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>modelTest
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>modelTest
 I1 0 b 1u
 R1 c 0 1k
 Q1 c b 0 0 Q2N3904 gm={I_c*q_e/(k_B*T_A)} gpi={I_c*q_e/(k_B*T_A)/beta_AC}
@@ -358,14 +356,14 @@ Q1 c b 0 0 Q2N3904 gm={I_c*q_e/(k_B*T_A)} gpi={I_c*q_e/(k_B*T_A)/beta_AC}
 .end
 </pre></div>
 </div>
-<p>The model <code class="docutils literal"><span class="pre">QV</span></code> is that of a 4-terminal vertical bipolar transistor. It can be used for a three terminal transistor by connecting the last two terminals (emitter and substrate) to the same circuit node. The built-in model for this device has the following parameters with their default values: <code class="docutils literal"><span class="pre">cpi</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal"><span class="pre">cbc</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal"><span class="pre">cbx</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal"><span class="pre">cs</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal"><span class="pre">gpi</span> <span class="pre">=</span> <span class="pre">400e-6</span></code>, <code class="docutils literal"><span class="pre">gm</span> <span class="pre">=</span> <span class="pre">40e-3</span></code>, <code class="docutils literal"><span class="pre">go</span> <span class="pre">=0</span></code>, <code class="docutils literal"><span class="pre">rb</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal"><span class="pre">gbc</span> <span class="pre">=</span> <span class="pre">0</span></code></p>
-<p>The above model definition for the <code class="docutils literal"><span class="pre">Q2N3904</span></code> overrides the values of <code class="docutils literal"><span class="pre">gpi</span></code> and <code class="docutils literal"><span class="pre">gm</span></code>, all other parameters obtain their default value. The input resistance and the transconductance of this transistor have been redefined as a function of the collector current <code class="docutils literal"><span class="pre">I_c</span></code>. This current has been defined in the line: <code class="docutils literal"><span class="pre">.param</span> <span class="pre">I_c=2m</span> <span class="pre">beta_AC=beta_DC</span> <span class="pre">beta_DC=100</span></code></p>
+<p>The model <code class="docutils literal notranslate"><span class="pre">QV</span></code> is that of a 4-terminal vertical bipolar transistor. It can be used for a three terminal transistor by connecting the last two terminals (emitter and substrate) to the same circuit node. The built-in model for this device has the following parameters with their default values: <code class="docutils literal notranslate"><span class="pre">cpi</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">cbc</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">cbx</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">cs</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">gpi</span> <span class="pre">=</span> <span class="pre">400e-6</span></code>, <code class="docutils literal notranslate"><span class="pre">gm</span> <span class="pre">=</span> <span class="pre">40e-3</span></code>, <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">=0</span></code>, <code class="docutils literal notranslate"><span class="pre">rb</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">gbc</span> <span class="pre">=</span> <span class="pre">0</span></code></p>
+<p>The above model definition for the <code class="docutils literal notranslate"><span class="pre">Q2N3904</span></code> overrides the values of <code class="docutils literal notranslate"><span class="pre">gpi</span></code> and <code class="docutils literal notranslate"><span class="pre">gm</span></code>, all other parameters obtain their default value. The input resistance and the transconductance of this transistor have been redefined as a function of the collector current <code class="docutils literal notranslate"><span class="pre">I_c</span></code>. This current has been defined in the line: <code class="docutils literal notranslate"><span class="pre">.param</span> <span class="pre">I_c=2m</span> <span class="pre">beta_AC=beta_DC</span> <span class="pre">beta_DC=100</span></code></p>
 </div>
 </div>
 <div class="section" id="param-line">
 <h2>.param line<a class="headerlink" href="#param-line" title="Permalink to this headline">¶</a></h2>
 <p>Parameter definition lines are used to assign numerical values or expressions to circuit parameters. At least one parameter definition should be given in a parameter definition line. The syntax for a parameter definition line is:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>.param &lt; param1 = value1 | {expr1} &gt; ( &lt; param2 = value2 | {expr2} ... )
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.param &lt; param1 = value1 | {expr1} &gt; ( &lt; param2 = value2 | {expr2} ... )
 </pre></div>
 </div>
 <p>Parameters defined in parameter definition lines in sub circuits are local for that sub circuit unless these parameters are passed to the parent circuit.</p>
@@ -373,29 +371,27 @@ Q1 c b 0 0 Q2N3904 gm={I_c*q_e/(k_B*T_A)} gpi={I_c*q_e/(k_B*T_A)/beta_AC}
 <div class="section" id="device-definition-lines">
 <h2>Device definition lines<a class="headerlink" href="#device-definition-lines" title="Permalink to this headline">¶</a></h2>
 <p>The actual circuit is specified by the device definition lines. The syntax for these lines is:</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>&lt; deviceID &gt; &lt; node1 | ref1 &gt; &lt; node2 | ref2 &gt; ( &lt; node3 &gt; ...) &gt;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt; deviceID &gt; &lt; node1 | ref1 &gt; &lt; node2 | ref2 &gt; ( &lt; node3 &gt; ...) &gt;
 + &lt; value | {expr} | modelName &gt;
 + ( &lt; param1 = value1 | {expr1} &gt; &lt; param2 = value2 | {expr2} &gt; ...)
 </pre></div>
 </div>
-<p>A device definition line starts with the device identifier field: <code class="docutils literal"><span class="pre">&lt;</span> <span class="pre">deviceID</span> <span class="pre">&gt;</span></code> . The first character of name is interpreted as the device type identifier. The device type identifier is not case sensitive.</p>
+<p>A device definition line starts with the device identifier field: <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">deviceID</span> <span class="pre">&gt;</span></code> . The first character of name is interpreted as the device type identifier. The device type identifier is not case sensitive.</p>
 <p>An overview of device types can be found in section LINK.</p>
-<p>Other required fields are: at least two fields with node names or deviceIDs of other devices. If no <code class="docutils literal"><span class="pre">&lt;</span> <span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expr}</span> <span class="pre">|</span> <span class="pre">modelName</span> <span class="pre">&gt;</span></code> field is specified, a default model with default parameter valuess is
+<p>Other required fields are: at least two fields with node names or deviceIDs of other devices. If no <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expr}</span> <span class="pre">|</span> <span class="pre">modelName</span> <span class="pre">&gt;</span></code> field is specified, a default model with default parameter valuess is
 assumed. Node names and model names are case sensitive character strings.</p>
-<p>A model name is a character string that cannot be interpreted as a number. Expressions need to be placed between curly brackets: <code class="docutils literal"><span class="pre">{}</span></code>. A coupling factor device has two references to inductors instead of two nodes.</p>
-<p>Parameter definitions can only be given in combination with a model name. If no model parameters are specified, values from a <code class="docutils literal"><span class="pre">.model</span></code> line are assumed. If such a line does not exist, default parameter values are assumed.</p>
+<p>A model name is a character string that cannot be interpreted as a number. Expressions need to be placed between curly brackets: <code class="docutils literal notranslate"><span class="pre">{}</span></code>. A coupling factor device has two references to inductors instead of two nodes.</p>
+<p>Parameter definitions can only be given in combination with a model name. If no model parameters are specified, values from a <code class="docutils literal notranslate"><span class="pre">.model</span></code> line are assumed. If such a line does not exist, default parameter values are assumed.</p>
 </div>
 <div class="section" id="end-line">
 <h2>.end line<a class="headerlink" href="#end-line" title="Permalink to this headline">¶</a></h2>
-<p>A line starting with <code class="docutils literal"><span class="pre">.end</span></code> concludes the netlist input. Lines following this line are ignored.</p>
+<p>A line starting with <code class="docutils literal notranslate"><span class="pre">.end</span></code> concludes the netlist input. Lines following this line are ignored.</p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -404,7 +400,7 @@ assumed. Node names and model names are case sensitive character strings.</p>
         <a href="devices.html" class="btn btn-neutral float-right" title="Devices and built-in models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPnetlistSyntax.html" class="btn btn-neutral" title="SLiCAP netlist syntax" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPnetlistSyntax.html" class="btn btn-neutral float-left" title="SLiCAP netlist syntax" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -413,11 +409,19 @@ assumed. Node names and model names are case sensitive character strings.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -429,38 +433,15 @@ assumed. Node names and model names are case sensitive character strings.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

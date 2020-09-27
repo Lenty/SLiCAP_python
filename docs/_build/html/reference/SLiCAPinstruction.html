@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,52 +11,48 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
-  
-
-  
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="SLiCAP 1.0.2020 documentation" href="../index.html"/>
-        <link rel="up" title="SLiCAP reference" href="SLiCAPreference.html"/>
-        <link rel="next" title="SLiCAPexecute.py" href="SLiCAPexecute.html"/>
-        <link rel="prev" title="SLiCAP.py" href="SLiCAP.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLiCAPexecute.py" href="SLiCAPexecute.html" />
+    <link rel="prev" title="SLiCAP.py" href="SLiCAP.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> SLiCAP
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> SLiCAP
           
 
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -119,13 +115,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">SLiCAP</a>
@@ -133,9 +130,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -156,7 +154,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="SLiCAPreference.html">SLiCAP reference</a> &raquo;</li>
         
@@ -190,7 +188,7 @@
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.check">
 <code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.check" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks the completeness and consistancy of the instruction data.  
+<dd><p>Checks the completeness and consistancy of the instruction data.
 Will be called by <strong>instruction.execute()</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -200,8 +198,8 @@ Will be called by <strong>instruction.execute()</strong>.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -212,7 +210,7 @@ Will be called by <strong>instruction.execute()</strong>.</p>
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.checkCircuit">
 <code class="descname">checkCircuit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.checkCircuit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the circuit for this instruction is a <a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit"><code class="xref py py-class docutils literal"><span class="pre">SLiCAPprotos.circuit()</span></code></a> object.</p>
+<dd><p>Checks if the circuit for this instruction is a <a class="reference internal" href="SLiCAPprotos.html#SLiCAPprotos.circuit" title="SLiCAPprotos.circuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SLiCAPprotos.circuit()</span></code></a> object.</p>
 <p>Called by <strong>instruction.execute()</strong>.</p>
 </dd></dl>
 
@@ -240,7 +238,7 @@ Will be called by <strong>instruction.execute()</strong>.</p>
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.checkLGref">
 <code class="descname">checkLGref</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.checkLGref" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the loop gain reference has been defined and if it exists in 
+<dd><p>Checks if the loop gain reference has been defined and if it exists in
 the circuit.</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>instruction.setLGref(&lt;lgRef&gt;)</strong>.</p>
 </dd></dl>
@@ -250,7 +248,7 @@ the circuit.</p>
 <code class="descname">checkNumeric</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.checkNumeric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the simulation type is set to ‘numeric’. This is required for
 pole-zero analysis.</p>
-<p>Called by <strong>instruction.check()</strong> in cases in which a numeric 
+<p>Called by <strong>instruction.check()</strong> in cases in which a numeric
 simulation is required.</p>
 </dd></dl>
 
@@ -272,7 +270,7 @@ simulation is required.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>need</strong> (<em>bool</em>) – If True, a source is required and an error message will be
 given if it missing. If False, only the presence of the
-indicated independent source in the circuit will be 
+indicated independent source in the circuit will be
 verified.</td>
 </tr>
 </tbody>
@@ -282,10 +280,10 @@ verified.</td>
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.checkStep">
 <code class="descname">checkStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.checkStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method will check the completeness and the consistency of the 
-instruction data for parameter stepping, before executing the 
+<dd><p>This method will check the completeness and the consistency of the
+instruction data for parameter stepping, before executing the
 instruction.</p>
-<p>Called by <strong>instruction.check()</strong> in cases in which 
+<p>Called by <strong>instruction.check()</strong> in cases in which
 instruction.step == True</p>
 </dd></dl>
 
@@ -295,8 +293,8 @@ instruction.step == True</p>
 <dd><p>Checks if the array with step values is defined properly.</p>
 <p>Called by <strong>instruction.checkStep()</strong> and by <strong>instruction.setStepArray(&lt;stepArray&gt;)</strong>.</p>
 <p>The step array is a list of lists. The number of lists must equal the
-number of step variables. The numbers in the lists are subsequent 
-values of the associated step variable. All lists should have equal 
+number of step variables. The numbers in the lists are subsequent
+values of the associated step variable. All lists should have equal
 lengths.</p>
 </dd></dl>
 
@@ -364,7 +362,7 @@ instruction.setCircuit(&lt;fileName&gt;).</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of a circuit object by checking a netlist:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of a circuit object by checking a netlist:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of an instruction object:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
@@ -380,7 +378,7 @@ instruction.setCircuit(&lt;fileName&gt;).</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -392,7 +390,7 @@ instruction.setCircuit(&lt;fileName&gt;).</p>
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.controlled">
 <code class="descname">controlled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.controlled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list with names of controlled sources in <strong>instruction.circuit</strong> 
+<dd><p>Returns a list with names of controlled sources in <strong>instruction.circuit</strong>
 that can be used as loop gain reference.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -406,8 +404,8 @@ that can be used as loop gain reference.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain a list with names of controlled sources:</span>
@@ -427,8 +425,8 @@ that can be used as loop gain reference.</p>
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.defPar">
 <code class="descname">defPar</code><span class="sig-paren">(</span><em>parName</em>, <em>parValue</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.defPar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds or modifies a parameter definition and updates the list 
-<strong>instruction.circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined 
+<dd><p>Adds or modifies a parameter definition and updates the list
+<strong>instruction.circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined
 parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -444,8 +442,8 @@ parameters.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000</span>
@@ -454,22 +452,13 @@ parameters.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="mf">2e3</span><span class="p">)</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>Do not enter a number as parameter name, this will not be checked!</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.defPars">
 <code class="descname">defPars</code><span class="sig-paren">(</span><em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.defPars" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds or modifies multiple parameter definitions and updates the list 
-<strong>instruction.circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined 
+<dd><p>Adds or modifies multiple parameter definitions and updates the list
+<strong>instruction.circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined
 parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -477,38 +466,29 @@ parameters.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Params parDict:</th><td class="field-body">Dictionary with key-value pairs:
 key: parName (<em>str, sympy.Symbol</em>): name of the parameter.
-value: parValue (<em>str, float, int, sp.Symbol</em>) : value 
+value: parValue (<em>str, float, int, sp.Symbol</em>) : value
 or expression of the parameter.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">defPars</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;5p&#39;</span><span class="p">})</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>Do not enter a number as parameter name, this will not be checked!</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAPinstruction.instruction.delPar">
 <code class="descname">delPar</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.delPar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a parameter definition</p>
-<p>After deletion of the parameter from the instruction.circuit.parDefs 
-dictionary the list <strong>instruction.circuit.params</strong> with 
+<p>After deletion of the parameter from the instruction.circuit.parDefs
+dictionary the list <strong>instruction.circuit.params</strong> with
 names (<em>sympy.Symbol</em>) of undefined parameters is updated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -520,8 +500,8 @@ names (<em>sympy.Symbol</em>) of undefined parameters is updated.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Delete the definition for the parameter &#39;R&#39;:</span>
@@ -549,8 +529,8 @@ be used as detector.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain a list with names of dependent variables:</span>
@@ -601,7 +581,7 @@ the instruction.</p>
 <dt id="SLiCAPinstruction.instruction.execute">
 <code class="descname">execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks the instruction and executes it if no errors are found.</p>
-<p>if no errors are found it returns a <code class="xref py py-class docutils literal"><span class="pre">allResults</span></code> object with the 
+<p>if no errors are found it returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">allResults</span></code> object with the
 results of the instruction.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -613,8 +593,8 @@ results of the instruction.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assign &#39;V1&#39; signal source:</span>
@@ -646,7 +626,7 @@ results of the instruction.</p>
 <dd><p>Returns the value or expression of one or more circuit elements.</p>
 <p>If instruction.numeric == True it will perform a full recursive 
 substitution of all circuit parameter definitions.</p>
-<p>This method calls instruction.circuit.getElementValue() with keyword arg
+<p>This method calls instruction.circuit.getElementValue() with
 numeric = True if instruction.simType is set to ‘numeric’.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -682,7 +662,7 @@ value or expression</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -698,7 +678,7 @@ value or expression</p>
 <dt id="SLiCAPinstruction.instruction.getParValue">
 <code class="descname">getParValue</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAPinstruction.instruction.getParValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value or expression of one or more parameters.</p>
-<p>If instruction.numeric == True it will perform a full recursive 
+<p>If instruction.numeric == True it will perform a full recursive
 substitution of all circuit parameter definitions.</p>
 <p>This method calls instruction.circuit.getParValue() with keyword arg
 numeric = True if instruction.simType is set to ‘numeric’.</p>
@@ -708,8 +688,8 @@ numeric = True if instruction.simType is set to ‘numeric’.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>list</em>) – name(s) of the parameter(s)</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">if type(parNames) == list:<p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>): 
-name of the parameter, value (<em>int, float, sympy expression</em>): 
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">if type(parNames) == list:<p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>):
+name of the parameter, value (<em>int, float, sympy expression</em>):
 value of the parameter</p>
 <p>else:
 value or expression</p>
@@ -721,14 +701,13 @@ value or expression</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain the numeric parameter definitions of &#39;R&#39; and &#39;C&#39;:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain the numeric parameter definitions of of &#39;R&#39; and &#39;C&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">symType</span> <span class="o">=</span> <span class="s1">&#39;numeric&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">getParValue</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>
-<span class="go">{C: 5.0e-7/pi, R: 1000.00000000000}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -749,8 +728,8 @@ value or expression</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Obtain a list with names of independent sources:</span>
@@ -811,11 +790,11 @@ the instruction.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>            
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -828,16 +807,16 @@ the instruction.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataType</strong> (<em>str</em>) – data type for the instruction: ‘dc’, ‘dcsolve’, ‘dcvar’, 
-‘denom’, ‘impulse’, ‘laplace’, ‘matrix’, ‘noise’, ‘numer’, 
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataType</strong> (<em>str</em>) – data type for the instruction: ‘dc’, ‘dcsolve’, ‘dcvar’,
+‘denom’, ‘impulse’, ‘laplace’, ‘matrix’, ‘noise’, ‘numer’,
 ‘params’, ‘poles’, ‘pz’, ‘solve’, ‘step’, ‘time’ or ‘zeros’.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set data type to &#39;laplace&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setDataType</span><span class="p">(</span><span class="s1">&#39;laplace&#39;</span><span class="p">)</span>
 </pre></div>
@@ -852,7 +831,7 @@ the instruction.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>detector</strong> (<em>list</em><em>, </em><em>str</em>) – Name(s) of one or two nodal voltages or of one or two 
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>detector</strong> (<em>list</em><em>, </em><em>str</em>) – Name(s) of one or two nodal voltages or of one or two
 dependent currents.</td>
 </tr>
 </tbody>
@@ -863,11 +842,11 @@ dependent currents.</td>
 <li>str:  a single detector, name of a nodal voltage or a branch current</li>
 <li>list: with names of either two nodal voltages or two branch currents.</li>
 </ul>
-<p>instruction.checkDetector converts the detector definition into a list 
-with a positive and a negative detector [&lt;detP&gt;, &lt;detN&gt;], where detP 
+<p>instruction.checkDetector converts the detector definition into a list
+with a positive and a negative detector [&lt;detP&gt;, &lt;detN&gt;], where detP
 and detN are the names (str) of either two nodal voltages or two branch
 currents. One of those can be ‘None’.</p>
-<p>A list with names of dependent variables that can be used as signal 
+<p>A list with names of dependent variables that can be used as signal
 detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -877,8 +856,8 @@ detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Display a list with names of nodal voltages and branch currents</span>
@@ -908,15 +887,15 @@ detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gainType</strong> (<em>str</em>) – gain type for the instruction’gain’, ‘asymptotic’, 
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gainType</strong> (<em>str</em>) – gain type for the instruction’gain’, ‘asymptotic’,
 ‘loopgain’, ‘servo’, ‘direct’, or ‘vi’.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set gain type to &#39;gain&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">)</span>
 </pre></div>
@@ -939,11 +918,11 @@ method <strong>instruction.controlled()</strong>.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>   
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Display a list with controlled sources of the circuit:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">controlled</span><span class="p">()</span>
 </pre></div>
@@ -964,8 +943,8 @@ method <strong>instruction.controlled()</strong>.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set the simulation type to numeric:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set the simulation type to symbolic:</span>
@@ -983,11 +962,11 @@ method <strong>instruction.controlled()</strong>.</p>
 <p>SLiCAP always uses symbolic calculation methods. Only in a limited
 number of cases SLiCAP calulates with floats (pole-zero analysis,
 determination of the phase margin, etc.).</p>
-<p>With the simulation type set to ‘numeric’ SLiCAP recursively 
+<p>With the simulation type set to ‘numeric’ SLiCAP recursively
 substitutes all circuit parameter definitions into expressions used for
-element values. Hence, component values can be expressions with 
+element values. Hence, component values can be expressions with
 symbolic parameters.</p>
-<p>The default number of recursive substitutions is 10. It is defined by 
+<p>The default number of recursive substitutions is 10. It is defined by
 ini.recSubst and can be changed by the user. For using the built-in MOS
 EKV models a value of eight is the minumum for full substitution.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -998,7 +977,7 @@ EKV models a value of eight is the minumum for full substitution.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">recSubst</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># For deeply nested expressions!</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">recSubst</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># For deeply nested expressions!</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1018,8 +997,8 @@ exists in the circuit.</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1035,8 +1014,8 @@ exists in the circuit.</td>
 </tr>
 </tbody>
 </table>
-<p>A list with names of independent voltage and current sources that can be 
-assigned as signal source can be obtained from the method: 
+<p>A list with names of independent voltage and current sources that can be
+assigned as signal source can be obtained from the method:
 <strong>instruction.idepVars()</strong>:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1046,8 +1025,8 @@ assigned as signal source can be obtained from the method:
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1065,16 +1044,16 @@ assigned as signal source can be obtained from the method:
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepArray</strong> (<em>list</em>) – Nested list: list[i] carries the step values for the 
-step variable in instruction.stepVars[i]. 
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepArray</strong> (<em>list</em>) – Nested list: list[i] carries the step values for the
+step variable in instruction.stepVars[i].
 The lists should have equal lengths.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1106,8 +1085,8 @@ to ‘lin’ or ‘log’.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1137,8 +1116,8 @@ to ‘lin’ or ‘log’.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1164,8 +1143,8 @@ to ‘lin’ or ‘log’.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1194,8 +1173,8 @@ to ‘lin’ or ‘log’.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1225,8 +1204,8 @@ to ‘lin’ or ‘log’.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1255,8 +1234,8 @@ to ‘lin’ or ‘log’.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the circuit parameter &#39;alpha&#39; as step variable:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setStepVar</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Enable parameter stepping</span>
@@ -1281,13 +1260,13 @@ parameter is obtained as follows:</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># print the list with names of all parameters that can be stepped:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1307,8 +1286,8 @@ variables for array type stepping.</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
@@ -1340,13 +1319,13 @@ parameter is obtained as follows:</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># print the list with names of all parameters that can be stepped:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1419,8 +1398,8 @@ parameter is obtained as follows:</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Disable parameter stepping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span><span class="o">.</span><span class="n">stepOff</span><span class="p">()</span>
 </pre></div>
@@ -1440,8 +1419,8 @@ parameter is obtained as follows:</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Enable parameter stepping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span><span class="o">.</span><span class="n">stepOn</span><span class="p">()</span>
 </pre></div>
@@ -1482,9 +1461,7 @@ parameter is obtained as follows:</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -1493,7 +1470,7 @@ parameter is obtained as follows:</p>
         <a href="SLiCAPexecute.html" class="btn btn-neutral float-right" title="SLiCAPexecute.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAP.html" class="btn btn-neutral" title="SLiCAP.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAP.html" class="btn btn-neutral float-left" title="SLiCAP.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1502,11 +1479,19 @@ parameter is obtained as follows:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLiCAP development team.
+        
+        &copy; Copyright 2020, SLiCAP development team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1518,38 +1503,15 @@ parameter is obtained as follows:</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.0.2020',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
