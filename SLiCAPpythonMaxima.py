@@ -47,7 +47,10 @@ def maxEval(maxExpr):
     maxInput = maxAssume + maxExpr + maxStringConv
     # Check system we are running on and read the output
     if platform.system() == 'Windows':
-        result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
+        # result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
+        result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
+        result = [i for i in result if i] # Added due to variability of trailing '\n'
+        result = result[-1]
     else:    
         result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
     # Convert the result such that it can be 'sympified' by sympy

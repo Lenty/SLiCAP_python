@@ -153,7 +153,7 @@ For array stepping the step values need to be provided in the form of a matrix. 
 Enable or disable parameter stepping
 ------------------------------------
 
-Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step mthod, etc.
+Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step method, etc.
 
 .. code-block:: python
 

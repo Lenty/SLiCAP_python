@@ -30,5 +30,5 @@ Below the syntax for generation of the netlist file ``myCircuit.cir`` from the '
 
 .. code-block:: python
 
-    >>> makeNetlist('myCircuit.sch', 'My Circuit Title') # Use the *LTspice* netlister.
-    >>> makeNetlist('myCircuit.asc', 'My Circuit Title') # Use the *gnet-spice-noqsi* netlister.
+    >>> makeNetlist('myCircuit.sch', 'My Circuit Title') # Use the *gnet-spice-noqsi* netlister.
+    >>> makeNetlist('myCircuit.asc', 'My Circuit Title') # Use the *LTspice* netlister.

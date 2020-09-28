@@ -15,9 +15,10 @@ MATHMLPATH  = 'mathml/' # path for mathML output saveMathML()
 IMGPATH     = 'img/'    # path for image files
 MAXIMA      = 'C:\\maxima-5.44.0\\bin\\maxima.bat' # Windows command for maxima
 LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '  
+NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation with gschem or lepton-eda
 
 # Project information
 PROJECT    = 'NMOS EKV polts'
 AUTHOR     = 'Anton'
 CREATED    = '2020-09-10 10:46:09.433889'
-LASTUPDATE = '2020-09-10 14:12:14.697118'
+LASTUPDATE = '2020-09-28 09:27:19.324757'

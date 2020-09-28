@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -187,8 +187,8 @@
 <p>You can generate a netlist from a schematic drawing program, or by entering it manually in an ASCII editor.</p>
 <p>Netlist generation for SLiCAP is supported for schematics created with:</p>
 <ol class="arabic simple">
-<li><em>gSchem</em> using the corresponding SLiCAP symbol library and the ‘gnet-spice-noqsi’ netlist plugin</li>
-<li><em>LTSPICE</em> using the corresponding SLiCAP symbol library</li>
+<li><p><em>gSchem</em> using the corresponding SLiCAP symbol library and the ‘gnet-spice-noqsi’ netlist plugin</p></li>
+<li><p><em>LTSPICE</em> using the corresponding SLiCAP symbol library</p></li>
 </ol>
 <div class="section" id="create-a-circuit-netlist">
 <h2>Create a circuit netlist<a class="headerlink" href="#create-a-circuit-netlist" title="Permalink to this headline">¶</a></h2>
@@ -200,8 +200,8 @@
 <h3>Automatic determination of the netlister<a class="headerlink" href="#automatic-determination-of-the-netlister" title="Permalink to this headline">¶</a></h3>
 <p>SLiCAP can create netlists from LTspice and from gSchem.</p>
 <p>Below the syntax for generation of the netlist file <code class="docutils literal notranslate"><span class="pre">myCircuit.cir</span></code> from the ‘gSchem’ schematic file <code class="docutils literal notranslate"><span class="pre">myCircuit.sch</span></code> or from the ‘LTspice’ schematic file <code class="docutils literal notranslate"><span class="pre">myCircuit.asc</span></code> in the project directory. The title of the circuit needs to be added separately. It will be placed at the beginning of the netlist file and used in the table of contents of html reports.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.sch&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *LTspice* netlister.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.asc&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *gnet-spice-noqsi* netlister.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.sch&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *gnet-spice-noqsi* netlister.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.asc&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *LTspice* netlister.</span>
 </pre></div>
 </div>
 </div>

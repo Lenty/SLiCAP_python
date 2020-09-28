@@ -13,11 +13,12 @@ CSVPATH     = 'csv/'    # path for CSV files (csv2html)
 LATEXPATH   = 'tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH  = 'mathml/' # path for mathML output saveMathML()
 IMGPATH     = 'img/'    # path for image files
-MAXIMA      = 'C:\\maxima-5.44.0\\bin\\maxima.bat' # Windows command for maxima
+MAXIMA      = 'C:\\maxima-5.42.2\\bin\\maxima.bat' # Windows command for maxima
 LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '  
+NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation with gschem or lepton-eda
 
 # Project information
 PROJECT    = '4-th order Linkwitz-Riley Filter'
 AUTHOR     = 'Anton'
 CREATED    = '2020-09-10 10:36:33.592002'
-LASTUPDATE = '2020-09-10 14:13:50.274345'
+LASTUPDATE = '2020-09-28 09:26:17.703028'

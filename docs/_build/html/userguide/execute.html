@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -206,12 +206,14 @@
 <h3>Data type dc<a class="headerlink" href="#data-type-dc" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the DC value of the detector quantity; only for gain type ‘vi’.</p>
 <ul class="simple">
-<li>If parameter stepping is enabled:<ul>
-<li>A list with dc values (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.dc</strong></li>
+<li><p>If parameter stepping is enabled:</p>
+<ul>
+<li><p>A list with dc values (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.dc</strong></p></li>
 </ul>
 </li>
-<li>If parameter stepping is disabled:<ul>
-<li>The dc value (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.dc</strong></li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>The dc value (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.dc</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -220,12 +222,14 @@
 <h3>Data type dcsolve<a class="headerlink" href="#data-type-dcsolve" title="Permalink to this headline">¶</a></h3>
 <p>Calculates DC solution of the network; only for gain type ‘vi’.</p>
 <ul class="simple">
-<li>If parameter stepping is enabled:<ul>
-<li>A list with dc solutions (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.dcSolve</strong></li>
+<li><p>If parameter stepping is enabled:</p>
+<ul>
+<li><p>A list with dc solutions (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.dcSolve</strong></p></li>
 </ul>
 </li>
-<li>If parameter stepping is disabled:<ul>
-<li>The dc solution (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.dcSolve</strong></li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>The dc solution (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.dcSolve</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -234,36 +238,44 @@
 <h3>Data type dcvar<a class="headerlink" href="#data-type-dcvar" title="Permalink to this headline">¶</a></h3>
 <p>Calculates contribution of all dc variances (sources and resistors) to the detector-referred variance. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred variance.</p>
 <ul class="simple">
-<li>If parameter stepping is enabled:<ul>
-<li>A list with values of the total detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ovar</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If parameter stepping is enabled:</p>
+<ul>
+<li><p>A list with values of the total detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ovar</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: List with contributions to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
-<li>If a signal source has been defined:<ul>
-<li>A list with values of the total source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If a signal source has been defined:</p>
+<ul>
+<li><p>A list with values of the total source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: List with contributions to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li>If parameter stepping is disabled:<ul>
-<li>The total detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ovar</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>The total detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ovar</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: Contributions to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
-<li>If a signal source has been defined:<ul>
-<li>The total source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If a signal source has been defined:</p>
+<ul>
+<li><p>The total source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: Contributions to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
 </ul>
@@ -276,10 +288,10 @@
 <h3>Data type denom<a class="headerlink" href="#data-type-denom" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the denominator of the Laplace Transform of the unit-impulse response or of a voltage or a current.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list with results (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.denom</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>The result (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.denom</strong></p>
 </li>
 </ul>
@@ -288,10 +300,10 @@
 <h3>Data type impulse<a class="headerlink" href="#data-type-impulse" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the unit-impulse response (inverse Laplace Transform); may not work with symbolic values. Not for gain type ‘vi’.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list with results (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.impulse</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>The result (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.impulse</strong></p>
 </li>
 </ul>
@@ -300,10 +312,10 @@
 <h3>Data type laplace<a class="headerlink" href="#data-type-laplace" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list with results (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.laplace</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>The result (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.laplace</strong></p>
 </li>
 </ul>
@@ -312,49 +324,58 @@
 <h3>Data type matrix<a class="headerlink" href="#data-type-matrix" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the matrix equation of the circuit.</p>
 <ul class="simple">
-<li>If parameter stepping is disabled:<ul>
-<li>The vector with independent variables (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.Iv</strong></li>
-<li>The vector with dependent variables (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.Dv</strong></li>
-<li>The MNA matrix (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.M</strong></li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>The vector with independent variables (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.Iv</strong></p></li>
+<li><p>The vector with dependent variables (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.Dv</strong></p></li>
+<li><p>The MNA matrix (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.M</strong></p></li>
 </ul>
 </li>
-<li>Parameter stepping with data type ‘matrix’ is not supported.</li>
+<li><p>Parameter stepping with data type ‘matrix’ is not supported.</p></li>
 </ul>
 </div>
 <div class="section" id="data-type-noise">
 <h3>Data type noise<a class="headerlink" href="#data-type-noise" title="Permalink to this headline">¶</a></h3>
 <p>Calculates contributions to the detector-referred noise of all noise sources. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred noise.</p>
 <ul class="simple">
-<li>If parameter stepping is enabled:<ul>
-<li>A list with values of the total detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.onoise</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.onoiseTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If parameter stepping is enabled:</p>
+<ul>
+<li><p>A list with values of the total detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.onoise</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.onoiseTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: List with contributions to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
-<li>If a signal source has been defined:<ul>
-<li>A list with values of the total source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If a signal source has been defined:</p>
+<ul>
+<li><p>A list with values of the total source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: List with contributions to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li>If parameter stepping is disabled:<ul>
-<li>The total detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.onoise</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>The total detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.onoise</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: Contributions to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
-<li>If a signal source has been defined:<ul>
-<li>The total source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></li>
-<li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong><ul>
-<li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li><p>If a signal source has been defined:</p>
+<ul>
+<li><p>The total source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></p></li>
+<li><p>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong></p>
+<ul>
+<li><p>key: Name of the source (<em>str</em>)</p></li>
+<li><p>value: Contributions to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</p></li>
 </ul>
 </li>
 </ul>
@@ -367,10 +388,10 @@
 <h3>Data type numer<a class="headerlink" href="#data-type-numer" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the numerator of the Laplace Transform of the unit-impulse response or of a voltage or a current.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list with results (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.numer</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>The result (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.numer</strong></p>
 </li>
 </ul>
@@ -383,10 +404,10 @@
 <h3>Data type poles<a class="headerlink" href="#data-type-poles" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the complex solutions of the denominator of the Laplace transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list of lists with solutions (<em>complex</em>) is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>A list with solutions (<em>complex</em>) is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p>
 </li>
 </ul>
@@ -395,20 +416,22 @@
 <h3>Data type pz<a class="headerlink" href="#data-type-pz" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomials.</p>
 <div class="admonition-note admonition">
-<p class="first admonition-title">note</p>
-<p class="last">pole-zero pairs with equal complex frequencies (tolerance = <span class="math notranslate nohighlight">\(10^{\mathrm{-ini.disp}}\)</span>) are removed from the results.</p>
+<p class="admonition-title">note</p>
+<p>pole-zero pairs with equal complex frequencies (tolerance = <span class="math notranslate nohighlight">\(10^{\mathrm{-ini.disp}}\)</span>) are removed from the results.</p>
 </div>
 <ul class="simple">
-<li>If parameter stepping is enabled:<ul>
-<li>A list of lists with solutions (<em>complex</em>) of the denominator is assigned to <strong>SLiCAPprotos.allResults.poles</strong></li>
-<li>A list of lists with solutions (<em>complex</em>) of the numerator is assigned to <strong>SLiCAPprotos.allResults.zeros</strong></li>
-<li>A list with zero-frequency values (<em>float</em>) of the transfer is assigned to <strong>SLiCAPprotos.allResults.DCvalue</strong></li>
+<li><p>If parameter stepping is enabled:</p>
+<ul>
+<li><p>A list of lists with solutions (<em>complex</em>) of the denominator is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p></li>
+<li><p>A list of lists with solutions (<em>complex</em>) of the numerator is assigned to <strong>SLiCAPprotos.allResults.zeros</strong></p></li>
+<li><p>A list with zero-frequency values (<em>float</em>) of the transfer is assigned to <strong>SLiCAPprotos.allResults.DCvalue</strong></p></li>
 </ul>
 </li>
-<li>If parameter stepping is disabled:<ul>
-<li>A list with solutions (<em>complex</em>) of the denominator is assigned to <strong>SLiCAPprotos.allResults.poles</strong></li>
-<li>A list with solutions (<em>complex</em>) of the numerator is assigned to <strong>SLiCAPprotos.allResults.zeros</strong></li>
-<li>The zero-frequency values (<em>float</em>) of the transfer is assigned to <strong>SLiCAPprotos.allResults.DCvalue</strong></li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>A list with solutions (<em>complex</em>) of the denominator is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p></li>
+<li><p>A list with solutions (<em>complex</em>) of the numerator is assigned to <strong>SLiCAPprotos.allResults.zeros</strong></p></li>
+<li><p>The zero-frequency values (<em>float</em>) of the transfer is assigned to <strong>SLiCAPprotos.allResults.DCvalue</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -417,12 +440,14 @@
 <h3>Data type solve<a class="headerlink" href="#data-type-solve" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the network solution; only for gain type ‘vi’.</p>
 <ul class="simple">
-<li>If parameter stepping is enabled:<ul>
-<li>A list with solutions (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.solve</strong></li>
+<li><p>If parameter stepping is enabled:</p>
+<ul>
+<li><p>A list with solutions (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.solve</strong></p></li>
 </ul>
 </li>
-<li>If parameter stepping is disabled:<ul>
-<li>The solution (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.solve</strong></li>
+<li><p>If parameter stepping is disabled:</p>
+<ul>
+<li><p>The solution (<em>symPy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.solve</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -431,10 +456,10 @@
 <h3>Data type step<a class="headerlink" href="#data-type-step" title="Permalink to this headline">¶</a></h3>
 <p>Calculates inverse Laplace transform of (1/s) times the transfer function. It may not work with symbolic values.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list with results (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.stepResp</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>The result (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.stepResp</strong></p>
 </li>
 </ul>
@@ -443,10 +468,10 @@
 <h3>Data type time<a class="headerlink" href="#data-type-time" title="Permalink to this headline">¶</a></h3>
 <p>Calculates inverse Laplace transform of a detector voltage or current. Only for gain type ‘vi’. It may not work with symbolic values.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list with results (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.time</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>The result (<em>float, sympy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.time</strong></p>
 </li>
 </ul>
@@ -455,10 +480,10 @@
 <h3>Data type zeros<a class="headerlink" href="#data-type-zeros" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the complex solutions of the numerator of the Laplace transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
 <ul>
-<li><p class="first">If parameter stepping is enabled:</p>
+<li><p>If parameter stepping is enabled:</p>
 <p>A list of lists with solutions (<em>complex</em>) is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p>
 </li>
-<li><p class="first">If parameter stepping is disabled:</p>
+<li><p>If parameter stepping is disabled:</p>
 <p>A list with solutions (<em>complex</em>) is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p>
 </li>
 </ul>

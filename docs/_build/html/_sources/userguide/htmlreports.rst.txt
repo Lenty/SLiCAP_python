@@ -60,7 +60,7 @@ With the checking of a circuit, a circuit index page is generated:
 Start a new html page
 ---------------------
 
-It is a good practive to start a new html (data) page after checking the circuit, this prevents output to be writen to index files which would mess up the table of contents.
+It is a good practice to start a new html (data) page after checking the circuit, this prevents output to be writen to index files which would mess up the table of contents.
 
 A new html data page can be created by evoking the command *htmlPage(< pageTitle >)*, in which *pageTitle* is the title of the new page (without .html file extension). After creation this new page is automatically assigned as active html data page. With the creation of a data page, a link to this data page is placed on the active index page.
 

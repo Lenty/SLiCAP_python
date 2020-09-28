@@ -34,7 +34,7 @@ Capabilities
 - Symbolic and numeric determination of transfer functions and polynomial coefficients of transfer functions
 - Symbolic and numeric inverse Laplace Transform
 - Symbolic and numeric determination of network solutions
-- Accuate numeric pole-zero analysis
+- Accurate numeric pole-zero analysis
 - Root-locus analysis with a arbitrarily selected circuit parameters as root locus variable(s)
 - Symbolic and numeric DC and DC variance analysis for determination of budgets for resistor tolerances and offset and bias quantities
 - Symbolic and numeric derivation and solution of design equations for bandwidh, frequency response, noise performance, dc variance and temperature stability

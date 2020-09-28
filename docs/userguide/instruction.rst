@@ -2,7 +2,7 @@
 Define an instruction
 =====================
 
-All the aspects of an instruction can at any time be changed from twithin the SLiCAP environment. An instruction can be executed if the instruction data is complete and consistent (this will be checked by SLiCAP).
+All the aspects of an instruction can at any time be changed from within the SLiCAP environment. An instruction can be executed if the instruction data is complete and consistent (this will be checked by SLiCAP).
 
 In the following sections the instruction data and their default values will be discussed.
 
@@ -35,7 +35,7 @@ Gain type
 
 SLiCAP can provide expressions for:
 
-#. Nodal voltages or currents through elements that have been defined in current-controlled notation (the volhage has been defined as a function of the current).
+#. Nodal voltages or currents through elements that have been defined in current-controlled notation (the voltage has been defined as a function of the current).
 
    - gain type: *vi*
 
@@ -116,7 +116,7 @@ Detector
 	  
 SLiCAP can calculate one of the following:
 
-#. One branch current through an element defined by its V(I) relation in current-contrilled notation
+#. One branch current through an element defined by its V(I) relation in current-controlled notation
 #. One nodal voltage
 #. One branch voltage (difference between two nodal voltages)
 #. One difference between two branch currents through elements defined by their V(I) relation in current-controlled notation

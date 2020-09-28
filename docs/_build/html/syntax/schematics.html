@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -188,191 +188,191 @@
 <p>A symbol set for schematic capture and netlist generation with LTSpice can be found in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal notranslate"><span class="pre">slicap.lib</span></code> file.</p>
 <p>The following table gives an overview of the available symbols. Model descriptions can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section.</p>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="8%" />
-<col width="60%" />
-<col width="5%" />
-<col width="28%" />
+<col style="width: 8%" />
+<col style="width: 60%" />
+<col style="width: 5%" />
+<col style="width: 28%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">models</th>
-<th class="head">corresponding sub circuits</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>models</p></th>
+<th class="head"><p>corresponding sub circuits</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>SLABCD</td>
-<td>Sub circuit of a two-port with T1 matrix parameters</td>
-<td>&#160;</td>
-<td>ABCD</td>
+<tbody>
+<tr class="row-even"><td><p>SLABCD</p></td>
+<td><p>Sub circuit of a two-port with T1 matrix parameters</p></td>
+<td></td>
+<td><p>ABCD</p></td>
 </tr>
-<tr class="row-odd"><td>SLC</td>
-<td>Linear capacitor</td>
-<td>C</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLC</p></td>
+<td><p>Linear capacitor</p></td>
+<td><p>C</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLD</td>
-<td>Small-signal diode model</td>
-<td>D</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLD</p></td>
+<td><p>Small-signal diode model</p></td>
+<td><p>D</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLE</td>
-<td>Voltage-controlled voltage source</td>
-<td>E</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLE</p></td>
+<td><p>Voltage-controlled voltage source</p></td>
+<td><p>E</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLEZ</td>
-<td>Voltage-controlled voltage source with series impedance</td>
-<td>EZ</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLEZ</p></td>
+<td><p>Voltage-controlled voltage source with series impedance</p></td>
+<td><p>EZ</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLF</td>
-<td>Current-controlled current source</td>
-<td>F</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLF</p></td>
+<td><p>Current-controlled current source</p></td>
+<td><p>F</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLG</td>
-<td>Voltage-controlled current source</td>
-<td>G</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLG</p></td>
+<td><p>Voltage-controlled current source</p></td>
+<td><p>G</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLH</td>
-<td>Current-controlled voltage source</td>
-<td>H</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLH</p></td>
+<td><p>Current-controlled voltage source</p></td>
+<td><p>H</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLHZ</td>
-<td>Current-controlled voltage source with series impedance</td>
-<td>HZ</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLHZ</p></td>
+<td><p>Current-controlled voltage source with series impedance</p></td>
+<td><p>HZ</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLI</td>
-<td>Independent current source</td>
-<td>I</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLI</p></td>
+<td><p>Independent current source</p></td>
+<td><p>I</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLJ</td>
-<td>Small-signal model of a Junction FET</td>
-<td>J</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLJ</p></td>
+<td><p>Small-signal model of a Junction FET</p></td>
+<td><p>J</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLL</td>
-<td>Linear inductor</td>
-<td>L</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLL</p></td>
+<td><p>Linear inductor</p></td>
+<td><p>L</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLM</td>
-<td>Small-signal model of a four-terminal MOS transistor</td>
-<td>M</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLM</p></td>
+<td><p>Small-signal model of a four-terminal MOS transistor</p></td>
+<td><p>M</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLMD</td>
-<td>Small-signal model of a MOS differential pair</td>
-<td>MD</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLMD</p></td>
+<td><p>Small-signal model of a MOS differential pair</p></td>
+<td><p>MD</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLM_noise</td>
-<td>Equivalent-input noise sources of intrinsic MOS, EKV model</td>
-<td>&#160;</td>
-<td>NM18_noise, PM18_noise, J_noise</td>
+<tr class="row-even"><td><p>SLM_noise</p></td>
+<td><p>Equivalent-input noise sources of intrinsic MOS, EKV model</p></td>
+<td></td>
+<td><p>NM18_noise, PM18_noise, J_noise</p></td>
 </tr>
-<tr class="row-odd"><td>SLN</td>
-<td>Nullor</td>
-<td>N</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLN</p></td>
+<td><p>Nullor</p></td>
+<td><p>N</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLN_noise</td>
-<td>Nullor with input noise sources</td>
-<td>&#160;</td>
-<td>N_noise</td>
+<tr class="row-even"><td><p>SLN_noise</p></td>
+<td><p>Nullor with input noise sources</p></td>
+<td></td>
+<td><p>N_noise</p></td>
 </tr>
-<tr class="row-odd"><td>SLN_dcvar</td>
-<td>Nullor with input bias and offset sources (separate ground)</td>
-<td>&#160;</td>
-<td>N_dcvar</td>
+<tr class="row-odd"><td><p>SLN_dcvar</p></td>
+<td><p>Nullor with input bias and offset sources (separate ground)</p></td>
+<td></td>
+<td><p>N_dcvar</p></td>
 </tr>
-<tr class="row-even"><td>SLO</td>
-<td>Small-signal model of an operational amplifier</td>
-<td>OC, OV</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLO</p></td>
+<td><p>Small-signal model of an operational amplifier</p></td>
+<td><p>OC, OV</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLO_noise</td>
-<td>Nullor with input noise sources (opamp symbol)</td>
-<td>&#160;</td>
-<td>O_noise</td>
+<tr class="row-odd"><td><p>SLO_noise</p></td>
+<td><p>Nullor with input noise sources (opamp symbol)</p></td>
+<td></td>
+<td><p>O_noise</p></td>
 </tr>
-<tr class="row-even"><td>SLO_dcvar</td>
-<td>Nullor with input bias and offset sources (opamp symbol)</td>
-<td>&#160;</td>
-<td>O_dcvar</td>
+<tr class="row-even"><td><p>SLO_dcvar</p></td>
+<td><p>Nullor with input bias and offset sources (opamp symbol)</p></td>
+<td></td>
+<td><p>O_dcvar</p></td>
 </tr>
-<tr class="row-odd"><td>SLQ</td>
-<td>Small-signal model of a bipolar transistor (BJT)</td>
-<td>QV, QL</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLQ</p></td>
+<td><p>Small-signal model of a bipolar transistor (BJT)</p></td>
+<td><p>QV, QL</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLQD</td>
-<td>Small-signal model of a BJT differential pair</td>
-<td>QD</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLQD</p></td>
+<td><p>Small-signal model of a BJT differential pair</p></td>
+<td><p>QD</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLQ_noise</td>
-<td>Equivalent-input noise sources of intrinsic BJT, GP model</td>
-<td>&#160;</td>
-<td>Q_noise</td>
+<tr class="row-odd"><td><p>SLQ_noise</p></td>
+<td><p>Equivalent-input noise sources of intrinsic BJT, GP model</p></td>
+<td></td>
+<td><p>Q_noise</p></td>
 </tr>
-<tr class="row-even"><td>SLR</td>
-<td>Linear resistor cannot have zero value</td>
-<td>R</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLR</p></td>
+<td><p>Linear resistor cannot have zero value</p></td>
+<td><p>R</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLR_r</td>
-<td>Linear resistor can have zero value and tolerance</td>
-<td>r</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLR_r</p></td>
+<td><p>Linear resistor can have zero value and tolerance</p></td>
+<td><p>r</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLT</td>
-<td>Ideal transformer (also works for DC!)</td>
-<td>T</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLT</p></td>
+<td><p>Ideal transformer (also works for DC!)</p></td>
+<td><p>T</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>SLXM</td>
-<td>Sub circuit MOS, EKV model</td>
-<td>&#160;</td>
-<td>CMOS18N, CMOS18P</td>
+<tr class="row-odd"><td><p>SLXM</p></td>
+<td><p>Sub circuit MOS, EKV model</p></td>
+<td></td>
+<td><p>CMOS18N, CMOS18P</p></td>
 </tr>
-<tr class="row-even"><td>SLXMD</td>
-<td>Sub circuit differential pair MOS, horizontal, EKV model</td>
-<td>&#160;</td>
-<td>CMOS18ND, CMOS18PD</td>
+<tr class="row-even"><td><p>SLXMD</p></td>
+<td><p>Sub circuit differential pair MOS, horizontal, EKV model</p></td>
+<td></td>
+<td><p>CMOS18ND, CMOS18PD</p></td>
 </tr>
-<tr class="row-odd"><td>SLXQ</td>
-<td>Sub circuit BJT, GP model</td>
-<td>&#160;</td>
-<td>BJTV4, BJTL4</td>
+<tr class="row-odd"><td><p>SLXQ</p></td>
+<td><p>Sub circuit BJT, GP model</p></td>
+<td></td>
+<td><p>BJTV4, BJTL4</p></td>
 </tr>
-<tr class="row-even"><td>SLXQD</td>
-<td>Sub circuit differential pair BJT, horizontal, GP model</td>
-<td>&#160;</td>
-<td>BJTD</td>
+<tr class="row-even"><td><p>SLXQD</p></td>
+<td><p>Sub circuit differential pair BJT, horizontal, GP model</p></td>
+<td></td>
+<td><p>BJTD</p></td>
 </tr>
-<tr class="row-odd"><td>SLV</td>
-<td>Independent voltage source</td>
-<td>V</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>SLV</p></td>
+<td><p>Independent voltage source</p></td>
+<td><p>V</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>SLW</td>
-<td>Ideal gyrator</td>
-<td>W</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>SLW</p></td>
+<td><p>Ideal gyrator</p></td>
+<td><p>W</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
 <p>A graphic overview of the LTSpice symbols is shown below. Click on the figure to enlarge it.</p>
-<div class="figure">
+<div class="figure align-default">
 <a class="reference internal image-reference" href="../_images/devicesLTspice.svg"><img alt="SLiCAP symbols for LTSpice" src="../_images/devicesLTspice.svg" width="800px" /></a>
 </div>
 <div class="section" id="spice-directives">
@@ -385,246 +385,246 @@
 <p>A symbol set for schematic capture and netlist generation with gSchem can be found in the <code class="docutils literal notranslate"><span class="pre">gSchem/symbols/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal notranslate"><span class="pre">slicap.lib</span></code> file.</p>
 <p>The following table gives an overview of the available symbols. Model descriptions can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section. Please scroll the table to the left to see the associated sub circuits.</p>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="7%" />
-<col width="60%" />
-<col width="5%" />
-<col width="28%" />
+<col style="width: 7%" />
+<col style="width: 60%" />
+<col style="width: 5%" />
+<col style="width: 28%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">models</th>
-<th class="head">corresponding sub circuits</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>models</p></th>
+<th class="head"><p>corresponding sub circuits</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>0</td>
-<td>Node “0” reference or ground node symbol</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Node “0” reference or ground node symbol</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>ABCD</td>
-<td>Sub circuit of a two-port with T1 matrix parameters</td>
-<td>&#160;</td>
-<td>ABCD</td>
+<tr class="row-odd"><td><p>ABCD</p></td>
+<td><p>Sub circuit of a two-port with T1 matrix parameters</p></td>
+<td></td>
+<td><p>ABCD</p></td>
 </tr>
-<tr class="row-even"><td>C</td>
-<td>Linear capacitor</td>
-<td>C</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>Linear capacitor</p></td>
+<td><p>C</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>D</td>
-<td>Small-signal diode model</td>
-<td>D</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>Small-signal diode model</p></td>
+<td><p>D</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>E</td>
-<td>Voltage-controlled voltage source</td>
-<td>E</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>Voltage-controlled voltage source</p></td>
+<td><p>E</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>EZ</td>
-<td>Voltage-controlled voltage source with series impedance</td>
-<td>EZ</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>EZ</p></td>
+<td><p>Voltage-controlled voltage source with series impedance</p></td>
+<td><p>EZ</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>F</td>
-<td>Current-controlled current source</td>
-<td>F</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>F</p></td>
+<td><p>Current-controlled current source</p></td>
+<td><p>F</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>G</td>
-<td>Voltage-controlled current source</td>
-<td>G</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>G</p></td>
+<td><p>Voltage-controlled current source</p></td>
+<td><p>G</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>H</td>
-<td>Current-controlled voltage source</td>
-<td>H</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>H</p></td>
+<td><p>Current-controlled voltage source</p></td>
+<td><p>H</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>HZ</td>
-<td>Current-controlled voltage source with series impedance</td>
-<td>HZ</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>HZ</p></td>
+<td><p>Current-controlled voltage source with series impedance</p></td>
+<td><p>HZ</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>I</td>
-<td>Independent current source</td>
-<td>I</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>I</p></td>
+<td><p>Independent current source</p></td>
+<td><p>I</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>J</td>
-<td>Small-signal model of a Junction FET</td>
-<td>J</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>J</p></td>
+<td><p>Small-signal model of a Junction FET</p></td>
+<td><p>J</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>K</td>
-<td>Coupling factor (between two inductors)</td>
-<td>K</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>K</p></td>
+<td><p>Coupling factor (between two inductors)</p></td>
+<td><p>K</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>L</td>
-<td>Linear inductor</td>
-<td>L</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>L</p></td>
+<td><p>Linear inductor</p></td>
+<td><p>L</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>M</td>
-<td>Small-signal model of a four-terminal MOS transistor</td>
-<td>M</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>M</p></td>
+<td><p>Small-signal model of a four-terminal MOS transistor</p></td>
+<td><p>M</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>MD-H</td>
-<td>Small-signal model of a MOS differential pair, horizontal</td>
-<td>MD</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>MD-H</p></td>
+<td><p>Small-signal model of a MOS differential pair, horizontal</p></td>
+<td><p>MD</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>MD-V</td>
-<td>Small-signal model of a MOS differential pair, vertical</td>
-<td>MD</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>MD-V</p></td>
+<td><p>Small-signal model of a MOS differential pair, vertical</p></td>
+<td><p>MD</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>M_noise</td>
-<td>Equivalent-input noise sources of intrinsic MOS, EKV model</td>
-<td>&#160;</td>
-<td>NM18_noise, PM18_noise, J_noise</td>
+<tr class="row-odd"><td><p>M_noise</p></td>
+<td><p>Equivalent-input noise sources of intrinsic MOS, EKV model</p></td>
+<td></td>
+<td><p>NM18_noise, PM18_noise, J_noise</p></td>
 </tr>
-<tr class="row-even"><td>N</td>
-<td>Nullor</td>
-<td>N</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>N</p></td>
+<td><p>Nullor</p></td>
+<td><p>N</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>N_noise</td>
-<td>Nullor with input noise sources</td>
-<td>&#160;</td>
-<td>N_noise</td>
+<tr class="row-odd"><td><p>N_noise</p></td>
+<td><p>Nullor with input noise sources</p></td>
+<td></td>
+<td><p>N_noise</p></td>
 </tr>
-<tr class="row-even"><td>N_dcvar</td>
-<td>Nullor with input bias and offset sources (separate ground)</td>
-<td>&#160;</td>
-<td>N_dcvar</td>
+<tr class="row-even"><td><p>N_dcvar</p></td>
+<td><p>Nullor with input bias and offset sources (separate ground)</p></td>
+<td></td>
+<td><p>N_dcvar</p></td>
 </tr>
-<tr class="row-odd"><td>O</td>
-<td>Small-signal model of an operational amplifier</td>
-<td>OC, OV</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>O</p></td>
+<td><p>Small-signal model of an operational amplifier</p></td>
+<td><p>OC, OV</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>O_noise</td>
-<td>Nullor with input noise sources (opamp symbol)</td>
-<td>&#160;</td>
-<td>O_noise</td>
+<tr class="row-even"><td><p>O_noise</p></td>
+<td><p>Nullor with input noise sources (opamp symbol)</p></td>
+<td></td>
+<td><p>O_noise</p></td>
 </tr>
-<tr class="row-odd"><td>O_dcvar</td>
-<td>Nullor with input bias and offset sources (opamp symbol)</td>
-<td>&#160;</td>
-<td>O_dcvar</td>
+<tr class="row-odd"><td><p>O_dcvar</p></td>
+<td><p>Nullor with input bias and offset sources (opamp symbol)</p></td>
+<td></td>
+<td><p>O_dcvar</p></td>
 </tr>
-<tr class="row-even"><td>Q</td>
-<td>Small-signal model of a bipolar transistor (BJT)</td>
-<td>QV, QL</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Q</p></td>
+<td><p>Small-signal model of a bipolar transistor (BJT)</p></td>
+<td><p>QV, QL</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>QD-H</td>
-<td>Small-signal model of a BJT differential pair, horizontal</td>
-<td>QD</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>QD-H</p></td>
+<td><p>Small-signal model of a BJT differential pair, horizontal</p></td>
+<td><p>QD</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>QD-V</td>
-<td>Small-signal model of a BJT differential pair, vertical</td>
-<td>QD</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>QD-V</p></td>
+<td><p>Small-signal model of a BJT differential pair, vertical</p></td>
+<td><p>QD</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Q_noise</td>
-<td>Equivalent-input noise sources of intrinsic BJT, GP model</td>
-<td>&#160;</td>
-<td>Q_noise</td>
+<tr class="row-odd"><td><p>Q_noise</p></td>
+<td><p>Equivalent-input noise sources of intrinsic BJT, GP model</p></td>
+<td></td>
+<td><p>Q_noise</p></td>
 </tr>
-<tr class="row-even"><td>R</td>
-<td>Linear resistor cannot have zero value</td>
-<td>R</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>R</p></td>
+<td><p>Linear resistor cannot have zero value</p></td>
+<td><p>R</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>R_r</td>
-<td>Linear resistor can have zero value and tolerance</td>
-<td>r</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>R_r</p></td>
+<td><p>Linear resistor can have zero value and tolerance</p></td>
+<td><p>r</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>T</td>
-<td>Ideal transformer (also works for DC!)</td>
-<td>T</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>T</p></td>
+<td><p>Ideal transformer (also works for DC!)</p></td>
+<td><p>T</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>XM</td>
-<td>Sub circuit MOS, EKV model saturation region only</td>
-<td>&#160;</td>
-<td>CMOS18N, CMOS18P</td>
+<tr class="row-odd"><td><p>XM</p></td>
+<td><p>Sub circuit MOS, EKV model saturation region only</p></td>
+<td></td>
+<td><p>CMOS18N, CMOS18P</p></td>
 </tr>
-<tr class="row-even"><td>XMD-H</td>
-<td>Sub circuit differential pair MOS, horizontal, EKV model, sat.</td>
-<td>&#160;</td>
-<td>CMOS18ND, CMOS18PD</td>
+<tr class="row-even"><td><p>XMD-H</p></td>
+<td><p>Sub circuit differential pair MOS, horizontal, EKV model, sat.</p></td>
+<td></td>
+<td><p>CMOS18ND, CMOS18PD</p></td>
 </tr>
-<tr class="row-odd"><td>XMD-V</td>
-<td>Sub circuit differential pair MOS, vertical, EKV model, sat.</td>
-<td>&#160;</td>
-<td>CMOS18ND, CMOS18PD</td>
+<tr class="row-odd"><td><p>XMD-V</p></td>
+<td><p>Sub circuit differential pair MOS, vertical, EKV model, sat.</p></td>
+<td></td>
+<td><p>CMOS18ND, CMOS18PD</p></td>
 </tr>
-<tr class="row-even"><td>XMV</td>
-<td>Sub circuit MOS, EKV model linear + saturation region</td>
-<td>&#160;</td>
-<td>CMOS18N_V, CMOS18N_P</td>
+<tr class="row-even"><td><p>XMV</p></td>
+<td><p>Sub circuit MOS, EKV model linear + saturation region</p></td>
+<td></td>
+<td><p>CMOS18N_V, CMOS18N_P</p></td>
 </tr>
-<tr class="row-odd"><td>XQ</td>
-<td>Sub circuit BJT, GP model, forward active region</td>
-<td>&#160;</td>
-<td>BJTV4, BJTL4</td>
+<tr class="row-odd"><td><p>XQ</p></td>
+<td><p>Sub circuit BJT, GP model, forward active region</p></td>
+<td></td>
+<td><p>BJTV4, BJTL4</p></td>
 </tr>
-<tr class="row-even"><td>XQD-H</td>
-<td>Sub circuit differential pair BJT, horizontal, GP model, fwd. act.</td>
-<td>&#160;</td>
-<td>BJTD</td>
+<tr class="row-even"><td><p>XQD-H</p></td>
+<td><p>Sub circuit differential pair BJT, horizontal, GP model, fwd. act.</p></td>
+<td></td>
+<td><p>BJTD</p></td>
 </tr>
-<tr class="row-odd"><td>XQD-V</td>
-<td>Sub circuit differential pair BJT, vertical, GP model, fwd. act.</td>
-<td>&#160;</td>
-<td>BJTD</td>
+<tr class="row-odd"><td><p>XQD-V</p></td>
+<td><p>Sub circuit differential pair BJT, vertical, GP model, fwd. act.</p></td>
+<td></td>
+<td><p>BJTD</p></td>
 </tr>
-<tr class="row-even"><td>V</td>
-<td>Independent voltage source</td>
-<td>V</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>V</p></td>
+<td><p>Independent voltage source</p></td>
+<td><p>V</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>W</td>
-<td>Ideal gyrator</td>
-<td>W</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>W</p></td>
+<td><p>Ideal gyrator</p></td>
+<td><p>W</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Z</td>
-<td>Impedance can be defined with a Laplace rational</td>
-<td>Z</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Z</p></td>
+<td><p>Impedance can be defined with a Laplace rational</p></td>
+<td><p>Z</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>include</td>
-<td>Spice .include directive</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>include</p></td>
+<td><p>Spice .include directive</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>modelDef</td>
-<td>Spice .model directive</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>modelDef</p></td>
+<td><p>Spice .model directive</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>parDef</td>
-<td>Spice .param directive</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>parDef</p></td>
+<td><p>Spice .param directive</p></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
 <p>A graphic overview of the gSchem symbols is shown below. Click on the figure to enlarge it.</p>
-<div class="figure">
+<div class="figure align-default">
 <a class="reference internal image-reference" href="../_images/devicesGschem.svg"><img alt="SLiCAP symbols for gSchem" src="../_images/devicesGschem.svg" width="800px" /></a>
 </div>
 <div class="section" id="node-names">
@@ -647,227 +647,227 @@ save them under a <strong>different</strong> name in your project directory or i
 <p>An ‘m’ in the type column indicates a device model definition for a SLiCAP built-in model(<strong>.model</strong> directive). Model parameters for built-in models can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section.</p>
 <p>An ‘s’ in the type column indicates a sub circuit definition (<strong>.subckt</strong> … <strong>.ends</strong>). Please scroll the table to the left to see the associated schematic symbols.</p>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="43%" />
-<col width="4%" />
-<col width="20%" />
-<col width="11%" />
-<col width="12%" />
+<col style="width: 10%" />
+<col style="width: 43%" />
+<col style="width: 4%" />
+<col style="width: 20%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">parameters</th>
-<th class="head">gschem</th>
-<th class="head">LTspice</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>parameters</p></th>
+<th class="head"><p>gschem</p></th>
+<th class="head"><p>LTspice</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>AD8610</td>
-<td>Voltage-feedback opamp</td>
-<td>m</td>
-<td>&#160;</td>
-<td>O</td>
-<td>SLO</td>
+<tbody>
+<tr class="row-even"><td><p>AD8610</p></td>
+<td><p>Voltage-feedback opamp</p></td>
+<td><p>m</p></td>
+<td></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-odd"><td>AD8610_A0</td>
-<td>As above, but DC gain symbolic</td>
-<td>m</td>
-<td>A0</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-odd"><td><p>AD8610_A0</p></td>
+<td><p>As above, but DC gain symbolic</p></td>
+<td><p>m</p></td>
+<td><p>A0</p></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-even"><td>AD8065</td>
-<td>Voltage-feedback opamp</td>
-<td>m</td>
-<td>&#160;</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-even"><td><p>AD8065</p></td>
+<td><p>Voltage-feedback opamp</p></td>
+<td><p>m</p></td>
+<td></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-odd"><td>AD8065_A0</td>
-<td>As above, but DC gain symbolic</td>
-<td>m</td>
-<td>A0</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-odd"><td><p>AD8065_A0</p></td>
+<td><p>As above, but DC gain symbolic</p></td>
+<td><p>m</p></td>
+<td><p>A0</p></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-even"><td>OPA211</td>
-<td>Voltage-feedback opamp</td>
-<td>m</td>
-<td>&#160;</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-even"><td><p>OPA211</p></td>
+<td><p>Voltage-feedback opamp</p></td>
+<td><p>m</p></td>
+<td></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-odd"><td>OPA211_A0</td>
-<td>As above, but DC gain symbolic</td>
-<td>m</td>
-<td>A0</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-odd"><td><p>OPA211_A0</p></td>
+<td><p>As above, but DC gain symbolic</p></td>
+<td><p>m</p></td>
+<td><p>A0</p></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-even"><td>OPA300</td>
-<td>Voltage-feedback opamp</td>
-<td>m</td>
-<td>&#160;</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-even"><td><p>OPA300</p></td>
+<td><p>Voltage-feedback opamp</p></td>
+<td><p>m</p></td>
+<td></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-odd"><td>OPA300_A0</td>
-<td>As above, but DC gain symbolic</td>
-<td>m</td>
-<td>A0</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-odd"><td><p>OPA300_A0</p></td>
+<td><p>As above, but DC gain symbolic</p></td>
+<td><p>m</p></td>
+<td><p>A0</p></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-even"><td>OPA627</td>
-<td>Voltage-feedback opamp</td>
-<td>m</td>
-<td>&#160;</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-even"><td><p>OPA627</p></td>
+<td><p>Voltage-feedback opamp</p></td>
+<td><p>m</p></td>
+<td></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-odd"><td>OPA627_A0</td>
-<td>As above, but DC gain symbolic</td>
-<td>m</td>
-<td>A0</td>
-<td>O</td>
-<td>SLO</td>
+<tr class="row-odd"><td><p>OPA627_A0</p></td>
+<td><p>As above, but DC gain symbolic</p></td>
+<td><p>m</p></td>
+<td><p>A0</p></td>
+<td><p>O</p></td>
+<td><p>SLO</p></td>
 </tr>
-<tr class="row-even"><td>NDD03N80Z</td>
-<td>Power NMOS</td>
-<td>m</td>
-<td>&#160;</td>
-<td>M</td>
-<td>SLM</td>
+<tr class="row-even"><td><p>NDD03N80Z</p></td>
+<td><p>Power NMOS</p></td>
+<td><p>m</p></td>
+<td></td>
+<td><p>M</p></td>
+<td><p>SLM</p></td>
 </tr>
-<tr class="row-odd"><td>ABCD</td>
-<td>Two-port with transmission-1 parameters</td>
-<td>s</td>
-<td>A, B, C, D</td>
-<td>ABCD</td>
-<td>SLABCD</td>
+<tr class="row-odd"><td><p>ABCD</p></td>
+<td><p>Two-port with transmission-1 parameters</p></td>
+<td><p>s</p></td>
+<td><p>A, B, C, D</p></td>
+<td><p>ABCD</p></td>
+<td><p>SLABCD</p></td>
 </tr>
-<tr class="row-even"><td>N_noise</td>
-<td>Nullor with equivalent-input noise sources</td>
-<td>s</td>
-<td>si, sv</td>
-<td>N_noise</td>
-<td>SLN_noise</td>
+<tr class="row-even"><td><p>N_noise</p></td>
+<td><p>Nullor with equivalent-input noise sources</p></td>
+<td><p>s</p></td>
+<td><p>si, sv</p></td>
+<td><p>N_noise</p></td>
+<td><p>SLN_noise</p></td>
 </tr>
-<tr class="row-odd"><td>N_dcvar</td>
-<td>Nullor with equivalent-input bias and offset</td>
-<td>s</td>
-<td>sib, sio, svo, iib</td>
-<td>N_dcvar</td>
-<td>SLN_dcvar</td>
+<tr class="row-odd"><td><p>N_dcvar</p></td>
+<td><p>Nullor with equivalent-input bias and offset</p></td>
+<td><p>s</p></td>
+<td><p>sib, sio, svo, iib</p></td>
+<td><p>N_dcvar</p></td>
+<td><p>SLN_dcvar</p></td>
 </tr>
-<tr class="row-even"><td>O_noise</td>
-<td>Nullor with equivalent-input noise sources</td>
-<td>s</td>
-<td>si, sv</td>
-<td>O_noise</td>
-<td>SLO_noise</td>
+<tr class="row-even"><td><p>O_noise</p></td>
+<td><p>Nullor with equivalent-input noise sources</p></td>
+<td><p>s</p></td>
+<td><p>si, sv</p></td>
+<td><p>O_noise</p></td>
+<td><p>SLO_noise</p></td>
 </tr>
-<tr class="row-odd"><td>O_dcvar</td>
-<td>Nullor with equivalent-input bias and offset</td>
-<td>s</td>
-<td>sib, sio, svo, iib</td>
-<td>O_dcvar</td>
-<td>SLO_dcvar</td>
+<tr class="row-odd"><td><p>O_dcvar</p></td>
+<td><p>Nullor with equivalent-input bias and offset</p></td>
+<td><p>s</p></td>
+<td><p>sib, sio, svo, iib</p></td>
+<td><p>O_dcvar</p></td>
+<td><p>SLO_dcvar</p></td>
 </tr>
-<tr class="row-even"><td>CMOS18N</td>
-<td>NMOS CMOS 180nm EKV model</td>
-<td>s</td>
-<td>ID, L, W</td>
-<td>XM</td>
-<td>SLXM</td>
+<tr class="row-even"><td><p>CMOS18N</p></td>
+<td><p>NMOS CMOS 180nm EKV model</p></td>
+<td><p>s</p></td>
+<td><p>ID, L, W</p></td>
+<td><p>XM</p></td>
+<td><p>SLXM</p></td>
 </tr>
-<tr class="row-odd"><td>CMOS18N_V</td>
-<td>NMOS CMOS 180nm EKV model, voltage-controlled</td>
-<td>s</td>
-<td>VD, VG, VS, W, L</td>
-<td>XMV</td>
-<td>SLXM_V</td>
+<tr class="row-odd"><td><p>CMOS18N_V</p></td>
+<td><p>NMOS CMOS 180nm EKV model, voltage-controlled</p></td>
+<td><p>s</p></td>
+<td><p>VD, VG, VS, W, L</p></td>
+<td><p>XMV</p></td>
+<td><p>SLXM_V</p></td>
 </tr>
-<tr class="row-even"><td>CMOS18ND</td>
-<td>NMOS diff-pair CMOS 180nm EKV model</td>
-<td>s</td>
-<td>ID, L, W</td>
-<td>XMD-H, XMD-V</td>
-<td>SLXMD</td>
+<tr class="row-even"><td><p>CMOS18ND</p></td>
+<td><p>NMOS diff-pair CMOS 180nm EKV model</p></td>
+<td><p>s</p></td>
+<td><p>ID, L, W</p></td>
+<td><p>XMD-H, XMD-V</p></td>
+<td><p>SLXMD</p></td>
 </tr>
-<tr class="row-odd"><td>CMOS18P</td>
-<td>PMOS CMOS 180nm EKV model</td>
-<td>s</td>
-<td>ID, L, W</td>
-<td>XM</td>
-<td>SLXM</td>
+<tr class="row-odd"><td><p>CMOS18P</p></td>
+<td><p>PMOS CMOS 180nm EKV model</p></td>
+<td><p>s</p></td>
+<td><p>ID, L, W</p></td>
+<td><p>XM</p></td>
+<td><p>SLXM</p></td>
 </tr>
-<tr class="row-even"><td>CMOS18P_V</td>
-<td>PMOS CMOS 180nm EKV model, voltage-controlled</td>
-<td>s</td>
-<td>VD, VG, VS, W, L</td>
-<td>XMV</td>
-<td>SLXM_V</td>
+<tr class="row-even"><td><p>CMOS18P_V</p></td>
+<td><p>PMOS CMOS 180nm EKV model, voltage-controlled</p></td>
+<td><p>s</p></td>
+<td><p>VD, VG, VS, W, L</p></td>
+<td><p>XMV</p></td>
+<td><p>SLXM_V</p></td>
 </tr>
-<tr class="row-odd"><td>CMOS18PD</td>
-<td>PMOS diff-pair CMOS 180nm EKV model</td>
-<td>s</td>
-<td>ID, L, W</td>
-<td>XMD-H, XMD-V</td>
-<td>SLXMD</td>
+<tr class="row-odd"><td><p>CMOS18PD</p></td>
+<td><p>PMOS diff-pair CMOS 180nm EKV model</p></td>
+<td><p>s</p></td>
+<td><p>ID, L, W</p></td>
+<td><p>XMD-H, XMD-V</p></td>
+<td><p>SLXMD</p></td>
 </tr>
-<tr class="row-even"><td>BJTV4</td>
-<td>Vertical Bipolar Junction Transistor</td>
-<td>s</td>
-<td>IC, VCE</td>
-<td>XQ</td>
-<td>SLXQ</td>
+<tr class="row-even"><td><p>BJTV4</p></td>
+<td><p>Vertical Bipolar Junction Transistor</p></td>
+<td><p>s</p></td>
+<td><p>IC, VCE</p></td>
+<td><p>XQ</p></td>
+<td><p>SLXQ</p></td>
 </tr>
-<tr class="row-odd"><td>BJTL4</td>
-<td>Lateral Bipolar Junction Transistor</td>
-<td>s</td>
-<td>IC, VCE</td>
-<td>XQ</td>
-<td>SLXQ</td>
+<tr class="row-odd"><td><p>BJTL4</p></td>
+<td><p>Lateral Bipolar Junction Transistor</p></td>
+<td><p>s</p></td>
+<td><p>IC, VCE</p></td>
+<td><p>XQ</p></td>
+<td><p>SLXQ</p></td>
 </tr>
-<tr class="row-even"><td>BJTD</td>
-<td>Differential-pair BJT</td>
-<td>s</td>
-<td>IC, VCE</td>
-<td>XQD-H, XQD-V</td>
-<td>SLXQD</td>
+<tr class="row-even"><td><p>BJTD</p></td>
+<td><p>Differential-pair BJT</p></td>
+<td><p>s</p></td>
+<td><p>IC, VCE</p></td>
+<td><p>XQD-H, XQD-V</p></td>
+<td><p>SLXQD</p></td>
 </tr>
-<tr class="row-odd"><td>NM18_noise</td>
-<td>NMOS 180nm equivalent-input noise EKV model</td>
-<td>s</td>
-<td>ID, IG, W, L</td>
-<td>M_noise</td>
-<td>SLM_noise</td>
+<tr class="row-odd"><td><p>NM18_noise</p></td>
+<td><p>NMOS 180nm equivalent-input noise EKV model</p></td>
+<td><p>s</p></td>
+<td><p>ID, IG, W, L</p></td>
+<td><p>M_noise</p></td>
+<td><p>SLM_noise</p></td>
 </tr>
-<tr class="row-even"><td>NM18_noise</td>
-<td>PMOS 180nm equivalent-input noise EKV model</td>
-<td>s</td>
-<td>ID, IG, W, L</td>
-<td>M_noise</td>
-<td>SLM_noise</td>
+<tr class="row-even"><td><p>NM18_noise</p></td>
+<td><p>PMOS 180nm equivalent-input noise EKV model</p></td>
+<td><p>s</p></td>
+<td><p>ID, IG, W, L</p></td>
+<td><p>M_noise</p></td>
+<td><p>SLM_noise</p></td>
 </tr>
-<tr class="row-odd"><td>J_noise</td>
-<td>MOS/JFET equivalent-input noise sources</td>
-<td>s</td>
-<td>ID, IG, W, L</td>
-<td>M_noise</td>
-<td>SLM_noise</td>
+<tr class="row-odd"><td><p>J_noise</p></td>
+<td><p>MOS/JFET equivalent-input noise sources</p></td>
+<td><p>s</p></td>
+<td><p>ID, IG, W, L</p></td>
+<td><p>M_noise</p></td>
+<td><p>SLM_noise</p></td>
 </tr>
-<tr class="row-even"><td>Q_noise</td>
-<td>BJT equivalent-input noise sources, r_b=0</td>
-<td>s</td>
-<td>IC, VCE</td>
-<td>Q_noise</td>
-<td>SLQ_noise</td>
+<tr class="row-even"><td><p>Q_noise</p></td>
+<td><p>BJT equivalent-input noise sources, r_b=0</p></td>
+<td><p>s</p></td>
+<td><p>IC, VCE</p></td>
+<td><p>Q_noise</p></td>
+<td><p>SLQ_noise</p></td>
 </tr>
 </tbody>
 </table>
