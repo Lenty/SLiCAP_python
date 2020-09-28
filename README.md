@@ -13,6 +13,7 @@ Then SLiCAP can be installed by running 'python setup.py install'
 ## First Run
 To verify setting up of SLiCAP has been done correctly, it is possible to run one of the example projects that are in the examples/ directory. 
 Here either jupyter notebooks or the python file with the name of the example can be ran.
+Please take care to verify that the paths in the SLiCAPconfig.py of the example project are set correctly.
 
 ## Full Documentation
 The full documentation can be found in the doc/_build/ directory, this can be rebuilt with Sphinx given that all dependencies are installed (such as the sphinx-rtd-theme).
