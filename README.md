@@ -6,9 +6,9 @@ To set up SLiCAP, the following components are required:
 * A Python 3 install
 * Maxima CAS
 * A schematic capture tool, either LTspice or Gschem
-Before running a program, be sure to update all the paths in the SLiCAPini.py file in the src/ folder.
+Before running a program, be sure to update all the paths in the SLiCAPconfig.py file in the SLiCAP/ folder.
 
-Then SLiCAP can be installed by running 'python setup.py install'
+Then SLiCAP can be installed by running 'python setup.py install' or 'python setup.py install --user'
 
 ## First Run
 To verify setting up of SLiCAP has been done correctly, it is possible to run one of the example projects that are in the examples/ directory. 

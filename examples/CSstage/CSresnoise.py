@@ -7,8 +7,11 @@ Created on Mon Jul 27 23:00:31 2020
 """
 
 from SLiCAP import *
+ini.installPath = "C:\\Users\\luc_e\\Documents\\git\\SLiCAP_python\\"
+ini.projectPath = "C:\\Users\\luc_e\\Documents\\git\\SLiCAP_python\\examples\\CSstage\\"
 t1 = time()
 prj = initProject('CS stage noise with resistive source')
+# ini.maxima = 'C:\\maxima-5.42.2\\bin\\maxima.bat'
 fileName = 'CSresNoise.cir'
 i1 = instruction()
 i1.setCircuit(fileName)

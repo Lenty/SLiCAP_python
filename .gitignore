@@ -1,2 +1,6 @@
 __pycache__/
 examples/**/__pycache__/
+build/
+dist/
+ProgramDocs/
+SLiCAP_python.egg-info/

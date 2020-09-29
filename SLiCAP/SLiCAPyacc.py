@@ -8,7 +8,7 @@ Tokenizes the netlist and creates a 'flattened' circuit object.
 Imported by the module **SLiCAPexecute.py**.
 """
 
-from SLiCAPhtml import *
+from .SLiCAPhtml import *
 
 # Composite tokens
 NODES       = ['NODEID', 'ID', 'INT']

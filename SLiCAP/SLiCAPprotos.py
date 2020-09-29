@@ -6,7 +6,7 @@ SLiCAP module with basic SLiCAP classes and functions.
 Imported by the module **SLiCAPmatrices.py**.
 """
 
-from SLiCAPmath import *
+from .SLiCAPmath import *
 
 # Globals used by this script and by SLiCAPyacc.py:
 

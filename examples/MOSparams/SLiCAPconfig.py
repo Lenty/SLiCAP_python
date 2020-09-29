@@ -3,7 +3,7 @@
 """
 SLiCAP module with user-defined path settings.
 """
-PROJECTPATH = None      # Leave it for automatic detection
+PROJECTPATH = 'C:\\Users\\luc_e\\Documents\\git\\SLiCAP_python\\examples\\MOSparams'      # Leave it for automatic detection
 # PATHS: relative to the project path
 HTMLPATH    = 'html/'   # path for html output
 CIRCUITPATH = 'cir/'    # path for .asc, .net, .cir, .sch files
@@ -21,4 +21,4 @@ NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation w
 PROJECT    = 'NMOS EKV polts'
 AUTHOR     = 'Anton'
 CREATED    = '2020-09-10 10:46:09.433889'
-LASTUPDATE = '2020-09-28 09:27:19.324757'
+LASTUPDATE = '2020-09-29 12:45:34.620214'

@@ -6,7 +6,7 @@ SLiCAP module for building the MNA matrix and the associated vectors.
 Imported by the module **SLiCAPpythonMaxima.py**
 """
 
-from SLiCAPprotos import *
+from .SLiCAPprotos import *
 
 def getValues(elmt, param, numeric, parDefs):
     """

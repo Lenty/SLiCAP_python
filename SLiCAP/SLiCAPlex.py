@@ -5,7 +5,7 @@ SLiCAP tokenizer for netlist files.
 
 Imported by the module **SLiCAPmath.py**
 """
-from SLiCAPini import *
+from .SLiCAPini import *
 
 # list of token names
 

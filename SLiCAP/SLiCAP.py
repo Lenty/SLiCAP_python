@@ -7,7 +7,7 @@ When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.
 """
-from SLiCAPinstruction import *
+from .SLiCAPinstruction import *
 
 class SLiCAPproject(object):
     """
