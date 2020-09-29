@@ -12,7 +12,7 @@ Execution **instruction.execute()** proceeds as follows:
    actual execution of the instruction
 """
 
-from .SLiCAPyacc import *
+from SLiCAP.SLiCAPyacc import *
 
 def doInstruction(instObj):
     """

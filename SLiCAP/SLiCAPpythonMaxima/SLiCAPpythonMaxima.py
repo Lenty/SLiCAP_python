@@ -5,7 +5,7 @@ SLiCAP module with symbolic math functions executed by maxima CAS.
 
 Imported by the module **SLiCAPplots.py**.
 """
-from .SLiCAPmatrices import *
+from SLiCAP.SLiCAPmatrices import *
 
 def sympy2maximaMatrix(M):
     """

@@ -2,6 +2,6 @@
 SLiCAPprotos.py
 ===============
 
-.. automodule:: SLiCAPprotos
+.. automodule:: SLiCAP.SLiCAPprotos
     :members:
     :undoc-members:

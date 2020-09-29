@@ -5,7 +5,7 @@ SLiCAP module with extended matrix class and SLiCAP math functions.
 
 Imported by the module **SLiCAPprotos.py**.
 """
-from .SLiCAPlex import *
+from SLiCAP.SLiCAPlex import *
 
 class matrix(sp.Matrix):
     """

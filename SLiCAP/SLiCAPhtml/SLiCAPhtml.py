@@ -6,7 +6,7 @@ SLiCAP module with HTML functions.
 This module is imported by SLiCAPyacc.py
 """
 
-from .SLiCAPplots import *
+from SLiCAP.SLiCAPplots import *
 
 
 # Initialize HTML globals

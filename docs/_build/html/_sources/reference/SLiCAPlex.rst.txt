@@ -2,6 +2,6 @@
 SLiCAPlex.py
 ============
 
-.. automodule:: SLiCAPlex
+.. automodule:: SLiCAP.SLiCAPlex
     :members:
     :undoc-members:

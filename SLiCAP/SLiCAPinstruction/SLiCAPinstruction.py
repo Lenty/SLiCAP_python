@@ -5,7 +5,7 @@ SLiCAP instruction class definition.
 
 Imported by the module **SLiCAP.py**.
 """
-from .SLiCAPexecute import *
+from SLiCAP.SLiCAPexecute import *
 
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve',
