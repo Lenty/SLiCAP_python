@@ -21,4 +21,4 @@ NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation w
 PROJECT    = 'NMOS EKV polts'
 AUTHOR     = 'Anton'
 CREATED    = '2020-09-10 10:46:09.433889'
-LASTUPDATE = '2020-09-29 12:45:34.620214'
+LASTUPDATE = '2020-09-29 18:04:38.328140'
