@@ -12,7 +12,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SLiCAP_python", # Replace with your own username
-    version="0.0.9",
+    version="0.9.0",
     author="Anton Montagne",
     author_email="anton@montagne.nl",
     description="Symbolic Linear Circuit Analysis Program",

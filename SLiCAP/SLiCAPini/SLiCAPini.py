@@ -5,7 +5,12 @@ SLiCAP initialization module, imports external modules and defines settings.
 
 Imported by the module **SLiCAini.py**
 """
-from SLiCAP.SLiCAPconfig import *
+try:
+    from SLiCAPconfig import *
+except ImportError:
+    logging.info("Loading generic SLiCAPconfig file, this may cause errors.")
+    from SLiCAP.SLiCAPconfig import *
+
 import docutils.core
 import docutils.writers.html5_polyglot
 import numpy as np
