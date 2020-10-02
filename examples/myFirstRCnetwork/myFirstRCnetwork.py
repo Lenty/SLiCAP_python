@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jul 14 21:01:21 2020
@@ -14,7 +14,7 @@ prj = initProject('My first RC network') # Sets all the paths and creates the HT
 
 baseFileName = 'myFirstRCnetwork'
 fileName = baseFileName + '.cir'
-schematicFile = baseFileName + '.asc'
+schematicFile = baseFileName + '.sch'
 
 makeNetlist(schematicFile, 'My first RC network')
 i1 = instruction()                       # Creates an instance of an instruction object
@@ -150,16 +150,16 @@ mu_t        = sp.Symbol('mu_t')
 eqn2html(mu_t, symStep.stepResp, label = 'mu_t', labelText = 'Symbolic expression of the unit step response')
 # Step 2:
 head2html("The settling error versus time")
-t             = sp.Symbol('t')
-settlingError = sp.limit(symStep.stepResp, t, 'oo') - symStep.stepResp
+t             = sp.Symbol('t', positive = True)
+# Redefine all symbols in the expression as positive
+stepResp = assumePosParams(symStep.stepResp)
+settlingError = sp.limit(stepResp, t, 'oo') - stepResp
 epsilon_t     = sp.Symbol('epsilon_t')
 eqn2html(epsilon_t, settlingError, label = 'epsilon_t', labelText = 'Symbolic expression of the settling error versus time')
 # Step 3:
 head2html("The n-bit settling time")
-n            = sp.Symbol('n', positive=True)
+n            = sp.Symbol('n', positive = True)
 settlingTime = sp.solve(settlingError - 2**(-n), t)[0] # In this case there is only one solution
-# Redefine all symbols in the equation as positive
-settlingTime = assumePosParams(settlingTime)
 tau_s        = sp.Symbol('tau_s', positive = True)
 eqn2html(tau_s, settlingTime, label = 'tau_s', labelText = 'Symbolic expression of the settling time')
 # Step 4a:

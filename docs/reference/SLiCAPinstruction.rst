@@ -2,6 +2,6 @@
 SLiCAPinstruction.py
 ====================
 
-.. automodule:: SLiCAPinstruction
+.. automodule:: SLiCAP.SLiCAPinstruction
     :members:
     :undoc-members:

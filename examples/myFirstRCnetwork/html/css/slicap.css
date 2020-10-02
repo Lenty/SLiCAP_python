@@ -48,7 +48,11 @@ text-align: left;
 font-weight: normal;
 }
 
+<<<<<<< HEAD
 h3 
+=======
+h3
+>>>>>>> python3
 {
 color: #00458a;
 font-size: 1.5em;
@@ -109,14 +113,24 @@ width: 1em;
 }
 
 figcaption {
+<<<<<<< HEAD
   font-style: italic;
+=======
+  font-style: italic;
+>>>>>>> python3
   color: #00458a;
   padding: 10px;
   text-align: center;
 }
+<<<<<<< HEAD
 
 caption {
   display: table-caption;
+=======
+
+caption {
+  display: table-caption;
+>>>>>>> python3
   color: #00458a;
   font-style: italic;
   padding: 10px;
@@ -150,4 +164,8 @@ pre {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: whitesmoke;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> python3

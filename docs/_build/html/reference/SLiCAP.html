@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -179,94 +179,7 @@
             
   <div class="section" id="module-SLiCAP">
 <span id="slicap-py"></span><h1>SLiCAP.py<a class="headerlink" href="#module-SLiCAP" title="Permalink to this headline">¶</a></h1>
-<p>Main module for running SLiCAP from a console or from within a Python IDE.</p>
-<p>When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
-It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
-RST in the Jupyter notebooks.</p>
-<dl class="class">
-<dt id="SLiCAP.SLiCAPproject">
-<em class="property">class </em><code class="descclassname">SLiCAP.</code><code class="descname">SLiCAPproject</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPproject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prototype of a SLiCAPproject.</p>
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPproject.author">
-<code class="descname">author</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPproject.author" title="Permalink to this definition">¶</a></dt>
-<dd><p>SLiCAPproject.author (str) Will be updated by running:
-SLiCAPproject.initProject(&lt;name&gt;)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPproject.lastUpdate">
-<code class="descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPproject.lastUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>SLiCAPproject.lastUpdate (datetime.datetime) will be updated by
-running: SLiCAPproject.initProject(&lt;name&gt;)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPproject.name">
-<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPproject.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>SLiCAPproject.name (str) is the name of the project. It will appear
-on the main html index page</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.initProject">
-<code class="descclassname">SLiCAP.</code><code class="descname">initProject</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a SLiCAP project.</p>
-<ul class="simple">
-<li>Copies the directory structure from the templates subdirectory to the
-project directory in the case it has not yet been created.</li>
-<li>Creates index.html in the html directory with the project name in the
-title bar</li>
-<li>Compiles the system libraries</li>
-<li>Creates or updates ‘SLiCAPconfig.py’ in the project directory</li>
-<li>Creates instance of SLiCAPproject object</li>
-</ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the project will be passed to an instance of the
-SLiCAPproject object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SLiCAPproject</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#SLiCAP.SLiCAPproject" title="SLiCAP.SLiCAPproject">SLiCAP.SLiCAPproject</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my first SLiCAP project&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">prj</span><span class="o">.</span><span class="n">author</span>
-<span class="go">anton</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.makeNetlist">
-<code class="descclassname">SLiCAP.</code><code class="descname">makeNetlist</code><span class="sig-paren">(</span><em>fileName</em>, <em>cirTitle</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.makeNetlist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a netlist from a schematic file generated with LTspice or gschem.</p>
-<ul class="simple">
-<li>LTspice: ‘.asc’ file</li>
-<li>gschem: ‘.sch’ file</li>
-</ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fileName</strong> (<em>str</em>) – Name of the file, relative to <strong>ini.circuitPath</strong></li>
-<li><strong>cirTitle</strong> (<em>str</em>) – Title of the schematic.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<p>Spyder Editor</p>
 </div>
 
 

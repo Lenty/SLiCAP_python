@@ -2,6 +2,10 @@
 SLiCAPmath.py
 =============
 
+<<<<<<< HEAD
 .. automodule:: SLiCAPmath
+=======
+.. automodule:: SLiCAP.SLiCAPmath
+>>>>>>> python3
     :members:
     :undoc-members:

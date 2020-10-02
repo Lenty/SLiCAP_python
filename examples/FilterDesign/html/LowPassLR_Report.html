@@ -9,7 +9,7 @@
 </head><body><div id="top"><h1>Report</h1></div>
 <h2>Prototype function</h2>
 \begin{equation}
-P_{s}=\frac{1}{\left(\frac{s^{2}}{\pi^{2}} 6.25 \cdot 10^{-8} + \frac{\sqrt{2} s}{4000 \pi} + 1\right)^{2}}
+P_{s}=\frac{1}{\left(\frac{6.25 \cdot 10^{-8} s^{2}}{\pi^{2}} + \frac{\sqrt{2} s}{4000 \pi} + 1\right)^{2}}
 \end{equation}
 <h2>Circuit implementation</h2>
 <figure><img src="img/LowPassLR.svg" alt="" style="width:400px">
@@ -20,16 +20,16 @@ T_{s}=\frac{1}{C_{a} C_{b} L_{a} L_{b} s^{4} + C_{a} L_{a} L_{b} s^{3} + s^{2} \
 \end{equation}
 <h2>Component values</h2>
 \begin{equation}
-C_{a}=0.0001266
+L_{b}=7.503 \cdot 10^{-5}
+\end{equation}
+\begin{equation}
+C_{b}=2.813 \cdot 10^{-5}
 \end{equation}
 \begin{equation}
 L_{a}=0.0001501
 \end{equation}
 \begin{equation}
-L_{b}=7.503 \cdot 10^{-5}
-\end{equation}
-\begin{equation}
-C_{b}=2.813 \cdot 10^{-5}
+C_{a}=0.0001266
 \end{equation}
 <table><caption>Table: Element data of expanded netlist 'LowPassLR'</caption>
 <tr><th class="left">RefDes</th><th class="left">Nodes</th><th class="left">Refs</th><th class="left">Model</th><th class="left">Param</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>
@@ -44,10 +44,10 @@ C_{b}=2.813 \cdot 10^{-5}
 <tr><td class="left">R1</td><td class = "left">out 0 </td><td class = "left"></td><td class = "left">R</td>
 <td class="left">value</td><td class="left">$R$</td><td class="left">$6.0$</td></tr>
 <tr><td class="left">V1</td><td class = "left">2 0 </td><td class = "left"></td><td class = "left">V</td>
-<td class="left">noise</td><td class="left">$0$</td><td class="left">$0$</td></tr>
+<td class="left">value</td><td class="left">$1$</td><td class="left">$1$</td></tr>
 <tr><td></td><td></td><td></td><td></td><td class="left">dc</td><td class="left">$0$</td><td class="left">$0$</td></tr>
-<tr><td></td><td></td><td></td><td></td><td class="left">value</td><td class="left">$1$</td><td class="left">$1$</td></tr>
 <tr><td></td><td></td><td></td><td></td><td class="left">dcvar</td><td class="left">$0$</td><td class="left">$0$</td></tr>
+<tr><td></td><td></td><td></td><td></td><td class="left">noise</td><td class="left">$0$</td><td class="left">$0$</td></tr>
 </table>
 <table><caption>Table: Parameter definitions in 'LowPassLR'.</caption>
 <tr><th class="left">Name</th><th class="left">Symbolic</th><th class="left">Numeric</th></tr>
@@ -69,5 +69,5 @@ C_{b}=2.813 \cdot 10^{-5}
 <p>Go to <a href="LowPassLR_index.html">LowPassLR_index</a></p>
 <p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>
 <p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>
-<p>Last project update: 2020-09-10 12:41:40</p>
+<p>Last project update: 2020-10-01 10:13:12</p>
 </div></body></html>

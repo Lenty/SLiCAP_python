@@ -2,6 +2,10 @@
 SLiCAPplots.py
 ==============
 
+<<<<<<< HEAD
 .. automodule:: SLiCAPplots
+=======
+.. automodule:: SLiCAP.SLiCAPplots
+>>>>>>> python3
     :members:
     :undoc-members:

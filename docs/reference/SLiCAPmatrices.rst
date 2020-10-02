@@ -2,6 +2,6 @@
 SLiCAPmatrices.py
 =================
 
-.. automodule:: SLiCAPmatrices
+.. automodule:: SLiCAP.SLiCAPmatrices
     :members:
     :undoc-members:

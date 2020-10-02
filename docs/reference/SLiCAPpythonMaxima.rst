@@ -2,6 +2,6 @@
 SLiCAPpythonMaxima.py
 =====================
 
-.. automodule:: SLiCAPpythonMaxima
+.. automodule:: SLiCAP.SLiCAPpythonMaxima
     :members:
     :undoc-members:

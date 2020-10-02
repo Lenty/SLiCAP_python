@@ -7,8 +7,11 @@ Created on Mon Jul 27 23:00:31 2020
 """
 
 from SLiCAP import *
+ini.installPath = "C:\\Users\\luc_e\\Documents\\git\\SLiCAP_python\\"
+ini.projectPath = "C:\\Users\\luc_e\\Documents\\git\\SLiCAP_python\\examples\\CSstage\\"
 t1 = time()
 prj = initProject('CS stage noise with resistive source')
+# ini.maxima = 'C:\\maxima-5.42.2\\bin\\maxima.bat'
 fileName = 'CSresNoise.cir'
 i1 = instruction()
 i1.setCircuit(fileName)
@@ -67,7 +70,7 @@ W_opt              = sp.solve(sp.diff(NF_W, W), W)
 for w in W_opt:
     w = sp.N(w.subs([(f_min, 1e9), (f_max, 5e9)]), ini.disp)
     if w > 0:
-        print w
+        print(w)
 # Create a plot of the noise figure versus the with for different values of f_max and f_min = 1G
 # Define the plot parameters, 'fw', 'W' and 'fmax'
 i1.defPar('W', w)

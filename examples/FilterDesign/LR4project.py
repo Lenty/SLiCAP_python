@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jun 21 10:48:40 2020
@@ -29,7 +29,7 @@ f_o         = sp.Symbol('f_o')
 protoType   = sp.sympify('1/(1 + sqrt(2)*s/2/pi/f_o + (s/2/pi/f_o)^2)^2')
 # Define the cross-over frequency of the filter
 protoType   = protoType.subs(f_o, 2000)
-# Calculate the circuit parameters
+# Calculate the circuit prameters
 paramValues  = equateCoeffs(protoType, transfer, noSolve = [f_o])
 # Obtain the numeric element values
 # Define the circuit parameters
@@ -42,8 +42,8 @@ i1.gainType = 'gain'
 i1.dataType = 'laplace'
 result      = i1.execute()
  
-figdBmag    = plotSweep('LR4dBmag', 'dB magnitude characteristic', result, 0.02, 20, 100, sweepScale='k')
-figPgase    = plotSweep('LR4phase', 'phase characteristic', result, 0.02, 20, 100, funcType = 'phase', sweepScale='k')
+figdBmag    = plotSweep('LR4dBmag', 'dB magnitude characteristic', result, 0.02, 20, 100, sweepScale='k', show=True)
+figPgase    = plotSweep('LR4phase', 'phase characteristic', result, 0.02, 20, 100, funcType = 'phase', sweepScale='k', show=True)
 
 htmlPage('Report')
 
@@ -66,4 +66,4 @@ head2html('Plots')
 fig2html(figdBmag, 600, caption='dB magnitude of the LR4 filter transfer.')  
 fig2html(figPgase, 600, caption='phase plot of the LR4 filter transfer.')    
 t2 = time()
-print t2-t1, 's'
+print(t2-t1, 's')

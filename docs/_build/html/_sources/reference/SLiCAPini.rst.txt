@@ -2,6 +2,10 @@
 SLiCAPini.py
 ============
 
+<<<<<<< HEAD
 .. automodule:: SLiCAPini
+=======
+.. automodule:: SLiCAP.SLiCAPini
+>>>>>>> python3
     :members:
     :undoc-members:

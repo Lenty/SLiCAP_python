@@ -20,7 +20,11 @@ A list with all circuit parameters can be obtained as follows:
     >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
     No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
 
+<<<<<<< HEAD
     >>> all_param_names = list(instr.circuit.parDefs.keys()) + instr.circuit.params
+=======
+    >>> all_param_names = instr.circuit.parDefs.keys() + instr.circuit.params
+>>>>>>> python3
     >>> print(all_param_names)
     [f_c, C, R]
 

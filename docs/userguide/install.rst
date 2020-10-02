@@ -70,7 +70,7 @@ Path settings
 
 The project path setting are defined in the file **SLiCAPconflig.py**. This file is created in the project directory the by **initProject()**. Once created, it can be edited to modify the path settings. The default values are:
 
-.. literalinclude:: ../../SLiCAPconfig.py
+.. literalinclude:: ../../SLiCAP/SLiCAPconfig/SLiCAPconfig.py
     :language: python
     :linenos:
     

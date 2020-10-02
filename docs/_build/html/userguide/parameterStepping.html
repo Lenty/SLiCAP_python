@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -197,14 +197,16 @@
 <span id="parameterstepping"></span><h2>Define the step method<a class="headerlink" href="#define-the-step-method" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP has four methods for parameter stepping:</p>
 <ol class="arabic simple">
-<li>Three of them are intended for stepping of a single parameter:<ul>
-<li>linear stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘lin’</li>
-<li>logarithmic stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘log’</li>
-<li>stepping through a list of values <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘list’</li>
+<li><p>Three of them are intended for stepping of a single parameter:</p>
+<ul class="simple">
+<li><p>linear stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘lin’</p></li>
+<li><p>logarithmic stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘log’</p></li>
+<li><p>stepping through a list of values <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘list’</p></li>
 </ul>
 </li>
-<li>One method is intended for concurrently stepping multiple parameters:<ul>
-<li>array stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘array’</li>
+<li><p>One method is intended for concurrently stepping multiple parameters:</p>
+<ul class="simple">
+<li><p>array stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘array’</p></li>
 </ul>
 </li>
 </ol>
@@ -321,7 +323,7 @@
 </div>
 <div class="section" id="enable-or-disable-parameter-stepping">
 <h2>Enable or disable parameter stepping<a class="headerlink" href="#enable-or-disable-parameter-stepping" title="Permalink to this headline">¶</a></h2>
-<p>Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step mthod, etc.</p>
+<p>Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step method, etc.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>

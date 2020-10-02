@@ -2,6 +2,6 @@
 SLiCAPyacc.py
 =============
 
-.. automodule:: SLiCAPyacc
+.. automodule:: SLiCAP.SLiCAPyacc
     :members:
     :undoc-members:

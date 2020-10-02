@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SLiCAP module with user-defined path settings.
@@ -13,11 +13,12 @@ CSVPATH     = 'csv/'    # path for CSV files (csv2html)
 LATEXPATH   = 'tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH  = 'mathml/' # path for mathML output saveMathML()
 IMGPATH     = 'img/'    # path for image files
-MAXIMA      = 'C:\\maxima-5.44.0\\bin\\maxima.bat' # Windows command for maxima
-LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist'  
+MAXIMA      = 'C:\\maxima-5.42.2\\bin\\maxima.bat' # Windows command for maxima
+LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '  
+NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation with gschem or lepton-eda
 
 # Project information
 PROJECT    = '4-th order Linkwitz-Riley Filter'
-AUTHOR     = 'anton'
-CREATED    = '2020-09-10 10:23:08.502285'
-LASTUPDATE = '2020-09-10 12:41:40.615077'
+AUTHOR     = 'Anton'
+CREATED    = '2020-09-10 10:36:33.592002'
+LASTUPDATE = '2020-10-01 10:13:12.987448'

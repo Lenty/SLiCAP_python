@@ -68,17 +68,17 @@ X1 d g s 0 CMOS18N_V W={W} L={L} VD={V_D} VG={V_G} VS={V_S}
 <tr><td class="left">$C_{gso X1}$</td><td class="left">$CGSO_{N18} W$</td><td class="left">$6.6 \cdot 10^{-17}$</td></tr>
 <tr><td class="left">$C_{sb0 X1}$</td><td class="left">$CJB_{0 N18} LDS_{N18} W$</td><td class="left">$3.96 \cdot 10^{-17}$</td></tr>
 <tr><td class="left">$IC_{CRIT X1}$</td><td class="left">$\frac{1}{16 N_{s N18}^{2} U_{T}^{2} \left(\Theta_{N18} + \frac{1}{E_{CRIT N18} L}\right)^{2}}$</td><td class="left">$31.71$</td></tr>
-<tr><td class="left">$IC_{F X1}$</td><td class="left">$\log^{2}{\left (e^{\frac{V_{effF X1}}{2}} + 1 \right )}$</td><td class="left">$4.545$</td></tr>
-<tr><td class="left">$IC_{R X1}$</td><td class="left">$\log^{2}{\left (e^{\frac{V_{effR X1}}{2}} + 1 \right )}$</td><td class="left">$3.081 \cdot 10^{-29}$</td></tr>
+<tr><td class="left">$IC_{F X1}$</td><td class="left">$\log{\left(e^{\frac{V_{effF X1}}{2}} + 1 \right)}^{2}$</td><td class="left">$4.545$</td></tr>
+<tr><td class="left">$IC_{R X1}$</td><td class="left">$\log{\left(e^{\frac{V_{effR X1}}{2}} + 1 \right)}^{2}$</td><td class="left">$3.081 \cdot 10^{-29}$</td></tr>
 <tr><td class="left">$I_{DS X1}$</td><td class="left">$\frac{I_{0 N18} W \left(1 + \frac{V_{D} - V_{S}}{V_{A X1}}\right) \left(IC_{F X1} - IC_{R X1}\right)}{L \left(\sqrt{IC_{F X1}} U_{T} \left(2 \Theta_{N18} + \frac{2}{E_{CRIT N18} L}\right) + 1\right)}$</td><td class="left">$3.906 \cdot 10^{-6}$</td></tr>
 <tr><td class="left">$V_{A X1}$</td><td class="left">$L VAL_{N18}$</td><td class="left">$7.2$</td></tr>
-<tr><td class="left">$V_{GS X1}$</td><td class="left">$2 N_{s N18} U_{T} \log{\left (e^{\sqrt{IC_{F X1}}} - 1 \right )} + Vth_{N18}$</td><td class="left">$0.5$</td></tr>
-<tr><td class="left">$V_{effF X1}$</td><td class="left">$\frac{1}{N_{s N18} U_{T}} \left(- N_{s N18} V_{S} + V_{G} - Vth_{N18}\right)$</td><td class="left">$4.011$</td></tr>
-<tr><td class="left">$V_{effR X1}$</td><td class="left">$\frac{1}{N_{s N18} U_{T}} \left(- N_{s N18} V_{D} + V_{G} - Vth_{N18}\right)$</td><td class="left">$-65.62$</td></tr>
+<tr><td class="left">$V_{GS X1}$</td><td class="left">$2 N_{s N18} U_{T} \log{\left(e^{\sqrt{IC_{F X1}}} - 1 \right)} + Vth_{N18}$</td><td class="left">$0.5$</td></tr>
+<tr><td class="left">$V_{effF X1}$</td><td class="left">$\frac{- N_{s N18} V_{S} + V_{G} - Vth_{N18}}{N_{s N18} U_{T}}$</td><td class="left">$4.011$</td></tr>
+<tr><td class="left">$V_{effR X1}$</td><td class="left">$\frac{- N_{s N18} V_{D} + V_{G} - Vth_{N18}}{N_{s N18} U_{T}}$</td><td class="left">$-65.62$</td></tr>
 <tr><td class="left">$c_{db X1}$</td><td class="left">$C_{db0 X1} + c_{dgi X1} \left(N_{s N18} - 1\right)$</td><td class="left">$3.96 \cdot 10^{-17}$</td></tr>
 <tr><td class="left">$c_{dg X1}$</td><td class="left">$C_{gdo X1} + c_{dgi X1}$</td><td class="left">$6.6 \cdot 10^{-17}$</td></tr>
 <tr><td class="left">$c_{dgi X1}$</td><td class="left">$C_{OX N18} L W \left(\frac{2}{3} - \frac{2 \left(x_{f X1}^{2} + x_{f X1} + 0.5 x_{r X1}\right)}{3 \left(x_{f X1} + x_{r X1}\right)^{2}}\right)$</td><td class="left">$0$</td></tr>
-<tr><td class="left">$c_{gb X1}$</td><td class="left">$C_{gbo X1} + \frac{1}{N_{s N18}} \left(N_{s N18} - 1\right) \left(C_{OX N18} L W - c_{dgi X1} - c_{gsi X1}\right)$</td><td class="left">$4.388 \cdot 10^{-17}$</td></tr>
+<tr><td class="left">$c_{gb X1}$</td><td class="left">$C_{gbo X1} + \frac{\left(N_{s N18} - 1\right) \left(C_{OX N18} L W - c_{dgi X1} - c_{gsi X1}\right)}{N_{s N18}}$</td><td class="left">$4.388 \cdot 10^{-17}$</td></tr>
 <tr><td class="left">$c_{gs X1}$</td><td class="left">$C_{gso X1} + c_{gsi X1}$</td><td class="left">$2.316 \cdot 10^{-16}$</td></tr>
 <tr><td class="left">$c_{gsi X1}$</td><td class="left">$C_{OX N18} L W \left(\frac{2}{3} - \frac{2 \left(0.5 x_{f X1} + x_{r X1}^{2} + x_{r X1}\right)}{3 \left(x_{f X1} + x_{r X1}\right)^{2}}\right)$</td><td class="left">$1.657 \cdot 10^{-16}$</td></tr>
 <tr><td class="left">$c_{iss X1}$</td><td class="left">$c_{dg X1} + c_{gb X1} + c_{gs X1}$</td><td class="left">$3.415 \cdot 10^{-16}$</td></tr>
@@ -97,5 +97,5 @@ X1 d g s 0 CMOS18N_V W={W} L={L} VD={V_D} VG={V_G} VS={V_S}
 <p>Go to <a href="mosEKVplots_index.html">mosEKVplots_index</a></p>
 <p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.0 &copy 2009-2020 SLiCAP development team</p>
 <p>For documentation, examples, support, updates and courses please visit: <a href="http://www.analog-electronics.eu">analog-electronics.eu</a></p>
-<p>Last project update: 2020-09-10 10:26:44</p>
+<p>Last project update: 2020-09-29 18:04:38</p>
 </div></body></html>

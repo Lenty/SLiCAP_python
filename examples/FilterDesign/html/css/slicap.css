@@ -10,7 +10,7 @@ padding-left: 10px;
 
 #top
 {
-background: #00458a;
+background-color: #00458a;
 font-family:Lucida Sans,Arial,Helvetica,sans-serif;
 text-align:center;
 color: #f2f2f3;
@@ -18,7 +18,7 @@ color: #f2f2f3;
 
 #Mscript {
 font-family: "Lucida Console", monospace;
-background: whitesmoke;
+background-color: whitesmoke;
 padding: 20px;
 border: 2px;
 border-style: solid;
@@ -48,7 +48,7 @@ text-align: left;
 font-weight: normal;
 }
 
-h3 
+h3
 {
 color: #00458a;
 font-size: 1.5em;
