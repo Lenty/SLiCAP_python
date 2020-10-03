@@ -33,3 +33,5 @@ These tests include:
 
 ### Bugs
 In case bugs are found, please report them to the 'Issues' page where we can resolve the issues and keep track of any possible bugs.
+
+[![Build Status](https://travis-ci.com/Lenty/SLiCAP_python.svg?token=v99xpEdEDxCGytNHxFu2&branch=master)](https://travis-ci.com/Lenty/SLiCAP_python)
