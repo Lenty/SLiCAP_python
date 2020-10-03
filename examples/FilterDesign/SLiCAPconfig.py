@@ -21,4 +21,4 @@ NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation w
 PROJECT    = '4-th order Linkwitz-Riley Filter'
 AUTHOR     = 'Anton'
 CREATED    = '2020-09-10 10:36:33.592002'
-LASTUPDATE = '2020-10-01 10:13:12.987448'
+LASTUPDATE = '2020-10-02 08:57:50.519340'

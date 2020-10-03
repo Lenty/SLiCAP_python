@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<<<<<<< HEAD
-<!-- Created with matplotlib (http://matplotlib.org/) -->
-=======
 <!-- Created with matplotlib (https://matplotlib.org/) -->
->>>>>>> python3
 <svg height="360pt" version="1.1" viewBox="0 0 504 360" width="504pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
@@ -24,13 +20,8 @@ z
   <g id="axes_1">
    <g id="patch_2">
     <path d="M 52.925 314.4 
-<<<<<<< HEAD
-L 489.7 314.4 
-L 489.7 26.8 
-=======
 L 493.2 314.4 
 L 493.2 26.8 
->>>>>>> python3
 L 52.925 26.8 
 z
 " style="fill:#ffffff;"/>
@@ -38,30 +29,18 @@ z
    <g id="matplotlib.axis_1">
     <g id="xtick_1">
      <g id="line2d_1">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 72.778409 314.4 
-L 72.778409 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 72.9375 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 72.9375 314.4 
 L 72.9375 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_2">
       <defs>
        <path d="M 0 0 
 L 0 3.5 
-<<<<<<< HEAD
-" id="md61a0baf06" style="stroke:#000000;stroke-width:0.8;"/>
+" id="mce5a6d6cb7" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="72.778409" xlink:href="#md61a0baf06" y="314.4"/>
-=======
-" id="m96e04dd757" style="stroke:#000000;stroke-width:0.8;"/>
-      </defs>
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="72.9375" xlink:href="#m96e04dd757" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="72.9375" xlink:href="#mce5a6d6cb7" y="314.4"/>
       </g>
      </g>
      <g id="text_1">
@@ -79,11 +58,7 @@ L 54.390625 8.296875
 L 54.390625 0 
 L 12.40625 0 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-31"/>
-=======
 " id="DejaVuSans-49"/>
->>>>>>> python3
        <path d="M 31.78125 66.40625 
 Q 24.171875 66.40625 20.328125 58.90625 
 Q 16.5 51.421875 16.5 36.375 
@@ -104,42 +79,24 @@ Q 6.59375 17.96875 6.59375 36.375
 Q 6.59375 54.828125 13.0625 64.515625 
 Q 19.53125 74.21875 31.78125 74.21875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-30"/>
-      </defs>
-      <g transform="translate(62.218409 330.518125)scale(0.12 -0.12)">
-       <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-31"/>
-       <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-30"/>
-       <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-31"/>
-=======
 " id="DejaVuSans-48"/>
       </defs>
       <g transform="translate(62.3775 330.518125)scale(0.12 -0.12)">
        <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-49"/>
        <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-48"/>
        <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-49"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_3">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 172.045455 314.4 
-L 172.045455 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 173 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 173 314.4 
 L 173 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_4">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="172.045455" xlink:href="#md61a0baf06" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="173" xlink:href="#m96e04dd757" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="173" xlink:href="#mce5a6d6cb7" y="314.4"/>
       </g>
      </g>
      <g id="text_2">
@@ -168,42 +125,24 @@ Q 49.859375 40.875 45.40625 35.40625
 Q 44.1875 33.984375 37.640625 27.21875 
 Q 31.109375 20.453125 19.1875 8.296875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-32"/>
-      </defs>
-      <g transform="translate(161.485455 330.518125)scale(0.12 -0.12)">
-       <use transform="translate(0 0.765625)" xlink:href="#DejaVuSans-31"/>
-       <use transform="translate(63.623047 0.765625)" xlink:href="#DejaVuSans-30"/>
-       <use transform="translate(128.203125 39.046875)scale(0.7)" xlink:href="#DejaVuSans-32"/>
-=======
 " id="DejaVuSans-50"/>
       </defs>
       <g transform="translate(162.44 330.518125)scale(0.12 -0.12)">
        <use transform="translate(0 0.765625)" xlink:href="#DejaVuSans-49"/>
        <use transform="translate(63.623047 0.765625)" xlink:href="#DejaVuSans-48"/>
        <use transform="translate(128.203125 39.046875)scale(0.7)" xlink:href="#DejaVuSans-50"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_5">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 271.3125 314.4 
-L 271.3125 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 273.0625 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 273.0625 314.4 
 L 273.0625 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_6">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="271.3125" xlink:href="#md61a0baf06" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="273.0625" xlink:href="#m96e04dd757" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="273.0625" xlink:href="#mce5a6d6cb7" y="314.4"/>
       </g>
      </g>
      <g id="text_3">
@@ -240,42 +179,24 @@ Q 53.90625 64.015625 53.90625 55.328125
 Q 53.90625 49.265625 50.4375 45.09375 
 Q 46.96875 40.921875 40.578125 39.3125 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-33"/>
-      </defs>
-      <g transform="translate(260.7525 330.518125)scale(0.12 -0.12)">
-       <use transform="translate(0 0.765625)" xlink:href="#DejaVuSans-31"/>
-       <use transform="translate(63.623047 0.765625)" xlink:href="#DejaVuSans-30"/>
-       <use transform="translate(128.203125 39.046875)scale(0.7)" xlink:href="#DejaVuSans-33"/>
-=======
 " id="DejaVuSans-51"/>
       </defs>
       <g transform="translate(262.5025 330.518125)scale(0.12 -0.12)">
        <use transform="translate(0 0.765625)" xlink:href="#DejaVuSans-49"/>
        <use transform="translate(63.623047 0.765625)" xlink:href="#DejaVuSans-48"/>
        <use transform="translate(128.203125 39.046875)scale(0.7)" xlink:href="#DejaVuSans-51"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_7">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 370.579545 314.4 
-L 370.579545 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 373.125 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 373.125 314.4 
 L 373.125 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_8">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="370.579545" xlink:href="#md61a0baf06" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="373.125" xlink:href="#m96e04dd757" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="373.125" xlink:href="#mce5a6d6cb7" y="314.4"/>
       </g>
      </g>
      <g id="text_4">
@@ -297,42 +218,24 @@ L 37.796875 17.1875
 L 4.890625 17.1875 
 L 4.890625 26.703125 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-34"/>
-      </defs>
-      <g transform="translate(360.019545 330.518125)scale(0.12 -0.12)">
-       <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-31"/>
-       <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-30"/>
-       <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-34"/>
-=======
 " id="DejaVuSans-52"/>
       </defs>
       <g transform="translate(362.565 330.518125)scale(0.12 -0.12)">
        <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-49"/>
        <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-48"/>
        <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-52"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_9">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 469.846591 314.4 
-L 469.846591 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 473.1875 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 473.1875 314.4 
 L 473.1875 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_10">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="469.846591" xlink:href="#md61a0baf06" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="473.1875" xlink:href="#m96e04dd757" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="473.1875" xlink:href="#mce5a6d6cb7" y="314.4"/>
       </g>
      </g>
      <g id="text_5">
@@ -361,764 +264,437 @@ Q 35.15625 39.890625 26.703125 39.890625
 Q 22.75 39.890625 18.8125 39.015625 
 Q 14.890625 38.140625 10.796875 36.28125 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-35"/>
-      </defs>
-      <g transform="translate(459.286591 330.518125)scale(0.12 -0.12)">
-       <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-31"/>
-       <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-30"/>
-       <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-35"/>
-=======
 " id="DejaVuSans-53"/>
       </defs>
       <g transform="translate(462.6275 330.518125)scale(0.12 -0.12)">
        <use transform="translate(0 0.684375)" xlink:href="#DejaVuSans-49"/>
        <use transform="translate(63.623047 0.684375)" xlink:href="#DejaVuSans-48"/>
        <use transform="translate(128.203125 38.965625)scale(0.7)" xlink:href="#DejaVuSans-53"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_11">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 57.401749 314.4 
-L 57.401749 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 57.437623 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 57.437623 314.4 
 L 57.437623 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_12">
       <defs>
        <path d="M 0 0 
 L 0 2 
-<<<<<<< HEAD
-" id="m1690bb110c" style="stroke:#000000;stroke-width:0.6;"/>
+" id="m6784e718e4" style="stroke:#000000;stroke-width:0.6;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="57.401749" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-" id="m1037f62c27" style="stroke:#000000;stroke-width:0.6;"/>
-      </defs>
-      <g>
-       <use style="stroke:#000000;stroke-width:0.6;" x="57.437623" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="57.437623" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_7">
      <g id="line2d_13">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 63.158438 314.4 
-L 63.158438 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 63.240442 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 63.240442 314.4 
 L 63.240442 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_14">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="63.158438" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="63.240442" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="63.240442" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_8">
      <g id="line2d_15">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 68.236198 314.4 
-L 68.236198 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 68.358891 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 68.358891 314.4 
 L 68.358891 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_16">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="68.236198" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="68.358891" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="68.358891" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_9">
      <g id="line2d_17">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 102.660767 314.4 
-L 102.660767 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 103.059314 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 103.059314 314.4 
 L 103.059314 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_18">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="102.660767" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="103.059314" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="103.059314" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_10">
      <g id="line2d_19">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 120.140826 314.4 
-L 120.140826 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 120.679446 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 120.679446 314.4 
 L 120.679446 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_20">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="120.140826" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="120.679446" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="120.679446" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_11">
      <g id="line2d_21">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 132.543126 314.4 
-L 132.543126 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 133.181128 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 133.181128 314.4 
 L 133.181128 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_22">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="132.543126" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="133.181128" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="133.181128" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_12">
      <g id="line2d_23">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 142.163096 314.4 
-L 142.163096 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 142.878186 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 142.878186 314.4 
 L 142.878186 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_24">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="142.163096" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="142.878186" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="142.878186" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_13">
      <g id="line2d_25">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 150.023185 314.4 
-L 150.023185 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 150.801259 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 150.801259 314.4 
 L 150.801259 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_26">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="150.023185" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="150.801259" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="150.801259" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_14">
      <g id="line2d_27">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 156.668795 314.4 
-L 156.668795 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 157.500123 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 157.500123 314.4 
 L 157.500123 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_28">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="156.668795" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="157.500123" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="157.500123" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_15">
      <g id="line2d_29">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 162.425484 314.4 
-L 162.425484 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 163.302942 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 163.302942 314.4 
 L 163.302942 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_30">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="162.425484" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="163.302942" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="163.302942" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_16">
      <g id="line2d_31">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 167.503244 314.4 
-L 167.503244 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 168.421391 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 168.421391 314.4 
 L 168.421391 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_32">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="167.503244" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="168.421391" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="168.421391" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_17">
      <g id="line2d_33">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 201.927813 314.4 
-L 201.927813 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 203.121814 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 203.121814 314.4 
 L 203.121814 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_34">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="201.927813" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="203.121814" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="203.121814" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_18">
      <g id="line2d_35">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 219.407872 314.4 
-L 219.407872 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 220.741946 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 220.741946 314.4 
 L 220.741946 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_36">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="219.407872" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="220.741946" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="220.741946" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_19">
      <g id="line2d_37">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 231.810171 314.4 
-L 231.810171 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 233.243628 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 233.243628 314.4 
 L 233.243628 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_38">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="231.810171" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="233.243628" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="233.243628" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_20">
      <g id="line2d_39">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 241.430142 314.4 
-L 241.430142 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 242.940686 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 242.940686 314.4 
 L 242.940686 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_40">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="241.430142" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="242.940686" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="242.940686" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_21">
      <g id="line2d_41">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 249.29023 314.4 
-L 249.29023 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 250.863759 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 250.863759 314.4 
 L 250.863759 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_42">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="249.29023" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="250.863759" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="250.863759" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_22">
      <g id="line2d_43">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 255.93584 314.4 
-L 255.93584 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 257.562623 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 257.562623 314.4 
 L 257.562623 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_44">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="255.93584" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="257.562623" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="257.562623" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_23">
      <g id="line2d_45">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 261.692529 314.4 
-L 261.692529 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 263.365442 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 263.365442 314.4 
 L 263.365442 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_46">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="261.692529" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="263.365442" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="263.365442" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_24">
      <g id="line2d_47">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 266.770289 314.4 
-L 266.770289 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 268.483891 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 268.483891 314.4 
 L 268.483891 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_48">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="266.770289" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="268.483891" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="268.483891" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_25">
      <g id="line2d_49">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 301.194858 314.4 
-L 301.194858 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 303.184314 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 303.184314 314.4 
 L 303.184314 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_50">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="301.194858" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="303.184314" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="303.184314" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_26">
      <g id="line2d_51">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 318.674917 314.4 
-L 318.674917 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 320.804446 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 320.804446 314.4 
 L 320.804446 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_52">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="318.674917" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="320.804446" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="320.804446" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_27">
      <g id="line2d_53">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 331.077217 314.4 
-L 331.077217 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 333.306128 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 333.306128 314.4 
 L 333.306128 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_54">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="331.077217" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="333.306128" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="333.306128" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_28">
      <g id="line2d_55">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 340.697187 314.4 
-L 340.697187 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 343.003186 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 343.003186 314.4 
 L 343.003186 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_56">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="340.697187" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="343.003186" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="343.003186" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_29">
      <g id="line2d_57">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 348.557276 314.4 
-L 348.557276 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 350.926259 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 350.926259 314.4 
 L 350.926259 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_58">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="348.557276" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="350.926259" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="350.926259" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_30">
      <g id="line2d_59">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 355.202886 314.4 
-L 355.202886 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 357.625123 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 357.625123 314.4 
 L 357.625123 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_60">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="355.202886" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="357.625123" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="357.625123" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_31">
      <g id="line2d_61">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 360.959575 314.4 
-L 360.959575 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 363.427942 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 363.427942 314.4 
 L 363.427942 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_62">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="360.959575" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="363.427942" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="363.427942" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_32">
      <g id="line2d_63">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 366.037335 314.4 
-L 366.037335 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 368.546391 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 368.546391 314.4 
 L 368.546391 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_64">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="366.037335" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="368.546391" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="368.546391" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_33">
      <g id="line2d_65">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 400.461904 314.4 
-L 400.461904 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 403.246814 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 403.246814 314.4 
 L 403.246814 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_66">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="400.461904" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="403.246814" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="403.246814" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_34">
      <g id="line2d_67">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 417.941963 314.4 
-L 417.941963 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 420.866946 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 420.866946 314.4 
 L 420.866946 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_68">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="417.941963" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="420.866946" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="420.866946" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_35">
      <g id="line2d_69">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 430.344262 314.4 
-L 430.344262 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 433.368628 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 433.368628 314.4 
 L 433.368628 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_70">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="430.344262" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="433.368628" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="433.368628" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_36">
      <g id="line2d_71">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 439.964233 314.4 
-L 439.964233 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 443.065686 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 443.065686 314.4 
 L 443.065686 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_72">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="439.964233" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="443.065686" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="443.065686" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_37">
      <g id="line2d_73">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 447.824321 314.4 
-L 447.824321 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 450.988759 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 450.988759 314.4 
 L 450.988759 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_74">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="447.824321" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="450.988759" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="450.988759" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_38">
      <g id="line2d_75">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 454.469931 314.4 
-L 454.469931 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 457.687623 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 457.687623 314.4 
 L 457.687623 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_76">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="454.469931" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="457.687623" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="457.687623" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_39">
      <g id="line2d_77">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 460.22662 314.4 
-L 460.22662 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 463.490442 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 463.490442 314.4 
 L 463.490442 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_78">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="460.22662" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="463.490442" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="463.490442" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
     <g id="xtick_40">
      <g id="line2d_79">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 465.30438 314.4 
-L 465.30438 26.8 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 468.608891 314.4 
+      <path clip-path="url(#p933467afeb)" d="M 468.608891 314.4 
 L 468.608891 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-dasharray:0.8,1.32;stroke-dashoffset:0;stroke-width:0.8;"/>
      </g>
      <g id="line2d_80">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.6;" x="465.30438" xlink:href="#m1690bb110c" y="314.4"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.6;" x="468.608891" xlink:href="#m1037f62c27" y="314.4"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.6;" x="468.608891" xlink:href="#m6784e718e4" y="314.4"/>
       </g>
      </g>
     </g>
@@ -1144,11 +720,7 @@ L 10.890625 58.5
 Q 10.890625 67.625 15.140625 71.796875 
 Q 19.390625 75.984375 28.609375 75.984375 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-66"/>
-=======
 " id="DejaVuSans-102"/>
->>>>>>> python3
       <path d="M 41.109375 46.296875 
 Q 39.59375 47.171875 37.8125 47.578125 
 Q 36.03125 48 33.890625 48 
@@ -1164,11 +736,7 @@ Q 30.03125 56 36.53125 56
 Q 37.453125 56 38.578125 55.875 
 Q 39.703125 55.765625 41.0625 55.515625 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-72"/>
-=======
 " id="DejaVuSans-114"/>
->>>>>>> python3
       <path d="M 56.203125 29.59375 
 L 56.203125 25.203125 
 L 14.890625 25.203125 
@@ -1192,11 +760,7 @@ Q 39.0625 48.390625 32.421875 48.390625
 Q 24.90625 48.390625 20.390625 44.140625 
 Q 15.875 39.890625 15.1875 32.171875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-65"/>
-=======
 " id="DejaVuSans-101"/>
->>>>>>> python3
       <path d="M 14.796875 27.296875 
 Q 14.796875 17.390625 18.875 11.75 
 Q 22.953125 6.109375 30.078125 6.109375 
@@ -1221,11 +785,7 @@ L 54.390625 54.6875
 L 54.390625 -20.796875 
 L 45.40625 -20.796875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-71"/>
-=======
 " id="DejaVuSans-113"/>
->>>>>>> python3
       <path d="M 8.5 21.578125 
 L 8.5 54.6875 
 L 17.484375 54.6875 
@@ -1246,11 +806,7 @@ Q 8.5 10.296875 8.5 21.578125
 z
 M 31.109375 56 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-75"/>
-=======
 " id="DejaVuSans-117"/>
->>>>>>> python3
       <path d="M 54.890625 33.015625 
 L 54.890625 0 
 L 45.90625 0 
@@ -1269,11 +825,7 @@ Q 30.078125 56 35.796875 56
 Q 45.21875 56 50.046875 50.171875 
 Q 54.890625 44.34375 54.890625 33.015625 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-6e"/>
-=======
 " id="DejaVuSans-110"/>
->>>>>>> python3
       <path d="M 48.78125 52.59375 
 L 48.78125 44.1875 
 Q 44.96875 46.296875 41.140625 47.34375 
@@ -1294,11 +846,7 @@ Q 20.21875 56 33.015625 56
 Q 37.15625 56 41.109375 55.140625 
 Q 45.0625 54.296875 48.78125 52.59375 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-63"/>
-=======
 " id="DejaVuSans-99"/>
->>>>>>> python3
       <path d="M 32.171875 -5.078125 
 Q 28.375 -14.84375 24.75 -17.8125 
 Q 21.140625 -20.796875 15.09375 -20.796875 
@@ -1314,13 +862,8 @@ L 29.59375 11.921875
 L 46.6875 54.6875 
 L 56.203125 54.6875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-79"/>
-      <path id="DejaVuSans-20"/>
-=======
 " id="DejaVuSans-121"/>
       <path id="DejaVuSans-32"/>
->>>>>>> python3
       <path d="M 8.59375 75.984375 
 L 29.296875 75.984375 
 L 29.296875 69 
@@ -1330,11 +873,7 @@ L 29.296875 -6.203125
 L 29.296875 -13.1875 
 L 8.59375 -13.1875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-5b"/>
-=======
 " id="DejaVuSans-91"/>
->>>>>>> python3
       <path d="M 9.8125 72.90625 
 L 19.671875 72.90625 
 L 19.671875 43.015625 
@@ -1348,11 +887,7 @@ L 19.671875 34.71875
 L 19.671875 0 
 L 9.8125 0 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-48"/>
-=======
 " id="DejaVuSans-72"/>
->>>>>>> python3
       <path d="M 5.515625 54.6875 
 L 48.1875 54.6875 
 L 48.1875 46.484375 
@@ -1364,11 +899,7 @@ L 4.296875 8.203125
 L 38.09375 47.515625 
 L 5.515625 47.515625 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-7a"/>
-=======
 " id="DejaVuSans-122"/>
->>>>>>> python3
       <path d="M 30.421875 75.984375 
 L 30.421875 -13.1875 
 L 9.71875 -13.1875 
@@ -1378,25 +909,6 @@ L 21.390625 69
 L 9.71875 69 
 L 9.71875 75.984375 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-5d"/>
-     </defs>
-     <g transform="translate(226.8375 346.131875)scale(0.12 -0.12)">
-      <use xlink:href="#DejaVuSans-66"/>
-      <use x="35.205078" xlink:href="#DejaVuSans-72"/>
-      <use x="76.287109" xlink:href="#DejaVuSans-65"/>
-      <use x="137.810547" xlink:href="#DejaVuSans-71"/>
-      <use x="201.287109" xlink:href="#DejaVuSans-75"/>
-      <use x="264.666016" xlink:href="#DejaVuSans-65"/>
-      <use x="326.189453" xlink:href="#DejaVuSans-6e"/>
-      <use x="389.568359" xlink:href="#DejaVuSans-63"/>
-      <use x="444.548828" xlink:href="#DejaVuSans-79"/>
-      <use x="503.728516" xlink:href="#DejaVuSans-20"/>
-      <use x="535.515625" xlink:href="#DejaVuSans-5b"/>
-      <use x="574.529297" xlink:href="#DejaVuSans-48"/>
-      <use x="649.724609" xlink:href="#DejaVuSans-7a"/>
-      <use x="702.214844" xlink:href="#DejaVuSans-5d"/>
-=======
 " id="DejaVuSans-93"/>
      </defs>
      <g transform="translate(228.5875 346.131875)scale(0.12 -0.12)">
@@ -1414,37 +926,24 @@ z
       <use x="574.529297" xlink:href="#DejaVuSans-72"/>
       <use x="649.724609" xlink:href="#DejaVuSans-122"/>
       <use x="702.214844" xlink:href="#DejaVuSans-93"/>
->>>>>>> python3
      </g>
     </g>
    </g>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
      <g id="line2d_81">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 301.324434 
-L 489.7 301.324434 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 301.324434 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 301.324434 
 L 493.2 301.324434 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_82">
       <defs>
        <path d="M 0 0 
 L -3.5 0 
-<<<<<<< HEAD
-" id="m65836420ea" style="stroke:#000000;stroke-width:0.8;"/>
+" id="mfd86ca31c7" style="stroke:#000000;stroke-width:0.8;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="301.324434"/>
-=======
-" id="mbb2dd1a036" style="stroke:#000000;stroke-width:0.8;"/>
-      </defs>
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="301.324434"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="301.324434"/>
       </g>
      </g>
      <g id="text_7">
@@ -1455,295 +954,169 @@ L 73.1875 35.5
 L 73.1875 27.203125 
 L 10.59375 27.203125 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-2212"/>
-      </defs>
-      <g transform="translate(20.599375 305.883497)scale(0.12 -0.12)">
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-34"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-30"/>
-=======
 " id="DejaVuSans-8722"/>
       </defs>
       <g transform="translate(20.599375 305.883497)scale(0.12 -0.12)">
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-52"/>
        <use x="147.412109" xlink:href="#DejaVuSans-48"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_83">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 268.642616 
-L 489.7 268.642616 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 268.642616 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 268.642616 
 L 493.2 268.642616 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_84">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="268.642616"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="268.642616"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="268.642616"/>
       </g>
      </g>
      <g id="text_8">
       <!-- −35 -->
       <g transform="translate(20.599375 273.201678)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-33"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-35"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-51"/>
        <use x="147.412109" xlink:href="#DejaVuSans-53"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_85">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 235.960798 
-L 489.7 235.960798 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 235.960798 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 235.960798 
 L 493.2 235.960798 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_86">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="235.960798"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="235.960798"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="235.960798"/>
       </g>
      </g>
      <g id="text_9">
       <!-- −30 -->
       <g transform="translate(20.599375 240.51986)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-33"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-30"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-51"/>
        <use x="147.412109" xlink:href="#DejaVuSans-48"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_4">
      <g id="line2d_87">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 203.27898 
-L 489.7 203.27898 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 203.27898 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 203.27898 
 L 493.2 203.27898 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_88">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="203.27898"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="203.27898"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="203.27898"/>
       </g>
      </g>
      <g id="text_10">
       <!-- −25 -->
       <g transform="translate(20.599375 207.838042)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-32"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-35"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-50"/>
        <use x="147.412109" xlink:href="#DejaVuSans-53"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_5">
      <g id="line2d_89">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 170.597161 
-L 489.7 170.597161 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 170.597161 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 170.597161 
 L 493.2 170.597161 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_90">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="170.597161"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="170.597161"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="170.597161"/>
       </g>
      </g>
      <g id="text_11">
       <!-- −20 -->
       <g transform="translate(20.599375 175.156224)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-32"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-30"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-50"/>
        <use x="147.412109" xlink:href="#DejaVuSans-48"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_6">
      <g id="line2d_91">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 137.915343 
-L 489.7 137.915343 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 137.915343 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 137.915343 
 L 493.2 137.915343 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_92">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="137.915343"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="137.915343"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="137.915343"/>
       </g>
      </g>
      <g id="text_12">
       <!-- −15 -->
       <g transform="translate(20.599375 142.474406)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-31"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-35"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-49"/>
        <use x="147.412109" xlink:href="#DejaVuSans-53"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_7">
      <g id="line2d_93">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 105.233525 
-L 489.7 105.233525 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 105.233525 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 105.233525 
 L 493.2 105.233525 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_94">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="105.233525"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="105.233525"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="105.233525"/>
       </g>
      </g>
      <g id="text_13">
       <!-- −10 -->
       <g transform="translate(20.599375 109.792588)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-31"/>
-       <use x="147.412109" xlink:href="#DejaVuSans-30"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-49"/>
        <use x="147.412109" xlink:href="#DejaVuSans-48"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_8">
      <g id="line2d_95">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 72.551707 
-L 489.7 72.551707 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 72.551707 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 72.551707 
 L 493.2 72.551707 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_96">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="72.551707"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="72.551707"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="72.551707"/>
       </g>
      </g>
      <g id="text_14">
       <!-- −5 -->
       <g transform="translate(28.234375 77.110769)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-2212"/>
-       <use x="83.789062" xlink:href="#DejaVuSans-35"/>
-=======
        <use xlink:href="#DejaVuSans-8722"/>
        <use x="83.789062" xlink:href="#DejaVuSans-53"/>
->>>>>>> python3
       </g>
      </g>
     </g>
     <g id="ytick_9">
      <g id="line2d_97">
-<<<<<<< HEAD
-      <path clip-path="url(#pdc44bc7dc6)" d="M 52.925 39.869889 
-L 489.7 39.869889 
-=======
-      <path clip-path="url(#p93d1269ceb)" d="M 52.925 39.869889 
+      <path clip-path="url(#p933467afeb)" d="M 52.925 39.869889 
 L 493.2 39.869889 
->>>>>>> python3
 " style="fill:none;stroke:#808080;stroke-linecap:square;stroke-width:0.8;"/>
      </g>
      <g id="line2d_98">
       <g>
-<<<<<<< HEAD
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#m65836420ea" y="39.869889"/>
-=======
-       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mbb2dd1a036" y="39.869889"/>
->>>>>>> python3
+       <use style="stroke:#000000;stroke-width:0.8;" x="52.925" xlink:href="#mfd86ca31c7" y="39.869889"/>
       </g>
      </g>
      <g id="text_15">
       <!-- 0 -->
       <g transform="translate(38.29 44.428951)scale(0.12 -0.12)">
-<<<<<<< HEAD
-       <use xlink:href="#DejaVuSans-30"/>
-=======
        <use xlink:href="#DejaVuSans-48"/>
->>>>>>> python3
       </g>
      </g>
     </g>
@@ -1779,11 +1152,7 @@ Q 29.78125 56 35.6875 56
 Q 41.65625 56 45.828125 52.96875 
 Q 50 49.953125 52 44.1875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-6d"/>
-=======
 " id="DejaVuSans-109"/>
->>>>>>> python3
       <path d="M 34.28125 27.484375 
 Q 23.390625 27.484375 19.1875 25 
 Q 14.984375 22.515625 14.984375 16.5 
@@ -1815,11 +1184,7 @@ Q 24.21875 56 28.609375 56
 Q 40.484375 56 46.34375 49.84375 
 Q 52.203125 43.703125 52.203125 31.203125 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-61"/>
-=======
 " id="DejaVuSans-97"/>
->>>>>>> python3
       <path d="M 45.40625 27.984375 
 Q 45.40625 37.75 41.375 43.109375 
 Q 37.359375 48.484375 30.078125 48.484375 
@@ -1852,11 +1217,7 @@ Q 42.625 51.21875 45.40625 46.390625
 L 45.40625 54.6875 
 L 54.390625 54.6875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-67"/>
-=======
 " id="DejaVuSans-103"/>
->>>>>>> python3
       <path d="M 9.421875 54.6875 
 L 18.40625 54.6875 
 L 18.40625 0 
@@ -1867,11 +1228,7 @@ L 18.40625 75.984375
 L 18.40625 64.59375 
 L 9.421875 64.59375 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-69"/>
-=======
 " id="DejaVuSans-105"/>
->>>>>>> python3
       <path d="M 18.3125 70.21875 
 L 18.3125 54.6875 
 L 36.8125 54.6875 
@@ -1891,11 +1248,7 @@ L 2.6875 54.6875
 L 9.28125 54.6875 
 L 9.28125 70.21875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-74"/>
-=======
 " id="DejaVuSans-116"/>
->>>>>>> python3
       <path d="M 45.40625 46.390625 
 L 45.40625 75.984375 
 L 54.390625 75.984375 
@@ -1921,11 +1274,7 @@ Q 37.203125 48.484375 30.078125 48.484375
 Q 22.953125 48.484375 18.875 42.84375 
 Q 14.796875 37.203125 14.796875 27.296875 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-64"/>
-=======
 " id="DejaVuSans-100"/>
->>>>>>> python3
       <path d="M 19.671875 34.8125 
 L 19.671875 8.109375 
 L 35.5 8.109375 
@@ -1954,25 +1303,6 @@ Q 61.53125 10.640625 54.890625 5.3125
 Q 48.25 0 35.984375 0 
 L 9.8125 0 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-42"/>
-     </defs>
-     <g transform="translate(14.10375 217.569687)rotate(-90)scale(0.12 -0.12)">
-      <use xlink:href="#DejaVuSans-6d"/>
-      <use x="97.412109" xlink:href="#DejaVuSans-61"/>
-      <use x="158.691406" xlink:href="#DejaVuSans-67"/>
-      <use x="222.167969" xlink:href="#DejaVuSans-6e"/>
-      <use x="285.546875" xlink:href="#DejaVuSans-69"/>
-      <use x="313.330078" xlink:href="#DejaVuSans-74"/>
-      <use x="352.539062" xlink:href="#DejaVuSans-75"/>
-      <use x="415.917969" xlink:href="#DejaVuSans-64"/>
-      <use x="479.394531" xlink:href="#DejaVuSans-65"/>
-      <use x="540.917969" xlink:href="#DejaVuSans-20"/>
-      <use x="572.705078" xlink:href="#DejaVuSans-5b"/>
-      <use x="611.71875" xlink:href="#DejaVuSans-64"/>
-      <use x="675.195312" xlink:href="#DejaVuSans-42"/>
-      <use x="743.798828" xlink:href="#DejaVuSans-5d"/>
-=======
 " id="DejaVuSans-66"/>
      </defs>
      <g transform="translate(14.10375 217.569687)rotate(-90)scale(0.12 -0.12)">
@@ -1990,114 +1320,11 @@ z
       <use x="611.71875" xlink:href="#DejaVuSans-100"/>
       <use x="675.195312" xlink:href="#DejaVuSans-66"/>
       <use x="743.798828" xlink:href="#DejaVuSans-93"/>
->>>>>>> python3
      </g>
     </g>
    </g>
    <g id="line2d_99">
-<<<<<<< HEAD
-    <path clip-path="url(#pdc44bc7dc6)" d="M 72.778409 39.872727 
-L 76.789199 39.873308 
-L 80.799989 39.874007 
-L 84.810778 39.874849 
-L 88.821568 39.875863 
-L 92.832358 39.877085 
-L 96.843147 39.878556 
-L 100.853937 39.880329 
-L 104.864727 39.882463 
-L 108.875517 39.885034 
-L 112.886306 39.88813 
-L 116.897096 39.891859 
-L 120.907886 39.89635 
-L 124.918675 39.901759 
-L 128.929465 39.908272 
-L 132.940255 39.916115 
-L 136.951045 39.925559 
-L 140.961834 39.93693 
-L 144.972624 39.950621 
-L 148.983414 39.967103 
-L 152.994203 39.986943 
-L 157.004993 40.010821 
-L 161.015783 40.039557 
-L 165.026573 40.07413 
-L 169.037362 40.115717 
-L 173.048152 40.165729 
-L 177.058942 40.225852 
-L 181.069731 40.298101 
-L 185.080521 40.384882 
-L 189.091311 40.489059 
-L 193.102101 40.614035 
-L 197.11289 40.763842 
-L 201.12368 40.943242 
-L 205.13447 41.157835 
-L 209.145259 41.414178 
-L 213.156049 41.719902 
-L 217.166839 42.083828 
-L 221.177629 42.516074 
-L 225.188418 43.028125 
-L 229.199208 43.632876 
-L 233.209998 44.344598 
-L 237.220787 45.178834 
-L 241.231577 46.152173 
-L 245.242367 47.28191 
-L 249.253157 48.585562 
-L 253.263946 50.080254 
-L 257.274736 51.781996 
-L 261.285526 53.704898 
-L 265.296315 55.860389 
-L 269.307105 58.256528 
-L 273.317895 60.897483 
-L 277.328685 63.783254 
-L 281.339474 66.909673 
-L 285.350264 70.268681 
-L 289.361054 73.848849 
-L 293.371843 77.636067 
-L 297.382633 81.614325 
-L 301.393423 85.766498 
-L 305.404213 90.075069 
-L 309.415002 94.522743 
-L 313.425792 99.092931 
-L 317.436582 103.77009 
-L 321.447371 108.539949 
-L 325.458161 113.389614 
-L 329.468951 118.307597 
-L 333.479741 123.283783 
-L 337.49053 128.30935 
-L 341.50132 133.376667 
-L 345.51211 138.479177 
-L 349.522899 143.61128 
-L 353.533689 148.768214 
-L 357.544479 153.945947 
-L 361.555269 159.141076 
-L 365.566058 164.350737 
-L 369.576848 169.572524 
-L 373.587638 174.804423 
-L 377.598427 180.044745 
-L 381.609217 185.292082 
-L 385.620007 190.545257 
-L 389.630797 195.803288 
-L 393.641586 201.065358 
-L 397.652376 206.330786 
-L 401.663166 211.599006 
-L 405.673955 216.869544 
-L 409.684745 222.14201 
-L 413.695535 227.416077 
-L 417.706325 232.691474 
-L 421.717114 237.967976 
-L 425.727904 243.245395 
-L 429.738694 248.523576 
-L 433.749483 253.802389 
-L 437.760273 259.081729 
-L 441.771063 264.361504 
-L 445.781853 269.641642 
-L 449.792642 274.92208 
-L 453.803432 280.202769 
-L 457.814222 285.483664 
-L 461.825011 290.764732 
-L 465.835801 296.045943 
-L 469.846591 301.327273 
-=======
-    <path clip-path="url(#p93d1269ceb)" d="M 72.9375 39.872727 
+    <path clip-path="url(#p933467afeb)" d="M 72.9375 39.872727 
 L 76.980429 39.873308 
 L 81.023359 39.874007 
 L 85.066288 39.874849 
@@ -2197,7 +1424,6 @@ L 461.058712 285.483664
 L 465.101641 290.764732 
 L 469.144571 296.045943 
 L 473.1875 301.327273 
->>>>>>> python3
 " style="fill:none;stroke:#0000ff;stroke-linecap:square;stroke-width:2;"/>
    </g>
    <g id="patch_3">
@@ -2206,31 +1432,18 @@ L 52.925 26.8
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
    </g>
    <g id="patch_4">
-<<<<<<< HEAD
-    <path d="M 489.7 314.4 
-L 489.7 26.8 
-=======
     <path d="M 493.2 314.4 
 L 493.2 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
    </g>
    <g id="patch_5">
     <path d="M 52.925 314.4 
-<<<<<<< HEAD
-L 489.7 314.4 
-=======
 L 493.2 314.4 
->>>>>>> python3
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
    </g>
    <g id="patch_6">
     <path d="M 52.925 26.8 
-<<<<<<< HEAD
-L 489.7 26.8 
-=======
 L 493.2 26.8 
->>>>>>> python3
 " style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
    </g>
    <g id="text_17">
@@ -2254,11 +1467,7 @@ Q 30.078125 56 35.796875 56
 Q 45.21875 56 50.046875 50.171875 
 Q 54.890625 44.34375 54.890625 33.015625 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-68"/>
-=======
 " id="DejaVuSans-104"/>
->>>>>>> python3
      <path d="M 44.28125 53.078125 
 L 44.28125 44.578125 
 Q 40.484375 46.53125 36.375 47.5 
@@ -2289,38 +1498,6 @@ Q 16.75 56 26.8125 56
 Q 31.78125 56 36.171875 55.265625 
 Q 40.578125 54.546875 44.28125 53.078125 
 z
-<<<<<<< HEAD
-" id="DejaVuSans-73"/>
-    </defs>
-    <g transform="translate(186.275625 20.8)scale(0.12 -0.12)">
-     <use xlink:href="#DejaVuSans-64"/>
-     <use x="63.476562" xlink:href="#DejaVuSans-42"/>
-     <use x="132.080078" xlink:href="#DejaVuSans-20"/>
-     <use x="163.867188" xlink:href="#DejaVuSans-6d"/>
-     <use x="261.279297" xlink:href="#DejaVuSans-61"/>
-     <use x="322.558594" xlink:href="#DejaVuSans-67"/>
-     <use x="386.035156" xlink:href="#DejaVuSans-6e"/>
-     <use x="449.414062" xlink:href="#DejaVuSans-69"/>
-     <use x="477.197266" xlink:href="#DejaVuSans-74"/>
-     <use x="516.40625" xlink:href="#DejaVuSans-75"/>
-     <use x="579.785156" xlink:href="#DejaVuSans-64"/>
-     <use x="643.261719" xlink:href="#DejaVuSans-65"/>
-     <use x="704.785156" xlink:href="#DejaVuSans-20"/>
-     <use x="736.572266" xlink:href="#DejaVuSans-63"/>
-     <use x="791.552734" xlink:href="#DejaVuSans-68"/>
-     <use x="854.931641" xlink:href="#DejaVuSans-61"/>
-     <use x="916.210938" xlink:href="#DejaVuSans-72"/>
-     <use x="957.324219" xlink:href="#DejaVuSans-61"/>
-     <use x="1018.603516" xlink:href="#DejaVuSans-63"/>
-     <use x="1073.583984" xlink:href="#DejaVuSans-74"/>
-     <use x="1112.792969" xlink:href="#DejaVuSans-65"/>
-     <use x="1174.316406" xlink:href="#DejaVuSans-72"/>
-     <use x="1215.429688" xlink:href="#DejaVuSans-69"/>
-     <use x="1243.212891" xlink:href="#DejaVuSans-73"/>
-     <use x="1295.3125" xlink:href="#DejaVuSans-74"/>
-     <use x="1334.521484" xlink:href="#DejaVuSans-69"/>
-     <use x="1362.304688" xlink:href="#DejaVuSans-63"/>
-=======
 " id="DejaVuSans-115"/>
     </defs>
     <g transform="translate(188.025625 20.8)scale(0.12 -0.12)">
@@ -2351,22 +1528,10 @@ z
      <use x="1295.3125" xlink:href="#DejaVuSans-116"/>
      <use x="1334.521484" xlink:href="#DejaVuSans-105"/>
      <use x="1362.304688" xlink:href="#DejaVuSans-99"/>
->>>>>>> python3
     </g>
    </g>
    <g id="legend_1">
     <g id="patch_7">
-<<<<<<< HEAD
-     <path d="M 444.789375 47.41375 
-L 482.7 47.41375 
-Q 484.7 47.41375 484.7 45.41375 
-L 484.7 33.8 
-Q 484.7 31.8 482.7 31.8 
-L 444.789375 31.8 
-Q 442.789375 31.8 442.789375 33.8 
-L 442.789375 45.41375 
-Q 442.789375 47.41375 444.789375 47.41375 
-=======
      <path d="M 448.289375 47.41375 
 L 486.2 47.41375 
 Q 488.2 47.41375 488.2 45.41375 
@@ -2376,49 +1541,30 @@ L 448.289375 31.8
 Q 446.289375 31.8 446.289375 33.8 
 L 446.289375 45.41375 
 Q 446.289375 47.41375 448.289375 47.41375 
->>>>>>> python3
 z
 " style="fill:#ffffff;opacity:0.8;stroke:#cccccc;stroke-linejoin:miter;"/>
     </g>
     <g id="line2d_100">
-<<<<<<< HEAD
-     <path d="M 444.789375 39.418125 
-L 454.789375 39.418125 
-=======
      <path d="M 448.289375 39.418125 
 L 458.289375 39.418125 
->>>>>>> python3
 " style="fill:none;stroke:#0000ff;stroke-linecap:square;stroke-width:2;"/>
     </g>
     <g id="line2d_101"/>
     <g id="text_18">
      <!-- gain -->
-<<<<<<< HEAD
-     <g transform="translate(456.789375 42.918125)scale(0.12 -0.12)">
-      <use xlink:href="#DejaVuSans-67"/>
-      <use x="63.476562" xlink:href="#DejaVuSans-61"/>
-      <use x="124.755859" xlink:href="#DejaVuSans-69"/>
-      <use x="152.539062" xlink:href="#DejaVuSans-6e"/>
-=======
      <g transform="translate(460.289375 42.918125)scale(0.12 -0.12)">
       <use xlink:href="#DejaVuSans-103"/>
       <use x="63.476562" xlink:href="#DejaVuSans-97"/>
       <use x="124.755859" xlink:href="#DejaVuSans-105"/>
       <use x="152.539062" xlink:href="#DejaVuSans-110"/>
->>>>>>> python3
      </g>
     </g>
    </g>
   </g>
  </g>
  <defs>
-<<<<<<< HEAD
-  <clipPath id="pdc44bc7dc6">
-   <rect height="287.6" width="436.775" x="52.925" y="26.8"/>
-=======
-  <clipPath id="p93d1269ceb">
+  <clipPath id="p933467afeb">
    <rect height="287.6" width="440.275" x="52.925" y="26.8"/>
->>>>>>> python3
   </clipPath>
  </defs>
 </svg>
