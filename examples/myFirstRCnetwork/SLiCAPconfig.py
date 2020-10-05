@@ -21,4 +21,4 @@ NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation w
 PROJECT    = 'My first RC network'
 AUTHOR     = 'anton'
 CREATED    = '2020-09-26 21:04:24.362175'
-LASTUPDATE = '2020-10-02 08:56:10.501202'
+LASTUPDATE = '2020-10-05 10:51:58.859590'

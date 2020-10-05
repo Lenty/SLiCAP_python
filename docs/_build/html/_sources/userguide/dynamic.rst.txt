@@ -14,11 +14,7 @@ The function **SLiCAPmath.coeffsTransfer(*args)** returns a tuple with:
 - A list of coefficients of the Laplace variable of the numerator in ascending order
 - A list of coefficients of the Laplace variable of the denominator in ascending order 
 
-<<<<<<< HEAD
-All coefficients have been normalized to obtain unity for the coefficient of the lowest order of the denominator. The gain is then defined as the ratio of the coefficients of the lowest order of the numerator and the denominator.Both lists carry the coefficients in ascending order.
-=======
 All coefficients have been normalized to obtain unity for the coefficient of the lowest order of the denominator. The gain is then defined as the ratio of the coefficients of the lowest order of the numerator and the denominator. Both lists carry the coefficients in ascending order.
->>>>>>> python3
 
 .. code-block:: python
 
