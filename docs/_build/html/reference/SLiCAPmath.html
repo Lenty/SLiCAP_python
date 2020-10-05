@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,7 +183,7 @@
 <p>Imported by the module <strong>SLiCAPprotos.py</strong>.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.assumePosParams">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">assumePosParams</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.assumePosParams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">assumePosParams</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.assumePosParams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sympy expression ‘expr’ in which  variables, except the
 Laplace variable, have been redefined as real.</p>
 <dl class="field-list simple">
@@ -204,7 +204,7 @@ Laplace variable, have been redefined as real.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.assumeRealParams">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">assumeRealParams</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.assumeRealParams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">assumeRealParams</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.assumeRealParams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sympy expression ‘expr’ in which variables, except the
 Laplace variable, have been redefined as real.</p>
 <dl class="field-list simple">
@@ -225,7 +225,7 @@ Laplace variable, have been redefined as real.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.cancelPZ">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">cancelPZ</code><span class="sig-paren">(</span><em class="sig-param">poles</em>, <em class="sig-param">zeros</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.cancelPZ" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cancelPZ</code><span class="sig-paren">(</span><em class="sig-param">poles</em>, <em class="sig-param">zeros</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.cancelPZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cancels poles and zeros that coincide within the displayed accuracy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Note</dt>
@@ -247,7 +247,7 @@ Laplace variable, have been redefined as real.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.checkNumber">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">checkNumber</code><span class="sig-paren">(</span><em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.checkNumber" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkNumber</code><span class="sig-paren">(</span><em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.checkNumber" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a number with its value represented by var, or None if var
 does not represent a number.</p>
 <dl class="field-list simple">
@@ -265,7 +265,7 @@ does not represent a number.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">coeffsTransfer</code><span class="sig-paren">(</span><em class="sig-param">LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">coeffsTransfer</code><span class="sig-paren">(</span><em class="sig-param">LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a nested list with the coefficients of the Laplace variable of the
 numerator and of the denominator of ‘LaplaceRational’.</p>
 <p>The coefficients are in ascending order.</p>
@@ -294,7 +294,7 @@ denominator in ascending order.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.dBmagFunc_f">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">dBmagFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.dBmagFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dBmagFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.dBmagFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the dB magnitude at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -321,7 +321,7 @@ at the specified frequencies.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">delayFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em>, <em class="sig-param">delta=0.0001</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delayFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em>, <em class="sig-param">delta=0.0001</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the group delay at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -348,7 +348,7 @@ at the specified frequencies.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">findServoBandwidth</code><span class="sig-paren">(</span><em class="sig-param">loopgainRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">findServoBandwidth</code><span class="sig-paren">(</span><em class="sig-param">loopgainRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the intersection points of the asymptotes of the magnitude of
 the loopgain with unity.</p>
 <dl class="field-list simple">
@@ -376,7 +376,7 @@ represents the loop gain of a circuit.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.fullSubs">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">fullSubs</code><span class="sig-paren">(</span><em class="sig-param">valExpr</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.fullSubs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fullSubs</code><span class="sig-paren">(</span><em class="sig-param">valExpr</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.fullSubs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns ‘valExpr’ after all parameters of ‘parDefs’ have been substituted
 into it recursively until no changes occur or until the maximum number of
 substitutions is achieved.</p>
@@ -405,7 +405,7 @@ parameter definitions into ‘valExpr’.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.invLaplace">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">invLaplace</code><span class="sig-paren">(</span><em class="sig-param">numer</em>, <em class="sig-param">denom</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.invLaplace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">invLaplace</code><span class="sig-paren">(</span><em class="sig-param">numer</em>, <em class="sig-param">denom</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.invLaplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Inverse Laplace Transform of a numerical rational expression
 of which the sympy polynomials of the numerator and the denominator are
 passed as arguments, respecively.</p>
@@ -430,7 +430,7 @@ the symbolic inverse Laplace Transform.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.magFunc_f">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">magFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.magFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">magFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.magFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the magnitude at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -457,7 +457,7 @@ the specified frequencies.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.mag_f">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">mag_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.mag_f" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">mag_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.mag_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the magnitude as a function of the real frequency f (Fourier)
 from the Laplace function ‘LaplaceExpr’.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -483,7 +483,7 @@ sp.I*ini.frequency.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.makeLaplaceRational">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">makeLaplaceRational</code><span class="sig-paren">(</span><em class="sig-param">gain</em>, <em class="sig-param">zeros</em>, <em class="sig-param">poles</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeLaplaceRational" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeLaplaceRational</code><span class="sig-paren">(</span><em class="sig-param">gain</em>, <em class="sig-param">zeros</em>, <em class="sig-param">poles</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeLaplaceRational" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a Laplace rational from a gain factor, a list of zeros and a list
 of poles:</p>
 <div class="math notranslate nohighlight">
@@ -516,7 +516,7 @@ denominator of <span class="math notranslate nohighlight">\(F(s)\)</span>.</p></
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">matrix</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">matrix</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>SLiCAP matrix class for symbolic calculations.</p>
 <p>This class is an extension to the sympy Matrix class. It calculates
 determinants using minor expansion. This is slow for large matrices.</p>
@@ -599,7 +599,7 @@ determinants using minor expansion. This is slow for large matrices.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.normalizeLaplaceRational">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">normalizeLaplaceRational</code><span class="sig-paren">(</span><em class="sig-param">LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.normalizeLaplaceRational" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">normalizeLaplaceRational</code><span class="sig-paren">(</span><em class="sig-param">LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.normalizeLaplaceRational" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes a Laplace rational to:</p>
 <div class="math notranslate nohighlight">
 \[F(s) = gain\,s^{\ell}  \frac{1+b_1s + ... + b_ms^m}{1+a_1s + ... + a_ns^n}\]</div>
@@ -618,7 +618,7 @@ determinants using minor expansion. This is slow for large matrices.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.numRoots">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">numRoots</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.numRoots" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">numRoots</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.numRoots" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the roots of the polynomial ‘expr’ with indeterminate ‘var’.</p>
 <p>This function uses numpy for calculation of numeric roots.</p>
 <dl class="field-list simple">
@@ -638,7 +638,7 @@ determinants using minor expansion. This is slow for large matrices.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">phaseFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">phaseFunc_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the phase angle at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -665,7 +665,7 @@ the specified frequencies.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.phaseMargin">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">phaseMargin</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseMargin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">phaseMargin</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseMargin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the phase margin assuming a loop gain definition according to
 the asymptotic gain model.</p>
 <p>This function uses <strong>scipy.newton()</strong> for determination of the the
@@ -692,7 +692,7 @@ unity-gain frequencies (<em>float</em>).</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.phase_f">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">phase_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phase_f" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">phase_f</code><span class="sig-paren">(</span><em class="sig-param">LaplaceExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phase_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the magnitude as a function of the real frequency f (Fourier)
 from the Laplace function ‘LaplaceExpr’.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -718,7 +718,7 @@ sp.I*ini.frequency.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.polyCoeffs">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmath.SLiCAPmath.</code><code class="sig-name descname">polyCoeffs</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.polyCoeffs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">polyCoeffs</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.polyCoeffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list with coefficients of ‘var’ in descending order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

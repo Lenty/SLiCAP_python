@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,7 +183,7 @@
 <p>Imported by the module <strong>SLiCAPplots.py</strong>.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">equateCoeffs</code><span class="sig-paren">(</span><em class="sig-param">protoType</em>, <em class="sig-param">transfer</em>, <em class="sig-param">noSolve=[]</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">equateCoeffs</code><span class="sig-paren">(</span><em class="sig-param">protoType</em>, <em class="sig-param">transfer</em>, <em class="sig-param">noSolve=[]</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solutions of the equation transferFunction = protoTypeFunction.</p>
 <p>Both transfer and prototype should be Laplace rational functions.
 Their numerators should be polynomials of the Laplace variable of equal
@@ -223,7 +223,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxCramerCoeff2</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">M</em>, <em class="sig-param">elID</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">dc=False</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxCramerCoeff2</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">M</em>, <em class="sig-param">elID</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">dc=False</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the numerator of the squared transfer from a source to the detector
 in Sympy format, with the Laplace variable replaced with
 ‘2*%pi*%i*ini.frequency’ or with 0, for noise or for dcVar calculations, 
@@ -259,7 +259,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerNumer">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxCramerNumer</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">Iv</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerNumer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxCramerNumer</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">Iv</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerNumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the numerator of the response at the detector as a result of
 excitations from one or more sources.</p>
 <p>Calculation method:</p>
@@ -295,7 +295,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxDet</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxDet</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the determinant of matrix ‘M’ in Sympy format, calculated by Maxima CAS.</p>
 <p>Calculation of the determinant according to the GENTLEMAN-JOHNSON TREE-MINOR
 method. This is a fast version of expansion by minors. It it implemented in
@@ -313,7 +313,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxDet2</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">dc=False</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxDet2</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">dc=False</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the squared magnitude of the determinant of matrix ‘M’ in Sympy
 format, with the Laplace variable replaced with
 ‘2*%pi*%i* + ini.frequency’, or with 0, for noise or for dcVar calculations,
@@ -338,7 +338,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxEval</code><span class="sig-paren">(</span><em class="sig-param">maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxEval</code><span class="sig-paren">(</span><em class="sig-param">maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
 <p>Starts a subprocess that evaluates maxExpr with Maxima CAS and returns the
 resulting expression in text format. The variable that needs to be output
@@ -357,7 +357,7 @@ This will be ignored and a time out will kill the subprocess.</p>
 </dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
 <span class="go">&#39;sin(a*t)/a&#39;</span>
 </pre></div>
 </div>
@@ -365,7 +365,7 @@ This will be ignored and a time out will kill the subprocess.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxILT">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxILT</code><span class="sig-paren">(</span><em class="sig-param">numer</em>, <em class="sig-param">denom</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxILT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxILT</code><span class="sig-paren">(</span><em class="sig-param">numer</em>, <em class="sig-param">denom</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxILT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the inverse Laplace transform of  ‘Fs’ using Maxima CAS.</p>
 <p>This function first tries to calculate the ILT symbolically, if this fails
 it tries to create a factorized rational expression of the Laplace variable
@@ -389,7 +389,7 @@ sp.Symbol(‘ft’) if the ILT failed.</p>
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="go">2*sqrt(3)*sin(sqrt(3)*a*t/3)/(3*a)</span>
 </pre></div>
 </div>
@@ -397,7 +397,7 @@ sp.Symbol(‘ft’) if the ILT failed.</p>
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="go">1.154700538379252*sin(0.5773502691896258*a*t)/a</span>
 </pre></div>
 </div>
@@ -405,7 +405,7 @@ sp.Symbol(‘ft’) if the ILT failed.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxIntegrate</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em>, <em class="sig-param">start=None</em>, <em class="sig-param">stop=None</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxIntegrate</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em>, <em class="sig-param">start=None</em>, <em class="sig-param">stop=None</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculated definite or indefinite integral of ‘expr’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -429,7 +429,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxLimit</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em>, <em class="sig-param">val</em>, <em class="sig-param">pm</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxLimit</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em>, <em class="sig-param">val</em>, <em class="sig-param">pm</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the limit of an expression for ‘var’ approaches ‘val’ from ‘pm’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -453,7 +453,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxNumer">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxNumer</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">srcP</em>, <em class="sig-param">srcN</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxNumer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxNumer</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">srcP</em>, <em class="sig-param">srcN</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxNumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the numerator of a transfer function.</p>
 <p>Calculation method:</p>
 <ul class="simple">
@@ -503,7 +503,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxSolve">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">maxSolve</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">Iv</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxSolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxSolve</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">Iv</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates M^(-1).Iv</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -525,7 +525,7 @@ values.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">rmsNoise</code><span class="sig-paren">(</span><em class="sig-param">noiseResult</em>, <em class="sig-param">noise</em>, <em class="sig-param">fmin</em>, <em class="sig-param">fmax</em>, <em class="sig-param">source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rmsNoise</code><span class="sig-paren">(</span><em class="sig-param">noiseResult</em>, <em class="sig-param">noise</em>, <em class="sig-param">fmin</em>, <em class="sig-param">fmax</em>, <em class="sig-param">source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the RMS source-referred noise or detector-referred noise,
 or the contribution of a specific noise source to it.</p>
 <dl class="field-list simple">
@@ -556,7 +556,7 @@ contribution to the RMS noise needs to be evaluated.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sympy2maximaMatrix">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.</code><code class="sig-name descname">sympy2maximaMatrix</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sympy2maximaMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sympy2maximaMatrix</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sympy2maximaMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a sympy matrix object into a Maxima matrix definition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

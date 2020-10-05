@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,7 +183,7 @@
 <p>Imported by the module <strong>SLiCAini.py</strong></p>
 <dl class="class">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPini.SLiCAPini.</code><code class="sig-name descname">settings</code><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">settings</code><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for global variables.</p>
 <p>The following globals are defined:</p>
 <ol class="arabic simple">
@@ -249,9 +249,9 @@
 <li><p>frequency         : Parameter used for frequency variable</p></li>
 <li><p>maxRecSubst       : Maximum number of recursive substitutions</p></li>
 <li><p>simplify          : True: simplify transfer functions</p></li>
-<li><p>normalize: True: normalize transfer functions: lowest order  coefficient
+<li><p>normalize: True: normalize transfer functions: lowest order  coefficient 
 of the Laplace variable will be normalized to unity.</p></li>
-<li><p>factor: : Try to write the numerator and denominator of expressions as
+<li><p>factor: : Try to write the numerator and denominator of expressions as 
 a product of factors.</p></li>
 </ul>
 </li>
@@ -269,7 +269,7 @@ a product of factors.</p></li>
 </li>
 <li><p>Plot settings</p>
 <ul class="simple">
-<li><p>figureAxisHeight  : Height of the axis in inches (72dpi), pole-zero
+<li><p>figureAxisHeight  : Height of the axis in inches (72dpi), pole-zero 
 and polar plots are square and have their height set to their width.</p></li>
 <li><p>figureAxisWidth   : Width of an axis in inches (72dpi)</p></li>
 <li><p>defaultColors     : List with matplotlib color names for param. stepping</p></li>
@@ -290,7 +290,7 @@ and polar plots are square and have their height set to their width.</p></li>
 </li>
 <li><p>Jupyter notebook settings</p>
 <ul class="simple">
-<li><p>notebook: True adapts HTML math return variables to markdown format
+<li><p>notebook: True adapts HTML math return variables to markdown format 
 required by Jupyter notebook</p></li>
 </ul>
 </li>
@@ -334,14 +334,14 @@ to 5.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.axisXscale">
 <code class="sig-name descname">axisXscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.axisXscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default x axis type (<em>str</em>) for plots. Can be ‘lin’ or ‘log’.
+<dd><p>Default x axis type (<em>str</em>) for plots. Can be ‘lin’ or ‘log’. 
 Defaults to ‘lin’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.axisYscale">
 <code class="sig-name descname">axisYscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.axisYscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default y axis type (<em>str</em>) for plots.  Can be ‘lin’ or ‘log’.
+<dd><p>Default y axis type (<em>str</em>) for plots.  Can be ‘lin’ or ‘log’. 
 Defaults to ‘lin’.</p>
 </dd></dl>
 
@@ -430,14 +430,14 @@ gain types:</p>
 <li><p>key: gain type: (<em>str</em>)</p></li>
 <li><p>value: matplotlib color name (<em>str</em>) for traces in plots.</p></li>
 </ul>
-<p>Defaults to: {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’,
+<p>Defaults to: {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’, 
 ‘direct’: ‘g’, ‘servo’: ‘m’, ‘vi’: ‘c’}</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlIndex">
 <code class="sig-name descname">htmlIndex</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlIndex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of the active html index file.
+<dd><p>Name (<em>str</em>) of the active html index file. 
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
@@ -455,7 +455,7 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPage">
 <code class="sig-name descname">htmlPage</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of the active html file.
+<dd><p>Name (<em>str</em>) of the active html file. 
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
@@ -475,7 +475,7 @@ Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPrefix">
 <code class="sig-name descname">htmlPrefix</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPrefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of athe ctive html prefix (first part of the file name).
+<dd><p>Name (<em>str</em>) of athe ctive html prefix (first part of the file name). 
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
@@ -494,7 +494,7 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate">
 <code class="sig-name descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project
+<dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project 
 update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 </dd></dl>
 
@@ -507,8 +507,8 @@ update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.legendLoc">
 <code class="sig-name descname">legendLoc</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.legendLoc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default legend position (<em>str</em>) in plots. Cab be: ‘upper left’,
-‘upper right’, ‘lower left’, ‘lower right’, ‘upper center’, ‘lower center’,
+<dd><p>Default legend position (<em>str</em>) in plots. Cab be: ‘upper left’, 
+‘upper right’, ‘lower left’, ‘lower right’, ‘upper center’, ‘lower center’, 
 ‘center left’, ‘center right’, ‘center’ or ‘best’.</p>
 <p>Defaults to ‘best’.</p>
 </dd></dl>
@@ -522,7 +522,7 @@ update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.ltspice">
 <code class="sig-name descname">ltspice</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.ltspice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operating system command prefix for batch generation of a netlist from an
+<dd><p>Operating system command prefix for batch generation of a netlist from an 
 LTspice circuit.</p>
 <p>Defaults to <em>SLiCAPconfig.LTSPICE</em></p>
 <ul class="simple">
@@ -579,8 +579,8 @@ Defaults to 10.</p>
 <p>Defaults to <em>SLiCAPconfig.NETLIST</em></p>
 <p>For lepton-schematic use ‘lepton-netlist -g spice-noqsi’.</p>
 <p>For gschem (deprecated) use: ‘gnetlist -q -g spice-noqsi’.</p>
-<p>The netlister: <em>gnet-spice-noqsi.scm</em> must be stored in the gschem or
-lepton-geda directory with the other netlisters. Commonly used
+<p>The netlister: <em>gnet-spice-noqsi.scm</em> must be stored in the gschem or 
+lepton-geda directory with the other netlisters. Commonly used 
 locations are:</p>
 <ul class="simple">
 <li><p>Linux systems:</p>
@@ -612,7 +612,7 @@ locations are:</p>
 <code class="sig-name descname">notebook</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
 <ul class="simple">
-<li><p>True: Places html math output between double dollar signs for correct
+<li><p>True: Places html math output between double dollar signs for correct 
 rendering of latex in Jupyter notebooks.</p></li>
 </ul>
 <p>Defaults to False.</p>

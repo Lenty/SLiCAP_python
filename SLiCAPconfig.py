@@ -22,4 +22,4 @@ NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation w
 PROJECT    = 'CS stage noise with resistive source'
 AUTHOR     = 'luc_e'
 CREATED    = '2020-10-03 14:15:23.721052'
-LASTUPDATE = '2020-10-03 15:12:49.692161'
+LASTUPDATE = '2020-10-05 18:58:34.800328'

@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,7 +183,7 @@
 <p>Imported by the module <strong>SLiCAPpythonMaxima.py</strong></p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmatrices.SLiCAPmatrices.</code><code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbolic or numeric value of a parameter of an element.</p>
 <p>This function is called by makeMatrices().</p>
 <dl class="field-list simple">
@@ -214,7 +214,7 @@ parameters to sympy floats</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmatrices.SLiCAPmatrices.</code><code class="sig-name descname">getValues</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getValues</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbolic or numeric value of numerator and the denominator
 of a parameter of an element. This function is called by makeMatrices().</p>
 <dl class="field-list simple">
@@ -246,7 +246,7 @@ and the denominator of the element parameter.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmatrices.SLiCAPmatrices.</code><code class="sig-name descname">makeMatrices</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">parDefs</em>, <em class="sig-param">numeric</em>, <em class="sig-param">gainType</em>, <em class="sig-param">lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeMatrices</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">parDefs</em>, <em class="sig-param">numeric</em>, <em class="sig-param">gainType</em>, <em class="sig-param">lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the MNA matrix and the vector with dependent variables of a circuit.</p>
 <p>Modifications in the circuit object, necessary for calculation of different
 gain types are temporary. The circuit data before and after
@@ -310,7 +310,7 @@ parameters to sympy floats</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPmatrices.SLiCAPmatrices.</code><code class="sig-name descname">makeSrcVector</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">parDefs</em>, <em class="sig-param">elid</em>, <em class="sig-param">value='id'</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeSrcVector</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">parDefs</em>, <em class="sig-param">elid</em>, <em class="sig-param">value='id'</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the vector with independent variables.
 The vector can be created for a single independent variable or for all.</p>
 <p>This can be used for determination of a transfer using Cramer’s rule.</p>

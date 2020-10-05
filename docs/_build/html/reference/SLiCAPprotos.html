@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,7 +183,7 @@
 <p>Imported by the module <strong>SLiCAPmatrices.py</strong>.</p>
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">allResults</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">allResults</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return  structure for results, has attributes with 
 instruction data and execution results.</p>
 <dl class="attribute">
@@ -523,7 +523,7 @@ the execution of the instruction.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">circuit</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">circuit</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype (sub)circuit object.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.circuits">
@@ -558,7 +558,7 @@ undefined parameters.</p>
 <dt class="field-even">Example</dt>
 <dd class="field-even"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="p">)</span>
@@ -586,7 +586,7 @@ value or expression of the parameter.</p></li>
 <dt class="field-even">Example</dt>
 <dd class="field-even"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defPars</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;5p&#39;</span><span class="p">)</span>
@@ -607,7 +607,7 @@ undefined parameters.</p>
 <dt class="field-even">Example</dt>
 <dd class="field-even"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Delete the definition for the parameter &#39;R&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">delPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
@@ -706,7 +706,7 @@ value or expression</p>
 <dt class="field-even">Example</dt>
 <dd class="field-even"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -744,7 +744,7 @@ all circuit parameter definitions.</p>
 <dt class="field-even">Example</dt>
 <dd class="field-even"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -875,7 +875,7 @@ reference node ‘0’.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.copyNotOverwrite">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">copyNotOverwrite</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">dest</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.copyNotOverwrite" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">copyNotOverwrite</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">dest</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.copyNotOverwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies the file ‘src’ to ‘dest’ if the latter one does not exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -889,7 +889,7 @@ reference node ‘0’.</p></li>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">device</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">device</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype for devices that can be used in SLiCAP.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device.ID">
@@ -926,7 +926,7 @@ Defaults to 0.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">element</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">element</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype circuit element object.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.model">
@@ -974,13 +974,13 @@ referenced to by the element.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.initAll">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">initAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.initAll" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">initAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.initAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the SLiCAP built-in models and devices.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.makeDir">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">makeDir</code><span class="sig-paren">(</span><em class="sig-param">dirName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.makeDir" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeDir</code><span class="sig-paren">(</span><em class="sig-param">dirName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.makeDir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the directory ‘dirName’ if it does not yet exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -991,7 +991,7 @@ referenced to by the element.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">model</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">model</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protpotype for element models that can be used in SLiCAP.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model.depVars">
@@ -1028,7 +1028,7 @@ False if it requires expansion.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAPprotos.SLiCAPprotos.</code><code class="sig-name descname">modelDef</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">modelDef</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protpotype for model definitions that can be added to SLiCAP.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.name">

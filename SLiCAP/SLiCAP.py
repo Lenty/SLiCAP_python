@@ -33,7 +33,7 @@ class SLiCAPproject(object):
         SLiCAPproject.initProject(<name>)
         """
 
-def initProject(name):
+def initProject(name, firstRun=True):
     """
     Initializes a SLiCAP project.
 
@@ -82,21 +82,22 @@ def initProject(name):
         f = open(ini.projectPath + 'SLiCAPconfig.py', 'w')
         f.writelines(lines)
         f.close()
-    makeDir(ini.circuitPath)
-    makeDir(ini.imgPath)
-    makeDir(ini.libraryPath)
-    makeDir(ini.csvPath)
-    makeDir(ini.txtPath)
-    makeDir(ini.htmlPath)
-    makeDir(ini.htmlPath + 'img/')
-    makeDir(ini.htmlPath + 'css/')
-    copyNotOverwrite(ini.installPath + 'slicap.css', ini.htmlPath + 'css/slicap.css')
-    copyNotOverwrite(ini.installPath + 'Grid.png', ini.htmlPath + 'css/Grid.png')
-    makeDir(ini.mathmlPath)
-    makeDir(ini.latexPath)
-    # Create the HTML project index file
+    if firstRun:
+        makeDir(ini.circuitPath)
+        makeDir(ini.imgPath)
+        makeDir(ini.libraryPath)
+        makeDir(ini.csvPath)
+        makeDir(ini.txtPath)
+        makeDir(ini.htmlPath)
+        makeDir(ini.htmlPath + 'img/')
+        makeDir(ini.htmlPath + 'css/')
+        copyNotOverwrite(ini.installPath + 'slicap.css', ini.htmlPath + 'css/slicap.css')
+        copyNotOverwrite(ini.installPath + 'Grid.png', ini.htmlPath + 'css/Grid.png')
+        makeDir(ini.mathmlPath)
+        makeDir(ini.latexPath)
+        # Create the HTML project index file
     startHTML(name)
-    # Create the libraries
+        # Create the libraries
     makeLibraries()
     return prj    
 

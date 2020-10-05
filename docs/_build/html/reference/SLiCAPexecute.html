@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -189,7 +189,7 @@ actual execution of the instruction</p></li>
 </ol>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doDC</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doDC</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the DC voltage or current at the detector.</p>
 <p>It uses the dc value field of independent sources and replaces the Laplace
 variable in the MNA matrix with 0.</p>
@@ -208,7 +208,7 @@ dependent variables</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doDCvar</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doDCvar</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the contributions of variances of DC sources and resistors to
 detector-referred variance.</p>
 <p>After execution of this function the circuit is modified: dc variance
@@ -243,7 +243,7 @@ variance at the detector in <span class="math notranslate nohighlight">\(V^2\)</
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDataType">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doDataType</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDataType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doDataType</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the instruction without parameter stepping.</p>
 <ol class="arabic simple">
 <li><p>It builds the matrices in accordance with the specified gain type</p></li>
@@ -264,7 +264,7 @@ variance at the detector in <span class="math notranslate nohighlight">\(V^2\)</
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doDenom</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doDenom</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the denominator of a transfer by evaluating the determinant
 of the MNA matrix.</p>
 <dl class="field-list simple">
@@ -300,7 +300,7 @@ reference.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doInstruction</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doInstruction</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the instruction with or without parameter stepping.</p>
 <p>Called by <strong>instruction.execute()</strong>. This function should not be called
 directly by the user.</p>
@@ -319,7 +319,7 @@ directly by the user.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doLaplace</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doLaplace</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numerator and the denominator of the transfer and normalizes
 the result to:</p>
 <ul>
@@ -343,7 +343,7 @@ value, else a positive or negative integer.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doNoise</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doNoise</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the contributions of all noise sources to the noise spectral
 density at the detector.</p>
 <p>Returns a dictionary with key-value pairs:</p>
@@ -367,7 +367,7 @@ density at the detector.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doNumer</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doNumer</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numerator of a transfer by evaluating cofactors or by using
 Cramer’s rule.</p>
 <dl class="field-list simple">
@@ -404,7 +404,7 @@ gain of the loop gain reference.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doPZ</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doPZ</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the DC gain, and the numric roots of the numerator and the
 denominator of a transfer.</p>
 <ul class="simple">
@@ -429,7 +429,7 @@ denominator of a transfer.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doPoles</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doPoles</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numeric roots of the denominator of a transfer.</p>
 <p>It first calls <strong>execute.doDenom()</strong> to calculate the denominator of the
 transfer defined by the gain type. It then calculates the numerical roots
@@ -449,7 +449,7 @@ by calling <strong>SLiCAPmath.numRoots()</strong>.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doSolve</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doSolve</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the symbolic or numeric solution of a network.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -466,7 +466,7 @@ by calling <strong>SLiCAPmath.numRoots()</strong>.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolveDC">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doSolveDC</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolveDC" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doSolveDC</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolveDC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the DC solution of a network.</p>
 <p>It uses the dc value field of independent sources and replaces the Laplace
 variable in the MNA matrix with 0.</p>
@@ -485,7 +485,7 @@ variable in the MNA matrix with 0.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">doZeros</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doZeros</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numeric roots of numerator of a transfer.</p>
 <p>It first calls <strong>execute.doNumer()</strong> to calculate the numerator of the
 transfer defined by the gain type. It then calculates the numerical roots
@@ -505,7 +505,7 @@ by calling <strong>SLiCAPmath.numRoots()</strong>.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">lgValue</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lgValue</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the corrected gain of the loop gain reference.</p>
 <p>In case of a loop gain reference of the type EZ and HZ the calculation of
 the loop gain is performed as if a current source was placed in parallel
@@ -529,7 +529,7 @@ in cases in which the model of the loop gain reference is ‘EZ’ or
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSrcDetPos">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">makeSrcDetPos</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSrcDetPos" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeSrcDetPos</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSrcDetPos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of the source row(s) and detector colum(s) for
 calculation of cofactors or for application of Cramer’s rule.</p>
 <p>If the gain type is ‘loopgain’ or ‘servo’, the source and the detector are
@@ -560,7 +560,7 @@ variables that corresponds with the negative source</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPexecute.SLiCAPexecute.</code><code class="sig-name descname">stepFunctions</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">function</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepFunctions</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">function</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Substitutes values for step parameters in functions and returns a list
 of functions with these substitutions.</p>
 <dl class="field-list simple">

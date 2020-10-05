@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -185,7 +185,7 @@ It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.</p>
 <dl class="class">
 <dt id="SLiCAP.SLiCAP.SLiCAPproject">
-<em class="property">class </em><code class="sig-prename descclassname">SLiCAP.SLiCAP.</code><code class="sig-name descname">SLiCAPproject</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">SLiCAPproject</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype of a SLiCAPproject.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAP.SLiCAPproject.author">
@@ -212,7 +212,7 @@ on the main html index page</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAP.initProject">
-<code class="sig-prename descclassname">SLiCAP.SLiCAP.</code><code class="sig-name descname">initProject</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">initProject</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a SLiCAP project.</p>
 <ul class="simple">
 <li><p>Copies the directory structure from the templates subdirectory to the
@@ -237,7 +237,7 @@ SLiCAPproject object.</p>
 <dt class="field-even">Example</dt>
 <dd class="field-even"><p></p></dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my first SLiCAP project&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my first SLiCAP project&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">prj</span><span class="o">.</span><span class="n">author</span>
 <span class="go">anton</span>
 </pre></div>
@@ -246,7 +246,7 @@ SLiCAPproject object.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAP.makeNetlist">
-<code class="sig-prename descclassname">SLiCAP.SLiCAP.</code><code class="sig-name descname">makeNetlist</code><span class="sig-paren">(</span><em class="sig-param">fileName</em>, <em class="sig-param">cirTitle</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.makeNetlist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeNetlist</code><span class="sig-paren">(</span><em class="sig-param">fileName</em>, <em class="sig-param">cirTitle</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.makeNetlist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a netlist from a schematic file generated with LTspice or gschem.</p>
 <ul class="simple">
 <li><p>LTspice: ‘.asc’ file</p></li>

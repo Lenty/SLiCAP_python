@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -184,7 +184,7 @@
 <p>Imported by the module <strong>SLiCAPexecute.py</strong>.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.addGlobals">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">addGlobals</code><span class="sig-paren">(</span><em class="sig-param">parDefs</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.addGlobals" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">addGlobals</code><span class="sig-paren">(</span><em class="sig-param">parDefs</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.addGlobals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds value or expression of the parameter ‘par’ as well as the parameters 
 in this expression given in the library to the parameter definitions in the
 dict ‘parDefs’.</p>
@@ -208,7 +208,7 @@ definition of the parameter ‘par’ needs to added.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.addUserLibs">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">addUserLibs</code><span class="sig-paren">(</span><em class="sig-param">fileNames</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.addUserLibs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">addUserLibs</code><span class="sig-paren">(</span><em class="sig-param">fileNames</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.addUserLibs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds pre compiled user libraries to LIB.</p>
 <p>Overwrites existing keys in LIB.</p>
 <dl class="field-list simple">
@@ -220,7 +220,7 @@ definition of the parameter ‘par’ needs to added.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.checkCircuit">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">checkCircuit</code><span class="sig-paren">(</span><em class="sig-param">fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.checkCircuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkCircuit</code><span class="sig-paren">(</span><em class="sig-param">fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.checkCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks a netlist and converts it into a circuit object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -237,7 +237,7 @@ definition of the parameter ‘par’ needs to added.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.expandCircuit">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">expandCircuit</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">parentCircuit</em>, <em class="sig-param">childCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.expandCircuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">expandCircuit</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">parentCircuit</em>, <em class="sig-param">childCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.expandCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expands an element ‘elmt’ of ‘parentCircuit’ based on the prototype 
 ‘childCircuit’.</p>
 <p>After expansion the element ‘elmt’ will be removed from ‘parentCircuit’.</p>
@@ -299,7 +299,7 @@ of the child circuit.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.expandModelsCircuits">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">expandModelsCircuits</code><span class="sig-paren">(</span><em class="sig-param">circuitObject</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.expandModelsCircuits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">expandModelsCircuits</code><span class="sig-paren">(</span><em class="sig-param">circuitObject</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.expandModelsCircuits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expands the subcircuits and the models that require expansion.</p>
 <p>This proceeds as follows:</p>
 <ol class="arabic simple">
@@ -327,7 +327,7 @@ subcircuit.</p></li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.makeCircuit">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">makeCircuit</code><span class="sig-paren">(</span><em class="sig-param">cir</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.makeCircuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeCircuit</code><span class="sig-paren">(</span><em class="sig-param">cir</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.makeCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a nested circuit object from the tokens in cir.lexer.</p>
 <p>Called by: <strong>checkCircuit()</strong></p>
 <dl class="field-list simple">
@@ -346,7 +346,7 @@ be added</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.makeLibraries">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">makeLibraries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.makeLibraries" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeLibraries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.makeLibraries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compiles the library ‘lib/SLiCAPmodels.lib’.</p>
 <p>Returns a circuit object with subcircuits, model definitions and parameter
 definitions from this library.</p>
@@ -363,7 +363,7 @@ definitions from  ‘lib/SLiCAPmodels.lib’.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.updateCirData">
-<code class="sig-prename descclassname">SLiCAP.SLiCAPyacc.SLiCAPyacc.</code><code class="sig-name descname">updateCirData</code><span class="sig-paren">(</span><em class="sig-param">mainCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.updateCirData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">updateCirData</code><span class="sig-paren">(</span><em class="sig-param">mainCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.updateCirData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates circuit data required for instructions.</p>
 <ul class="simple">
 <li><p>Updates the lists with dependent variables (detectors), sources 
