@@ -2,6 +2,6 @@
 SLiCAPhtml.py
 =============
 
-.. automodule:: SLiCAP.SLiCAPhtml
+.. automodule:: SLiCAP.SLiCAPhtml.SLiCAPhtml
     :members:
     :undoc-members:

@@ -2,6 +2,6 @@
 SLiCAPexecute.py
 ================
 
-.. automodule:: SLiCAP.SLiCAPexecute
+.. automodule:: SLiCAP.SLiCAPexecute.SLiCAPexecute
     :members:
     :undoc-members:

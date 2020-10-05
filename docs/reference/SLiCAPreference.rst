@@ -16,18 +16,18 @@ SLiCAP comprises the following modules:
    :toctree:
    
    SLiCAP
-   SLiCAP.SLiCAPinstruction
-   SLiCAP.SLiCAPexecute
-   SLiCAP.SLiCAPyacc
-   SLiCAP.SLiCAPhtml
-   SLiCAP.SLiCAPplots
-   SLiCAP.SLiCAPpythonMaxima
-   SLiCAP.SLiCAPmatrices
-   SLiCAP.SLiCAPprotos
-   SLiCAP.SLiCAPmath
-   SLiCAP.SLiCAPlex
-   SLiCAP.SLiCAPini
-   SLiCAP.SLiCAPconfig
+   SLiCAPinstruction
+   SLiCAPexecute
+   SLiCAPyacc
+   SLiCAPhtml
+   SLiCAPplots
+   SLiCAPpythonMaxima
+   SLiCAPmatrices
+   SLiCAPprotos
+   SLiCAPmath
+   SLiCAPlex
+   SLiCAPini
+   SLiCAPconfig
 
 For operating SLiCAP from within Jupyter lab or Jupyter notebook the main module to be im[ported is:
 

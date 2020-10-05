@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -231,10 +231,10 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_params</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>
 <span class="go">[f_c, C, R]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepVar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>        <span class="c1"># Define &#39;R&#39; as step parameter</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">stepVar</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">stepVar</span><span class="p">)</span>
 <span class="go">R</span>
 </pre></div>
 </div>
@@ -249,10 +249,10 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_params</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>             <span class="c1"># Print the names of the circuit parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>             <span class="c1"># Print the names of the circuit parameters</span>
 <span class="go">[f_c, C, R]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepVars</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span> <span class="c1"># Define &#39;R&#39; and &#39;C&#39; as step parameters</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">stepVars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">stepVars</span><span class="p">)</span>
 <span class="go">[&#39;R&#39;, &#39;C&#39;]</span>
 </pre></div>
 </div>
@@ -270,7 +270,7 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_params</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>            <span class="c1"># Print the names of the circuit parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>            <span class="c1"># Print the names of the circuit parameters</span>
 <span class="go">[f_c, C, R]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepVar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>        <span class="c1"># Define &#39;R&#39; as step parameter</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepStart</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>       <span class="c1"># Define the start value of &#39;R&#39; 10 Ohm</span>
@@ -292,7 +292,7 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_params</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>                     <span class="c1"># Print the names of the circuit parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>                     <span class="c1"># Print the names of the circuit parameters</span>
 <span class="go">[f_c, C, R]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepVar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>                 <span class="c1"># Define &#39;R&#39; as step parameter</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepMethod</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>           <span class="c1"># Define list type stepping</span>
@@ -311,7 +311,7 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_params</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">params</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>                     <span class="c1"># Print the names of the circuit parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>                     <span class="c1"># Print the names of the circuit parameters</span>
 <span class="go">[f_c, C, R]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepVars</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span>         <span class="c1"># Define &#39;R&#39; and &#39;C&#39; as step parameters</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setStepMethod</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">)</span>          <span class="c1"># Define array type stepping</span>

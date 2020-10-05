@@ -2,6 +2,6 @@
 SLiCAPmath.py
 =============
 
-.. automodule:: SLiCAP.SLiCAPmath
+.. automodule:: SLiCAP.SLiCAPmath.SLiCAPmath
     :members:
     :undoc-members:
