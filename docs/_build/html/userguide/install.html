@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -359,12 +359,44 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 15
 16
 17
-18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">SLiCAP module with user-defined path settings.</span>
+
+<span class="sd">Default values:</span>
+
+<span class="sd">&gt;&gt;&gt; PROJECTPATH = None      # Leave it for automatic detection</span>
+<span class="sd">&gt;&gt;&gt; # PATHS: relative to the project path</span>
+<span class="sd">&gt;&gt;&gt; HTMLPATH    = &#39;html/&#39;   # path for html output</span>
+<span class="sd">&gt;&gt;&gt; CIRCUITPATH = &#39;cir/&#39;    # path for .asc, .net, .cir, .sch files</span>
+<span class="sd">&gt;&gt;&gt; LIBRARYPATH = &#39;lib/&#39;    # path for include and library files</span>
+<span class="sd">&gt;&gt;&gt; TXTPATH     = &#39;txt/&#39;    # path for text files (text2html)</span>
+<span class="sd">&gt;&gt;&gt; CSVPATH     = &#39;csv/&#39;    # path for CSV files (csv2html)</span>
+<span class="sd">&gt;&gt;&gt; LATEXPATH   = &#39;tex/&#39;    # path for LaTeX output saveTeX()</span>
+<span class="sd">&gt;&gt;&gt; MATHMLPATH  = &#39;mathml/&#39; # path for mathML output saveMathML()</span>
+<span class="sd">&gt;&gt;&gt; IMGPATH     = &#39;img/&#39;    # path for image files</span>
+<span class="sd">&gt;&gt;&gt; MAXIMA      = &#39;C:\\maxima-5.44.0\\bin\\maxima.bat&#39; # Windows command for maxima</span>
+<span class="sd">&gt;&gt;&gt; LTSPICE     = &#39;wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist&#39; # Command for netlist generation with LTspice</span>
+<span class="sd">&gt;&gt;&gt; NETLIST     = &#39;lepton-netlist -g spice-noqsi&#39; # Command for netlist generation with gschem or lepton-eda</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">PROJECTPATH</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># Leave it for automatic detection</span>
+<span class="n">PROJECTPATH</span> <span class="o">=</span> <span class="bp">None</span>      <span class="c1"># Leave it for automatic detection</span>
 <span class="c1"># PATHS: relative to the project path</span>
 <span class="n">HTMLPATH</span>    <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
 <span class="n">CIRCUITPATH</span> <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
