@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -205,7 +205,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span>                                         <span class="c1"># and create main index page</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlIndex</span><span class="p">)</span>                     <span class="c1"># print the active index page</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlIndex</span><span class="p">)</span>                     <span class="c1"># print the active index page</span>
 <span class="go">index.html</span>
 </pre></div>
 </div>
@@ -220,7 +220,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="go">                                             # and create circuit index page</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlIndex</span><span class="p">)</span>                     <span class="c1"># print the active index page</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlIndex</span><span class="p">)</span>                     <span class="c1"># print the active index page</span>
 <span class="go">My-first-RC-network_index.html</span>
 </pre></div>
 </div>
@@ -239,9 +239,9 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">htmlPage</span><span class="p">(</span><span class="s1">&#39;Circuit data&#39;</span><span class="p">)</span>                 <span class="c1"># Create a new html data page and make it the</span>
 <span class="go">                                             # active data page</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlPage</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlPage</span><span class="p">)</span>
 <span class="go">My-first-RC-network_Circuit-data.html</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlPages</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">ini</span><span class="o">.</span><span class="n">htmlPages</span><span class="p">)</span>
 <span class="go">[&#39;My-first-RC-network_index.html&#39;, &#39;index.html&#39;, &#39;My-first-RC-network_Circuit-data.html&#39;]</span>
 </pre></div>
 </div>

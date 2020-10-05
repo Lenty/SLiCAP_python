@@ -29,7 +29,7 @@ SLiCAP comprises the following modules:
    SLiCAPini
    SLiCAPconfig
 
-For operating SLiCAP from within Jupyter lab or Jupyter notebook the main module to be im[ported is:
+For operating SLiCAP from within Jupyter lab or Jupyter notebook the main module to be imported is:
 
 .. toctree::
 
