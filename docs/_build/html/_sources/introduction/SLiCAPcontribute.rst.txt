@@ -1,8 +1,6 @@
 ===========================
 How to contribute to SLiCAP
 ===========================
-<<<<<<< HEAD
-=======
 The SLiCAP github page is to be used for contributing to SLiCAP (https://github.com/Lenty/SLiCAP_python).
 
 Adding features
@@ -15,4 +13,3 @@ These tests include:
 Bugs
 -----
 In case bugs are found, please report them to the github 'Issues' page where we can resolve the issues and keep track of any possible bugs.
->>>>>>> python3
