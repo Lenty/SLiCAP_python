@@ -76,6 +76,7 @@ class InstallWrapper(install):
                         
                 except:
                     print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
+                    print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
 
             if int(result) == 2:
                 succes = True   
@@ -161,8 +162,6 @@ class InstallWrapper(install):
                     print("Maxima path set as:", path)
                     return path
                             
-
-      
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
