@@ -19,12 +19,12 @@ INSTALLVERSION="0.9.0"
 
 class InstallWrapper(install):
     """Provides a install wrapper for SLiCAP"""
-    _maxima_cmd = None
+    _maxima_cmd = "None"
     _SLiCAP_version = None
     _library_location = None
-  
+
     def run(self):
-        # Run this first so the install stops in case 
+        # Run this first so the install stops in case
         # these fail otherwise the Python package is
         # successfully installed
         self._set_maxima_command()
@@ -43,12 +43,13 @@ class InstallWrapper(install):
                         Manual entry of the maxima path is also possible
             Linux -     test is the 'maxima' command is callable from the command line
         """
+        self._maxima_cmd="maxima"
         print("Acquiring Maxima Command")
         succes = False
         maxInput = '1+1;'
         if platform.system() == 'Windows':
             self._maxima_cmd = self._find_maxima_windows()
-            
+
         while not(succes):
             result = 0
             if platform.system() == 'Windows':
@@ -67,19 +68,21 @@ class InstallWrapper(install):
                     result = subprocess.run([self._maxima_cmd, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
                     result = [i for i in result if i] # Added due to variability of trailing '\n'
                     result = result[-1]
-                    
+
                 except:
                     print("Not able to succesfully execute the maxima command, please make sure the full path points to 'maxima.bat'")
             else:
                 try:
-                    result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')[-1]
-                        
+                    result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
+
                 except:
                     print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
                     print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
 
+            result = [i for i in result if i] # Added due to variability of trailing '\n'
+            result = result[-1]
             if int(result) == 2:
-                succes = True   
+                succes = True
                 print("Succesfully ran Maxima command")
 
 
@@ -111,7 +114,7 @@ class InstallWrapper(install):
         while not(succes):
             home = expanduser("~")
             slicap_home = os.path.join(home, 'SLiCAP', 'lib')
-            
+
             string = "Select a location for the default libraries, press enter for the default location('"+slicap_home+"'), otherwise type a full path to override this value:"
             ret_val = input(string)
             # print(repr(ret_val))
@@ -120,7 +123,7 @@ class InstallWrapper(install):
             else:
                 print("Using valid library path", ret_val)
                 slicap_home = ret_val
-            
+
             try:
                 if not os.path.exists(slicap_home):
                     os.makedirs(slicap_home)
@@ -149,7 +152,7 @@ class InstallWrapper(install):
                     # print(line)
                     file.write(line)
         print("Created config file")
-        
+
 
     def _find_maxima_windows(self):
         drive = os.sep.join(os.getcwd().split(os.sep)[:1])+os.sep
@@ -161,7 +164,7 @@ class InstallWrapper(install):
                     path = os.path.join(root,name, 'bin','maxima.bat')
                     print("Maxima path set as:", path)
                     return path
-                            
+
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -176,7 +179,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Lenty/SLiCAP_python/",
     packages=setuptools.find_packages(),
-    cmdclass={'install': InstallWrapper},    
+    cmdclass={'install': InstallWrapper},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: Attribution-NonCommercial-NoDerivatives 4.0 International",
