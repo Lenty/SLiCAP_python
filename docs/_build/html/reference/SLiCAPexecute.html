@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,32 +183,36 @@
 <p>Imported by the module <strong>SLiCAPinstruction.py</strong>.</p>
 <p>Execution <strong>instruction.execute()</strong> proceeds as follows:</p>
 <ol class="arabic simple">
-<li><p>The instruction settings will be checked for completeness and consistency</p></li>
-<li><p>If no errors are found <strong>doInstruction(&lt;allResults obj&gt;)</strong> performs the
-actual execution of the instruction</p></li>
+<li>The instruction settings will be checked for completeness and consistency</li>
+<li>If no errors are found <strong>doInstruction(&lt;allResults obj&gt;)</strong> performs the
+actual execution of the instruction</li>
 </ol>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC">
-<code class="sig-name descname">doDC</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doDC</code><span class="sig-paren">(</span><em>instObj</em>, <em>detP</em>, <em>detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the DC voltage or current at the detector.</p>
 <p>It uses the dc value field of independent sources and replaces the Laplace
 variable in the MNA matrix with 0.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p></li>
-<li><p><strong>detP</strong> (<em>int</em>) – position of the positive detector quantity in the vector with
-dependent variables</p></li>
-<li><p><strong>detN</strong> (<em>int</em>) – position of the negative detector quantity in the vector with
-dependent variables</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</li>
+<li><strong>detP</strong> (<em>int</em>) – position of the positive detector quantity in the vector with
+dependent variables</li>
+<li><strong>detN</strong> (<em>int</em>) – position of the negative detector quantity in the vector with
+dependent variables</li>
 </ul>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar">
-<code class="sig-name descname">doDCvar</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doDCvar</code><span class="sig-paren">(</span><em>instObj</em>, <em>detP</em>, <em>detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the contributions of variances of DC sources and resistors to
 detector-referred variance.</p>
 <p>After execution of this function the circuit is modified: dc variance
@@ -219,70 +223,68 @@ resistors. These names have been added to the list circuit.indepVars.</p>
 <p>If these elements already existed because of an earlier DCvar analysis,
 they will be removed, as well as the references in to them the list
 circuit.indepVars.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>Tuple with a dictionary ovarTerms and the dc solution of
-the network.</p>
-<ul class="simple">
-<li><p>ovarTerms (<em>dict</em>):</p>
-<ul>
-<li><p>key (<em>str</em>): ID of the dc variance source</p></li>
-<li><p>value (<em>sympy.Expr</em>) contribution of this source to the dc
-variance at the detector in <span class="math notranslate nohighlight">\(V^2\)</span> or in <span class="math notranslate nohighlight">\(A^2\)</span>.</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tuple with a dictionary ovarTerms and the dc solution of
+the network.<ul class="simple">
+<li>ovarTerms (<em>dict</em>):<ul>
+<li>key (<em>str</em>): ID of the dc variance source</li>
+<li>value (<em>sympy.Expr</em>) contribution of this source to the dc
+variance at the detector in <span class="math notranslate nohighlight">\(V^2\)</span> or in <span class="math notranslate nohighlight">\(A^2\)</span>.</li>
 </ul>
 </li>
-<li><p>dcSolution(<em>sympy.Matrix</em>): DC solution of the network</p></li>
+<li>dcSolution(<em>sympy.Matrix</em>): DC solution of the network</li>
 </ul>
-</p>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDataType">
-<code class="sig-name descname">doDataType</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDataType" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doDataType</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the instruction without parameter stepping.</p>
 <ol class="arabic simple">
-<li><p>It builds the matrices in accordance with the specified gain type</p></li>
-<li><p>It executes instruction for the specified dataype</p></li>
+<li>It builds the matrices in accordance with the specified gain type</li>
+<li>It executes instruction for the specified dataype</li>
 </ol>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> objectthat holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>allResults()</strong> object that holds instruction data</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><strong>allResults()</strong> object</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> objectthat holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>allResults()</strong> object that holds instruction data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><strong>allResults()</strong> object</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom">
-<code class="sig-name descname">doDenom</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doDenom</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the denominator of a transfer by evaluating the determinant
 of the MNA matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>denominator of a transfer or a detector voltage or current:</p>
-<ul>
-<li><p>gain type = ‘vi’, ‘gain’, ‘direct’, ‘asymptotic’:</p>
-<p>dDeterminant of the MNA matrix for that gain type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">denominator of a transfer or a detector voltage or current:<ul>
+<li>gain type = ‘vi’, ‘gain’, ‘direct’, ‘asymptotic’:<p>dDeterminant of the MNA matrix for that gain type</p>
 </li>
-<li><p>gain type = ‘loopgain’:</p>
-<p>Determinant of the MNA matrix for gain type ‘loopgain’ multiplied
+<li>gain type = ‘loopgain’:<p>Determinant of the MNA matrix for gain type ‘loopgain’ multiplied
 with the denominator of the gain of the loop gain reference.</p>
 </li>
-<li><p>gain type = ‘servo’:</p>
-<p>Determinant of the MNA matrix for gain type ‘loopgain’ multiplied
+<li>gain type = ‘servo’:<p>Determinant of the MNA matrix for gain type ‘loopgain’ multiplied
 with the denominator of the gain of the loop gain reference, plus
 the numerator of the loop gain. The latter one is calculated as
 the product of the sum of cofactors of the MNA matrix for gain
@@ -290,296 +292,305 @@ type ‘loopgain’ and the numerator of the gain of the loop gain
 reference.</p>
 </li>
 </ul>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sympy.Expr</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction">
-<code class="sig-name descname">doInstruction</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doInstruction</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the instruction with or without parameter stepping.</p>
 <p>Called by <strong>instruction.execute()</strong>. This function should not be called
 directly by the user.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><strong>allResults()</strong> object</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><strong>allResults()</strong> object</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace">
-<code class="sig-name descname">doLaplace</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doLaplace</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numerator and the denominator of the transfer and normalizes
 the result to:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(F(s) = G s^{\ell} \frac{1+b_1s + ... + b_ms^m}{1+a_1s + ... + a_ns^n}\)</span>,</p>
+<li><p class="first"><span class="math notranslate nohighlight">\(F(s) = G s^{\ell} \frac{1+b_1s + ... + b_ms^m}{1+a_1s + ... + a_ns^n}\)</span>,</p>
 <p>with <span class="math notranslate nohighlight">\(\ell\)</span> equal zero if there is a finite nonzero zero-frequency
 value, else a positive or negative integer.</p>
 </li>
 </ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Laplace transform of a transfer or detector voltage or current</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sympy.Expr</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Laplace transform of a transfer or detector voltage or current</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise">
-<code class="sig-name descname">doNoise</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doNoise</code><span class="sig-paren">(</span><em>instObj</em>, <em>detP</em>, <em>detN</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the contributions of all noise sources to the noise spectral
 density at the detector.</p>
 <p>Returns a dictionary with key-value pairs:</p>
 <ul class="simple">
-<li><p>key = ID of the noise source</p></li>
-<li><p>value = contribution to the noise spectral density th the detector in
-<span class="math notranslate nohighlight">\(\frac{V^2}{Hz}\)</span> or in <span class="math notranslate nohighlight">\(\frac{A^2}{Hz}\)</span>.</p></li>
+<li>key = ID of the noise source</li>
+<li>value = contribution to the noise spectral density th the detector in
+<span class="math notranslate nohighlight">\(\frac{V^2}{Hz}\)</span> or in <span class="math notranslate nohighlight">\(\frac{A^2}{Hz}\)</span>.</li>
 </ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>onoiseTerms</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">onoiseTerms</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer">
-<code class="sig-name descname">doNumer</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doNumer</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numerator of a transfer by evaluating cofactors or by using
 Cramer’s rule.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>numerator of a transfer or a detector voltage or current:</p>
-<ul>
-<li><p>gain type = ‘vi’:</p>
-<p>Application of Cramer’s rule</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">numerator of a transfer or a detector voltage or current:<ul>
+<li>gain type = ‘vi’:<p>Application of Cramer’s rule</p>
 </li>
-<li><p>gain type = ‘gain’, ‘direct’, ‘asymptotic’:</p>
-<p>Sum of cofactors of the MNA matrix for that gain type</p>
+<li>gain type = ‘gain’, ‘direct’, ‘asymptotic’:<p>Sum of cofactors of the MNA matrix for that gain type</p>
 </li>
-<li><p>gain type = ‘loopgain’:</p>
-<p>Sum of cofactors of the MNA matrix for gain type ‘loopgain’
+<li>gain type = ‘loopgain’:<p>Sum of cofactors of the MNA matrix for gain type ‘loopgain’
 multiplied with the numerator of the gain of the loop gain
 reference.</p>
 </li>
-<li><p>gain type = ‘servo’:</p>
-<p>Sum of cofactors of the MNA matrix for gain type ‘loopgain’
+<li>gain type = ‘servo’:<p>Sum of cofactors of the MNA matrix for gain type ‘loopgain’
 multiplied with the the negative value of the numerator of the
 gain of the loop gain reference.</p>
 </li>
 </ul>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sympy.Expr</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ">
-<code class="sig-name descname">doPZ</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doPZ</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the DC gain, and the numric roots of the numerator and the
 denominator of a transfer.</p>
 <ul class="simple">
-<li><p>Calculate the numerator and the denominator</p></li>
-<li><p>Calculate the poles and the zeros</p></li>
-<li><p>Calculate the DC gain</p></li>
-<li><p>Cancel poles and zeros that coincide within a relative tolerance of
-<span class="math notranslate nohighlight">\(10^{-\mathrm{ini.disp}}\)</span>.</p></li>
+<li>Calculate the numerator and the denominator</li>
+<li>Calculate the poles and the zeros</li>
+<li>Calculate the DC gain</li>
+<li>Cancel poles and zeros that coincide within a relative tolerance of
+<span class="math notranslate nohighlight">\(10^{-\mathrm{ini.disp}}\)</span>.</li>
 </ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>tuple: (poles, zeros, DCvalue)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple: (poles, zeros, DCvalue)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles">
-<code class="sig-name descname">doPoles</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doPoles</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numeric roots of the denominator of a transfer.</p>
 <p>It first calls <strong>execute.doDenom()</strong> to calculate the denominator of the
 transfer defined by the gain type. It then calculates the numerical roots
 by calling <strong>SLiCAPmath.numRoots()</strong>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list with numerical roots of the denominator of a transfer</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list with numerical roots of the denominator of a transfer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve">
-<code class="sig-name descname">doSolve</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doSolve</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the symbolic or numeric solution of a network.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Network solution (vector)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sympy.Matrix</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Network solution (vector)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Matrix</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolveDC">
-<code class="sig-name descname">doSolveDC</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolveDC" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doSolveDC</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolveDC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the DC solution of a network.</p>
 <p>It uses the dc value field of independent sources and replaces the Laplace
 variable in the MNA matrix with 0.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DC solution of the network</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sympy.Matrix</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DC solution of the network</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Matrix</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros">
-<code class="sig-name descname">doZeros</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros" title="Permalink to this definition">¶</a></dt>
+<code class="descname">doZeros</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the numeric roots of numerator of a transfer.</p>
 <p>It first calls <strong>execute.doNumer()</strong> to calculate the numerator of the
 transfer defined by the gain type. It then calculates the numerical roots
 by calling <strong>SLiCAPmath.numRoots()</strong>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list with numerical roots of the numerator of a transfer</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list with numerical roots of the numerator of a transfer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue">
-<code class="sig-name descname">lgValue</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue" title="Permalink to this definition">¶</a></dt>
+<code class="descname">lgValue</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the corrected gain of the loop gain reference.</p>
 <p>In case of a loop gain reference of the type EZ and HZ the calculation of
 the loop gain is performed as if a current source was placed in parallel
 with the output impedance (zo) of this controlled source (Norton equivalent
 representation). The value of this current source is that of the loop gain
 reference divided by the output impedance of the device.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Gain of the loop gain reference, modified in a Norton equivalent
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Gain of the loop gain reference, modified in a Norton equivalent
 in cases in which the model of the loop gain reference is ‘EZ’ or
-‘HZ’.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sympy.</p>
-</dd>
-</dl>
+‘HZ’.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSrcDetPos">
-<code class="sig-name descname">makeSrcDetPos</code><span class="sig-paren">(</span><em class="sig-param">instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSrcDetPos" title="Permalink to this definition">¶</a></dt>
+<code class="descname">makeSrcDetPos</code><span class="sig-paren">(</span><em>instObj</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSrcDetPos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of the source row(s) and detector colum(s) for
 calculation of cofactors or for application of Cramer’s rule.</p>
 <p>If the gain type is ‘loopgain’ or ‘servo’, the source and the detector are
 taken at the input and the output of the loop gain reference.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>tuple: (detP, detN, srcP, srcN):</p>
-<ul class="simple">
-<li><p>detP (<em>None, int</em>): number of the row of the vector with dependent
-variables that corresponds with the positive detector</p></li>
-<li><p>detN (<em>None, int</em>): number of the row of the vector with dependent
-variables that corresponds with the negative detector</p></li>
-<li><p>srcP (<em>None, int</em>): number of the row of the vector with dependent
-variables that corresponds with the positive source</p></li>
-<li><p>srcN (<em>None, int</em>): number of the row of the vector with dependent
-variables that corresponds with the negative source</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple: (detP, detN, srcP, srcN):<ul class="simple">
+<li>detP (<em>None, int</em>): number of the row of the vector with dependent
+variables that corresponds with the positive detector</li>
+<li>detN (<em>None, int</em>): number of the row of the vector with dependent
+variables that corresponds with the negative detector</li>
+<li>srcP (<em>None, int</em>): number of the row of the vector with dependent
+variables that corresponds with the positive source</li>
+<li>srcN (<em>None, int</em>): number of the row of the vector with dependent
+variables that corresponds with the negative source</li>
 </ul>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions">
-<code class="sig-name descname">stepFunctions</code><span class="sig-paren">(</span><em class="sig-param">instObj</em>, <em class="sig-param">function</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stepFunctions</code><span class="sig-paren">(</span><em>instObj</em>, <em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Substitutes values for step parameters in functions and returns a list
 of functions with these substitutions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</p></li>
-<li><p><strong>function</strong> (<em>sympy.Expr</em>) – </p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instObj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</li>
+<li><strong>function</strong> (<em>sympy.Expr</em>) – </li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List with functions (<em>sympy.Expr</em>). The number of
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List with functions (<em>sympy.Expr</em>). The number of
 functions equals the number of steps. Function i equals
 the input function in which the step variable has been
 replaced with its i-th step value.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

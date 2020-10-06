@@ -17,27 +17,16 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
 Considerations
 ==============
 
-Expansion of models
-------------------- 
- 
-During the checking of a netlist, small-signal models of operational amplifiers and semiconductors are expanded into networks with basic elements using subcircuit definitions. This makes it possible to have the elements of these subcircuits available for the definition of the signal source, the detector or the loop gain reference. 
-
-Execution of in instruction
----------------------------
-
-Before execution of an instruction, all instruction data is copied to an instance of the **SLiCAPprotos.allResults** object. This instance is then used for execution of the instruction. This makes it possible to store instruction settings and results together, while later modification of the instruction data is not reflected in execution results obtained earlier. This, however, is not the case for changes in the **SLiCAPinstruction.circuit** object, because the **SLiCAPprotos.allResults.circuit** attribute is *not* a *deep copy* of the **SLiCAPinstruction.circuit** object.
-
 To do
 -----
 
-#. makeNetlist()
-#. Update makeServoBandwidth() requires a better estimate of the mid-band value of the loop gain 'mbv'.
+#. The function makeServoBandwidth() requires a better estimate of the mid-band value of the loop gain 'mbv'.
 
 Improvements
 ------------
 
 #. Run maxima CAS in socket and communicate input and output in terminal, python IDE or notebook.
-#. Make both maxima functions and sympy versions of math functions and a let the user user select the CAS per math function
+#. Make both maxima and sympy versions of math functions and a let the user user select the CAS per math function
 #. Different report structure:
    #. Labels for all objects in a report
    #. Organize labels and generate report from the labels

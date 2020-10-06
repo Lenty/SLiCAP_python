@@ -22,6 +22,7 @@ Default values:
 VERSION = '$VERSION'
 PROJECTPATH = None      # Leave it for automatic detection
 LIBCOREPATH = r'$LIBCOREPATH'
+DOCPATH     = r'$DOCPATH'
 # PATHS: relative to the project path
 HTMLPATH    = 'html/'   # path for html output
 CIRCUITPATH = 'cir/'    # path for .asc, .net, .cir, .sch files

@@ -22,6 +22,7 @@ class InstallWrapper(install):
     _maxima_cmd = "None"
     _SLiCAP_version = None
     _library_location = None
+    _doc_location = None
 
     def run(self):
         # Run this first so the install stops in case
@@ -30,6 +31,7 @@ class InstallWrapper(install):
         self._set_maxima_command()
         self._set_version_config()
         self._set_lib_location()
+        self._set_doc_location()
         self._gen_config_file()
         # Run the standard PyPi copy
         install.run(self)
@@ -135,23 +137,55 @@ class InstallWrapper(install):
             except:
                 print("could not set library location")
 
+    def _set_doc_location(self):
+        """
+        Sets the SLiCAP documentation path variable to be set in the config file
+        Includes copying of the documentation
+
+        Returns
+        -------
+        None.
+
+        """
+        succes = False
+        while not(succes):
+            home = expanduser("~")
+            slicap_home = os.path.join(home, 'SLiCAP', 'docs')
+
+            string = "Select a location for the documentation, press enter for the default location('"+slicap_home+"'), otherwise type a full path to override this value:"
+            ret_val = input(string)
+            # print(repr(ret_val))
+            if not ret_val:
+                print("Using ", slicap_home)
+            else:
+                print("Using valid documentation path", ret_val)
+                slicap_home = ret_val
+
+            try:
+                if os.path.exists(slicap_home):
+                    shutil.rmtree(slicap_home)
+                shutil.copytree('docs/_build/html/', slicap_home)
+                self._doc_location = slicap_home
+                succes = True
+            except:
+                print("could not set documentation location")
+                
     def _gen_config_file(self):
         print("Generating the configuration file")
         fileloc = os.path.join("SLiCAPtemplate.py")
         filetarg = os.path.join("SLiCAP", "SLiCAPconfig", "SLiCAPconfig.py")
-        print(fileloc)
-        print(filetarg)
         if os.path.isfile(fileloc):
-            print("Found template file")
+            print("Found template file: ", fileloc)
             copy(fileloc, filetarg)
             with in_place.InPlace(filetarg) as file:
                 for line in file:
                     line = line.replace("$VERSION", self._SLiCAP_version)
                     line = line.replace("$LIBCOREPATH", self._library_location)
                     line = line.replace("$MAXIMAPATH", self._maxima_cmd)
+                    line = line.replace("$DOCPATH", self._doc_location)
                     # print(line)
                     file.write(line)
-        print("Created config file")
+        print("Created config file: ", filetarg)
 
 
     def _find_maxima_windows(self):
@@ -164,7 +198,6 @@ class InstallWrapper(install):
                     path = os.path.join(root,name, 'bin','maxima.bat')
                     print("Maxima path set as:", path)
                     return path
-
 
 with open("README.md", "r") as fh:
     long_description = fh.read()

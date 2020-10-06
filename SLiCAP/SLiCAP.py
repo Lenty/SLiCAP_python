@@ -63,7 +63,7 @@ def initProject(name, firstRun=True):
     prj = SLiCAPproject(name)
     ini.lastUpdate = prj.lastUpdate
     if not os.path.exists(ini.projectPath + 'SLiCAPconfig.py'):
-        f = open(ini.installPath + 'SLiCAPconfig.py', 'r')
+        f = open(ini.installPath + '/SLiCAPconfig/SLiCAPconfig.py', 'r')
         txt = f.read()
         f.close()
         txt += '\n\n# Project information'

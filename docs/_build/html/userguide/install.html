@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -375,7 +375,9 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 31
 32
 33
-34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+34
+35
+36</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">SLiCAP module with user-defined path settings.</span>
@@ -396,7 +398,9 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <span class="sd">&gt;&gt;&gt; LTSPICE     = &#39;wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist&#39; # Command for netlist generation with LTspice</span>
 <span class="sd">&gt;&gt;&gt; NETLIST     = &#39;lepton-netlist -g spice-noqsi&#39; # Command for netlist generation with gschem or lepton-eda</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="n">VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.9.0&#39;</span>
 <span class="n">PROJECTPATH</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># Leave it for automatic detection</span>
+<span class="n">LIBCOREPATH</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;/home/anton/SLiCAP/lib&#39;</span>
 <span class="c1"># PATHS: relative to the project path</span>
 <span class="n">HTMLPATH</span>    <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
 <span class="n">CIRCUITPATH</span> <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
@@ -406,7 +410,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <span class="n">LATEXPATH</span>   <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
 <span class="n">MATHMLPATH</span>  <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
 <span class="n">IMGPATH</span>     <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
-<span class="n">MAXIMA</span>      <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">maxima-5.44.0</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">maxima.bat&#39;</span> <span class="c1"># Windows command for maxima</span>
+<span class="n">MAXIMA</span>      <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;maxima&#39;</span> <span class="c1"># Windows command for maxima</span>
 <span class="n">LTSPICE</span>     <span class="o">=</span> <span class="s1">&#39;wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist&#39;</span> <span class="c1"># Command for netlist generation with LTspice</span>
 <span class="n">NETLIST</span>     <span class="o">=</span> <span class="s1">&#39;lepton-netlist -g spice-noqsi&#39;</span> <span class="c1"># Command for netlist generation with gschem or lepton-eda</span>
 </pre></div>
@@ -416,7 +420,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <h3>SLiCAP configuration parameters<a class="headerlink" href="#slicap-configuration-parameters" title="Permalink to this headline">¶</a></h3>
 <p>The configuration parameters for SLiCAP are described in <a class="reference external" href="../reference/SLiCAPini.html#module-SLiCAPini">SLiCAPini.py</a>.</p>
 <p>To list the values of the SLiCAP configuration parameters enter:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -441,9 +445,9 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <p>The improved <strong>gnet-spice-noqsi</strong> spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with gschem and this netlister.</p>
 <p>The application of gschem as front-end for SLiCAP has been tested under Linux and under Windows.</p>
 <ul class="simple">
-<li><p>Under Linux you can install it with the package manager. Please visit <a class="reference external" href="http://www.geda-project.org">gEDA</a> for more information.</p></li>
-<li><p>A windows installer for gschem can be downloaded from: <a class="reference external" href="http://bibo.iqo.uni-hannover.de/dokuwiki/doku.php?id=english:geda_for_ms-windows">gEDA-20130122.zip</a>.</p></li>
-<li><p>The improved spice netlister can be downloaded from: <a class="reference external" href="https://github.com/noqsi/gnet-spice-noqsi/tree/geda-gaf">gnet-spice-noqsi</a>.</p></li>
+<li>Under Linux you can install it with the package manager. Please visit <a class="reference external" href="http://www.geda-project.org">gEDA</a> for more information.</li>
+<li>A windows installer for gschem can be downloaded from: <a class="reference external" href="http://bibo.iqo.uni-hannover.de/dokuwiki/doku.php?id=english:geda_for_ms-windows">gEDA-20130122.zip</a>.</li>
+<li>The improved spice netlister can be downloaded from: <a class="reference external" href="https://github.com/noqsi/gnet-spice-noqsi/tree/geda-gaf">gnet-spice-noqsi</a>.</li>
 </ul>
 <p><strong>Linux installation</strong></p>
 <p>Linux installation of gschem and the gnet-spice-noqsi is well documented and straightforward.</p>
@@ -479,7 +483,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <p>The schematic symbols, the netlister and configuration information are located in the lepton-eda/ subdirectory of the SLiCAP install path. The netlister can also be downloaded from &lt;<a class="reference external" href="https://github.com/noqsi/gnet-spice-noqsi">https://github.com/noqsi/gnet-spice-noqsi</a>&gt;`_.</p>
 <p>For compact node names (important for use in symbolic expressions) you need to reconfigure the default net name prefix.</p>
 <p>This is how it should be done under Ubuntu-based Linux systems:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo lepton-cli config --system <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">lepton</span><span class="o">-</span><span class="n">cli</span> <span class="n">config</span> <span class="o">--</span><span class="n">system</span> <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
 </div>

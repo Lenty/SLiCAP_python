@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,17 +27,17 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SLiCAP.py" href="SLiCAP.html" />
+    <link rel="next" title="SLiCAPnotebook.py" href="SLiCAPnotebook.html" />
     <link rel="prev" title="Schematic capture for SLiCAP" href="../syntax/schematics.html" /> 
 </head>
 
@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/SLiCAPuserguide.html">SLiCAP user guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SLiCAP reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPexecute.html">SLiCAPexecute.py</a></li>
@@ -105,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
@@ -179,62 +179,25 @@
 <h1>SLiCAP reference<a class="headerlink" href="#slicap-reference" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" style="width: 88px;" /></a>
 <p>SLiCAP is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. Based on a work at: <a class="reference external" href="http://www.analog-electronics.eu/slicap/slicap.html">http://www.analog-electronics.eu/slicap/slicap.html</a></p>
-<p>SLiCAP comprises the following modules:</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAP</span></code></p></td>
-<td><p>Spyder Editor</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPinstruction</span></code></p></td>
-<td><p>SLiCAP instruction class definition.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPexecute</span></code></p></td>
-<td><p>SLiCAP module with functions for execution of instructions.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPyacc</span></code></p></td>
-<td><p>SLiCAP netlist parser: functions for converting a netlist into a circuit object.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPhtml</span></code></p></td>
-<td><p>SLiCAP module with HTML functions.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPplots</span></code></p></td>
-<td><p>SLiCAP module with plot functions.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPpythonMaxima</span></code></p></td>
-<td><p>SLiCAP module with symbolic math functions executed by maxima CAS.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPmatrices</span></code></p></td>
-<td><p>SLiCAP module for building the MNA matrix and the associated vectors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPprotos</span></code></p></td>
-<td><p>SLiCAP module with basic SLiCAP classes and functions.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPmath</span></code></p></td>
-<td><p>SLiCAP module with extended matrix class and SLiCAP math functions.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPlex</span></code></p></td>
-<td><p>SLiCAP tokenizer for netlist files.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPini</span></code></p></td>
-<td><p>SLiCAP initialization module, imports external modules and defines settings.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SLiCAPconfig</span></code></p></td>
-<td><p>SLiCAP module with user-defined path settings.</p></td>
-</tr>
-</tbody>
-</table>
-<p>For operating SLiCAP from within Jupyter lab or Jupyter notebook the main module to be imported is:</p>
+<p>SLiCAP comprises the following (sub) modules:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPexecute.html">SLiCAPexecute.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPyacc.html">SLiCAPyacc.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPhtml.html">SLiCAPhtml.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPplots.html">SLiCAPplots.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPpythonMaxima.html">SLiCAPpythonMaxima.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPmatrices.html">SLiCAPmatrices.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPprotos.html">SLiCAPprotos.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
 </ul>
 </div>
-<p>This module imports the other modules listed on top of this page and defines variables and functions for
-displaying math, rst and .svg files in notebooks.</p>
 </div>
 
 
@@ -245,7 +208,7 @@ displaying math, rst and .svg files in notebooks.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="SLiCAP.html" class="btn btn-neutral float-right" title="SLiCAP.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="SLiCAPnotebook.html" class="btn btn-neutral float-right" title="SLiCAPnotebook.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../syntax/schematics.html" class="btn btn-neutral float-left" title="Schematic capture for SLiCAP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

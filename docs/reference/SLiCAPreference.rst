@@ -9,12 +9,11 @@ SLiCAP reference
 
 SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License <http://creativecommons.org/licenses/by-nc-nd/4.0/>`_. Based on a work at: `http://www.analog-electronics.eu/slicap/slicap.html <http://www.analog-electronics.eu/slicap/slicap.html>`_
 
-SLiCAP comprises the following modules:
+SLiCAP comprises the following (sub) modules:
 
-.. autosummary::
-   :nosignatures:
-   :toctree:
+.. toctree::
    
+   SLiCAPnotebook
    SLiCAP
    SLiCAPinstruction
    SLiCAPexecute
@@ -28,12 +27,3 @@ SLiCAP comprises the following modules:
    SLiCAPlex
    SLiCAPini
    SLiCAPconfig
-
-For operating SLiCAP from within Jupyter lab or Jupyter notebook the main module to be imported is:
-
-.. toctree::
-
-   SLiCAPnotebook
-
-This module imports the other modules listed on top of this page and defines variables and functions for 
-displaying math, rst and .svg files in notebooks.

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,415 +183,403 @@
 <p>Imported by the module <strong>SLiCAini.py</strong></p>
 <dl class="class">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings">
-<em class="property">class </em><code class="sig-name descname">settings</code><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">settings</code><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for global variables.</p>
 <p>The following globals are defined:</p>
 <ol class="arabic simple">
-<li><p>path settings</p>
-<ul class="simple">
-<li><p>installPath       : Directory with SLiCAP modules files</p></li>
-<li><p>projectPath       : Directory with SLiCAP project files</p></li>
-<li><p>htmlPath          : Directory with SLiCAP HTML output</p></li>
-<li><p>circuitPath       : Directory with SLiCAP project circuit files</p></li>
-<li><p>libraryPath       : Directory with SLiCAP user libraries</p></li>
-<li><p>txtPath           : Directory with text files for HTML output</p></li>
-<li><p>csvPath           : Directory with csv files for HTML tables</p></li>
-<li><p>latexPath         : Directory with csv files for HTML tables</p></li>
-<li><p>mathmlPath        : Directory fro mathML output</p></li>
-<li><p>imgPath           : Directory with images for HTML output</p></li>
+<li>path settings<ul>
+<li>installPath       : Directory with SLiCAP modules files</li>
+<li>projectPath       : Directory with SLiCAP project files</li>
+<li>htmlPath          : Directory with SLiCAP HTML output</li>
+<li>circuitPath       : Directory with SLiCAP project circuit files</li>
+<li>libraryPath       : Directory with SLiCAP user libraries</li>
+<li>txtPath           : Directory with text files for HTML output</li>
+<li>csvPath           : Directory with csv files for HTML tables</li>
+<li>latexPath         : Directory with csv files for HTML tables</li>
+<li>mathmlPath        : Directory fro mathML output</li>
+<li>imgPath           : Directory with images for HTML output</li>
 </ul>
 </li>
-<li><p>active HTML pages and active HTMLfile prefix</p>
-<ul class="simple">
-<li><p>htmlIndex         : Active HTML index page</p></li>
-<li><p>htmlPage          : Active HTML page</p></li>
-<li><p>htmlPrefix        : Active HTML prefix</p></li>
+<li>active HTML pages and active HTMLfile prefix<ul>
+<li>htmlIndex         : Active HTML index page</li>
+<li>htmlPage          : Active HTML page</li>
+<li>htmlPrefix        : Active HTML prefix</li>
 </ul>
 </li>
-<li><p>HTML labels and page names</p>
-<ul class="simple">
-<li><p>htmlLabels        : Dict with HTML labels:</p>
-<ul>
-<li><p>key   = labelName  : name of the label</p></li>
-<li><p>value = pageName   : page of the label</p></li>
+<li>HTML labels and page names<ul>
+<li>htmlLabels        : Dict with HTML labels:<ul>
+<li>key   = labelName  : name of the label</li>
+<li>value = pageName   : page of the label</li>
 </ul>
 </li>
-<li><p>htmlEqLabels      : Dict with HTML equation labels:</p>
-<ul>
-<li><p>key   = labelName  : name of the label</p></li>
-<li><p>value = pageName   : page of the label</p></li>
+<li>htmlEqLabels      : Dict with HTML equation labels:<ul>
+<li>key   = labelName  : name of the label</li>
+<li>value = pageName   : page of the label</li>
 </ul>
 </li>
-<li><p>htmlPages         : List with names of HTML pages</p></li>
+<li>htmlPages         : List with names of HTML pages</li>
 </ul>
 </li>
-<li><p>Math settings</p>
-<ul class="simple">
-<li><p>maxSolve:</p>
-<ul>
-<li><p>True  : use Maxima for solving equations</p></li>
-<li><p>False : use Sympy for solving equations</p></li>
+<li>Math settings<ul>
+<li>maxSolve:<ul>
+<li>True  : use Maxima for solving equations</li>
+<li>False : use Sympy for solving equations</li>
 </ul>
 </li>
-<li><p>stepFunction:</p>
-<ul>
-<li><p>True: use Sympy.lambify for parameter stepping</p></li>
-<li><p>False : substitute step parameters in matrix</p></li>
+<li>stepFunction:<ul>
+<li>True: use Sympy.lambify for parameter stepping</li>
+<li>False : substitute step parameters in matrix</li>
 </ul>
 </li>
-<li><p>Hz:</p>
-<ul>
-<li><p>True: frequency in Hz and phase in degrees</p></li>
-<li><p>False : frequency in radians/s and phase in radians</p></li>
+<li>Hz:<ul>
+<li>True: frequency in Hz and phase in degrees</li>
+<li>False : frequency in radians/s and phase in radians</li>
 </ul>
 </li>
-<li><p>Laplace           : Parameter used for Laplace variable</p></li>
-<li><p>frequency         : Parameter used for frequency variable</p></li>
-<li><p>maxRecSubst       : Maximum number of recursive substitutions</p></li>
-<li><p>simplify          : True: simplify transfer functions</p></li>
-<li><p>normalize: True: normalize transfer functions: lowest order  coefficient 
-of the Laplace variable will be normalized to unity.</p></li>
-<li><p>factor: : Try to write the numerator and denominator of expressions as 
-a product of factors.</p></li>
+<li>Laplace           : Parameter used for Laplace variable</li>
+<li>frequency         : Parameter used for frequency variable</li>
+<li>maxRecSubst       : Maximum number of recursive substitutions</li>
+<li>simplify          : True: simplify transfer functions</li>
+<li>normalize: True: normalize transfer functions: lowest order  coefficient
+of the Laplace variable will be normalized to unity.</li>
+<li>factor: : Try to write the numerator and denominator of expressions as
+a product of factors.</li>
 </ul>
 </li>
-<li><p>Display settings</p>
-<ul class="simple">
-<li><p>disp              : Number of digits for displaying floats on html pages</p></li>
-<li><p>mathml:</p>
-<ul>
-<li><p>True  : math in mathml in html pages</p></li>
-<li><p>False : math in latex in html pages and MathJaX cloud</p></li>
+<li>Display settings<ul>
+<li>disp              : Number of digits for displaying floats on html pages</li>
+<li>mathml:<ul>
+<li>True  : math in mathml in html pages</li>
+<li>False : math in latex in html pages and MathJaX cloud</li>
 </ul>
 </li>
-<li><p>language: language for error messages</p></li>
+<li>language: language for error messages</li>
 </ul>
 </li>
-<li><p>Plot settings</p>
-<ul class="simple">
-<li><p>figureAxisHeight  : Height of the axis in inches (72dpi), pole-zero 
-and polar plots are square and have their height set to their width.</p></li>
-<li><p>figureAxisWidth   : Width of an axis in inches (72dpi)</p></li>
-<li><p>defaultColors     : List with matplotlib color names for param. stepping</p></li>
-<li><p>gainColors        : dict with color names for gain types:</p>
-<ul>
-<li><p>key   = gainType</p></li>
-<li><p>value = matplotlib color name</p></li>
+<li>Plot settings<ul>
+<li>figureAxisHeight  : Height of the axis in inches (72dpi), pole-zero
+and polar plots are square and have their height set to their width.</li>
+<li>figureAxisWidth   : Width of an axis in inches (72dpi)</li>
+<li>defaultColors     : List with matplotlib color names for param. stepping</li>
+<li>gainColors        : dict with color names for gain types:<ul>
+<li>key   = gainType</li>
+<li>value = matplotlib color name</li>
 </ul>
 </li>
-<li><p>defaultMarkers    : list with matplotlib markers</p></li>
-<li><p>tableFileType     : file type for saving traces as tables</p></li>
-<li><p>figureFileType    : graphic file type for saving plots</p></li>
-<li><p>axisXscale        : default x-axis scale type</p></li>
-<li><p>axisYscale        : default y-axis scale type</p></li>
-<li><p>legendLoc         : default plot legend location</p></li>
-<li><p>plotFontSize      : default plot font size</p></li>
+<li>defaultMarkers    : list with matplotlib markers</li>
+<li>tableFileType     : file type for saving traces as tables</li>
+<li>figureFileType    : graphic file type for saving plots</li>
+<li>axisXscale        : default x-axis scale type</li>
+<li>axisYscale        : default y-axis scale type</li>
+<li>legendLoc         : default plot legend location</li>
+<li>plotFontSize      : default plot font size</li>
 </ul>
 </li>
-<li><p>Jupyter notebook settings</p>
-<ul class="simple">
-<li><p>notebook: True adapts HTML math return variables to markdown format 
-required by Jupyter notebook</p></li>
+<li>Jupyter notebook settings<ul>
+<li>notebook: True adapts HTML math return variables to markdown format
+required by Jupyter notebook</li>
 </ul>
 </li>
-<li><p>Netlister settings:</p>
-<ul class="simple">
-<li><p>ltspice : os command for batch netlist creation with LTspice</p></li>
-<li><p>netlist : os command for batch netlist creation with gschem or lepton-eda</p></li>
+<li>Netlister settings:<ul>
+<li>ltspice : os command for batch netlist creation with LTspice</li>
+<li>netlist : os command for batch netlist creation with gschem or lepton-eda</li>
 </ul>
 </li>
-<li><p>Maxima command setting (only required for MSWindows)</p>
-<ul class="simple">
-<li><p>maxima: command to start maxima under MSWindows</p></li>
+<li>Maxima command setting (only required for MSWindows)<ul>
+<li>maxima: command to start maxima under MSWindows</li>
 </ul>
 </li>
 </ol>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.Hz">
-<code class="sig-name descname">Hz</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.Hz" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Hz</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.Hz" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
 <ul class="simple">
-<li><p>True: frequency in Hz and phase in degrees</p></li>
-<li><p>False : frequency in radians/s and phase in radians</p></li>
+<li>True: frequency in Hz and phase in degrees</li>
+<li>False : frequency in radians/s and phase in radians</li>
 </ul>
 <p>Defaults to True</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.Laplace">
-<code class="sig-name descname">Laplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.Laplace" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Laplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.Laplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Symbol (<em>sympy.Symbol</em>) used for the Laplace variable.
 Defaults to sp.Symbol(‘s’).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.MaximaTimeOut">
-<code class="sig-name descname">MaximaTimeOut</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.MaximaTimeOut" title="Permalink to this definition">¶</a></dt>
+<code class="descname">MaximaTimeOut</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.MaximaTimeOut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum time in seconds (<em>int</em>) for subprocess to run Maxima. Defaults
 to 5.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.axisXscale">
-<code class="sig-name descname">axisXscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.axisXscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default x axis type (<em>str</em>) for plots. Can be ‘lin’ or ‘log’. 
+<code class="descname">axisXscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.axisXscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default x axis type (<em>str</em>) for plots. Can be ‘lin’ or ‘log’.
 Defaults to ‘lin’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.axisYscale">
-<code class="sig-name descname">axisYscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.axisYscale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default y axis type (<em>str</em>) for plots.  Can be ‘lin’ or ‘log’. 
+<code class="descname">axisYscale</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.axisYscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default y axis type (<em>str</em>) for plots.  Can be ‘lin’ or ‘log’.
 Defaults to ‘lin’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.circuitPath">
-<code class="sig-name descname">circuitPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.circuitPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">circuitPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.circuitPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>) to circuit files, will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.csvPath">
-<code class="sig-name descname">csvPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.csvPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">csvPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.csvPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>) to .csv files, will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.defaultColors">
-<code class="sig-name descname">defaultColors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.defaultColors" title="Permalink to this definition">¶</a></dt>
+<code class="descname">defaultColors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.defaultColors" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>tuple</em>) with matplotlib color names (<em>str</em>) for traces in plots.
 Defaults to (‘r’,’b’,’g’,’c’,’m’,’y’,’k’)</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.defaultLib">
+<code class="descname">defaultLib</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.defaultLib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default library path of SLiCAP (<em>str</em>), defaults to None.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.defaultMarkers">
-<code class="sig-name descname">defaultMarkers</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.defaultMarkers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">defaultMarkers</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.defaultMarkers" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with matplotlib names of markers used for traces in plots.
 Defaults to: [‘’].</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.disp">
-<code class="sig-name descname">disp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.disp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">disp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.disp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of digits ()*int* for displaying floats on html pages.
 Defaults to 4.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.dump">
-<code class="sig-name descname">dump</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.dump" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dump</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the global variables and their values.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.factor">
-<code class="sig-name descname">factor</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.factor" title="Permalink to this definition">¶</a></dt>
+<code class="descname">factor</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>) setting for factorization of rational functions.</p>
 <ul class="simple">
-<li><p>True  : factorization</p></li>
-<li><p>False : no factorization</p></li>
+<li>True  : factorization</li>
+<li>False : no factorization</li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.figureAxisHeight">
-<code class="sig-name descname">figureAxisHeight</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.figureAxisHeight" title="Permalink to this definition">¶</a></dt>
+<code class="descname">figureAxisHeight</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.figureAxisHeight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Height in inches (<em>int, float</em>) of an axis system in a figure.
 Defaults to 5.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.figureAxisWidth">
-<code class="sig-name descname">figureAxisWidth</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.figureAxisWidth" title="Permalink to this definition">¶</a></dt>
+<code class="descname">figureAxisWidth</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.figureAxisWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Width in inches (<em>int, float</em>) of an axis system in a figure.
 Defaults to 7.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.figureFileType">
-<code class="sig-name descname">figureFileType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.figureFileType" title="Permalink to this definition">¶</a></dt>
+<code class="descname">figureFileType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.figureFileType" title="Permalink to this definition">¶</a></dt>
 <dd><p>File type (<em>str</em>) for saving plots. Defaults to ‘svg’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.frequency">
-<code class="sig-name descname">frequency</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.frequency" title="Permalink to this definition">¶</a></dt>
+<code class="descname">frequency</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Symbol (<em>sympy.Symbol</em>) used for frequency.
 Defaults to sp.Symbol(‘f’).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.gainColors">
-<code class="sig-name descname">gainColors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.gainColors" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gainColors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.gainColors" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs for the color of traces for different
 gain types:</p>
 <ul class="simple">
-<li><p>key: gain type: (<em>str</em>)</p></li>
-<li><p>value: matplotlib color name (<em>str</em>) for traces in plots.</p></li>
+<li>key: gain type: (<em>str</em>)</li>
+<li>value: matplotlib color name (<em>str</em>) for traces in plots.</li>
 </ul>
-<p>Defaults to: {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’, 
+<p>Defaults to: {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’,
 ‘direct’: ‘g’, ‘servo’: ‘m’, ‘vi’: ‘c’}</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlIndex">
-<code class="sig-name descname">htmlIndex</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlIndex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of the active html index file. 
+<code class="descname">htmlIndex</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name (<em>str</em>) of the active html index file.
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlLabels">
-<code class="sig-name descname">htmlLabels</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlLabels" title="Permalink to this definition">¶</a></dt>
+<code class="descname">htmlLabels</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlLabels" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li><p>key: label name (<em>str</em>)</p></li>
-<li><p>value” label object (<em>SLiCAPhtml.label</em>)</p></li>
+<li>key: label name (<em>str</em>)</li>
+<li>value” label object (<em>SLiCAPhtml.label</em>)</li>
 </ul>
 <p>Defaults to: None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPage">
-<code class="sig-name descname">htmlPage</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of the active html file. 
+<code class="descname">htmlPage</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name (<em>str</em>) of the active html file.
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPages">
-<code class="sig-name descname">htmlPages</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPages" title="Permalink to this definition">¶</a></dt>
+<code class="descname">htmlPages</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPages" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names of html pages generated in the project.
 Defaults to: None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPath">
-<code class="sig-name descname">htmlPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">htmlPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>HTML path (<em>str</em>), will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPrefix">
-<code class="sig-name descname">htmlPrefix</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPrefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name (<em>str</em>) of athe ctive html prefix (first part of the file name). 
+<code class="descname">htmlPrefix</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.htmlPrefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name (<em>str</em>) of athe ctive html prefix (first part of the file name).
 Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.imgPath">
-<code class="sig-name descname">imgPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.imgPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">imgPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.imgPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>), to image files will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.installPath">
-<code class="sig-name descname">installPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.installPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">installPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.installPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Installation path of SLiCAP (<em>str</em>), defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate">
-<code class="sig-name descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project 
+<code class="descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project
 update. This is set by <strong>SLiCAP.initProject()</strong>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.latexPath">
-<code class="sig-name descname">latexPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.latexPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">latexPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.latexPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>) for saving latex files, will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.legendLoc">
-<code class="sig-name descname">legendLoc</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.legendLoc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default legend position (<em>str</em>) in plots. Cab be: ‘upper left’, 
-‘upper right’, ‘lower left’, ‘lower right’, ‘upper center’, ‘lower center’, 
+<code class="descname">legendLoc</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.legendLoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default legend position (<em>str</em>) in plots. Cab be: ‘upper left’,
+‘upper right’, ‘lower left’, ‘lower right’, ‘upper center’, ‘lower center’,
 ‘center left’, ‘center right’, ‘center’ or ‘best’.</p>
 <p>Defaults to ‘best’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.libraryPath">
-<code class="sig-name descname">libraryPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.libraryPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">libraryPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.libraryPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>) to library files, will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.ltspice">
-<code class="sig-name descname">ltspice</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.ltspice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operating system command prefix for batch generation of a netlist from an 
+<code class="descname">ltspice</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.ltspice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operating system command prefix for batch generation of a netlist from an
 LTspice circuit.</p>
 <p>Defaults to <em>SLiCAPconfig.LTSPICE</em></p>
 <ul class="simple">
-<li><p>Windows: ‘C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</p></li>
-<li><p>Linux (Wine): ‘wine ~/.wine/drive_c/ProgramFiles/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</p></li>
+<li>Windows: ‘C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
+<li>Linux (Wine): ‘wine ~/.wine/drive_c/ProgramFiles/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
 </ul>
 <p>This prefix will be followed by the name of the schematic file.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.mathml">
-<code class="sig-name descname">mathml</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.mathml" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mathml</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.mathml" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>) setting for rendering math in html pages.</p>
 <ul class="simple">
-<li><p>True  : math in mathml in html pages</p></li>
-<li><p>False : math in latex in html pages and MathJaX cloud</p></li>
+<li>True  : math in mathml in html pages</li>
+<li>False : math in latex in html pages and MathJaX cloud</li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.mathmlPath">
-<code class="sig-name descname">mathmlPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.mathmlPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mathmlPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.mathmlPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>) for saving mathml files, will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.maxRecSubst">
-<code class="sig-name descname">maxRecSubst</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxRecSubst" title="Permalink to this definition">¶</a></dt>
+<code class="descname">maxRecSubst</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxRecSubst" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum number (<em>int</em>) of recursive substitutions in equations.
 Defaults to 10.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.maxSolve">
-<code class="sig-name descname">maxSolve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxSolve" title="Permalink to this definition">¶</a></dt>
+<code class="descname">maxSolve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
 <ul class="simple">
-<li><p>True: use Maxima CAS for solving matrix equations</p></li>
-<li><p>False : use Sympy for solving matrix equations</p></li>
+<li>True: use Maxima CAS for solving matrix equations</li>
+<li>False : use Sympy for solving matrix equations</li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.maxima">
-<code class="sig-name descname">maxima</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxima" title="Permalink to this definition">¶</a></dt>
+<code class="descname">maxima</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxima" title="Permalink to this definition">¶</a></dt>
 <dd><p>MSWindows command for starting Maxima.</p>
 <p>Defaults to <em>SLiCAPconfig.MAXIMA</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.netlist">
-<code class="sig-name descname">netlist</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.netlist" title="Permalink to this definition">¶</a></dt>
+<code class="descname">netlist</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.netlist" title="Permalink to this definition">¶</a></dt>
 <dd><p>gschem or lepton-schematic command for generating a netlist.</p>
 <p>Defaults to <em>SLiCAPconfig.NETLIST</em></p>
 <p>For lepton-schematic use ‘lepton-netlist -g spice-noqsi’.</p>
 <p>For gschem (deprecated) use: ‘gnetlist -q -g spice-noqsi’.</p>
-<p>The netlister: <em>gnet-spice-noqsi.scm</em> must be stored in the gschem or 
-lepton-geda directory with the other netlisters. Commonly used 
+<p>The netlister: <em>gnet-spice-noqsi.scm</em> must be stored in the gschem or
+lepton-geda directory with the other netlisters. Commonly used
 locations are:</p>
 <ul class="simple">
-<li><p>Linux systems:</p>
-<ul>
-<li><p><em>lepton-eda:</em> /usr/share/lepton-eda/scheme/backend/</p></li>
-<li><p><em>gschem:</em> /usr/share/gEDA/scheme/</p></li>
+<li>Linux systems:<ul>
+<li><em>lepton-eda:</em> /usr/share/lepton-eda/scheme/backend/</li>
+<li><em>gschem:</em> /usr/share/gEDA/scheme/</li>
 </ul>
 </li>
-<li><p>MS Windows systems:</p>
-<ul>
-<li><p><em>gschem</em>:  ‘C:Program Files (x86)gEDAgEDAsharegEDAscheme’</p></li>
+<li>MS Windows systems:<ul>
+<li><em>gschem</em>:  ‘C:Program Files (x86)gEDAgEDAsharegEDAscheme’</li>
 </ul>
 </li>
 </ul>
@@ -599,80 +587,83 @@ locations are:</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.normalize">
-<code class="sig-name descname">normalize</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.normalize" title="Permalink to this definition">¶</a></dt>
+<code class="descname">normalize</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>) setting for normalization of rational functions.</p>
 <ul class="simple">
-<li><p>True  : normalization</p></li>
-<li><p>False : no normalization</p></li>
+<li>True  : normalization</li>
+<li>False : no normalization</li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.notebook">
-<code class="sig-name descname">notebook</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.notebook" title="Permalink to this definition">¶</a></dt>
+<code class="descname">notebook</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
 <ul class="simple">
-<li><p>True: Places html math output between double dollar signs for correct 
-rendering of latex in Jupyter notebooks.</p></li>
+<li>True: Places html math output between double dollar signs for correct
+rendering of latex in Jupyter notebooks.</li>
 </ul>
 <p>Defaults to False.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.plotFontSize">
-<code class="sig-name descname">plotFontSize</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.plotFontSize" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plotFontSize</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.plotFontSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value (<em>int</em>) for the font size in plots in points. Defaults to 12.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath">
-<code class="sig-name descname">projectPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">projectPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Project path (<em>str</em>), will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.simplify">
-<code class="sig-name descname">simplify</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.simplify" title="Permalink to this definition">¶</a></dt>
+<code class="descname">simplify</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.simplify" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>) setting for simplification of expressions.</p>
 <ul class="simple">
-<li><p>True  : simplification</p></li>
-<li><p>False : no simplification</p></li>
+<li>True  : simplification</li>
+<li>False : no simplification</li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.stepFunction">
-<code class="sig-name descname">stepFunction</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.stepFunction" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stepFunction</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.stepFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>True: use Sympy.lambify for parameter stepping</p></li>
-<li><p>False : substitute step parameters in matrix</p></li>
+<li>True: use Sympy.lambify for parameter stepping</li>
+<li>False : substitute step parameters in matrix</li>
 </ul>
 </div></blockquote>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType">
-<code class="sig-name descname">tableFileType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tableFileType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType" title="Permalink to this definition">¶</a></dt>
 <dd><p>File type (<em>str</em>) for csv files. Defaults to ‘csv’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.txtPath">
-<code class="sig-name descname">txtPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.txtPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">txtPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.txtPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path (<em>str</em>) to text files, will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.updatePaths">
-<code class="sig-name descname">updatePaths</code><span class="sig-paren">(</span><em class="sig-param">projectPath</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.updatePaths" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updatePaths</code><span class="sig-paren">(</span><em>projectPath</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.updatePaths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the file locations according to the project path.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>projectPath</strong> (<em>str</em>) – Path to the active SLiCAP project.</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>projectPath</strong> (<em>str</em>) – Path to the active SLiCAP project.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

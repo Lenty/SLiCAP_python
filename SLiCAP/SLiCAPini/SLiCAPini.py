@@ -5,12 +5,8 @@ SLiCAP initialization module, imports external modules and defines settings.
 
 Imported by the module **SLiCAini.py**
 """
-try:
-    from SLiCAPconfig import *
-except ImportError:
-    print("Loading generic SLiCAPconfig file, this may cause errors.")
-    from SLiCAP.SLiCAPconfig import *
 
+from SLiCAP.SLiCAPconfig import *
 import docutils.core
 import docutils.writers.html5_polyglot
 import numpy as np
@@ -29,6 +25,7 @@ import getpass
 import inspect
 import matplotlib._pylab_helpers as plotHelp
 import matplotlib.pyplot as plt
+import webbrowser
 plt.ioff() # Turn off the interactive mode for plotting
 
 class settings(object):
@@ -47,8 +44,10 @@ class settings(object):
        - txtPath           : Directory with text files for HTML output
        - csvPath           : Directory with csv files for HTML tables
        - latexPath         : Directory with csv files for HTML tables
-       - mathmlPath        : Directory fro mathML output
+       - mathmlPath        : Directory for mathML output
        - imgPath           : Directory with images for HTML output
+       - defaultLib        : Directory with SLiCAP basic library files
+       - docPath           : Directory with html documentation
 
     #. active HTML pages and active HTMLfile prefix
 
@@ -151,6 +150,11 @@ class settings(object):
         self.defaultLib         = None
         """
         Default library path of SLiCAP (*str*), defaults to None.
+        """
+        
+        self.docPath            = None
+        """
+        Path with HTML documentation (*str*), defaults to None.
         """
         
         self.projectPath        = None
@@ -506,6 +510,7 @@ class settings(object):
         self.maxima           = MAXIMA
         self.ltspice          = LTSPICE
         self.netlist          = NETLIST
+        self.docPath          = DOCPATH
 
 ini = settings()
 
@@ -514,7 +519,7 @@ ini = settings()
 # Get the installation path
 # ini.installPath  = '/'.join(os.path.realpath(__file__).split('/')[0:-1]) + '/'
 ini.installPath = inspect.getfile(settings).replace('\\', '/').split('/')
-ini.installPath = '/'.join(ini.installPath[0:-1]) + '/'
+ini.installPath = '/'.join(ini.installPath[0:-2]) + '/'
 # Copy path settings from user configuration.
 if PROJECTPATH == None:
     # Get the project path (the path of the script that imported SLiCAP.ini)
@@ -522,5 +527,12 @@ if PROJECTPATH == None:
 
 ini.updatePaths(PROJECTPATH)
 
+def Help():
+    """
+    """
+    webbrowser.open_new(ini.docPath + '/index.html')
+    return
+
 if __name__ == '__main__':
     ini.dump()
+    Help()
