@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/SLiCAPuserguide.html">SLiCAP user guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="SLiCAPreference.html">SLiCAP reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAP.html">SLiCAP.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPinstruction.html">SLiCAPinstruction.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPexecute.html">SLiCAPexecute.py</a></li>
@@ -105,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAPini.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
@@ -181,6 +181,11 @@
 <span id="slicapini-py"></span><h1>SLiCAPini.py<a class="headerlink" href="#module-SLiCAP.SLiCAPini.SLiCAPini" title="Permalink to this headline">¶</a></h1>
 <p>SLiCAP initialization module, imports external modules and defines settings.</p>
 <p>Imported by the module <strong>SLiCAini.py</strong></p>
+<dl class="function">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.Help">
+<code class="descname">Help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.Help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="class">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings">
 <em class="property">class </em><code class="descname">settings</code><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings" title="Permalink to this definition">¶</a></dt>
@@ -196,8 +201,10 @@
 <li>txtPath           : Directory with text files for HTML output</li>
 <li>csvPath           : Directory with csv files for HTML tables</li>
 <li>latexPath         : Directory with csv files for HTML tables</li>
-<li>mathmlPath        : Directory fro mathML output</li>
+<li>mathmlPath        : Directory for mathML output</li>
 <li>imgPath           : Directory with images for HTML output</li>
+<li>defaultLib        : Directory with SLiCAP basic library files</li>
+<li>docPath           : Directory with html documentation</li>
 </ul>
 </li>
 <li>active HTML pages and active HTMLfile prefix<ul>
@@ -366,6 +373,12 @@ Defaults to: [‘’].</p>
 <code class="descname">disp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.disp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of digits ()*int* for displaying floats on html pages.
 Defaults to 4.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.docPath">
+<code class="descname">docPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.docPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path with HTML documentation (<em>str</em>), defaults to None.</p>
 </dd></dl>
 
 <dl class="method">

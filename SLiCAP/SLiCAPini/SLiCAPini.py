@@ -529,6 +529,7 @@ ini.updatePaths(PROJECTPATH)
 
 def Help():
     """
+    Opens the HTML documentation in the default browser.
     """
     webbrowser.open_new(ini.docPath + '/index.html')
     return
