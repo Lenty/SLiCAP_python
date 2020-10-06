@@ -14,7 +14,7 @@ before_install:
   - pip install -r requirements.txt
   - pip install codecov
 install:
-  - pip install ".[test]" . < .travis_install.txt # install package + test dependencies
+  - python setup.py install --user < .travis_install.txt
 script: pytest # run tests
 after_success:
   - codecov # submit coverage
