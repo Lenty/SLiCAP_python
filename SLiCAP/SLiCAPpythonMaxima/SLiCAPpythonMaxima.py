@@ -49,11 +49,11 @@ def maxEval(maxExpr):
     if platform.system() == 'Windows':
         # result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
         result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
-        result = [i for i in result if i] # Added due to variability of trailing '\n'
-        result = result[-1]
-    else:    
-        result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
+    else:
+        result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
     # Convert the result such that it can be 'sympified' by sympy
+    result = [i for i in result if i] # Added due to variability of trailing '\n'
+    result = result[-1]
     if result != '':
         # Convert big float notation '12345b+123' to float notation '12345e+123':
         result = re.sub(r'(([+-]?)(\d+)(\.?)(\d*))b(([+-]?)(\d+))', r'\1e\6', result)
@@ -322,7 +322,7 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     """
     Returns the numerator of the squared transfer from a source to the detector
     in Sympy format, with the Laplace variable replaced with
-    '2*%pi*%i*ini.frequency' or with 0, for noise or for dcVar calculations, 
+    '2*%pi*%i*ini.frequency' or with 0, for noise or for dcVar calculations,
     respectively.
 
     :param cir: Circuit object
@@ -490,28 +490,28 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     Both transfer and prototype should be Laplace rational functions.
     Their numerators should be polynomials of the Laplace variable of equal
     order and their denominators should be polynomials of the Laplace variable
-    of equal order.    
+    of equal order.
     :note: if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.
     :param protoType: Prototype rational expression of the Laplace variable
     :type protoType: sympy.Expr
     :param transfer:
-        
+
     Transfer fucntion of which the parameters need to be
     solved. The numerator and the denominator of this rational
     expression should be of the same order as those of the
     prototype.
-                     
-    :type transfer: sympy.Expr    
-    
-    :param noSolve: List with variables (*str, sympy.Symbol*) that do not need 
-                    to be solved. These parameters will remain symbolic in the 
+
+    :type transfer: sympy.Expr
+
+    :param noSolve: List with variables (*str, sympy.Symbol*) that do not need
+                    to be solved. These parameters will remain symbolic in the
                     solutions.
-                    
+
     :type noSolve: list
 
     :param numeric: True will force Maxima to use (big) floats for numeric
                     values.
-                    
+
     :type numeric: bool
 
     :return: Dictionary with key-value pairs:
