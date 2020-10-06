@@ -147,7 +147,12 @@ class settings(object):
         """
         Installation path of SLiCAP (*str*), defaults to None.
         """
-
+        
+        self.defaultLib         = None
+        """
+        Default library path of SLiCAP (*str*), defaults to None.
+        """
+        
         self.projectPath        = None
         """
         Project path (*str*), will be set by **SLiCAP.initProject()**;  defaults to None.
@@ -488,6 +493,7 @@ class settings(object):
         :param projectPath: Path to the active SLiCAP project.
         :type projectPath: str
         """
+        self.defaultLib       = LIBCOREPATH
         self.projectPath      = projectPath
         self.htmlPath         = projectPath + HTMLPATH
         self.circuitPath      = projectPath + CIRCUITPATH
