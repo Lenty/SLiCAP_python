@@ -4,6 +4,7 @@
 SLiCAP module with user-defined path settings.
 """
 PROJECTPATH = None      # Leave it for automatic detection
+LIBCOREPATH = r'C:\Users\luc_e\SLiCAP\lib'
 # PATHS: relative to the project path
 HTMLPATH    = 'html/'   # path for html output
 CIRCUITPATH = 'cir/'    # path for .asc, .net, .cir, .sch files
@@ -14,11 +15,12 @@ LATEXPATH   = 'tex/'    # path for LaTeX output saveTeX()
 MATHMLPATH  = 'mathml/' # path for mathML output saveMathML()
 IMGPATH     = 'img/'    # path for image files
 MAXIMA      = 'C:\\maxima-5.42.2\\bin\\maxima.bat' # Windows command for maxima
-LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '  
+LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist' # Command for netlist generation with LTspice
 NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation with gschem or lepton-eda
+
 
 # Project information
 PROJECT    = 'CS stage noise with resistive source'
-AUTHOR     = 'Anton'
-CREATED    = '2020-09-10 10:37:37.925548'
-LASTUPDATE = '2020-10-06 13:59:03.724829'
+AUTHOR     = 'luc_e'
+CREATED    = '2020-10-03 14:15:23.721052'
+LASTUPDATE = '2020-10-05 18:58:34.800328'
