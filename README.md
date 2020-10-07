@@ -40,9 +40,9 @@ To set up SLiCAP, the following components are required:
 - A Python 3 install -  Dependencies of packages is found in requirements.txt
 - Maxima CAS
 - SLiCAP can generate netlists from schematics made with:
-  -LTspice
-  -gschem
-  -lepton-eda
+  - LTspice
+  - gschem
+  - lepton-eda
 
 SLiCAP can be installed by running 'python setup.py install' or 'python setup.py install --user'. 
 
