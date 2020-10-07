@@ -32,7 +32,7 @@
 - Symbolic and numeric derivation and solution of design equations for bandwidh, frequency response, noise performance, dc variance and temperature stability
 
 ## Technology
-- Python, Maxima CAS, HTML, CSS, LaTeX, MathJax, Jupyther Lab
+- Python, Maxima CAS, HTML, CSS, LaTeX, MathJax, Jupyter Lab
 
 
 ## Setting up SLiCAP
