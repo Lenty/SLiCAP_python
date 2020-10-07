@@ -68,8 +68,6 @@ class InstallWrapper(install):
                         print("Entered path does not seem to exist, make sure you entered the path correctly")
                 try:
                     result = subprocess.run([self._maxima_cmd, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
-                    result = [i for i in result if i] # Added due to variability of trailing '\n'
-                    result = result[-1]
 
                 except:
                     print("Not able to succesfully execute the maxima command, please make sure the full path points to 'maxima.bat'")
