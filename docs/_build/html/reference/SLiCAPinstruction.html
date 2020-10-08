@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPsetting.html">SLiCAPini.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
 </ul>
 </li>
@@ -183,22 +184,18 @@
 <p>Imported by the module <strong>SLiCAP.py</strong>.</p>
 <dl class="class">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction">
-<em class="property">class </em><code class="descname">instruction</code><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">instruction</code><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype Instruction object.</p>
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.check">
-<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.check" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks the completeness and consistancy of the instruction data.
 Will be called by <strong>instruction.execute()</strong>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -209,35 +206,35 @@ Will be called by <strong>instruction.execute()</strong>.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkCircuit">
-<code class="descname">checkCircuit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkCircuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkCircuit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the circuit for this instruction is a <code class="xref py py-class docutils literal notranslate"><span class="pre">SLiCAPprotos.circuit()</span></code> object.</p>
 <p>Called by <strong>instruction.execute()</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDataType">
-<code class="descname">checkDataType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDataType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkDataType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the data type is defined correctly.”</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>setDataType(&lt;dataType&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDetector">
-<code class="descname">checkDetector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDetector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkDetector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDetector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the detector has been defined and if it exists in the circuit.</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>instruction.setDetector(&lt;detector&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkGainType">
-<code class="descname">checkGainType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkGainType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkGainType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkGainType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the gain type is defined correctly.”</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>setGainType(&lt;gainType&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkLGref">
-<code class="descname">checkLGref</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkLGref" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkLGref</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkLGref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the loop gain reference has been defined and if it exists in
 the circuit.</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>instruction.setLGref(&lt;lgRef&gt;)</strong>.</p>
@@ -245,7 +242,7 @@ the circuit.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkNumeric">
-<code class="descname">checkNumeric</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkNumeric" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkNumeric</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkNumeric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the simulation type is set to ‘numeric’. This is required for
 pole-zero analysis.</p>
 <p>Called by <strong>instruction.check()</strong> in cases in which a numeric
@@ -254,32 +251,29 @@ simulation is required.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkSimType">
-<code class="descname">checkSimType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkSimType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkSimType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkSimType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the simulation type is defined correctly.”</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>setSimType(&lt;simType&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkSource">
-<code class="descname">checkSource</code><span class="sig-paren">(</span><em>need=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkSource" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkSource</code><span class="sig-paren">(</span><em class="sig-param">need=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the source has been defined and if it exists in the circuit.</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>instruction.setSource(&lt;source&gt;)</strong>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>need</strong> (<em>bool</em>) – If True, a source is required and an error message will be
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>need</strong> (<em>bool</em>) – If True, a source is required and an error message will be
 given if it missing. If False, only the presence of the
 indicated independent source in the circuit will be
-verified.</td>
-</tr>
-</tbody>
-</table>
+verified.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStep">
-<code class="descname">checkStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStep" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStep" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method will check the completeness and the consistency of the
 instruction data for parameter stepping, before executing the
 instruction.</p>
@@ -289,7 +283,7 @@ instruction.step == True</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepArray">
-<code class="descname">checkStepArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepArray" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the array with step values is defined properly.</p>
 <p>Called by <strong>instruction.checkStep()</strong> and by <strong>instruction.setStepArray(&lt;stepArray&gt;)</strong>.</p>
 <p>The step array is a list of lists. The number of lists must equal the
@@ -300,21 +294,21 @@ lengths.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepList">
-<code class="descname">checkStepList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepList" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the list with step values is defined properly.</p>
 <p>Called by <strong>instruction.checkStep()</strong> and by <strong>instruction.setStepList(&lt;stepList&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepMethod">
-<code class="descname">checkStepMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepMethod" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the step method is defined correctly.</p>
 <p>Called by <strong>instruction.checkStep</strong> and by <strong>instruction.setStepVMethod(&lt;stepMethod&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepNum">
-<code class="descname">checkStepNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepNum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepNum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the number of steps is defined properly.</p>
 <p>Called by :<strong>instruction.checkStep()</strong> and by <strong>instruction.setStepNum(&lt;stepNum&gt;)</strong>.</p>
 <p>Also called by and by <strong>instruction.setStepNum(&lt;stepNum&gt;)</strong>.</p>
@@ -322,47 +316,43 @@ lengths.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepStart">
-<code class="descname">checkStepStart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepStart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepStart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepStart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the start value for parameter stepping is defined correctly.</p>
 <p>Called by <strong>instruction.checkStep()</strong> and by <strong>instruction.stepStart(&lt;stepStart&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepStop">
-<code class="descname">checkStepStop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepStop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepStop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepStop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the end value for parameter steping is defined correctly.</p>
 <p>Called by <strong>instruction.checkStep()</strong> and by <strong>instruction.stepStop(&lt;stepStop&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepVar">
-<code class="descname">checkStepVar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepVar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepVar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepVar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the step variable is defined correctly.</p>
 <p>Called by <strong>instruction.checkStep()</strong> and by <strong>setStepVar(&lt;stepVar&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepVars">
-<code class="descname">checkStepVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkStepVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkStepVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the step variables for array stepping are defined correctly.</p>
 <p>Called by <strong>instruction.checkStep</strong> and by <strong>instruction.setStepVars(&lt;stepVars&gt;)</strong>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.circuit">
-<code class="descname">circuit</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.circuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">circuit</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Circuit (<em>SLiCAPprotos.circuit</em>) used for this instruction. Can be
 assigned by setting this attribute, or will be defined by running:
 instruction.setCircuit(&lt;fileName&gt;).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of a circuit object by checking a netlist:</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of a circuit object by checking a netlist:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;my_circuit.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of an instruction object:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
@@ -370,15 +360,11 @@ instruction.setCircuit(&lt;fileName&gt;).</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">my_circuit</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -389,22 +375,20 @@ instruction.setCircuit(&lt;fileName&gt;).</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.controlled">
-<code class="descname">controlled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.controlled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">controlled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.controlled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list with names of controlled sources in <strong>instruction.circuit</strong>
 that can be used as loop gain reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list with names of controlled sources in <strong>instruction.circuit</strong></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list with names of controlled sources in <strong>instruction.circuit</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -417,32 +401,28 @@ that can be used as loop gain reference.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.dataType">
-<code class="descname">dataType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.dataType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dataType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.dataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation data type.</p>
 <p>See <strong>instruction.setDataType(&lt;dataType&gt;)</strong> for specification of <em>instruction.dataType</em>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.defPar">
-<code class="descname">defPar</code><span class="sig-paren">(</span><em>parName</em>, <em>parValue</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.defPar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">defPar</code><span class="sig-paren">(</span><em class="sig-param">parName</em>, <em class="sig-param">parValue</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.defPar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds or modifies a parameter definition and updates the list
 <strong>instruction.circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined
 parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em>) – Name of the parameter.</li>
-<li><strong>parValue</strong> – Value or expression.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em>) – Name of the parameter.</p></li>
+<li><p><strong>parValue</strong> – Value or expression.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -456,24 +436,21 @@ parameters.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.defPars">
-<code class="descname">defPars</code><span class="sig-paren">(</span><em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.defPars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">defPars</code><span class="sig-paren">(</span><em class="sig-param">parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.defPars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds or modifies multiple parameter definitions and updates the list
 <strong>instruction.circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined
 parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Params parDict:</th><td class="field-body">Dictionary with key-value pairs:
+<dl class="field-list simple">
+<dt class="field-odd">Params parDict</dt>
+<dd class="field-odd"><p>Dictionary with key-value pairs:
 key: parName (<em>str, sympy.Symbol</em>): name of the parameter.
 value: parValue (<em>str, float, int, sp.Symbol</em>) : value
-or expression of the parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+or expression of the parameter.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -485,22 +462,19 @@ or expression of the parameter.</td>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.delPar">
-<code class="descname">delPar</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.delPar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delPar</code><span class="sig-paren">(</span><em class="sig-param">parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.delPar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a parameter definition</p>
 <p>After deletion of the parameter from the instruction.circuit.parDefs
 dictionary the list <strong>instruction.circuit.params</strong> with
 names (<em>sympy.Symbol</em>) of undefined parameters is updated.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -514,22 +488,20 @@ names (<em>sympy.Symbol</em>) of undefined parameters is updated.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.depVars">
-<code class="descname">depVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.depVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">depVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.depVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list with names of nodal voltages and branch currents that can
 be used as detector.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list with names of nodal voltages and branch currents</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list with names of nodal voltages and branch currents</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -542,36 +514,32 @@ be used as detector.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detLabel">
-<code class="descname">detLabel</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detLabel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detLabel</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name for the detector quantity to be used in expressions or plots
 (automatically determined in <strong>instruction.chekDetector()</strong>).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detUnits">
-<code class="descname">detUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detUnits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detUnits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detector units ‘V’ or ‘A’ (automatically detected in <strong>instruction.chekDetector()</strong>).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detector">
-<code class="descname">detector</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detector</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Names of the positive and negative detector.</p>
 <p>See <strong>instruction.setDetector(&lt;detector&gt;)</strong> for specification of the detector.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.errors">
-<code class="descname">errors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.errors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">errors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of errors found in the definition of this instruction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>The instruction.errors attribute should not be modified
 directly by the user. It is determined automatically when executing
 the instruction.</p>
@@ -579,21 +547,19 @@ the instruction.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.execute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks the instruction and executes it if no errors are found.</p>
 <p>if no errors are found it returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">allResults</span></code> object with the
 results of the instruction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">allResults object with results of the execution</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>allResults object with results of the execution</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -615,54 +581,50 @@ results of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType">
-<code class="descname">gainType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gainType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation gain type.</p>
 <p>See <strong>instruction.setGainType(&lt;gainType&gt;)</strong> for specification of <em>instruction.gainType</em>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.getElementValue">
-<code class="descname">getElementValue</code><span class="sig-paren">(</span><em>elementID</em>, <em>param='value'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.getElementValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getElementValue</code><span class="sig-paren">(</span><em class="sig-param">elementID</em>, <em class="sig-param">param='value'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.getElementValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value or expression of one or more circuit elements.</p>
 <p>If instruction.numeric == True it will perform a full recursive 
 substitution of all circuit parameter definitions.</p>
 <p>This method calls instruction.circuit.getElementValue() with
 numeric = True if instruction.simType is set to ‘numeric’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>elementID</strong> (<em>str</em><em>, </em><em>list</em>) – name(s) of the element(s)</li>
-<li><strong>param</strong> (<em>str</em>) – <p>name of the parameter (equal for all elements):</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elementID</strong> (<em>str</em><em>, </em><em>list</em>) – name(s) of the element(s)</p></li>
+<li><p><strong>param</strong> (<em>str</em>) – <p>name of the parameter (equal for all elements):</p>
 <ul>
-<li>’value’: Laplace value</li>
-<li>’dc’: DC value (independent sources only)</li>
-<li>’noise’: Noise spectral density (independent sources only)</li>
-<li>’dcvar’: DC variance (independent sources only)</li>
+<li><p>’value’: Laplace value</p></li>
+<li><p>’dc’: DC value (independent sources only)</p></li>
+<li><p>’noise’: Noise spectral density (independent sources only)</p></li>
+<li><p>’dcvar’: DC variance (independent sources only)</p></li>
 </ul>
 <p>Defaults to ‘value’.</p>
-</li>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>if type(parNames) == list:</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>if type(parNames) == list:</p>
 <p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>): 
 name of the parameter, value (<em>int, float, sympy expression</em>): 
 value of the parameter</p>
 <p>else:
 value or expression</p>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict, float, int, sympy.Expr</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict, float, int, sympy.Expr</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -676,32 +638,32 @@ value or expression</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.getParValue">
-<code class="descname">getParValue</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.getParValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getParValue</code><span class="sig-paren">(</span><em class="sig-param">parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.getParValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value or expression of one or more parameters.</p>
 <p>If instruction.numeric == True it will perform a full recursive
 substitution of all circuit parameter definitions.</p>
 <p>This method calls instruction.circuit.getParValue() with keyword arg
 numeric = True if instruction.simType is set to ‘numeric’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>list</em>) – name(s) of the parameter(s)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">if type(parNames) == list:<p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>):
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>list</em>) – name(s) of the parameter(s)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>if type(parNames) == list:</p>
+<p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>):
 name of the parameter, value (<em>int, float, sympy expression</em>):
 value of the parameter</p>
 <p>else:
 value or expression</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict, float, int, sympy.Expr</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict, float, int, sympy.Expr</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -714,21 +676,19 @@ value or expression</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.indepVars">
-<code class="descname">indepVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.indepVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">indepVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.indepVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list with names of independent sources in <strong>instruction.circuit</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list with names of independent sources in <strong>instruction.circuit</strong></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list with names of independent sources in <strong>instruction.circuit</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -741,7 +701,7 @@ value or expression</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef">
-<code class="descname">lgRef</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lgRef</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refdes of the controlled source that is assigned as loop gain reference.</p>
 <p>See <strong>instruction.setLGref(&lt;detector&gt;)</strong> for specification of the loop
 gain reference.</p>
@@ -749,16 +709,12 @@ gain reference.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.numeric">
-<code class="descname">numeric</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.numeric" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">numeric</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.numeric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Variable used during analysis an presentation of analysis results.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>The instruction.numeric attribute should not be modified
 directly by the user. Use the method <strong>instruction.setSimType(&lt;simTipe&gt;)</strong>
 to alter the simulation method!</p>
@@ -766,31 +722,28 @@ to alter the simulation method!</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.parDefs">
-<code class="descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.parDefs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.parDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameter definitions for the instruction. Will be updated by executing
 the instruction.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit">
-<code class="descname">setCircuit</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setCircuit</code><span class="sig-paren">(</span><em class="sig-param">fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the circuit for this instruction.</p>
 <ul class="simple">
-<li>Checks the netlist file ‘fileName’</li>
-<li>Creates a circuit object from it</li>
-<li>Makes it the ciruit object for this instruction.</li>
+<li><p>Checks the netlist file ‘fileName’</p></li>
+<li><p>Creates a circuit object from it</p></li>
+<li><p>Makes it the ciruit object for this instruction.</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fileName</strong> (<em>str</em>) – Name of the netlist file.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fileName</strong> (<em>str</em>) – Name of the netlist file.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -801,21 +754,18 @@ the instruction.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType">
-<code class="descname">setDataType</code><span class="sig-paren">(</span><em>dataType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setDataType</code><span class="sig-paren">(</span><em class="sig-param">dataType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the data type for the instruction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataType</strong> (<em>str</em>) – data type for the instruction: ‘dc’, ‘dcsolve’, ‘dcvar’,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dataType</strong> (<em>str</em>) – data type for the instruction: ‘dc’, ‘dcsolve’, ‘dcvar’,
 ‘denom’, ‘impulse’, ‘laplace’, ‘matrix’, ‘noise’, ‘numer’,
-‘params’, ‘poles’, ‘pz’, ‘solve’, ‘step’, ‘time’ or ‘zeros’.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+‘params’, ‘poles’, ‘pz’, ‘solve’, ‘step’, ‘time’ or ‘zeros’.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set data type to &#39;laplace&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setDataType</span><span class="p">(</span><span class="s1">&#39;laplace&#39;</span><span class="p">)</span>
@@ -825,22 +775,19 @@ the instruction.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDetector">
-<code class="descname">setDetector</code><span class="sig-paren">(</span><em>detector</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDetector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setDetector</code><span class="sig-paren">(</span><em class="sig-param">detector</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDetector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the signal detector</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>detector</strong> (<em>list</em><em>, </em><em>str</em>) – Name(s) of one or two nodal voltages or of one or two
-dependent currents.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>detector</strong> (<em>list</em><em>, </em><em>str</em>) – Name(s) of one or two nodal voltages or of one or two
+dependent currents.</p>
+</dd>
+</dl>
 <p>detector can defined as:</p>
 <ul class="simple">
-<li>bool: None: no detector has been defined</li>
-<li>str:  a single detector, name of a nodal voltage or a branch current</li>
-<li>list: with names of either two nodal voltages or two branch currents.</li>
+<li><p>bool: None: no detector has been defined</p></li>
+<li><p>str:  a single detector, name of a nodal voltage or a branch current</p></li>
+<li><p>list: with names of either two nodal voltages or two branch currents.</p></li>
 </ul>
 <p>instruction.checkDetector converts the detector definition into a list
 with a positive and a negative detector [&lt;detP&gt;, &lt;detN&gt;], where detP
@@ -848,15 +795,11 @@ and detN are the names (str) of either two nodal voltages or two branch
 currents. One of those can be ‘None’.</p>
 <p>A list with names of dependent variables that can be used as signal
 detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -868,33 +811,26 @@ detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;V_out&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>The voltage ‘V_0’ at the reference node ‘0’ equals zero.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType">
-<code class="descname">setGainType</code><span class="sig-paren">(</span><em>gainType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setGainType</code><span class="sig-paren">(</span><em class="sig-param">gainType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the gain type for the instruction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gainType</strong> (<em>str</em>) – gain type for the instruction’gain’, ‘asymptotic’,
-‘loopgain’, ‘servo’, ‘direct’, or ‘vi’.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gainType</strong> (<em>str</em>) – gain type for the instruction’gain’, ‘asymptotic’,
+‘loopgain’, ‘servo’, ‘direct’, or ‘vi’.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set gain type to &#39;gain&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">)</span>
@@ -904,21 +840,18 @@ detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setLGref">
-<code class="descname">setLGref</code><span class="sig-paren">(</span><em>lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setLGref" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setLGref</code><span class="sig-paren">(</span><em class="sig-param">lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setLGref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the loop gain reference (name of a controlled source).</p>
 <p>A list with names of dependent (controlled) sources is returned by the
 method <strong>instruction.controlled()</strong>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lgRef</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the loop gain reference.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lgRef</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the loop gain reference.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -931,19 +864,16 @@ method <strong>instruction.controlled()</strong>.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType">
-<code class="descname">setSimType</code><span class="sig-paren">(</span><em>simType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setSimType</code><span class="sig-paren">(</span><em class="sig-param">simType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation type for the instruction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simType</strong> (<em>str</em>) – Simulation type: ‘symbolic’ or ‘numeric’</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>simType</strong> (<em>str</em>) – Simulation type: ‘symbolic’ or ‘numeric’</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set the simulation type to numeric:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>
@@ -951,14 +881,10 @@ method <strong>instruction.controlled()</strong>.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;symbolic&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>SLiCAP always uses symbolic calculation methods. Only in a limited
 number of cases SLiCAP calulates with floats (pole-zero analysis,
 determination of the phase margin, etc.).</p>
@@ -969,35 +895,28 @@ symbolic parameters.</p>
 <p>The default number of recursive substitutions is 10. It is defined by
 ini.recSubst and can be changed by the user. For using the built-in MOS
 EKV models a value of eight is the minumum for full substitution.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">recSubst</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># For deeply nested expressions!</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">recSubst</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># For deeply nested expressions!</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSource">
-<code class="descname">setSource</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSource" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setSource</code><span class="sig-paren">(</span><em class="sig-param">source</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the signal source.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>source</strong> (<em>str</em>) – Name of an independent voltage or current source that
-exists in the circuit.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – Name of an independent voltage or current source that
+exists in the circuit.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1006,26 +925,18 @@ exists in the circuit.</td>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setSource</span><span class="p">(</span><span class="s1">&#39;V1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>A list with names of independent voltage and current sources that can be
 assigned as signal source can be obtained from the method:
 <strong>instruction.idepVars()</strong>:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1038,21 +949,18 @@ assigned as signal source can be obtained from the method:
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepArray">
-<code class="descname">setStepArray</code><span class="sig-paren">(</span><em>stepArray</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepArray" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepArray</code><span class="sig-paren">(</span><em class="sig-param">stepArray</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the array with values for step method array.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepArray</strong> (<em>list</em>) – Nested list: list[i] carries the step values for the
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepArray</strong> (<em>list</em>) – Nested list: list[i] carries the step values for the
 step variable in instruction.stepVars[i].
-The lists should have equal lengths.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+The lists should have equal lengths.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1071,21 +979,18 @@ The lists should have equal lengths.</td>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepList">
-<code class="descname">setStepList</code><span class="sig-paren">(</span><em>stepList</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepList" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepList</code><span class="sig-paren">(</span><em class="sig-param">stepList</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the list with step values for step method ‘list’. This list will
 be overwritten if the instruction is executed with the step method set
 to ‘lin’ or ‘log’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepList</strong> (<em>list</em>) – List with step values for the step parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepList</strong> (<em>list</em>) – List with step values for the step parameter.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1104,19 +1009,16 @@ to ‘lin’ or ‘log’.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepMethod">
-<code class="descname">setStepMethod</code><span class="sig-paren">(</span><em>stepMethod</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepMethod" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepMethod</code><span class="sig-paren">(</span><em class="sig-param">stepMethod</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the parameter stepping method.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepMethod</strong> (<em>str</em>) – ‘lin’, ‘log’, ‘list’ or ‘array’.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepMethod</strong> (<em>str</em>) – ‘lin’, ‘log’, ‘list’ or ‘array’.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1131,19 +1033,16 @@ to ‘lin’ or ‘log’.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepNum">
-<code class="descname">setStepNum</code><span class="sig-paren">(</span><em>stepNum</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepNum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepNum</code><span class="sig-paren">(</span><em class="sig-param">stepNum</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepNum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the number of steps for ‘lin’ and ‘log’ parameter stepping.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepNumber</strong> – Number of steps for stepping methods ‘lin’ and ‘log’.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepNumber</strong> – Number of steps for stepping methods ‘lin’ and ‘log’.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1161,19 +1060,16 @@ to ‘lin’ or ‘log’.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepStart">
-<code class="descname">setStepStart</code><span class="sig-paren">(</span><em>stepStart</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepStart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepStart</code><span class="sig-paren">(</span><em class="sig-param">stepStart</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepStart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start value for parameter stepping methods ‘lin’ and ‘log’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepStart</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Start value for parameter stepping methods ‘lin’ and ‘log’.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepStart</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Start value for parameter stepping methods ‘lin’ and ‘log’.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1192,19 +1088,16 @@ to ‘lin’ or ‘log’.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepStop">
-<code class="descname">setStepStop</code><span class="sig-paren">(</span><em>stepStop</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepStop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepStop</code><span class="sig-paren">(</span><em class="sig-param">stepStop</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepStop" title="Permalink to this definition">¶</a></dt>
 <dd><p>End value for parameter stepping methods ‘lin’ and ‘log’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepStop</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em>) – End value for parameter stepping methods ‘lin’ and ‘log’.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepStop</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em>) – End value for parameter stepping methods ‘lin’ and ‘log’.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1222,19 +1115,16 @@ to ‘lin’ or ‘log’.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepVar">
-<code class="descname">setStepVar</code><span class="sig-paren">(</span><em>stepVar</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepVar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepVar</code><span class="sig-paren">(</span><em class="sig-param">stepVar</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepVar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the step variable for parameter step types ‘lin’, ‘log’ and ‘list’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepVar</strong> (<em>str</em><em>, </em><em>sympy.symbol.Symbol</em>) – step variable</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepVar</strong> (<em>str</em><em>, </em><em>sympy.symbol.Symbol</em>) – step variable</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the circuit parameter &#39;alpha&#39; as step variable:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setStepVar</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
@@ -1242,25 +1132,17 @@ to ‘lin’ or ‘log’.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">stepOn</span><span class="p">()</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>A list with names (<em>sympy.symbol.Symbol</em>) that can be used as stepping
 parameter is obtained as follows:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1273,20 +1155,17 @@ parameter is obtained as follows:</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepVars">
-<code class="descname">setStepVars</code><span class="sig-paren">(</span><em>stepVars</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setStepVars</code><span class="sig-paren">(</span><em class="sig-param">stepVars</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setStepVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the step variables for ‘array’ type stepping.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepVars</strong> (<em>list</em>) – List with names (<em>str, sympy.symbol.Symbol</em>) of step
-variables for array type stepping.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stepVars</strong> (<em>list</em>) – List with names (<em>str, sympy.symbol.Symbol</em>) of step
+variables for array type stepping.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1301,25 +1180,17 @@ variables for array type stepping.</td>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span><span class="o">.</span><span class="n">stepOn</span><span class="p">()</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <p>A list with names (<em>sympy.symbol.Symbol</em>) that can be used as stepping
 parameter is obtained as follows:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># check a netlist file and use the circuit from this file for this</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># instruction:</span>
@@ -1332,73 +1203,69 @@ parameter is obtained as follows:</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType">
-<code class="descname">simType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">simType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation gain type.</p>
 <p>See <strong>instruction.setSimType(&lt;simType&gt;)</strong> for specification of <em>instruction.simType</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.source">
-<code class="descname">source</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.source" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">source</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refdes of the signal source (independent v or i source).</p>
 <p>See <strong>instruction.setSource(&lt;source&gt;)</strong> for specification of the source.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.srcUnits">
-<code class="descname">srcUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.srcUnits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">srcUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.srcUnits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Source units ‘V’ or ‘A’ (automatically detected in <strong>instruction.chekDetector()</strong>).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.step">
-<code class="descname">step</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.step" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">step</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setting for parameter stepping.</p>
 <p>See <strong>instruction.setStepOn()</strong> and <strong>instruction.setStepOff()</strong> for specification of <em>instruction.step</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepArray">
-<code class="descname">stepArray</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepArray" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepArray</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array (<em>list of lists</em>) with values for step method array.</p>
 <p>See <strong>instruction.setStepArray(&lt;stepArray&gt;)</strong> for specification of <em>instruction.stepArray</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepList">
-<code class="descname">stepList</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepList" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepList</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepList" title="Permalink to this definition">¶</a></dt>
 <dd><p>List with values for step method ‘list’.</p>
 <p>See <strong>instruction.setStepList(&lt;stepList&gt;)</strong> for specification of <em>instruction.stepList</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepMethod">
-<code class="descname">stepMethod</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepMethod" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepMethod</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step method for parameter stepping.</p>
 <p>See <strong>instruction.setStepMethod(&lt;stepMethod&gt;)</strong> for specification of <em>instruction.stepMethod</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepNum">
-<code class="descname">stepNum</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepNum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepNum</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepNum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of steps for step methods ‘lin’ and ‘log’.</p>
 <p>See <strong>instruction.setStepNum(&lt;stepNum&gt;)</strong> for specification of <em>instruction.stepNum</em>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepOff">
-<code class="descname">stepOff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepOff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepOff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepOff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disables parameter stepping.</p>
 <p>Does not change other settings for parameter stepping.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Disable parameter stepping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span><span class="o">.</span><span class="n">stepOff</span><span class="p">()</span>
@@ -1408,18 +1275,14 @@ parameter is obtained as follows:</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepOn">
-<code class="descname">stepOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepOn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepOn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables parameter stepping.</p>
 <p>Does not change other settings for parameter stepping.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance of the instruction object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Enable parameter stepping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instruction</span><span class="o">.</span><span class="n">stepOn</span><span class="p">()</span>
@@ -1429,28 +1292,28 @@ parameter is obtained as follows:</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepStart">
-<code class="descname">stepStart</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepStart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepStart</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepStart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start value for stepping methods ‘lin’ and ‘log’.</p>
 <p>See <strong>instruction.setStepStart(&lt;stepStart&gt;)</strong> for specification of <em>instruction.stepStart</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepStop">
-<code class="descname">stepStop</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepStop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepStop</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepStop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop value for stepping methods ‘lin’ and ‘log’.</p>
 <p>See <strong>instruction.setStepStop(&lt;stepStop&gt;)</strong> for specification of <em>instruction.stepStop</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepVar">
-<code class="descname">stepVar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepVar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepVar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepVar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the step variable (<em>str</em>) for step types ‘lin’, ‘log’ and ‘list’.</p>
 <p>See <strong>instruction.setStepVar(&lt;stepVar&gt;)</strong> for specification of <em>instruction.stepVar</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepVars">
-<code class="descname">stepVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the step variables for ‘array’ type parameter stepping.</p>
 <p>See <strong>instruction.setStepVars(&lt;stepVars&gt;)</strong> for specification of <em>instruction.stepVars</em>.</p>
 </dd></dl>
