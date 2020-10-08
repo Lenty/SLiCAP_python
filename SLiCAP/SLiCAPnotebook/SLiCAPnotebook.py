@@ -14,7 +14,6 @@ in notebooks.
 from IPython.core.display import HTML, SVG
 from IPython.core.magic import register_cell_magic, register_line_magic
 from IPython.display import Image
-from SLiCAP import *
 
 # Work around for displaying rst in jupyter notebooks
 
@@ -44,8 +43,6 @@ def rstfile(filename):
     return HTML(docutils.core.publish_string(cell, writer=writer).decode('UTF-8'))
 
 # Adjust HTML output for markdown.
-
-ini.notebook = True
 
 if __name__== '__main__':
     ini.dump()

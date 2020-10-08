@@ -9,6 +9,15 @@ RST in the Jupyter notebooks.
 """
 from SLiCAP.SLiCAPinstruction import *
 
+try:
+    __IPYTHON__
+    print("Running from an Ipython enviroment, importing SLiCAPnotebook.")
+    import SLiCAP.SLiCAPnotebook
+    ini.notebook = True
+except NameError:
+    ini.notebook = False
+
+
 class SLiCAPproject(object):
     """
     Prototype of a SLiCAPproject.
@@ -91,8 +100,8 @@ def initProject(name, firstRun=True):
         makeDir(ini.htmlPath)
         makeDir(ini.htmlPath + 'img/')
         makeDir(ini.htmlPath + 'css/')
-        copyNotOverwrite(ini.installPath + 'slicap.css', ini.htmlPath + 'css/slicap.css')
-        copyNotOverwrite(ini.installPath + 'Grid.png', ini.htmlPath + 'css/Grid.png')
+        copyNotOverwrite(ini.defaultLib + '/slicap.css', ini.htmlPath + 'css/slicap.css')
+        copyNotOverwrite(ini.defaultLib + '/Grid.png', ini.htmlPath + 'css/Grid.png')
         makeDir(ini.mathmlPath)
         makeDir(ini.latexPath)
         # Create the HTML project index file

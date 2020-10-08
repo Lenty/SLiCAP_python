@@ -43,19 +43,19 @@ def _selftest_maxima():
         try:
             result = subprocess.run([MAXIMA, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
         except:
-            print("Not able to succesfully execute the maxima command, please re-run the SLiCAP setup.py script and set the path again")
+            print("Not able to succesfully execute the maxima command, please re-run the SLiCAP setup.py script and set the path again.")
     else:
         try:
             result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
 
         except:
-            print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
-            print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
+            print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line.")
+            print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima').")
     
     result = [i for i in result if i] # Added due to variability of trailing '\n'
     result = result[-1]
     if int(result) == 2:
-        print("Succesfully self-tested the Maxima command")
+        print("Succesfully self-tested the Maxima command.")
     else:
         print("Something went wrong when testing Maxima, please re-run the installer and try to start maxima first by itself.")
 
@@ -70,7 +70,7 @@ def _check_version():
     """
     latest = _get_latest_version()
     if VERSION!=latest:
-        print("A new version of SLiCAP is available, please get it from https://github.com/Lenty/SLiCAP_python")
+        print("A new version of SLiCAP is available, please get it from 'https://github.com/Lenty/SLiCAP_python'.")
     else:
         print("SLiCAP Version matches with the latest release of SLiCAP on github.")
         
@@ -87,7 +87,7 @@ def _get_latest_version():
         response = requests.get("https://api.github.com/repos/Lenty/SLiCAP_python/releases/latest")
         return response.json()["name"]
     except:
-        print("Could not access github to fetch the latest version")
+        print("Could not access github to fetch the latest version.")
         return VERSION
 
 
