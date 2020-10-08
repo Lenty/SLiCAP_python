@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SLiCAPconfig.py &mdash; SLiCAP 0.9.0 documentation</title>
+  <title>SLiCAPsetting.py &mdash; SLiCAP 0.9.0 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
 
     
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SLiCAP development" href="../development/SLiCAPdevelopment.html" />
-    <link rel="prev" title="SLiCAPini.py" href="SLiCAPsetting.html" /> 
+    <link rel="next" title="SLiCAPconfig.py" href="SLiCAPconfig.html" />
+    <link rel="prev" title="SLiCAPini.py" href="SLiCAPini.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -105,8 +105,8 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SLiCAPsetting.html">SLiCAPini.py</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAPconfig.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAPsetting.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
@@ -159,13 +159,13 @@
         
           <li><a href="SLiCAPreference.html">SLiCAP reference</a> &raquo;</li>
         
-      <li>SLiCAPconfig.py</li>
+      <li>SLiCAPsetting.py</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/reference/SLiCAPconfig.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/reference/SLiCAPsetting.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,20 +178,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-SLiCAP.SLiCAPconfig.SLiCAPconfig">
-<span id="slicapconfig-py"></span><h1>SLiCAPconfig.py<a class="headerlink" href="#module-SLiCAP.SLiCAPconfig.SLiCAPconfig" title="Permalink to this headline">¶</a></h1>
-<p>SLiCAP module with user-defined path settings.</p>
-<p>Default values:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PROJECTPATH</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># Leave it for automatic detection</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># PATHS: relative to the project path</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">HTMLPATH</span>    <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">CIRCUITPATH</span> <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">LIBRARYPATH</span> <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>    <span class="c1"># path for include and library files</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">TXTPATH</span>     <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">CSVPATH</span>     <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">LATEXPATH</span>   <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">MATHMLPATH</span>  <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">IMGPATH</span>     <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
+  <div class="section" id="module-SLiCAP.SLiCAPsetting.SLiCAPsetting">
+<span id="slicapsetting-py"></span><h1>SLiCAPsetting.py<a class="headerlink" href="#module-SLiCAP.SLiCAPsetting.SLiCAPsetting" title="Permalink to this headline">¶</a></h1>
+<p>SLiCAP module with settings defined on install, contains fixed parameters</p>
+<p>Default parameters:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">VERSION</span>     <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#Version number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SYSINSTALL</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1">#System install path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LIBCOREPATH</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1">#Library install path     </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DOCPATH</span>     <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1">#Documentation install path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MAXIMA</span>      <span class="o">=</span> <span class="s1">&#39;&#39;</span>    <span class="c1"># Windows command for maxima</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LTSPICE</span>     <span class="o">=</span> <span class="s1">&#39;wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist&#39;</span>      <span class="c1"># Command for netlist generation with LTspice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">NETLIST</span>     <span class="o">=</span> <span class="s1">&#39;lepton-netlist -g spice-noqsi&#39;</span>   <span class="c1"># Command for netlist generation with gschem or lepton-eda</span>
 </pre></div>
 </div>
 </div>
@@ -204,10 +201,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../development/SLiCAPdevelopment.html" class="btn btn-neutral float-right" title="SLiCAP development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="SLiCAPconfig.html" class="btn btn-neutral float-right" title="SLiCAPconfig.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SLiCAPsetting.html" class="btn btn-neutral float-left" title="SLiCAPini.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SLiCAPini.html" class="btn btn-neutral float-left" title="SLiCAPini.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

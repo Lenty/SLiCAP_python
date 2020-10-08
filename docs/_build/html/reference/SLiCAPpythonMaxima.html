@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPsetting.html">SLiCAPini.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
 </ul>
 </li>
@@ -183,7 +184,7 @@
 <p>Imported by the module <strong>SLiCAPplots.py</strong>.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs">
-<code class="descname">equateCoeffs</code><span class="sig-paren">(</span><em>protoType</em>, <em>transfer</em>, <em>noSolve=[]</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">equateCoeffs</code><span class="sig-paren">(</span><em class="sig-param">protoType</em>, <em class="sig-param">transfer</em>, <em class="sig-param">noSolve=[]</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solutions of the equation transferFunction = protoTypeFunction.</p>
 <p>Both transfer and prototype should be Laplace rational functions.
 Their numerators should be polynomials of the Laplace variable of equal
@@ -197,188 +198,167 @@ of equal order.
 solved. The numerator and the denominator of this rational
 expression should be of the same order as those of the
 prototype.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.Symbol</em>) that do not need
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.Symbol</em>) that do not need
 to be solved. These parameters will remain symbolic in the
-solutions.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+solutions.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Dictionary with key-value pairs:</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Dictionary with key-value pairs:</p>
 <ul class="simple">
-<li>key: name of the parameter (<em>sympy.Symbol</em>)</li>
-<li>value: solution of this parameter: (<em>sympy.Expr, int, float</em>)</li>
+<li><p>key: name of the parameter (<em>sympy.Symbol</em>)</p></li>
+<li><p>value: solution of this parameter: (<em>sympy.Expr, int, float</em>)</p></li>
 </ul>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2">
-<code class="descname">maxCramerCoeff2</code><span class="sig-paren">(</span><em>cir</em>, <em>M</em>, <em>elID</em>, <em>detP</em>, <em>detN</em>, <em>dc=False</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxCramerCoeff2</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">M</em>, <em class="sig-param">elID</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">dc=False</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the numerator of the squared transfer from a source to the detector
 in Sympy format, with the Laplace variable replaced with
 ‘2*%pi*%i*ini.frequency’ or with 0, for noise or for dcVar calculations,
 respectively.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit object</li>
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>elID</strong> (<em>str</em>) – Refdes (ID) of the source of which the transfer to the detector
-needs to be evaluated.</li>
-<li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit object</p></li>
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</p></li>
+<li><p><strong>elID</strong> (<em>str</em>) – Refdes (ID) of the source of which the transfer to the detector
+needs to be evaluated.</p></li>
+<li><p><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
 or None if the positive node is the ground node or a positive
-current is not used.</li>
-<li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
+current is not used.</p></li>
+<li><p><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
 or None if the negative node is the ground node or a negative
-current is not used.</li>
-<li><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+current is not used.</p></li>
+<li><p><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numerator of the squared transfer.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numerator of the squared transfer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerNumer">
-<code class="descname">maxCramerNumer</code><span class="sig-paren">(</span><em>M</em>, <em>Iv</em>, <em>detP</em>, <em>detN</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerNumer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxCramerNumer</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">Iv</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerNumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the numerator of the response at the detector as a result of
 excitations from one or more sources.</p>
 <p>Calculation method:</p>
 <ul class="simple">
-<li>numer = + determinant(subs(M, col(detP) = Iv)) - determinant(subs(M, col(detN) = Iv))</li>
+<li><p>numer = + determinant(subs(M, col(detP) = Iv)) - determinant(subs(M, col(detN) = Iv))</p></li>
 </ul>
 <p>The subsititutions are made with Sympy. The determinants are calculated with Maxima CAS.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>Iv</strong> (<em>sympy.Matrix</em>) – Vector with independent variables</li>
-<li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</p></li>
+<li><p><strong>Iv</strong> (<em>sympy.Matrix</em>) – Vector with independent variables</p></li>
+<li><p><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
 or None if the positive node is the ground node or a positive
-current is not used.</li>
-<li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
+current is not used.</p></li>
+<li><p><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
 or None if the negative node is the ground node or a negative
-current is not used.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+current is not used.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numerator of a response</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numerator of a response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet">
-<code class="descname">maxDet</code><span class="sig-paren">(</span><em>M</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxDet</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the determinant of matrix ‘M’ in Sympy format, calculated by Maxima CAS.</p>
 <p>Calculation of the determinant according to the GENTLEMAN-JOHNSON TREE-MINOR
 method. This is a fast version of expansion by minors. It it implemented in
 Maxima CAS for matrices up to 50 x 50.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – Matrix of which the determinant needs to be evaluated</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – Matrix of which the determinant needs to be evaluated</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2">
-<code class="descname">maxDet2</code><span class="sig-paren">(</span><em>M</em>, <em>dc=False</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxDet2</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">dc=False</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the squared magnitude of the determinant of matrix ‘M’ in Sympy
 format, with the Laplace variable replaced with
 ‘2*%pi*%i* + ini.frequency’, or with 0, for noise or for dcVar calculations,
 respectively.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</p></li>
+<li><p><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numerator of the squared transfer.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numerator of the squared transfer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval">
-<code class="descname">maxEval</code><span class="sig-paren">(</span><em>maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxEval</code><span class="sig-paren">(</span><em class="sig-param">maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
 <p>Starts a subprocess that evaluates maxExpr with Maxima CAS and returns the
 resulting expression in text format. The variable that needs to be output
 must be named: ‘result’.</p>
 <p>In some cases Maxima CAS will ask for extra input.
 This will be ignored and a time out will kill the subprocess.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>maxExpr</strong> (<em>str</em>) – Expression in Maxima format to be evaluated.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">String that can be converted into a sympy expression.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>maxExpr</strong> (<em>str</em>) – Expression in Maxima format to be evaluated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String that can be converted into a sympy expression.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
 <span class="go">&#39;sin(a*t)/a&#39;</span>
 </pre></div>
 </div>
@@ -386,48 +366,39 @@ This will be ignored and a time out will kill the subprocess.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxILT">
-<code class="descname">maxILT</code><span class="sig-paren">(</span><em>numer</em>, <em>denom</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxILT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxILT</code><span class="sig-paren">(</span><em class="sig-param">numer</em>, <em class="sig-param">denom</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxILT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the inverse Laplace transform of  ‘Fs’ using Maxima CAS.</p>
 <p>This function first tries to calculate the ILT symbolically, if this fails
 it tries to create a factorized rational expression of the Laplace variable
 ini.laplace and then calculates the ILT of this rational expression.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>numer</strong> (<em>sympy.Expr</em>) – Numarator of the Laplace Transform.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>numer</strong> (<em>sympy.Expr</em>) – Numarator of the Laplace Transform.</p>
+</dd>
+</dl>
 <p>:param denom : Denominator of the Laplace Transform.
 :type denom: sympy.Expr</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Sympy expression of the time function if the ILT succeeded, or
-sp.Symbol(‘ft’) if the ILT failed.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sympy expression of the time function if the ILT succeeded, or
+sp.Symbol(‘ft’) if the ILT failed.</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="go">2*sqrt(3)*sin(sqrt(3)*a*t/3)/(3*a)</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxILT</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ini</span><span class="o">.</span><span class="n">Laplace</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">numeric</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="go">1.154700538379252*sin(0.5773502691896258*a*t)/a</span>
 </pre></div>
 </div>
@@ -435,191 +406,170 @@ sp.Symbol(‘ft’) if the ILT failed.</td>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate">
-<code class="descname">maxIntegrate</code><span class="sig-paren">(</span><em>expr</em>, <em>var</em>, <em>start=None</em>, <em>stop=None</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxIntegrate</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em>, <em class="sig-param">start=None</em>, <em class="sig-param">stop=None</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculated definite or indefinite integral of ‘expr’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> (<em>sympy.Expr</em>) – Integrand</li>
-<li><strong>var</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Integration variable</li>
-<li><strong>start</strong> (<em>Bool</em><em>, </em><em>int float</em><em>, </em><em>sympy.Expr</em>) – Lower limit of the integral.</li>
-<li><strong>stop</strong> (<em>Bool</em><em>, </em><em>int float</em><em>, </em><em>sympy.Expr</em>) – Upper limit of the integral.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>sympy.Expr</em>) – Integrand</p></li>
+<li><p><strong>var</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Integration variable</p></li>
+<li><p><strong>start</strong> (<em>Bool</em><em>, </em><em>int float</em><em>, </em><em>sympy.Expr</em>) – Lower limit of the integral.</p></li>
+<li><p><strong>stop</strong> (<em>Bool</em><em>, </em><em>int float</em><em>, </em><em>sympy.Expr</em>) – Upper limit of the integral.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Integral</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Integral</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit">
-<code class="descname">maxLimit</code><span class="sig-paren">(</span><em>expr</em>, <em>var</em>, <em>val</em>, <em>pm</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxLimit</code><span class="sig-paren">(</span><em class="sig-param">expr</em>, <em class="sig-param">var</em>, <em class="sig-param">val</em>, <em class="sig-param">pm</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the limit of an expression for ‘var’ approaches ‘val’ from ‘pm’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> (<em>sympy.Expr</em><em>, </em><em>str</em>) – Expression of which the limit must be evaluated.</li>
-<li><strong>var</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Variable that should approach the limit value.</li>
-<li><strong>val</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em><em>, </em><em>sp.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Limit value of the variable.</li>
-<li><strong>pm</strong> (<em>str</em>) – Direction: ‘plus’ or ‘minus’</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>sympy.Expr</em><em>, </em><em>str</em>) – Expression of which the limit must be evaluated.</p></li>
+<li><p><strong>var</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Variable that should approach the limit value.</p></li>
+<li><p><strong>val</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em><em>, </em><em>sp.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Limit value of the variable.</p></li>
+<li><p><strong>pm</strong> (<em>str</em>) – Direction: ‘plus’ or ‘minus’</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Calculated limit</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Calculated limit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxNumer">
-<code class="descname">maxNumer</code><span class="sig-paren">(</span><em>M</em>, <em>detP</em>, <em>detN</em>, <em>srcP</em>, <em>srcN</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxNumer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxNumer</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">detP</em>, <em class="sig-param">detN</em>, <em class="sig-param">srcP</em>, <em class="sig-param">srcN</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxNumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the numerator of a transfer function.</p>
 <p>Calculation method:</p>
 <ul class="simple">
-<li>numer = + cofactor(srcP, detP) - cofactor(srcN, detP) - cofactor(srcP, detN) + cofactor(srcN, detN)</li>
-<li>cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))</li>
+<li><p>numer = + cofactor(srcP, detP) - cofactor(srcN, detP) - cofactor(srcP, detN) + cofactor(srcN, detN)</p></li>
+<li><p>cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))</p></li>
 </ul>
 <p>The minor matrices and the multiplication factors are determined with Sympy,
 the determinants are calculated with Maxima.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">In Sympy a minor is defined as the determinant of the minor
+<dl class="field-list">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>In Sympy a minor is defined as the determinant of the minor
 matrix. Use sympy.Matrix.minor_submatrix to get the matrix only.</p>
 <p>In Maxima a minor is the minor matrix itself.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</p></li>
+<li><p><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
 or None if the positive node is the ground node or a positive
-current is not used.</li>
-<li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
+current is not used.</p></li>
+<li><p><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
 This can be a nodal voltage or a current through a voltage source
 or None if the negative node is the ground node or a negative
-current is not used.</li>
-<li><strong>srcP</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with
+current is not used.</p></li>
+<li><p><strong>srcP</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with
 dependent variables.</p>
 <p>Voltage source: position of current through this source in the
 vector with dependent variables.</p>
-</li>
-<li><strong>srcN</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with dependent
+</p></li>
+<li><p><strong>srcN</strong> (<em>int</em><em>, </em><em>bool</em>) – <p>Current source: position of positive node in vector with dependent
 variables.</p>
 <p>Voltage source: None</p>
-</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numerator of a transfer function</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Numerator of a transfer function</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxSolve">
-<code class="descname">maxSolve</code><span class="sig-paren">(</span><em>M</em>, <em>Iv</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxSolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maxSolve</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">Iv</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates M^(-1).Iv</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>Iv</strong> (<em>sympy.Matrix</em>) – Vector with independent variables</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</p></li>
+<li><p><strong>Iv</strong> (<em>sympy.Matrix</em>) – Vector with independent variables</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Network solution.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Matrix</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Network solution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Matrix</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise">
-<code class="descname">rmsNoise</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>noise</em>, <em>fmin</em>, <em>fmax</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rmsNoise</code><span class="sig-paren">(</span><em class="sig-param">noiseResult</em>, <em class="sig-param">noise</em>, <em class="sig-param">fmin</em>, <em class="sig-param">fmax</em>, <em class="sig-param">source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the RMS source-referred noise or detector-referred noise,
 or the contribution of a specific noise source to it.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>noiseResult</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults"><em>SLiCAPprotos.allResults</em></a>) – Results of the execution of an instruction with data type ‘noise’.</li>
-<li><strong>noise</strong> – ‘inoise’ or ‘onoise’ for source-referred noise or detector-
-referred noise, respectively.</li>
-<li><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</li>
-<li><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</li>
-<li><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
-contribution to the RMS noise needs to be evaluated.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>noiseResult</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults"><em>SLiCAPprotos.allResults</em></a>) – Results of the execution of an instruction with data type ‘noise’.</p></li>
+<li><p><strong>noise</strong> – ‘inoise’ or ‘onoise’ for source-referred noise or detector-
+referred noise, respectively.</p></li>
+<li><p><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</p></li>
+<li><p><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</p></li>
+<li><p><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
+contribution to the RMS noise needs to be evaluated.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>RMS noise over the frequency interval.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>RMS noise over the frequency interval.</p>
 <ul class="simple">
-<li>An expression or value if parameter stepping of the instruction is disabled.</li>
-<li>A list with expressions or values if parameter stepping of the instruction is enabled.</li>
+<li><p>An expression or value if parameter stepping of the instruction is disabled.</p></li>
+<li><p>A list with expressions or values if parameter stepping of the instruction is enabled.</p></li>
 </ul>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int, float, sympy.Expr, list</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int, float, sympy.Expr, list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sympy2maximaMatrix">
-<code class="descname">sympy2maximaMatrix</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sympy2maximaMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sympy2maximaMatrix</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sympy2maximaMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a sympy matrix object into a Maxima matrix definition.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>M</strong> (<em>symPy.Matrix</em>) – sympy matrix</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sympy matrix converted to a Maxima matrix</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>M</strong> (<em>symPy.Matrix</em>) – sympy matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sympy matrix converted to a Maxima matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

@@ -6,11 +6,13 @@ SLiCAP initialization module, imports external modules and defines settings.
 Imported by the module **SLiCAini.py**
 """
 
+from SLiCAP.SLiCAPsetting import *
 from SLiCAP.SLiCAPconfig import *
 import docutils.core
 import docutils.writers.html5_polyglot
 import numpy as np
 import sympy as sp
+import requests
 from scipy.signal import residue
 from scipy.optimize import newton
 import ply.lex as lex
@@ -27,6 +29,67 @@ import matplotlib._pylab_helpers as plotHelp
 import matplotlib.pyplot as plt
 import webbrowser
 plt.ioff() # Turn off the interactive mode for plotting
+
+def _selftest_maxima():
+    """
+    Checks the maxima install on startup, returns print statements in case Maxima does not function
+
+    Returns
+    -------
+    None.
+    """
+    maxInput = '1+1;'
+    if platform.system() == 'Windows':
+        try:
+            result = subprocess.run([MAXIMA, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
+        except:
+            print("Not able to succesfully execute the maxima command, please re-run the SLiCAP setup.py script and set the path again")
+    else:
+        try:
+            result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
+
+        except:
+            print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
+            print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
+    
+    result = [i for i in result if i] # Added due to variability of trailing '\n'
+    result = result[-1]
+    if int(result) == 2:
+        print("Succesfully self-tested the Maxima command")
+    else:
+        print("Something went wrong when testing Maxima, please re-run the installer and try to start maxima first by itself.")
+
+    
+def _check_version():
+    """
+    Checks the version with the latest version from Git
+
+    Returns
+    -------
+    None.
+    """
+    latest = _get_latest_version()
+    if VERSION!=latest:
+        print("A new version of SLiCAP is available, please get it from https://github.com/Lenty/SLiCAP_python")
+    else:
+        print("SLiCAP Version matches with the latest release of SLiCAP on github.")
+        
+    
+def _get_latest_version():
+    """
+    Gets the SLiCAP version from Github (only possible when repository is public
+
+    Returns
+    -------
+    String Version.
+    """
+    try:
+        response = requests.get("https://api.github.com/repos/Lenty/SLiCAP_python/releases/latest")
+        return response.json()["name"]
+    except:
+        print("Could not access github to fetch the latest version")
+        return VERSION
+
 
 class settings(object):
     """
@@ -526,6 +589,10 @@ if PROJECTPATH == None:
     PROJECTPATH  = os.path.abspath('.') + '/'
 
 ini.updatePaths(PROJECTPATH)
+
+#Run the defined self checks/tests
+_selftest_maxima()
+_check_version()
 
 def Help():
     """

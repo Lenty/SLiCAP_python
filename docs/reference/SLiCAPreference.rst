@@ -26,4 +26,5 @@ SLiCAP comprises the following (sub) modules:
    SLiCAPmath
    SLiCAPlex
    SLiCAPini
+   SLiCAPsetting
    SLiCAPconfig

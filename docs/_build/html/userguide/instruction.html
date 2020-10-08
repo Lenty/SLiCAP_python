@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -209,34 +209,34 @@
 <h2>Gain type<a class="headerlink" href="#gain-type" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can provide expressions for:</p>
 <ol class="arabic">
-<li><p class="first">Nodal voltages or currents through elements that have been defined in current-controlled notation (the voltage has been defined as a function of the current).</p>
+<li><p>Nodal voltages or currents through elements that have been defined in current-controlled notation (the voltage has been defined as a function of the current).</p>
 <ul class="simple">
-<li>gain type: <em>vi</em></li>
+<li><p>gain type: <em>vi</em></p></li>
 </ul>
 </li>
-<li><p class="first">Transfer functions of the asymptotic-gain model:</p>
+<li><p>Transfer functions of the asymptotic-gain model:</p>
 <ul>
-<li><p class="first">source-to-detector transfer: gain type <em>gain</em></p>
+<li><p>source-to-detector transfer: gain type <em>gain</em></p>
 <blockquote>
 <div><p>This is the transfer from the source to the detector</p>
 </div></blockquote>
 </li>
-<li><p class="first">asymptotic-gain: gain type <em>asymptotic</em></p>
+<li><p>asymptotic-gain: gain type <em>asymptotic</em></p>
 <blockquote>
 <div><p>This is the gain when the loop gain reference is replaced with a nullor.</p>
 </div></blockquote>
 </li>
-<li><p class="first">loop gain: gain type <em>loopgain</em></p>
+<li><p>loop gain: gain type <em>loopgain</em></p>
 <blockquote>
 <div><p>This is the transfer of the controlled source selected by the loop gain reference variable, multiplied with the transfer from the output quantity of this controlled source to its input quantity.</p>
 </div></blockquote>
 </li>
-<li><p class="first">direct transfer: gain type <em>direct</em></p>
+<li><p>direct transfer: gain type <em>direct</em></p>
 <blockquote>
 <div><p>This is the transfer from source to the detector with the gain of the loop gain reference variable set to zero</p>
 </div></blockquote>
 </li>
-<li><p class="first">servo function: gain type <em>servo</em></p>
+<li><p>servo function: gain type <em>servo</em></p>
 <blockquote>
 <div><p>This is <span class="math notranslate nohighlight">\(\frac{-L}{1-L}\)</span> in which <span class="math notranslate nohighlight">\(L\)</span> is the loop gain according to the definition above.</p>
 </div></blockquote>
@@ -293,17 +293,17 @@
 <h2>Detector<a class="headerlink" href="#detector" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can calculate one of the following:</p>
 <ol class="arabic simple">
-<li>One branch current through an element defined by its V(I) relation in current-controlled notation</li>
-<li>One nodal voltage</li>
-<li>One branch voltage (difference between two nodal voltages)</li>
-<li>One difference between two branch currents through elements defined by their V(I) relation in current-controlled notation</li>
-<li>One transfer function</li>
-<li>The complete network solution</li>
+<li><p>One branch current through an element defined by its V(I) relation in current-controlled notation</p></li>
+<li><p>One nodal voltage</p></li>
+<li><p>One branch voltage (difference between two nodal voltages)</p></li>
+<li><p>One difference between two branch currents through elements defined by their V(I) relation in current-controlled notation</p></li>
+<li><p>One transfer function</p></li>
+<li><p>The complete network solution</p></li>
 </ol>
 <p>For (1) - (5) this variable is defined by the detector: <strong>SLiCAPinstruction.instruction.detector</strong> which can be set with the method: <strong>SLiCAPinstruction.instruction.setDetector(*args)</strong> The name of this function should be composed as follows:</p>
 <ul class="simple">
-<li>In the case of a voltage detector, the name should be the concatenation of ‘V_’ and the name of the output node; in general: ‘V_&lt;outputNode&gt;’. For the voltage difference between two nodes, simply use two arguments (see example below)</li>
-<li>In the case of a current detector, the name should be the concatenation of ‘I_’ and the name of the element (identifier) whose current is taken as detector current.</li>
+<li><p>In the case of a voltage detector, the name should be the concatenation of ‘V_’ and the name of the output node; in general: ‘V_&lt;outputNode&gt;’. For the voltage difference between two nodes, simply use two arguments (see example below)</p></li>
+<li><p>In the case of a current detector, the name should be the concatenation of ‘I_’ and the name of the element (identifier) whose current is taken as detector current.</p></li>
 </ul>
 <p>Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables is returned by the method: <strong>SLiCAPinstruction.instruction.depVars()</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -345,54 +345,54 @@
 <h2>Data type<a class="headerlink" href="#data-type" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can provide 16 types of data. The data type for the instruction is stored in the attribute <strong>SLiCAPinstruction.instruction.dataType</strong>. It is defined by the method: <strong>SLiCAPinstruction.instruction.setDataType</strong>. Below an overview of the availabe data types and their meaning.</p>
 <ol class="arabic">
-<li><p class="first">dc</p>
+<li><p>dc</p>
 <blockquote>
 <div><p>Calculates DC value of the detector voltage or the detector current; only for gain type ‘vi’.</p>
 </div></blockquote>
 </li>
-<li><p class="first">dcsolve</p>
+<li><p>dcsolve</p>
 <p>Calculates DC solution of the network; only for gain type ‘vi’.</p>
 </li>
-<li><p class="first">dcvar</p>
+<li><p>dcvar</p>
 <p>Calculates contribution of all dc variances (sources and resistors) to the detector-referred variance. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred variance.</p>
 </li>
-<li><p class="first">denom</p>
+<li><p>denom</p>
 <p>Calculates the denominator of the Laplace Transform of the unit-impulse response or of a voltage or a current.</p>
 </li>
-<li><p class="first">impulse</p>
+<li><p>impulse</p>
 <p>Calculates inverse laplace transform of a transfer not for gain type ‘vi’; may not work with symbolic values.</p>
 </li>
-<li><p class="first">laplace</p>
+<li><p>laplace</p>
 <p>Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.</p>
 </li>
-<li><p class="first">matrix</p>
+<li><p>matrix</p>
 <p>Calculates the matrix equation of the circuit.</p>
 </li>
-<li><p class="first">noise</p>
+<li><p>noise</p>
 <p>Calculates contributions to the detector-referred noise of all noise sources. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred noise.</p>
 </li>
-<li><p class="first">numer</p>
+<li><p>numer</p>
 <p>Calculates the numerator of the Laplace Transform of the unit-impulse response or of a voltage or a current.</p>
 </li>
-<li><p class="first">params</p>
+<li><p>params</p>
 <p>Calculates the values of parameters, while sweeping or stepping other parameters.</p>
 </li>
-<li><p class="first">poles</p>
+<li><p>poles</p>
 <p>Calculates the complex solutions of the denominator of the Laplace transform of a transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
 </li>
-<li><p class="first">pz</p>
+<li><p>pz</p>
 <p>Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomials. Poles and zeros with equal values are cancelled.</p>
 </li>
-<li><p class="first">solve</p>
+<li><p>solve</p>
 <p>Calculates the network solution; only for gain type ‘vi’.</p>
 </li>
-<li><p class="first">step</p>
+<li><p>step</p>
 <p>Calculates inverse Laplace transform of (1/s) times the transfer function. It may not work with symbolic values.</p>
 </li>
-<li><p class="first">time</p>
+<li><p>time</p>
 <p>Calculates inverse Laplace transform of a detector voltage or current. Only for gain type ‘vi’. It may not work with symbolic values.</p>
 </li>
-<li><p class="first">zeros</p>
+<li><p>zeros</p>
 <p>Calculates the complex solutions of the numerator of the Laplace transform of a transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
 </li>
 </ol>

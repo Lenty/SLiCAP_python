@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPsetting.html">SLiCAPini.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
 </ul>
 </li>
@@ -183,36 +184,36 @@
 <p>Imported by the module <strong>SLiCAPmatrices.py</strong>.</p>
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">
-<em class="property">class </em><code class="descname">allResults</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">allResults</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return  structure for results, has attributes with 
 instruction data and execution results.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.DCvalue">
-<code class="descname">DCvalue</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.DCvalue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">DCvalue</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.DCvalue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Zero-frequency value in case of dataType ‘pz’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Dv">
-<code class="descname">Dv</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Dv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Dv</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Dv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Vector with dependent variables.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Iv">
-<code class="descname">Iv</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Iv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Iv</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Iv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Vector with independent variables.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M">
-<code class="descname">M</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">M</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M" title="Permalink to this definition">¶</a></dt>
 <dd><p>MNA matrix.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.circuit">
-<code class="descname">circuit</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.circuit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">circuit</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Circuit (<em>SLiCAPprotos.circuit</em>) used for this instruction.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction.circuit</strong> at the 
 start of the execution of the instruction. This instance will not be a 
@@ -221,7 +222,7 @@ deep copy.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dataType">
-<code class="descname">dataType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dataType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dataType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation data type.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -229,25 +230,25 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dc">
-<code class="descname">dc</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dc</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dc" title="Permalink to this definition">¶</a></dt>
 <dd><p>DC solution at the detector.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dcSolve">
-<code class="descname">dcSolve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dcSolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">dcSolve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.dcSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>DC solution of the network.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.denom">
-<code class="descname">denom</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.denom" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">denom</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.denom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Laplace poly of denominator.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detLabel">
-<code class="descname">detLabel</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detLabel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detLabel</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name for the detector quantity to be used in expressions or plots.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -255,7 +256,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detUnits">
-<code class="descname">detUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detUnits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detUnits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detector units ‘V’ or ‘A’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -263,7 +264,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detector">
-<code class="descname">detector</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detector</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Names of the positive and negative detector.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -271,7 +272,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.errors">
-<code class="descname">errors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.errors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">errors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of errors found in the definition of this instruction.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -279,7 +280,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.gainType">
-<code class="descname">gainType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.gainType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gainType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.gainType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation gain type.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -287,43 +288,43 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.impulse">
-<code class="descname">impulse</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.impulse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">impulse</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.impulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit impulse responses.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.inoise">
-<code class="descname">inoise</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.inoise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">inoise</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.inoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total source-referred noise spectral density.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.inoiseTerms">
-<code class="descname">inoiseTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.inoiseTerms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">inoiseTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.inoiseTerms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict with lists with contributions to source-referred noise.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ivar">
-<code class="descname">ivar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ivar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ivar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ivar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total source-referred variance.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ivarTerms">
-<code class="descname">ivarTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ivarTerms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ivarTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ivarTerms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict with lists with contributions to source-referred variance.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.laplace">
-<code class="descname">laplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.laplace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">laplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.laplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Laplace transfer functions.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.lgRef">
-<code class="descname">lgRef</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.lgRef" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lgRef</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.lgRef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refdes of the controlled source that is assigned as loop gain reference.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -331,13 +332,13 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.numer">
-<code class="descname">numer</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.numer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">numer</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.numer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Laplace poly of numerator.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.numeric">
-<code class="descname">numeric</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.numeric" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">numeric</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.numeric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Variable used during analysis an presentation of analysis results.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -345,31 +346,31 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.onoise">
-<code class="descname">onoise</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.onoise" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">onoise</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.onoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total detector-referred noise spectral.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.onoiseTerms">
-<code class="descname">onoiseTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.onoiseTerms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">onoiseTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.onoiseTerms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict with lists with contributions to detector-referred noise.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ovar">
-<code class="descname">ovar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ovar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ovar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ovar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total detector-referred variance.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ovarTerms">
-<code class="descname">ovarTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ovarTerms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ovarTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.ovarTerms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict with lists with contributions to detector-referred variance.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.parDefs">
-<code class="descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.parDefs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.parDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameter definitions for the instruction.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
 the execution of the instruction. This instance will be e deep copy.</p>
@@ -377,19 +378,19 @@ the execution of the instruction. This instance will be e deep copy.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.params">
-<code class="descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Results of parameter sweep (dataType = ‘param’).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.poles">
-<code class="descname">poles</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.poles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">poles</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.poles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complex frequencies in [rad/s] or [Hz]</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.simType">
-<code class="descname">simType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.simType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">simType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.simType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation gain type.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -397,19 +398,19 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.snoiseTerms">
-<code class="descname">snoiseTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.snoiseTerms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">snoiseTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.snoiseTerms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict with lists with source noise spectra.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.solve">
-<code class="descname">solve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.solve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">solve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.solve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solutions of the network.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.source">
-<code class="descname">source</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.source" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">source</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refdes of the signal source (independent v or i source).</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -417,7 +418,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.srcUnits">
-<code class="descname">srcUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.srcUnits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">srcUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.srcUnits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Source units ‘V’ or ‘A’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -425,7 +426,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.step">
-<code class="descname">step</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.step" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">step</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setting for parameter stepping.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -433,7 +434,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepArray">
-<code class="descname">stepArray</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepArray" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepArray</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array (<em>list of lists</em>) with values for step method array.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
 the execution of the instruction. This instance will be a deep copy.</p>
@@ -441,7 +442,7 @@ the execution of the instruction. This instance will be a deep copy.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepList">
-<code class="descname">stepList</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepList" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepList</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepList" title="Permalink to this definition">¶</a></dt>
 <dd><p>List with values for step method ‘list’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
 the execution of the instruction. This instance will be a deep copy.</p>
@@ -449,7 +450,7 @@ the execution of the instruction. This instance will be a deep copy.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepMethod">
-<code class="descname">stepMethod</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepMethod" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepMethod</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step method for parameter stepping.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -457,7 +458,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepNum">
-<code class="descname">stepNum</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepNum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepNum</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepNum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of steps for step methods ‘lin’ and ‘log’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -465,13 +466,13 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepResp">
-<code class="descname">stepResp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepResp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepResp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepResp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unit step responses.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepStart">
-<code class="descname">stepStart</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepStart" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepStart</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepStart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start value for stepping methods ‘lin’ and ‘log’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -479,7 +480,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepStop">
-<code class="descname">stepStop</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepStop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepStop</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepStop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop value for stepping methods ‘lin’ and ‘log’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -487,7 +488,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepVar">
-<code class="descname">stepVar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepVar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepVar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepVar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the step variable (<em>str</em>) for step types ‘lin’, ‘log’ and ‘list’.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -495,7 +496,7 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepVars">
-<code class="descname">stepVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stepVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.stepVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the step variables for ‘array’ type parameter stepping.</p>
 <p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
@@ -503,19 +504,19 @@ the execution of the instruction.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.svarTerms">
-<code class="descname">svarTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.svarTerms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">svarTerms</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.svarTerms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict with lists with source variances</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.time">
-<code class="descname">time</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">time</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time-domain responses.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.zeros">
-<code class="descname">zeros</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.zeros" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zeros</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.zeros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complex frequencies in [rad/s] or [Hz]</p>
 </dd></dl>
 
@@ -523,46 +524,42 @@ the execution of the instruction.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit">
-<em class="property">class </em><code class="descname">circuit</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">circuit</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype (sub)circuit object.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.circuits">
-<code class="descname">circuits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.circuits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">circuits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.circuits" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>str</em>) of a subcircuit.</li>
-<li>value: Associated circuit object (<em>SLiCAPprotos.circuit</em>).</li>
+<li><p>key: Name (<em>str</em>) of a subcircuit.</p></li>
+<li><p>value: Associated circuit object (<em>SLiCAPprotos.circuit</em>).</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.controlled">
-<code class="descname">controlled</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.controlled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">controlled</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.controlled" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with reference designators (<em>str</em>) of controlled sources.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.defPar">
-<code class="descname">defPar</code><span class="sig-paren">(</span><em>parName</em>, <em>parValue</em>, <em>units=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.defPar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">defPar</code><span class="sig-paren">(</span><em class="sig-param">parName</em>, <em class="sig-param">parValue</em>, <em class="sig-param">units=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.defPar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates or adds a parameter definition and updates the list
 <strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.Symbol</em>) of
 undefined parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</li>
-<li><strong>parValue</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Value of the parameter.</li>
-<li><strong>units</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Value of the parameter, defaults to None</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</p></li>
+<li><p><strong>parValue</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Value of the parameter.</p></li>
+<li><p><strong>units</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Value of the parameter, defaults to None</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="p">)</span>
@@ -574,27 +571,23 @@ undefined parameters.</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.defPars">
-<code class="descname">defPars</code><span class="sig-paren">(</span><em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.defPars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">defPars</code><span class="sig-paren">(</span><em class="sig-param">parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.defPars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds or modifies multiple parameter definitions and updates the list
 <strong>circuit.params</strong> with names (<em>sympy.Symbol</em>) of undefined parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Params parDict:</th><td class="field-body"><p class="first">Dictionary with key-value pairs:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params parDict</dt>
+<dd class="field-odd"><p>Dictionary with key-value pairs:</p>
 <ul class="simple">
-<li>key: parName (<em>str, sympy.Symbol</em>): name of the
-parameter.</li>
-<li>value: parValue (<em>str, float, int, sympy object</em>):
-value or expression of the parameter.</li>
+<li><p>key: parName (<em>str, sympy.Symbol</em>): name of the
+parameter.</p></li>
+<li><p>value: parValue (<em>str, float, int, sympy object</em>):
+value or expression of the parameter.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the value of &#39;R&#39; as 2000 and &#39;C&#39; as 5e-12:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">defPars</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;2k&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;5p&#39;</span><span class="p">)</span>
@@ -604,21 +597,18 @@ value or expression of the parameter.</li>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.delPar">
-<code class="descname">delPar</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.delPar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">delPar</code><span class="sig-paren">(</span><em class="sig-param">parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.delPar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a parameter definition and updates the list
 <strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.Symbol</em>) of
 undefined parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Delete the definition for the parameter &#39;R&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_circuit</span><span class="o">.</span><span class="n">delPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
@@ -628,26 +618,28 @@ undefined parameters.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.depVars">
-<code class="descname">depVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.depVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">depVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.depVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names (<em>str</em>) of independent variables:</p>
 <ul>
-<li><p class="first">nodal voltages:</p>
+<li><p>nodal voltages:</p>
 <p>A nodal voltage will be named as: ‘V_&lt;node name&gt;’</p>
 </li>
-<li><p class="first">branch currents. Branch current will be named ad follows:</p>
+<li><p>branch currents. Branch current will be named ad follows:</p>
 <ul class="simple">
-<li>Current through a two-terminal element:<ul>
-<li>Vxxx: ‘I_Vxxx’</li>
-<li>Rxxx with model ‘r’: ‘I_Rxxx’</li>
-<li>Lxxx: ‘I_Lxxx’</li>
+<li><p>Current through a two-terminal element:</p>
+<ul>
+<li><p>Vxxx: ‘I_Vxxx’</p></li>
+<li><p>Rxxx with model ‘r’: ‘I_Rxxx’</p></li>
+<li><p>Lxxx: ‘I_Lxxx’</p></li>
 </ul>
 </li>
-<li>Currents through the input port or the output port of controlled
-sources:<ul>
-<li>Exxx output port: ‘I_o_Exxx’</li>
-<li>Fxxx input port: ‘I_i_Fxxx’</li>
-<li>Gxxx, model = ‘G’, output port: ‘I_o_Gxxx’</li>
-<li>Hxxx, input port: ‘Ii_Hxxx’, output port: ‘I_o_xxx’</li>
+<li><p>Currents through the input port or the output port of controlled
+sources:</p>
+<ul>
+<li><p>Exxx output port: ‘I_o_Exxx’</p></li>
+<li><p>Fxxx input port: ‘I_i_Fxxx’</p></li>
+<li><p>Gxxx, model = ‘G’, output port: ‘I_o_Gxxx’</p></li>
+<li><p>Hxxx, input port: ‘Ii_Hxxx’, output port: ‘I_o_xxx’</p></li>
 </ul>
 </li>
 </ul>
@@ -657,69 +649,65 @@ sources:<ul>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.elements">
-<code class="descname">elements</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">elements</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Reference designator (<em>str</em>) of the element.</li>
-<li>value: Element object (<em>SLiCAPprotos.element</em>)</li>
+<li><p>key: Reference designator (<em>str</em>) of the element.</p></li>
+<li><p>value: Element object (<em>SLiCAPprotos.element</em>)</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.errors">
-<code class="descname">errors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.errors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">errors</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number (<em>int</em>) of errors found during checking of the circuit.
 Defaults to 0.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.file">
-<code class="descname">file</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">file</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name (<em>str</em>) of the netlist file. Defaults to None.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.getElementValue">
-<code class="descname">getElementValue</code><span class="sig-paren">(</span><em>elementID</em>, <em>param</em>, <em>numeric</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.getElementValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getElementValue</code><span class="sig-paren">(</span><em class="sig-param">elementID</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.getElementValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value or expression of one or more circuit elements.</p>
 <p>If instruction.numeric == True it will perform a full recursive 
 substitution of all circuit parameter definitions.</p>
 <p>This method is called by instruction.circuit.getElementValue() with 
 keyword arg numeric = True if instruction.simType is set to ‘numeric’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>elementID</strong> (<em>str</em><em>, </em><em>list</em>) – name(s) of the element(s)</li>
-<li><strong>param</strong> (<em>str</em>) – <p>name of the parameter (equal for all elements):</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elementID</strong> (<em>str</em><em>, </em><em>list</em>) – name(s) of the element(s)</p></li>
+<li><p><strong>param</strong> (<em>str</em>) – <p>name of the parameter (equal for all elements):</p>
 <ul>
-<li>’value’: Laplace value</li>
-<li>’dc’: DC value (independent sources only)</li>
-<li>’noise’: Noise spectral density (independent sources only)</li>
-<li>’dcvar’: DC variance (independent sources only)</li>
+<li><p>’value’: Laplace value</p></li>
+<li><p>’dc’: DC value (independent sources only)</p></li>
+<li><p>’noise’: Noise spectral density (independent sources only)</p></li>
+<li><p>’dcvar’: DC variance (independent sources only)</p></li>
 </ul>
-</li>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>if type(parNames) == list:</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>if type(parNames) == list:</p>
 <p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>): 
 name of the parameter, value (<em>int, float, sympy expression</em>): 
 value of the parameter</p>
 <p>else:
 value or expression</p>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict, float, int, sympy.Expr</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict, float, int, sympy.Expr</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -733,31 +721,31 @@ value or expression</p>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.getParValue">
-<code class="descname">getParValue</code><span class="sig-paren">(</span><em>parNames</em>, <em>numeric=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.getParValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getParValue</code><span class="sig-paren">(</span><em class="sig-param">parNames</em>, <em class="sig-param">numeric=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.getParValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value or expression of one or more parameters.</p>
 <p>If numeric == True it will perform a full recursive substitution of
 all circuit parameter definitions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parNames</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>list</em>) – name(s) of the parameter(s)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">If type(parNames) == list:<p>(<em>dict</em>) with key-value pairs:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parNames</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>list</em>) – name(s) of the parameter(s)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>If type(parNames) == list:</p>
+<p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key (<em>sympy.Symbol</em>): name of the parameter</li>
-<li>value (<em>int, float, sympy object</em>): value of the parameter</li>
+<li><p>key (<em>sympy.Symbol</em>): name of the parameter</p></li>
+<li><p>value (<em>int, float, sympy object</em>): value of the parameter</p></li>
 </ul>
 <p>Else: value or expression (<em>int, float, sympy object</em>).</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict, float, int, sympy obj</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict, float, int, sympy obj</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance if a SLiCAP instruction</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create my_instr.circuit from the netlist &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">checkCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span>
@@ -770,78 +758,78 @@ all circuit parameter definitions.</p>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.indepVars">
-<code class="descname">indepVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.indepVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">indepVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.indepVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with reference designators (<em>str</em>) of independent variables:</p>
 <ul class="simple">
-<li>independent voltage sources</li>
-<li>independent current sources.</li>
+<li><p>independent voltage sources</p></li>
+<li><p>independent current sources.</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.lexer">
-<code class="descname">lexer</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.lexer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lexer</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.lexer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tokenized (<em>ply.lex.lex</em>) netlist file. Defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.libs">
-<code class="descname">libs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.libs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">libs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.libs" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names (<em>str</em>) of library files found in netlist lines
 starting with ‘,lib’ or ‘.inc’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.modelDefs">
-<code class="descname">modelDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.modelDefs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">modelDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.modelDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a model.</li>
-<li>value: Associated model object (<em>SLiCAPprotos.model</em>).</li>
+<li><p>key: Name (<em>sympy.Symbol</em>) of a model.</p></li>
+<li><p>value: Associated model object (<em>SLiCAPprotos.model</em>).</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.nodes">
-<code class="descname">nodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.nodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names (<em>str</em>) of circuit nodes.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parDefs">
-<code class="descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parDefs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a circuit parameter.</li>
-<li>value: Value (<em>sympy object</em>, float, int) of the parameter.</li>
+<li><p>key: Name (<em>sympy.Symbol</em>) of a circuit parameter.</p></li>
+<li><p>value: Value (<em>sympy object</em>, float, int) of the parameter.</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parUnits">
-<code class="descname">parUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parUnits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parUnits" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a circuit parameter.</li>
-<li>value: Units (<em>str</em>) of the parameter.</li>
+<li><p>key: Name (<em>sympy.Symbol</em>) of a circuit parameter.</p></li>
+<li><p>value: Units (<em>str</em>) of the parameter.</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.params">
-<code class="descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.params" title="Permalink to this definition">¶</a></dt>
 <dd><ul>
-<li><p class="first">If SLiCAPcircuit.subCKT == True:</p>
+<li><p>If SLiCAPcircuit.subCKT == True:</p>
 <p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a parameter that can be passed to the
-sub circuit.</li>
-<li>value: Default value (<em>sympy object</em>, float, int) of the parameter.</li>
+<li><p>key: Name (<em>sympy.Symbol</em>) of a parameter that can be passed to the
+sub circuit.</p></li>
+<li><p>value: Default value (<em>sympy object</em>, float, int) of the parameter.</p></li>
 </ul>
 </li>
-<li><p class="first">Else:</p>
+<li><p>Else:</p>
 <ul class="simple">
-<li>(<em>list</em>) with names (<em>sympy.Symbol</em>) of undefined parameters.</li>
+<li><p>(<em>list</em>) with names (<em>sympy.Symbol</em>) of undefined parameters.</p></li>
 </ul>
 </li>
 </ul>
@@ -849,38 +837,38 @@ sub circuit.</li>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.subCKT">
-<code class="descname">subCKT</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.subCKT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">subCKT</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.subCKT" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>bool</em>) True if the circuit is a sub circuit. Defaults to False.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.title">
-<code class="descname">title</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">title</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title (<em>str</em>) of the circuit. Defautls to None.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.updateMdata">
-<code class="descname">updateMdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.updateMdata" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">updateMdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.updateMdata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates data for building matrices: self.depVars and self.varIndex.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.updateParams">
-<code class="descname">updateParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.updateParams" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">updateParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.updateParams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates self.params (list with undefined parameters) after modification
 of parameter definitions in self.parDefs.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.varIndex">
-<code class="descname">varIndex</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.varIndex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">varIndex</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.varIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key (<em>str</em>): node name or name of branch current.</li>
-<li>value(<em>int</em>) : row position in the vector with independent variables,
+<li><p>key (<em>str</em>): node name or name of branch current.</p></li>
+<li><p>value(<em>int</em>) : row position in the vector with independent variables,
 before elemination of the row anmd column associated with the
-reference node ‘0’.</li>
+reference node ‘0’.</p></li>
 </ul>
 </dd></dl>
 
@@ -888,54 +876,50 @@ reference node ‘0’.</li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.copyNotOverwrite">
-<code class="descname">copyNotOverwrite</code><span class="sig-paren">(</span><em>src</em>, <em>dest</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.copyNotOverwrite" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">copyNotOverwrite</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">dest</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.copyNotOverwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies the file ‘src’ to ‘dest’ if the latter one does not exist.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>src</strong> (<em>str</em>) – Name of the source file.</li>
-<li><strong>dest</strong> (<em>str</em>) – Name of the desitination file.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> (<em>str</em>) – Name of the source file.</p></li>
+<li><p><strong>dest</strong> (<em>str</em>) – Name of the desitination file.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device">
-<em class="property">class </em><code class="descname">device</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">device</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype for devices that can be used in SLiCAP.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device.ID">
-<code class="descname">ID</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.ID" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ID</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.ID" title="Permalink to this definition">¶</a></dt>
 <dd><p>ID of the device, e.g. ‘V’ for voltage source. Defaults to ‘’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device.models">
-<code class="descname">models</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.models" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">models</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.models" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names (<em>str</em>) of valid models for the device.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device.nNodes">
-<code class="descname">nNodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.nNodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nNodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.nNodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number (<em>int</em>) of nodes of the device. Defaults to 0.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device.nRefs">
-<code class="descname">nRefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.nRefs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nRefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.nRefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number (<em>int</em>) of reference designators of referenced devices.
 Defaults to 0.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.device.value">
-<code class="descname">value</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.value" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">value</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.device.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>bool</em>) True if model or value is required. Defaults to True.</p>
 </dd></dl>
 
@@ -943,47 +927,47 @@ Defaults to 0.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element">
-<em class="property">class </em><code class="descname">element</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">element</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype circuit element object.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.model">
-<code class="descname">model</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">model</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name (<em>str</em>) of the model of the element.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.nodes">
-<code class="descname">nodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.nodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names (<em>str</em>) of the nodes to which the element is
 connected.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.params">
-<code class="descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.params" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key (<em>sympy.Symbol</em>): Name of an element parameter.</li>
-<li>value (<em>sympy object</em>, float, int): Value of the parameter.</li>
+<li><p>key (<em>sympy.Symbol</em>): Name of an element parameter.</p></li>
+<li><p>value (<em>sympy object</em>, float, int): Value of the parameter.</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.refDes">
-<code class="descname">refDes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.refDes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">refDes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.refDes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Element reference designator (<em>str</em>), defaults to ‘’.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.refs">
-<code class="descname">refs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.refs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">refs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.refs" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with reference designators of elements (<em>str</em>) that are
 referenced to by the element.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.element.type">
-<code class="descname">type</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">type</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Element type: First letter of refdes (<em>str</em>).</p>
 </dd></dl>
 
@@ -991,55 +975,52 @@ referenced to by the element.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.initAll">
-<code class="descname">initAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.initAll" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">initAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.initAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the SLiCAP built-in models and devices.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.makeDir">
-<code class="descname">makeDir</code><span class="sig-paren">(</span><em>dirName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.makeDir" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeDir</code><span class="sig-paren">(</span><em class="sig-param">dirName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.makeDir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the directory ‘dirName’ if it does not yet exist.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dirName</strong> (<em>str</em>) – Name of the ditectory.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dirName</strong> (<em>str</em>) – Name of the ditectory.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model">
-<em class="property">class </em><code class="descname">model</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">model</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protpotype for element models that can be used in SLiCAP.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model.depVars">
-<code class="descname">depVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.depVars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">depVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.depVars" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>list</em>) with names of dependent variables to be used in the vector
 with dependent variables.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model.name">
-<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name (<em>str</em>) of the model.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model.params">
-<code class="descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.params" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key (<em>str</em>): Name  of the model parameter</li>
-<li>value (<em>bool</em>): True if the Laplace variable is allowed in the
-expression for this parameter, else False.</li>
+<li><p>key (<em>str</em>): Name  of the model parameter</p></li>
+<li><p>value (<em>bool</em>): True if the Laplace variable is allowed in the
+expression for this parameter, else False.</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.model.stamp">
-<code class="descname">stamp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.stamp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stamp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.model.stamp" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>bool</em>) True if model has associated matrix stamp,
 False if it requires expansion.</p>
 </dd></dl>
@@ -1048,27 +1029,27 @@ False if it requires expansion.</p>
 
 <dl class="class">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef">
-<em class="property">class </em><code class="descname">modelDef</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">modelDef</code><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protpotype for model definitions that can be added to SLiCAP.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.name">
-<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name (<em>str</em>) of the model.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.params">
-<code class="descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.params" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key (<em>str</em>): Model parameter name</li>
-<li>value (<em>sympy object</em>, float, int): Value or expression</li>
+<li><p>key (<em>str</em>): Model parameter name</p></li>
+<li><p>value (<em>sympy object</em>, float, int): Value or expression</p></li>
 </ul>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.type">
-<code class="descname">type</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">type</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.modelDef.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name (<em>str</em>) of the built-in model type that should be used for this
 model.</p>
 </dd></dl>
