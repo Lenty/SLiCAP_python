@@ -42,7 +42,3 @@ def rstfile(filename):
         cell = file.read()
     return HTML(docutils.core.publish_string(cell, writer=writer).decode('UTF-8'))
 
-# Adjust HTML output for markdown.
-
-if __name__== '__main__':
-    ini.dump()
