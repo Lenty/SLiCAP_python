@@ -78,7 +78,8 @@ class InstallWrapper(install):
                 except:
                     print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
                     print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
-
+            
+        
             result = [i for i in result if i] # Added due to variability of trailing '\n'
             result = result[-1]
             if int(result) == 2:
@@ -171,13 +172,14 @@ class InstallWrapper(install):
     def _gen_config_file(self):
         print("Generating the configuration file")
         fileloc = os.path.join("SLiCAPtemplate.py")
-        filetarg = os.path.join("SLiCAP", "SLiCAPconfig", "SLiCAPconfig.py")
+        filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")
         if os.path.isfile(fileloc):
             print("Found template file: ", fileloc)
             copy(fileloc, filetarg)
             with in_place.InPlace(filetarg) as file:
                 for line in file:
                     line = line.replace("$VERSION", self._SLiCAP_version)
+                    line = line.replace("$SYSINSTALL", ' ')
                     line = line.replace("$LIBCOREPATH", self._library_location)
                     line = line.replace("$MAXIMAPATH", self._maxima_cmd)
                     line = line.replace("$DOCPATH", self._doc_location)

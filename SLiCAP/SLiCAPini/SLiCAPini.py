@@ -6,6 +6,7 @@ SLiCAP initialization module, imports external modules and defines settings.
 Imported by the module **SLiCAini.py**
 """
 
+from SLiCAP.SLiCAPsetting import *
 from SLiCAP.SLiCAPconfig import *
 import docutils.core
 import docutils.writers.html5_polyglot

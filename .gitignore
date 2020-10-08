@@ -10,3 +10,4 @@ dist/
 ProgramDocs/
 SLiCAP_python.egg-info/
 >>>>>>> python3
+examples/*/SLiCAPconfig.py
