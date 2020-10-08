@@ -16,6 +16,7 @@ def test_CSresnoise():
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
+    makeDir(ini.htmlPath)
     ini.lastUpdate  = datetime.now()
     # prj = initProject('CS stage noise with resistive source', firstRun=False)
     ini.maxima = 'C:\\maxima-5.42.2\\bin\\maxima.bat'
@@ -97,6 +98,7 @@ def test_yacc():
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
+    makeDir(ini.htmlPath)
     ini.lastUpdate  = datetime.now()
     LIB = makeLibraries()
     fi = 'CSresNoise.cir'
