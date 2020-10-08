@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 *.pyc
 examples/**/*.pyc
 exemples/Transimpedance/
-=======
 __pycache__/
 examples/**/__pycache__/
 build/
 dist/
 ProgramDocs/
 SLiCAP_python.egg-info/
->>>>>>> python3
-examples/*/SLiCAPconfig.py
+examples/*
