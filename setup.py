@@ -124,17 +124,15 @@ class InstallWrapper(install):
             else:
                 print("Using valid library path", ret_val)
                 slicap_home = ret_val
-
             try:
-                if not os.path.exists(slicap_home):
-                    os.makedirs(slicap_home)
-                for (root, dirs, files) in os.walk("lib/"):
-                    for name in files:
-                        copy(os.path.join(root, name), slicap_home)
+                if os.path.exists(slicap_home):
+                    shutil.rmtree(slicap_home)
+                shutil.copytree('lib/', slicap_home)
                 self._library_location = slicap_home
                 succes = True
             except:
-                print("could not set library location")
+                print("could not set documentation location")
+                
 
     def _set_doc_location(self):
         """
@@ -159,7 +157,6 @@ class InstallWrapper(install):
             else:
                 print("Using valid documentation path", ret_val)
                 slicap_home = ret_val
-
             try:
                 if os.path.exists(slicap_home):
                     shutil.rmtree(slicap_home)

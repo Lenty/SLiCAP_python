@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -93,6 +93,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Download, install and configure SLiCAP</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#download-and-install-slicap">Download and Install SLiCAP</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#download-slicap">Download SLiCAP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-slicap">Install SLiCAP</a></li>
 </ul>
 </li>
@@ -128,7 +129,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
 
@@ -203,22 +203,48 @@
 <h2>Download and Install SLiCAP<a class="headerlink" href="#download-and-install-slicap" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP is available under the following license:</p>
 <a class="reference external image-reference" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" style="width: 88px;" /></a>
-<p>SLiCAP by <a class="reference external" href="http://www.analog-electronics.eu">Anton Montagne</a> is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. Based on a work at: <a class="reference external" href="http://www.analog-electronics.eu/slicap/slicap.html">http://www.analog-electronics.eu/slicap/slicap.html</a></p>
+<p>SLiCAP is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. Based on a work at: <a class="reference external" href="http://www.analog-electronics.eu/slicap/slicap.html">http://www.analog-electronics.eu/slicap/slicap.html</a></p>
 <div class="section" id="requirements">
 <h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
-<p>Before installing SLiCAP you need to install <a class="reference external" href="http://maxima.sourceforge.net/download.html">maxima CAS</a>.</p>
+<p>Before installing SLiCAP you need to install <a class="reference external" href="http://maxima.sourceforge.net/download.html">maxima CAS</a> and Python 3 packages listed in <a class="reference external" href="https://github.com/Lenty/SLiCAP_python/blob/master/requirements.txt">https://github.com/Lenty/SLiCAP_python/requirements.txt</a>.</p>
+</div>
+<div class="section" id="download-slicap">
+<h3>Download SLiCAP<a class="headerlink" href="#download-slicap" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open a command window or terminal in a folder where you want to store the downloaded files and clone <a class="reference external" href="https://github.com/Lenty/SLiCAP_python">https://github.com/Lenty/SLiCAP_python</a> into that folder:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Lenty/SLiCAP_python
+</pre></div>
+</div>
+<p>or</p>
+<ul class="simple">
+<li>Download the zip file from: <a class="reference external" href="https://github.com/Lenty/SLiCAP_python">https://github.com/Lenty/SLiCAP_python</a> and extract it in some folder.</li>
+</ul>
 </div>
 <div class="section" id="install-slicap">
 <h3>Install SLiCAP<a class="headerlink" href="#install-slicap" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">slicap</span>
+<ol class="arabic simple">
+<li>Open a terminal or command window and go to the folder with the file <em>setup.py</em> (usually: <em>&lt;where_you_downloaded_or_cloned&gt;/SLiCAP_python)</em> and enter the command:</li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span>
 </pre></div>
 </div>
+<ol class="arabic simple">
+<li>Enter the requested directory paths or accept the defaults.</li>
+</ol>
 </div>
 </div>
 <div class="section" id="configure-slicap-options">
 <h2>Configure SLiCAP options<a class="headerlink" href="#configure-slicap-options" title="Permalink to this headline">¶</a></h2>
 <p>You can configure SLiCAP options after you have created a project. To this end you create a python file
-in a project directory. The minimum content of this file is:</p>
+in some project directory. The minimum content of this (python) file is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the SLiCAP modules</span>
+<span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Create a SLiCAP project, this creates the folder structure</span>
+<span class="c1"># and compiles the libraries.</span>
+<span class="n">my_project</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my_firstSLiCAP_project&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>You can modify the directory structure and update the paths for circuit files, library files, etc in the
 <code class="docutils literal notranslate"><span class="pre">SLiCAPconfig.py</span></code> file, which is created in the project directory.</p>
 <div class="section" id="mathjax">
@@ -227,8 +253,8 @@ in a project directory. The minimum content of this file is:</p>
 </div>
 <div class="section" id="global-parameters">
 <h3>Global parameters<a class="headerlink" href="#global-parameters" title="Permalink to this headline">¶</a></h3>
-<p>SLiCAP has a number of built-in parameters. These parameters are defined in the <code class="docutils literal notranslate"><span class="pre">SLiCAPmodels.lib</span></code> library file.
-You can define other global parameters by adding SPICE .param declarations.</p>
+<p>SLiCAP has a number of built-in parameters. These parameters are defined in the <code class="docutils literal notranslate"><span class="pre">SLiCAPmodels.lib</span></code> library file in the <code class="docutils literal notranslate"><span class="pre">lib/</span></code> folder
+You can define other global parameters by adding SPICE .param declarations in this file.</p>
 <div class="highlight-text notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -341,7 +367,8 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 </div>
 <div class="section" id="path-settings">
 <h3>Path settings<a class="headerlink" href="#path-settings" title="Permalink to this headline">¶</a></h3>
-<p>The project path setting are defined in the file <strong>SLiCAPconflig.py</strong>. This file is created in the project directory the by <strong>initProject()</strong>. Once created, it can be edited to modify the path settings. The default values are:</p>
+<p>The project path settings are defined in <strong>SLiCAPconflig.py</strong>. This file is created in the project directory the by <strong>initProject()</strong>. Once created, it can be edited to modify the path settings. <strong>initProject()</strong> will not overwrite the existing <strong>SLiCAPconflig.py</strong>. If you want it to be regenerated, simply delete it before running <strong>initProject()</strong>.</p>
+<p>The default values are:</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -402,72 +429,104 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 </div>
 <div class="section" id="slicap-configuration-parameters">
 <h3>SLiCAP configuration parameters<a class="headerlink" href="#slicap-configuration-parameters" title="Permalink to this headline">¶</a></h3>
-<p>The configuration parameters for SLiCAP are described in <a class="reference external" href="../reference/SLiCAPini.html#module-SLiCAPini">SLiCAPini.py</a>.</p>
+<p>The configuration parameters for SLiCAP are defined in <a class="reference external" href="../reference/SLiCAPini.html#module-SLiCAPini">SLiCAP.SLiCAPini.py</a>.</p>
 <p>To list the values of the SLiCAP configuration parameters enter:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="getting-help">
 <h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
-<p>For help open the <code class="docutils literal notranslate"><span class="pre">doc/index.html</span></code> file in the SLiCAP install path.</p>
+<p>For help open the <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in the <code class="docutils literal notranslate"><span class="pre">doc/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
+<p>If you are working in a python IDE or in a jupyter notebook, use the <em>Help()</em> function (with capital <strong>H</strong>).</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Help</span><span class="p">()</span> <span class="c1"># This will open the HTML documentation in your default web browser.</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="schematic-capture">
 <h2>Schematic capture<a class="headerlink" href="#schematic-capture" title="Permalink to this headline">¶</a></h2>
-<p>SLiCAP accepts SPICE-like netlists. Many schematic capture programs can be configured to generate such netlists. SLiCAP comes with symbol libraries for LTspice and gSchem.</p>
-<p>For manual netlist generation please view the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section in the help file.</p>
+<p>SLiCAP accepts SPICE-like netlists. Many schematic capture programs can be configured to generate such netlists. SLiCAP comes with symbol libraries for <em>LTspice</em>, <em>gSchem</em> and its fork <em>lepton-eda</em>.</p>
+<p>The syntax that should be used for composing SLiCAP netlists is described in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section.</p>
 <div class="section" id="ltspice">
 <h3>LTspice<a class="headerlink" href="#ltspice" title="Permalink to this headline">¶</a></h3>
-<p><strong>LTspice</strong> can be used for netlist generation. LTspice symbols for SLiCAP are included in the <code class="docutils literal notranslate"><span class="pre">LTspice</span></code> subdirectory in the SLiCAP install path. LTspice works with Windows and Linux (under Wine). A version for MAC is also available. Go to <a class="reference external" href="http://www.linear.com/designtools/software">LTspice</a> for the latest version.</p>
-<p>For an overview of SLiCAP symbols for LTspice, please view the <a class="reference external" href="../syntax/schematics.html#LTSpice">LTSpice</a> section in the help file.</p>
+<p><strong>LTspice</strong> can be used for netlist generation. LTspice works with Windows and Linux (under Wine). A version for MAC is also available. Go to <a class="reference external" href="http://www.linear.com/designtools/software">LTspice</a> for the latest version.</p>
+<p>For an overview of SLiCAP symbols for LTspice, please view the <a class="reference external" href="../syntax/schematics.html#LTSpice">LTSpice</a> section.</p>
+<p><strong>Configure LTspice for use with SLiCAP</strong></p>
+<p>SLiCAP circuits should be made with SLiCAP symbols (and not with the default LTspice symbols). LTspice symbols for SLiCAP are placed in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
+<ol class="arabic">
+<li><p class="first">Start LTspice</p>
+</li>
+<li><p class="first">On the menu bar click <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Control</span> <span class="pre">Panel</span></code>. This will bring up the LTspice control panel:</p>
+<img alt="../_images/LTspiceControlPanel1.png" src="../_images/LTspiceControlPanel1.png" />
+</li>
+<li><p class="first">On this control panel select the <code class="docutils literal notranslate"><span class="pre">Netlist</span> <span class="pre">Options</span></code> tab and select the options as shown below:</p>
+<img alt="../_images/LTspiceControlPanelNetlistOptions1.png" src="../_images/LTspiceControlPanelNetlistOptions1.png" />
+</li>
+<li><p class="first">Then select the <code class="docutils literal notranslate"><span class="pre">Sym.</span> <span class="pre">&amp;</span> <span class="pre">Lib.</span> <span class="pre">Search</span> <span class="pre">Paths</span></code> tab and enter the full path to the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
+<img alt="../_images/LTspiceControlPanelSymbolPath1.png" src="../_images/LTspiceControlPanelSymbolPath1.png" />
+</li>
+<li><p class="first">Then select the <code class="docutils literal notranslate"><span class="pre">Drafting</span> <span class="pre">Options</span></code> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
+<img alt="../_images/LTspiceControlPanelFontSettings1.png" src="../_images/LTspiceControlPanelFontSettings1.png" />
+</li>
+</ol>
 </div>
 <div class="section" id="gschem">
 <h3>Gschem<a class="headerlink" href="#gschem" title="Permalink to this headline">¶</a></h3>
-<p>The open source <strong>gschem</strong> package can also be used in conjunction with SLiCAP. This package is used by the author and symbols for SLiCAP built-in devices have been included in the SLiCAP zip file.</p>
-<p>For an overview of SLiCAP symbols for gSchem, please view the <a class="reference external" href="../schematics.html#gSchem">gSchem</a> section in the help file.</p>
-<p>The improved <strong>gnet-spice-noqsi</strong> spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with gschem and this netlister.</p>
-<p>The application of gschem as front-end for SLiCAP has been tested under Linux and under Windows.</p>
-<ul class="simple">
-<li><p>Under Linux you can install it with the package manager. Please visit <a class="reference external" href="http://www.geda-project.org">gEDA</a> for more information.</p></li>
-<li><p>A windows installer for gschem can be downloaded from: <a class="reference external" href="http://bibo.iqo.uni-hannover.de/dokuwiki/doku.php?id=english:geda_for_ms-windows">gEDA-20130122.zip</a>.</p></li>
-<li><p>The improved spice netlister can be downloaded from: <a class="reference external" href="https://github.com/noqsi/gnet-spice-noqsi/tree/geda-gaf">gnet-spice-noqsi</a>.</p></li>
-</ul>
+<p>The open source <strong>gschem</strong> package can also be used in conjunction with SLiCAP. SLiCAP symbols for gschem are included in the <code class="docutils literal notranslate"><span class="pre">gSchem/symbol/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
+<p>For an overview of SLiCAP symbols for gSchem, please view the <a class="reference external" href="../syntax/schematics.html#gSchem">gSchem</a> section.</p>
+<p>The <strong>gnet-spice-noqsi</strong> spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with gschem and this netlister.</p>
+<p>The use of gschem as front-end for SLiCAP has been tested under Linux and under Windows.</p>
 <p><strong>Linux installation</strong></p>
+<p>Under Linux you can install it with the package manager. Please visit <a class="reference external" href="http://www.geda-project.org">gEDA</a> for more information. In some Linux distributions gschem may be replaced with lepton-eda.</p>
+<p>The spice netlister for gschem can be found in the <code class="docutils literal notranslate"><span class="pre">gSchem/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>Linux installation of gschem and the gnet-spice-noqsi is well documented and straightforward.</p>
 <p>After installation of gschem you need to create or modify the file: <code class="docutils literal notranslate"><span class="pre">.gEDA/gafrc</span></code> in your home directory with the contents:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">reset</span><span class="o">-</span><span class="n">component</span><span class="o">-</span><span class="n">library</span><span class="p">)</span>
 <span class="p">(</span><span class="n">component</span><span class="o">-</span><span class="n">library</span> <span class="s2">&quot;&lt;path to SLiCAP symbol Library&gt;&quot;</span> <span class="s2">&quot;SLiCAP&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The component-library is found in the extracted <code class="docutils literal notranslate"><span class="pre">SLiCAP_VXX_xxxx.zip</span></code> file; in the subdirectory <code class="docutils literal notranslate"><span class="pre">gschem/symbols/</span></code>. Enter the complete path in the <code class="docutils literal notranslate"><span class="pre">.gEDA/gafrc</span></code> file.</p>
 <p>If you wish to have a light background you can create or modify the file <code class="docutils literal notranslate"><span class="pre">.gEDA/gschemrc</span></code> in your home directory with the contents:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">load</span> <span class="p">(</span><span class="n">build</span><span class="o">-</span><span class="n">path</span> <span class="n">geda</span><span class="o">-</span><span class="n">rc</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;gschem-colormap-lightbg&quot;</span><span class="p">))</span> <span class="p">;</span> <span class="n">light</span> <span class="n">background</span>
 </pre></div>
 </div>
 <p><strong>Windows installation</strong></p>
+<p>A windows installer for gschem can be downloaded from: <a class="reference external" href="http://bibo.iqo.uni-hannover.de/dokuwiki/doku.php?id=english:geda_for_ms-windows">gEDA-20130122.zip</a>.</p>
 <p>Windows installation of gschem is straightforward: simply extract the <code class="docutils literal notranslate"><span class="pre">gEDA-20130122.zip</span></code> file and run the Windows installer. In the drop down menu of the “Select Components” dialog box select “Program only”, for the rest accept default settings.</p>
+<p>The spice netlister for gschem can be found in the <code class="docutils literal notranslate"><span class="pre">gSchem/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>The netlister is installed by copying the file <code class="docutils literal notranslate"><span class="pre">gnet-spice-noqsi.scm</span></code> from the extracted <code class="docutils literal notranslate"><span class="pre">gnet-spice-noqsi.zip</span></code> to: <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\gEDA\gEDA\share\gEDA\scheme\gnet-spice-noqsi</span></code>.</p>
 <p>You need to create or modify the file <code class="docutils literal notranslate"><span class="pre">gafrc</span></code> in the <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;userName&gt;\.gEDA\</span></code> directory. It should have the following content:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">reset</span><span class="o">-</span><span class="n">component</span><span class="o">-</span><span class="n">library</span><span class="p">)</span>
 <span class="p">(</span><span class="n">component</span><span class="o">-</span><span class="n">library</span> <span class="s2">&quot;C:/Program Files (x86)/gEDA/gEDA/share/gEDA/sym/slicap&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The component library is found in the in the subdirectory <code class="docutils literal notranslate"><span class="pre">gschem/symbols/</span></code> in the SLiCAP install path. Create a directory <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\gEDA\gEDA\share\gEDA\sym\slicap</span></code> and copy the component library to this directory.</p>
+<p>The component library is found in the in the <code class="docutils literal notranslate"><span class="pre">gschem/symbols/</span></code> folder in the SLiCAP install path. Create a directory <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\gEDA\gEDA\share\gEDA\sym\slicap</span></code> and copy the component library to this directory.</p>
 <p>If you wish to have a light background you can create or modify the file <code class="docutils literal notranslate"><span class="pre">gschemrc</span></code> in the <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;userName&gt;\.gEDA\</span></code> directory. Its contents must be:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">load</span> <span class="p">(</span><span class="n">build</span><span class="o">-</span><span class="n">path</span> <span class="n">geda</span><span class="o">-</span><span class="n">rc</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;gschem-colormap-lightbg&quot;</span><span class="p">))</span> <span class="p">;</span> <span class="n">light</span> <span class="n">background</span>
 </pre></div>
 </div>
-<p>Be sure you save these two files <code class="docutils literal notranslate"><span class="pre">gafrc</span></code> and <code class="docutils literal notranslate"><span class="pre">gschemrc</span></code> <strong>without any file extension</strong>.</p>
+<p>Be sure you save these two files <code class="docutils literal notranslate"><span class="pre">gafrc</span></code> and <code class="docutils literal notranslate"><span class="pre">gschemrc</span></code> without any file extension.</p>
 </div>
 <div class="section" id="lepton-eda">
 <h3>Lepton-eda<a class="headerlink" href="#lepton-eda" title="Permalink to this headline">¶</a></h3>
 <p>Lepton-eda is a fork of geda-gaf. Please visit <a class="reference external" href="https://github.com/lepton-eda/lepton-eda">https://github.com/lepton-eda/lepton-eda</a> for more information.</p>
-<p><strong>Linux information</strong></p>
-<p>The schematic symbols, the netlister and configuration information are located in the lepton-eda/ subdirectory of the SLiCAP install path. The netlister can also be downloaded from &lt;<a class="reference external" href="https://github.com/noqsi/gnet-spice-noqsi">https://github.com/noqsi/gnet-spice-noqsi</a>&gt;`_.</p>
-<p>For compact node names (important for use in symbolic expressions) you need to reconfigure the default net name prefix.</p>
+<p>SLiCAP symbols for lepton-eda are included in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
+<p>For an overview of SLiCAP symbols for lepton-eda, please view the <a class="reference external" href="../syntax/schematics.html#gSchem">gSchem</a> section in the help file.</p>
+<p>After installation of lepton-eda you need to create or modify the file: <code class="docutils literal notranslate"><span class="pre">.gEDA/gafrc</span></code> in your home directory with the contents:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">reset</span><span class="o">-</span><span class="n">component</span><span class="o">-</span><span class="n">library</span><span class="p">)</span>
+<span class="p">(</span><span class="n">component</span><span class="o">-</span><span class="n">library</span> <span class="s2">&quot;&lt;path to SLiCAP symbol Library&gt;&quot;</span> <span class="s2">&quot;SLiCAP&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you wish to have a light background you can create or modify the file <code class="docutils literal notranslate"><span class="pre">.gEDA/gschemrc</span></code> in your home directory with the contents:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">load</span> <span class="p">(</span><span class="n">build</span><span class="o">-</span><span class="n">path</span> <span class="n">geda</span><span class="o">-</span><span class="n">rc</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;gschem-colormap-lightbg&quot;</span><span class="p">))</span> <span class="p">;</span> <span class="n">light</span> <span class="n">background</span>
+</pre></div>
+</div>
+<p>Be sure you save these two files <code class="docutils literal notranslate"><span class="pre">gafrc</span></code> and <code class="docutils literal notranslate"><span class="pre">gschemrc</span></code> without any file extension.</p>
+<p>The <strong>gnet-spice-noqsi</strong> spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with lepton-eda and this netlister.</p>
+<p>The spice netlister for lepton-eda can be found in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
+<p>For compact node names (important for use in symbolic expressions) you need to reconfigure the default <em>net name prefix</em>.</p>
 <p>This is how it should be done under Ubuntu-based Linux systems:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo lepton-cli config --system <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">lepton</span><span class="o">-</span><span class="n">cli</span> <span class="n">config</span> <span class="o">--</span><span class="n">system</span> <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -484,7 +543,7 @@ You can define other global parameters by adding SPICE .param declarations.</p>
 <div class="section" id="inkscape-svg-editor">
 <h3>Inkscape .svg editor<a class="headerlink" href="#inkscape-svg-editor" title="Permalink to this headline">¶</a></h3>
 <p>When printing a schematic from LTspice with a PDF printer, the full path of the file will be listed at the bottom of the page. After the .PDF file has been converted into a .SVG file (see above), you can use <strong>inkscape</strong> to edit this SVG file and delete the footer.</p>
-<p>Inkscape runs under Windows, Linux and Mac OS. Inkscape versions can be downloaded from: <a class="reference external" href="https://inkscape.org/en/download/">inkscape.org</a>.</p>
+<p>Inkscape runs under Windows, Linux and Mac OS. Inkscape versions can be downloaded from: <a class="reference external" href="https://inkscape.org/release/inkscape-1.0.1/">inkscape.org</a>.</p>
 </div>
 </div>
 </div>

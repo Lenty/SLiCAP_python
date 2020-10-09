@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -110,7 +110,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
 
@@ -186,9 +185,9 @@
 <h2>Obtain the coefficients of a Laplace rational<a class="headerlink" href="#obtain-the-coefficients-of-a-laplace-rational" title="Permalink to this headline">¶</a></h2>
 <p>The function <strong>SLiCAPmath.coeffsTransfer(*args)</strong> returns a tuple with:</p>
 <ul class="simple">
-<li><p>The gain</p></li>
-<li><p>A list of coefficients of the Laplace variable of the numerator in ascending order</p></li>
-<li><p>A list of coefficients of the Laplace variable of the denominator in ascending order</p></li>
+<li>The gain</li>
+<li>A list of coefficients of the Laplace variable of the numerator in ascending order</li>
+<li>A list of coefficients of the Laplace variable of the denominator in ascending order</li>
 </ul>
 <p>All coefficients have been normalized to obtain unity for the coefficient of the lowest order of the denominator. The gain is then defined as the ratio of the coefficients of the lowest order of the numerator and the denominator. Both lists carry the coefficients in ascending order.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -226,9 +225,9 @@
 <p>With the loop gain reference variable properly selected, the dynamic behavior of a negative feedback amplifier is the product its ideal gain and the servo function. The servo function is determined by the loop gain. If the loop gain reaches infinity, the servo fuction approaches unity. The bandwidth of the servo functions is a measure for the frequency range over which the gain of a negative feedback system approaches its ideal gain.</p>
 <p>The function <strong>SLiCAPmath.findServoBandwidth(*args)</strong> determines the unity gain frequencies of the asymptotes of the magnitude characteristic of the loop gain. It assumes a single passband, low-pass, band-pass or high-pass behavior of the servo function. This means that there are maximally two unity gain frequencies of the loop gain. The function returns:</p>
 <ul class="simple">
-<li><p>The frequencies of intersection of the asymptoties of the magnitude characteristic of the loop gain and unity</p></li>
-<li><p>The order (slope) at these frequencies</p></li>
-<li><p>The maximum asymptotic value of the magnitude of the loop gain and its first frequency of occurence.</p></li>
+<li>The frequencies of intersection of the asymptoties of the magnitude characteristic of the loop gain and unity</li>
+<li>The order (slope) at these frequencies</li>
+<li>The maximum asymptotic value of the magnitude of the loop gain and its first frequency of occurence.</li>
 </ul>
 <p>The function argument can be obtained from the execution of an instruction with the data type set to <em>laplace</em> and its gain type set to <em>loopgain</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -242,9 +241,9 @@
 </div>
 <p>Hence, the servo function has a first-order low-frequency cut-off at about 1.6krad/s (254.65 Hz) and a first-order high-frequency cut-off at about 125krad/s (19.8944 kHz). The mid-band of the loop gain equals -2.5 at 4000rad/s (636.62Hz]. The result for this situation has been shown <a class="reference internal" href="#below">below</a>.</p>
 <blockquote id="below">
-<div><div class="figure align-default" id="id1">
+<div><div class="figure" id="id1">
 <a class="reference internal image-reference" href="../_images/BWexample.svg"><img alt="Estimation of the bandwidth of the servo function from the asymptotes of the magnitude characteristic of the loop gain" src="../_images/BWexample.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Estimation of the bandwidth of the servo function from the asymptotes of the magnitude characteristic of the loop gain</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Estimation of the bandwidth of the servo function from the asymptotes of the magnitude characteristic of the loop gain</span></p>
 </div>
 </div></blockquote>
 </div>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -105,11 +105,10 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPmath.html">SLiCAPmath.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPini.html">SLiCAPini.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SLiCAPsetting.html">SLiCAPini.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPsetting.html">SLiCAPsetting.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPconfig.html">SLiCAPconfig.py</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
 
@@ -225,11 +224,7 @@
 41
 42
 43
-44
-45
-46
-47
-48</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+44</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Main module for working with SLiCAP from within Jupyter Notebook or Jupyter Lab.</span>
@@ -245,7 +240,6 @@
 <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">SVG</span>
 <span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="n">register_cell_magic</span><span class="p">,</span> <span class="n">register_line_magic</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Work around for displaying rst in jupyter notebooks</span>
 
@@ -274,9 +268,6 @@
         <span class="n">cell</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">publish_string</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writer</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">))</span>
 
-<span class="c1"># Adjust HTML output for markdown.</span>
-
-<span class="n">ini</span><span class="o">.</span><span class="n">notebook</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </td></tr></table></div>
 </div>

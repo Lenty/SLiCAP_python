@@ -14,9 +14,8 @@ prj = initProject('My first RC network') # Sets all the paths and creates the HT
 
 baseFileName = 'myFirstRCnetwork'
 fileName = baseFileName + '.cir'
-schematicFile = baseFileName + '.sch'
-
-makeNetlist(schematicFile, 'My first RC network')
+#schematicFile = baseFileName + '.asc'
+#makeNetlist(schematicFile, 'My first RC network')
 i1 = instruction()                       # Creates an instance of an instruction object
 i1.setCircuit(fileName)                  # Checks and defines the local circuit object and
                                          # sets the index page to the circuit index page
