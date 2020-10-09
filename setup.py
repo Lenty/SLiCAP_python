@@ -217,7 +217,7 @@ class InstallWrapper(install):
         filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")
         if os.path.isfile(fileloc):
             print("Found template file: ", fileloc)
-            print(os.listdir(os.path.join("SLiCAP", "SLiCAPsetting")))
+            print(os.listdir("SLiCAP"))
             shutil.copy(fileloc, filetarg)
             
             with in_place.InPlace(filetarg) as file:
