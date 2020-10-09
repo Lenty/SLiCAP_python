@@ -29,16 +29,11 @@ class InstallWrapper(install):
         # Run this first so the install stops in case
         # these fail otherwise the Python package is
         # successfully installed
-        print(os.getcwd())
         self._set_maxima_command()
-        print(os.getcwd())
         self._set_version_config()
-        print(os.getcwd())
         self._set_install_location()
-        print(os.getcwd())
         # self._set_lib_location()
         # self._set_doc_location()
-        
         self._gen_config_file()
         # Run the standard PyPi copy
         install.run(self)
@@ -222,9 +217,7 @@ class InstallWrapper(install):
         filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")
         if os.path.isfile(fileloc):
             print("Found template file: ", fileloc)
-            print(os.listdir("SLiCAP"))
-            shutil.copy(fileloc, filetarg)
-            
+            copy(fileloc, filetarg)
             with in_place.InPlace(filetarg) as file:
                 for line in file:
                     line = line.replace("$VERSION", self._SLiCAP_version)
@@ -232,7 +225,7 @@ class InstallWrapper(install):
                     line = line.replace("$LIBCOREPATH", self._library_location)
                     line = line.replace("$MAXIMAPATH", self._maxima_cmd)
                     line = line.replace("$DOCPATH", self._doc_location)
-                    print(line)
+                    # print(line)
                     file.write(line)
         print("Created config file: ", filetarg)
 
