@@ -225,7 +225,7 @@ class InstallWrapper(install):
                     line = line.replace("$LIBCOREPATH", self._library_location)
                     line = line.replace("$MAXIMAPATH", self._maxima_cmd)
                     line = line.replace("$DOCPATH", self._doc_location)
-                    # print(line)
+                    print(line)
                     file.write(line)
         print("Created config file: ", filetarg)
 
