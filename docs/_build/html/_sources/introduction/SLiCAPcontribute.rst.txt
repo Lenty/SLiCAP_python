@@ -7,8 +7,9 @@ Adding features
 ---------------
 Features should be added through pull requests and pass all checks that have been set up on the github page.
 These tests include:
-* Functional python tests
-* Style tests verified using a linter
+
+- Functional python tests
+- Style tests verified using a linter
 
 Bugs
 -----

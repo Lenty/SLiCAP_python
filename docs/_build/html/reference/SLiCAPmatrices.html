@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,143 +183,134 @@
 <p>Imported by the module <strong>SLiCAPpythonMaxima.py</strong></p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue">
-<code class="descname">getValue</code><span class="sig-paren">(</span><em>elmt</em>, <em>param</em>, <em>numeric</em>, <em>parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbolic or numeric value of a parameter of an element.</p>
 <p>This function is called by makeMatrices().</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parm elmt:</th><td class="field-body"><p class="first">element object</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>param</strong> (<em>str</em>) – parameter of interest (‘value’, ‘noise’, ‘dc’ or ‘dcvar’)</li>
-<li><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
-parameters to sympy floats</li>
-<li><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parm elmt</dt>
+<dd class="field-odd"><p>element object</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>param</strong> (<em>str</em>) – parameter of interest (‘value’, ‘noise’, ‘dc’ or ‘dcvar’)</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
+parameters to sympy floats</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
 <ul>
-<li>key  : parameter name (sympy.Symbol)</li>
-<li>value: numeric value of sympy expression</li>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
 </ul>
-</li>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value: sympy expresssion or numeric value of the element parameter</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, int, float, sympy.Float</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>value: sympy expresssion or numeric value of the element parameter</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>sympy.Expr, int, float, sympy.Float</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues">
-<code class="descname">getValues</code><span class="sig-paren">(</span><em>elmt</em>, <em>param</em>, <em>numeric</em>, <em>parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getValues</code><span class="sig-paren">(</span><em class="sig-param">elmt</em>, <em class="sig-param">param</em>, <em class="sig-param">numeric</em>, <em class="sig-param">parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbolic or numeric value of numerator and the denominator
 of a parameter of an element. This function is called by makeMatrices().</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parm elmt:</th><td class="field-body"><p class="first">element object</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>param</strong> (<em>str</em>) – parameter of interest (‘value’, ‘noise’, ‘dc’ or ‘dcvar’)</li>
-<li><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sp.N for converting
-parameters to sympy floats</li>
-<li><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parm elmt</dt>
+<dd class="field-odd"><p>element object</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>param</strong> (<em>str</em>) – parameter of interest (‘value’, ‘noise’, ‘dc’ or ‘dcvar’)</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sp.N for converting
+parameters to sympy floats</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
 <ul>
-<li>key  : parameter name (sympy.Symbol)</li>
-<li>value: numeric value of sympy expression</li>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
 </ul>
-</li>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Tuple with sympy expresssions or numeric values of the numerator
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Tuple with sympy expresssions or numeric values of the numerator
 and the denominator of the element parameter.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices">
-<code class="descname">makeMatrices</code><span class="sig-paren">(</span><em>cir</em>, <em>parDefs</em>, <em>numeric</em>, <em>gainType</em>, <em>lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeMatrices</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">parDefs</em>, <em class="sig-param">numeric</em>, <em class="sig-param">gainType</em>, <em class="sig-param">lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the MNA matrix and the vector with dependent variables of a circuit.</p>
 <p>Modifications in the circuit object, necessary for calculation of different
 gain types are temporary. The circuit data before and after
 running ‘makeMatrices’ is the same:</p>
 <ol class="arabic simple">
-<li>If gainType == ‘asymptotic’:<ul>
-<li>store the model of lgRef</li>
-<li>modify the model of lgRef to ‘N’</li>
-<li>update depVars and varIndex</li>
-<li>create the matrices</li>
-<li>restore the model of lgRef</li>
-<li>update depVars and varIndex</li>
+<li><p>If gainType == ‘asymptotic’:</p>
+<ul class="simple">
+<li><p>store the model of lgRef</p></li>
+<li><p>modify the model of lgRef to ‘N’</p></li>
+<li><p>update depVars and varIndex</p></li>
+<li><p>create the matrices</p></li>
+<li><p>restore the model of lgRef</p></li>
+<li><p>update depVars and varIndex</p></li>
 </ul>
 </li>
-<li>If gainType == ‘direct’, ‘loopgain’ or ‘servo’:<ul>
-<li>store value of lgRef</li>
-<li>set value of lgRef element to zero</li>
-<li>create the matrices</li>
-<li>restore the value of lgRef</li>
-<li>loopgain and servo will be calculated with the output of lgRef
-as source and the input of lgRef as detector.</li>
+<li><p>If gainType == ‘direct’, ‘loopgain’ or ‘servo’:</p>
+<ul class="simple">
+<li><p>store value of lgRef</p></li>
+<li><p>set value of lgRef element to zero</p></li>
+<li><p>create the matrices</p></li>
+<li><p>restore the value of lgRef</p></li>
+<li><p>loopgain and servo will be calculated with the output of lgRef
+as source and the input of lgRef as detector.</p></li>
 </ul>
 </li>
-<li>If gainType == ‘vi’ or ‘gain’:<ul>
-<li>no alterations of the circuit need to be made</li>
+<li><p>If gainType == ‘vi’ or ‘gain’:</p>
+<ul class="simple">
+<li><p>no alterations of the circuit need to be made</p></li>
 </ul>
 </li>
 </ol>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</li>
-<li><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
 <ul>
-<li>key  : parameter name (sympy.Symbol)</li>
-<li>value: numeric value of sympy expression</li>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
 </ul>
-</li>
-<li><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
-parameters to sympy floats</li>
-<li><strong>gainType</strong> (<em>str</em>) – Gain type of the instruction</li>
-<li><strong>lgRef</strong> (<em>str</em>) – ID of the loop gain reference of the instruction</li>
+</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
+parameters to sympy floats</p></li>
+<li><p><strong>gainType</strong> (<em>str</em>) – Gain type of the instruction</p></li>
+<li><p><strong>lgRef</strong> (<em>str</em>) – ID of the loop gain reference of the instruction</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple with two sympy matrices:</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple with two sympy matrices:</p>
 <ol class="arabic simple">
-<li>MNA matrix M</li>
-<li>Vector with dependent variables Dv</li>
+<li><p>MNA matrix M</p></li>
+<li><p>Vector with dependent variables Dv</p></li>
 </ol>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector">
-<code class="descname">makeSrcVector</code><span class="sig-paren">(</span><em>cir</em>, <em>parDefs</em>, <em>elid</em>, <em>value='id'</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">makeSrcVector</code><span class="sig-paren">(</span><em class="sig-param">cir</em>, <em class="sig-param">parDefs</em>, <em class="sig-param">elid</em>, <em class="sig-param">value='id'</em>, <em class="sig-param">numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the vector with independent variables.
 The vector can be created for a single independent variable or for all.</p>
 <p>This can be used for determination of a transfer using Cramer’s rule.</p>
@@ -331,33 +322,29 @@ in the detector col, of the MNA matrix.  After calculation of the
 determinant of this modified matrix, the result is divided by refDes.</p>
 <p>This method is used for determination of gain factors for noise sources
 and for DC variance sources.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</li>
-<li><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
 <ul>
-<li>key  : parameter name (sympy.Symbol)</li>
-<li>value: numeric value of sympy expression</li>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
 </ul>
-</li>
-<li><strong>elid</strong> (<em>str</em>) – Refdes (ID) of a source to be included in this vector; ‘all’
-for all sources.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
-parameters to sympy floats</li>
+</p></li>
+<li><p><strong>elid</strong> (<em>str</em>) – Refdes (ID) of a source to be included in this vector; ‘all’
+for all sources.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
+parameters to sympy floats</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Iv: vector with in dependent variables</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Matrix</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Iv: vector with in dependent variables</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Matrix</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

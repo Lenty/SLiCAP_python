@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -303,16 +303,15 @@
 <p>This section gives an overview of the devices and their built-in models with their parameters. SLiCAP distinguishes two kinds of models:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Models that have an associated matrix stamp.</li>
-<li>Models that will be expanded into models with an associated matrix stamp.</li>
+<li><p>Models that have an associated matrix stamp.</p></li>
+<li><p>Models that will be expanded into models with an associated matrix stamp.</p></li>
 </ol>
 </div></blockquote>
 <p>Model data will be listed in tables. The fields in these tables have the following meaning:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">name</span></code>: the name of the model. This name is associated with the implementation type:</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">type</span></code>: the implementation type of the model:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the name of the model. This name is associated with the implementation type:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the implementation type of the model:</p>
 <blockquote>
 <div><p>a <code class="docutils literal notranslate"><span class="pre">stamp</span></code>: a matrix stamp is associated with the model</p>
 <p>b <code class="docutils literal notranslate"><span class="pre">expansion</span></code>: the model is expanded into elements with models that have associated matrix stamps</p>
@@ -327,7 +326,7 @@ concatenation of two strings:</p>
 <p>b <code class="docutils literal notranslate"><span class="pre">&quot;I_&quot;</span></code> and the device name for twoport elements with model type <code class="docutils literal notranslate"><span class="pre">F</span></code></p>
 </div></blockquote>
 <ol class="arabic" start="4">
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">Io</span></code>: <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> if an output current is added to the vector with dependent variables, else: <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>. This field applies only for models with <code class="docutils literal notranslate"><span class="pre">type=stamp</span></code>. The name of this current is the concatenation of two strings:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Io</span></code>: <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> if an output current is added to the vector with dependent variables, else: <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>. This field applies only for models with <code class="docutils literal notranslate"><span class="pre">type=stamp</span></code>. The name of this current is the concatenation of two strings:</p>
 <blockquote>
 <div><p>a <code class="docutils literal notranslate"><span class="pre">&quot;Io_&quot;</span></code> and the device name for two-port elements that have model type <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">EZ</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">H</span></code>, <code class="docutils literal notranslate"><span class="pre">HZ</span></code> or <code class="docutils literal notranslate"><span class="pre">N</span></code></p>
 <p>b <code class="docutils literal notranslate"><span class="pre">&quot;I_&quot;</span></code> and the device name for one port elements with model type <code class="docutils literal notranslate"><span class="pre">L</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">V</span></code> and <code class="docutils literal notranslate"><span class="pre">Z</span></code></p>
@@ -338,10 +337,10 @@ concatenation of two strings:</p>
 <p>Valid model parameters and their default values are listed in the subsequent rows of the table:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">param</span></code>: the name of the parameter (case sensitive)</li>
-<li><code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expression}</span></code>: the default value or expression for the model parameter</li>
-<li><code class="docutils literal notranslate"><span class="pre">Laplace</span></code>: a boolean <code class="docutils literal notranslate"><span class="pre">TRUE</span> <span class="pre">|</span> <span class="pre">FALSE</span></code> indicating if the Laplace variable <code class="docutils literal notranslate"><span class="pre">s</span></code> is allowed in the device expression</li>
-<li><code class="docutils literal notranslate"><span class="pre">description</span></code>: a description of the parameter</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">param</span></code>: the name of the parameter (case sensitive)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expression}</span></code>: the default value or expression for the model parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Laplace</span></code>: a boolean <code class="docutils literal notranslate"><span class="pre">TRUE</span> <span class="pre">|</span> <span class="pre">FALSE</span></code> indicating if the Laplace variable <code class="docutils literal notranslate"><span class="pre">s</span></code> is allowed in the device expression</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: a description of the parameter</p></li>
 </ol>
 </div></blockquote>
 <div class="section" id="c-capacitor">
@@ -350,32 +349,32 @@ concatenation of two strings:</p>
 <div class="section" id="model-c">
 <span id="c"></span><h3>Model C<a class="headerlink" href="#model-c" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id28">
+<div><div class="figure align-default" id="id28">
 <a class="reference internal image-reference" href="../_images/stampC.svg"><img alt="Syntax, symbol and matrix stamp of a capacitor" src="../_images/stampC.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Figure C: Syntax, symbol and matrix stamp of a capacitor.</span></p>
+<p class="caption"><span class="caption-text">Figure C: Syntax, symbol and matrix stamp of a capacitor.</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="39%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>C</td>
-<td>Linear capacitor</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>Linear capacitor</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -384,25 +383,25 @@ concatenation of two strings:</p>
 <div class="section" id="parameters-model-c">
 <h3>Parameters model C<a class="headerlink" href="#parameters-model-c" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>capacitance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>capacitance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -434,26 +433,26 @@ concatenation of two strings:</p>
 <div class="section" id="model-d">
 <span id="d"></span><h3>Model D<a class="headerlink" href="#model-d" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id29">
+<div><div class="figure align-default" id="id29">
 <a class="reference internal image-reference" href="../_images/modelD.svg"><img alt="Syntax, symbol and small-signal model expansion for a diode" src="../_images/modelD.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Figure D: Syntax, symbol and small-signal model expansion for a diode.</span></p>
+<p class="caption"><span class="caption-text">Figure D: Syntax, symbol and small-signal model expansion for a diode.</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="59%" />
-<col width="25%" />
+<col style="width: 16%" />
+<col style="width: 59%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>D</td>
-<td>Small-signal model diode</td>
-<td>expansion</td>
+<tbody>
+<tr class="row-even"><td><p>D</p></td>
+<td><p>Small-signal model diode</p></td>
+<td><p>expansion</p></td>
 </tr>
 </tbody>
 </table>
@@ -462,35 +461,35 @@ concatenation of two strings:</p>
 <div class="section" id="parameters-model-d">
 <h3>Parameters model D<a class="headerlink" href="#parameters-model-d" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="14%" />
-<col width="51%" />
-<col width="18%" />
-<col width="18%" />
+<col style="width: 14%" />
+<col style="width: 51%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>gd</td>
-<td>conductance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>gd</p></td>
+<td><p>conductance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cd</td>
-<td>capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cd</p></td>
+<td><p>capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>rs</td>
-<td>series resistance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>rs</p></td>
+<td><p>series resistance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -517,34 +516,34 @@ concatenation of two strings:</p>
 <div class="section" id="models">
 <h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="42%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 42%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>E</td>
-<td>VCVS</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>VCVS</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>EZ</td>
-<td>VCVS with Z-series</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>EZ</p></td>
+<td><p>VCVS with Z-series</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -553,34 +552,34 @@ concatenation of two strings:</p>
 <div class="section" id="model-e">
 <span id="e"></span><h3>Model E<a class="headerlink" href="#model-e" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id30">
+<div><div class="figure align-default" id="id30">
 <a class="reference internal image-reference" href="../_images/stampE.svg"><img alt="Syntax, symbol and matrix stamp of a VCVS: model E" src="../_images/stampE.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCVS model E</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCVS model E</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-e">
 <h3>Parameters model E<a class="headerlink" href="#parameters-model-e" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>voltage gain</td>
-<td>1</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>voltage gain</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -589,39 +588,39 @@ concatenation of two strings:</p>
 <div class="section" id="model-ez">
 <span id="ez"></span><h3>Model EZ<a class="headerlink" href="#model-ez" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id31">
+<div><div class="figure align-default" id="id31">
 <a class="reference internal image-reference" href="../_images/stampEZ.svg"><img alt="Syntax, symbol and matrix stamp of a VCVS with series impedance: model EZ" src="../_images/stampEZ.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCVS with series impedance: model EZ</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCVS with series impedance: model EZ</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-ez">
 <h3>Parameters model EZ<a class="headerlink" href="#parameters-model-ez" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>voltage gain</td>
-<td>1</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>voltage gain</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>zs</td>
-<td>series impedance</td>
-<td>1</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>zs</p></td>
+<td><p>series impedance</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -654,33 +653,33 @@ concatenation of two strings:</p>
 <div class="section" id="model-f">
 <span id="f"></span><h3>Model F<a class="headerlink" href="#model-f" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id32">
+<div><div class="figure align-default" id="id32">
 <a class="reference internal image-reference" href="../_images/stampF.svg"><img alt="Syntax, symbol and matrix stamp of a CCCS: model F" src="../_images/stampF.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCCS model F</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCCS model F</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
 </div>
 <p>Please notice the independent variable <span class="math notranslate nohighlight">\(I_{Fx}\)</span> which is added to the vector of independent variables equals the product of the denominator of the current gain <span class="math notranslate nohighlight">\(Df_s\)</span> and the input current <span class="math notranslate nohighlight">\(Ii_{Fx}\)</span>, rather than the input current.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="39%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>F</td>
-<td>VCVS</td>
-<td>stamp</td>
-<td>TRUE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>F</p></td>
+<td><p>VCVS</p></td>
+<td><p>stamp</p></td>
+<td><p>TRUE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -689,25 +688,25 @@ concatenation of two strings:</p>
 <div class="section" id="parameters-model-f">
 <h3>Parameters model F<a class="headerlink" href="#parameters-model-f" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>current gain</td>
-<td>1</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>current gain</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -737,34 +736,34 @@ concatenation of two strings:</p>
 <div class="section" id="id4">
 <h3>Models<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="39%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>G</td>
-<td>VCGS</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>G</p></td>
+<td><p>VCGS</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>g</td>
-<td>VCGS</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>g</p></td>
+<td><p>VCGS</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -773,34 +772,34 @@ concatenation of two strings:</p>
 <div class="section" id="model-g">
 <span id="complex"></span><h3>Model G<a class="headerlink" href="#model-g" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id33">
+<div><div class="figure align-default" id="id33">
 <a class="reference internal image-reference" href="../_images/stampG.svg"><img alt="Syntax, symbol and matrix stamp of a VCCS: model G" src="../_images/stampG.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCCS: model G</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCCS: model G</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-g">
 <h3>Parameters model G<a class="headerlink" href="#parameters-model-g" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>transadmittance</td>
-<td>1</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>transadmittance</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -809,34 +808,34 @@ concatenation of two strings:</p>
 <div class="section" id="real">
 <span id="id5"></span><h3>Model g<a class="headerlink" href="#real" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id34">
+<div><div class="figure align-default" id="id34">
 <a class="reference internal image-reference" href="../_images/stampGm.svg"><img alt="Syntax, symbol and matrix stamp of a VCCS: model g" src="../_images/stampGm.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCCS: model g</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a VCCS: model g</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="id6">
 <h3>Parameters model g<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>transconductance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>transconductance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -871,34 +870,34 @@ concatenation of two strings:</p>
 <div class="section" id="id8">
 <h3>Models<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="42%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 42%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>H</td>
-<td>CCVS</td>
-<td>stamp</td>
-<td>TRUE</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>H</p></td>
+<td><p>CCVS</p></td>
+<td><p>stamp</p></td>
+<td><p>TRUE</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>HZ</td>
-<td>CCVS with Z-series</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>HZ</p></td>
+<td><p>CCVS with Z-series</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -907,34 +906,34 @@ concatenation of two strings:</p>
 <div class="section" id="model-h">
 <span id="h"></span><h3>Model H<a class="headerlink" href="#model-h" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id35">
+<div><div class="figure align-default" id="id35">
 <a class="reference internal image-reference" href="../_images/stampH.svg"><img alt="Syntax, symbol and matrix stamp of a CCVS: model H" src="../_images/stampH.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCVS model H</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCVS model H</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-h">
 <h3>Parameters model H<a class="headerlink" href="#parameters-model-h" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>transimpedance</td>
-<td>1</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>transimpedance</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -943,39 +942,39 @@ concatenation of two strings:</p>
 <div class="section" id="model-hz">
 <span id="hz"></span><h3>Model HZ<a class="headerlink" href="#model-hz" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id36">
+<div><div class="figure align-default" id="id36">
 <a class="reference internal image-reference" href="../_images/stampHZ.svg"><img alt="Syntax, symbol and matrix stamp of a CCVS with series impedance: model HZ" src="../_images/stampHZ.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCVS with series impedance: model HZ</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a CCVS with series impedance: model HZ</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-hz">
 <h3>Parameters model HZ<a class="headerlink" href="#parameters-model-hz" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>transimpedance</td>
-<td>1</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>transimpedance</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>zs</td>
-<td>series impedance</td>
-<td>1</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>zs</p></td>
+<td><p>series impedance</p></td>
+<td><p>1</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1008,32 +1007,32 @@ concatenation of two strings:</p>
 <div class="section" id="model-i">
 <span id="i"></span><h3>Model I<a class="headerlink" href="#model-i" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id37">
+<div><div class="figure align-default" id="id37">
 <a class="reference internal image-reference" href="../_images/stampI.svg"><img alt="Syntax, symbol and matrix stamp of an independent current source: model I" src="../_images/stampI.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of an independent current source: model I</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of an independent current source: model I</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="50%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
+<col style="width: 13%" />
+<col style="width: 50%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>I</td>
-<td>Independent current source</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>I</p></td>
+<td><p>Independent current source</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1042,40 +1041,40 @@ concatenation of two strings:</p>
 <div class="section" id="parameters-model-i">
 <h3>Parameters model I<a class="headerlink" href="#parameters-model-i" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="12%" />
-<col width="56%" />
-<col width="16%" />
-<col width="16%" />
+<col style="width: 12%" />
+<col style="width: 56%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>Current (Laplace transform)</td>
-<td>0</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>Current (Laplace transform)</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>dc</td>
-<td>DC value              [A]</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>dc</p></td>
+<td><p>DC value              [A]</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-even"><td>dcvar</td>
-<td>Variance of DC value  [A^2]</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-even"><td><p>dcvar</p></td>
+<td><p>Variance of DC value  [A^2]</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>noise</td>
-<td>Noise current density [A^2/Hz]</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>noise</p></td>
+<td><p>Noise current density [A^2/Hz]</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1100,26 +1099,26 @@ I1 n1 n2 I value = 1m
 <div class="section" id="model-j">
 <span id="j"></span><h3>Model J<a class="headerlink" href="#model-j" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id38">
+<div><div class="figure align-default" id="id38">
 <a class="reference internal image-reference" href="../_images/modelJ.svg"><img alt="Syntax, symbol and network expansion of a junction FET: model J" src="../_images/modelJ.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a junction FET: model J</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a junction FET: model J</span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="59%" />
-<col width="25%" />
+<col style="width: 16%" />
+<col style="width: 59%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>J</td>
-<td>Small-signal model JFET</td>
-<td>expansion</td>
+<tbody>
+<tr class="row-even"><td><p>J</p></td>
+<td><p>Small-signal model JFET</p></td>
+<td><p>expansion</p></td>
 </tr>
 </tbody>
 </table>
@@ -1128,40 +1127,40 @@ I1 n1 n2 I value = 1m
 <div class="section" id="parameters-model-j">
 <h3>Parameters model J<a class="headerlink" href="#parameters-model-j" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="14%" />
-<col width="51%" />
-<col width="18%" />
-<col width="18%" />
+<col style="width: 14%" />
+<col style="width: 51%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cgs</td>
-<td>contactance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cgs</p></td>
+<td><p>contactance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cdg</td>
-<td>capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cdg</p></td>
+<td><p>capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gm</td>
-<td>forward transconductance</td>
-<td>1E-3</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gm</p></td>
+<td><p>forward transconductance</p></td>
+<td><p>1E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>go</td>
-<td>output conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>go</p></td>
+<td><p>output conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1181,32 +1180,32 @@ I1 n1 n2 I value = 1m
 <div class="section" id="model-k">
 <span id="k"></span><h3>Model K<a class="headerlink" href="#model-k" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id39">
+<div><div class="figure align-default" id="id39">
 <a class="reference internal image-reference" href="../_images/stampK.svg"><img alt="Syntax, symbol and matrix stamp of a coupling between two inductors: model K" src="../_images/stampK.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a coupling between two inductors: model K</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a coupling between two inductors: model K</span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="39%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>K</td>
-<td>Coupling factor</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>K</p></td>
+<td><p>Coupling factor</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1215,25 +1214,25 @@ I1 n1 n2 I value = 1m
 <div class="section" id="parameters-model-k">
 <h3>Parameters model K<a class="headerlink" href="#parameters-model-k" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>coupling factor</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>coupling factor</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1254,32 +1253,32 @@ k12 L1 L2 0.98
 <div class="section" id="model-l">
 <span id="l"></span><h3>Model L:<a class="headerlink" href="#model-l" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id40">
+<div><div class="figure align-default" id="id40">
 <a class="reference internal image-reference" href="../_images/stampL.svg"><img alt="Syntax, symbol and matrix stamp of an inductor: model L" src="../_images/stampL.svg" width="800px" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of an inductor: model L</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of an inductor: model L</span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="39%" />
-<col width="15%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>L</td>
-<td>Linear inductor</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>L</p></td>
+<td><p>Linear inductor</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1288,25 +1287,25 @@ k12 L1 L2 0.98
 <div class="section" id="parameters-model-l">
 <h3>Parameters model L<a class="headerlink" href="#parameters-model-l" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>inductance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>inductance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1332,26 +1331,26 @@ k12 L1 L2 0.98
 <div class="section" id="id14">
 <h3>Models<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="63%" />
-<col width="23%" />
+<col style="width: 15%" />
+<col style="width: 63%" />
+<col style="width: 23%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>M</td>
-<td>Four-terminal MOS</td>
-<td>expansion</td>
+<tbody>
+<tr class="row-even"><td><p>M</p></td>
+<td><p>Four-terminal MOS</p></td>
+<td><p>expansion</p></td>
 </tr>
-<tr class="row-odd"><td>MD</td>
-<td>Four-terminal diff. pair MOS</td>
-<td>expansion</td>
+<tr class="row-odd"><td><p>MD</p></td>
+<td><p>Four-terminal diff. pair MOS</p></td>
+<td><p>expansion</p></td>
 </tr>
 </tbody>
 </table>
@@ -1360,69 +1359,69 @@ k12 L1 L2 0.98
 <div class="section" id="model-m">
 <span id="m"></span><h3>Model M<a class="headerlink" href="#model-m" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id41">
+<div><div class="figure align-default" id="id41">
 <a class="reference internal image-reference" href="../_images/modelM.svg"><img alt="Syntax, symbol and network expansion of a 4-terminal MOS: model M" src="../_images/modelM.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a 4-terminal MOS: model M</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a 4-terminal MOS: model M</span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-m">
 <h3>Parameters model M<a class="headerlink" href="#parameters-model-m" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="14%" />
-<col width="51%" />
-<col width="18%" />
-<col width="18%" />
+<col style="width: 14%" />
+<col style="width: 51%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cgs</td>
-<td>gate-source capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cgs</p></td>
+<td><p>gate-source capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cgb</td>
-<td>gate-bulk capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cgb</p></td>
+<td><p>gate-bulk capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>cdg</td>
-<td>drain-gate capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>cdg</p></td>
+<td><p>drain-gate capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cdb</td>
-<td>drain-bulk capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cdb</p></td>
+<td><p>drain-bulk capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>csb</td>
-<td>source-bulk capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>csb</p></td>
+<td><p>source-bulk capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gm</td>
-<td>forward transconductance</td>
-<td>1E-3</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gm</p></td>
+<td><p>forward transconductance</p></td>
+<td><p>1E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gb</td>
-<td>bulk transconductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gb</p></td>
+<td><p>bulk transconductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>go</td>
-<td>output conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>go</p></td>
+<td><p>output conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1431,54 +1430,54 @@ k12 L1 L2 0.98
 <div class="section" id="model-md">
 <span id="md"></span><h3>Model MD<a class="headerlink" href="#model-md" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id42">
+<div><div class="figure align-default" id="id42">
 <a class="reference internal image-reference" href="../_images/modelMD.svg"><img alt="Syntax, symbol and network expansion of a 4-terminal MOS: model MD" src="../_images/modelMD.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a 4-terminal MOS: model MD</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a 4-terminal MOS: model MD</span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-md">
 <h3>Parameters model MD<a class="headerlink" href="#parameters-model-md" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="14%" />
-<col width="51%" />
-<col width="18%" />
-<col width="18%" />
+<col style="width: 14%" />
+<col style="width: 51%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cgg</td>
-<td>gate-gate capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cgg</p></td>
+<td><p>gate-gate capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cdg</td>
-<td>drain-gate capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cdg</p></td>
+<td><p>drain-gate capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>cdd</td>
-<td>drain-drain capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>cdd</p></td>
+<td><p>drain-drain capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gm</td>
-<td>forward transconductance</td>
-<td>1E-3</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gm</p></td>
+<td><p>forward transconductance</p></td>
+<td><p>1E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>go</td>
-<td>output conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>go</p></td>
+<td><p>output conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1520,32 +1519,32 @@ k12 L1 L2 0.98
 <div class="section" id="model-n">
 <h3>Model N<a class="headerlink" href="#model-n" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id43">
+<div><div class="figure align-default" id="id43">
 <a class="reference internal image-reference" href="../_images/stampN.svg"><img alt="Syntax, symbol and matrix stamp of a nullor: model N" src="../_images/stampN.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a nullor: model N</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a nullor: model N</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="50%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
+<col style="width: 13%" />
+<col style="width: 50%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>N</td>
-<td>Nullor</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>N</p></td>
+<td><p>Nullor</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1562,32 +1561,32 @@ k12 L1 L2 0.98
 <h2>O: Operational amplifier<a class="headerlink" href="#o-operational-amplifier" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP has two built-in models for operational amplifiers:</p>
 <ol class="arabic simple">
-<li>A small-signal model for a <a class="reference internal" href="#voltage-feedback">voltage-feedback</a> operational amplifier: model OV</li>
-<li>A small-signal model for a <a class="reference internal" href="#current-feedback">current-feedback</a> operational amplifier: model OC</li>
+<li><p>A small-signal model for a <a class="reference internal" href="#voltage-feedback">voltage-feedback</a> operational amplifier: model OV</p></li>
+<li><p>A small-signal model for a <a class="reference internal" href="#current-feedback">current-feedback</a> operational amplifier: model OC</p></li>
 </ol>
 <div class="section" id="id17">
 <h3>Models<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="63%" />
-<col width="23%" />
+<col style="width: 15%" />
+<col style="width: 63%" />
+<col style="width: 23%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>OV</td>
-<td>Voltage-feedback OpAmp</td>
-<td>expansion</td>
+<tbody>
+<tr class="row-even"><td><p>OV</p></td>
+<td><p>Voltage-feedback OpAmp</p></td>
+<td><p>expansion</p></td>
 </tr>
-<tr class="row-odd"><td>OC</td>
-<td>Current-feedback OpAmp</td>
-<td>expansion</td>
+<tr class="row-odd"><td><p>OC</p></td>
+<td><p>Current-feedback OpAmp</p></td>
+<td><p>expansion</p></td>
 </tr>
 </tbody>
 </table>
@@ -1596,58 +1595,58 @@ k12 L1 L2 0.98
 <div class="section" id="model-ov">
 <span id="voltage-feedback"></span><h3>Model OV<a class="headerlink" href="#model-ov" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id44">
+<div><div class="figure align-default" id="id44">
 <a class="reference internal image-reference" href="../_images/modelOV.svg"><img alt="Syntax, symbol and network expansion of a voltage-feedback operational amplifier: model OV" src="../_images/modelOV.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a voltage-feedback operational amplifier: model OV</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a voltage-feedback operational amplifier: model OV</span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-ov">
 <h3>Parameters model OV<a class="headerlink" href="#parameters-model-ov" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="61%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 10%" />
+<col style="width: 61%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head" colspan="2">name  | description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>name  | description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cd</td>
-<td>differential-mode input capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cd</p></td>
+<td><p>differential-mode input capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cc</td>
-<td>common-mode input capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cc</p></td>
+<td><p>common-mode input capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gd</td>
-<td>differential-mode input conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gd</p></td>
+<td><p>differential-mode input conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gc</td>
-<td>common-mode input conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gc</p></td>
+<td><p>common-mode input conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>av</td>
-<td>voltage gain</td>
-<td>1E6</td>
-<td>TRUE</td>
+<tr class="row-even"><td><p>av</p></td>
+<td><p>voltage gain</p></td>
+<td><p>1E6</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>zo</td>
-<td>output impedance</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>zo</p></td>
+<td><p>output impedance</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1656,64 +1655,64 @@ k12 L1 L2 0.98
 <div class="section" id="model-oc">
 <span id="current-feedback"></span><h3>Model OC<a class="headerlink" href="#model-oc" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id45">
+<div><div class="figure align-default" id="id45">
 <a class="reference internal image-reference" href="../_images/modelOC.svg"><img alt="Syntax, symbol and network expansion of a current-feedback operational amplifier: model OC" src="../_images/modelOC.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a current-feedback operational amplifier: model OC</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and network expansion of a current-feedback operational amplifier: model OC</span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-oc">
 <h3>Parameters model OC<a class="headerlink" href="#parameters-model-oc" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="62%" />
-<col width="14%" />
-<col width="14%" />
+<col style="width: 10%" />
+<col style="width: 62%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cp</td>
-<td>input capacitance non-inverting input</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cp</p></td>
+<td><p>input capacitance non-inverting input</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gp</td>
-<td>input conductance non-inverting input</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gp</p></td>
+<td><p>input conductance non-inverting input</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>cpn</td>
-<td>input capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>cpn</p></td>
+<td><p>input capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gpn</td>
-<td>input conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gpn</p></td>
+<td><p>input conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gm</td>
-<td>input stage transconductance</td>
-<td>20E-3</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gm</p></td>
+<td><p>input stage transconductance</p></td>
+<td><p>20E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>zt</td>
-<td>output stage transimpedance</td>
-<td>1E6</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>zt</p></td>
+<td><p>output stage transimpedance</p></td>
+<td><p>1E6</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-even"><td>zo</td>
-<td>output impedance</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-even"><td><p>zo</p></td>
+<td><p>output impedance</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1744,11 +1743,9 @@ k12 L1 L2 0.98
 <h2>Q: 4-terminal BJT<a class="headerlink" href="#q-4-terminal-bjt" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP incorporates three models for 4-terminal Bipolar Junction Transistors (BJTs):</p>
 <ol class="arabic">
-<li><p class="first">Model <a class="reference internal" href="#qv">QV</a> for a single vertical BJT</p>
-</li>
-<li><p class="first">Model <a class="reference internal" href="#ql">QL</a> for a single lateral BJT</p>
-</li>
-<li><p class="first">Model <a class="reference internal" href="#qd">QD</a> for a differential pair.</p>
+<li><p>Model <a class="reference internal" href="#qv">QV</a> for a single vertical BJT</p></li>
+<li><p>Model <a class="reference internal" href="#ql">QL</a> for a single lateral BJT</p></li>
+<li><p>Model <a class="reference internal" href="#qd">QD</a> for a differential pair.</p>
 <blockquote>
 <div><p>The latter one facilitates the design and analysis of negative-feedback amplifiers in which one controlled source that models the gain of the differential-pair BJT can be selected as loop gain reference variable.</p>
 </div></blockquote>
@@ -1757,30 +1754,30 @@ k12 L1 L2 0.98
 <div class="section" id="id19">
 <h3>Models<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="63%" />
-<col width="23%" />
+<col style="width: 15%" />
+<col style="width: 63%" />
+<col style="width: 23%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>QV</td>
-<td>Four-terminal vertical BJT</td>
-<td>expansion</td>
+<tbody>
+<tr class="row-even"><td><p>QV</p></td>
+<td><p>Four-terminal vertical BJT</p></td>
+<td><p>expansion</p></td>
 </tr>
-<tr class="row-odd"><td>QL</td>
-<td>Four-terminal lateral BJT</td>
-<td>expansion</td>
+<tr class="row-odd"><td><p>QL</p></td>
+<td><p>Four-terminal lateral BJT</p></td>
+<td><p>expansion</p></td>
 </tr>
-<tr class="row-even"><td>QD</td>
-<td>Four-terminal diff. pair BJT</td>
-<td>expansion</td>
+<tr class="row-even"><td><p>QD</p></td>
+<td><p>Four-terminal diff. pair BJT</p></td>
+<td><p>expansion</p></td>
 </tr>
 </tbody>
 </table>
@@ -1789,74 +1786,74 @@ k12 L1 L2 0.98
 <div class="section" id="model-qv">
 <span id="qv"></span><h3>Model QV<a class="headerlink" href="#model-qv" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id46">
+<div><div class="figure align-default" id="id46">
 <a class="reference internal image-reference" href="../_images/modelQV.svg"><img alt="SLiCAP built-in model for a 4-terminal vertical BJT: model QV" src="../_images/modelQV.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">SLiCAP built-in model for a 4-terminal vertical BJT: model QV</span></p>
+<p class="caption"><span class="caption-text">SLiCAP built-in model for a 4-terminal vertical BJT: model QV</span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-qv">
 <h3>Parameters model QV<a class="headerlink" href="#parameters-model-qv" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="60%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 11%" />
+<col style="width: 60%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cpi</td>
-<td>internal base-emitter capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cpi</p></td>
+<td><p>internal base-emitter capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cbc</td>
-<td>internal base-collector capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cbc</p></td>
+<td><p>internal base-collector capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>cbx</td>
-<td>external base-collector capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>cbx</p></td>
+<td><p>external base-collector capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cs</td>
-<td>collector-substrate capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cs</p></td>
+<td><p>collector-substrate capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gpi</td>
-<td>internal base-emitter conductance</td>
-<td>1E-3</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gpi</p></td>
+<td><p>internal base-emitter conductance</p></td>
+<td><p>1E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gm</td>
-<td>transconductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gm</p></td>
+<td><p>transconductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>go</td>
-<td>output conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>go</p></td>
+<td><p>output conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gbc</td>
-<td>internal base-collector conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gbc</p></td>
+<td><p>internal base-collector conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>rb</td>
-<td>base resistance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>rb</p></td>
+<td><p>base resistance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1865,74 +1862,74 @@ k12 L1 L2 0.98
 <div class="section" id="model-ql">
 <span id="ql"></span><h3>Model QL<a class="headerlink" href="#model-ql" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id47">
+<div><div class="figure align-default" id="id47">
 <a class="reference internal image-reference" href="../_images/modelQL.svg"><img alt="SLiCAP built-in model for a 4-terminal lateral BJT: model QL" src="../_images/modelQL.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">SLiCAP built-in model for a 4-terminal lateral BJT: model QL</span></p>
+<p class="caption"><span class="caption-text">SLiCAP built-in model for a 4-terminal lateral BJT: model QL</span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-ql">
 <h3>Parameters model QL<a class="headerlink" href="#parameters-model-ql" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="60%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 11%" />
+<col style="width: 60%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cpi</td>
-<td>internal base-emitter capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cpi</p></td>
+<td><p>internal base-emitter capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cbc</td>
-<td>internal base-collector capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cbc</p></td>
+<td><p>internal base-collector capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>cbx</td>
-<td>external base-collector capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>cbx</p></td>
+<td><p>external base-collector capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cs</td>
-<td>base-substrate capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cs</p></td>
+<td><p>base-substrate capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gpi</td>
-<td>internal base-emitter conductance</td>
-<td>1E-3</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gpi</p></td>
+<td><p>internal base-emitter conductance</p></td>
+<td><p>1E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gm</td>
-<td>transconductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gm</p></td>
+<td><p>transconductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>go</td>
-<td>output conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>go</p></td>
+<td><p>output conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gbc</td>
-<td>internal base-collector conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gbc</p></td>
+<td><p>internal base-collector conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>rb</td>
-<td>base resistance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>rb</p></td>
+<td><p>base resistance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -1941,69 +1938,69 @@ k12 L1 L2 0.98
 <div class="section" id="model-qd">
 <span id="qd"></span><h3>Model QD<a class="headerlink" href="#model-qd" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id48">
+<div><div class="figure align-default" id="id48">
 <a class="reference internal image-reference" href="../_images/modelQD.svg"><img alt="SLiCAP built-in model for a differential-pair BJT: model QD" src="../_images/modelQD.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">SLiCAP built-in model for a differential-pair BJT: model QD</span></p>
+<p class="caption"><span class="caption-text">SLiCAP built-in model for a differential-pair BJT: model QD</span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-qd">
 <h3>Parameters model QD<a class="headerlink" href="#parameters-model-qd" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="60%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 11%" />
+<col style="width: 60%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cbb</td>
-<td>internal base-base capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>cbb</p></td>
+<td><p>internal base-base capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>cbc</td>
-<td>internal base-collector capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>cbc</p></td>
+<td><p>internal base-collector capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>cbx</td>
-<td>external base-collector capacitance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>cbx</p></td>
+<td><p>external base-collector capacitance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gbb</td>
-<td>internal base-base conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gbb</p></td>
+<td><p>internal base-base conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gm</td>
-<td>forward transconductance</td>
-<td>1E-3</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gm</p></td>
+<td><p>forward transconductance</p></td>
+<td><p>1E-3</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>gcc</td>
-<td>colector-collector conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>gcc</p></td>
+<td><p>colector-collector conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-even"><td>gbc</td>
-<td>internal base-colector conductance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-even"><td><p>gbc</p></td>
+<td><p>internal base-colector conductance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>rb</td>
-<td>base resistance</td>
-<td>0</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>rb</p></td>
+<td><p>base resistance</p></td>
+<td><p>0</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2074,34 +2071,34 @@ k12 L1 L2 0.98
 <div class="section" id="id21">
 <h3>Models<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="48%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
+<col style="width: 13%" />
+<col style="width: 48%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>R</td>
-<td>Resistor resistance &gt; 0</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>R</p></td>
+<td><p>Resistor resistance &gt; 0</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>value</td>
-<td>Resistor resistance &gt;= 0</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>Resistor resistance &gt;= 0</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2110,34 +2107,34 @@ k12 L1 L2 0.98
 <div class="section" id="model-r">
 <span id="r"></span><h3>Model R<a class="headerlink" href="#model-r" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id49">
+<div><div class="figure align-default" id="id49">
 <a class="reference internal image-reference" href="../_images/stampR.svg"><img alt="Syntax, symbol and matrix stamp of a resistor: model R" src="../_images/stampR.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a resistor: model R</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a resistor: model R</span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="parameters-model-r">
 <h3>Parameters model R<a class="headerlink" href="#parameters-model-r" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>resistance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>resistance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2146,39 +2143,39 @@ k12 L1 L2 0.98
 <div class="section" id="type-r">
 <span id="id22"></span><h3>Model r<a class="headerlink" href="#type-r" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id50">
+<div><div class="figure align-default" id="id50">
 <a class="reference internal image-reference" href="../_images/stampRz.svg"><img alt="Syntax, symbol and matrix stamp of a resistor: model r" src="../_images/stampRz.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a resistor: model r</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of a resistor: model r</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="id23">
 <h3>Parameters model r<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>resistance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>resistance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
-<tr class="row-odd"><td>dcvar</td>
-<td>variance</td>
-<td>1</td>
-<td>FALSE</td>
+<tr class="row-odd"><td><p>dcvar</p></td>
+<td><p>variance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2209,32 +2206,32 @@ k12 L1 L2 0.98
 <div class="section" id="model-t">
 <span id="transformer"></span><h3>Model T<a class="headerlink" href="#model-t" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id51">
+<div><div class="figure align-default" id="id51">
 <a class="reference internal image-reference" href="../_images/stampT.svg"><img alt="Syntax, symbol and matrix stamp of an ideal transformer: model T" src="../_images/stampT.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of an ideal transformer: model T</span></p>
+<p class="caption"><span class="caption-text">Syntax, symbol and matrix stamp of an ideal transformer: model T</span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="48%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
+<col style="width: 13%" />
+<col style="width: 48%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>T</td>
-<td>Ideal transformer</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>T</p></td>
+<td><p>Ideal transformer</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2243,25 +2240,25 @@ k12 L1 L2 0.98
 <div class="section" id="parameters-model-t">
 <h3>Parameters model T<a class="headerlink" href="#parameters-model-t" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>turns ratio</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>turns ratio</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2288,32 +2285,32 @@ k12 L1 L2 0.98
 <div class="section" id="model-v">
 <span id="v"></span><h3>Model V<a class="headerlink" href="#model-v" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure" id="id52">
+<div><div class="figure align-default" id="id52">
 <a class="reference internal image-reference" href="../_images/stampV.svg"><img alt="Symbol, syntax and matrix stamp of an ideal independent voltage source: model V" src="../_images/stampV.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Symbol, syntax and matrix stamp of an ideal independent voltage source: model V</span></p>
+<p class="caption"><span class="caption-text">Symbol, syntax and matrix stamp of an ideal independent voltage source: model V</span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="9%" />
-<col width="64%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
+<col style="width: 9%" />
+<col style="width: 64%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>V</td>
-<td>Independent voltage source</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>V</p></td>
+<td><p>Independent voltage source</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2322,40 +2319,40 @@ k12 L1 L2 0.98
 <div class="section" id="parameters-model-v">
 <h3>Parameters model V<a class="headerlink" href="#parameters-model-v" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="12%" />
-<col width="56%" />
-<col width="16%" />
-<col width="16%" />
+<col style="width: 12%" />
+<col style="width: 56%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>Voltage (Laplace transform)</td>
-<td>0</td>
-<td>TRUE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>Voltage (Laplace transform)</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>dc</td>
-<td>DC value              [V]</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>dc</p></td>
+<td><p>DC value              [V]</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-even"><td>dcvar</td>
-<td>Variance of DC value  [V^2]</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-even"><td><p>dcvar</p></td>
+<td><p>Variance of DC value  [V^2]</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
-<tr class="row-odd"><td>noise</td>
-<td>Noise voltage density [V^2/Hz]</td>
-<td>0</td>
-<td>TRUE</td>
+<tr class="row-odd"><td><p>noise</p></td>
+<td><p>Noise voltage density [V^2/Hz]</p></td>
+<td><p>0</p></td>
+<td><p>TRUE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2380,31 +2377,31 @@ V1 n1 n2 V value = 20m
 <div class="section" id="model-w">
 <span id="gyrator"></span><h3>Model W<a class="headerlink" href="#model-w" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="figure">
+<div><div class="figure align-default">
 <a class="reference internal image-reference" href="../_images/stampW.svg"><img alt="Syntax, symbol and matrix stamp of a gyrator: model W" src="../_images/stampW.svg" width="800" /></a>
 </div>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="48%" />
-<col width="13%" />
-<col width="13%" />
-<col width="13%" />
+<col style="width: 13%" />
+<col style="width: 48%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">type</th>
-<th class="head">Ii</th>
-<th class="head">Io</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>Ii</p></th>
+<th class="head"><p>Io</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>W</td>
-<td>Gyrator</td>
-<td>stamp</td>
-<td>FALSE</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>W</p></td>
+<td><p>Gyrator</p></td>
+<td><p>stamp</p></td>
+<td><p>FALSE</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
@@ -2413,25 +2410,25 @@ V1 n1 n2 V value = 20m
 <div class="section" id="parameters-model-w">
 <h3>Parameters model W<a class="headerlink" href="#parameters-model-w" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><table border="1" class="docutils">
+<div><table class="docutils align-default">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">name</th>
-<th class="head">description</th>
-<th class="head">default</th>
-<th class="head">Laplace</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>default</p></th>
+<th class="head"><p>Laplace</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>value</td>
-<td>transconductance</td>
-<td>1</td>
-<td>FALSE</td>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>transconductance</p></td>
+<td><p>1</p></td>
+<td><p>FALSE</p></td>
 </tr>
 </tbody>
 </table>
