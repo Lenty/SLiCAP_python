@@ -23,6 +23,7 @@ class InstallWrapper(install):
     _SLiCAP_version = None
     _library_location = None
     _doc_location = None
+    _install_location = None
 
     def run(self):
         # Run this first so the install stops in case
@@ -30,8 +31,9 @@ class InstallWrapper(install):
         # successfully installed
         self._set_maxima_command()
         self._set_version_config()
-        self._set_lib_location()
-        self._set_doc_location()
+        self._set_install_location()
+        # self._set_lib_location()
+        # self._set_doc_location()
         self._gen_config_file()
         # Run the standard PyPi copy
         install.run(self)
@@ -68,23 +70,28 @@ class InstallWrapper(install):
                         print("Entered path does not seem to exist, make sure you entered the path correctly")
                 try:
                     result = subprocess.run([self._maxima_cmd, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
-
+                    result = [i for i in result if i] # Added due to variability of trailing '\n'
+                    result = result[-1]
+                    if int(result) == 2:
+                        succes = True
+                        print("Succesfully ran Maxima command")
                 except:
                     print("Not able to succesfully execute the maxima command, please make sure the full path points to 'maxima.bat'")
             else:
                 try:
                     result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
-
+                    result = [i for i in result if i] # Added due to variability of trailing '\n'
+                    result = result[-1]
+                    if int(result) == 2:
+                        succes = True
+                        print("Succesfully ran Maxima command")
+                        
                 except:
                     print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
                     print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
             
         
-            result = [i for i in result if i] # Added due to variability of trailing '\n'
-            result = result[-1]
-            if int(result) == 2:
-                succes = True
-                print("Succesfully ran Maxima command")
+            
 
 
     def _set_version_config(self):
@@ -99,6 +106,44 @@ class InstallWrapper(install):
         """
         self._SLiCAP_version = INSTALLVERSION
         print("Slicap version:", self._SLiCAP_version)
+
+    def _set_install_location(self):
+        """
+        Sets the SLiCAP library variable to be set in the config file
+        Includes copying of the default libraries
+
+        Returns
+        -------
+        None.
+
+        """
+        succes = False
+        while not(succes):
+            home = expanduser("~")
+            slicap_home = os.path.join(home, 'SLiCAP')
+
+            string = "Select a location for the SLiCAP installation, press enter for the default location('"+slicap_home+"'), otherwise type a full path to override this value:"
+            ret_val = input(string)
+            # print(repr(ret_val))
+            if not ret_val:
+                print("Using ", slicap_home)
+            else:
+                print("Using valid path", ret_val)
+                slicap_home = ret_val
+            try:
+                if os.path.exists(slicap_home):
+                    shutil.rmtree(slicap_home)
+                def_lib_loc = os.path.join(slicap_home, 'lib')
+                def_doc_loc = os.path.join(slicap_home, 'docs')
+                os.makedirs(slicap_home)
+                shutil.copytree('lib/', def_lib_loc)
+                self._library_location = def_lib_loc
+                shutil.copytree('docs/_build/html/', def_doc_loc)
+                self._doc_location = def_doc_loc
+                self._install_location = slicap_home
+                succes = True
+            except:
+                print("could not set install location, make sure a correct path is entered.")
 
 
     def _set_lib_location(self):
@@ -131,7 +176,7 @@ class InstallWrapper(install):
                 self._library_location = slicap_home
                 succes = True
             except:
-                print("could not set documentation location")
+                print("could not set library location")
                 
 
     def _set_doc_location(self):
@@ -164,7 +209,7 @@ class InstallWrapper(install):
                 self._doc_location = slicap_home
                 succes = True
             except:
-                print("could not set documentation location")
+                print("could not set documentation location.")
                 
     def _gen_config_file(self):
         print("Generating the configuration file")
