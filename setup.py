@@ -29,11 +29,16 @@ class InstallWrapper(install):
         # Run this first so the install stops in case
         # these fail otherwise the Python package is
         # successfully installed
+        print(os.getcwd())
         self._set_maxima_command()
+        print(os.getcwd())
         self._set_version_config()
+        print(os.getcwd())
         self._set_install_location()
+        print(os.getcwd())
         # self._set_lib_location()
         # self._set_doc_location()
+        
         self._gen_config_file()
         # Run the standard PyPi copy
         install.run(self)
