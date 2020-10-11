@@ -18,7 +18,10 @@ from shutil import copy
 INSTALLVERSION="0.9.0"
 
 class InstallWrapper(install):
-    """Provides a install wrapper for SLiCAP"""
+    """
+    Provides a install wrapper for SLiCAP.
+    Contains private functions that are to be run.
+    """
     _maxima_cmd = "None"
     _SLiCAP_version = None
     _library_location = None
