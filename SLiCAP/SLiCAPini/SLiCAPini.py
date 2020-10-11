@@ -85,7 +85,7 @@ def _get_latest_version():
     """
     try:
         response = requests.get("https://api.github.com/repos/Lenty/SLiCAP_python/releases/latest")
-        return response.json()["name"]
+        return response.json()["tag_name"]
     except:
         print("Could not access github to check the latest available version of SLiCAP.")
         return VERSION
