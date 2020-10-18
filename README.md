@@ -44,6 +44,8 @@ To set up SLiCAP, the following components are required:
   - gschem
   - lepton-eda
 
+The dependencies are listed in the 'requirements.txt' file.
+When installing SLiCAP on an Anaconda distribution, it requires installing the 'in-place' module, which can be installed using the 'python -m pip install in-place'.
 SLiCAP can be installed by running 'python setup.py install' or 'python setup.py install --user'. 
 
 ## First Run
