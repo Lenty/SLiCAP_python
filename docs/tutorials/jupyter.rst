@@ -8,20 +8,20 @@ SLiCAP is fully compatible with Jupyter lab.
 SLiCAP tutorials written in Jupyter lab
 ---------------------------------------
 
-- `myFirstRCnetwork.zip <../../lib/examples/myFirstRCnetwork.zip>`_
+- `myFirstRCnetwork.zip <../../examples/myFirstRCnetwork>`_
 
   This is a basic tutorial; the *Hello world* of SLiCAP.
 
-- `MOSparams.zip <../../lib/examples/MOSparams.zip>`_
+- `MOSparams.zip <../../examples/MOSparams>`_
 
   This tutorial shows how to plot parameters against each other.
 
-- `CSstage.zip  <../../lib/examples/CSstage.zip>`_
+- `CSstage.zip  <../../examples/CSstage>`_
 
   This tutorial discusses minimization of the noise figure of a CS stage driven from a resistive source, according to the method
   decribed in `Structured Electronic Design <https://analog-electronics.eu/Structured-Electronic-Design/structured-electronic-design.html>`_,
   Chapter 5.5.
 
-- `FilterDesign.zip <../../lib/examples/FilterDesign.zip>`_
+- `FilterDesign.zip <../../examples/FilterDesign>`_
 
   This tutorial illustrates the use of SLiCAP for designing a fourth-order Linkwitz-Reily filter using a prototype circuit and a prototype transfer function.

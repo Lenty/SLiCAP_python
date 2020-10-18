@@ -37,7 +37,11 @@ or
 Install SLiCAP
 --------------
 
-#. Open a terminal or command window and go to the folder with the file *setup.py* (usually: *<where_you_downloaded_or_cloned>/SLiCAP_python)* and enter the command:
+- If you work with Anaconca open the *Anaconda Prompt* 
+- If you have python installed under Windows, open a terminal by running the command *cmd*
+- If you have python installed under Linux or mac Open a *terminal*
+
+#. Go to the folder with the file *setup.py* (usually: *<where_you_downloaded_or_cloned>/SLiCAP_python-master/)* and enter the command:
 
 .. code-block:: python
 
