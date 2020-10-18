@@ -138,8 +138,8 @@ class InstallWrapper(install):
                     shutil.rmtree(slicap_home)
                 def_lib_loc = os.path.join(slicap_home, 'lib')
                 def_doc_loc = os.path.join(slicap_home, 'docs')
-                os.makedirs(slicap_home)
-                shutil.copytree('lib/', def_lib_loc)
+                # os.makedirs(slicap_home)
+                shutil.copytree('files/', slicap_home)
                 self._library_location = def_lib_loc
                 shutil.copytree('docs/_build/html/', def_doc_loc)
                 self._doc_location = def_doc_loc
