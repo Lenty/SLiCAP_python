@@ -706,8 +706,8 @@ def makeSrcDetPos(instObj):
                 if nodes[0] != '0':
                     srcP = detectors.index('V_' + nodes[0])
                 else:
-                    scrP = None
-                if nodes[1] != 0:
+                    srcP = None
+                if nodes[1] != '0':
                     srcN = detectors.index('V_' + nodes[1])
                 else:
                     srcN = None
