@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -211,26 +211,31 @@
 <div class="section" id="download-slicap">
 <h3>Download SLiCAP<a class="headerlink" href="#download-slicap" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Open a command window or terminal in a folder where you want to store the downloaded files and clone <a class="reference external" href="https://github.com/Lenty/SLiCAP_python">https://github.com/Lenty/SLiCAP_python</a> into that folder:</p></li>
+<li>Open a command window or terminal in a folder where you want to store the downloaded files and clone <a class="reference external" href="https://github.com/Lenty/SLiCAP_python">https://github.com/Lenty/SLiCAP_python</a> into that folder:</li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Lenty/SLiCAP_python
 </pre></div>
 </div>
 <p>or</p>
 <ul class="simple">
-<li><p>Download the zip file from: <a class="reference external" href="https://github.com/Lenty/SLiCAP_python">https://github.com/Lenty/SLiCAP_python</a> and extract it in some folder.</p></li>
+<li>Download the zip file from: <a class="reference external" href="https://github.com/Lenty/SLiCAP_python">https://github.com/Lenty/SLiCAP_python</a> and extract it in some folder.</li>
 </ul>
 </div>
 <div class="section" id="install-slicap">
 <h3>Install SLiCAP<a class="headerlink" href="#install-slicap" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>If you work with Anaconca open the <em>Anaconda Prompt</em></li>
+<li>If you have python installed under Windows, open a terminal by running the command <em>cmd</em></li>
+<li>If you have python installed under Linux or mac Open a <em>terminal</em></li>
+</ul>
 <ol class="arabic simple">
-<li><p>Open a terminal or command window and go to the folder with the file <em>setup.py</em> (usually: <em>&lt;where_you_downloaded_or_cloned&gt;/SLiCAP_python)</em> and enter the command:</p></li>
+<li>Go to the folder with the file <em>setup.py</em> (usually: <em>&lt;where_you_downloaded_or_cloned&gt;/SLiCAP_python-master/)</em> and enter the command:</li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span>
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li><p>Enter the requested directory paths or accept the defaults.</p></li>
+<li>Enter the requested directory paths or accept the defaults.</li>
 </ol>
 </div>
 </div>
@@ -255,115 +260,6 @@ in some project directory. The minimum content of this (python) file is:</p>
 <h3>Global parameters<a class="headerlink" href="#global-parameters" title="Permalink to this headline">¶</a></h3>
 <p>SLiCAP has a number of built-in parameters. These parameters are defined in the <code class="docutils literal notranslate"><span class="pre">SLiCAPmodels.lib</span></code> library file in the <code class="docutils literal notranslate"><span class="pre">lib/</span></code> folder
 You can define other global parameters by adding SPICE .param declarations in this file.</p>
-<div class="highlight-text notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54</pre></div></td><td class="code"><div class="highlight"><pre><span></span>&quot;SLiCAPmodels&quot;
-
-* Physical constants
-********************
-
-.param 
-+ q             = 1.60217662e-19    ; Electron charge in [C]
-+ c             = 2.99792458e+08    ; Speed of light in [m/s]
-+ mu_0          = {4*pi*1e-7}       ; Permeability of vacuum in [H/m]
-+ epsilon_SiO2  = 3.9               ; Relative permittivity of SiO2 [-]
-+ k             = 1.38064852e-23    ; Boltzmann constant in [J/K]
-+ epsilon_0     = {1/mu_0/c^2}      ; permittivity of vacuum in [F/m]
-
-* Temperature and thermal voltage
-*********************************
-
-.param
-+ T             = 300               ; Default value of the absolute temperature in [K]
-+ U_T           = {k*T/q}           ; Thermal voltage [V]
-
-* CMOS18 technology parameters for EKV models (SI units)
-********************************************************
-
-.param
-+ Vth_N18     = 0.36  ; threshold voltage [V]
-+ Theta_N18   = 0.28  ; vertical field mobility reduction coefficient [1/V]
-+ E_CRIT_N18  = 5.6M  ; lateral field strength for velocity saturation [V/m]
-+ N_s_N18     = 1.35  ; substrate factor [-]
-+ u_0_N18     = 42.2m ; zero field carrier mobility [m^2/V/s]
-+ CGBO_N18    = 1p    ; gate-bulk overlap capacitance [F/m]
-+ CGSO_N18    = 300p  ; gate-source and gate-drain overlap capacitance [F/m]
-+ CJB0_N18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
-+ LDS_N18     = 180n  ; length of drain and source [m]
-+ TOX_N18     = 4.1n  ; oxide thickness [m]
-+ VAL_N18     = 40M   ; Early voltage per unit of length [V/m]
-+ KF_N18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
-+ C_OX_N18    = {epsilon_0 * epsilon_SiO2 / TOX_N18}; oxide capacitance per unit of area [F/m^2]
-+ I_0_N18     = {2*N_s_N18*u_0_N18*C_OX_N18*U_T^2}  ; technology current [A]
-
-.param
-+ Vth_P18     = 0.36  ; threshold voltage [V]
-+ Theta_P18   = 0.35  ; vertical field mobility reduction factor [1/V]
-+ E_CRIT_P18  = 14M   ; lateral field strength for velocity saturation [V/m]
-+ N_s_P18     = 1.35  ; substrate factor [-]
-+ u_0_P18     = 8.92m ; zero field carrier mobility [m^2/V/s]
-+ CGBO_P18    = 1p    ; gate-bulk overlap capacitance [F/m]
-+ CGSO_P18    = 300p  ; gate-source and gate-drain overlap capacitance [F/m]
-+ CJB0_P18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
-+ LDS_P18     = 180n  ; length of drain and source [m]
-+ TOX_P18     = 4.1n  ; oxide thickness [m]
-+ VAL_P18     = 40M   ; Early voltage per unit of length [V/m]
-+ KF_P18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
-+ C_OX_P18    = {epsilon_0 * epsilon_SiO2 / TOX_P18}; oxide capacitance per unit of area [F/m^2]
-+ I_0_P18     = {2*N_s_P18*u_0_P18*C_OX_P18*U_T^2} ; technology current [A]
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="path-settings">
 <h3>Path settings<a class="headerlink" href="#path-settings" title="Permalink to this headline">¶</a></h3>
@@ -431,7 +327,7 @@ You can define other global parameters by adding SPICE .param declarations in th
 <h3>SLiCAP configuration parameters<a class="headerlink" href="#slicap-configuration-parameters" title="Permalink to this headline">¶</a></h3>
 <p>The configuration parameters for SLiCAP are defined in <a class="reference external" href="../reference/SLiCAPini.html#module-SLiCAPini">SLiCAP.SLiCAPini.py</a>.</p>
 <p>To list the values of the SLiCAP configuration parameters enter:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -440,7 +336,7 @@ You can define other global parameters by adding SPICE .param declarations in th
 <h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
 <p>For help open the <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in the <code class="docutils literal notranslate"><span class="pre">doc/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>If you are working in a python IDE or in a jupyter notebook, use the <em>Help()</em> function (with capital <strong>H</strong>).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Help</span><span class="p">()</span> <span class="c1"># This will open the HTML documentation in your default web browser.</span>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Help</span><span class="p">()</span> <span class="c1"># This will open the HTML documentation in your default web browser.</span>
 </pre></div>
 </div>
 </div>
@@ -455,17 +351,18 @@ You can define other global parameters by adding SPICE .param declarations in th
 <p><strong>Configure LTspice for use with SLiCAP</strong></p>
 <p>SLiCAP circuits should be made with SLiCAP symbols (and not with the default LTspice symbols). LTspice symbols for SLiCAP are placed in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <ol class="arabic">
-<li><p>Start LTspice</p></li>
-<li><p>On the menu bar click <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Control</span> <span class="pre">Panel</span></code>. This will bring up the LTspice control panel:</p>
+<li><p class="first">Start LTspice</p>
+</li>
+<li><p class="first">On the menu bar click <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Control</span> <span class="pre">Panel</span></code>. This will bring up the LTspice control panel:</p>
 <img alt="../_images/LTspiceControlPanel1.png" src="../_images/LTspiceControlPanel1.png" />
 </li>
-<li><p>On this control panel select the <code class="docutils literal notranslate"><span class="pre">Netlist</span> <span class="pre">Options</span></code> tab and select the options as shown below:</p>
+<li><p class="first">On this control panel select the <code class="docutils literal notranslate"><span class="pre">Netlist</span> <span class="pre">Options</span></code> tab and select the options as shown below:</p>
 <img alt="../_images/LTspiceControlPanelNetlistOptions1.png" src="../_images/LTspiceControlPanelNetlistOptions1.png" />
 </li>
-<li><p>Then select the <code class="docutils literal notranslate"><span class="pre">Sym.</span> <span class="pre">&amp;</span> <span class="pre">Lib.</span> <span class="pre">Search</span> <span class="pre">Paths</span></code> tab and enter the full path to the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
+<li><p class="first">Then select the <code class="docutils literal notranslate"><span class="pre">Sym.</span> <span class="pre">&amp;</span> <span class="pre">Lib.</span> <span class="pre">Search</span> <span class="pre">Paths</span></code> tab and enter the full path to the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
 <img alt="../_images/LTspiceControlPanelSymbolPath1.png" src="../_images/LTspiceControlPanelSymbolPath1.png" />
 </li>
-<li><p>Then select the <code class="docutils literal notranslate"><span class="pre">Drafting</span> <span class="pre">Options</span></code> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
+<li><p class="first">Then select the <code class="docutils literal notranslate"><span class="pre">Drafting</span> <span class="pre">Options</span></code> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
 <img alt="../_images/LTspiceControlPanelFontSettings1.png" src="../_images/LTspiceControlPanelFontSettings1.png" />
 </li>
 </ol>
@@ -525,7 +422,7 @@ You can define other global parameters by adding SPICE .param declarations in th
 <p>The spice netlister for lepton-eda can be found in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>For compact node names (important for use in symbolic expressions) you need to reconfigure the default <em>net name prefix</em>.</p>
 <p>This is how it should be done under Ubuntu-based Linux systems:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo lepton-cli config --system <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">lepton</span><span class="o">-</span><span class="n">cli</span> <span class="n">config</span> <span class="o">--</span><span class="n">system</span> <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
 </div>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -27,11 +27,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -186,13 +186,14 @@
 <p>Writing design documentation is often something that needs to be done after the design work has been finished. By then, all kinds of information needs to be collected and structured in a document, while in many cases new projects are already taking most of the time. This undesirable but almost always inevitable practice can be prevented if the design work goes hand in hand with generation of the design documents. SLiCAP supports this with the generation of web-based design documentation in which figures, tables, expressions and ASCII files can be updated while running SLiCAP-MATLAB scripts. In this way, presentations and documentation can be kept up-to-date with the actual state of the design.</p>
 <p>SLiCAP distinguishes two types of html pages:</p>
 <ul>
-<li><p>index pages: used for displaying tables of contents with links to other pages</p>
+<li><p class="first">index pages: used for displaying tables of contents with links to other pages</p>
 <p>The attribute <em>ini.htmlIndex</em> is the name of the active index page</p>
 </li>
-<li><p>data pages: used for displaying all kinds of design data, such as, tables, equations, text, graphs, images, etc.</p>
+<li><p class="first">data pages: used for displaying all kinds of design data, such as, tables, equations, text, graphs, images, etc.</p>
 <p>The attribute <em>ini.htmlPage</em> is the name of the active data page.</p>
 </li>
-<li><p>A list with the names of all the html pages is stored in <em>ini.htmlPages</em></p></li>
+<li><p class="first">A list with the names of all the html pages is stored in <em>ini.htmlPages</em></p>
+</li>
 </ul>
 <p>Detailed information about all html functions can be found in the module reference <a class="reference external" href="../reference/SLiCAPhtml.html">SLiCAPhtml.py</a>.</p>
 <div class="section" id="html-site-structure">
