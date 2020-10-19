@@ -12,7 +12,7 @@ def test_pytest():
     
 def test_CSresnoise():
     ini.installPath = os.getcwd() + '/'
-    ini.projectPath = ini.installPath + 'examples/CSstage/'
+    ini.projectPath = ini.installPath + 'files/examples/CSstage/'
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
@@ -94,7 +94,7 @@ def test_matrix():
 
 def test_yacc():
     ini.installPath = os.getcwd() + '/'
-    ini.projectPath = ini.installPath + 'examples/CSstage/'
+    ini.projectPath = ini.installPath + 'files/examples/CSstage/'
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
