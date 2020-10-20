@@ -124,6 +124,7 @@ class InstallWrapper(install):
             else:
                 print("Entered path does not seem to exist, make sure you entered the path correctly")
 
+
     def _set_version_config(self):
         """
         Sets the SLiCAP version variable to be set in the config file
@@ -286,6 +287,7 @@ class InstallWrapper(install):
                     path = os.path.join(root,name,'XVIIx64.exe')
                     print("LTSpice path set as:", path)
                     return path
+        return ' '
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
