@@ -23,6 +23,7 @@ class InstallWrapper(install):
     Contains private functions that are to be run.
     """
     _maxima_cmd = "None"
+    _LTSpice_cmd = "None"
     _SLiCAP_version = None
     _library_location = None
     _doc_location = None
@@ -33,6 +34,7 @@ class InstallWrapper(install):
         # these fail otherwise the Python package is
         # successfully installed
         self._set_maxima_command()
+        self._set_ltspice_command()
         self._set_version_config()
         self._set_install_location()
         # self._set_lib_location()
@@ -88,13 +90,39 @@ class InstallWrapper(install):
                     if int(result) == 2:
                         succes = True
                         print("Succesfully ran Maxima command")
-                        
+
                 except:
                     print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
                     print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
-            
-        
-            
+
+
+
+    def _set_ltspice_command(self):
+        """
+        Determining the LTSPICE command
+        This contains two flows:
+            Windows -   Searches the program files dir (e.g. C:\Program Files) for the LTSpice Command
+            Linux   -   Searches the wine drive directory for the LTSpice command
+        """
+        self._LTSpice_cmd="maxima"
+        print("Acquiring LTSpice Command")
+        succes = False
+        LTC_loc = '"' + self._find_ltspice() + '"'
+        if platform.system() == 'Windows':
+            self._LTSpice_cmd = LTC_loc + " -netlist"
+        else:
+            self._LTSpice_cmd = "wine " + LTC_loc + " -wine -netlist"
+        print("Created the LTSpice command: ", self._LTSpice_cmd)
+        string = "The LTSpice command is defined as: \n'"+self._LTSpice_cmd+"'\n press enter to continue with this command or type the full LTspice command to override this value:"
+        ret_val = input(string)
+        if not ret_val:
+            print("Using found LTSpice command")
+        else:
+            if os.path.exists(ret_val):
+                print("Using entered LTSpice command")
+                self._LTSpice_cmd = ret_val
+            else:
+                print("Entered path does not seem to exist, make sure you entered the path correctly")
 
 
     def _set_version_config(self):
@@ -180,7 +208,7 @@ class InstallWrapper(install):
                 succes = True
             except:
                 print("could not set library location")
-                
+
 
     def _set_doc_location(self):
         """
@@ -213,7 +241,7 @@ class InstallWrapper(install):
                 succes = True
             except:
                 print("could not set documentation location.")
-                
+
     def _gen_config_file(self):
         print("Generating the configuration file")
         fileloc = os.path.join("SLiCAPtemplate.py")
@@ -227,6 +255,7 @@ class InstallWrapper(install):
                     line = line.replace("$SYSINSTALL", ' ')
                     line = line.replace("$LIBCOREPATH", self._library_location)
                     line = line.replace("$MAXIMAPATH", self._maxima_cmd)
+                    line = line.replace("$LTSPICE", self._LTSpice_cmd)
                     line = line.replace("$DOCPATH", self._doc_location)
                     # print(line)
                     file.write(line)
@@ -243,6 +272,22 @@ class InstallWrapper(install):
                     path = os.path.join(root,name, 'bin','maxima.bat')
                     print("Maxima path set as:", path)
                     return path
+
+    def _find_ltspice(self):
+        if platform.system() == 'Windows':
+            drive = os.sep.join(os.getcwd().split(os.sep)[:1])+os.sep
+        else:
+            home = expanduser("~")
+            drive = os.path.join(home, '.wine', 'drive_c')
+        # print(drive)
+        for root, dirs, files in os.walk(drive, topdown=True):
+            for name in dirs:
+                if re.match('LT(S|s)pice*', name, flags=0):
+                    # print("found LTspice dir")
+                    path = os.path.join(root,name,'XVIIx64.exe')
+                    # print("LTSpice path set as:", path)
+                    return path
+        return ' '
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
