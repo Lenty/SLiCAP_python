@@ -109,7 +109,7 @@ class InstallWrapper(install):
         succes = False
         LTC_loc = self._find_ltspice()
         if platform.system() == 'Windows':
-            self._LTSpice_cmd = LTC_loc + " -netlist"
+            self._LTSpice_cmd = '"' + LTC_loc + '"' + " -netlist"
         else:
             self._LTSpice_cmd = "wine " + LTC_loc + " -wine -netlist"
         print("Created the LTSpice command: ", self._LTSpice_cmd)
@@ -279,13 +279,13 @@ class InstallWrapper(install):
         else:
             home = expanduser("~")
             drive = os.path.join(home, '.wine', 'drive_c')
-        print(drive)
+        # print(drive)
         for root, dirs, files in os.walk(drive, topdown=True):
             for name in dirs:
                 if re.match('LT(S|s)pice*', name, flags=0):
-                    print("found LTspice dir")
+                    # print("found LTspice dir")
                     path = os.path.join(root,name,'XVIIx64.exe')
-                    print("LTSpice path set as:", path)
+                    # print("LTSpice path set as:", path)
                     return path
         return ' '
 
