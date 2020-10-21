@@ -107,9 +107,9 @@ class InstallWrapper(install):
         self._LTSpice_cmd="maxima"
         print("Acquiring LTSpice Command")
         succes = False
-        LTC_loc = self._find_ltspice()
+        LTC_loc = '"' + self._find_ltspice() + '"'
         if platform.system() == 'Windows':
-            self._LTSpice_cmd = '"' + LTC_loc + '"' + " -netlist"
+            self._LTSpice_cmd = LTC_loc + " -netlist"
         else:
             self._LTSpice_cmd = "wine " + LTC_loc + " -wine -netlist"
         print("Created the LTSpice command: ", self._LTSpice_cmd)
