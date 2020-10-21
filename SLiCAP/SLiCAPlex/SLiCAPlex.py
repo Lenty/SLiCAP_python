@@ -88,7 +88,7 @@ def t_t_RIGHTBR(t):
     pass
 
 def t_PARAMS(t):
-    r'((?i)(params:))'
+    r'params:/i'
     """
     Start of sub circuit parameters will be ignored
     """
