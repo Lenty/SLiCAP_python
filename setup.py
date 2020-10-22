@@ -104,22 +104,18 @@ class InstallWrapper(install):
             Windows -   Searches the program files dir (e.g. C:\Program Files) for the LTSpice Command
             Linux   -   Searches the wine drive directory for the LTSpice command
         """
-        self._LTSpice_cmd="maxima"
+        self._LTSpice_cmd=" "
         print("Acquiring LTSpice Command")
         succes = False
-        LTC_loc = '"' + self._find_ltspice() + '"'
-        if platform.system() == 'Windows':
-            self._LTSpice_cmd = LTC_loc + " -netlist"
-        else:
-            self._LTSpice_cmd = "wine " + LTC_loc + " -wine -netlist"
-        print("Created the LTSpice command: ", self._LTSpice_cmd)
-        string = "The LTSpice command is defined as: \n'"+self._LTSpice_cmd+"'\n press enter to continue with this command or type the full LTspice command to override this value:"
+        self._LTSpice_cmd = self._find_ltspice()
+        print("Found the LTSpice directory: ", self._LTSpice_cmd)
+        string = "The LTSpice directory is defined as: \n'"+self._LTSpice_cmd+"'\n press enter to continue with this command or type the full LTspice command to override this value:"
         ret_val = input(string)
         if not ret_val:
-            print("Using found LTSpice command")
+            print("Using found LTSpice directory")
         else:
             if os.path.exists(ret_val):
-                print("Using entered LTSpice command")
+                print("Using entered LTSpice directory")
                 self._LTSpice_cmd = ret_val
             else:
                 print("Entered path does not seem to exist, make sure you entered the path correctly")
