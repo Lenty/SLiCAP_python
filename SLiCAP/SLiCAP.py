@@ -153,7 +153,14 @@ def makeNetlist(fileName, cirTitle):
             outputfile = os.path.abspath(baseFileName + '.net')
             inputfile = os.path.abspath(baseFileName + '.sch')
             print('input: ',inputfile, ' output: ', outputfile)
-            subprocess.run([ini.netlist, ' -o ', outputfile, inputfile])
+            try:
+                subprocess.run(['lepton-netlist', '-g spice-noqsi', '-o', outputfile, inputfile])
+            except:
+                print("Could not generate netlist using Lepton-eda")
+            try:
+                subprocess.run(['gschem', '-o', outputfile, inputfile])
+            except:
+                print("Could not generate netlist using gschem")
             try:
                 f = open(baseFileName + '.net', 'r')
                 netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()[1:] + ['.end\n']
