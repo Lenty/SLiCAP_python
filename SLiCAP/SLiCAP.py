@@ -133,7 +133,13 @@ def makeNetlist(fileName, cirTitle):
         fileType = fileNameParts[-1].lower()
         baseFileName = ini.circuitPath + '.'.join(fileNameParts[0:-1])
         if fileType == 'asc':
-            os.system(ini.ltspice + ' ' + baseFileName + '.asc')
+            file = os.path.abspath(baseFileName + '.asc')
+            print(file)
+            if platform.system() == 'Windows':    
+                file = file.replace('\\','\\\\')
+                subprocess.run([ini.ltspice, '-netlist', file])
+            else:
+                subprocess.run(['wine', ini.ltspice, '-wine', '-netlist', file])
             try:
                 f = open(baseFileName + '.net', 'r')
                 netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()
@@ -144,9 +150,17 @@ def makeNetlist(fileName, cirTitle):
             except:
                 print("Error: could not open: '%s'."%(baseFileName + '.net'))
         elif fileType == 'sch':
-            cmd = ini.netlist + ' -o ' + baseFileName + '.net ' + baseFileName + '.sch'
-            print(cmd)
-            os.system(cmd)
+            outputfile = os.path.abspath(baseFileName + '.net')
+            inputfile = os.path.abspath(baseFileName + '.sch')
+            print('input: ',inputfile, ' output: ', outputfile)
+            try:
+                subprocess.run(['lepton-netlist', '-g spice-noqsi', '-o', outputfile, inputfile])
+            except:
+                print("Could not generate netlist using Lepton-eda")
+            try:
+                subprocess.run(['gschem', '-o', outputfile, inputfile])
+            except:
+                print("Could not generate netlist using gschem")
             try:
                 f = open(baseFileName + '.net', 'r')
                 netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()[1:] + ['.end\n']
