@@ -225,14 +225,14 @@ SLiCAP symbols for lepton-eda are included in the ``lepton-eda/`` folder in the 
 
 For an overview of SLiCAP symbols for lepton-eda, please view the `gSchem <../syntax/schematics.html#gSchem>`__ section in the help file. 
 
-After installation of lepton-eda you need to create or modify the file: ``.gEDA/gafrc`` in your home directory with the contents:
+After installation of lepton-eda you need to create or modify the file: ``.config/lepton-eda/gafrc`` in your home directory with the contents:
 
 .. code-block:: python
 
     (reset-component-library)
     (component-library "<path to SLiCAP symbol Library>" "SLiCAP")
 
-If you wish to have a light background you can create or modify the file ``.gEDA/gschemrc`` in your home directory with the contents:
+If you wish to have a light background, you can create or modify the file ``.config/lepton-eda/gschemrc`` in your home directory with the contents:
 
 .. code-block:: python
 

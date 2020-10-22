@@ -408,12 +408,12 @@ You can define other global parameters by adding SPICE .param declarations in th
 <p>Lepton-eda is a fork of geda-gaf. Please visit <a class="reference external" href="https://github.com/lepton-eda/lepton-eda">https://github.com/lepton-eda/lepton-eda</a> for more information.</p>
 <p>SLiCAP symbols for lepton-eda are included in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>For an overview of SLiCAP symbols for lepton-eda, please view the <a class="reference external" href="../syntax/schematics.html#gSchem">gSchem</a> section in the help file.</p>
-<p>After installation of lepton-eda you need to create or modify the file: <code class="docutils literal notranslate"><span class="pre">.gEDA/gafrc</span></code> in your home directory with the contents:</p>
+<p>After installation of lepton-eda you need to create or modify the file: <code class="docutils literal notranslate"><span class="pre">.config/lepton-eda/gafrc</span></code> in your home directory with the contents:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">reset</span><span class="o">-</span><span class="n">component</span><span class="o">-</span><span class="n">library</span><span class="p">)</span>
 <span class="p">(</span><span class="n">component</span><span class="o">-</span><span class="n">library</span> <span class="s2">&quot;&lt;path to SLiCAP symbol Library&gt;&quot;</span> <span class="s2">&quot;SLiCAP&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If you wish to have a light background you can create or modify the file <code class="docutils literal notranslate"><span class="pre">.gEDA/gschemrc</span></code> in your home directory with the contents:</p>
+<p>If you wish to have a light background, you can create or modify the file <code class="docutils literal notranslate"><span class="pre">.config/lepton-eda/gschemrc</span></code> in your home directory with the contents:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">load</span> <span class="p">(</span><span class="n">build</span><span class="o">-</span><span class="n">path</span> <span class="n">geda</span><span class="o">-</span><span class="n">rc</span><span class="o">-</span><span class="n">path</span> <span class="s2">&quot;gschem-colormap-lightbg&quot;</span><span class="p">))</span> <span class="p">;</span> <span class="n">light</span> <span class="n">background</span>
 </pre></div>
 </div>
