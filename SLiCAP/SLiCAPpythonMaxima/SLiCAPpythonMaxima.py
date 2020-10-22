@@ -17,7 +17,12 @@ def sympy2maximaMatrix(M):
     :return: sympy matrix converted to a Maxima matrix
     :rtype: str
     """
-    return(str(M).replace('Matrix([','matrix(').replace(']])','])'))
+    rows, cols = M.shape
+    if rows > 50:
+        print("Error: matrix too large for Maxima (<= 50), found:", str(rows))
+        return
+    else:
+        return(str(M).replace('Matrix([','matrix(').replace(']])','])'))
 
 def maxEval(maxExpr):
     """
@@ -158,7 +163,11 @@ def maxDet(M, numeric = True):
         numeric = ''
     M = sympy2maximaMatrix(M)
     maxExpr = 'm:' + M + ';result:%s(expand(newdet(m)));'%(numeric)
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
     """
@@ -242,7 +251,11 @@ def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
             else:
                 maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
     maxExpr += '));'
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxLimit(expr, var, val, pm, numeric = True):
     """
@@ -268,7 +281,11 @@ def maxLimit(expr, var, val, pm, numeric = True):
     else:
         numeric = ''
     maxExpr = 'result:%s(limit(' + str(expr) + ',' + str(var) + ',' + str(val) + ',' + pm +' ));'%(numeric)
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxCramerNumer(M, Iv, detP, detN, numeric = True):
     """
@@ -316,7 +333,11 @@ def maxCramerNumer(M, Iv, detP, detN, numeric = True):
     if detN != None:
         maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
     maxExpr += '));'
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     """
@@ -379,7 +400,11 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
     maxExpr += '))^2);'
     if subst:
         maxExpr = maxExpr.replace('__freq__', '2*%pi*%i*' + str(ini.frequency))
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxDet2(M, dc = False, numeric = True):
     """
@@ -416,7 +441,11 @@ def maxDet2(M, dc = False, numeric = True):
     if subst:
         M = M.replace('__freq__', '2*%pi*%i*' + str(ini.frequency))
     maxExpr = 'm:' + M + ';result:%s(cabs(expand(newdet(m)))^2);'%(numeric)
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxSolve(M, Iv, numeric = True):
     """
@@ -442,7 +471,11 @@ def maxSolve(M, Iv, numeric = True):
     maxExpr = 'M:' + sympy2maximaMatrix(M) + ';'
     maxExpr += 'Iv:' + sympy2maximaMatrix(Iv) + ';'
     maxExpr += 'result:%s(invert(M).Iv);'%(numeric)
-    return sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     """

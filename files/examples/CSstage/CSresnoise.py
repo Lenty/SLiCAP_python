@@ -44,7 +44,7 @@ print("The noise figure equals: %s [dB]."%(sp.N(NF, ini.disp)))
 
 # We will now calculate the width W at which we will have the best noise performance.
 # Define the variable 'W' in the notebook environment
-W               = sp.Symbol('W', positive = True)
+W               = sp.Symbol('W')
 i1.circuit.delPar('W')        # delete the numeric definition of the width
 # We will keep the inversion coefficient at critical inversion, hence we scale the
 # current with the width.
@@ -53,13 +53,13 @@ i1.circuit.delPar('W')        # delete the numeric definition of the width
 i1.defPar('ID', I_D*W/Width)
 noise_w = i1.execute() # calculate the noise spectra as a function of W and f
 # Calculate the noise figure as a function of W over a frequency range from 'fmin' to 'fmax':
-f_min = sp.Symbol('f_min', positive = True)
-f_max = sp.Symbol('f_max', positive = True)
+f_min = sp.Symbol('f_min')
+f_max = sp.Symbol('f_max')
 rms_noise_w        = rmsNoise(noise_w, 'inoise', f_min, f_max)
 rms_noise_w_source = rmsNoise(noise_w, 'inoise', f_min, f_max, noise_w.source)
 # We will now calculate the noise figure as a function of 'W', 'f_min' and 'f_max':
 # We will use the variance instead of the RMS value:
-NF_W               = assumePosParams((rms_noise_w/rms_noise_w_source)**2)
+NF_W               = (rms_noise_w/rms_noise_w_source)**2
 # We will now calculate the optimum width as a function of 'fmin' and 'fmax':
 W_opt              = sp.solve(sp.diff(NF_W, W), W)
 # The sympy solve function returns a list with solutions, we will print the positive ones
@@ -67,10 +67,11 @@ W_opt              = sp.solve(sp.diff(NF_W, W), W)
 for w in W_opt:
     w = sp.N(w.subs([(f_min, 1e9), (f_max, 5e9)]), ini.disp)
     if w > 0:
-        print(w)
+        W = w
+        print(W)
 # Create a plot of the noise figure versus the with for different values of f_max and f_min = 1G
 # Define the plot parameters, 'fw', 'W' and 'fmax'
-i1.defPar('W', w)
+i1.defPar('W', W)
 i1.defPar('f_max', '10G')
 i1.defPar('NF', 10*sp.log(NF_W.subs([(f_min, 2e8)]))/sp.log(10))
 # Define the step parameters
