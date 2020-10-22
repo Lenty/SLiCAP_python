@@ -275,7 +275,8 @@ class InstallWrapper(install):
 
     def _find_ltspice(self):
         if platform.system() == 'Windows':
-            drive = os.sep.join(os.getcwd().split(os.sep)[:1])+os.sep
+            main_drive = os.sep.join(os.getcwd().split(os.sep)[:1])+os.sep
+            drive = os.path.join(main_drive, 'Program Files')
         else:
             home = expanduser("~")
             drive = os.path.join(home, '.wine', 'drive_c')
