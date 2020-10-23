@@ -137,7 +137,7 @@ class settings(object):
        - maxSolve:
 
          - True  : use Maxima for solving equations
-         -  False : use Sympy for solving equations
+         - False : use Sympy for solving equations
 
        - stepFunction:
 
@@ -155,8 +155,8 @@ class settings(object):
        - simplify          : True: simplify transfer functions
        - normalize: True: normalize transfer functions: lowest order  coefficient
          of the Laplace variable will be normalized to unity.
-       - factor: : Try to write the numerator and denominator of expressions as
-         a product of factors.
+       - factor: True: Try to factor the numerator and denominator of expressions.
+       - MaximaMatrixDim   : Maximum dimension of a square matrix to be passed to Maxima
 
     #. Display settings
 
@@ -474,6 +474,11 @@ class settings(object):
         """
         Maximum time in seconds (*int*) for subprocess to run Maxima. Defaults
         to 5.
+        """
+        
+        self.MaximaMatrixDim    = 25
+        """
+        Maximum size of sa square matrix to be passed to maxima.
         """
 
         self.ltspice = None

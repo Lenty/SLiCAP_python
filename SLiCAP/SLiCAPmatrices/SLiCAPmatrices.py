@@ -418,7 +418,10 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
     for elmt in elements:
         # subsititute the element parameters of interest in the vecor Iv
         if value == 'id':
-            val = sp.Symbol(elmt.refDes)
+            if elid == 'all':
+                val = sp.Symbol(elmt.refDes)
+            else:
+                val = 1
         elif value == 'value':
             val = getValue(elmt, 'value', numeric, parDefs)
         elif value == 'noise':

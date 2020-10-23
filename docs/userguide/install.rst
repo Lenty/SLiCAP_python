@@ -80,7 +80,7 @@ Global parameters
 SLiCAP has a number of built-in parameters. These parameters are defined in the ``SLiCAPmodels.lib`` library file in the ``lib/`` folder
 You can define other global parameters by adding SPICE .param declarations in this file.
 
-.. literalinclude:: ../../lib/SLiCAPmodels.lib
+.. literalinclude:: ../../files/lib/SLiCAPmodels.lib
     :language: text
     :linenos: 
     :lines: 1-54

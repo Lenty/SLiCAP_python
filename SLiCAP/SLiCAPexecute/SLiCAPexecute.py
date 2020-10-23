@@ -364,7 +364,7 @@ def doDataType(instObj):
         else:
             instObj.onoise = onoise
             if instObj.source != None:
-                instObj.inoise = sp.simplify(inoise)
+                instObj.inoise = inoise
     elif instObj.dataType == 'dc':
         (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
         if instObj.step:
