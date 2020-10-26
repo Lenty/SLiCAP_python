@@ -62,7 +62,7 @@ class matrix(sp.Matrix):
                 d -= self[0,1]*self[1,0]
             return d
         return sp.expand(self.expandByMinors())
-
+    
     def expandByMinors(self):
         """
         Calculates (sub)determinant by expansion of minors.

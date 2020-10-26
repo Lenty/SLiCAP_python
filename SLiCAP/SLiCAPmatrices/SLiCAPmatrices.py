@@ -192,7 +192,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPos][pos1] -= 1
             M[dVarPos][dVarPos] -= value
         elif elmt.model == 'E':
-            dVarPos = varIndex['I_o_' + elmt.refDes]
+            dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -205,7 +205,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPos][pos2] -= numer
             M[dVarPos][pos3] += numer
         elif elmt.model == 'EZ':
-            dVarPos = varIndex['I_o_' + elmt.refDes]
+            dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -220,7 +220,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPos][pos3] += numer * zoD
             M[dVarPos][dVarPos] -= zoN * denom
         elif elmt.model == 'F':
-            dVarPos = varIndex['I_i_' + elmt.refDes]
+            dVarPos = varIndex['Ii_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -243,7 +243,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[pos1][pos2] -= value
             M[pos1][pos3] += value
         elif elmt.model == 'G':
-            dVarPos = varIndex['I_o_' + elmt.refDes]
+            dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -255,8 +255,8 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPos][pos3] -= numer
             M[dVarPos][dVarPos] -= denom
         elif elmt.model == 'H':
-            dVarPosO = varIndex['I_o_' + elmt.refDes]
-            dVarPosI = varIndex['I_i_' + elmt.refDes]
+            dVarPosO = varIndex['Io_' + elmt.refDes]
+            dVarPosI = varIndex['Ii_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -272,8 +272,8 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPosO][pos1] -= denom
             M[dVarPosO][dVarPosI] -= numer
         elif elmt.model == 'HZ':
-            dVarPosO = varIndex['I_o_' + elmt.refDes]
-            dVarPosI = varIndex['I_i_' + elmt.refDes]
+            dVarPosO = varIndex['Io_' + elmt.refDes]
+            dVarPosI = varIndex['Ii_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -291,7 +291,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPosO][dVarPosI] -= numer * zoD
             M[dVarPosO][dVarPosO] -= zoN * denom
         elif elmt.model == 'N':
-            dVarPos = varIndex['I_o_' + elmt.refDes]
+            dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
@@ -301,7 +301,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             M[dVarPos][pos2] += 1
             M[dVarPos][pos3] -= 1
         elif elmt.model == 'T':
-            dVarPos = varIndex['I_o_' + elmt.refDes]
+            dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]

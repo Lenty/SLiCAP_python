@@ -142,10 +142,10 @@ class circuit(object):
           - Currents through the input port or the output port of controlled
             sources:
 
-            - Exxx output port: 'I_o_Exxx'
-            - Fxxx input port: 'I_i_Fxxx'
-            - Gxxx, model = 'G', output port: 'I_o_Gxxx'
-            - Hxxx, input port: 'Ii_Hxxx', output port: 'I_o_xxx'
+            - Exxx output port: 'Io_Exxx'
+            - Fxxx input port: 'Ii_Fxxx'
+            - Gxxx, model = 'G', output port: 'Io_Gxxx'
+            - Hxxx, input port: 'Ii_Hxxx', output port: 'Io_xxx'
         """
         self.controlled = []
         """
@@ -576,28 +576,28 @@ def initAll():
     newModel                = model()
     newModel.name           = 'E'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o']
+    newModel.depVars        = ['Io']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # VCVS with series impedance
     newModel                = model()
     newModel.name           = 'EZ'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o']
+    newModel.depVars        = ['Io']
     newModel.params         = {'value': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # CCCS
     newModel                = model()
     newModel.name           = 'F'
     newModel.stamp          = True
-    newModel.depVars        = ['I_i']
+    newModel.depVars        = ['Ii']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # VCCS
     newModel                = model()
     newModel.name           = 'G'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o']
+    newModel.depVars        = ['Io']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # VCCS no Laplace
@@ -611,14 +611,14 @@ def initAll():
     newModel                = model()
     newModel.name           = 'H'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o', 'I_i']
+    newModel.depVars        = ['Io', 'Ii']
     newModel.params         = {'value': True}
     MODELS[newModel.name]   = newModel
     # CCVS with source impedance
     newModel                = model()
     newModel.name           = 'HZ'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o', 'I_i']
+    newModel.depVars        = ['Io', 'Ii']
     newModel.params         = {'value': True, 'zo': True}
     MODELS[newModel.name]   = newModel
     # Independent current source
@@ -664,7 +664,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'N'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o']
+    newModel.depVars        = ['Io']
     newModel.params         = {}
     MODELS[newModel.name]   = newModel
     # Current feedback operational amplifier
@@ -715,7 +715,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'T'
     newModel.stamp          = True
-    newModel.depVars        = ['I_o']
+    newModel.depVars        = ['Io']
     newModel.params         = {'value': False}
     MODELS[newModel.name]   = newModel
     # Independent voltage source

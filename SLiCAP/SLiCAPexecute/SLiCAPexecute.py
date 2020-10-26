@@ -560,7 +560,7 @@ def makeSrcDetPos(instObj):
         lgRef = instObj.circuit.elements[instObj.lgRef]
         if lgRef.model == 'E':
             # The detector nodes are the inP and inN nodes of the VCVS
-            srcP = detectors.index('I_o_' + instObj.lgRef)
+            srcP = detectors.index('Io_' + instObj.lgRef)
             srcN = None
             # The source row is that of the current through the controlled
             # voltage source
@@ -597,11 +597,11 @@ def makeSrcDetPos(instObj):
                     srcN = detectors.index('V_' + lgRef.nodes[1])
             else:
                 # If Zo is zero the method for model 'E' must be applied.
-                srcP = detectors.index('I_o_' + instObj.lgRef)
+                srcP = detectors.index('Io_' + instObj.lgRef)
                 srcN = None
         elif lgRef.model == 'F':
             # The detector row is that of the input current of the CCCS
-            detP = detectors.index('I_i_' + instObj.lgRef)
+            detP = detectors.index('Ii_' + instObj.lgRef)
             detN = None
             # The source rows correspond with those of the nodes of the
             # controlled current source at the output of the device.
@@ -657,14 +657,14 @@ def makeSrcDetPos(instObj):
                 srcN = detectors.index('V_' + lgRef.nodes[0])
         elif lgRef.model == 'H':
             # The detector row is that of the input current of the CCVS
-            detP = detectors.index('I_i_' + instObj.lgRef)
+            detP = detectors.index('Ii_' + instObj.lgRef)
             detN = None
             # The source row is that of the output current of the CCVS
-            srcP = detectors.index('I_o_' + instObj.lgRef)
+            srcP = detectors.index('Io_' + instObj.lgRef)
             srcN = None
         elif lgRef.model == 'HZ':
             # The detector row is that of the input current of the CCVS
-            detP = detectors.index('I_i_' + instObj.lgRef)
+            detP = detectors.index('Ii_' + instObj.lgRef)
             detN = None
             if lgRef.params['zo'] != 0:
                 # A current source in parallel with Zo, hence flowing from the
@@ -681,7 +681,7 @@ def makeSrcDetPos(instObj):
                     srcN = detectors.index('V_' + lgRef.nodes[1])
             else:
                 # If Zo equals zero the method for model 'H' must be applied.
-                srcP = detectors.index('I_o_' + instObj.lgRef)
+                srcP = detectors.index('Io_' + instObj.lgRef)
                 srcN = None
     else:
         # For all other gain types:

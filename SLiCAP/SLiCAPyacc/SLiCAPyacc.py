@@ -765,6 +765,112 @@ def updateCirData(mainCircuit):
         mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
         mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
         varIndexPos += 1
+    mainCircuit = sortDepVars(mainCircuit)
+    return mainCircuit
+
+def sortDepVars(mainCircuit):
+    """
+    Sort the dependent variables. This controls the construction of the matrix
+    such that the number of zero entries per column decreases from left to right.
+    
+    :param mainCircuit: Main (fully expanded) circuit object.
+    :type mainCircuit: SLiCAP.protos.circuit
+    :return: mainCircuit: Main circuit with updated attributes *depVars* and *varIndex*.
+    :rtype: SLiCAPprotos.circuit
+    """
+    vGnd = []
+    nGnd = []
+    rGnd = []
+    lGnd = []
+    eGnd = []
+    ezGnd = []
+    gGnd = []
+    tGnd = []
+    hGnd = []
+    hzGnd = []
+    fGnd = []
+    v = []
+    n = []
+    r = []
+    l = []
+    e = []
+    ez = []
+    f = []
+    g = []
+    t = []
+    h = []
+    hz = []
+    nodeVoltages = []
+    depVars = mainCircuit.depVars
+    for var in depVars:
+        varType = var[0]
+        if varType == 'I':
+            if var[1] == '_':
+                varElement = var[2:]
+                model = mainCircuit.elements[varElement].model
+                nodes = mainCircuit.elements[varElement].nodes
+                if nodes[0] == '0' or nodes[1] == '0':
+                    if model == 'V':
+                        vGnd.append(var)
+                    elif model == 'r':
+                        rGnd.append(var)
+                    elif model == 'L':
+                        lGnd.append(var)
+                else:
+                    if model == 'V':
+                        v.append(var)
+                    elif model == 'r':
+                        r.append(var)
+                    elif model == 'L':
+                        l.append(var)
+            if var[2] == '_':
+                varElement = var[3:]
+                model = mainCircuit.elements[varElement].model
+                nodes = mainCircuit.elements[varElement].nodes
+                if nodes[0] == '0' or nodes[1] == '0':
+                    if model == 'N':
+                        nGnd.append(var)
+                    elif model == 'E':
+                        eGnd.append(var)
+                    elif model == 'G':
+                        gGnd.append(var)
+                    elif model == 'T':
+                        tGnd.append(var)
+                    elif model == 'H':
+                        hGnd.append(var)
+                    elif model == 'EZ':
+                        ezGnd.append(var)
+                    elif model == 'HZ':
+                        hzGnd.append(var)
+                    elif model == 'F':
+                        fGnd.append(var)               
+                else:
+                    if model == 'N':
+                        n.append(var)
+                    elif model == 'E':
+                        e.append(var)
+                    elif model == 'G':
+                        g.append(var)
+                    elif model == 'T':
+                        tappend(var)
+                    elif model == 'H':
+                        h.append(var)
+                    elif model == 'EZ':
+                        ez.append(var)
+                    elif model == 'HZ':
+                        hz.append(var)
+                    elif model == 'F':
+                        f.append(var)
+    mainCircuit.depVars = vGnd + nGnd + rGnd + lGnd + eGnd + fGnd + gGnd + hGnd + ezGnd + hzGnd + tGnd + v + n + r + l + e + f + g + h + ez + hz + t
+    mainCircuit.varIndex = {}
+    i = 0
+    for i in range(len(mainCircuit.depVars)):
+        mainCircuit.varIndex[mainCircuit.depVars[i]] = i
+    varIndexPos = i + 1
+    for j in range(len(mainCircuit.nodes)):
+        mainCircuit.depVars.append('V_' + mainCircuit.nodes[j])
+        mainCircuit.varIndex[mainCircuit.nodes[j]] = varIndexPos
+        varIndexPos += 1
     return mainCircuit
 
 def addGlobals(parDefs, par):

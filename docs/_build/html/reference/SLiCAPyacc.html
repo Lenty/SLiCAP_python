@@ -374,6 +374,25 @@ definitions from  ‘lib/SLiCAPmodels.lib’.</td>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.sortDepVars">
+<code class="descname">sortDepVars</code><span class="sig-paren">(</span><em>mainCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.sortDepVars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the dependent variables. This controls the construction of the matrix
+such that the number of zero entries per column decreases from left to right.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mainCircuit</strong> (<em>SLiCAP.protos.circuit</em>) – Main (fully expanded) circuit object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">mainCircuit: Main circuit with updated attributes <em>depVars</em> and <em>varIndex</em>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit">SLiCAPprotos.circuit</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.updateCirData">
 <code class="descname">updateCirData</code><span class="sig-paren">(</span><em>mainCircuit</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.updateCirData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates circuit data required for instructions.</p>
