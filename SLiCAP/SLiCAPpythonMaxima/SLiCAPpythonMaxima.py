@@ -456,9 +456,8 @@ def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
         print("Warning: matrix too large for Maxima, found:", str(rows))
         print("Using Sympy to evaluate the determinant.")
         Iv = Iv.subs(ini.Laplace, ini.frequency*2*sp.I*sp.pi)
-        Iv = assumeRealParams(Iv, params = 'all')
+        #Iv = assumeRealParams(Iv, params = 'all')
         M = M.subs(ini.Laplace, ini.frequency*2*sp.I*sp.pi)
-        M = assumeRealParams(M, params = 'all')
         D = 0
         if detP != None:
             D += M.Cramer(Iv, detP).determinant()
@@ -513,7 +512,6 @@ def maxDet2(M, dc = False, numeric = True):
         print("Warning: matrix too large for Maxima, found:", str(rows))
         print("Using Sympy to evaluate the determinant.")
         M = M.subs(ini.Laplace, ini.frequency*2*sp.I*sp.pi)
-        M = assumeRealParams(M, params = 'all')
         D = sp.Abs(M.determinant())**2
         return D
 
