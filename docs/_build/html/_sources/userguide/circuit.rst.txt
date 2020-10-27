@@ -1,0 +1,34 @@
+================
+Define a circuit
+================
+
+SLiCAP requires a SPICE-like netlist of a circuit as input. It converts a hierarchical netlist into matrix equations with the aid of the 'Modified Nodal Analysis' method.
+
+You can generate a netlist from a schematic drawing program, or by entering it manually in an ASCII editor. 
+
+Netlist generation for SLiCAP is supported for schematics created with:
+
+1. *gSchem* using the corresponding SLiCAP symbol library and the 'gnet-spice-noqsi' netlist plugin
+2. *LTSPICE* using the corresponding SLiCAP symbol library
+
+------------------------
+Create a circuit netlist
+------------------------
+
+Differences between SPICE and SLiCAP netlist
+--------------------------------------------
+
+The netlist syntax for SLiCAP slightly differs from the standard SPICE syntax. The differences are listed in the section `SLiCAP netlist syntax <../syntax/netlist.html>`_.
+
+
+Automatic determination of the netlister
+----------------------------------------
+
+SLiCAP can create netlists from LTspice and from gSchem. 
+
+Below the syntax for generation of the netlist file ``myCircuit.cir`` from the 'gSchem' schematic file ``myCircuit.sch`` or from the 'LTspice' schematic file ``myCircuit.asc`` in the project directory. The title of the circuit needs to be added separately. It will be placed at the beginning of the netlist file and used in the table of contents of html reports.
+
+.. code-block:: python
+
+    >>> makeNetlist('myCircuit.sch', 'My Circuit Title') # Use the *gnet-spice-noqsi* netlister.
+    >>> makeNetlist('myCircuit.asc', 'My Circuit Title') # Use the *LTspice* netlister.
