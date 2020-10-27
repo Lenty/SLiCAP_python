@@ -61,9 +61,9 @@ class matrix(sp.Matrix):
             if self[1,0] != 0 and self[0,1] != 0:
                 d -= self[0,1]*self[1,0]
             return d
-        return sp.expand(self.expandByMinors())
-    
-    def expandByMinors(self):
+        return sp.expand(self.expandByMinorsRows())
+        
+    def expandByMinorsRows(self):
         """
         Calculates (sub)determinant by expansion of minors.
         """
@@ -71,9 +71,22 @@ class matrix(sp.Matrix):
         for col in range(self.shape[1]):
             if self[0, col] != 0:
                 if col%2 == 0:
-                    d += self[0,col]*self.minor(0 , col)
+                    d += self[0, col]*self.minor(0 , col)
                 else:
-                    d -= self[0,col]*self.minor(0 , col)
+                    d -= self[0, col]*self.minor(0 , col)
+        return d
+        
+    def expandByMinorsCols(self):
+        """
+        Calculates (sub)determinant by expansion of minors.
+        """
+        d = 0
+        for row in range(self.shape[0]):
+            if self[row, 0] != 0:
+                if row%2 == 0:
+                    d += self[row, 0]*self.minor(row, 0)
+                else:
+                    d -= self[row, 0]*self.minor(row, 0)
         return d
 
     def coFactorMatrix(self):

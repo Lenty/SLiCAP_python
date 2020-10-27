@@ -712,7 +712,6 @@ def updateCirData(mainCircuit):
     # convert mainCircuit.params to list and put undefined params in it
     mainCircuit.params =[]
     mainCircuit.nodes = []
-    varIndexPos = 0
     for elmt in list(mainCircuit.elements.keys()):
         mainCircuit.nodes += mainCircuit.elements[elmt].nodes
         for refID in mainCircuit.elements[elmt].refs:
@@ -726,8 +725,6 @@ def updateCirData(mainCircuit):
         for i in range(len(MODELS[mainCircuit.elements[elmt].model].depVars)):
             depVar = MODELS[mainCircuit.elements[elmt].model].depVars[i]
             mainCircuit.depVars.append(depVar + '_' + elmt)
-            mainCircuit.varIndex[depVar + '_' + elmt] = varIndexPos
-            varIndexPos += 1
         # Add parameters used in element expressions to circuit.params
         for par in list(mainCircuit.elements[elmt].params.keys()):
             try:
@@ -763,8 +760,6 @@ def updateCirData(mainCircuit):
         print("Error: could not find ground node '0'.")
     for i in range(len(mainCircuit.nodes)):
         mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
-        mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
-        varIndexPos += 1
     mainCircuit = sortDepVars(mainCircuit)
     return mainCircuit
 
