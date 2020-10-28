@@ -159,6 +159,9 @@ def makeNetlist(fileName, cirTitle):
                 except:
                     print("Could not generate netlist using Lepton-eda")
             try:
+                if platform.system() == 'Windows':    
+                    outputfile = outputfile.replace('\\','\\\\')
+                    inputfile = inputfile.replace('\\','\\\\')
                 subprocess.run(['gnetlist', '-q', '-g', 'spice-noqsi', '-o', outputfile, inputfile])
             except:
                 print("Could not generate netlist using gschem")
