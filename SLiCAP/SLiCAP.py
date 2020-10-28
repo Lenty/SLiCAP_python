@@ -159,7 +159,7 @@ def makeNetlist(fileName, cirTitle):
                 except:
                     print("Could not generate netlist using Lepton-eda")
             try:
-                subprocess.run(['gnetlist', '-o', outputfile, inputfile])
+                subprocess.run(['gnetlist', '-g spice-noqsi', '-o', outputfile, inputfile])
             except:
                 print("Could not generate netlist using gschem")
             try:
