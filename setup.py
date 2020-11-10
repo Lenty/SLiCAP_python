@@ -54,12 +54,12 @@ class InstallWrapper(install):
         """
         self._maxima_cmd="maxima"
         print("Acquiring Maxima Command")
-        succes = False
+        succes = 1
         maxInput = '1+1;'
         if platform.system() == 'Windows':
             self._maxima_cmd = self._find_maxima_windows()
 
-        while not(succes):
+        while succes < 4:
             result = 0
             if platform.system() == 'Windows':
                 string = "The Maxima path found is '"+self._maxima_cmd+"', press enter to continue with this path or type the full maxima path to override this value:"
@@ -78,22 +78,25 @@ class InstallWrapper(install):
                     result = [i for i in result if i] # Added due to variability of trailing '\n'
                     result = result[-1]
                     if int(result) == 2:
-                        succes = True
                         print("Succesfully ran Maxima command")
+                        succes = 5
                 except:
                     print("Not able to succesfully execute the maxima command, please make sure the full path points to 'maxima.bat'")
+                    succes= succes + 1
+
             else:
                 try:
                     result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
                     result = [i for i in result if i] # Added due to variability of trailing '\n'
                     result = result[-1]
                     if int(result) == 2:
-                        succes = True
                         print("Succesfully ran Maxima command")
+                        succes = 5
 
                 except:
                     print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
                     print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
+                    succes= succes + 2
 
 
 
