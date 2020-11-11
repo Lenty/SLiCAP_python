@@ -39,6 +39,7 @@ def _selftest_maxima():
     None.
     """
     maxInput = '1+1;'
+    result=''
     if platform.system() == 'Windows':
         try:
             result = subprocess.run([MAXIMA, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
