@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SLiCAPmath.py &mdash; SLiCAP 0.9.0 documentation</title>
+  <title>SLiCAPmath.py &mdash; SLiCAP 1.0.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.9.0
+                1.0.0
               </div>
             
           
@@ -275,6 +275,31 @@ does not represent a number.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Numeric value (<em>int, float</em>) or None</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int, float, bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.clearAssumptions">
+<code class="descname">clearAssumptions</code><span class="sig-paren">(</span><em>expr</em>, <em>params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.clearAssumptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sympy expression ‘expr’ in which  the assumtions ‘Real’ and
+‘Positive’ have been deleted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em>) – Sympy expression</li>
+<li><strong>params</strong> (<em>list</em><em>, </em><em>str</em>) – List with variable names (<em>str</em>), or ‘all’ or a variable name (<em>str</em>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Expression with redefined variables.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, sympy.Symbol</p>
+</td>
 </tr>
 </tbody>
 </table>

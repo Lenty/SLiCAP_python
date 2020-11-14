@@ -17,12 +17,7 @@ def sympy2maximaMatrix(M):
     :return: sympy matrix converted to a Maxima matrix
     :rtype: str
     """
-    rows, cols = M.shape
-    if rows > ini.MaximaMatrixDim:
-        print("Warning: matrix too large for Maxima, found:", str(rows))
-        return
-    else:
-        return(str(M).replace('Matrix([','matrix(').replace(']])','])'))
+    return(str(M).replace('Matrix([','matrix(').replace(']])','])'))
 
 def maxEval(maxExpr):
     """
@@ -142,6 +137,9 @@ def maxILT(numer, denom, numeric = True):
             return sp.Symbol('ft')
     return sp.sympify(result)
 
+def detFunc():
+    return "det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1] else block(D:0,for i from 1 thru dim do if M[1,i]#0 then D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),expand(D));compile(det);"
+
 def maxDet(M, numeric = True):
     """
     Returns the determinant of matrix 'M' in Sympy format, calculated by Maxima CAS.
@@ -162,16 +160,16 @@ def maxDet(M, numeric = True):
     else:
         numeric = ''
     maxMatrix = sympy2maximaMatrix(M)
-    if maxMatrix != None:
+    rows, cols = M.shape
+    if M.shape[0] < ini.MaximaMatrixDim:
         maxExpr = 'm:' + maxMatrix + ';result:%s(expand(newdet(m)));'%(numeric)
-        result = maxEval(maxExpr)
-        try:
-            return sp.sympify(result)
-        except:
-            print('Maxima error:', result)
     else:
-        print("Using Sympy to evaluate the determinant.")
-        return M.determinant()
+        maxExpr = detFunc() + 'm:' + maxMatrix + ';result:%s(det(m));'%(numeric)
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
     """
@@ -234,61 +232,38 @@ def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
     if rows <= ini.MaximaMatrixDim:
         # Create the Maxima instruction
         maxExpr = 'result:%s(expand('%(numeric)
-        if detP != None:
-            if srcP != None:
-                if (detP+srcP)%2 == 0:
-                    maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
-                else:
-                    maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
-            if srcN != None:
-                if (detP+srcN)%2 == 0:
-                    maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
-                else:
-                    maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
-        if detN != None:
-            if srcP != None:
-                if (detN+srcP)%2 == 0:
-                    maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
-                else:
-                    maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
-            if srcN != None:
-                if (detN+srcN)%2 == 0:
-                    maxExpr += '+newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
-                else:
-                    maxExpr += '-newdet(' + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
-        maxExpr += '));'
-        result = maxEval(maxExpr)
-        try:
-            return sp.sympify(result)
-        except:
-            print('Maxima error:', result)
+        func = 'newdet('
     else:
-        print("Warning: matrix too large for Maxima, found:", str(rows))
-        print("Using Sympy to evaluate the determinant.")
-        result = 0
-        if detP != None:
-            if srcP != None:
-                if (detP+srcP)%2 == 0:
-                    result += M.minor_submatrix(srcP, detP).determinant()
-                else:
-                    result -= M.minor_submatrix(srcP, detP).determinant()
-            if srcN != None:
-                if (detP+srcN)%2 == 0:
-                    result -= M.minor_submatrix(srcN, detP).determinant()
-                else:
-                    result += M.minor_submatrix(srcN, detP).determinant()
-        if detN != None:
-            if srcP != None:
-                if (detN+srcP)%2 == 0:
-                    result -= M.minor_submatrix(srcP, detN).determinant()
-                else:
-                    result += M.minor_submatrix(srcP, detN).determinant()
-            if srcN != None:
-                if (detN+srcN)%2 == 0:
-                    result += M.minor_submatrix(srcN, detN).determinant()
-                else:
-                    result -= M.minor_submatrix(srcN, detN).determinant()
-        return result
+        maxExpr = detFunc() + 'result:%s(expand('%(numeric)
+        func = 'det('
+    if detP != None:
+        if srcP != None:
+            if (detP+srcP)%2 == 0:
+                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
+            else:
+                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
+        if srcN != None:
+            if (detP+srcN)%2 == 0:
+                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
+            else:
+                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
+    if detN != None:
+        if srcP != None:
+            if (detN+srcP)%2 == 0:
+                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
+            else:
+                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
+        if srcN != None:
+            if (detN+srcN)%2 == 0:
+                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
+            else:
+                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
+    maxExpr += '));'
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxLimit(expr, var, val, pm, numeric = True):
     """
@@ -356,164 +331,28 @@ def maxCramerNumer(M, Iv, detP, detN, numeric = True):
     :return: Numerator of a response
     :rtype: sympy.Expr
     """
+    if numeric:
+        numeric = 'bfloat'
+    else:
+        numeric = ''
     rows, cols = M.shape
     if rows <= ini.MaximaMatrixDim:
-        if numeric:
-            numeric = 'bfloat'
-        else:
-            numeric = ''
+        # Create the Maxima instruction
         maxExpr = 'result:%s(expand('%(numeric)
-        if detP != None:
-            maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
-        if detN != None:
-            maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
-        maxExpr += '));'
-        result = maxEval(maxExpr)
-        try:
-            return sp.sympify(result)
-        except:
-            print('Maxima error:', result)
+        func = 'newdet('
     else:
-        print("Warning: matrix too large for Maxima, found:", str(rows))
-        print("Using Sympy to evaluate the determinant.")
-        result = 0
-        if detP != None:
-            result += M.Cramer(Iv, detP).determinant()
-        if detN != None:
-            result -= M.Cramer(Iv, detN).determinant()
-        return result
-        
-
-def maxCramerCoeff2(cir, M, elID, detP, detN, dc = False, numeric = True):
-    """
-    Returns the numerator of the squared transfer from a source to the detector
-    in Sympy format, with the Laplace variable replaced with
-    '2*%pi*%i*ini.frequency' or with 0, for noise or for dcVar calculations,
-    respectively.
-
-    :param cir: Circuit object
-    :type cir: SLiCAPprotos.circuit
-
-    :param M: MNA matrix
-    :type M: sympy.Matrix
-
-    :param elID: Refdes (ID) of the source of which the transfer to the detector
-                 needs to be evaluated.
-    :type elID: str
-
-    :param detP: Position of positive detector in vector with dependent variables.
-                 This can be a nodal voltage or a current through a voltage source
-                 or None if the positive node is the ground node or a positive
-                 current is not used.
-    :type detP: int, bool
-
-    :param detN: Position of positive detector in vector with dependent variables.
-                 This can be a nodal voltage or a current through a voltage source
-                 or None if the negative node is the ground node or a negative
-                 current is not used.
-    :type detN: int, bool
-
-    :param dc: True if the DC transfer needs to be determined.
-    :type dc: bool
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-
-    :return: Numerator of the squared transfer.
-    :rtype: sympy.Expr
-    """
-    if numeric:
-        numeric = 'bfloat'
-        num = True
-    else:
-        numeric = ''
-        num = False
-    subst = False
-    Iv = makeSrcVector(cir, cir.parDefs, elID, value = 'id', numeric = num)
-    rows, cols = M.shape
-    if rows <= ini.MaximaMatrixDim:
-        if ini.Laplace in M.atoms(sp.Symbol):
-            if dc:
-                M = M.subs(ini.Laplace, 0)
-            else:
-                M = M.subs(ini.Laplace, sp.Symbol('__freq__'))
-                subst = True
-        maxExpr = 'result:%s(cabs(expand('%(numeric)
-        if detP != None:
-            maxExpr += 'newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
-        if detN != None:
-            maxExpr += '-newdet(' + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
-        maxExpr += '))^2);'
-        if subst:
-            maxExpr = maxExpr.replace('__freq__', '2*%pi*%i*' + str(ini.frequency))
-        result = maxEval(maxExpr)
-        try:
-            return sp.sympify(result)
-        except:
-            print('Maxima error:', result)
-    else:
-        print("Warning: matrix too large for Maxima, found:", str(rows))
-        print("Using Sympy to evaluate the determinant.")
-        Iv = Iv.subs(ini.Laplace, ini.frequency*2*sp.I*sp.pi)
-        #Iv = assumeRealParams(Iv, params = 'all')
-        M = M.subs(ini.Laplace, ini.frequency*2*sp.I*sp.pi)
-        D = 0
-        if detP != None:
-            D += M.Cramer(Iv, detP).determinant()
-        if detN != None:
-            D -= M.Cramer(Iv, detN).determinant()
-        D = sp.Abs(sp.expand(D))**2
-        return D
-
-def maxDet2(M, dc = False, numeric = True):
-    """
-    Returns the squared magnitude of the determinant of matrix 'M' in Sympy
-    format, with the Laplace variable replaced with
-    '2*%pi*%i* + ini.frequency', or with 0, for noise or for dcVar calculations,
-    respectively.
-
-    :param M: MNA matrix
-    :type M: sympy.Matrix
-
-    :param dc: True if the DC transfer needs to be determined.
-    :type dc: bool
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-
-    :return: Numerator of the squared transfer.
-    :rtype: sympy.Expr
-    """
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    subst = False
-    rows, cols = M.shape
-    if rows <= ini.MaximaMatrixDim:
-        if ini.Laplace in M.atoms(sp.Symbol):
-            if dc:
-                M = M.subs(ini.Laplace, 0)
-            else:
-                M = M .subs(ini.Laplace, sp.Symbol('__freq__'))
-                subst = True
-        M = sympy2maximaMatrix(M)
-        if subst:
-            M = M.replace('__freq__', '2*%pi*%i*' + str(ini.frequency))
-        maxExpr = 'm:' + M + ';result:%s(cabs(expand(newdet(m)))^2);'%(numeric)
-        result = maxEval(maxExpr)
-        try:
-            return sp.sympify(result)
-        except:
-            print('Maxima error:', result)
-    else:
-        print("Warning: matrix too large for Maxima, found:", str(rows))
-        print("Using Sympy to evaluate the determinant.")
-        M = M.subs(ini.Laplace, ini.frequency*2*sp.I*sp.pi)
-        D = sp.Abs(M.determinant())**2
-        return D
+        maxExpr = detFunc() + 'result:%s(expand('%(numeric)
+        func = 'det('
+    if detP != None:
+        maxExpr += '+' + func + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
+    if detN != None:
+        maxExpr += '-' + func + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
+    maxExpr += '));'
+    result = maxEval(maxExpr)
+    try:
+        return sp.sympify(result)
+    except:
+        print('Maxima error:', result)
 
 def maxSolve(M, Iv, numeric = True):
     """
@@ -570,8 +409,10 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     """
     if numeric:
         numeric = 'bfloat'
+        expr=sp.N(expr)
     else:
         numeric = ''
+    
     if start != None and stop != None:
         maxExpr = 'result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
     else:

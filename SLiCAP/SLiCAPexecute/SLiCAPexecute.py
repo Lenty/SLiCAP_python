@@ -130,11 +130,16 @@ def doInstruction(instObj):
                 if instObj.source != None:
                     # Calculate the squared gain from source to detector as a
                     # function of ini.frequency
-                    gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = instObj.numeric)
-                    gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = instObj.numeric))
+                    numer = maxNumer(instObj.M, detP, detN, srcP, srcN, numeric = instObj.numeric)
+                    numer = assumeRealParams(numer.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
+                    numer2 = sp.Abs(numer)**2
+                    denom = maxDet(instObj.M, numeric=instObj.numeric)
+                    denom = assumeRealParams(denom.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
+                    denom2 = sp.Abs(denom)**2
+                    gain2 = clearAssumptions(sp.simplify(numer2/denom2))
                 # Calculate the contributions of each noise source to the
                 # spectral density of the total output noise
-                onoiseTerms = doNoise(instObj, detP, detN)
+                onoiseTerms = doNoise(instObj, detP, detN, denom2)
                 # apply function stepping
                 for elID in list(onoiseTerms.keys()):
                     if instObj.source != None:
@@ -164,8 +169,10 @@ def doInstruction(instObj):
                 detP, detN, srcP, srcN = makeSrcDetPos(instObj)
                 if instObj.source != None:
                     # Calculate the squared DC gain from source to detector
-                    gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = True, numeric = instObj.numeric)
-                    gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = True, numeric = instObj.numeric))
+                    M = instObj.M.subs(ini.Laplace, 0)
+                    numer = maxNumer(M, detP, detN, srcP, srcN, numeric = instObj.numeric)
+                    denom = maxDet(M, numeric = instObj.numeric)
+                    gain2 = sp.simplify((numer/denom)**2)
                 # Calculate the contributions of each variance source to the
                 # variance at the detector
                 ovarTerms, dcSol = doDCvar(instObj, detP, detN)
@@ -177,7 +184,7 @@ def doInstruction(instObj):
                     instObj.svarTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['dcvar'])
                 numRuns = len(instObj.ovarTerms[elID])
                 for i in range(numRuns):
-                    # calcuate ovar and ivar for each run
+                    # calcuate the total ovar and the total ivar for each run
                     ovar = 0
                     ivar = 0
                     for elID in list(ovarTerms.keys()):
@@ -324,7 +331,7 @@ def doDataType(instObj):
         # Calculate the contributions of each noise source to the
         # spectral density of the total output noise
         detP, detN, srcP, srcN = makeSrcDetPos(instObj)
-        onoiseTerms = doNoise(instObj, detP, detN)
+        onoiseTerms = doNoise(instObj, detP, detN, None)
         inoiseTerms = {}
         snoiseTerms = {}
         onoise      = 0
@@ -332,8 +339,10 @@ def doDataType(instObj):
         if instObj.source != None:
             # Calculate the squared gain from source to detector as a
             # function of ini.frequency
-            gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = False, numeric = instObj.numeric)
-            gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = False, numeric = instObj.numeric))
+            numer = assumeRealParams(maxNumer(instObj.M, detP, detN, srcP, srcN).subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I))
+            denom = assumeRealParams(maxDet(instObj.M).subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I))
+            gain2 = sp.Abs(numer)**2/sp.Abs(denom)**2
+            gain2 = clearAssumptions(gain2)
             inoise = 0
         for key in list(onoiseTerms.keys()):
             onoise += onoiseTerms[key]
@@ -388,8 +397,10 @@ def doDataType(instObj):
         alreadyKeys = list(instObj.ovarTerms.keys())
         if instObj.source != None:
             # Calculate the squared DC gain from source to detector
-            gain2 = maxCramerCoeff2(instObj.circuit, instObj.M, instObj.source, detP, detN, dc = True, numeric = instObj.numeric)
-            gain2 = sp.simplify(gain2/maxDet2(instObj.M, dc = True, numeric = instObj.numeric))
+            M = instObj.M.subs(ini.Laplace, 0)
+            numer2 = (maxNumer(M, detP, detN, srcP, srcN, numeric = instObj.numeric))**2
+            denom2 = (maxDet(M, numeric = instObj.numeric))**2
+            gain2 = sp.simplify(numer2/denom2)
             ivar = 0
         for key in list(ovarTerms.keys()):
             ovar += ovarTerms[key]
@@ -861,7 +872,7 @@ def doSolve(instObj):
     Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'value', numeric = instObj.numeric)
     return maxSolve(instObj.M, Iv, numeric = instObj.numeric)
 
-def doNoise(instObj, detP, detN):
+def doNoise(instObj, detP, detN, denom2):
     """
     Calculates the contributions of all noise sources to the noise spectral
     density at the detector.
@@ -878,16 +889,25 @@ def doNoise(instObj, detP, detN):
     :return: onoiseTerms
     :return type: dict
     """
-    denom2 = maxDet2(instObj.M, dc=False, numeric = instObj.numeric)
     onoiseTerms = {}
+    if denom2 == None:
+        denom = maxDet(instObj.M, numeric = instObj.numeric)
+        denom = assumeRealParams(denom.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
+        denom2 = (sp.Abs(denom))**2
+    denom2 = sp.factor(denom2)
+    Iv = makeSrcVector(instObj.circuit, instObj.circuit.parDefs, 'all', value = 'id', numeric = instObj.numeric)
+    allTerms =  maxCramerNumer(instObj.M, Iv, detP, detN, numeric = instObj.numeric)
     for src in instObj.circuit.indepVars:
         if 'noise' in list(instObj.circuit.elements[src].params.keys()) and instObj.circuit.elements[src].params['noise'] != 0:
             if instObj.numeric:
                 value = fullSubs(instObj.circuit.elements[src].params['noise'], instObj.parDefs)
             else:
                 value = instObj.circuit.elements[src].params['noise']
-            numer2 = maxCramerCoeff2(instObj.circuit, instObj.M, src, detP, detN, dc=False, numeric = instObj.numeric)
-            onoiseTerms[src] = sp.simplify(sp.factor(numer2)/sp.factor(denom2))*value
+            coeff = sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]
+            coeff = coeff.subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I)
+            coeff = assumeRealParams(coeff, params = 'all')
+            term = sp.simplify(value * sp.Abs(coeff)**2 / denom2)
+            onoiseTerms[src] = clearAssumptions(term, params = 'all')
     return onoiseTerms
 
 def doDC(instObj, detP, detN):
@@ -983,10 +1003,13 @@ def doDCvar(instObj, detP, detN):
             instObj.circuit.elements[variable] = newCurrentSource
             instObj.circuit.indepVars.append(variable)
     # Create the vector with indepemdent variables (current and voltage sources)
-    Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'dcvar', numeric = instObj.numeric)
+    Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'id', numeric = instObj.numeric)
     # Calculate the contribution to the detector variance for each source.
     # First the squared denominator, we need it for all sources
-    denom2 = maxDet2(instObj.M, dc=True, numeric = instObj.numeric)
+    M = instObj.M.subs(ini.Laplace, 0)
+    denom2 = sp.factor(maxDet(M, numeric = instObj.numeric)**2)
+    # Now all terms of the numerator
+    allTerms = maxCramerNumer(M, Iv, detP, detN, numeric = instObj.numeric)
     ovarTerms = {}
     for src in instObj.circuit.indepVars:
         # Now the squared numerator for sources that have a nonzero dcVar value.
@@ -996,10 +1019,9 @@ def doDCvar(instObj, detP, detN):
                 value = fullSubs(instObj.circuit.elements[src].params['dcvar'], instObj.parDefs)
             else:
                 value = instObj.circuit.elements[src].params['dcvar']
-            # Use Cramer's rule for determination of the squared gain for this source
-            numer2 = maxCramerCoeff2(instObj.circuit, instObj.M, src, detP, detN, dc=True, numeric = instObj.numeric)
-            # Combine numerator, denominator and the value, store it in the dict
-            ovarTerms[src] = sp.simplify(sp.factor(numer2)/sp.factor(denom2))*value
+            # Select the coefficient for each variance source from allTerms
+            numer2 = sp.factor(sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]**2)
+            ovarTerms[src] = value*sp.simplify(numer2/denom2)
     return (ovarTerms, dcSolution)
 
 if __name__ == '__main__':

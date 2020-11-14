@@ -54,14 +54,18 @@ class matrix(sp.Matrix):
         """
         Returns determinant of a 2 x 2 matrix.
         """
-        d = 0
         if self.shape[0] == 2:
+            d = 0
+            """
             if self[0,0] != 0 and self[1,1] != 0:
                 d += self[0,0]*self[1,1]
             if self[1,0] != 0 and self[0,1] != 0:
                 d -= self[0,1]*self[1,0]
-            return d
-        return sp.expand(self.expandByMinorsRows())
+            """
+            d = self[0,0]*self[1,1] - self[0,1]*self[1,0]
+        else:
+            d = self.expandByMinorsRows()
+        return sp.expand(d)
         
     def expandByMinorsRows(self):
         """
@@ -618,6 +622,42 @@ def assumePosParams(expr, params = 'all'):
                 expr = expr.xreplace({sp.Symbol(str(params[i])): sp.Symbol(str(params[i]), positive = True)})
         else:
             return expr.xreplace({sp.Symbol(params): sp.Symbol(params, positive = True)})
+    else:
+        print("Error: expected type 'str' or 'lst', got '{0}'.".format(type(params)))
+    return expr
+
+def clearAssumptions(expr, params = 'all'):
+    """
+    Returns the sympy expression 'expr' in which  the assumtions 'Real' and
+    'Positive' have been deleted.
+
+    :param expr: Sympy expression
+    :type expr: sympy.Expr, sympy.Symbol
+
+    :param params: List with variable names (*str*), or 'all' or a variable name (*str*).
+    :type params: list, str
+
+    :return: Expression with redefined variables.
+    :rtype: sympy.Expr, sympy.Symbol
+    """
+    
+    if type(params) == list:
+        for i in range(len(params)):
+            expr = expr.xreplace({sp.Symbol(params[i], positive = True): sp.Symbol(params[i])})
+            expr = expr.xreplace({sp.Symbol(params[i], real = True): sp.Symbol(params[i])})
+    elif type(params) == str:
+        if params == 'all':
+            params = list(expr.atoms(sp.Symbol))
+            try:
+                params.remove(ini.Laplace)
+            except:
+                pass
+            for i in range(len(params)):
+                expr = expr.xreplace({sp.Symbol(str(params[i]), positive = True): sp.Symbol(str(params[i]))})
+                expr = expr.xreplace({sp.Symbol(str(params[i]), real = True): sp.Symbol(str(params[i]))})
+        else:
+            expr = expr.xreplace({sp.Symbol(params, positive = True): sp.Symbol(params)})
+            expr = expr.xreplace({sp.Symbol(params, real = True): sp.Symbol(params)})
     else:
         print("Error: expected type 'str' or 'lst', got '{0}'.".format(type(params)))
     return expr

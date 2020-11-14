@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SLiCAPpythonMaxima.py &mdash; SLiCAP 0.9.0 documentation</title>
+  <title>SLiCAPpythonMaxima.py &mdash; SLiCAP 1.0.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.9.0
+                1.0.0
               </div>
             
           
@@ -182,6 +182,11 @@
 <p>SLiCAP module with symbolic math functions executed by maxima CAS.</p>
 <p>Imported by the module <strong>SLiCAPplots.py</strong>.</p>
 <dl class="function">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.detFunc">
+<code class="descname">detFunc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.detFunc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs">
 <code class="descname">equateCoeffs</code><span class="sig-paren">(</span><em>protoType</em>, <em>transfer</em>, <em>noSolve=[]</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solutions of the equation transferFunction = protoTypeFunction.</p>
@@ -219,46 +224,6 @@ values.</li>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2">
-<code class="descname">maxCramerCoeff2</code><span class="sig-paren">(</span><em>cir</em>, <em>M</em>, <em>elID</em>, <em>detP</em>, <em>detN</em>, <em>dc=False</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxCramerCoeff2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the numerator of the squared transfer from a source to the detector
-in Sympy format, with the Laplace variable replaced with
-‘2*%pi*%i*ini.frequency’ or with 0, for noise or for dcVar calculations,
-respectively.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit object</li>
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>elID</strong> (<em>str</em>) – Refdes (ID) of the source of which the transfer to the detector
-needs to be evaluated.</li>
-<li><strong>detP</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
-This can be a nodal voltage or a current through a voltage source
-or None if the positive node is the ground node or a positive
-current is not used.</li>
-<li><strong>detN</strong> (<em>int</em><em>, </em><em>bool</em>) – Position of positive detector in vector with dependent variables.
-This can be a nodal voltage or a current through a voltage source
-or None if the negative node is the ground node or a negative
-current is not used.</li>
-<li><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numerator of the squared transfer.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
 </td>
 </tr>
 </tbody>
@@ -321,35 +286,6 @@ Maxima CAS for matrices up to 50 x 50.</p>
 <li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
 values.</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2">
-<code class="descname">maxDet2</code><span class="sig-paren">(</span><em>M</em>, <em>dc=False</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxDet2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the squared magnitude of the determinant of matrix ‘M’ in Sympy
-format, with the Laplace variable replaced with
-‘2*%pi*%i* + ini.frequency’, or with 0, for noise or for dcVar calculations,
-respectively.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – MNA matrix</li>
-<li><strong>dc</strong> (<em>bool</em>) – True if the DC transfer needs to be determined.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Numerator of the squared transfer.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
 </td>
 </tr>
 </tbody>
