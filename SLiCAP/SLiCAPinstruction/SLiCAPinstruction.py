@@ -246,7 +246,7 @@ class instruction(object):
                 self.simType = 'numeric'
                 self.numeric = True
             else:
-                print("Error: unknown simulation type: '{0}'.".format(self.symType))
+                print("Error: unknown simulation type: '{0}'.".format(self.simType))
                 self.errors += 1
         else:
             print("Error: argument type must be type 'str'.")
