@@ -715,13 +715,13 @@ def makeSrcDetPos(instObj):
                 # of the source nodes
                 nodes = instObj.circuit.elements[instObj.source].nodes
                 if nodes[0] != '0':
-                    srcP = detectors.index('V_' + nodes[0])
-                else:
-                    srcP = None
-                if nodes[1] != '0':
-                    srcN = detectors.index('V_' + nodes[1])
+                    srcN = detectors.index('V_' + nodes[0])
                 else:
                     srcN = None
+                if nodes[1] != '0':
+                    srcP = detectors.index('V_' + nodes[1])
+                else:
+                    srcP = None
         else:
             # If there is no source defines, srcP and srcN are set to 'None'
             srcP = None
