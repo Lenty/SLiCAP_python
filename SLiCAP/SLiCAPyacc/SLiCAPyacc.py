@@ -859,12 +859,10 @@ def sortDepVars(mainCircuit):
     mainCircuit.depVars = vGnd + nGnd + rGnd + lGnd + eGnd + fGnd + gGnd + hGnd + ezGnd + hzGnd + tGnd + v + n + r + l + e + f + g + h + ez + hz + t
     mainCircuit.varIndex = {}
     i = 0
+    varIndexPos = 0
     for i in range(len(mainCircuit.depVars)):
         mainCircuit.varIndex[mainCircuit.depVars[i]] = i
-    if i !=0:
         varIndexPos = i + 1
-    else:
-        varIndexPos = 0
     for j in range(len(mainCircuit.nodes)):
         mainCircuit.depVars.append('V_' + mainCircuit.nodes[j])
         mainCircuit.varIndex[mainCircuit.nodes[j]] = varIndexPos
