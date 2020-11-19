@@ -5,3 +5,4 @@ dist/
 ProgramDocs/
 SLiCAP_python.egg-info/
 SLiCAP/SLiCAPsetting/SLiCAPsetting.py
+.venv/
