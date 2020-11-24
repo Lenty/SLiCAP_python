@@ -521,7 +521,9 @@ referred noise, respectively.</li>
 <li><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</li>
 <li><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</li>
 <li><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
-contribution to the RMS noise needs to be evaluated.</li>
+contribution to the RMS noise needs to be evaluated. Only
+IDs of current of voltage sources with a nonzero value
+for ‘noise’ are accepted.</li>
 </ul>
 </td>
 </tr>

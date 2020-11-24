@@ -549,7 +549,9 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     :type fmax: str, int, float, sp.Symbol
 
     :param source: 'all' or refDes (ID) of a noise source of which the
-                   contribution to the RMS noise needs to be evaluated.
+                   contribution to the RMS noise needs to be evaluated. Only
+                   IDs of current of voltage sources with a nonzero value
+                   for 'noise' are accepted.
     :return: RMS noise over the frequency interval.
 
              - An expression or value if parameter stepping of the instruction is disabled.
