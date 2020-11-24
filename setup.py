@@ -271,6 +271,7 @@ class InstallWrapper(install):
                     path = os.path.join(root,name, 'bin','maxima.bat')
                     print("Maxima path set as:", path)
                     return path
+        return ' '
 
     def _find_ltspice(self):
         if platform.system() == 'Windows':
