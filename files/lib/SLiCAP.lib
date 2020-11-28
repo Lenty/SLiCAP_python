@@ -486,7 +486,7 @@ I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC      = {ID*L/W/I_0_P18}
-+ f_ell   = {g_m^2*R_N*KF_P18/(4*k*T*W*L*C_OX_P18)}
++ f_ell   = {g_m*KF_P18/(4*k*T*W*L*C_OX_P18)}
 .ends
 
 .subckt J_noise ext comm int ID={ID} IG={IG} W={W} L={L}

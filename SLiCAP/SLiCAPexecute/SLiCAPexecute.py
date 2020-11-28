@@ -143,7 +143,7 @@ def doInstruction(instObj):
                 # apply function stepping
                 for elID in list(onoiseTerms.keys()):
                     if instObj.source != None:
-                        instObj.inoiseTerms[elID] = stepFunctions(instObj, sp.simplify(onoiseTerms[elID]/gain2))
+                        instObj.inoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID]/gain2)
                     instObj.onoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID])
                     instObj.snoiseTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['noise'])
                 numRuns = len(instObj.onoiseTerms[elID])
@@ -906,7 +906,7 @@ def doNoise(instObj, detP, detN, denom2):
             coeff = sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]
             coeff = coeff.subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I)
             coeff = assumeRealParams(coeff, params = 'all')
-            term = sp.simplify(value * sp.Abs(coeff)**2 / denom2)
+            term = value * sp.Abs(coeff)**2 / denom2
             onoiseTerms[src] = clearAssumptions(term, params = 'all')
     return onoiseTerms
 
