@@ -623,7 +623,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     newParDefs= {} # Temporary storage for new parameter definitions
     for key in list(childCircuit.parDefs.keys()):
         newParDefs[key] = childCircuit.parDefs[key]
-        if key not in list(LIB.parDefs.keys()) and sp.Symbol(key) not in list(substDict.keys()):
+        if sp.Symbol(key) not in list(LIB.parDefs.keys()) and sp.Symbol(key) not in list(substDict.keys()):
             substDict[sp.Symbol(key)] = sp.Symbol(key + suffix)
     newElements = {} # Temp storage for all the new elements
     for elName in list(childCircuit.elements.keys()):
@@ -655,7 +655,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
             if isinstance(newElement.params[key], sp.Basic):
                 newParams = list(newElement.params[key].atoms(sp.Symbol))
                 for newParam in newParams:
-                    if str(newParam) not in list(LIB.parDefs.keys()) and newParam not in list(substDict.keys()) and newParam!= ini.Laplace and newParam != ini.frequency:
+                    if newParam not in list(LIB.parDefs.keys()) and newParam not in list(substDict.keys()) and newParam!= ini.Laplace and newParam != ini.frequency:
                         substDict[newParam] = sp.Symbol(str(newParam) + suffix)
         # Store the element, we still need to update its parameters and values
         newElements[newElement.refDes] = newElement
@@ -923,7 +923,8 @@ def makeLibraries():
         for cirModel in list(LIB.circuits.keys()):
             cir.circuits[cirModel] = LIB.circuits[cirModel]
         for parDef in list(LIB.parDefs.keys()):
-            cir.parDefs[parDef] = LIB.parDefs[parDef]
+            pD = sp.Symbol(parDef)
+            cir.parDefs[pD] = LIB.parDefs[parDef]
         for modDef in list(LIB.modelDefs.keys()):
             cir.modelDefs[parDef] = LIB.modelDefs[modDef]
         cir = makeCircuit(cir)
