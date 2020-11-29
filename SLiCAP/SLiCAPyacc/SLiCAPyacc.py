@@ -699,11 +699,6 @@ def updateCirData(mainCircuit):
         newKey = sp.Symbol(key)
         mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
         del(mainCircuit.parDefs[key])
-    for key in list(LIB.parDefs.keys()):
-        if type(key) == str:
-            newKey = sp.Symbol(key)
-            LIB.parDefs[newKey] = LIB.parDefs[key]
-            del(LIB.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
@@ -795,7 +790,6 @@ def sortDepVars(mainCircuit):
     t = []
     h = []
     hz = []
-    nodeVoltages = []
     depVars = mainCircuit.depVars
     for var in depVars:
         varType = var[0]
@@ -847,7 +841,7 @@ def sortDepVars(mainCircuit):
                     elif model == 'G':
                         g.append(var)
                     elif model == 'T':
-                        tappend(var)
+                        t.append(var)
                     elif model == 'H':
                         h.append(var)
                     elif model == 'EZ':
@@ -858,14 +852,13 @@ def sortDepVars(mainCircuit):
                         f.append(var)
     mainCircuit.depVars = vGnd + nGnd + rGnd + lGnd + eGnd + fGnd + gGnd + hGnd + ezGnd + hzGnd + tGnd + v + n + r + l + e + f + g + h + ez + hz + t
     mainCircuit.varIndex = {}
-    i = 0
     varIndexPos = 0
     for i in range(len(mainCircuit.depVars)):
-        mainCircuit.varIndex[mainCircuit.depVars[i]] = i
-        varIndexPos = i + 1
-    for j in range(len(mainCircuit.nodes)):
-        mainCircuit.depVars.append('V_' + mainCircuit.nodes[j])
-        mainCircuit.varIndex[mainCircuit.nodes[j]] = varIndexPos
+        mainCircuit.varIndex[mainCircuit.depVars[i]] = varIndexPos
+        varIndexPos += 1
+    for i in range(len(mainCircuit.nodes)):
+        mainCircuit.depVars.append('V_' + mainCircuit.nodes[i])
+        mainCircuit.varIndex[mainCircuit.nodes[i]] = varIndexPos
         varIndexPos += 1
     return mainCircuit
 
@@ -995,8 +988,10 @@ def addUserLibs(fileNames):
 if __name__ == '__main__':
     """
     Since we are not running a project, we need to define project data.
+    The paths are OK with Linux
     """
-    ini.projectPath = ini.installPath + 'examples/CSstage/'
+    examplePath = '/'.join(ini.defaultLib.split('/')[0:-1]) + '/examples/'
+    ini.projectPath = examplePath + 'CSstage/'
     ini.circuitPath = ini.projectPath + 'cir/'
     ini.htmlPath    = ini.projectPath + 'html/'
     ini.htmlIndex   = 'index.html'
