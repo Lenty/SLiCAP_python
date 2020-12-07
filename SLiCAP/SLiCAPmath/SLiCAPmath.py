@@ -307,9 +307,17 @@ def coeffsTransfer(LaplaceRational):
         i += 1
     gain = coeffN/coeffD
     for j in range(len(coeffsNumer)):
-        coeffsNumer[j] = sp.simplify(coeffsNumer[j]/coeffN)
+        coeffsNumer[j] = coeffsNumer[j]/coeffN
+        try:
+            coeffsNumer[j] = sp.simplify(coeffsNumer[j])
+        except:
+            pass
     for j in range(len(coeffsDenom)):
-        coeffsDenom[j] = sp.simplify(coeffsDenom[j]/coeffD)
+        coeffsDenom[j] = coeffsDenom[j]/coeffD
+        try:
+            coeffsDenom[j] = sp.simplify(coeffsDenom[j])
+        except:
+            pass
     return (gain, coeffsNumer, coeffsDenom)
 
 def normalizeLaplaceRational(LaplaceRational):
@@ -735,7 +743,8 @@ def phaseMargin(LaplaceExpr):
         func = sp.lambdify(ini.frequency, sp.Abs(data)-1)
         guess = findServoBandwidth(expr)['lpf']
         try:
-            freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
+            #freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
+            freq = fsolve(func, guess)
             mrgn = phaseFunc_f(expr, freq)
         except:
             print("Error: could not determine unity-gain frequency for phase margin.")
@@ -811,7 +820,7 @@ def dBmagFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    func = sp.lambdify(ini.frequency, 20*sp.log(abs(data), 10))
+    func = sp.lambdify(ini.frequency, 20*sp.log(sp.Abs(sp.N(data)), 10))
     return func(f)
 
 def phaseFunc_f(LaplaceExpr, f):
@@ -843,7 +852,7 @@ def phaseFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    func = sp.lambdify(ini.frequency, data)
+    func = sp.lambdify(ini.frequency, sp.N(data))
     phase = np.angle(func(f))
     try:
         phase = np.unwrap(phase)
@@ -880,10 +889,10 @@ def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp)):
         f = np.array(f)
     if ini.Hz == True:
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-        func = sp.lambdify(ini.frequency, data)
+        func = sp.lambdify(ini.frequency, sp.N(data))
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-        func = sp.lambdify(ini.frequency, data)
+        func = sp.lambdify(ini.frequency, sp.N(data))
     angle1 = np.angle(func(f))
     angle2 = np.angle(func(f*(1+delta)))
     try:
@@ -921,7 +930,7 @@ def mag_f(LaplaceExpr):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    return sp.Abs(data)
+    return sp.Abs(sp.N(data))
 
 def phase_f(LaplaceExpr):
     """
@@ -945,10 +954,10 @@ def phase_f(LaplaceExpr):
     """
     if ini.Hz == True:
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
-        return 180 * sp.arg(data) / sp.pi
+        return 180 * sp.arg(data) / sp.N(sp.pi)
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-        return sp.arg(data)
+        return sp.arg(sp.N(data))
 
 if __name__ == "__main__":
     s = ini.Laplace
