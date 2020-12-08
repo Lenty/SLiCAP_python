@@ -370,7 +370,8 @@ def cancelPZ(poles, zeros):
     for i in range(len(poles)):
         for j in range(len(zeros)):
             if abs(sp.re(poles[i]) - sp.re(zeros[j])) <= 10**(-ini.disp)*abs(sp.re(poles[i]) + sp.re(zeros[j]))/2 \
-            and abs(sp.im(poles[i]) - sp.im(zeros[j])) <= 10**(-ini.disp)*abs(sp.im(poles[i]) + sp.im(zeros[j]))/2:
+            and abs(sp.im(poles[i]) - sp.im(zeros[j])) <= 10**(-ini.disp)*abs(sp.im(poles[i]) + sp.im(zeros[j]))/2 \
+            and poles[i] in newPoles and zeros[j] in newZeros:
                 newPoles.remove(poles[i])
                 newZeros.remove(zeros[j])
     return(newPoles, newZeros)
