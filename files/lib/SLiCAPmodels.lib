@@ -107,7 +107,7 @@ Cc2 inN ref {cc/2}
 * Current feedback operational amplifier
 .subckt OC inP inN out ref gm=20m zt=50k gpn=0 gp=0 cpn=0 cp=0 ; default values
 H out ref 1 ref HZ value={zt} zo={zo}
-Gm inP inN 1 inN g value={gm}
+Gm inP inN 1 inN G value={gm}
 Gp inP ref inP ref g value={gp}
 Gpn inP inN inP inP g value={gpn}
 Cp inP ref {cp}
