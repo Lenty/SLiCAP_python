@@ -132,10 +132,15 @@ def doInstruction(instObj):
                     # function of ini.frequency
                     numer = maxNumer(instObj.M, detP, detN, srcP, srcN, numeric = instObj.numeric)
                     numer = assumeRealParams(numer.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
-                    numer2 = sp.Abs(numer)**2
+                    nR, nI = numer.as_real_imag()
+                    numer2 = sp.expand((nR + nI*sp.I)*(nR - nI*sp.I))
+                    #numer2 = sp.Abs(numer)**2
                     denom = maxDet(instObj.M, numeric=instObj.numeric)
                     denom = assumeRealParams(denom.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
-                    denom2 = sp.Abs(denom)**2
+                    dR, dI = denom.as_real_imag()
+                    denom2 = sp.expand((dR + dI*sp.I)*(dR - dI*sp.I))
+                    gain2 = numer2/denom2
+                    #denom2 = sp.Abs(denom)**2
                     gain2 = clearAssumptions(sp.simplify(numer2/denom2))
                 # Calculate the contributions of each noise source to the
                 # spectral density of the total output noise
@@ -341,7 +346,14 @@ def doDataType(instObj):
             # function of ini.frequency
             numer = assumeRealParams(maxNumer(instObj.M, detP, detN, srcP, srcN).subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I))
             denom = assumeRealParams(maxDet(instObj.M).subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I))
-            gain2 = sp.Abs(numer)**2/sp.Abs(denom)**2
+            nR, nI = numer.as_real_imag()
+            numer2 = sp.expand((nR + nI*sp.I)*(nR - nI*sp.I))
+            dR, dI = denom.as_real_imag()
+            denom2 = sp.expand((dR + dI*sp.I)*(dR - dI*sp.I))
+            gain2 = numer2/denom2
+            
+            #gain2 = sp.Abs(numer)**2/sp.Abs(denom)**2
+            
             gain2 = clearAssumptions(gain2)
             inoise = 0
         for key in list(onoiseTerms.keys()):
@@ -471,7 +483,7 @@ def doDenom(instObj):
         (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
         (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-        numer = numer * lgNumer
+        numer = numer * -lgNumer
         denom = denom * lgDenom + numer
     elif instObj.gainType == 'loopgain':
         (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
@@ -893,7 +905,9 @@ def doNoise(instObj, detP, detN, denom2):
     if denom2 == None:
         denom = maxDet(instObj.M, numeric = instObj.numeric)
         denom = assumeRealParams(denom.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
-        denom2 = (sp.Abs(denom))**2
+        # denom2 = (sp.Abs(denom))**2
+        dR, dI = denom.as_real_imag()
+        denom2 = sp.expand((dR + sp.I*dI)*(dR - sp.I*dI))
     denom2 = sp.factor(denom2)
     Iv = makeSrcVector(instObj.circuit, instObj.circuit.parDefs, 'all', value = 'id', numeric = instObj.numeric)
     allTerms =  maxCramerNumer(instObj.M, Iv, detP, detN, numeric = instObj.numeric)
@@ -906,7 +920,10 @@ def doNoise(instObj, detP, detN, denom2):
             coeff = sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]
             coeff = coeff.subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I)
             coeff = assumeRealParams(coeff, params = 'all')
-            term = value * sp.Abs(coeff)**2 / denom2
+            cR, cI = coeff.as_real_imag()
+            coeff2 = sp.expand((cR + sp.I*cI)*(cR - sp.I*cI))
+            term = value * coeff2 / denom2
+            #term = value * sp.Abs(coeff)**2 / denom2
             onoiseTerms[src] = clearAssumptions(term, params = 'all')
     return onoiseTerms
 
