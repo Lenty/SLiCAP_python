@@ -553,8 +553,8 @@ M1 drain gate source bulk CMOS18PN
 * See Binkley: "Tradeoffs and Optimization in Analog CMOS Design"
 + IC_CRIT_N = {1/(4*(N_s_N18*U_T)*(Theta_N18+1/L_N/E_CRIT_N18))^2}
 + IC_CRIT_P = {1/(4*(N_s_P18*U_T)*(Theta_P18+1/L_P/E_CRIT_P18))^2}
-+ g_m_N     = {ID/(N_s_N18*U_T*sqrt(IC_N*(1+IC_N/IC_CRIT_N)+0.5*sqrt(IC_N*(1+IC_N/IC_CRIT_N))+1))}
-+ g_m_P     = {ID/(N_s_P18*U_T*sqrt(IC_P*(1+IC_P/IC_CRIT_P)+0.5*sqrt(IC_P*(1+IC_P/IC_CRIT_P))+1))}
++ g_m_N     = {ID_N/(N_s_N18*U_T*sqrt(IC_N*(1+IC_N/IC_CRIT_N)+0.5*sqrt(IC_N*(1+IC_N/IC_CRIT_N))+1))}
++ g_m_P     = {ID_P/(N_s_P18*U_T*sqrt(IC_P*(1+IC_P/IC_CRIT_P)+0.5*sqrt(IC_P*(1+IC_P/IC_CRIT_P))+1))}
 + g_m       = {g_m_N + g_m_P}
 + g_b       = {g_m_N*(N_s_N18-1) + g_m_P*(N_s_P18-1)}
 + g_o       = {ID_N/VAL_N18/L_N + ID_P/VAL_P18/L_P}

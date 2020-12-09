@@ -499,9 +499,10 @@ def findServoBandwidth(loopgainRational):
     result['mbv'] = mbv
     result['mbf'] = mbf
     for i in range(numCornerFreqs):
-        if freqsOrders[i,2] == 0 and freqsOrders[i,3] > mbv:
-            result['mbv'] = freqsOrders[i,3]
-            result['mbf'] = freqsOrders[i,0]
+        if mbv != sp.nan:
+            if freqsOrders[i,2] == 0 and freqsOrders[i,3] > mbv:
+                result['mbv'] = freqsOrders[i,3]
+                result['mbf'] = freqsOrders[i,0]
     if ini.Hz:
         result['hpf'] = result['hpf']/np.pi/2
         result['lpf'] = result['lpf']/np.pi/2
