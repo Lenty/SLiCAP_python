@@ -14,7 +14,7 @@ import numpy as np
 import sympy as sp
 import requests
 from scipy.signal import residue
-from scipy.optimize import newton
+from scipy.optimize import newton, fsolve
 import ply.lex as lex
 from shutil import copy2 as cp
 from time import time
