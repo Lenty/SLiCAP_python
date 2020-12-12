@@ -143,10 +143,6 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     elif gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
         lgValue = cir.elements[lgRef].params['value']
         cir.elements[lgRef].params['value'] = 0
-    elif gainType == 'asymptotic':
-        lgRefModel = cir.elements[lgRef].model
-        cir.elements[lgRef].model = 'N'
-        cir.updateMdata()
     varIndex = cir.varIndex
     dim = len(list(cir.varIndex.keys()))
     Dv = [0 for i in range(dim)]
@@ -362,9 +358,6 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     # Restore circuit data
     if gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
         cir.elements[lgRef].params['value'] = lgValue
-    elif gainType == 'asymptotic':
-        cir.elements[lgRef].model = lgRefModel
-        cir.updateMdata()
     return (M, Dv)
 
 def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):

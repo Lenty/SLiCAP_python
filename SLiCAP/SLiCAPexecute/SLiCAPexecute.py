@@ -27,6 +27,18 @@ def doInstruction(instObj):
     :return: **allResults()** object that holds instruction data.
     :return type: **allResults()** object
     """
+    if instObj.gainType == 'asymptotic':
+        # The reference variable needs to replaced with a nullor and both the 
+        # self.circuit.depVars and self.varIndex need to be changed accordingly.
+        # Old values need to be restored after execution of the instruction.
+        oldLGrefElement = instObj.circuit.elements[instObj.lgRef]
+        newLGrefElement = element()
+        newLGrefElement.nodes = oldLGrefElement.nodes
+        newLGrefElement.model = 'N'
+        newLGrefElement.type = 'N'
+        newLGrefElement.refDes = oldLGrefElement.refDes
+        instObj.circuit.elements[instObj.lgRef] = newLGrefElement
+        instObj.circuit = updateCirData(instObj.circuit)
     if instObj.step:
         if ini.stepFunction:
             # Create a substitution dictionary that does not contain step parameters
@@ -226,6 +238,10 @@ def doInstruction(instObj):
         for key in list(instObj.circuit.parDefs.keys()):
             instObj.parDefs[key] = instObj.circuit.parDefs[key]
         doDataType(instObj)
+    if instObj.gainType == 'asymptotic':
+        # Restore the original loop gain reference element
+        instObj.circuit.elements[instObj.lgRef] = oldLGrefElement
+        instObj.circuit = updateCirData(instObj.circuit)
     return instObj
 
 def stepFunctions(instObj, function):

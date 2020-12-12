@@ -696,9 +696,10 @@ def updateCirData(mainCircuit):
     """
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in list(mainCircuit.parDefs.keys()):
-        newKey = sp.Symbol(key)
-        mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
-        del(mainCircuit.parDefs[key])
+        if type(key) == str:
+            newKey = sp.Symbol(key)
+            mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
+            del(mainCircuit.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
     # make the list with IDs of independent variables
@@ -707,6 +708,7 @@ def updateCirData(mainCircuit):
     # convert mainCircuit.params to list and put undefined params in it
     mainCircuit.params =[]
     mainCircuit.nodes = []
+    mainCircuit.depVars = []
     for elmt in list(mainCircuit.elements.keys()):
         mainCircuit.nodes += mainCircuit.elements[elmt].nodes
         for refID in mainCircuit.elements[elmt].refs:

@@ -65,7 +65,7 @@ Cd 1 c {cd}
 
 * JFET
 .subckt J d g s gm=1m go=0 cgs=0 cdg=0 ; default values
-Gm d s g s G value={gm}
+Gm d s g s g value={gm}
 Cgs g s {cgs}
 Cdg d g {cdg}
 Go d s d s g value={go}
@@ -73,7 +73,7 @@ Go d s d s g value={go}
 
 * MOSFET
 .subckt M d g s b gm=1m gb=0 go=0 cgs=0 cdg=0 cgb=0 cdb=0 csb=0 ; default values
-Gm d s g s G value={gm}
+Gm d s g s g value={gm}
 Gb d s b s g value={gb}
 Go d s d s g value={go}
 Cgs g s {cgs}
@@ -85,7 +85,7 @@ Csb s b {csb}
 
 * MOSFET Differential pair
 .subckt MD d1 d2 g1 g2 gm=1m go=0 cgg=0 cdd=0 cdg=0 ; default values
-Gm d1 d2 g1 g2 G value={gm}
+Gm d1 d2 g1 g2 g value={gm}
 Go d1 d2 d1 d2 g value={go}
 Cgg g1 g2 {cgg}
 Cdd d1 d2 {cdd}
@@ -107,7 +107,7 @@ Cc2 inN ref {cc/2}
 * Current feedback operational amplifier
 .subckt OC inP inN out ref gm=20m zt=50k gpn=0 gp=0 cpn=0 cp=0 ; default values
 H out ref 1 ref HZ value={zt} zo={zo}
-Gm inP inN 1 inN G value={gm}
+Gm inP inN 1 inN g value={gm}
 Gp inP ref inP ref g value={gp}
 Gpn inP inN inP inP g value={gpn}
 Cp inP ref {cp}
@@ -117,7 +117,7 @@ Cpn inP inN {cpn}
 * Vertical BJT
 .subckt QV c b e s gm=40m gpi=2.5k go=0 gbc=0 rb=0 cpi=0 cbc=0 cbx=0 cs=0 ; default values
 Rb b 1 r value={rb}
-Gm c e 1 e G value={gm}
+Gm c e 1 e g value={gm}
 Gpi 1 e 1 e g value={gpi}
 Go c e c e g value={go}
 Gbc 1 c 1 c g value={gbc}
@@ -130,7 +130,7 @@ Cs c s {cs}
 * Lateral BJT
 .subckt QL c b e s gm=40m gpi=2.5k go=0 gbc=0 rb=0 cpi=0 cbc=0 cbx=0 cs=0 ; default values
 Rb b 1 r value={rb}
-Gm c e 1 e G value={gm}
+Gm c e 1 e g value={gm}
 Gpi 1 e 1 e g value={gpi}
 Go c e c e g value={go}
 Gbc 1 c 1 c g value={gbc}
@@ -142,7 +142,7 @@ Cs b s {cs}
 
 * BJT differential pair
 .subckt QD c1 c2 b1 b2 gm=20m gbb=5k gcc=0 gbc=0 rb=0 cbb=0 cbc=0 cbx=0 ; default values
-Gm c1 c2 1 2 G value={gm}
+Gm c1 c2 1 2 g value={gm}
 Gbb 1 2 1 2 g value={gbb}
 Gcc c1 c2 c1 c2 g value={gcc}
 Gbc1 1 c1 1 c1 g value={gbc}

@@ -338,25 +338,6 @@ class circuit(object):
                 self.params.remove(par)
         self.params = undefined
         return
-
-    def updateMdata(self):
-        """
-        Updates data for building matrices: self.depVars and self.varIndex.
-        """
-        self.depVars = []
-        self.varIndex = {}
-        varIndexPos = 0
-        for elmt in list(self.elements.keys()):
-            for i in range(len(MODELS[self.elements[elmt].model].depVars)):
-                depVar = MODELS[self.elements[elmt].model].depVars[i]
-                self.depVars.append(depVar + '_' + elmt)
-                self.varIndex[depVar + '_' + elmt] = varIndexPos
-                varIndexPos += 1
-        for i in range(len(self.nodes)):
-            self.depVars.append('V_' + self.nodes[i])
-            self.varIndex[self.nodes[i]] = varIndexPos
-            varIndexPos += 1
-        return
         
     def getElementValue(self, elementID, param, numeric):
         """
