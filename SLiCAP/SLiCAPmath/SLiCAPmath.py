@@ -790,8 +790,11 @@ def magFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    func = sp.lambdify(ini.frequency, abs(data))
-    return func(f)
+    if ini.frequency in list(data.atoms(sp.Symbol)):
+        func = sp.lambdify(ini.frequency, abs(data))
+        return func(f)
+    else:
+        return([abs(data) for i in range(len(f))])
 
 def dBmagFunc_f(LaplaceExpr, f):
     """
@@ -822,8 +825,11 @@ def dBmagFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    func = sp.lambdify(ini.frequency, 20*sp.log(sp.Abs(sp.N(data)), 10))
-    return func(f)
+    if ini.frequency in list(data.atoms(sp.Symbol)):
+        func = sp.lambdify(ini.frequency, 20*sp.log(sp.Abs(sp.N(data)), 10))
+        return func(f)
+    else:
+        return([20*np.log10(abs(data)) for i in range(len(f))])
 
 def phaseFunc_f(LaplaceExpr, f):
     """
@@ -854,8 +860,11 @@ def phaseFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    func = sp.lambdify(ini.frequency, sp.N(data))
-    phase = np.angle(func(f))
+    if ini.frequency in list(data.atoms(sp.Symbol)):
+        func = sp.lambdify(ini.frequency, sp.N(data))
+        phase = np.angle(func(f))
+    else:
+        phase = [np.angle(data) for i in range(len(f))]
     try:
         phase = np.unwrap(phase)
     except:
@@ -895,17 +904,20 @@ def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp)):
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
         func = sp.lambdify(ini.frequency, sp.N(data))
-    angle1 = np.angle(func(f))
-    angle2 = np.angle(func(f*(1+delta)))
-    try:
-        angle1 = np.unwrap(angle1)
-        angle2 = np.unwrap(angle2)
-    except:
-        pass
-    delay  = (angle1 - angle2)/delta/f
-    if ini.Hz == True:
-        delay = delay/2/np.pi
-    return delay
+    if ini.frequency in list(data.atoms(sp.Symbol)):
+        angle1 = np.angle(func(f))
+        angle2 = np.angle(func(f*(1+delta)))
+        try:
+            angle1 = np.unwrap(angle1)
+            angle2 = np.unwrap(angle2)
+        except:
+            pass
+        delay  = (angle1 - angle2)/delta/f
+        if ini.Hz == True:
+            delay = delay/2/np.pi
+        return delay
+    else:
+        return [0 for i in range(len(f))]
 
 def mag_f(LaplaceExpr):
     """
