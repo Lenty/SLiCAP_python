@@ -564,7 +564,7 @@ def lgValue(instObj):
     elif lgRef.model == 'G':
         value = lgRef.params['value']
     if instObj.simType == 'numeric':
-        value = fullSubs(value, instObj.circuit.parDefs)
+        value = fullSubs(value, instObj.parDefs)
     return value
 
 def makeSrcDetPos(instObj):

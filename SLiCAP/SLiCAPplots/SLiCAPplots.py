@@ -898,10 +898,16 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     fig.show = show
     fig.axisHeight = fig.axisWidth
     pz = axis(title)
-    pz.xScaleFactor = xscale
-    pz.yScaleFactor = yscale
     pz.xScale = 'lin'
     pz.yScale = 'lin'
+    try:
+        xScaleFactor = 10**int(SCALEFACTORS[xscale])
+    except:
+        xScaleFactor = 1.
+    try:
+        yScaleFactor = 10**int(SCALEFACTORS[yscale])
+    except:
+        yScaleFactor = 1.
     if ini.Hz == True:
         pz.xLabel = 'Re [' + xscale + 'Hz]'
         pz.yLabel = 'Im [' + yscale + 'Hz]'
@@ -921,9 +927,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
         if not result.step:
             if result.dataType == 'poles' or result.dataType == 'pz':
                 if ini.Hz == True:
-                    polesTrace = trace([np.real(result.poles)/2/np.pi, np.imag(result.poles)/2/np.pi])
+                    polesTrace = trace([np.real(result.poles)/2/np.pi/xScaleFactor, np.imag(result.poles)/2/np.pi/yScaleFactor])
                 else:
-                    polesTrace = trace([np.real(result.poles), np.imag(result.poles)])
+                    polesTrace = trace([np.real(result.poles)/xScaleFactor, np.imag(result.poles)/yScaleFactor])
                 try:
                     polesTrace.markerColor = ini.gainColors[result.gainType]
                 except:
@@ -935,9 +941,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 pzTraces.append(polesTrace)
             if result.dataType == 'zeros' or result.dataType == 'pz':
                 if ini.Hz == True:
-                    zerosTrace = trace([np.real(result.zeros)/2/np.pi, np.imag(result.zeros)/2/np.pi])
+                    zerosTrace = trace([np.real(result.zeros)/2/np.pi/xScaleFactor, np.imag(result.zeros)/2/np.pi/yScaleFactor])
                 else:
-                    zerosTrace = trace([np.real(result.zeros), np.imag(result.zeros)])
+                    zerosTrace = trace([np.real(result.zeros)/xScaleFactor, np.imag(result.zeros)/yScaleFactor])
                 zerosTrace.color = ''
                 try:
                     zerosTrace.markerColor = ini.gainColors[result.gainType]
@@ -955,9 +961,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
             if len(poles) != 0:
                 # start of root locus
                 if ini.Hz == True:
-                    polesTrace = trace([np.real(result.poles[0])/2/np.pi, np.imag(result.poles[0])/2/np.pi])
+                    polesTrace = trace([np.real(result.poles[0])/2/np.pi/xScaleFactor, np.imag(result.poles[0])/2/np.pi/yScaleFactor])
                 else:
-                    polesTrace = trace([np.real(result.poles[0]), np.imag(result.poles[0])])
+                    polesTrace = trace([np.real(result.poles[0])/xScaleFactor, np.imag(result.poles[0])/yScaleFactor])
                 try:
                     polesTrace.markerColor = ini.gainColors[result.gainType]
                 except:
@@ -973,9 +979,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 pzTraces.append(polesTrace)
                 # end of root locus
                 if ini.Hz == True:
-                    polesTrace = trace([np.real(result.poles[-1])/2/np.pi, np.imag(result.poles[-1])/2/np.pi])
+                    polesTrace = trace([np.real(result.poles[-1])/2/np.pi/xScaleFactor, np.imag(result.poles[-1])/2/np.pi/yScaleFactor])
                 else:
-                    polesTrace = trace([np.real(result.poles[-1]), np.imag(result.poles[-1])])
+                    polesTrace = trace([np.real(result.poles[-1]/xScaleFactor), np.imag(result.poles[-1])/yScaleFactor])
                 try:
                     polesTrace.markerColor = ini.gainColors[result.gainType]
                 except:
@@ -995,9 +1001,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 for i in range(len(poles)):
                     allPoles = np.concatenate((allPoles, poles[i]), axis = None)
                 if ini.Hz == True:
-                    polesTrace = trace([np.real(allPoles)/2/np.pi, np.imag(allPoles)/2/np.pi])
+                    polesTrace = trace([np.real(allPoles)/2/np.pi/xScaleFactor, np.imag(allPoles)/2/np.pi/yScaleFactor])
                 else:
-                    polesTrace = trace([np.real(allPoles), np.imag(allPoles)])
+                    polesTrace = trace([np.real(allPoles)/xScaleFactor, np.imag(allPoles)/yScaleFactor])
                 try:
                     polesTrace.markerColor = ini.gainColors[result.gainType]
                 except:
@@ -1018,9 +1024,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
             if len(zeros) != 0:
                 # start of zeros locus
                 if ini.Hz == True:
-                    zerosTrace = trace([np.real(result.zeros[0])/2/np.pi, np.imag(result.zeros[0])/2/np.pi])
+                    zerosTrace = trace([np.real(result.zeros[0])/2/np.pi/xScaleFactor, np.imag(result.zeros[0])/2/np.pi/yScaleFactor])
                 else:
-                    zerosTrace = trace([np.real(result.zeros[0]), np.imag(result.zeros[0])])
+                    zerosTrace = trace([np.real(result.zeros[0])/xScaleFactor, np.imag(result.zeros[0])/yScaleFactor])
                 try:
                     zerosTrace.markerColor = ini.gainColors[result.gainType]
                 except:
@@ -1036,9 +1042,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 pzTraces.append(zerosTrace)
                 # end of zeros locus
                 if ini.Hz == True:
-                    zerosTrace = trace([np.real(result.zeros[-1])/2/np.pi, np.imag(result.zeros[-1])/2/np.pi])
+                    zerosTrace = trace([np.real(result.zeros[-1])/2/np.pi/xScaleFactor, np.imag(result.zeros[-1])/2/np.pi/yScaleFactor])
                 else:
-                    zerosTrace = trace([np.real(result.zeros[-1]), np.imag(result.zeros[-1])])
+                    zerosTrace = trace([np.real(result.zeros[-1])/xScaleFactor, np.imag(result.zeros[-1])/yScaleFactor])
                 try:
                     zerosTrace.markerColor = ini.gainColors[result.gainType]
                 except:
@@ -1057,9 +1063,9 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 for i in range(len(zeros)):
                     allZeros = np.concatenate((allZeros, result.zeros[i]), axis = None)
                 if ini.Hz == True:
-                    zerosTrace = trace([np.real(allZeros)/2/np.pi, np.imag(allZeros)/2/np.pi])
+                    zerosTrace = trace([np.real(allZeros)/2/np.pi/xScaleFactor, np.imag(allZeros)/2/np.pi/yScaleFactor])
                 else:
-                    zerosTrace = trace([np.real(allZeros), np.imag(allZeros)])
+                    zerosTrace = trace([np.real(allZeros)/xScaleFactor, np.imag(allZeros)/yScaleFactor])
                 try:
                     zerosTrace.markerColor = ini.gainColors[result.gainType]
                 except:
