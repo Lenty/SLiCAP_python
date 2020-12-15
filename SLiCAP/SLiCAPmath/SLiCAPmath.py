@@ -791,7 +791,7 @@ def magFunc_f(LaplaceExpr, f):
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
     if ini.frequency in list(data.atoms(sp.Symbol)):
-        func = sp.lambdify(ini.frequency, abs(data))
+        func = sp.lambdify(ini.frequency, sp.Abs(sp.N(data)))
         return func(f)
     else:
         return([abs(data) for i in range(len(f))])
