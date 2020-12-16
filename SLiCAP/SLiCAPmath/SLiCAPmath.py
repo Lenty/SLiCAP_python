@@ -197,19 +197,22 @@ def numRoots(expr, var):
     :param var: Indeterminate of 'expr'.
     :type var: sympy.Symbol
     """
-
     if isinstance(expr, sp.Basic) and isinstance(var, sp.Basic):
         params = list(expr.atoms(sp.Symbol))
         try:
             params.remove(var)
             if len(params) != 0:
-                print("Error: symbolic variables found, cannot determine roots.")
+                print("Error: symbolic variables found, cannot determine roots of:", str(expr))
                 return []
         except:
             return []
-        coeffs = polyCoeffs(expr, ini.Laplace)
-        roots = np.roots(np.array(coeffs))
-        return np.flip(roots, 0)
+        try:
+            coeffs = polyCoeffs(expr, ini.Laplace)
+            roots = np.roots(np.array(coeffs))
+            return np.flip(roots, 0)
+        except:
+            print("Error: cannot determine the roots of:", str(expr))
+            return []
     return []
 
 def makeLaplaceRational(gain, zeros, poles):
