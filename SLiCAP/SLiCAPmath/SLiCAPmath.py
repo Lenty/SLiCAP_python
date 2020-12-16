@@ -337,7 +337,7 @@ def normalizeLaplaceRational(LaplaceRational):
     :return:  Normalized rational function of the Laplace variable.
     :rtype: sympy.Expr
     """
-    gain, coeffsNumer, coeffsDenom = coeffsTransfer(LaplaceRational)
+    gain, coeffsNumer, coeffsDenom = coeffsTransfer(sp.simplify(LaplaceRational))
     # find coefficient of ini.Laplace of the lowest order of the denominator:
     numer = 0
     denom = 0
