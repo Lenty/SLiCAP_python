@@ -207,7 +207,7 @@ prototype.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.Symbol</em>) that do not need
+<li><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.core.symbol.Symbol</em>) that do not need
 to be solved. These parameters will remain symbolic in the
 solutions.</li>
 <li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
@@ -217,7 +217,7 @@ values.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Dictionary with key-value pairs:</p>
 <ul class="simple">
-<li>key: name of the parameter (<em>sympy.Symbol</em>)</li>
+<li>key: name of the parameter (<em>sympy.core.symbol.Symbol</em>)</li>
 <li>value: solution of this parameter: (<em>sympy.Expr, int, float</em>)</li>
 </ul>
 </p>
@@ -518,8 +518,8 @@ or the contribution of a specific noise source to it.</p>
 <li><strong>noiseResult</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults"><em>SLiCAPprotos.allResults</em></a>) – Results of the execution of an instruction with data type ‘noise’.</li>
 <li><strong>noise</strong> – ‘inoise’ or ‘onoise’ for source-referred noise or detector-
 referred noise, respectively.</li>
-<li><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</li>
-<li><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</li>
+<li><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.core.symbol.Symbol</em>) – Lower limit of the frequency range in Hz.</li>
+<li><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.core.symbol.Symbol</em>) – Upper limit of the frequency range in Hz.</li>
 <li><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
 contribution to the RMS noise needs to be evaluated. Only
 IDs of current of voltage sources with a nonzero value

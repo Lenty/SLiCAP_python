@@ -606,13 +606,13 @@ value or expression of the parameter.</li>
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.delPar">
 <code class="descname">delPar</code><span class="sig-paren">(</span><em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.delPar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a parameter definition and updates the list
-<strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.Symbol</em>) of
+<strong>SLiCAPprotos.circuit.params</strong> with names (<em>sympy.core.symbol.Symbol</em>) of
 undefined parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.Symbol</em>) – Name of the parameter.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>str</em><em>, </em><em>sympy.core.symbol.Symbol</em>) – Name of the parameter.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
@@ -704,7 +704,7 @@ keyword arg numeric = True if instruction.simType is set to ‘numeric’.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>if type(parNames) == list:</p>
-<p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>): 
+<p>return value = dict with key-value pairs: key (<em>sympy.core.symbol.Symbol</em>): 
 name of the parameter, value (<em>int, float, sympy expression</em>): 
 value of the parameter</p>
 <p>else:
@@ -796,7 +796,7 @@ starting with ‘,lib’ or ‘.inc’.</p>
 <code class="descname">modelDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.modelDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a model.</li>
+<li>key: Name (<em>sympy.core.symbol.Symbol</em>) of a model.</li>
 <li>value: Associated model object (<em>SLiCAPprotos.model</em>).</li>
 </ul>
 </dd></dl>
@@ -812,7 +812,7 @@ starting with ‘,lib’ or ‘.inc’.</p>
 <code class="descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a circuit parameter.</li>
+<li>key: Name (<em>sympy.core.symbol.Symbol</em>) of a circuit parameter.</li>
 <li>value: Value (<em>sympy object</em>, float, int) of the parameter.</li>
 </ul>
 </dd></dl>
@@ -822,7 +822,7 @@ starting with ‘,lib’ or ‘.inc’.</p>
 <code class="descname">parUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit.parUnits" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a circuit parameter.</li>
+<li>key: Name (<em>sympy.core.symbol.Symbol</em>) of a circuit parameter.</li>
 <li>value: Units (<em>str</em>) of the parameter.</li>
 </ul>
 </dd></dl>
@@ -834,14 +834,14 @@ starting with ‘,lib’ or ‘.inc’.</p>
 <li><p class="first">If SLiCAPcircuit.subCKT == True:</p>
 <p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key: Name (<em>sympy.Symbol</em>) of a parameter that can be passed to the
+<li>key: Name (<em>sympy.core.symbol.Symbol</em>) of a parameter that can be passed to the
 sub circuit.</li>
 <li>value: Default value (<em>sympy object</em>, float, int) of the parameter.</li>
 </ul>
 </li>
 <li><p class="first">Else:</p>
 <ul class="simple">
-<li>(<em>list</em>) with names (<em>sympy.Symbol</em>) of undefined parameters.</li>
+<li>(<em>list</em>) with names (<em>sympy.core.symbol.Symbol</em>) of undefined parameters.</li>
 </ul>
 </li>
 </ul>
@@ -957,7 +957,7 @@ connected.</p>
 <code class="descname">params</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.element.params" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>dict</em>) with key-value pairs:</p>
 <ul class="simple">
-<li>key (<em>sympy.Symbol</em>): Name of an element parameter.</li>
+<li>key (<em>sympy.core.symbol.Symbol</em>): Name of an element parameter.</li>
 <li>value (<em>sympy object</em>, float, int): Value of the parameter.</li>
 </ul>
 </dd></dl>
