@@ -372,13 +372,13 @@ class settings(object):
 
         self.Laplace            = sp.Symbol('s')
         """
-        Symbol (*sympy.Symbol*) used for the Laplace variable.
+        Symbol (*sympy.core.symbol.Symbol*) used for the Laplace variable.
         Defaults to sp.Symbol('s').
         """
 
         self.frequency          = sp.Symbol('f')
         """
-        Symbol (*sympy.Symbol*) used for frequency.
+        Symbol (*sympy.core.symbol.Symbol*) used for frequency.
         Defaults to sp.Symbol('f').
         """
 

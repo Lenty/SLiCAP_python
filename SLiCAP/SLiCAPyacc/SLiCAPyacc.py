@@ -493,7 +493,7 @@ def expandModelsCircuits(circuitObject):
                         valExpr = circuitObject.elements[refDes].params[parName]
                         # valExpr is either an integer or a float of a sympy object
                         if isinstance(valExpr, sp.Basic):
-                            exprParams = list(circuitObject.elements[refDes].params[parName].atoms(sp.Symbol))
+                            exprParams = list(circuitObject.elements[refDes].params[parName].atoms(sp.core.symbol.Symbol))
                             if ini.Laplace in exprParams and MODELS[basicModel].params[parName] == False:
                                 circuitObject.errors += 1
                                 print("Error: Laplace variable not allowed in expression '{0}' of parameter '{1}' of element '{2}'.".format(str(valExpr), str(parName), refDes))
@@ -653,7 +653,7 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
             newElement.params[key] = childElement.params[key]
             # Add local parameters from expressions to the substitution dictionary
             if isinstance(newElement.params[key], sp.Basic):
-                newParams = list(newElement.params[key].atoms(sp.Symbol))
+                newParams = list(newElement.params[key].atoms(sp.core.symbol.Symbol))
                 for newParam in newParams:
                     if newParam not in list(LIB.parDefs.keys()) and newParam not in list(substDict.keys()) and newParam!= ini.Laplace and newParam != ini.frequency:
                         substDict[newParam] = sp.Symbol(str(newParam) + suffix)
@@ -725,13 +725,13 @@ def updateCirData(mainCircuit):
         # Add parameters used in element expressions to circuit.params
         for par in list(mainCircuit.elements[elmt].params.keys()):
             try:
-                mainCircuit.params += list(mainCircuit.elements[elmt].params[par].atoms(sp.Symbol))
+                mainCircuit.params += list(mainCircuit.elements[elmt].params[par].atoms(sp.core.symbol.Symbol))
             except:
                 pass
     # Add parameters used in parDef expressions to circuit.params
     for par in list(mainCircuit.parDefs.keys()):
         try:
-            mainCircuit.params += list(mainCircuit.parDefs[par].atoms(sp.Symbol))
+            mainCircuit.params += list(mainCircuit.parDefs[par].atoms(sp.core.symbol.Symbol))
         except:
             pass
     mainCircuit.params = list(set(mainCircuit.params))
@@ -875,12 +875,12 @@ def addGlobals(parDefs, par):
     :type parDefs: dict
     :param par: Parameter of which the definition needs to be added to the dict
                 'parDefs'.
-    :type par: sympy.Symbol
+    :type par: sympy.core.symbol.Symbol
     :return: parDefs: dict with added parameter definitions
     :rtype: dict
     """
     parDefs[par] = LIB.parDefs[par]
-    params = LIB.parDefs[par].atoms(sp.Symbol)
+    params = LIB.parDefs[par].atoms(sp.core.symbol.Symbol)
     for param in params:
         if param in list(LIB.parDefs.keys()) and param != ini.Laplace and param != ini.frequency:
             addGlobals(parDefs, param)

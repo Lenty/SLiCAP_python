@@ -405,13 +405,13 @@ class instruction(object):
             self.errors += 1
             print("Error: missing step variable.")
         elif checkNumber(self.stepVar) == None:
-            if isinstance(self.stepVar, sp.symbol.Symbol):
+            if isinstance(self.stepVar, sp.core.symbol.Symbol):
                 pass
             elif type(self.stepVar) == str:
                 self.stepVar = sp.Symbol(self.stepVar)
             else:
                 self.errors += 1
-                print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
+                print("Error: argument type must be 'str' or 'sympy.core.symbol.Symbol'.")
             if self.stepVar not in list(self.circuit.parDefs.keys()) and self.stepVar not in self.circuit.params:
                 print("Warning: unknown step parameter '{0}'.".format(self.stepVar))
         return
@@ -420,7 +420,7 @@ class instruction(object):
         """
         Defines the step variables for 'array' type stepping.
 
-        :param stepVars: List with names (*str, sympy.symbol.Symbol*) of step
+        :param stepVars: List with names (*str, sympy.core.symbol.Symbol*) of step
                          variables for array type stepping.
         :type stepVars: list
 
@@ -442,7 +442,7 @@ class instruction(object):
 
         :note:
 
-        A list with names (*sympy.symbol.Symbol*) that can be used as stepping
+        A list with names (*sympy.core.symbol.Symbol*) that can be used as stepping
         parameter is obtained as follows:
 
         :Example:
@@ -480,12 +480,12 @@ class instruction(object):
                             except:
                                 errors += 1
                                 print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
-                        if isinstance(self.stepVars[i], sp.symbol.Symbol):
+                        if isinstance(self.stepVars[i], sp.core.symbol.Symbol):
                             if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
                                 print("Warning: unknown step parameter '{0}'.".format(str(stepVar)))
                         else:
                             errors += 1
-                            print("Error: argument type must be 'str' or 'sympy.symbol.Symbol'.")
+                            print("Error: argument type must be 'str' or 'sympy.core.symbol.Symbol'.")
                     else:
                         errors += 1
                         print("Error: step variable cannot be numeric.")
@@ -1069,7 +1069,7 @@ class instruction(object):
 
         :params parDict: Dictionary with key-value pairs:
                          key: parName (*str, sympy.Symbol*): name of the parameter.
-                         value: parValue (*str, float, int, sp.Symbol*) : value
+                         value: parValue (*str, float, int, sp.core.symbol.Symbol*) : value
                          or expression of the parameter.
         :type parDict:   dict
 

@@ -655,7 +655,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         newTrace = trace([x, delayFunc_f(yData, x)])
                 elif funcType == 'time':
                     if not ax.polar:
-                        if sp.Symbol('t') in list(yData.atoms(sp.Symbol)):
+                        if sp.Symbol('t') in list(yData.atoms(sp.core.symbol.Symbol)):
                             func = sp.lambdify(sp.Symbol('t'), yData)
                             y = np.real(func(x))
                         else:
@@ -688,7 +688,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.inoise
                         func = sp.lambdify(ini.frequency, yData)
                         # y = [func(x[j]) for j in range(len(x))]
-                        if ini.frequency in list(yData.atoms(sp.Symbol)):
+                        if ini.frequency in list(yData.atoms(sp.core.symbol.Symbol)):
                             y = func(x)
                         else:
                             y = [yData for i in range(len(x))]
@@ -703,7 +703,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                 yData = result.inoiseTerms[srcName]
                             func = sp.lambdify(ini.frequency, yData)
                             # y = [func(x[j]) for j in range(len(x))]
-                            if ini.frequency in list(yData.atoms(sp.Symbol)):
+                            if ini.frequency in list(yData.atoms(sp.core.symbol.Symbol)):
                                 y = func(x)
                             else:
                                 y = [yData for i in range(len(x))]
@@ -719,7 +719,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.inoiseTerms[noiseSources]
                         func = sp.lambdify(ini.frequency, yData)
                         # y = [func(x[j]) for j in range(len(x))]
-                        if ini.frequency in list(yData.atoms(sp.Symbol)):
+                        if ini.frequency in list(yData.atoms(sp.core.symbol.Symbol)):
                             y = func(x)
                         else:
                             y = [yData for i in range(len(x))]
@@ -737,7 +737,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                     yData = result.inoiseTerms[srcName]
                                 func = sp.lambdify(ini.frequency, yData)
                                 # y = [func(x[j]) for j in range(len(x))]
-                                if ini.frequency in list(yData.atoms(sp.Symbol)):
+                                if ini.frequency in list(yData.atoms(sp.core.symbol.Symbol)):
                                     y = func(x)
                                 else:
                                     y = [yData for i in range(len(x))]
@@ -812,7 +812,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             newTrace = trace([x, delayFunc_f(yData, x)])
                     elif funcType == 'time':
                         if not ax.polar:
-                            if sp.Symbol('t') in list(yData.atoms(sp.Symbol)):
+                            if sp.Symbol('t') in list(yData.atoms(sp.core.symbol.Symbol)):
                                 func = sp.lambdify(sp.Symbol('t'), yData)
                                 y = np.real(func(x))
                             else:
@@ -822,7 +822,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         if not ax.polar:
                             func = sp.lambdify(ini.frequency, yData)
                             #y = [func(x[j]) for j in range(len(x))]
-                            if ini.frequency in list(yData.atoms(sp.Symbol)):
+                            if ini.frequency in list(yData.atoms(sp.core.symbol.Symbol)):
                                 y = func(x)
                             else:
                                 y = [yData for i in range(len(x))]

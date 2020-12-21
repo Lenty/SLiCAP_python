@@ -111,7 +111,7 @@ def maxILT(numer, denom, numeric = True):
     result = maxEval(maxExpr)
     if len(result) > 3 and result[1:5] == 'ilt(':
         if isinstance(Fs, sp.Basic):
-            params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
+            params = set(list(numer.atoms(sp.core.symbol.Symbol)) + list(denom.atoms(sp.core.symbol.Symbol)))
             try:
                 params.remove(ini.Laplace)
                 if len(params) != 0:
@@ -445,7 +445,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
 
     :type transfer: sympy.Expr
 
-    :param noSolve: List with variables (*str, sympy.Symbol*) that do not need
+    :param noSolve: List with variables (*str, sympy.core.symbol.Symbol*) that do not need
                     to be solved. These parameters will remain symbolic in the
                     solutions.
 
@@ -458,7 +458,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
 
     :return: Dictionary with key-value pairs:
 
-             - key: name of the parameter (*sympy.Symbol*)
+             - key: name of the parameter (*sympy.core.symbol.Symbol*)
              - value: solution of this parameter: (*sympy.Expr, int, float*)
 
     :rtype: dict
@@ -467,7 +467,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
         numeric = 'bfloat'
     else:
         numeric = ''
-    pars = list(set(list(protoType.atoms(sp.Symbol)) + list(transfer.atoms(sp.Symbol))))
+    pars = list(set(list(protoType.atoms(sp.core.symbol.Symbol)) + list(transfer.atoms(sp.core.symbol.Symbol))))
     for i in range(len(noSolve)):
         noSolve[i] = sp.Symbol(str(noSolve[i]))
     params = []
@@ -543,10 +543,10 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     :type noise': str
 
     :param fmin: Lower limit of the frequency range in Hz.
-    :type fmin: str, int, float, sp.Symbol
+    :type fmin: str, int, float, sp.core.symbol.Symbol
 
     :param fmax: Upper limit of the frequency range in Hz.
-    :type fmax: str, int, float, sp.Symbol
+    :type fmax: str, int, float, sp.core.symbol.Symbol
 
     :param source: 'all' or refDes (ID) of a noise source of which the
                    contribution to the RMS noise needs to be evaluated. Only

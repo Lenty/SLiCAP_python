@@ -63,20 +63,20 @@ class circuit(object):
 
           (*dict*) with key-value pairs:
 
-          - key: Name (*sympy.Symbol*) of a parameter that can be passed to the
+          - key: Name (*sympy.core.symbol.Symbol*) of a parameter that can be passed to the
             sub circuit.
           - value: Default value (*sympy object*, float, int) of the parameter.
 
         - Else:
 
-          - (*list*) with names (*sympy.Symbol*) of undefined parameters.
+          - (*list*) with names (*sympy.core.symbol.Symbol*) of undefined parameters.
         """
 
         self.parDefs    = {}
         """
         (*dict*) with key-value pairs:
 
-        - key: Name (*sympy.Symbol*) of a circuit parameter.
+        - key: Name (*sympy.core.symbol.Symbol*) of a circuit parameter.
         - value: Value (*sympy object*, float, int) of the parameter.
         """
 
@@ -84,7 +84,7 @@ class circuit(object):
         """
         (*dict*) with key-value pairs:
 
-        - key: Name (*sympy.Symbol*) of a circuit parameter.
+        - key: Name (*sympy.core.symbol.Symbol*) of a circuit parameter.
         - value: Units (*str*) of the parameter.
         """
 
@@ -92,7 +92,7 @@ class circuit(object):
         """
         (*dict*) with key-value pairs:
 
-        - key: Name (*sympy.Symbol*) of a model.
+        - key: Name (*sympy.core.symbol.Symbol*) of a model.
         - value: Associated model object (*SLiCAPprotos.model*).
         """
         self.circuits   = {}
@@ -164,11 +164,11 @@ class circuit(object):
     def delPar(self, parName):
         """
         Deletes a parameter definition and updates the list
-        **SLiCAPprotos.circuit.params** with names (*sympy.Symbol*) of
+        **SLiCAPprotos.circuit.params** with names (*sympy.core.symbol.Symbol*) of
         undefined parameters.
 
         :param parName: Name of the parameter.
-        :type parName: str, sympy.Symbol
+        :type parName: str, sympy.core.symbol.Symbol
 
         :Example:
 
@@ -318,13 +318,13 @@ class circuit(object):
         for elmt in list(self.elements.keys()):
             for par in list(self.elements[elmt].params.keys()):
                 try:
-                    self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
+                    self.params += list(self.elements[elmt].params[par].atoms(sp.core.symbol.Symbol))
                 except:
                     pass
         # Get all the parameters used in parameter definitions
         for par in list(self.parDefs.keys()):
             try:
-                self.params += list(self.parDefs[par].atoms(sp.Symbol))
+                self.params += list(self.parDefs[par].atoms(sp.core.symbol.Symbol))
             except:
                 pass
         # Remove duplicates
@@ -363,7 +363,7 @@ class circuit(object):
         
         :return: if type(parNames) == list:
             
-                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
+                 return value = dict with key-value pairs: key (*sympy.core.symbol.Symbol*): 
                  name of the parameter, value (*int, float, sympy expression*): 
                  value of the parameter
                  
@@ -441,7 +441,7 @@ class element(object):
         """
         (*dict*) with key-value pairs:
 
-        - key (*sympy.Symbol*): Name of an element parameter.
+        - key (*sympy.core.symbol.Symbol*): Name of an element parameter.
         - value (*sympy object*, float, int): Value of the parameter.
         """
         self.model      = ''

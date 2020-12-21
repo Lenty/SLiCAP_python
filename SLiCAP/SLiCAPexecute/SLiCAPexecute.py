@@ -123,20 +123,25 @@ def doInstruction(instObj):
                 instObj.laplace = []
                 for i in range(len(denoms)):
                     if ini.normalize == True:
-                        instObj.laplace.append(normalizeLaplaceRational(numers[i]/denoms[i]))
+                        instObj.laplace.append(simplify(numers[i]/denoms[i], method = 'normalize'))
+                    elif ini.factor == True:
+                        instObj.laplace.append(simplify(numers[i]/denoms[i], method = 'factor'))
+                    elif ini.simplify == True:
+                        instObj.laplace.append(simplify(numers[i]/denoms[i], method = 'fraction'))
                     else:
                         instObj.laplace.append(numers[i]/denoms[i])
             elif instObj.dataType == 'solve':
                 sol = doSolve(instObj)
                 instObj.solve = stepFunctions(instObj, sol)
                 for i in range(len(instObj.solve)):
-                    instObj.solve[i] = sp.simplify(instObj.solve[i])
-                    """
-                    Todo:
-
-                        simplification, normalization and factorization
-                        according to ini settings.
-                    """
+                    if ini.normalize == True:
+                        instObj.solve[i] = simplify(instObj.solve[i], method = 'normalize')
+                    elif ini.factor == True:
+                        instObj.solve[i] = simplify(instObj.solve[i], method = 'factor')
+                    elif ini.simplify == True:
+                        instObj.solve[i] = simplify(instObj.solve[i], method = 'fraction')
+                    else:
+                        instObj.laplace.append(numers[i]/denoms[i])
             elif instObj.dataType == 'noise':
                 detP, detN, srcP, srcN = makeSrcDetPos(instObj)
                 if instObj.source != None:
@@ -145,15 +150,15 @@ def doInstruction(instObj):
                     numer = maxNumer(instObj.M, detP, detN, srcP, srcN, numeric = instObj.numeric)
                     numer = assumeRealParams(numer.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
                     nR, nI = numer.as_real_imag()
-                    numer2 = sp.expand((nR + nI*sp.I)*(nR - nI*sp.I))
+                    numer2 = nR**2 + nI**2
                     #numer2 = sp.Abs(numer)**2
                     denom = maxDet(instObj.M, numeric=instObj.numeric)
                     denom = assumeRealParams(denom.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
                     dR, dI = denom.as_real_imag()
-                    denom2 = sp.expand((dR + dI*sp.I)*(dR - dI*sp.I))
+                    denom2 = dR**2 + dI**2
                     gain2 = numer2/denom2
                     #denom2 = sp.Abs(denom)**2
-                    gain2 = clearAssumptions(sp.simplify(numer2/denom2))
+                    gain2 = clearAssumptions(simplify(numer2/denom2, method = 'fraction'))
                 # Calculate the contributions of each noise source to the
                 # spectral density of the total output noise
                 onoiseTerms = doNoise(instObj, detP, detN, denom2)
@@ -172,9 +177,9 @@ def doInstruction(instObj):
                         onoise += instObj.onoiseTerms[elID][i]
                         if instObj.source != None:
                             inoise += instObj.inoiseTerms[elID][i]
-                    instObj.onoise.append(sp.simplify(onoise))
+                    instObj.onoise.append(simplify(onoise, method = 'fraction'))
                     if instObj.source != None:
-                        instObj.inoise.append(sp.simplify(inoise))
+                        instObj.inoise.append(simplify(inoise, method = 'fraction'))
             elif instObj.dataType == 'dc':
                 detP, detN, srcP, srcN = makeSrcDetPos(instObj)
                 dc = doDC(instObj, detP, detN)
@@ -189,14 +194,14 @@ def doInstruction(instObj):
                     M = instObj.M.subs(ini.Laplace, 0)
                     numer = maxNumer(M, detP, detN, srcP, srcN, numeric = instObj.numeric)
                     denom = maxDet(M, numeric = instObj.numeric)
-                    gain2 = sp.simplify((numer/denom)**2)
+                    gain2 = simplify((numer/denom)**2, method = 'fraction')
                 # Calculate the contributions of each variance source to the
                 # variance at the detector
                 ovarTerms, dcSol = doDCvar(instObj, detP, detN)
                 # apply function stepping
                 for elID in list(ovarTerms.keys()):
                     if instObj.source != None:
-                        instObj.ivarTerms[elID] = stepFunctions(instObj, sp.simplify(ovarTerms[elID]/gain2))
+                        instObj.ivarTerms[elID] = stepFunctions(instObj, simplify(ovarTerms[elID]/gain2, method = 'fraction'))
                     instObj.ovarTerms[elID] = stepFunctions(instObj, ovarTerms[elID])
                     instObj.svarTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['dcvar'])
                 numRuns = len(instObj.ovarTerms[elID])
@@ -208,9 +213,9 @@ def doInstruction(instObj):
                         ovar += instObj.ovarTerms[elID][i]
                         if instObj.source != None:
                             ivar += instObj.ivarTerms[elID][i]
-                    instObj.ovar.append(sp.simplify(ovar))
+                    instObj.ovar.append(simplify(ovar, method = 'fraction'))
                     if instObj.source != None:
-                        instObj.ivar.append(sp.simplify(ivar))
+                        instObj.ivar.append(simplify(ivar, method = 'fraction'))
         else:
             # Create a deep copy of the substitution dictionary
             subsDict = {}
@@ -323,7 +328,7 @@ def doDataType(instObj):
         if instObj.step:
             instObj.laplace.append(doLaplace(instObj))
         else:
-            instObj.laplace = doLaplace(instObj)
+            instObj.laplace = doLaplace(instObj)         
     elif instObj.dataType == 'step':
         instObj.stepResp = maxILT(doNumer(instObj), doDenom(instObj)*ini.Laplace, numeric = instObj.numeric)
     elif instObj.dataType == 'impulse' or instObj.dataType == 'time':
@@ -363,20 +368,17 @@ def doDataType(instObj):
             numer = assumeRealParams(maxNumer(instObj.M, detP, detN, srcP, srcN).subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I))
             denom = assumeRealParams(maxDet(instObj.M).subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I))
             nR, nI = numer.as_real_imag()
-            numer2 = sp.expand((nR + nI*sp.I)*(nR - nI*sp.I))
+            numer2 = nR**2 + nI**2
             dR, dI = denom.as_real_imag()
-            denom2 = sp.expand((dR + dI*sp.I)*(dR - dI*sp.I))
+            denom2 = dR**2 + dI**2
             gain2 = numer2/denom2
-            
-            #gain2 = sp.Abs(numer)**2/sp.Abs(denom)**2
-            
             gain2 = clearAssumptions(gain2)
             inoise = 0
         for key in list(onoiseTerms.keys()):
             onoise += onoiseTerms[key]
             snoiseTerms[key] = instObj.circuit.elements[key].params['noise']
             if instObj.source != None:
-                inoiseTerms[key] = sp.simplify(onoiseTerms[key]/gain2)
+                inoiseTerms[key] = simplify(onoiseTerms[key]/gain2, method = 'fraction')
                 inoise += inoiseTerms[key]
             if instObj.step:
                 if key in alreadyKeys:
@@ -395,9 +397,9 @@ def doDataType(instObj):
                 if instObj.source != None:
                     instObj.inoiseTerms[key] = inoiseTerms[key]
         if instObj.step:
-            instObj.onoise.append(sp.simplify(onoise))
+            instObj.onoise.append(simplify(onoise, method = 'fraction'))
             if instObj.source != None:
-                instObj.inoise.append(sp.simplify(inoise))
+                instObj.inoise.append(simplify(inoise, method = 'fraction'))
         else:
             instObj.onoise = onoise
             if instObj.source != None:
@@ -428,13 +430,13 @@ def doDataType(instObj):
             M = instObj.M.subs(ini.Laplace, 0)
             numer2 = (maxNumer(M, detP, detN, srcP, srcN, numeric = instObj.numeric))**2
             denom2 = (maxDet(M, numeric = instObj.numeric))**2
-            gain2 = sp.simplify(numer2/denom2)
+            gain2 = simplify(numer2/denom2, method = 'fraction')
             ivar = 0
         for key in list(ovarTerms.keys()):
             ovar += ovarTerms[key]
             svarTerms[key] = instObj.circuit.elements[key].params['dcvar']
             if instObj.source != None:
-                ivarTerms[key] = sp.simplify(ovarTerms[key]/gain2)
+                ivarTerms[key] = simplify(ovarTerms[key]/gain2, method = 'fraction')
                 ivar += ivarTerms[key]
             if instObj.step:
                 if key in alreadyKeys:
@@ -453,14 +455,14 @@ def doDataType(instObj):
                 if instObj.source != None:
                     instObj.ivarTerms[key] = ivarTerms[key]
         if instObj.step:
-            instObj.ovar.append(sp.simplify(ovar))
+            instObj.ovar.append(simplify(ovar, method = 'fraction'))
             if instObj.source != None:
-                instObj.ivar.append(sp.simplify(ivar))
+                instObj.ivar.append(simplify(ivar, method = 'fraction'))
             instObj.dcSolve.append(dcSol)
         else:
             instObj.ovar = ovar
             if instObj.source != None:
-                instObj.ivar = sp.simplify(ivar)
+                instObj.ivar = simplify(ivar, method = 'fraction')
             instObj.dcSolve = dcSol
     return instObj
 
@@ -868,24 +870,15 @@ def doLaplace(instObj):
     """
     numer = doNumer(instObj)
     denom = doDenom(instObj)
-    if ini.normalize:
-        if ini.normalize == True:
-            return normalizeLaplaceRational(numer/denom)
-        else:
-            return numer/denom
-    elif ini.simplify:
-        if ini.factor == True:
-            numer, denom = sp.fraction(sp.simplify(numer/denom))
-            return sp.factor(numer)/sp.factor(denom)
-        else:
-            return sp.simplify(numer/denom)
-    elif ini.factor:
-        result = sp.factor(numer)/sp.factor(denom)
-        if ini.simplify == True:
-            result = sp.simplify(result)
-        return result
+    result = numer/denom
+    if ini.normalize == True:
+        return simplify(result, method = 'normalize')
+    elif ini.factor == True:
+        return simplify(result, method = 'factor')
+    elif ini.simplify == True:
+        return simplify(result, method = 'fraction')
     else:
-        return numer/denom
+        return result
 
 def doSolve(instObj):
     """
@@ -921,9 +914,8 @@ def doNoise(instObj, detP, detN, denom2):
     if denom2 == None:
         denom = maxDet(instObj.M, numeric = instObj.numeric)
         denom = assumeRealParams(denom.subs(ini.Laplace, 2*sp.pi*sp.I*ini.frequency))
-        # denom2 = (sp.Abs(denom))**2
         dR, dI = denom.as_real_imag()
-        denom2 = sp.expand((dR + sp.I*dI)*(dR - sp.I*dI))
+        denom2 = dR**2 + dI**2
     denom2 = sp.factor(denom2)
     Iv = makeSrcVector(instObj.circuit, instObj.circuit.parDefs, 'all', value = 'id', numeric = instObj.numeric)
     allTerms =  maxCramerNumer(instObj.M, Iv, detP, detN, numeric = instObj.numeric)
@@ -937,9 +929,8 @@ def doNoise(instObj, detP, detN, denom2):
             coeff = coeff.subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I)
             coeff = assumeRealParams(coeff, params = 'all')
             cR, cI = coeff.as_real_imag()
-            coeff2 = sp.expand((cR + sp.I*cI)*(cR - sp.I*cI))
+            coeff2 = cR**2 + cI**2
             term = value * coeff2 / denom2
-            #term = value * sp.Abs(coeff)**2 / denom2
             onoiseTerms[src] = clearAssumptions(term, params = 'all')
     return onoiseTerms
 
@@ -963,7 +954,13 @@ def doDC(instObj, detP, detN):
     M = instObj.M.subs(ini.Laplace, 0)
     numer = maxCramerNumer(M, Iv, detP, detN, numeric = instObj.numeric)
     denom = maxDet(M, numeric = instObj.numeric)
-    return sp.simplify(numer/denom)
+    result = numer/denom
+    if ini.factor == True:
+        return simplify(result, method = 'factor')
+    elif ini.simplify == True:
+        return simplify(result, method = 'fraction')
+    else:
+        return result
 
 def doSolveDC(instObj):
     """
@@ -1027,7 +1024,7 @@ def doDCvar(instObj, detP, detN):
             # Add a current source to the sicuit elements
             newCurrentSource = element()
             newCurrentSource.refDes          = variable
-            newCurrentSource.params['dcvar'] = sp.simplify(errorCurrentVariance)
+            newCurrentSource.params['dcvar'] = simplify(errorCurrentVariance, method = 'fraction')
             newCurrentSource.params['noise'] = 0
             newCurrentSource.params['dc']    = 0
             newCurrentSource.params['value'] = 0
@@ -1040,7 +1037,7 @@ def doDCvar(instObj, detP, detN):
     # Calculate the contribution to the detector variance for each source.
     # First the squared denominator, we need it for all sources
     M = instObj.M.subs(ini.Laplace, 0)
-    denom2 = sp.factor(maxDet(M, numeric = instObj.numeric)**2)
+    denom2 = simplify(maxDet(M, numeric = instObj.numeric)**2, method = 'factor')
     # Now all terms of the numerator
     allTerms = maxCramerNumer(M, Iv, detP, detN, numeric = instObj.numeric)
     ovarTerms = {}
@@ -1053,8 +1050,8 @@ def doDCvar(instObj, detP, detN):
             else:
                 value = instObj.circuit.elements[src].params['dcvar']
             # Select the coefficient for each variance source from allTerms
-            numer2 = sp.factor(sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]**2)
-            ovarTerms[src] = value*sp.simplify(numer2/denom2)
+            numer2 = simplify(sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]**2, method = 'factor')
+            ovarTerms[src] = value*simplify(numer2/denom2, method = 'fraction')
     return (ovarTerms, dcSolution)
 
 if __name__ == '__main__':

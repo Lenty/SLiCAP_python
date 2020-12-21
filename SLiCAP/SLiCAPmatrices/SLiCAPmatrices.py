@@ -38,7 +38,7 @@ def getValues(elmt, param, numeric, parDefs):
     else:
         value = elmt.params[param]
     try:
-        if ini.Laplace in value.atoms(sp.Symbol):
+        if ini.Laplace in value.atoms(sp.core.symbol.Symbol):
             (numer, denom) = sp.fraction(value)
         else:
             numer = value
