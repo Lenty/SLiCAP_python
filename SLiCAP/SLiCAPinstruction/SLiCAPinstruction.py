@@ -405,7 +405,7 @@ class instruction(object):
             self.errors += 1
             print("Error: missing step variable.")
         elif checkNumber(self.stepVar) == None:
-            if isinstance(self.stepVar, sp.core.symbol.Symbol):
+            if isinstance(self.stepVar, sp.Symbol):
                 pass
             elif type(self.stepVar) == str:
                 self.stepVar = sp.Symbol(self.stepVar)
@@ -480,7 +480,7 @@ class instruction(object):
                             except:
                                 errors += 1
                                 print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
-                        if isinstance(self.stepVars[i], sp.core.symbol.Symbol):
+                        if isinstance(self.stepVars[i], sp.Symbol):
                             if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
                                 print("Warning: unknown step parameter '{0}'.".format(str(stepVar)))
                         else:
@@ -1069,7 +1069,7 @@ class instruction(object):
 
         :params parDict: Dictionary with key-value pairs:
                          key: parName (*str, sympy.Symbol*): name of the parameter.
-                         value: parValue (*str, float, int, sp.core.symbol.Symbol*) : value
+                         value: parValue (*str, float, int, sp.Symbol*) : value
                          or expression of the parameter.
         :type parDict:   dict
 
