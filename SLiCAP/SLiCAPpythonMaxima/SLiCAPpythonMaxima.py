@@ -111,7 +111,7 @@ def maxILT(numer, denom, numeric = True):
     result = maxEval(maxExpr)
     if len(result) > 3 and result[1:5] == 'ilt(':
         if isinstance(Fs, sp.Basic):
-            params = set(list(numer.atoms(sp.core.symbol.Symbol)) + list(denom.atoms(sp.core.symbol.Symbol)))
+            params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
             try:
                 params.remove(ini.Laplace)
                 if len(params) != 0:
@@ -467,7 +467,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
         numeric = 'bfloat'
     else:
         numeric = ''
-    pars = list(set(list(protoType.atoms(sp.core.symbol.Symbol)) + list(transfer.atoms(sp.core.symbol.Symbol))))
+    pars = list(set(list(protoType.atoms(sp.Symbol)) + list(transfer.atoms(sp.Symbol))))
     for i in range(len(noSolve)):
         noSolve[i] = sp.Symbol(str(noSolve[i]))
     params = []
@@ -543,10 +543,10 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     :type noise': str
 
     :param fmin: Lower limit of the frequency range in Hz.
-    :type fmin: str, int, float, sp.core.symbol.Symbol
+    :type fmin: str, int, float, sp.Symbol
 
     :param fmax: Upper limit of the frequency range in Hz.
-    :type fmax: str, int, float, sp.core.symbol.Symbol
+    :type fmax: str, int, float, sp.Symbol
 
     :param source: 'all' or refDes (ID) of a noise source of which the
                    contribution to the RMS noise needs to be evaluated. Only

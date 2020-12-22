@@ -198,7 +198,7 @@ def numRoots(expr, var):
     :type var: sympy.Symbol
     """
     if isinstance(expr, sp.Basic) and isinstance(var, sp.Basic):
-        params = list(expr.atoms(sp.core.symbol.Symbol))
+        params = list(expr.atoms(sp.Symbol))
         try:
             params.remove(var)
             if len(params) != 0:
@@ -561,7 +561,7 @@ def fullSubs(valExpr, parDefs):
     while valExpr != newvalExpr and i < ini.maxRecSubst and isinstance(valExpr, sp.Basic):
         # create a substitution dictionary with the smallest number of entries (this speeds up the substitution)
         substDict = {}
-        params = list(valExpr.atoms(sp.core.symbol.Symbol))
+        params = list(valExpr.atoms(sp.Symbol))
         for param in params:
             if param in list(parDefs.keys()):
                 substDict[param] = parDefs[param]
@@ -593,7 +593,7 @@ def assumeRealParams(expr, params = 'all'):
             expr = expr.xreplace({sp.Symbol(params[i]): sp.Symbol(params[i], real = True)})
     elif type(params) == str:
         if params == 'all':
-            params = list(expr.atoms(sp.core.symbol.Symbol))
+            params = list(expr.atoms(sp.Symbol))
             try:
                 params.remove(ini.Laplace)
             except:
@@ -626,7 +626,7 @@ def assumePosParams(expr, params = 'all'):
             expr = expr.xreplace({sp.Symbol(params[i]): sp.Symbol(params[i], positive = True)})
     elif type(params) == str:
         if params == 'all':
-            params = list(expr.atoms(sp.core.symbol.Symbol))
+            params = list(expr.atoms(sp.Symbol))
             try:
                 params.remove(ini.Laplace)
             except:
@@ -660,7 +660,7 @@ def clearAssumptions(expr, params = 'all'):
             expr = expr.xreplace({sp.Symbol(params[i], real = True): sp.Symbol(params[i])})
     elif type(params) == str:
         if params == 'all':
-            params = list(expr.atoms(sp.core.symbol.Symbol))
+            params = list(expr.atoms(sp.Symbol))
             try:
                 params.remove(ini.Laplace)
             except:
@@ -793,7 +793,7 @@ def magFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    if ini.frequency in list(data.atoms(sp.core.symbol.Symbol)):
+    if ini.frequency in list(data.atoms(sp.Symbol)):
         func = sp.lambdify(ini.frequency, sp.Abs(sp.N(data)))
         return func(f)
     else:
@@ -828,7 +828,7 @@ def dBmagFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    if ini.frequency in list(data.atoms(sp.core.symbol.Symbol)):
+    if ini.frequency in list(data.atoms(sp.Symbol)):
         func = sp.lambdify(ini.frequency, 20*sp.log(sp.Abs(sp.N(data)), 10))
         return func(f)
     else:
@@ -863,7 +863,7 @@ def phaseFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    if ini.frequency in list(data.atoms(sp.core.symbol.Symbol)):
+    if ini.frequency in list(data.atoms(sp.Symbol)):
         func = sp.lambdify(ini.frequency, sp.N(data))
         phase = np.angle(func(f))
     else:
@@ -907,7 +907,7 @@ def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp)):
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
         func = sp.lambdify(ini.frequency, sp.N(data))
-    if ini.frequency in list(data.atoms(sp.core.symbol.Symbol)):
+    if ini.frequency in list(data.atoms(sp.Symbol)):
         angle1 = np.angle(func(f))
         angle2 = np.angle(func(f*(1+delta)))
         try:

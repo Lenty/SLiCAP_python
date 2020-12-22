@@ -318,13 +318,13 @@ class circuit(object):
         for elmt in list(self.elements.keys()):
             for par in list(self.elements[elmt].params.keys()):
                 try:
-                    self.params += list(self.elements[elmt].params[par].atoms(sp.core.symbol.Symbol))
+                    self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
                 except:
                     pass
         # Get all the parameters used in parameter definitions
         for par in list(self.parDefs.keys()):
             try:
-                self.params += list(self.parDefs[par].atoms(sp.core.symbol.Symbol))
+                self.params += list(self.parDefs[par].atoms(sp.Symbol))
             except:
                 pass
         # Remove duplicates
