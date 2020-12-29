@@ -182,10 +182,10 @@ M1 drain gate source bulk CMOS18N_V
 + IC_R    = {(ln(1+exp(V_effR/2)))^2}
 + x_f     = {sqrt(1/4+IC_F)}
 + x_r     = {sqrt(1/4+IC_R)}
-+ I_DS    = {W/L*I_0_N18*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_N18+1/L/E_CRIT_N18)*2*U_T*sqrt(IC_F))}
++ I_DS    = {W/L*I_0_N18*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_N18+1/L/E_CRIT_N18)*2*U_T*sqrt(IC_F+IC_R))}
 + V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC_F))-1)+Vth_N18}
 + g_mF    = {W/L*I_0_N18*IC_F*(1+(VD-VS)/V_A)/(N_s_N18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
-+ g_mR    = {W/L*I_0_N18*IC_R/(N_s_N18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
++ g_mR    = {W/L*I_0_N18*IC_R*(1+(VS-VD)/V_A)/(N_s_N18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_R/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
 + g_o     = {I_DS/(V_A+VD-VS) + u_0_N18*C_OX_N18*W*L/(1+Theta_N18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
 + g_b     = {(N_s_N18-1)*g_m}
@@ -301,7 +301,7 @@ M1 drain gate source bulk CMOS18P_V
 + I_DS    = {W/L*I_0_P18*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_P18+1/L/E_CRIT_P18)*2*U_T*sqrt(IC_F))}
 + V_GS    = {2*N_s_P18*U_T*ln(exp(sqrt(IC_F))-1)+Vth_P18}
 + g_mF    = {W/L*I_0_P18*IC_F*(1+(VD-VS)/V_A)/(N_s_P18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
-+ g_mR    = {W/L*I_0_P18*IC_R/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
++ g_mR    = {W/L*I_0_P18*IC_R*(1+(VS-VD)/V_A)/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
 + g_o     = {I_DS/(V_A+VD-VS) + u_0_P18*C_OX_P18*W*L/(1+Theta_P18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
 + g_b     = {(N_s_P18-1)*g_m}
@@ -535,7 +535,7 @@ I2 ext comm I value=0 noise={2*q*IC*(1+f_ell/f)/beta_DC} ; base shot noise
 .subckt CMOS18PN drain gate source bulk W_N={W_N} L_N={L_N} ID_N={ID_N} W_P={W_P} L_P={L_P} ID_P={ID_P}
 * EKV model of push-pull-stage (complementary-parallel-stage) without bulk resistances
 * Voltage dependency of bulk capacitances not modeled
-* Operating in forward saturation region
+* Both transistors operating in the forward saturation region
 * 
 M1 drain gate source bulk CMOS18PN
 .model CMOS18PN M

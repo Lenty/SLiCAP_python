@@ -181,6 +181,13 @@
 <span id="slicapplots-py"></span><h1>SLiCAPplots.py<a class="headerlink" href="#module-SLiCAP.SLiCAPplots.SLiCAPplots" title="Permalink to this headline">¶</a></h1>
 <p>SLiCAP module with plot functions.</p>
 <p>Imported by the module SLiCAPhtml.py</p>
+<dl class="function">
+<dt id="SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces">
+<code class="descname">LTspiceData2Traces</code><span class="sig-paren">(</span><em>txtFile</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a dictionary with traces (key = label, value = trace object) from
+LTspice plot data (saved as .txt file).</p>
+</dd></dl>
+
 <dl class="class">
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.axis">
 <em class="property">class </em><code class="descname">axis</code><span class="sig-paren">(</span><em>title</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.axis" title="Permalink to this definition">¶</a></dt>
@@ -193,6 +200,24 @@
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="SLiCAP.SLiCAPplots.SLiCAPplots.axis.makeTraceDict">
+<code class="descname">makeTraceDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.axis.makeTraceDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict with data of all the traces on the axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dictionary with key-value pairs:
+- key: <em>str</em> label of the trace
+- value: <em>SLiCAPplots.trace</em> trace object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.axis.polar">
 <code class="descname">polar</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.axis.polar" title="Permalink to this definition">¶</a></dt>
@@ -267,6 +292,18 @@ Defaults to [0, 0, ‘’].</p>
 <dd><p>Scale factor (<em>str</em>) for the y-scale; e.g. M for 1E6. Defaults to ‘’.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPplots.SLiCAPplots.csv2traces">
+<code class="descname">csv2traces</code><span class="sig-paren">(</span><em>csvFile</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.csv2traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a dictionary with traces (key = label, value = trace object) from
+data from a csv file. The CSV file should have the following structure:</p>
+<p>x0_label, y0_label, x1_label, y1_label, … 
+x0_0, y0_0, x1_0, y1_0, …
+x0_1, y0_1, x1_1, y1_1, …
+… , … , … , … , …</p>
+<p>The traces will be named  with their y label.</p>
 </dd></dl>
 
 <dl class="function">
@@ -666,6 +703,12 @@ the radius.</p>
 <dd><p>Heading (<em>str</em>) for the y column of a table. Defaults to ‘y’.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPplots.SLiCAPplots.traces2fig">
+<code class="descname">traces2fig</code><span class="sig-paren">(</span><em>traceDict, figObject, axis=[0, 0]</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.traces2fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds traces generated from another application to an existing figure.</p>
 </dd></dl>
 
 </div>

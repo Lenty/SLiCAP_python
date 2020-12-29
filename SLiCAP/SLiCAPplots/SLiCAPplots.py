@@ -194,6 +194,20 @@ class axis(object):
         Scale factor (*str*) for the y-scale; e.g. M for 1E6. Defaults to ''.
         """
         return
+    
+    def makeTraceDict(self):
+        """
+        Returns a dict with data of all the traces on the axis.
+
+        :return: dictionary with key-value pairs:
+                 - key: *str* label of the trace
+                 - value: *SLiCAPplots.trace* trace object
+        :rtype: dict
+        """
+        traceDict = {}
+        for trc in self.traces:
+            traceDict[trc.label] = trc
+        return traceDict
 
 class figure(object):
     """
@@ -341,7 +355,7 @@ class figure(object):
             plt.show()
         plt.close(fig)
         return
-
+        
 def defaultsPlot():
     """
     Applies default settings for plots.
@@ -1229,9 +1243,14 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
             p = np.geomspace(results.stepStart, results.stepStop, num = results.stepNum)
     if errors == 0:
         substitutions = {}
-        for parName in list(results.circuit.parDefs.keys()):
-            if parName != sp.Symbol(sVar) and parName != results.stepVar:
-                substitutions[parName] = results.circuit.parDefs[parName]\
+        if results.step:
+            for parName in list(results.circuit.parDefs.keys()):
+                if parName != sp.Symbol(sVar) and parName != results.stepVar:
+                    substitutions[parName] = results.circuit.parDefs[parName]
+        else:
+            for parName in list(results.circuit.parDefs.keys()):
+                if parName != sp.Symbol(sVar) :
+                    substitutions[parName] = results.circuit.parDefs[parName]
         # Obtain the y-variable as a function of the sweep and the step variable:
         f = fullSubs(results.circuit.parDefs[sp.Symbol(yVar)], substitutions)
         # Obtain the x-variable as a function of the sweep and the step variable:
@@ -1256,6 +1275,109 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
             else:
                 xValues = sweepList
     return (xValues, yValues)
+
+def traces2fig(traceDict, figObject, axis = [0,0]):
+    """
+    Adds traces generated from another application to an existing figure.
+    """
+    for label in list(traceDict.keys()):
+        figObject.axes[axis[0]][axis[0]].traces.append(traceDict[label])    
+    return figObject
+
+def LTspiceData2Traces(txtFile):
+    """
+    Generates a dictionary with traces (key = label, value = trace object) from
+    LTspice plot data (saved as .txt file).
+    """
+    try:
+        f = open(ini.txtPath + txtFile)
+        lines = f.readlines()
+        f.close()
+    except:
+        print('Error: could not find LTspice trace data:', ini.txtPath + txtFile)
+        return {}
+    traceDict = {}
+    # Check for parameter stepping
+    if len(lines) > 2 and lines[1].split()[0] == 'Step':
+        start = 1
+    else:
+        start = 0
+        label = None
+    xData = []
+    yData = []
+    label = None
+    traceNum = 0
+    numColors = len(ini.defaultColors)
+    for i in range(start, len(lines)):
+        lineData = lines[i].split()
+        if len(lineData) > 2 and ' '.join(lineData[0:2]) == 'Step Information:':
+            if label != None:
+                newTrace = trace([xData, yData])
+                newTrace.label = label
+                traceDict[label] = newTrace
+                xData = []
+                yData = []
+                traceNum += 1
+            label = lineData[2]
+        elif len(lineData) == 2:
+            try:
+                xData.append(eval(lineData[0]))
+                yData.append(eval(lineData[1]))
+            except:
+                if label != None:
+                    newTrace = trace([xData, yData])
+                    newTrace.label = label
+                    newTrace.color = ini.defaultColors[0]
+                    traceDict[label] = newTrace
+                label = lineData[1]
+    newTrace = trace([xData, yData])
+    newTrace.label = label
+    traceDict[label] = newTrace
+    return traceDict
+
+def csv2traces(csvFile):
+    """
+    Generates a dictionary with traces (key = label, value = trace object) from
+    data from a csv file. The CSV file should have the following structure:
+        
+    x0_label, y0_label, x1_label, y1_label, ... 
+    x0_0, y0_0, x1_0, y1_0, ...
+    x0_1, y0_1, x1_1, y1_1, ...
+    ... , ... , ... , ... , ...
+
+    The traces will be named  with their y label.
+    """
+    try:
+        f = open(ini.csvPath + csvFile)
+        lines = f.readlines()
+        f.close()
+    except:
+        print('Error: could not find CSV trace data:', ini.csvPath + csvFile)
+        return {}
+    traceDict = {}
+    labels = []
+    for i in range(len(lines)):
+        data = lines[i].split(',')
+        if len(data) % 2 != 0:
+            print("Error: expected an even number of columns in csv file:", ini.csvPath + csvFile)
+            return traceDict
+        elif i == 0:
+            for j in range(int(len(data)/2)):
+                labels.append(data[2*j+1])
+                traceDict[data[2*j+1]] = trace([[], []])
+                traceDict[data[2*j+1]].xData = []
+                traceDict[data[2*j+1]].yData = []
+        else:
+            for j in range(len(labels)):
+                xData = eval(data[2*j])
+                yData = eval(data[2*j+1])
+                traceDict[labels[j]].xData.append(xData)
+                traceDict[labels[j]].yData.append(yData)
+    for label in labels:
+        traceDict[label].xData = np.array(traceDict[label].xData)
+        traceDict[label].yData = np.array(traceDict[label].yData)
+        traceDict[label].label = label
+    return traceDict
 
 if __name__=='__main__':
     ini.imgPath = ''
