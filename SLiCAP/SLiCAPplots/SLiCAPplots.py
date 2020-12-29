@@ -200,8 +200,10 @@ class axis(object):
         Returns a dict with data of all the traces on the axis.
 
         :return: dictionary with key-value pairs:
+            
                  - key: *str* label of the trace
                  - value: *SLiCAPplots.trace* trace object
+                 
         :rtype: dict
         """
         traceDict = {}
@@ -1114,8 +1116,19 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     :param axisType: Type of axis: 'lin', 'log', 'semilogx', 'semilogy' or 'polar'.
     :type axisType: str
 
-    :param plotData: List of lists with pairs of x data and y data.
-    :type plotData: list
+    :param plotData: dictionary with key-value pairs or dictionary with traces
+    
+                     - key: *str* label for the trace
+                     - value: 
+                         
+                       #. *list* [<xData>, <yData>]
+                     
+                          - xData: *list*: x values
+                          - yData: *list*: y values
+                          
+                       #. *SLiCAPplots.trace* object
+                       
+    :type plotData: dict, SLiCAPplots.trace
 
     :param xName: Name of the variable to be plotted along the x axis. Defaults to ''.
     :type xName: str
@@ -1170,10 +1183,13 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     # Create the axis labels
     ax.xLabel = xName + ' [' + xScale + xUnits + ']'
     ax.yLabel = yName + ' [' + yScale + yUnits + ']'
-    for key in list(sorted(plotData.keys())):
-        newTrace = trace(plotData[key])
-        newTrace.label = key
-        newTrace.color = ini.defaultColors[colNum % numColors]
+    for key in list(plotData.keys()):
+        if type(plotData[key]) == list:
+            newTrace = trace(plotData[key])
+            newTrace.label = key
+            newTrace.color = ini.defaultColors[colNum % numColors]
+        elif type(plotData[key]) == trace:
+            newTrace = plotData[key]
         ax.traces.append(newTrace)
         colNum += 1
     fig.axes = [[ax]]
@@ -1276,9 +1292,26 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 xValues = sweepList
     return (xValues, yValues)
 
-def traces2fig(traceDict, figObject, axis = [0,0]):
+def traces2fig(traceDict, figObject, axis = [0, 0]):
     """
     Adds traces generated from another application to an existing figure.
+    
+    :param traceDict: Dictionary with key-value pairs:
+        
+             - key: *str*: label of the trace
+             - value: *SLiCAPplots.trace* trace object
+             
+    :type traceDict: dict
+    
+    :param figObject: figure object to which the traces must be added
+    :type figObject: SLiCAPplots.figure
+    
+    :param axis: List with x position and y position of the axis to which the
+                 traces must be added. Defaults to [0, 0]
+    :type axis: list
+    
+    :return: Updated figure object
+    :rtype: SLiCAPplots.figure
     """
     for label in list(traceDict.keys()):
         figObject.axes[axis[0]][axis[0]].traces.append(traceDict[label])    
@@ -1288,6 +1321,16 @@ def LTspiceData2Traces(txtFile):
     """
     Generates a dictionary with traces (key = label, value = trace object) from
     LTspice plot data (saved as .txt file).
+    
+    :param txtFile: Name of the text file stored in the ini.txtPath directory
+    :type txtFile: str
+    
+    :return: Dictionary with key-value pairs:
+        
+             - key: *str*: label of the trace
+             - value: *SLiCAPplots.trace* trace object
+             
+    :rtype: dict
     """
     try:
         f = open(ini.txtPath + txtFile)
@@ -1341,11 +1384,21 @@ def csv2traces(csvFile):
     data from a csv file. The CSV file should have the following structure:
         
     x0_label, y0_label, x1_label, y1_label, ... 
-    x0_0, y0_0, x1_0, y1_0, ...
-    x0_1, y0_1, x1_1, y1_1, ...
-    ... , ... , ... , ... , ...
+    x0_0    , y0_0    , x1_0    , y1_0    , ...
+    x0_1    , y0_1    , x1_1    , y1_1    , ...
+    ...     , ...     , ...     , ...     , ...
 
     The traces will be named  with their y label.
+    
+    :param csvFile: name of the csv file (in the ini.csvPath directory)
+    :type csvFile: str
+    
+    :return: dictionary with key-value pairs:
+        
+             - key: *str*: label of the trace
+             - value: *SLiCAPplots.trace* trace object
+             
+    :rtype: dict
     """
     try:
         f = open(ini.csvPath + csvFile)

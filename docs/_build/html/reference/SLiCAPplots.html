@@ -186,6 +186,22 @@
 <code class="descname">LTspiceData2Traces</code><span class="sig-paren">(</span><em>txtFile</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a dictionary with traces (key = label, value = trace object) from
 LTspice plot data (saved as .txt file).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>txtFile</strong> (<em>str</em>) – Name of the text file stored in the ini.txtPath directory</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary with key-value pairs:<ul class="simple">
+<li>key: <em>str</em>: label of the trace</li>
+<li>value: <em>SLiCAPplots.trace</em> trace object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -208,9 +224,11 @@ LTspice plot data (saved as .txt file).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dictionary with key-value pairs:
-- key: <em>str</em> label of the trace
-- value: <em>SLiCAPplots.trace</em> trace object</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dictionary with key-value pairs:<ul class="simple">
+<li>key: <em>str</em> label of the trace</li>
+<li>value: <em>SLiCAPplots.trace</em> trace object</li>
+</ul>
+</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
@@ -299,11 +317,27 @@ Defaults to [0, 0, ‘’].</p>
 <code class="descname">csv2traces</code><span class="sig-paren">(</span><em>csvFile</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.csv2traces" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a dictionary with traces (key = label, value = trace object) from
 data from a csv file. The CSV file should have the following structure:</p>
-<p>x0_label, y0_label, x1_label, y1_label, … 
-x0_0, y0_0, x1_0, y1_0, …
-x0_1, y0_1, x1_1, y1_1, …
-… , … , … , … , …</p>
+<p>x0_label, y0_label, x1_label, y1_label, …</p>
+<p>x0_0    , y0_0    , x1_0    , y1_0    , …</p>
+<p>x0_1    , y0_1    , x1_1    , y1_1    , …</p>
+<p>…     , …     , …     , …     , …</p>
 <p>The traces will be named  with their y label.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>csvFile</strong> (<em>str</em>) – name of the csv file (in the ini.csvPath directory)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary with key-value pairs:<ul class="simple">
+<li>key: <em>str</em>: label of the trace</li>
+<li>value: <em>SLiCAPplots.trace</em> trace object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -385,7 +419,20 @@ saves it to disk.</p>
 <li><strong>fileName</strong> (<em>str</em>) – Name of the file for saving it to disk.</li>
 <li><strong>title</strong> (<em>str</em>) – Title of the figure.</li>
 <li><strong>axisType</strong> (<em>str</em>) – Type of axis: ‘lin’, ‘log’, ‘semilogx’, ‘semilogy’ or ‘polar’.</li>
-<li><strong>plotData</strong> (<em>list</em>) – List of lists with pairs of x data and y data.</li>
+<li><strong>plotData</strong> (<em>dict</em><em>, </em><a class="reference internal" href="#SLiCAP.SLiCAPplots.SLiCAPplots.trace" title="SLiCAP.SLiCAPplots.SLiCAPplots.trace"><em>SLiCAPplots.trace</em></a>) – <p>dictionary with key-value pairs or dictionary with traces</p>
+<ul>
+<li>key: <em>str</em> label for the trace</li>
+<li>value:<ol class="arabic">
+<li><em>list</em> [&lt;xData&gt;, &lt;yData&gt;]<ul>
+<li>xData: <em>list</em>: x values</li>
+<li>yData: <em>list</em>: y values</li>
+</ul>
+</li>
+<li><em>SLiCAPplots.trace</em> object</li>
+</ol>
+</li>
+</ul>
+</li>
 <li><strong>xName</strong> (<em>str</em>) – Name of the variable to be plotted along the x axis. Defaults to ‘’.</li>
 <li><strong>xScale</strong> (<em>str</em>) – Scale factor of the x axis variable. Defaults to ‘’.</li>
 <li><strong>xUnits</strong> (<em>str</em>) – Units of the x axis variable. Defaults to ‘’.</li>
@@ -709,6 +756,31 @@ the radius.</p>
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.traces2fig">
 <code class="descname">traces2fig</code><span class="sig-paren">(</span><em>traceDict, figObject, axis=[0, 0]</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.traces2fig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds traces generated from another application to an existing figure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>traceDict</strong> (<em>dict</em>) – <p>Dictionary with key-value pairs:</p>
+<ul>
+<li>key: <em>str</em>: label of the trace</li>
+<li>value: <em>SLiCAPplots.trace</em> trace object</li>
+</ul>
+</li>
+<li><strong>figObject</strong> (<a class="reference internal" href="#SLiCAP.SLiCAPplots.SLiCAPplots.figure" title="SLiCAP.SLiCAPplots.SLiCAPplots.figure"><em>SLiCAPplots.figure</em></a>) – figure object to which the traces must be added</li>
+<li><strong>axis</strong> (<em>list</em>) – List with x position and y position of the axis to which the
+traces must be added. Defaults to [0, 0]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Updated figure object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#SLiCAP.SLiCAPplots.SLiCAPplots.figure" title="SLiCAP.SLiCAPplots.SLiCAPplots.figure">SLiCAPplots.figure</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
