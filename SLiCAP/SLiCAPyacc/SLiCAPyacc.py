@@ -946,7 +946,8 @@ def addUserLibs(fileNames):
         # The standard library "SLiCAP.lib" has already been included.
         libFile = fi.split('.')
         try:
-            if libFile[0] != 'SLiCAP' and libFile[1].upper() != 'LIB':
+            if libFile[0] != 'SLiCAP' and libFile[0].upper() != 'SLiCAPmodels':
+                
                 try:
                     # first libraries in circuit directory
                     f = open(ini.projectPath + CIRPATH + fi, "r")
@@ -975,17 +976,22 @@ def addUserLibs(fileNames):
                     if cir.errors != 0:
                         print("Errors found in library: '{0}'. Library will not be added!".format(fileName))
                     else:
-                        for newCircuit in cir.circuits:
-                            LIB.circuits[newCircuit.title] = newCircuit
-                        for newModelDef in cir.modelDefs:
+                        for cirName in list(cir.circuits.keys()):
+                            LIB.circuits[cirName] = cir.circuits[cirName]
+                        for newModelDef in list(cir.modelDefs.keys()):
                             LIB.modelDefs[cir.modelDefs[newModelDef]] = cir.modelDefs[newModelDef]
-                        for newParDef in cir.parDefs:
-                            LIB.parDefs[newPardef] = cir.parDefs[newParDef]
+                        for newParDef in list(cir.parDefs.keys()):
+                            LIB.parDefs[newParDef] = cir.parDefs[newParDef]
                         for newLib in cir.libs:
                             LIB.libs.append(newLib)
         except:
             pass
-    return()
+    # Convert keys of parameter definitions to sp.Symbol
+    for parDef in list(LIB.parDefs.keys()):
+        if type(parDef) == str:
+            LIB.parDefs[sp.Symbol(parDef)] = LIB.parDefs[parDef]
+            del(LIB.parDefs[parDef])
+    return
 
 if __name__ == '__main__':
     """
