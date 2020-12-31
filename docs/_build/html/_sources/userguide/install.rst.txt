@@ -38,6 +38,9 @@ Install SLiCAP
 --------------
 
 - If you work with Anaconca open the *Anaconda Prompt* 
+
+  - You need to have the module `in_place <https://anaconda.org/conda-forge/in_place>`_ installed.
+
 - If you have python installed under Windows, open a terminal by running the command *cmd*
 - If you have python installed under Linux or mac Open a *terminal*
 
