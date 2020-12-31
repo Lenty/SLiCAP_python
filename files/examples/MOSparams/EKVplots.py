@@ -59,9 +59,8 @@ fig2html(fig_CissVg, 600)
 t2=time()
 print(t2-t1,'s')
 
+LTspiceTraces =  LTspiceData2Traces('nmosChar.txt')
 traces2fig(LTspiceTraces, fig_Ids_Vgs)
+fig_Ids_Vgs.plot()
 
 figLT = plot('LTspiceIdsVgs', 'LTspice $I_{ds}(V_{gs})$', 'lin', LTspiceTraces, xName = '$V_{gs}$', xUnits = 'V', yName = '$I_{ds}$', yUnits = 'A', yScale = 'u', show = True)
-
-LTspiceTraces =  LTspiceData2Traces('nmosChar.txt')
-fig_Ids_Vgs.plot()

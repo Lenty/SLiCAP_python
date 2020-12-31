@@ -303,7 +303,7 @@ def makeCircuit(cir):
                 cir.elements[newElement.refDes] = newElement
             else:
                 # Element with the same identifier in this circuit exists!
-                printError("Error: element '%s' has already been defined.", 
+                printError("Error: element has already been defined.", 
                            lines[cir.lexer.lineno], find_column(tok))
                 cir.errors += 1
                 tok = cir.lexer.token()
@@ -431,6 +431,10 @@ def makeCircuit(cir):
                 needExpansion = True
         if needExpansion:
             # First add the user libraries to the global library LIB
+            # Library declaration must be at the top of a netlist file
+            # The following reserved library names should not be used:
+            # - SLiCAP.lib
+            # - SLiCAPmodels.lib
             addUserLibs(cir.libs)
             # Put the title of the circuit in the global CIRTITLES
             CIRTITLES.append(cir.title) 
@@ -697,8 +701,7 @@ def updateCirData(mainCircuit):
     # Convert *char* keys in the .parDefs attribute into sympy symbols.
     for key in list(mainCircuit.parDefs.keys()):
         if type(key) == str:
-            newKey = sp.Symbol(key)
-            mainCircuit.parDefs[newKey] = mainCircuit.parDefs[key]
+            mainCircuit.parDefs[sp.Symbol(key)] = mainCircuit.parDefs[key]
             del(mainCircuit.parDefs[key])
     # make the node list and check for the ground node
     # check the references (error)
@@ -867,15 +870,14 @@ def sortDepVars(mainCircuit):
 def addGlobals(parDefs, par):
     """
     Adds value or expression of the parameter 'par' as well as the parameters 
-    in this expression given in the library to the parameter definitions in the
-    dict 'parDefs'.
+    in this expression to the parameter definitions in the dict 'parDefs'.
     
     :param parDefs: Dictionary with key-value pair of parameters to which the 
                     definition of the parameter 'par' needs to added.
     :type parDefs: dict
     :param par: Parameter of which the definition needs to be added to the dict
                 'parDefs'.
-    :type par: sympy.core.symbol.Symbol
+    :type par: sympy.Symbol
     :return: parDefs: dict with added parameter definitions
     :rtype: dict
     """
@@ -918,8 +920,10 @@ def makeLibraries():
         for cirModel in list(LIB.circuits.keys()):
             cir.circuits[cirModel] = LIB.circuits[cirModel]
         for parDef in list(LIB.parDefs.keys()):
-            pD = sp.Symbol(parDef)
-            cir.parDefs[pD] = LIB.parDefs[parDef]
+            if type(parDef) == str:
+                cir.parDefs[sp.Symbol(parDef)] = LIB.parDefs[parDef]
+            else:
+                cir.parDefs[parDef] = LIB.parDefs[parDef]
         for modDef in list(LIB.modelDefs.keys()):
             cir.modelDefs[parDef] = LIB.modelDefs[modDef]
         cir = makeCircuit(cir)
@@ -946,8 +950,7 @@ def addUserLibs(fileNames):
         # The standard library "SLiCAP.lib" has already been included.
         libFile = fi.split('.')
         try:
-            if libFile[0] != 'SLiCAP' and libFile[0].upper() != 'SLiCAPmodels':
-                
+            if libFile[0] != 'SLiCAP' and libFile[0] != 'SLiCAPmodels':               
                 try:
                     # first libraries in circuit directory
                     f = open(ini.projectPath + CIRPATH + fi, "r")
@@ -981,16 +984,14 @@ def addUserLibs(fileNames):
                         for newModelDef in list(cir.modelDefs.keys()):
                             LIB.modelDefs[cir.modelDefs[newModelDef]] = cir.modelDefs[newModelDef]
                         for newParDef in list(cir.parDefs.keys()):
-                            LIB.parDefs[newParDef] = cir.parDefs[newParDef]
+                            if type(newParDef) == str:
+                                LIB.parDefs[sp.Symbol(newParDef)] = cir.parDefs[newParDef]
+                            else:
+                                LIB.parDefs[newParDef] = cir.parDefs[newParDef]
                         for newLib in cir.libs:
                             LIB.libs.append(newLib)
         except:
             pass
-    # Convert keys of parameter definitions to sp.Symbol
-    for parDef in list(LIB.parDefs.keys()):
-        if type(parDef) == str:
-            LIB.parDefs[sp.Symbol(parDef)] = LIB.parDefs[parDef]
-            del(LIB.parDefs[parDef])
     return
 
 if __name__ == '__main__':
