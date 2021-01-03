@@ -45,16 +45,12 @@ def maxEval(maxExpr):
     maxStringConv = ":lisp (mfuncall '$string $result);"
     maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
     maxInput = maxAssume + maxExpr + maxStringConv
-    # Check system we are running on and read the output
-    if platform.system() == 'Windows':
-        # result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')[-1]
-        result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
-    else:
-        result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
+    # Read the output
+    result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
     # Convert the result such that it can be 'sympified' by sympy
     result = [i for i in result if i] # Added due to variability of trailing '\n'
-    result = result[-1]
-    if result != '':
+    if result != '' and len(result) > 0:
+        result = result[-1]
         # Convert big float notation '12345b+123' to float notation '12345e+123':
         result = re.sub(r'(([+-]?)(\d+)(\.?)(\d*))b(([+-]?)(\d+))', r'\1e\6', result)
         # Convert complex number notation:
@@ -68,6 +64,8 @@ def maxEval(maxExpr):
         result = result.replace('])', ']])')
         # ToDo
         # Other conversions
+    else:
+        print("Error: maxima CAS could not evaluate:\n", maxExpr)
     return result
 
 def maxILT(numer, denom, numeric = True):
