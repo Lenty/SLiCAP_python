@@ -1268,14 +1268,19 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 if parName != sp.Symbol(sVar) :
                     substitutions[parName] = results.circuit.parDefs[parName]
         # Obtain the y-variable as a function of the sweep and the step variable:
-        f = fullSubs(results.circuit.parDefs[sp.Symbol(yVar)], substitutions)
+        if yVar != sVar:
+            f = fullSubs(results.circuit.parDefs[sp.Symbol(yVar)], substitutions)
         # Obtain the x-variable as a function of the sweep and the step variable:
-        g = fullSubs(results.circuit.parDefs[sp.Symbol(xVar)], substitutions)
+        if xVar != sVar:
+            g = fullSubs(results.circuit.parDefs[sp.Symbol(xVar)], substitutions)
         if results.step:
             for parValue in p:
-                y = f.subs(results.stepVar, parValue)
-                yfunc = sp.lambdify(sp.Symbol(sVar), y)
-                yValues[parValue] = yfunc(sweepList)
+                if yVar != sVar:
+                    y = f.subs(results.stepVar, parValue)
+                    yfunc = sp.lambdify(sp.Symbol(sVar), y)
+                    yValues[parValue] = yfunc(sweepList)
+                else:
+                    yValues[parValue] = sweepList
                 if xVar != sVar:
                     x = g.subs(results.stepVar, parValue)
                     xfunc = sp.lambdify(sp.Symbol(sVar), x)
@@ -1283,13 +1288,16 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 else:
                     xValues[parValue] = sweepList
         else:
-            y = sp.lambdify(sp.Symbol(sVar), f)
-            yValues = y(sweepList)
+            if yVar != sVar:
+                y = sp.lambdify(sp.Symbol(sVar), f)
+                yValues = y(sweepList)
+            else:
+                yValues = sweepList
             if xVar != sVar:
                 x = sp.lambdify(sp.Symbol(sVar), g)
                 xValues = x(sweepList)
             else:
-                xValues = sweepList
+                xValues = sweepList  
     return (xValues, yValues)
 
 def traces2fig(traceDict, figObject, axis = [0, 0]):
