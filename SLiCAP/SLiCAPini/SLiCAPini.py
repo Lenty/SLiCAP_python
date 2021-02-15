@@ -31,6 +31,7 @@ import webbrowser
 plt.ioff() # Turn off the interactive mode for plotting
 # Increase width for display of numpy arrays:
 np.set_printoptions(edgeitems=30, linewidth=1000, 
+    formatter=dict(float=lambda x: "%11.4e" % x))
 
 def _selftest_maxima():
     """
