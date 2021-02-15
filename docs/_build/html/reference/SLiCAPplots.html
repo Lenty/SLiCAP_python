@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SLiCAPplots.py &mdash; SLiCAP 1.0.1 documentation</title>
+  <title>SLiCAPplots.py &mdash; SLiCAP 1.0.2 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.0.2
               </div>
             
           
@@ -409,7 +409,7 @@ saves it to disk.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>fileName</em>, <em>title</em>, <em>axisType</em>, <em>plotData</em>, <em>xName=''</em>, <em>xScale=''</em>, <em>xUnits=''</em>, <em>yName=''</em>, <em>yScale=''</em>, <em>yUnits=''</em>, <em>show=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.plot" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plot</code><span class="sig-paren">(</span><em>fileName</em>, <em>title</em>, <em>axisType</em>, <em>plotData</em>, <em>xName=''</em>, <em>xScale=''</em>, <em>xUnits=''</em>, <em>yName=''</em>, <em>yScale=''</em>, <em>yUnits=''</em>, <em>xLim=[]</em>, <em>yLim=[]</em>, <em>show=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots x-y data, or multiple pairs of x-y data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -436,9 +436,11 @@ saves it to disk.</p>
 <li><strong>xName</strong> (<em>str</em>) – Name of the variable to be plotted along the x axis. Defaults to ‘’.</li>
 <li><strong>xScale</strong> (<em>str</em>) – Scale factor of the x axis variable. Defaults to ‘’.</li>
 <li><strong>xUnits</strong> (<em>str</em>) – Units of the x axis variable. Defaults to ‘’.</li>
+<li><strong>xLim</strong> (<em>list</em>) – Limits for the x-axis scale: [&lt;xmin&gt;, &lt;xmax&gt;]</li>
 <li><strong>yName</strong> – Name of the variable to be plotted along the y axis. Defaults to ‘’.</li>
 <li><strong>yScale</strong> (<em>str</em>) – Scale factor of the y axis variable. Defaults to ‘’.</li>
 <li><strong>yUnits</strong> (<em>str</em>) – Units of the y axis variable. Defaults to ‘’.</li>
+<li><strong>yLim</strong> (<em>list</em>) – Limits for the y-axis scale: [&lt;ymin&gt;, &lt;ymax&gt;]</li>
 <li><strong>show</strong> (<em>bool</em>) – If ‘True’ the plot will be shown in the workspace.</li>
 </ul>
 </td>
@@ -502,7 +504,7 @@ instructions should be ‘poles’, ‘zeros’ or ‘pz’.</li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.plotSweep">
-<code class="descname">plotSweep</code><span class="sig-paren">(</span><em>fileName</em>, <em>title</em>, <em>results</em>, <em>sweepStart</em>, <em>sweepStop</em>, <em>sweepNum</em>, <em>sweepVar='auto'</em>, <em>sweepScale=''</em>, <em>xVar='auto'</em>, <em>xScale=''</em>, <em>xUnits=''</em>, <em>axisType='auto'</em>, <em>funcType='auto'</em>, <em>yVar='auto'</em>, <em>yScale=''</em>, <em>yUnits=''</em>, <em>noiseSources=None</em>, <em>show=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.plotSweep" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plotSweep</code><span class="sig-paren">(</span><em>fileName</em>, <em>title</em>, <em>results</em>, <em>sweepStart</em>, <em>sweepStop</em>, <em>sweepNum</em>, <em>sweepVar='auto'</em>, <em>sweepScale=''</em>, <em>xVar='auto'</em>, <em>xScale=''</em>, <em>xUnits=''</em>, <em>xLim=[]</em>, <em>yLim=[]</em>, <em>axisType='auto'</em>, <em>funcType='auto'</em>, <em>yVar='auto'</em>, <em>yScale=''</em>, <em>yUnits=''</em>, <em>noiseSources=None</em>, <em>show=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.plotSweep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a function by sweeping one variable and optionally stepping another.</p>
 <p>The function to be plotted depends on the arguments ‘yVar’ and ‘funcType’:</p>
 <ul class="simple">
@@ -549,11 +551,13 @@ corresponds with this scale factor.</li>
 <li><strong>xVar</strong> – Name of the variable to be plotted along the x axis</li>
 <li><strong>xScale</strong> (<em>str</em>) – Scale factor of the x axis variable.</li>
 <li><strong>xUnits</strong> (<em>str</em>) – Units of the x axis variable.</li>
+<li><strong>xLim</strong> (<em>list</em>) – Limits for the x-axis scale: [&lt;xmin&gt;, &lt;xmax&gt;]</li>
 <li><strong>axisType</strong> (<em>str</em>) – Type of axis: ‘lin’, ‘log’, ‘semilogx’, ‘semilogy’ or ‘polar’.</li>
 <li><strong>funcType</strong> (<em>str</em>) – Type of function can be: ‘mag’, ‘dBmag’, ‘phase’, ‘delay’,
 ‘time’, ‘onoise’, ‘inoise’ or ‘param’.</li>
 <li><strong>yScale</strong> (<em>str</em>) – Scale factor of the y axis variable.</li>
 <li><strong>yUnits</strong> (<em>str</em>) – Units of the y axis variable.</li>
+<li><strong>yLim</strong> (<em>list</em>) – Limits for the y-axis scale: [&lt;ymin&gt;, &lt;ymax&gt;]</li>
 <li><strong>noiseSources</strong> (<em>list</em><em>, </em><em>str</em>) – Noise sources of which the contribution to the detector-
 referred noise (funcType = ‘onoise’) or the source-
 referred noise (funcType = ‘inoise’) should be plotted.
@@ -806,7 +810,7 @@ traces must be added. Defaults to [0, 0]</li>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, SLiCAP development team
+        &copy; Copyright 2021, SLiCAP development team
 
     </p>
   </div>

@@ -397,13 +397,13 @@ def findServoBandwidth(loopgainRational):
              - mbv: mid-band value of the loopgain (highest value at order = zero)
              - mbf: lowest freqency of mbv
     :rtype: dict
-    """
+    """    
     numer, denom    = sp.fraction(loopgainRational)
     numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
     denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
     poles           = numRoots(denom, ini.Laplace)
     zeros           = numRoots(numer, ini.Laplace)
-    (poles, zeros)  = cancelPZ(poles, zeros)
+    poles, zeros = cancelPZ(poles, zeros)
     numPoles        = len(poles)
     numZeros        = len(zeros)
     numCornerFreqs  = numPoles + numZeros
@@ -412,13 +412,26 @@ def findServoBandwidth(loopgainRational):
     coeffsD         = np.array(coeffsD)
     firstNonZeroN   = np.argmax(coeffsN != 0)
     firstNonZeroD   = np.argmax(coeffsD != 0)
-
     startOrder      = firstNonZeroN - firstNonZeroD
     startValue      = np.abs(gain)
-
+    """ array columns
+        1. Corner frequency in rad/s
+        2. Order change at that corner +n: n zeros, -n: n poles
+        3. Cumulative order from corner frequency
+        4. Cumulative LP product
+        5. Asymptotic servo cut-off frequency in rad/s (can be low-pass or high-pass)
+    """
     freqsOrders     = np.zeros((numCornerFreqs, 6))
-    mbv             = sp.Abs(sp.N(sp.Subs(loopgainRational, ini.Laplace, 0)))
-    mbf             = 0
+    result = {}
+    try:
+        result['mbv'] = sp.limit(loopgainRational, ini.Laplace, 0)
+    except:
+        result['mbv'] = loopgainRational.subs(ini.Laplace, 0)
+    result['mbf'] = None
+    result['lpf'] = None
+    result['lpo'] = None
+    result['hpf'] = None
+    result['hpo'] = None
     for i in range(numZeros):
         freqsOrders[i, 0] = np.abs(zeros[i])
         freqsOrders[i, 1] = 1
@@ -427,89 +440,49 @@ def findServoBandwidth(loopgainRational):
         freqsOrders[numZeros + i, 1] = -1
     # sort the rows with increasing corner frequencies
     freqsOrders = freqsOrders[freqsOrders[:,0].argsort()]
-
-    start = 0
     for i in range(numCornerFreqs):
-        if freqsOrders[i, 0] == 0:
-            start = i + 1
-            freqsOrders[i, 2] = startOrder
-            freqsOrders[i, 4] = 0
-            freqsOrders[i, 5] = freqsOrders[-1, 0]
-        if i == start:
-            freqsOrders[i, 2] =  startOrder + freqsOrders[i, 1]
-            freqsOrders[i, 3] = startValue/(freqsOrders[i, 0]**freqsOrders[i, 1])
-            if freqsOrders[i, 2] != 0:
-                Bw = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
-            else:
-                Bw = 0
-            if Bw > freqsOrders[i, 0]:
-                if freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
-                    freqsOrders[i, 4] = Bw
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] < 0:
-                    freqsOrders[i, 5] = Bw
-                    freqsOrders[i, 4] = 0
-                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] > 0:
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                    freqsOrders[i, 4] = 0
-                elif freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                    freqsOrders[i, 4] = Bw
-                elif freqsOrders[i, 2] == 0:
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                    freqsOrders[i, 4] = 0
-            else:
-                freqsOrders[i, 4] = 0
-                freqsOrders[i, 5] = freqsOrders[-1, 0]
-        elif i > start:
-            freqsOrders[i, 2] = freqsOrders[i - 1, 2] + freqsOrders[i, 1]
-            if freqsOrders[i, 1] != 0:
-                freqsOrders[i, 3] = freqsOrders[i - 1, 3]/(freqsOrders[i, 0]**freqsOrders[i, 1])
-            else:
-                freqsOrders[i, 3] = np.NaN
-            if freqsOrders[i, 2] != 0:
-                freqsOrders[i, 5] = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
-            else:
+        if i == 0:
+            freqsOrders[i, 2] = freqsOrders[i, 1] 
+            if freqsOrders[i, 0] == 0:
+                freqsOrders[i, 3] = startValue
+                freqsOrders[i, 4] = startValue
                 freqsOrders[i, 5] = 0
-            if freqsOrders[i, 2] != 0:
-                Bw = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
             else:
-                Bw = 0
-            if Bw > freqsOrders[i, 0]:
-                if freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
-                    freqsOrders[i, 4] = Bw
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] < 0:
-                    freqsOrders[i, 5] = Bw
-                    freqsOrders[i, 4] = 0
-                elif freqsOrders[i, 2] < 0 and freqsOrders[i, 1] > 0:
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                    freqsOrders[i, 4] = 0
-                elif freqsOrders[i, 2] > 0 and freqsOrders[i, 1] > 0:
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                    freqsOrders[i, 4] = Bw
-                elif freqsOrders[i, 2] == 0:
-                    freqsOrders[i, 5] = freqsOrders[-1, 0]
-                    freqsOrders[i, 4] = 0
+                freqsOrders[i, 2] = freqsOrders[i, 1] + freqsOrders[i-1, 2]
+                freqsOrders[i, 3] = startValue*freqsOrders[i, 0]** -freqsOrders[i, 1]
+                freqsOrders[i, 4] = startValue
+        else:
+            freqsOrders[i, 2] = freqsOrders[i, 1] + freqsOrders[i-1, 2]
+            freqsOrders[i, 3] = freqsOrders[i-1, 3]*freqsOrders[i, 0]**-freqsOrders[i, 1]
+            if freqsOrders[i-1, 0] == 0:
+                freqsOrders[i, 4] = freqsOrders[i-1, 4] * freqsOrders[i, 0]**freqsOrders[i, 2]
             else:
-                freqsOrders[i, 4] = 0
-                freqsOrders[i, 5] = freqsOrders[-1, 0]
-    result = {}
-    result['hpf'] = np.amax(freqsOrders[:,4])
-    result['lpf'] = np.amin(freqsOrders[:,5])
-    result['hpo'] = freqsOrders[np.where(freqsOrders[:,4]==result['hpf'])[0][0],2]
-    result['lpo'] = freqsOrders[np.where(freqsOrders[:,5]==result['lpf'])[0][0],2]
-    result['mbv'] = mbv
-    result['mbf'] = mbf
-    for i in range(numCornerFreqs):
-        if mbv != sp.nan:
-            if freqsOrders[i,2] == 0 and freqsOrders[i,3] > mbv:
-                result['mbv'] = freqsOrders[i,3]
-                result['mbf'] = freqsOrders[i,0]
+                freqsOrders[i, 4] = freqsOrders[i-1, 4] * (freqsOrders[i, 0]/freqsOrders[i-1, 0])** freqsOrders[i-1, 2]
+        if freqsOrders[i, 2] != 0:
+            freqsOrders[i, 5] = freqsOrders[i, 3]**(-1/freqsOrders[i, 2])
+            if freqsOrders[i, 5] > freqsOrders[i, 0]:
+                if freqsOrders[i, 2] > 0:
+                    result['hpf'] = freqsOrders[i, 5]
+                    result['hpo'] = freqsOrders[i, 2]
+                else:
+                    result['lpf'] = freqsOrders[i, 5]
+                    result['lpo'] = freqsOrders[i, 2]
+        if freqsOrders[i, 4] > result['mbv'] and freqsOrders[i, 0] != 0:
+            result['mbv'] = freqsOrders[i, 4]
+            result['mbf'] = freqsOrders[i, 0]
     if ini.Hz:
-        result['hpf'] = result['hpf']/np.pi/2
-        result['lpf'] = result['lpf']/np.pi/2
-        result['mbf'] = result['mbf']/np.pi/2
+        try:
+            result['hpf'] = result['hpf']/np.pi/2
+        except:
+            pass
+        try:
+            result['lpf'] = result['lpf']/np.pi/2
+        except:
+            pass
+        try:
+            result['mbf'] = result['mbf']/np.pi/2
+        except:
+            pass
     return result
 
 def checkNumber(var):

@@ -395,7 +395,7 @@ def defaultsPlot():
             for tick in fig.axes[i].yaxis.get_major_ticks():
                 tick.label.set_fontsize(ini.plotFontSize)
 
-def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVar = 'auto', sweepScale = '', xVar = 'auto', xScale = '', xUnits = '', axisType = 'auto', funcType = 'auto', yVar = 'auto', yScale = '', yUnits = '', noiseSources = None, show = False):
+def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVar = 'auto', sweepScale = '', xVar = 'auto', xScale = '', xUnits = '', xLim = [], yLim = [], axisType = 'auto', funcType = 'auto', yVar = 'auto', yScale = '', yUnits = '', noiseSources = None, show = False):
     """
     Plots a function by sweeping one variable and optionally stepping another.
 
@@ -459,6 +459,9 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
 
     :param xUnits: Units of the x axis variable.
     :type xUnits: str
+    
+    :param xLim: Limits for the x-axis scale: [<xmin>, <xmax>]
+    :type xLim: list
 
     :param axisType: Type of axis: 'lin', 'log', 'semilogx', 'semilogy' or 'polar'.
     :type axisType: str
@@ -472,6 +475,9 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
 
     :param yUnits: Units of the y axis variable.
     :type yUnits: str
+    
+    :param yLim: Limits for the y-axis scale: [<ymin>, <ymax>]
+    :type yLim: list
 
     :param noiseSources: Noise sources of which the contribution to the detector-
                          referred noise (funcType = 'onoise') or the source-
@@ -556,6 +562,8 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
         else:
             ax.xScaleFactor = sweepScale
     ax.yScaleFactor = yScale
+    ax.xLim = xLim
+    ax.yLim = yLim
     ax.traces = []
     # Create the axis labels
     # For parameter plots: the parameter names with units and scalefactors
@@ -1103,7 +1111,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     fig.plot()
     return fig
 
-def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = '', yName = '', yScale = '', yUnits = '', show = False):
+def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = '', yName = '', yScale = '', yUnits = '', xLim = [] , yLim = [], show = False):
     """
     Plots x-y data, or multiple pairs of x-y data.
 
@@ -1138,6 +1146,9 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
 
     :param xUnits: Units of the x axis variable. Defaults to ''.
     :type xUnits: str
+    
+    :param xLim: Limits for the x-axis scale: [<xmin>, <xmax>]
+    :type xLim: list
 
     :param yName:  Name of the variable to be plotted along the y axis. Defaults to ''.
     :type funcType: str, sympy.Symbol
@@ -1147,6 +1158,9 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
 
     :param yUnits: Units of the y axis variable. Defaults to ''.
     :type yUnits: str
+    
+    :param yLim: Limits for the y-axis scale: [<ymin>, <ymax>]
+    :type yLim: list
 
     :param show: If 'True' the plot will be shown in the workspace.
     :type show: bool
@@ -1179,6 +1193,8 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
         return fig
     ax.xScaleFactor = xScale
     ax.yScaleFactor = yScale
+    ax.xLim = xLim
+    ax.yLim = yLim
     ax.traces = []
     # Create the axis labels
     ax.xLabel = xName + ' [' + xScale + xUnits + ']'

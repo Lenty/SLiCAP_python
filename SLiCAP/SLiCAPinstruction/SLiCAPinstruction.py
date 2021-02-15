@@ -894,9 +894,13 @@ class instruction(object):
         >>> # that can be assigned to the detector.
         >>> my_instr.depVars()
         ['I_V1', 'V_0', 'V_N001', 'V_out']
-        >>> # Define 'V_out' as detector
+        >>> # Voltage at node 'out':
         >>> my_instr.setDetector('V_out')
-
+        >>> # Differential voltage between node 'N001' and 'out':
+        >>> my_instr.setDetector(['V_N001', 'V_out'])
+        >>> # Current through `V1':
+        >>> my_instr.setDetector('I_V1')
+        
         :note:
 
         The voltage 'V_0' at the reference node '0' equals zero.

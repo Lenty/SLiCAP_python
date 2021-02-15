@@ -29,6 +29,8 @@ import matplotlib._pylab_helpers as plotHelp
 import matplotlib.pyplot as plt
 import webbrowser
 plt.ioff() # Turn off the interactive mode for plotting
+# Increase width for display of numpy arrays:
+np.set_printoptions(edgeitems=30, linewidth=1000, 
 
 def _selftest_maxima():
     """

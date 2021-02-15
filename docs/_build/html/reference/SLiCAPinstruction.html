@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SLiCAPinstruction.py &mdash; SLiCAP 1.0.1 documentation</title>
+  <title>SLiCAPinstruction.py &mdash; SLiCAP 1.0.2 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.0.2
               </div>
             
           
@@ -864,8 +864,12 @@ detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># that can be assigned to the detector.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">depVars</span><span class="p">()</span>
 <span class="go">[&#39;I_V1&#39;, &#39;V_0&#39;, &#39;V_N001&#39;, &#39;V_out&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define &#39;V_out&#39; as detector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Voltage at node &#39;out&#39;:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;V_out&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Differential voltage between node &#39;N001&#39; and &#39;out&#39;:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">([</span><span class="s1">&#39;V_N001&#39;</span><span class="p">,</span> <span class="s1">&#39;V_out&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Current through `V1&#39;:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;I_V1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1480,7 +1484,7 @@ parameter is obtained as follows:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, SLiCAP development team
+        &copy; Copyright 2021, SLiCAP development team
 
     </p>
   </div>
