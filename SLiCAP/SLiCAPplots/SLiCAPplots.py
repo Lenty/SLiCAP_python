@@ -749,7 +749,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             y = [yData for i in range(len(x))]
                         noiseTrace = trace([x, y])
                         noiseTrace.color = ini.defaultColors[colNum % numColors]
-                        noiseTrace.label = funcType + ': ' + sources
+                        noiseTrace.label = funcType + ': ' + noiseSources
                         ax.traces.append(noiseTrace)
                         colNum += 1
                     elif type(noiseSources) == list:
