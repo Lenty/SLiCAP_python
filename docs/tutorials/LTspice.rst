@@ -52,3 +52,58 @@ Knowledge of drawing circuits with LTspice is assumed.
 #. Save the circuit *myFirstRCnetwork.asc* in the project directory.
 
 #. If you want to display the circuit on a SLiCAP output html page, you need to create an image file of it that can be rendered by a browser. A *.png* file is a good candidate. You can generate a PNG from a screen dump with a graphic file editor (Paint, Gimp, Photoshop, etc.). Here we assume that the graphic file *myFirstRCnetwork_asc.png* has been saved in the project directory. It is shown above.
+
+------------------------------------------------------
+Create a SLiCAP netlist from an LTspice schematic file
+------------------------------------------------------
+
+Use the python instruction makeNetlist()
+----------------------------------------
+
+A netlist from an LTspice '.asc' schematic file can be generated from within the python environment using the command:
+
+    >>> makeNetlist(<fileName>, <title))
+
+Where 'fileName' is the name of the LTspice schematic file (including the '.asc' file extension) and 'title' is the title of your circuit. Place it between double quotes (") if you use space(s) or characters other than letters. Do not start your title with an asterix: '*'.
+
+The makeNetlist() command calls LTspice in batch mode (subprocess) to create the netlist and then adds the title to it.
+
+
+Manual creation of a netlist
+----------------------------
+
+If for some reason the makeNelist() command does not work, you can manually create a SLiCAP netlist.
+
+#. Open the schematic file in LTspice. 
+
+#. On the LTspice task bar select View: and on this View menu select: SPICE Netlist
+
+   .. image:: ../img/makeNetlist-1.png
+
+#. This will display the netlist.
+
+
+   .. image:: ../img/makeNetlist-2.png
+
+#. In this netlist window right-click your mouse and select: Edit as Independent Netlist
+
+   .. image:: ../img/makeNetlist-3.png
+
+#. This will bring up the *Save* window. It will display the contents of the directory of the *.asc* file of which you are generateing the netlist. Save your netlist as a *.cir* netlist file.
+
+   .. image:: ../img/makeNetlist-4.png
+
+#. After the netlist file has been saved you can a new  tab with the netlist file will be displayed
+
+   .. image:: ../img/makeNetlist-5.png
+
+#. Edit the title or add one:
+
+   The first line of the file is the title of your circuit. It should not start with an asterix: '*'. Place it between double quotes (") if you use space(s) or characters other than letters. 
+
+   .. image:: ../img/makeNetlist-6.png
+
+#. Save the netlist file.
+
+
+

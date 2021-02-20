@@ -96,6 +96,11 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAP LTspice</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#install-and-configure-ltspice-for-schematic-capture">Install and configure LTspice for schematic capture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#draw-the-circuit-in-ltspice">Draw the circuit in LTspice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-slicap-netlist-from-an-ltspice-schematic-file">Create a SLiCAP netlist from an LTspice schematic file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-python-instruction-makenetlist">Use the python instruction makeNetlist()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#manual-creation-of-a-netlist">Manual creation of a netlist</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="jupyter.html">Jupyter notebooks</a></li>
@@ -214,6 +219,47 @@
 <li><p class="first">If you want to display the circuit on a SLiCAP output html page, you need to create an image file of it that can be rendered by a browser. A <em>.png</em> file is a good candidate. You can generate a PNG from a screen dump with a graphic file editor (Paint, Gimp, Photoshop, etc.). Here we assume that the graphic file <em>myFirstRCnetwork_asc.png</em> has been saved in the project directory. It is shown above.</p>
 </li>
 </ol>
+</div>
+<div class="section" id="create-a-slicap-netlist-from-an-ltspice-schematic-file">
+<h2>Create a SLiCAP netlist from an LTspice schematic file<a class="headerlink" href="#create-a-slicap-netlist-from-an-ltspice-schematic-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-the-python-instruction-makenetlist">
+<h3>Use the python instruction makeNetlist()<a class="headerlink" href="#use-the-python-instruction-makenetlist" title="Permalink to this headline">¶</a></h3>
+<p>A netlist from an LTspice ‘.asc’ schematic file can be generated from within the python environment using the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="o">&lt;</span><span class="n">fileName</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">title</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Where ‘fileName’ is the name of the LTspice schematic file (including the ‘.asc’ file extension) and ‘title’ is the title of your circuit. Place it between double quotes (“) if you use space(s) or characters other than letters. Do not start your title with an asterix: ‘*’.</p>
+<p>The makeNetlist() command calls LTspice in batch mode (subprocess) to create the netlist and then adds the title to it.</p>
+</div>
+<div class="section" id="manual-creation-of-a-netlist">
+<h3>Manual creation of a netlist<a class="headerlink" href="#manual-creation-of-a-netlist" title="Permalink to this headline">¶</a></h3>
+<p>If for some reason the makeNelist() command does not work, you can manually create a SLiCAP netlist.</p>
+<ol class="arabic">
+<li><p class="first">Open the schematic file in LTspice.</p>
+</li>
+<li><p class="first">On the LTspice task bar select View: and on this View menu select: SPICE Netlist</p>
+<img alt="../_images/makeNetlist-1.png" src="../_images/makeNetlist-1.png" />
+</li>
+<li><p class="first">This will display the netlist.</p>
+<img alt="../_images/makeNetlist-2.png" src="../_images/makeNetlist-2.png" />
+</li>
+<li><p class="first">In this netlist window right-click your mouse and select: Edit as Independent Netlist</p>
+<img alt="../_images/makeNetlist-3.png" src="../_images/makeNetlist-3.png" />
+</li>
+<li><p class="first">This will bring up the <em>Save</em> window. It will display the contents of the directory of the <em>.asc</em> file of which you are generateing the netlist. Save your netlist as a <em>.cir</em> netlist file.</p>
+<img alt="../_images/makeNetlist-4.png" src="../_images/makeNetlist-4.png" />
+</li>
+<li><p class="first">After the netlist file has been saved you can a new  tab with the netlist file will be displayed</p>
+<img alt="../_images/makeNetlist-5.png" src="../_images/makeNetlist-5.png" />
+</li>
+<li><p class="first">Edit the title or add one:</p>
+<p>The first line of the file is the title of your circuit. It should not start with an asterix: ‘*’. Place it between double quotes (“) if you use space(s) or characters other than letters.</p>
+<img alt="../_images/makeNetlist-6.png" src="../_images/makeNetlist-6.png" />
+</li>
+<li><p class="first">Save the netlist file.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 
