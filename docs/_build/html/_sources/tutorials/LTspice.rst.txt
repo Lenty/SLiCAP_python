@@ -62,7 +62,7 @@ Use the python instruction makeNetlist()
 
 A netlist from an LTspice '.asc' schematic file can be generated from within the python environment using the command:
 
-    >>> makeNetlist(<fileName>, <title))
+    >>> makeNetlist(<fileName>, <title>)
 
 Where 'fileName' is the name of the LTspice schematic file (including the '.asc' file extension) and 'title' is the title of your circuit. Place it between double quotes (") if you use space(s) or characters other than letters. Do not start your title with an asterix: '*'.
 
