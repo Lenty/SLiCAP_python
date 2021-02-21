@@ -721,12 +721,12 @@ class instruction(object):
                 self.errors += 1
                 print("Error: empty stepList.")
             for i in range(len(self.stepList)):
-                value = checkNumber(stepVal)
+                value = checkNumber(self.stepList[i])
                 if value == None:
                     self.errors += 1
                     print("Error: cannot determine numeric value of stepList[{0}].".format(i))
                 else:
-                    stepList[i] = value
+                    self.stepList[i] = value
         else:
             self.errors += 1
             print("Error: expected a list type for 'stepValues'.")
