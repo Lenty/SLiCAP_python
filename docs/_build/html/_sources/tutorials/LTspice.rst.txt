@@ -89,11 +89,11 @@ If for some reason the makeNelist() command does not work, you can manually crea
 
    .. image:: ../img/makeNetlist-3.png
 
-#. This will bring up the *Save* window. It will display the contents of the directory of the *.asc* file of which you are generateing the netlist. Save your netlist as a *.cir* netlist file.
+#. This will bring up the *Save* window. It will display the contents of the directory of the *.asc* file of which you are generating the netlist. Save your netlist as a *.cir* netlist file.
 
    .. image:: ../img/makeNetlist-4.png
 
-#. After the netlist file has been saved you can a new  tab with the netlist file will be displayed
+#. After the netlist file has been saved it will be displayed in a new tab
 
    .. image:: ../img/makeNetlist-5.png
 
