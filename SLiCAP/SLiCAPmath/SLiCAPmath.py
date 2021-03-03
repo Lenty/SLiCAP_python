@@ -982,8 +982,48 @@ def simplify(expr, method = 'fraction'):
         elif method == 'expand':
             expr = sp.expand(expr)
     except:
-        pass
+        try:
+            expr = sp.simplify(expr)
+        except:
+            pass
     return expr
+
+def doCDSint(noiseResult, tau, f_min, f_max):
+    """
+    Returns the integral from ini.frequency = f_min to ini.frequency = f_max, 
+    of a noise spectrum after multiplying it with (2*sin(pi*ini.frequency*tau))^2
+    
+    :param noiseResult: sympy expression of a noise density spectrum in V^2/Hz or A^2/Hz
+    :type noiseResult: sympy.Expr, sympy.Symbol, int or float
+    :param tau: Time between two samples
+    :type tau: sympy.Expr, sympy.Symbol, int or float    
+    :param f_min: Lower limit of the integral
+    :type f_min: sympy.Expr, sympy.Symbol, int or float   
+    :param f_max: Upper limit of the integral
+    :type f_max: sympy.Expr, sympy.Symbol, int or float
+    
+    :return: integral of the spectrum from f_min to f_max after corelated double sampling
+    :rtype: sympy.Expr, sympy.Symbol, int or float
+    """
+    _phi = sp.Symbol('_phi')
+    noiseResult *= ((2*sp.sin(sp.pi*ini.frequency*tau)))**2
+    noiseResult = noiseResult.subs(ini.frequency, _phi/tau/sp.pi)
+    noiseResultCDSint = sp.integrate(noiseResult/sp.pi/tau, (_phi, f_min*tau*sp.pi, f_max*tau*sp.pi))
+    return sp.simplify(noiseResultCDSint)
+
+def doCDS(noiseResult, tau):
+    """
+    Returns noiseResult after multiplying it with (2*sin(pi*ini.frequency*tau))^2
+    
+    :param noiseResult: sympy expression of a noise density spectrum in V^2/Hz or A^2/Hz
+    :type noiseResult: sympy.Expr, sympy.Symbol, int or float
+    :param tau: Time between two samples
+    :type tau: sympy.Expr, sympy.Symbol, int or float
+    
+    :return: noiseResult*(2*sin(pi*ini.frequency*tau))^2
+    :rtype: sympy.Expr, sympy.Symbol, int or float
+    """
+    return noiseResult*((2*sp.sin(sp.pi*ini.frequency*tau)))**2
 
 if __name__ == "__main__":
     s = ini.Laplace

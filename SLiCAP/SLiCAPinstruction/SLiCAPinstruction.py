@@ -849,7 +849,7 @@ class instruction(object):
 
         :type need: bool
         """
-        if type(self.source) == bool:
+        if self.source is None:
             if need:
                 self.errors += 1
                 print("Error: missing source definition.")
@@ -872,7 +872,7 @@ class instruction(object):
 
         detector can defined as:
 
-        - bool: None: no detector has been defined
+        - None: no detector has been defined
         - str:  a single detector, name of a nodal voltage or a branch current
         - list: with names of either two nodal voltages or two branch currents.
 
@@ -1006,7 +1006,7 @@ class instruction(object):
 
         Called by **instruction.check()** and by **instruction.setLGref(<lgRef>)**.
         """
-        if type(self.lgRef) == bool:
+        if self.lgRef is None:
             self.errors += 1
             print("Error: missing loop gain reference definition.")
         elif self.lgRef not in self.circuit.controlled:
@@ -1307,7 +1307,7 @@ class instruction(object):
                     elif self.dataType == 'noise':
                         # need detector
                         self.checkDetector()
-                        # only needs a sourrce for input noise analysis
+                        # only needs a source for input noise analysis
                         self.checkSource(need = False)
                     elif self.dataType == 'matrix':
                         # need nothing

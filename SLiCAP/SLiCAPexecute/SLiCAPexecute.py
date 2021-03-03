@@ -165,7 +165,12 @@ def doInstruction(instObj):
                 # apply function stepping
                 for elID in list(onoiseTerms.keys()):
                     if instObj.source != None:
-                        instObj.inoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID]/gain2)
+                        inoiseTerm = onoiseTerms[elID]/gain2
+                        try:
+                            inoiseTerm = sp.simplify(inoiseTerm)
+                        except:
+                            pass
+                        instObj.inoiseTerms[elID] = stepFunctions(instObj, inoiseTerm)
                     instObj.onoiseTerms[elID] = stepFunctions(instObj, onoiseTerms[elID])
                     instObj.snoiseTerms[elID] = stepFunctions(instObj, instObj.circuit.elements[elID].params['noise'])
                 numRuns = len(instObj.onoiseTerms[elID])
@@ -179,7 +184,7 @@ def doInstruction(instObj):
                             inoise += instObj.inoiseTerms[elID][i]
                     instObj.onoise.append(simplify(onoise, method = 'fraction'))
                     if instObj.source != None:
-                        instObj.inoise.append(simplify(inoise, method = 'fraction'))
+                        instObj.inoise.append(simplify(inoise, method = 'factor'))
             elif instObj.dataType == 'dc':
                 detP, detN, srcP, srcN = makeSrcDetPos(instObj)
                 dc = doDC(instObj, detP, detN)
@@ -378,7 +383,7 @@ def doDataType(instObj):
             onoise += onoiseTerms[key]
             snoiseTerms[key] = instObj.circuit.elements[key].params['noise']
             if instObj.source != None:
-                inoiseTerms[key] = simplify(onoiseTerms[key]/gain2, method = 'fraction')
+                inoiseTerms[key] = simplify(onoiseTerms[key]/gain2, method = 'factor')
                 inoise += inoiseTerms[key]
             if instObj.step:
                 if key in alreadyKeys:
@@ -397,9 +402,9 @@ def doDataType(instObj):
                 if instObj.source != None:
                     instObj.inoiseTerms[key] = inoiseTerms[key]
         if instObj.step:
-            instObj.onoise.append(simplify(onoise, method = 'fraction'))
+            instObj.onoise.append(simplify(onoise, method = 'factor'))
             if instObj.source != None:
-                instObj.inoise.append(simplify(inoise, method = 'fraction'))
+                instObj.inoise.append(simplify(inoise, method = 'factor'))
         else:
             instObj.onoise = onoise
             if instObj.source != None:
@@ -932,6 +937,10 @@ def doNoise(instObj, detP, detN, denom2):
             coeff2 = cR**2 + cI**2
             term = value * coeff2 / denom2
             onoiseTerms[src] = clearAssumptions(term, params = 'all')
+            try:
+                onoiseTerms[src] = sp.simplify(onoiseTerms[src])
+            except:
+                onoiseTerms[src] = simplify(onoiseTerms[src], method = 'fraction')
     return onoiseTerms
 
 def doDC(instObj, detP, detN):

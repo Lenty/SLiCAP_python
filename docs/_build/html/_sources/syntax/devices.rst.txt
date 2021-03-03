@@ -202,7 +202,7 @@ Parameters model EZ
 		+=======+==================+=========+=========+
 		| value | voltage gain     | 1       | TRUE    | 
 		+-------+------------------+---------+---------+
-		| zs    | series impedance | 1       | TRUE    | 
+		| zo    | series impedance | 1       | TRUE    | 
 		+-------+------------------+---------+---------+
 
 Examples
@@ -220,14 +220,14 @@ Examples
 
 		E1 outP outN inP inN EZ
 		+ value = {A_0/(1 + s*tau)}
-		+ zs = {R_out*(1 + s*L_out/R_out}
+		+ zo = {R_out*(1 + s*L_out/R_out}
 
 .. code-block:: text
 
 		E2 outP outN inP inN simpleOpamp
 		.model simpleOpamp EZ
 		+ value = {A_0/(1 + s*tau)}
-		+ zs = {R_out*(1 + s*L_out/R_out}
+		+ zo = {R_out*(1 + s*L_out/R_out}
 		
 F: Current-controlled current source
 ------------------------------------
@@ -426,7 +426,7 @@ Parameters model HZ
 		+=======+==================+=========+=========+
 		| value | transimpedance   | 1       | TRUE    | 
 		+-------+------------------+---------+---------+
-		| zs    | series impedance | 1       | TRUE    | 
+		| zo    | series impedance | 1       | TRUE    | 
 		+-------+------------------+---------+---------+
 
 Examples
@@ -444,14 +444,14 @@ Examples
 
 		H1 outP outN inP inN HZ
 		+ value = {R_T/(1 + s*tau)}
-		+ zs = {R_out*(1 + s*L_out/R_out}
+		+ zo = {R_out*(1 + s*L_out/R_out}
 
 .. code-block:: text
 
 		H2 outP outN inP inN simpleTransimpedanceAmp
 		.model simpleTransimpedanceAmp HZ
 		+ value = {R_T/(1 + s*tau)}
-		+ zs = {R_out*(1 + s*L_out/R_out}	
+		+ zo = {R_out*(1 + s*L_out/R_out}	
 		
 I: Independent current source
 -----------------------------

@@ -623,7 +623,7 @@ concatenation of two strings:</p>
 <td>1</td>
 <td>TRUE</td>
 </tr>
-<tr class="row-odd"><td>zs</td>
+<tr class="row-odd"><td>zo</td>
 <td>series impedance</td>
 <td>1</td>
 <td>TRUE</td>
@@ -642,13 +642,13 @@ concatenation of two strings:</p>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>E1 outP outN inP inN EZ
 + value = {A_0/(1 + s*tau)}
-+ zs = {R_out*(1 + s*L_out/R_out}
++ zo = {R_out*(1 + s*L_out/R_out}
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>E2 outP outN inP inN simpleOpamp
 .model simpleOpamp EZ
 + value = {A_0/(1 + s*tau)}
-+ zs = {R_out*(1 + s*L_out/R_out}
++ zo = {R_out*(1 + s*L_out/R_out}
 </pre></div>
 </div>
 </div>
@@ -977,7 +977,7 @@ concatenation of two strings:</p>
 <td>1</td>
 <td>TRUE</td>
 </tr>
-<tr class="row-odd"><td>zs</td>
+<tr class="row-odd"><td>zo</td>
 <td>series impedance</td>
 <td>1</td>
 <td>TRUE</td>
@@ -996,13 +996,13 @@ concatenation of two strings:</p>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H1 outP outN inP inN HZ
 + value = {R_T/(1 + s*tau)}
-+ zs = {R_out*(1 + s*L_out/R_out}
++ zo = {R_out*(1 + s*L_out/R_out}
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>H2 outP outN inP inN simpleTransimpedanceAmp
 .model simpleTransimpedanceAmp HZ
 + value = {R_T/(1 + s*tau)}
-+ zs = {R_out*(1 + s*L_out/R_out}
++ zo = {R_out*(1 + s*L_out/R_out}
 </pre></div>
 </div>
 </div>

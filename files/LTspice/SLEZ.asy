@@ -26,7 +26,7 @@ WINDOW 0 -32 -48 Left 2
 WINDOW 3 -32 -32 Left 2
 WINDOW 123 -32 -16 Left 2
 SYMATTR Value value=?
-SYMATTR Value2 zs=?
+SYMATTR Value2 zo=?
 SYMATTR Prefix E
 SYMATTR SpiceModel EZ
 SYMATTR Description VCVS: Voltage-controlled voltage source with series impedance

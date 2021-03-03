@@ -402,6 +402,57 @@ at the specified frequencies.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.doCDS">
+<code class="descname">doCDS</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>tau</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.doCDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns noiseResult after multiplying it with (2*sin(pi*ini.frequency*tau))^2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>noiseResult</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em> or </em><em>float</em>) – sympy expression of a noise density spectrum in V^2/Hz or A^2/Hz</li>
+<li><strong>tau</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em> or </em><em>float</em>) – Time between two samples</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">noiseResult*(2*sin(pi*ini.frequency*tau))^2</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, sympy.Symbol, int or float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.doCDSint">
+<code class="descname">doCDSint</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>tau</em>, <em>f_min</em>, <em>f_max</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.doCDSint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the integral from ini.frequency = f_min to ini.frequency = f_max, 
+of a noise spectrum after multiplying it with (2*sin(pi*ini.frequency*tau))^2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>noiseResult</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em> or </em><em>float</em>) – sympy expression of a noise density spectrum in V^2/Hz or A^2/Hz</li>
+<li><strong>tau</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em> or </em><em>float</em>) – Time between two samples</li>
+<li><strong>f_min</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em> or </em><em>float</em>) – Lower limit of the integral</li>
+<li><strong>f_max</strong> (<em>sympy.Expr</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>int</em><em> or </em><em>float</em>) – Upper limit of the integral</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">integral of the spectrum from f_min to f_max after corelated double sampling</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, sympy.Symbol, int or float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth">
 <code class="descname">findServoBandwidth</code><span class="sig-paren">(</span><em>loopgainRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the intersection points of the asymptotes of the magnitude of
