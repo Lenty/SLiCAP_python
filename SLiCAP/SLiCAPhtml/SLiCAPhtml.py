@@ -296,6 +296,30 @@ def netlist2html(fileName, label=''):
         print("Error: could not open netlist file: '{0}'.".format(fileName))
     return html
 
+
+def lib2html(fileName, label=''):
+    """
+    Places the contents of the library file 'fileName' on the active HTML page.
+
+    :param fileName: Name of the library file
+    :type fileName: str
+    :param label: Label ID for this object.
+    :type label: str
+    :return: html: HTML string that will be placed on the page.
+    :rtype: str
+    """
+    try:
+        if label != '':
+            newlabel = Label(label, 'data', ini.htmlPage, 'Netlist: ' + fileName)
+            ini.htmlLabels[label] = newlabel
+            label = '<a id="' + label + '"></a>'
+        netlist = readFile(ini.libraryPath + fileName)
+        html = '<h2>' + label + 'Library: ' + fileName + '</h2>\n<pre>' + netlist + '</pre>\n'
+        insertHTML(ini.htmlPath + ini.htmlPage, html)
+    except:
+        print("Error: could not open netlist file: '{0}'.".format(fileName))
+    return html
+
 def elementData2html(circuitObject, label = '', caption = ''):
     """
     Displays a table with element data on the active html page:

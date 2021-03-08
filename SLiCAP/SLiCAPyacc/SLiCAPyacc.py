@@ -333,7 +333,7 @@ def makeCircuit(cir):
                     # Errors in sub circuit, this also raises an error in the parent circuit
                     print("Errors found in definition of sub circuit.")
                     cir.errors += 1
-            elif tok.value == 'MODEL':
+            elif tok.value == 'MODEL':                
                 tok = cir.lexer.token()
                 if tok:
                     if tok.type == 'ID':
@@ -473,7 +473,7 @@ def expandModelsCircuits(circuitObject):
             if modelName in list(circuitObject.modelDefs.keys()):
                 # Get it from a local definition in the circuit
                 basicModel = circuitObject.modelDefs[modelName].type
-            elif modelName in LIB.modelDefs.keys():
+            elif modelName in list(LIB.modelDefs.keys()):
                 # Get it from a definition in the precompiled libraries
                 basicModel = LIB.modelDefs[modelName].type
             elif modelName in list(MODELS.keys()):
@@ -982,7 +982,7 @@ def addUserLibs(fileNames):
                         for cirName in list(cir.circuits.keys()):
                             LIB.circuits[cirName] = cir.circuits[cirName]
                         for newModelDef in list(cir.modelDefs.keys()):
-                            LIB.modelDefs[cir.modelDefs[newModelDef]] = cir.modelDefs[newModelDef]
+                            LIB.modelDefs[newModelDef] = cir.modelDefs[newModelDef]
                         for newParDef in list(cir.parDefs.keys()):
                             if type(newParDef) == str:
                                 LIB.parDefs[sp.Symbol(newParDef)] = cir.parDefs[newParDef]

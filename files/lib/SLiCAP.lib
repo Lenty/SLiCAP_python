@@ -267,7 +267,7 @@ M1 drain gate source bulk CMOS18P
 * EKV model of transistor without bulk resistances
 * Voltage dependency of bulk capacitances not modeled
 * Operating voltages with positive respect to bulk (PMOS equal to NMOS)
-* Assumes forward operation: VDS > 0
+* Assumes forward operation: VDS < 0
 * 
 M1 drain gate source bulk CMOS18P_V
 .model CMOS18P_V M
@@ -301,7 +301,7 @@ M1 drain gate source bulk CMOS18P_V
 + g_mF    = {W/L*I_0_P18*IC_F*(1+(VS-VD)/V_A)/(N_s_P18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
 + g_mR    = {W/L*I_0_P18*IC_R*(1+(VD-VS)/V_A)/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
-+ g_o     = {I_DS/(V_A+VD-VS) + u_0_P18*C_OX_P18*W*L/(1+Theta_P18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
++ g_o     = {-I_DS/(V_A+VD-VS) + u_0_P18*C_OX_P18*W*L/(1+Theta_P18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
 + g_b     = {(N_s_P18-1)*g_m}
 + c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX_P18*W*L} 
 + c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX_P18*W*L}
