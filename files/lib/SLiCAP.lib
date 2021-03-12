@@ -141,8 +141,9 @@ M1 drain gate source bulk CMOS18N
 + c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
 + c_db    = {CJB0_N18*W*LDS_N18}
 + c_sb    = {CJB0_N18*W*LDS_N18}
-+ IC      = {ID*L/W/I_0_N18}
-+ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC*(1+IC/IC_CRIT/4)))-1)+Vth_N18}
++ IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC))-1)+Vth_N18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 .ends
@@ -176,15 +177,17 @@ M1 drain gate source bulk CMOS18N_V
 + C_sb0   = {CJB0_N18*W*LDS_N18}
 + C_db0   = {CJB0_N18*W*LDS_N18}
 + IC_CRIT = {1/((4*N_s_N18*U_T)*(Theta_N18+1/L/E_CRIT_N18))^2}
-+ V_effF  = {(VG-Vth_N18-N_s_N18*VS)/N_s_N18/U_T}
-+ V_effR  = {(VG-Vth_N18-N_s_N18*VD)/N_s_N18/U_T}
-+ IC_F    = {(ln(1+exp(V_effF/2)))^2}
-+ IC_R    = {(ln(1+exp(V_effR/2)))^2}
++ V_effF  = {(VG-Vth_N18-N_s_N18*VS)}
++ V_effR  = {(VG-Vth_N18-N_s_N18*VD)}
++ IC_F    = {(ln(1+exp(V_effF/2/N_s_N18/U_T)))^2}
++ IC_R    = {(ln(1+exp(V_effR/2/N_s_N18/U_T)))^2}
 + x_f     = {sqrt(1/4+IC_F)}
 + x_r     = {sqrt(1/4+IC_R)}
-+ I_DS    = {W/L*I_0_N18*(IC_F-IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_N18+1/L/E_CRIT_N18)*2*U_T*sqrt(IC_F+IC_R))}
-+ g_mF    = {W/L*I_0_N18*IC_F*(1+(VD-VS)/V_A)/(N_s_N18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
-+ g_mR    = {W/L*I_0_N18*IC_R*(1+(VS-VD)/V_A)/(N_s_N18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_R/IC_CRIT))+1))}
++ I_DSF   = {W/L*I_0_N18*(IC_F)*(1+(VD-VS)/V_A)/(1+(Theta_N18+1/L/E_CRIT_N18)*2*U_T*sqrt(IC_F))}
++ I_DSR   = {W/L*I_0_N18*(IC_R)*(1+(VS-VD)/V_A)/(1+(Theta_N18+1/L/E_CRIT_N18)*2*U_T*sqrt(IC_R))}
++ I_DS    = {I_DSF-I_DSR}
++ g_mF    = {I_DSF/(N_s_N18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
++ g_mR    = {I_DSR/(N_s_N18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_R/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
 + g_o     = {I_DS/(V_A+VD-VS) + u_0_N18*C_OX_N18*W*L/(1+Theta_N18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
 + g_b     = {(N_s_N18-1)*g_m}
@@ -225,8 +228,9 @@ M1 drain1 drain2 gate1 gate2 CMOS18ND
 + c_dg    = {CGSO_N18*W}
 + c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
 + c_db    = {CJB0_N18*W*LDS_N18}
-+ IC      = {ID*L/W/I_0_N18}
-+ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC*(1+IC/IC_CRIT/4)))-1)+Vth_N18}
++ IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC))-1)+Vth_N18}
 .ends
 
 .subckt CMOS18P drain gate source bulk W={W} L={L} ID={ID}
@@ -257,8 +261,9 @@ M1 drain gate source bulk CMOS18P
 + c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
 + c_db    = {CJB0_P18*W*LDS_P18}
 + c_sb    = {CJB0_P18*W*LDS_P18}
-+ IC      = {-ID*L/W/I_0_P18}
-+ V_GS    = {-2*N_s_N18*U_T*ln(exp(sqrt(IC*(1+IC/IC_CRIT/4)))-1)+Vth_P18}
++ IC_i    = {-ID*L/W/I_0_P18} ; Correction for initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ V_GS    = {-2*N_s_P18*U_T*ln(exp(sqrt(IC))-1)+Vth_P18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 .ends
@@ -291,15 +296,17 @@ M1 drain gate source bulk CMOS18P_V
 + C_sb0   = {CJB0_P18*W*LDS_P18}
 + C_db0   = {CJB0_P18*W*LDS_P18}
 + IC_CRIT = {1/((4*N_s_P18*U_T)*(Theta_P18+1/L/E_CRIT_P18))^2}
-+ V_effF  = {(VG-Vth_P18-N_s_P18*VS)/N_s_P18/U_T}
-+ V_effR  = {(VG-Vth_P18-N_s_P18*VD)/N_s_P18/U_T}
-+ IC_F    = {(ln(1+exp(-V_effF/2)))^2}
-+ IC_R    = {(ln(1+exp(-V_effR/2)))^2}
++ V_effF  = {(VG-Vth_P18-N_s_P18*VS)}
++ V_effR  = {(VG-Vth_P18-N_s_P18*VD)}
++ IC_F    = {(ln(1+exp(-V_effF/2/N_s_P18/U_T)))^2}
++ IC_R    = {(ln(1+exp(-V_effR/2/N_s_P18/U_T)))^2}
 + x_f     = {sqrt(1/4+IC_F)}
 + x_r     = {sqrt(1/4+IC_R)}
-+ I_DS    = {-W/L*I_0_P18*(IC_F-IC_R)*(1+(VS-VD)/V_A)/(1+(Theta_P18+1/L/E_CRIT_P18)*2*U_T*sqrt(IC_F))}
-+ g_mF    = {W/L*I_0_P18*IC_F*(1+(VS-VD)/V_A)/(N_s_P18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
-+ g_mR    = {W/L*I_0_P18*IC_R*(1+(VD-VS)/V_A)/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_F/IC_CRIT))+1))}
++ I_DSF   = {-W/L*I_0_P18*(IC_F)*(1+(VS-VD)/V_A)/(1+(Theta_P18+1/L/E_CRIT_P18)*2*U_T*sqrt(IC_F))}
++ I_DSR   = {-W/L*I_0_P18*(IC_R)*(1+(VD-VS)/V_A)/(1+(Theta_P18+1/L/E_CRIT_P18)*2*U_T*sqrt(IC_R))}
++ I_DS    = {I_DSF-I_DSR}
++ g_mF    = {-I_DSF/(N_s_P18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
++ g_mR    = {-I_DSR/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_R/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
 + g_o     = {-I_DS/(V_A+VD-VS) + u_0_P18*C_OX_P18*W*L/(1+Theta_P18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
 + g_b     = {(N_s_P18-1)*g_m}
@@ -340,8 +347,9 @@ M1 drain gate source bulk CMOS18PD
 + c_dg    = {CGSO_P18*W}
 + c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
 + c_db    = {CJB0_P18*W*LDS_P18}
-+ IC      = {-ID*L/W/I_0_P18}
-+ V_GS    = {-2*N_s_N18*U_T*ln(exp(sqrt(IC*(1+IC/IC_CRIT/4)))-1)+Vth_P18}
++ IC_i    = {-ID*L/W/I_0_P18} ; Correction for initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ V_GS    = {-2*N_s_P18*U_T*ln(exp(sqrt(IC))-1)+Vth_P18}
 .ends
 
 .subckt BJTV4 collector base emitter bulk IC={IC} VCE={VCE}
@@ -461,7 +469,8 @@ I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
 + c_db    = {CJB0_N18*W*LDS_N18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
-+ IC      = {ID*L/W/I_0_N18}
++ IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
 + f_ell   = {g_m^2*R_N*KF_N18/(4*k*T*W*L*C_OX_N18)}
 .ends
 
@@ -483,7 +492,8 @@ I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
 + c_db    = {CJB0_P18*W*LDS_P18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
-+ IC      = {ID*L/W/I_0_P18}
++ IC_i    = {-ID*L/W/I_0_P18} ; Initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
 + f_ell   = {g_m^2*R_N*KF_P18/(4*k*T*W*L*C_OX_P18)}
 .ends
 
@@ -561,8 +571,10 @@ M1 drain gate source bulk CMOS18PN
 + c_gb      = {CGBO_N18*2*L_N + (N_s_N18-1)/N_s_N18*C_OX_N18*W_N*L_N/3 + CGBO_P18*2*L_P + (N_s_P18-1)/N_s_P18*C_OX_P18*W_P*L_P/3}
 + c_db      = {CJB0_N18*W_N*LDS_N18 + CJB0_P18*W_P*LDS_P18}
 + c_sb      = {CJB0_N18*W_N*LDS_N18 + CJB0_P18*W_P*LDS_P18}
-+ IC_N      = {ID_N*L_N/W_N/I_0_N18}
-+ IC_P      = {-ID_P*L_P/W_P/I_0_P18}
++ IC_iN     = {ID_N*L/W/I_0_N18} ; Initial estimate of inversion coefficient
++ IC_N      = {IC_iN*(1+IC_iN/4/IC_CRIT_N)} ; Corrected inversion coefficient
++ IC_iP     = {-ID_P*L/W/I_0_P18} ; Initial estimate of inversion coefficient
++ IC_P      = {IC_iP*(1+IC_iP/4/IC_CRIT_P)} ; Corrected inversion coefficient
 + c_iss     = {c_gs+c_dg+c_gb}
 + f_T_PN    = {g_m/2/pi/c_iss}
 .ends
