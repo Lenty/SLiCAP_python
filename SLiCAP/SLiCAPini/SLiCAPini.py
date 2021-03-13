@@ -351,7 +351,7 @@ class settings(object):
         - False : use Sympy for solving matrix equations
         """
 
-        self.maxRecSubst        = 10
+        self.maxRecSubst        = 12
         """
         Maximum number (*int*) of recursive substitutions in equations.
         Defaults to 10.
