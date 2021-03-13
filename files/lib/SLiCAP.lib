@@ -151,7 +151,7 @@ M1 drain gate source bulk CMOS18N
 .subckt CMOS18N_V drain gate source bulk W={W} L={L} VD={VD} VG={VG} VS={VS}
 * EKV model of transistor without bulk resistances
 * Voltage dependency of bulk capacitances not modeled
-* Operating voltages with positive respect to bulk (PMOS equal to NMOS)
+* Operating voltages with respect to the bulk
 * Assumes forward operation: VDS > 0
 * 
 M1 drain gate source bulk CMOS18N_V
@@ -189,7 +189,7 @@ M1 drain gate source bulk CMOS18N_V
 + g_mF    = {I_DSF/(N_s_N18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
 + g_mR    = {I_DSR/(N_s_N18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_R/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
-+ g_o     = {I_DS/(V_A+VD-VS) + u_0_N18*C_OX_N18*W*L/(1+Theta_N18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
++ g_o     = {I_DSF/(V_A+VD-VS)+g_mR}
 + g_b     = {(N_s_N18-1)*g_m}
 + c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX_N18*W*L} 
 + c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX_N18*W*L}
@@ -271,7 +271,7 @@ M1 drain gate source bulk CMOS18P
 .subckt CMOS18P_V drain gate source bulk W={W} L={L} VD={-VD} VG={-VG} VS={-VS}
 * EKV model of transistor without bulk resistances
 * Voltage dependency of bulk capacitances not modeled
-* Operating voltages with positive respect to bulk (PMOS equal to NMOS)
+* Operating voltages with respect to the bulk
 * Assumes forward operation: VDS < 0
 * 
 M1 drain gate source bulk CMOS18P_V
@@ -308,7 +308,7 @@ M1 drain gate source bulk CMOS18P_V
 + g_mF    = {-I_DSF/(N_s_P18*U_T*sqrt(IC_F*(1+IC_F/IC_CRIT)+0.5*sqrt(IC_F*(1+IC_F/IC_CRIT))+1))}
 + g_mR    = {-I_DSR/(N_s_P18*U_T*sqrt(IC_R*(1+IC_R/IC_CRIT)+0.5*sqrt(IC_R*(1+IC_R/IC_CRIT))+1))}
 + g_m     = {g_mF-g_mR}
-+ g_o     = {-I_DS/(V_A+VD-VS) + u_0_P18*C_OX_P18*W*L/(1+Theta_P18*2*U_T*(sqrt(IC_F)))*U_T*2*sqrt(IC_R)}
++ g_o     = {-I_DSF/(V_A+VS-VD) + g_mR}
 + g_b     = {(N_s_P18-1)*g_m}
 + c_gsi   = {2/3*(1-(x_r^2+x_r+0.5*x_f)/(x_f+x_r)^2)*C_OX_P18*W*L} 
 + c_dgi   = {2/3*(1-(x_f^2+x_f+0.5*x_r)/(x_f+x_r)^2)*C_OX_P18*W*L}

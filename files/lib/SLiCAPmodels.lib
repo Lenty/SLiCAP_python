@@ -23,10 +23,10 @@
 
 .param
 + Vth_N18     = 0.36  ; threshold voltage [V]
-+ Theta_N18   = 0.18  ; vertical field mobility reduction coefficient [1/V]
++ Theta_N18   = 0.28  ; vertical field mobility reduction coefficient [1/V]
 + E_CRIT_N18  = 12M   ; lateral field strength for velocity saturation [V/m]
 + N_s_N18     = 1.35  ; substrate factor [-]
-+ u_0_N18     = 33m   ; zero field carrier mobility [m^2/V/s]
++ u_0_N18     = 42m   ; zero field carrier mobility [m^2/V/s]
 + CGBO_N18    = 1p    ; gate-bulk overlap capacitance [F/m]
 + CGSO_N18    = 300p  ; gate-source and gate-drain overlap capacitance [F/m]
 + CJB0_N18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
