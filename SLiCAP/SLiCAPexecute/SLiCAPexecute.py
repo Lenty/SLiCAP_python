@@ -435,13 +435,19 @@ def doDataType(instObj):
             M = instObj.M.subs(ini.Laplace, 0)
             numer2 = (maxNumer(M, detP, detN, srcP, srcN, numeric = instObj.numeric))**2
             denom2 = (maxDet(M, numeric = instObj.numeric))**2
-            gain2 = simplify(numer2/denom2, method = 'fraction')
+            try:
+                gain2 = sp.simplify(numer2/denom2)
+            except:
+                gain2 = simplify(numer2/denom2, method = 'fraction')
             ivar = 0
         for key in list(ovarTerms.keys()):
             ovar += ovarTerms[key]
             svarTerms[key] = instObj.circuit.elements[key].params['dcvar']
             if instObj.source != None:
-                ivarTerms[key] = simplify(ovarTerms[key]/gain2, method = 'fraction')
+                try:
+                    ivarTerms[key] = sp.simplify(ovarTerms[key]/gain2)
+                except:
+                    ivarTerms[key] = simplify(ovarTerms[key]/gain2, method = 'fraction')
                 ivar += ivarTerms[key]
             if instObj.step:
                 if key in alreadyKeys:
@@ -506,7 +512,7 @@ def doDenom(instObj):
         (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
         (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-        numer = numer * -lgNumer
+        numer = numer * - lgNumer
         denom = denom * lgDenom + numer
     elif instObj.gainType == 'loopgain':
         (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
@@ -806,8 +812,8 @@ def doNumer(instObj):
         if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
             (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
             numer *= lgNumer
-        elif instObj.gainType == 'servo':
-            numer *= -lgNumer
+        if instObj.gainType == 'servo':
+            numer = -numer
         return sp.collect(numer, ini.Laplace)
 
 def doZeros(instObj):
@@ -964,10 +970,13 @@ def doDC(instObj, detP, detN):
     numer = maxCramerNumer(M, Iv, detP, detN, numeric = instObj.numeric)
     denom = maxDet(M, numeric = instObj.numeric)
     result = numer/denom
-    if ini.factor == True:
+    if ini.simplify == True:
+        try:
+            return sp.simplify(result)
+        except:
+            return simplify(result, method = 'fraction')
+    elif ini.factor == True:
         return simplify(result, method = 'factor')
-    elif ini.simplify == True:
-        return simplify(result, method = 'fraction')
     else:
         return result
 
@@ -985,7 +994,12 @@ def doSolveDC(instObj):
     """
     Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'dc', numeric = instObj.numeric)
     M = instObj.M.subs(ini.Laplace, 0)
-    return maxSolve(M, Iv, numeric = instObj.numeric)
+    result = maxSolve(M, Iv, numeric = instObj.numeric)
+    try:
+        result = sp.simplify(result)
+    except:
+        result = simplify(result, method = 'fraction')
+    return result
 
 def doDCvar(instObj, detP, detN):
     """
@@ -1060,7 +1074,10 @@ def doDCvar(instObj, detP, detN):
                 value = instObj.circuit.elements[src].params['dcvar']
             # Select the coefficient for each variance source from allTerms
             numer2 = simplify(sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]**2, method = 'factor')
-            ovarTerms[src] = value*simplify(numer2/denom2, method = 'fraction')
+            try:
+                ovarTerms[src] = value*sp.simplify(numer2/denom2)
+            except:
+                ovarTerms[src] = value*simplify(numer2/denom2, method = 'fraction')
     return (ovarTerms, dcSolution)
 
 if __name__ == '__main__':
