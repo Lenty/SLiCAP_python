@@ -141,8 +141,8 @@ M1 drain gate source bulk CMOS18N
 + c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
 + c_db    = {CJB0_N18*W*LDS_N18}
 + c_sb    = {CJB0_N18*W*LDS_N18}
-+ IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
-+ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ IC_i    = {ID*L/W/I_0_N18} ; Initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
 + V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC))-1)+Vth_N18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
@@ -228,8 +228,8 @@ M1 drain1 drain2 gate1 gate2 CMOS18ND
 + c_dg    = {CGSO_N18*W}
 + c_gb    = {CGBO_N18*2*L+(N_s_N18-1)/N_s_N18*C_OX_N18*W*L/3}
 + c_db    = {CJB0_N18*W*LDS_N18}
-+ IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
-+ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ IC_i    = {ID*L/W/I_0_N18} ; Initial estimate of inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
 + V_GS    = {2*N_s_N18*U_T*ln(exp(sqrt(IC))-1)+Vth_N18}
 .ends
 
@@ -262,7 +262,7 @@ M1 drain gate source bulk CMOS18P
 + c_db    = {CJB0_P18*W*LDS_P18}
 + c_sb    = {CJB0_P18*W*LDS_P18}
 + IC_i    = {-ID*L/W/I_0_P18} ; Correction for initial estimate of inversion coefficient
-+ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
 + V_GS    = {-2*N_s_P18*U_T*ln(exp(sqrt(IC))-1)+Vth_P18}
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
@@ -273,7 +273,7 @@ M1 drain gate source bulk CMOS18P
 * Voltage dependency of bulk capacitances not modeled
 * Operating voltages with respect to the bulk
 * Assumes forward operation: VDS < 0
-* 
+* All voltages should have negavtive values
 M1 drain gate source bulk CMOS18P_V
 .model CMOS18P_V M
 + gm      = {g_m} 
@@ -328,6 +328,7 @@ M1 drain gate source bulk CMOS18P_V
 * This means: no net current to bulk!
 * ID is operating current of single transistor: diff-pair
 * tail current is 2*ID
+* ID should be negative
 M1 drain gate source bulk CMOS18PD
 
 .model CMOS18PD MD
@@ -348,7 +349,7 @@ M1 drain gate source bulk CMOS18PD
 + c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
 + c_db    = {CJB0_P18*W*LDS_P18}
 + IC_i    = {-ID*L/W/I_0_P18} ; Correction for initial estimate of inversion coefficient
-+ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
 + V_GS    = {-2*N_s_P18*U_T*ln(exp(sqrt(IC))-1)+Vth_P18}
 .ends
 
@@ -454,7 +455,7 @@ Q1 collector1 collector2 base1 base2 BJTD
 .subckt NM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * intrinsic noise sources, gate resistance should be added externally
 * CMOS18 N device: copy and modify this model for other devices
-I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f)} ; channel noise current
+I1 0 1 I value=0 noise={4*k*T/R_N*(1+(f_ell/f)^AF_N18)} ; channel noise current
 H1 ext int 1 10 {1/g_m}                        ; equivalent-input voltage noise
 F1 ext comm 10 0 {s/2/pi/f_T}                  ; gate-induced noise
 I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
@@ -470,22 +471,23 @@ I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
-+ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
 + f_ell   = {g_m^2*R_N*KF_N18/(4*k*T*W*L*C_OX_N18)}
 .ends
 
 .subckt PM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
 * intrinsic noise sources, gate resistance should be added externally
 * CMOS18 P device: copy and modify this model for other devices
-I1 0 1 I value=0 noise={4*k*T/R_N*(1+f_ell/f)} ; channel noise current
+* IG and ID should be negative
+I1 0 1 I value=0 noise={4*k*T/R_N*(1+(f_ell/f)^AF_P18)} ; channel noise current
 H1 ext int 1 10 {1/g_m}                        ; equivalent-input voltage noise
 F1 ext comm 10 0 {s/2/pi/f_T}                  ; gate-induced input current noise
-I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
+I2 ext comm I value=0 noise={-2*q*IG}          ; gate shot noise
 .param
 * device equations MKV model saturated region
 + R_N     = {(1+IC)/(1/2 + 2/3*IC)/N_s_P18/g_m}
 + IC_CRIT = {1/((4*N_s_P18*U_T)*(Theta_P18+1/L/E_CRIT_P18))^2}
-+ g_m     = {ID/(N_s_P18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
++ g_m     = {-ID/(N_s_P18*U_T*sqrt(IC*(1+IC/IC_CRIT)+0.5*sqrt(IC*(1+IC/IC_CRIT))+1))}
 + c_gs    = {2/3*W*L*C_OX_P18 + CGSO_P18*W} 
 + c_dg    = {CGSO_P18*W}
 + c_gb    = {CGBO_P18*2*L+(N_s_P18-1)/N_s_P18*C_OX_P18*W*L/3}
@@ -493,7 +495,7 @@ I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
 + f_T     = {g_m/2/pi/c_iss}
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC_i    = {-ID*L/W/I_0_P18} ; Initial estimate of inversion coefficient
-+ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Corrected inversion coefficient
++ IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
 + f_ell   = {g_m^2*R_N*KF_P18/(4*k*T*W*L*C_OX_P18)}
 .ends
 
@@ -544,7 +546,7 @@ I2 ext comm I value=0 noise={2*q*IC*(1+f_ell/f)/beta_DC} ; base shot noise
 * EKV model of push-pull-stage (complementary-parallel-stage) without bulk resistances
 * Voltage dependency of bulk capacitances not modeled
 * Both transistors operating in the forward saturation region
-* 
+* ID_P should be negative
 M1 drain gate source bulk CMOS18PN
 .model CMOS18PN M
 + gm      = {g_m} 
@@ -572,9 +574,9 @@ M1 drain gate source bulk CMOS18PN
 + c_db      = {CJB0_N18*W_N*LDS_N18 + CJB0_P18*W_P*LDS_P18}
 + c_sb      = {CJB0_N18*W_N*LDS_N18 + CJB0_P18*W_P*LDS_P18}
 + IC_iN     = {ID_N*L/W/I_0_N18} ; Initial estimate of inversion coefficient
-+ IC_N      = {IC_iN*(1+IC_iN/4/IC_CRIT_N)} ; Corrected inversion coefficient
++ IC_N      = {IC_iN*(1+IC_iN/4/IC_CRIT_N)} ; Inversion coefficient corrected for short-channel effects
 + IC_iP     = {-ID_P*L/W/I_0_P18} ; Initial estimate of inversion coefficient
-+ IC_P      = {IC_iP*(1+IC_iP/4/IC_CRIT_P)} ; Corrected inversion coefficient
++ IC_P      = {IC_iP*(1+IC_iP/4/IC_CRIT_P)} ; Inversion coefficient corrected for short-channel effects
 + c_iss     = {c_gs+c_dg+c_gb}
 + f_T_PN    = {g_m/2/pi/c_iss}
 .ends
