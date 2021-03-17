@@ -839,8 +839,10 @@ def phaseFunc_f(LaplaceExpr, f):
     if ini.frequency in list(data.atoms(sp.Symbol)):
         func = sp.lambdify(ini.frequency, sp.N(data))
         phase = np.angle(func(f))
-    else:
-        phase = [np.angle(data) for i in range(len(f))]
+    elif data >= 0:
+        phase = [0 for i in range(len(f))]
+    elif data < 0:
+        phase = [np.pi for i in range(len(f))]
     try:
         phase = np.unwrap(phase)
     except:
