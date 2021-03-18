@@ -1540,11 +1540,11 @@ def listPZ(pzResult):
                 print("--  --------------  --------------  --------------  --------")
                 for i in range(len(poles)):
                     realPart = poles[i].real/2/np.pi
-                    imagPart = poles[i].real/2/np.pi
+                    imagPart = poles[i].imag/2/np.pi
                     frequency = np.sqrt(realPart**2 + imagPart**2)
         
                     if imagPart != 0:
-                        Q = np.abs(realPart/frequency)
+                        Q = np.abs(frequency/2/realPart)
                         print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
                     else:
                         print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, imagPart, frequency))  
@@ -1558,11 +1558,11 @@ def listPZ(pzResult):
                 print("--  --------------  --------------  --------------  --------")
                 for i in range(len(poles)):
                     realPart = zeros[i].real/2/np.pi
-                    imagPart = zeros[i].real/2/np.pi
+                    imagPart = zeros[i].imag/2/np.pi
                     frequency = np.sqrt(realPart**2 + imagPart**2)
         
                     if imagPart != 0:
-                        Q = np.abs(realPart/frequency)
+                        Q = np.abs(frequency/2/realPart)
                         print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
                     else:
                         print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, imagPart, frequency))  
