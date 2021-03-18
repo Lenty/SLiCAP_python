@@ -805,7 +805,7 @@ def dBmagFunc_f(LaplaceExpr, f):
         func = sp.lambdify(ini.frequency, 20*sp.log(sp.Abs(sp.N(data)), 10))
         return func(f)
     else:
-        return([20*np.log10(abs(data)) for i in range(len(f))])
+        return([20*sp.log(sp.Abs(data))/sp.log(10) for i in range(len(f))])
 
 def phaseFunc_f(LaplaceExpr, f):
     """
