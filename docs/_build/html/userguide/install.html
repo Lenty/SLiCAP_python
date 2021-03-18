@@ -347,9 +347,9 @@ You can define other global parameters by adding SPICE .param declarations in th
 .param
 + Vth_N18     = 0.36  ; threshold voltage [V]
 + Theta_N18   = 0.28  ; vertical field mobility reduction coefficient [1/V]
-+ E_CRIT_N18  = 5.6M  ; lateral field strength for velocity saturation [V/m]
++ E_CRIT_N18  = 5.6M   ; lateral field strength for velocity saturation [V/m]
 + N_s_N18     = 1.35  ; substrate factor [-]
-+ u_0_N18     = 42.2m ; zero field carrier mobility [m^2/V/s]
++ u_0_N18     = 42m   ; zero field carrier mobility [m^2/V/s]
 + CGBO_N18    = 1p    ; gate-bulk overlap capacitance [F/m]
 + CGSO_N18    = 300p  ; gate-source and gate-drain overlap capacitance [F/m]
 + CJB0_N18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
@@ -357,6 +357,7 @@ You can define other global parameters by adding SPICE .param declarations in th
 + TOX_N18     = 4.1n  ; oxide thickness [m]
 + VAL_N18     = 40M   ; Early voltage per unit of length [V/m]
 + KF_N18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
++ AF_N18      = 0.85  ; flicker noise exponent [-]
 + C_OX_N18    = {epsilon_0 * epsilon_SiO2 / TOX_N18}; oxide capacitance per unit of area [F/m^2]
 + I_0_N18     = {2*N_s_N18*u_0_N18*C_OX_N18*U_T^2}  ; technology current [A]
 
@@ -373,8 +374,7 @@ You can define other global parameters by adding SPICE .param declarations in th
 + TOX_P18     = 4.1n  ; oxide thickness [m]
 + VAL_P18     = 40M   ; Early voltage per unit of length [V/m]
 + KF_P18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
-+ C_OX_P18    = {epsilon_0 * epsilon_SiO2 / TOX_P18}; oxide capacitance per unit of area [F/m^2]
-+ I_0_P18     = {2*N_s_P18*u_0_P18*C_OX_P18*U_T^2} ; technology current [A]
++ AF_P18      = 0.85  ; flicker noise exponent [-]
 </pre></div>
 </td></tr></table></div>
 </div>

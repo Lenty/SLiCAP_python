@@ -1514,6 +1514,64 @@ class instruction(object):
             else:
                 # Execute the instruction
                 return doInstruction(r)
+            
+def listPZ(pzResult):
+    """
+    Prints lists with poles and zeros.
+    
+    :param pzResult: SLiCAP execution results of pole-zero analysis.
+    :type pzResult: SLiCAPprotos.allResults
+    
+    :return: None
+    :rtype: NoneType
+    """
+    if pzResult.step == False:
+        # Parameter stepping is not supported
+        try:
+            DCvalue = sp.simplify(pzResult.DCvalue)
+            print('DC value of {:}: {:8.2e}'.format(pzResult.gainType, DCvalue))
+        except:
+            pass
+        if pzResult.dataType == 'poles' or pzResult.dataType == 'pz':
+            if len(pzResult.poles) != 0:
+                print('\nPoles of ' + pzResult.gainType + ':\n')
+                poles = pzResult.poles
+                print(" {:2} {:15} {:15} {:15} {:9}".format('n', 'Real part [Hz]', 'Imag part [Hz]', 'Frequency [Hz]', '   Q [-]'))
+                print("--  --------------  --------------  --------------  --------")
+                for i in range(len(poles)):
+                    realPart = poles[i].real/2/np.pi
+                    imagPart = poles[i].real/2/np.pi
+                    frequency = np.sqrt(realPart**2 + imagPart**2)
+        
+                    if imagPart != 0:
+                        Q = np.abs(realPart/frequency)
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
+                    else:
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, imagPart, frequency))  
+            else:
+                print('\nFound no poles.')
+        if pzResult.dataType == 'zeros' or pzResult.dataType == 'pz':
+            if len(pzResult.zeros) != 0:
+                print('\nZeros of ' + pzResult.gainType + ':\n')
+                zeros = pzResult.zeros
+                print(" {:2} {:15} {:15} {:15} {:9}".format('n', 'Real part [Hz]', 'Imag part [Hz]', 'Frequency [Hz]', '   Q [-]'))
+                print("--  --------------  --------------  --------------  --------")
+                for i in range(len(poles)):
+                    realPart = zeros[i].real/2/np.pi
+                    imagPart = zeros[i].real/2/np.pi
+                    frequency = np.sqrt(realPart**2 + imagPart**2)
+        
+                    if imagPart != 0:
+                        Q = np.abs(realPart/frequency)
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
+                    else:
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, imagPart, frequency))  
+            else:
+                print('\nFound no zeros.') 
+    else:
+        print('\nlistPZ() does not support parameter stepping.')
+    print('\n')
+    return
 
 if __name__ == '__main__':
     i = instruction()
