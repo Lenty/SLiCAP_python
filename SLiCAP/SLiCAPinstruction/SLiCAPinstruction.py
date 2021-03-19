@@ -39,7 +39,7 @@ class instruction(object):
         See **instruction.setDataType(<dataType>)** for specification of *instruction.dataType*.
         """
 
-        self.step = None
+        self.step = False
         """
         Setting for parameter stepping.
 
@@ -1556,7 +1556,7 @@ def listPZ(pzResult):
                 zeros = pzResult.zeros
                 print(" {:2} {:15} {:15} {:15} {:9}".format('n', 'Real part [Hz]', 'Imag part [Hz]', 'Frequency [Hz]', '   Q [-]'))
                 print("--  --------------  --------------  --------------  --------")
-                for i in range(len(poles)):
+                for i in range(len(zeros)):
                     realPart = zeros[i].real/2/np.pi
                     imagPart = zeros[i].imag/2/np.pi
                     frequency = np.sqrt(realPart**2 + imagPart**2)

@@ -423,15 +423,12 @@ def findServoBandwidth(loopgainRational):
     """
     freqsOrders     = np.zeros((numCornerFreqs, 6))
     result = {}
-    try:
-        result['mbv'] = sp.limit(loopgainRational, ini.Laplace, 0)
-    except:
-        result['mbv'] = loopgainRational.subs(ini.Laplace, 0)
-    result['mbf'] = None
-    result['lpf'] = None
-    result['lpo'] = None
+    result['mbv'] = startValue # Needs improvement
+    result['mbf'] = 0          # Needs improvement
+    result['lpf'] = 0
+    result['lpo'] = 0
     result['hpf'] = None
-    result['hpo'] = None
+    result['hpo'] = 0
     for i in range(numZeros):
         freqsOrders[i, 0] = np.abs(zeros[i])
         freqsOrders[i, 1] = 1
@@ -442,7 +439,7 @@ def findServoBandwidth(loopgainRational):
     freqsOrders = freqsOrders[freqsOrders[:,0].argsort()]
     for i in range(numCornerFreqs):
         if i == 0:
-            freqsOrders[i, 2] = freqsOrders[i, 1] 
+            freqsOrders[i, 2] = startOrder
             if freqsOrders[i, 0] == 0:
                 freqsOrders[i, 3] = startValue
                 freqsOrders[i, 4] = startValue
@@ -470,6 +467,8 @@ def findServoBandwidth(loopgainRational):
         if freqsOrders[i, 4] > result['mbv'] and freqsOrders[i, 0] != 0:
             result['mbv'] = freqsOrders[i, 4]
             result['mbf'] = freqsOrders[i, 0]
+    if result['mbf'] == 0:
+        result['mbv'] = np.abs(loopgainRational.subs(ini.Laplace, 0))
     if ini.Hz:
         try:
             result['hpf'] = result['hpf']/np.pi/2
@@ -722,7 +721,7 @@ def phaseMargin(LaplaceExpr):
         guess = findServoBandwidth(expr)['lpf']
         try:
             #freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
-            freq = fsolve(func, guess)
+            freq = fsolve(func, guess)[0]
             mrgn = phaseFunc_f(expr, freq)
         except:
             print("Error: could not determine unity-gain frequency for phase margin.")
@@ -1053,6 +1052,9 @@ if __name__ == "__main__":
     print(sp.N(a.subs(ini.frequency, 100)))
     loopgain_numer   = sp.sympify('-s*(1 + s/20)*(1 + s/40)/2')
     loopgain_denom   = sp.sympify('(s + 1)^2*(1 + s/4e3)*(1 + s/50e3)*(1 + s/1e6)')
+    
+    #loopgain_numer   = sp.sympify('-1e6')
+    #loopgain_denom   = sp.sympify('(s)')
     loopgain         = loopgain_numer/loopgain_denom
     servo_info       = findServoBandwidth(loopgain)
     print(servo_info)

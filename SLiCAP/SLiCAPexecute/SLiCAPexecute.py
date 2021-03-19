@@ -87,7 +87,7 @@ def doInstruction(instObj):
                         instObj.DCvalue.append(maxLimit(numers[i]/denoms[i], str(ini.Laplace), '0', 'plus'))
                     except:
                         # If not just substitute s=0 with Sympy
-                        instObj.DCvalue.append(sp.N(sp.Subs(numers[i]/denoms[i], ini.Laplace, 0)))
+                        instObj.DCvalue.append((numers[i]/denoms[i]).subs(ini.Laplace, 0))
             elif instObj.dataType == 'step':
                 denom = doDenom(instObj)
                 denoms = stepFunctions(instObj, denom)
@@ -860,7 +860,7 @@ def doPZ(instObj):
         DCvalue = maxLimit(numer/denom, str(ini.Laplace), '0', 'plus')
     except:
         # If not just substitute s=0
-        DCvalue = sp.Subs(numer/denom, ini.Laplace, 0)
+        DCvalue = (numer/denom).subs(ini.Laplace, 0)
     return(poles, zeros, DCvalue)
 
 def doLaplace(instObj):
