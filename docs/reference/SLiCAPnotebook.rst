@@ -9,5 +9,5 @@ It sets ini.notebook, which provides markdown output for rendering LaTeX in Jupy
 .. literalinclude:: ../../SLiCAP/SLiCAPnotebook/SLiCAPnotebook.py
     :language: python
     :linenos:
-    :lines: 1-48
+    :lines: 1-44
     :lineno-start: 1

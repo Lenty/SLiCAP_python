@@ -1026,9 +1026,63 @@ def doCDS(noiseResult, tau):
     """
     return noiseResult*((2*sp.sin(sp.pi*ini.frequency*tau)))**2
 
+def routh(charPoly, eps):
+    """
+    Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).
+    :param charPoly: Expression that can be written as a polynomial of the Laplace variable (ini.Laplace).
+    :type charPoly:  sympy.Expr
+    :param eps:      Symbolic variable used to indicate marginal stability. Use a symbol that is not present in *charPoly*.
+    :type eps:       sympy.Symbol
+    
+    :return: Routh array
+    :rtype:  sympy.Matrix
+    
+    :Example:
+
+    >>> # ini.Laplace = sp.Symbol('s')
+    >>> s, eps = sp.symbols('s, epsilon')
+    >>> charPoly = s**4+2*s**3+(3+k)*s**2+(1+k)*s+(1+k)
+    >>> M = routh(charPoly, eps)
+    >>> print(M.col(0)) # Number of roots in the right half plane is equal to
+    >>>                 # the number of sign changes in the first column of the
+    >>>                 # Rooth array
+    Matrix([[1], [2], [k/2 + 5/2], [(k**2 + 2*k + 1)/(k + 5)], [k + 1]])
+    """
+    coeffs = sp.Poly(charPoly, ini.Laplace).all_coeffs()
+    orders = len(coeffs)
+    dim = int(np.ceil(orders/2))
+    M  = [[0 for i in range(dim)] for i in range(orders)]
+    M = sp.Matrix(M)
+    # Fill the first two rows of the matrix
+    for i in range(dim):
+        # First row with even orders
+        M[0,i] = coeffs[2*i]
+        # Second row with odd orders 
+        # Zero at the last position if the highest order is even
+        if 2*i+1 < orders:
+            M[1,i] = coeffs[2*i+1]
+        else:
+            M[1,i] = 0
+    # Calculate all other coefficients of the matrix
+    for i in range(2, orders):
+        #print(M.row(i-1))
+        if M.row(i-1) == sp.Matrix(sp.zeros(1, dim)):
+            # Calculate the auxiliary polynomial
+            for j in range(dim):
+                M[i-1, j] = M[i-2,j]*(orders-i+1-2*j)
+        for j in range(dim):
+            if M[i-1,0] == 0:
+                M[i-1, 0] = eps
+            if j + 1 >= dim:
+                subMatrix = sp.Matrix([[M[i-2,0], 0],[M[i-1, 0], 0]])
+            else:
+                subMatrix = sp.Matrix([[M[i-2,0], M[i-2, j+1]],[M[i-1, 0], M[i-1, j+1]]])
+            M[i,j] = sp.simplify(-1/M[i-1,0]*subMatrix.det())
+    return M
+
 if __name__ == "__main__":
     s = ini.Laplace
-
+    """
     MNA = matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
                   [0, 1.98e-11*s + 0.0001, -1.2e-11*s, -1.8e-12*s - 1.0e-5, 0, 0, 0, 0, 0],
                   [0, -1.2e-11*s, 2.8e-11*s + 0.001, 0, -1.0e-11*s - 0.001, 0, 0, -1, 0],
@@ -1058,3 +1112,15 @@ if __name__ == "__main__":
     loopgain         = loopgain_numer/loopgain_denom
     servo_info       = findServoBandwidth(loopgain)
     print(servo_info)
+    """
+    
+    k = sp.Symbol('k')
+    charPoly = s**4+2*s**3+(3+k)*s**2+(1+k)*s+(1+k)
+    #charPoly = 10 + 11*s +4*s**2 + 2*s**3 + 2*s**4 + s**5
+    #charPoly = s**4-1
+    #charPoly = s**5+s**4+2*s**3+2*s**2+s+1
+    #roots = numRoots(charPoly, ini.Laplace)
+    eps = sp.Symbol('epsilon')
+    M= routh(charPoly, eps)
+    #print(roots)
+    print(M)
