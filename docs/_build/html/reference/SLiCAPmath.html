@@ -893,20 +893,24 @@ sp.I*ini.frequency.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.routh">
 <code class="descname">routh</code><span class="sig-paren">(</span><em>charPoly</em>, <em>eps</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.routh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).
-:param charPoly: Expression that can be written as a polynomial of the Laplace variable (ini.Laplace).
-:type charPoly:  sympy.Expr
-:param eps:      Symbolic variable used to indicate marginal stability. Use a symbol that is not present in <em>charPoly</em>.
-:type eps:       sympy.Symbol</p>
+<dd><p>Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Routh array</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>charPoly</strong> (<em>sympy.Expr</em>) – Expression that can be written as a polynomial of the Laplace variable (ini.Laplace).</li>
+<li><strong>eps</strong> (<em>sympy.Symbol</em>) – Symbolic variable used to indicate marginal stability. Use a symbol that is not present in <em>charPoly</em>.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">sympy.Matrix</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Routh array</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">sympy.Matrix</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>

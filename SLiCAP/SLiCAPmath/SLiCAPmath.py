@@ -1029,6 +1029,7 @@ def doCDS(noiseResult, tau):
 def routh(charPoly, eps):
     """
     Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).
+    
     :param charPoly: Expression that can be written as a polynomial of the Laplace variable (ini.Laplace).
     :type charPoly:  sympy.Expr
     :param eps:      Symbolic variable used to indicate marginal stability. Use a symbol that is not present in *charPoly*.
