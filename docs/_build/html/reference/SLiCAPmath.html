@@ -894,21 +894,19 @@ sp.I*ini.frequency.</p>
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.routh">
 <code class="descname">routh</code><span class="sig-paren">(</span><em>charPoly</em>, <em>eps</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.routh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).
-:param charPoly: Expression that can be written as a polynomial of the</p>
-<blockquote>
-<div>Laplace variable (ini.Laplace).</div></blockquote>
+:param charPoly: Expression that can be written as a polynomial of the Laplace variable (ini.Laplace).
+:type charPoly:  sympy.Expr
+:param eps:      Symbolic variable used to indicate marginal stability. Use a symbol that is not present in <em>charPoly</em>.
+:type eps:       sympy.Symbol</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>eps</strong> (<em>sympy.Symbol</em>) – Symbolic variable used to indicate marginal stability.
-Use a symbol that is not present in <em>charPoly</em>.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Routh array</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Routh array</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">sympy.Matrix</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Matrix</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -917,8 +915,8 @@ Use a symbol that is not present in <em>charPoly</em>.</td>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">charPoly</span> <span class="o">=</span> <span class="n">s</span><span class="o">**</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">k</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">routh</span><span class="p">(</span><span class="n">charPoly</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># Number of roots in the right half plane is equal to</span>
-<span class="go">                    # the number of sign changes in the first column of the</span>
-<span class="go">                    # Rooth array</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="c1"># the number of sign changes in the first column of the</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="c1"># Routh array</span>
 <span class="go">Matrix([[1], [2], [k/2 + 5/2], [(k**2 + 2*k + 1)/(k + 5)], [k + 1]])</span>
 </pre></div>
 </div>

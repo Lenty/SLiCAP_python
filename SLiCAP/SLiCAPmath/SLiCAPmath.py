@@ -1045,7 +1045,7 @@ def routh(charPoly, eps):
     >>> M = routh(charPoly, eps)
     >>> print(M.col(0)) # Number of roots in the right half plane is equal to
     >>>                 # the number of sign changes in the first column of the
-    >>>                 # Rooth array
+    >>>                 # Routh array
     Matrix([[1], [2], [k/2 + 5/2], [(k**2 + 2*k + 1)/(k + 5)], [k + 1]])
     """
     coeffs = sp.Poly(charPoly, ini.Laplace).all_coeffs()
