@@ -12,6 +12,7 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
 .. toctree::
 
    install
+   project
    circuit
    parameters
    parameterStepping

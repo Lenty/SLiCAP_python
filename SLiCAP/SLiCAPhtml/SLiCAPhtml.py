@@ -1032,6 +1032,19 @@ def links2html():
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return
 
+def htmlLink(address, text):
+    """
+    Returns the html code for placing a link on an html page with *text2html()*.
+    
+    :param address: link address
+    :type address: str
+    
+    :return: html code
+    :rtype: str
+    """
+    html = '<a href="' + address + '">' + text + '</a>\n'
+    return html
+
 if __name__ == '__main__':
     ini.projectPath = ini.installPath + 'examples/CSstage/'
     ini.htmlPath    = ini.projectPath + 'html/'

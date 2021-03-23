@@ -186,8 +186,6 @@ class settings(object):
        - defaultMarkers    : list with matplotlib markers
        - tableFileType     : file type for saving traces as tables
        - figureFileType    : graphic file type for saving plots
-       - axisXscale        : default x-axis scale type
-       - axisYscale        : default y-axis scale type
        - legendLoc         : default plot legend location
        - plotFontSize      : default plot font size
 
@@ -397,7 +395,7 @@ class settings(object):
         Defaults to 7.
         """
 
-        self.defaultColors      = ('r','b','g','c','m','y','k')
+        self.defaultColors      = ['r','b','g','c','m','y','k']
         """
         (*tuple*) with matplotlib color names (*str*) for traces in plots.
         Defaults to ('r','b','g','c','m','y','k')
@@ -431,18 +429,6 @@ class settings(object):
         self.figureFileType     = 'svg'
         """
         File type (*str*) for saving plots. Defaults to 'svg'.
-        """
-
-        self.axisXscale         = 'lin'
-        """
-        Default x axis type (*str*) for plots. Can be 'lin' or 'log'.
-        Defaults to 'lin'.
-        """
-
-        self.axisYscale         = 'lin'
-        """
-        Default y axis type (*str*) for plots.  Can be 'lin' or 'log'.
-        Defaults to 'lin'.
         """
 
         self.legendLoc          = 'best'
@@ -534,7 +520,6 @@ class settings(object):
         Prints the global variables and their values.
         """
         disallowed = ['asymptotic', 'servo', 'vi', 'direct', 'loopgain', 'gain']
-        printTypes = [dict, list, int, float, str, bool]
         tabWidth   = 18
         for attr in dir(self):
             dct = getattr(self, attr)
@@ -542,7 +527,8 @@ class settings(object):
                 keys = list(dct.keys())
                 keys.sort()
                 for key in keys:
-                    if key not in disallowed and type(dct[key]) in printTypes:
+                    #print(key)
+                    if key not in disallowed:
                         if key != 'htmlLabels':
                             ndots = tabWidth - len(key)
                             print(key, end = '')

@@ -6,6 +6,15 @@ SLiCAP has a number of built-in scripts to support circuit designers with the an
 
 Please notice that some of these functions use symbolic integration which may fail if the frequency dependency of the spectra becomes too complex.
 
+-----------------------
+Define a noise analysis
+-----------------------
+
+.. code-block:: python
+
+    >>> from SLiCAP import *
+    >>> prj = initProject('noiseProject') 
+
 ---------
 RMS noise
 ---------

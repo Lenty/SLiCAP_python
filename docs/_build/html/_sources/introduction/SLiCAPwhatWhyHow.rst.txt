@@ -32,6 +32,7 @@ Capabilities
 - Symbolic and numeric noise analysis
 - Symbolic and numeric noise integration over frequency
 - Symbolic and numeric determination of transfer functions and polynomial coefficients of transfer functions
+- Symbolic and numeric determination of the Routh array
 - Symbolic and numeric inverse Laplace Transform
 - Symbolic and numeric determination of network solutions
 - Accurate numeric pole-zero analysis
