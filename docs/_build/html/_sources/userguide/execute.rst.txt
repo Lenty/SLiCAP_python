@@ -144,8 +144,8 @@ Calculates contributions to the detector-referred noise of all noise sources. On
 
   - If a signal source has been defined:
 
-    - A list with values of the total source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ivar**
-    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ivarTerms**
+    - A list with values of the total source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.inoise**
+    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.inoiseTerms**
 
       - key: Name of the source (*str*)
       - value: List with contributions to the source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
@@ -153,15 +153,15 @@ Calculates contributions to the detector-referred noise of all noise sources. On
 - If parameter stepping is disabled:
 
   - The total detector-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.onoise**
-  - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ovarTerms**
+  - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.onoiseTerms**
 
     - key: Name of the source (*str*)
     - value: Contributions to the detector-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
 
   - If a signal source has been defined:
 
-    - The total source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.ivar**
-    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.ivarTerms**
+    - The total source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*) is assigned to **SLiCAPprotos.allResults.noise**
+    - A dict with key-value pairs is assigned to **SLiCAPprotos.allResults.inoiseTerms**
 
       - key: Name of the source (*str*)
       - value: Contributions to the source-referred noise spectral density in :math:`\left[\mathrm{\frac{V^2}{Hz}}\right]` or :math:`\left[\mathrm{\frac{A^2}{Hz}}\right]` (*float, sympy.Symbol, symPy.Expr*)
