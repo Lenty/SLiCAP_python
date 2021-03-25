@@ -930,23 +930,28 @@ def doNoise(instObj, detP, detN, denom2):
     denom2 = sp.factor(denom2)
     Iv = makeSrcVector(instObj.circuit, instObj.circuit.parDefs, 'all', value = 'id', numeric = instObj.numeric)
     allTerms =  maxCramerNumer(instObj.M, Iv, detP, detN, numeric = instObj.numeric)
+    noiseContribs = list(allTerms.atoms(sp.Symbol))
     for src in instObj.circuit.indepVars:
         if 'noise' in list(instObj.circuit.elements[src].params.keys()) and instObj.circuit.elements[src].params['noise'] != 0:
             if instObj.numeric:
                 value = fullSubs(instObj.circuit.elements[src].params['noise'], instObj.parDefs)
             else:
                 value = instObj.circuit.elements[src].params['noise']
-            coeff = sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]
-            coeff = coeff.subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I)
-            coeff = assumeRealParams(coeff, params = 'all')
-            cR, cI = coeff.as_real_imag()
-            coeff2 = cR**2 + cI**2
-            term = value * coeff2 / denom2
-            onoiseTerms[src] = clearAssumptions(term, params = 'all')
-            try:
-                onoiseTerms[src] = sp.simplify(onoiseTerms[src])
-            except:
-                onoiseTerms[src] = simplify(onoiseTerms[src], method = 'fraction')
+            noiseSource = sp.Symbol(src)
+            if noiseSource in noiseContribs:  
+                coeff = sp.Poly(allTerms, sp.Symbol(src)).coeffs()[0]
+                coeff = coeff.subs(ini.Laplace, ini.frequency*2*sp.pi*sp.I)
+                coeff = assumeRealParams(coeff, params = 'all')
+                cR, cI = coeff.as_real_imag()
+                coeff2 = cR**2 + cI**2
+                term = value * coeff2 / denom2
+                onoiseTerms[src] = clearAssumptions(term, params = 'all')
+                try:
+                    onoiseTerms[src] = sp.simplify(onoiseTerms[src])
+                except:
+                    onoiseTerms[src] = simplify(onoiseTerms[src], method = 'fraction')
+            else:
+                onoiseTerms[src] = 0
     return onoiseTerms
 
 def doDC(instObj, detP, detN):
