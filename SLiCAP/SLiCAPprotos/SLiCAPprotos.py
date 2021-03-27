@@ -334,8 +334,6 @@ class circuit(object):
         for par in self.params:
             if par != ini.Laplace and par != ini.frequency and par not in list(self.parDefs.keys()):
                 undefined.append(par)
-            else:
-                self.params.remove(par)
         self.params = undefined
         return
         
