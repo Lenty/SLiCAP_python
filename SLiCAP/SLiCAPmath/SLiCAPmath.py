@@ -282,7 +282,7 @@ def coeffsTransfer(LaplaceRational):
 
     :rtype: tuple
     """
-    (numer, denom) = sp.fraction(LaplaceRational)
+    numer, denom = LaplaceRational.as_numer_denom()
     coeffsNumer = polyCoeffs(numer, ini.Laplace)
     coeffsDenom = polyCoeffs(denom, ini.Laplace)
     coeffsNumer.reverse()
@@ -398,7 +398,7 @@ def findServoBandwidth(loopgainRational):
              - mbf: lowest freqency of mbv
     :rtype: dict
     """    
-    numer, denom    = sp.fraction(loopgainRational)
+    numer, denom    = loopgainRational.as_numer_denom()
     numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
     denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
     poles           = numRoots(denom, ini.Laplace)
