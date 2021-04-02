@@ -99,7 +99,7 @@ def doInstruction(instObj):
                 denom = doDenom(instObj)
                 numer = doNumer(instObj)
                 if instObj.gainType == 'vi':
-                    nNum, nDen = sp.fraction(numer)
+                    nNum, nDen = numer.as_numer_denom()
                     numer = nNum
                     denom = denom*nDen
                 denoms = stepFunctions(instObj, denom)
@@ -159,9 +159,13 @@ def doInstruction(instObj):
                     gain2 = numer2/denom2
                     #denom2 = sp.Abs(denom)**2
                     gain2 = clearAssumptions(simplify(numer2/denom2, method = 'fraction'))
-                # Calculate the contributions of each noise source to the
-                # spectral density of the total output noise
-                onoiseTerms = doNoise(instObj, detP, detN, denom2)
+                    # Calculate the contributions of each noise source to the
+                    # spectral density of the total output noise
+                    onoiseTerms = doNoise(instObj, detP, detN, denom2)
+                else:
+                    # Calculate the contributions of each noise source to the
+                    # spectral density of the total output noise
+                    onoiseTerms = doNoise(instObj, detP, detN, None)
                 # apply function stepping
                 for elID in list(onoiseTerms.keys()):
                     if instObj.source != None:
@@ -340,7 +344,7 @@ def doDataType(instObj):
         numer = doNumer(instObj)
         denom = doDenom(instObj)
         if instObj.gainType == 'vi':
-            nNum, nDen = sp.fraction(numer)
+            nNum, nDen = numer.as_numer_denom()
             numer = nNum
             denom = sp.expand(denom*nDen)
         if instObj.dataType == 'impulse':
@@ -511,11 +515,13 @@ def doDenom(instObj):
     if instObj.gainType == 'servo':
         (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
-        (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+        #(lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+        lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
         numer = numer * - lgNumer
         denom = denom * lgDenom + numer
     elif instObj.gainType == 'loopgain':
-        (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+        #(lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+        lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
         denom = denom * lgDenom
     return sp.collect(denom, ini.Laplace)
 
@@ -810,7 +816,8 @@ def doNumer(instObj):
     else:
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
         if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
-            (lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+            #(lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
+            lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
             numer *= lgNumer
         if instObj.gainType == 'servo':
             numer = -numer
