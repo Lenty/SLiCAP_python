@@ -294,6 +294,7 @@ def netlist2html(fileName, label=''):
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print("Error: could not open netlist file: '{0}'.".format(fileName))
+        html = ''
     return html
 
 

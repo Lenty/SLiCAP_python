@@ -426,8 +426,8 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
         if elmt.model == 'I':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
-            Iv[pos0] += val
-            Iv[pos1] += -val
+            Iv[pos0] -= val
+            Iv[pos1] += val
         elif elmt.model == 'V':
             dVarPos = varIndex['I_' + elmt.refDes]
             Iv[dVarPos] += val
