@@ -319,6 +319,7 @@ def lib2html(fileName, label=''):
         insertHTML(ini.htmlPath + ini.htmlPage, html)
     except:
         print("Error: could not open netlist file: '{0}'.".format(fileName))
+        html = ''
     return html
 
 def elementData2html(circuitObject, label = '', caption = ''):
@@ -596,6 +597,7 @@ def matrices2html(instrObj, label = '', labelText = ''):
     elif instrObj.dataType != 'matrix':
         print("Error: expected dataType 'matrix' for 'matrices2html()', got: '{0}'.".format(instrObj.dataType))
         return ''
+    html = ''
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)
         Iv = sp.latex(roundN(Iv))
@@ -634,15 +636,16 @@ def pz2html(instObj, label = '', labelText = ''):
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
+    html = ''
     if instObj.errors != 0:
         print("Errors found in instruction.")
-        return
+        return html
     elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
         print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '{0}'.".format(instObj.dataType))
-        return
+        return html 
     elif instObj.step == True :
         print("Error: parameter stepping not implemented for 'pz2html()'.")
-        return
+        return html
 
     if label != '':
         if labelText == '':
@@ -737,15 +740,16 @@ def noise2html(instObj, label = '', labelText = ''):
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
+    html = ''
     if instObj.errors != 0:
         print("Errors found in instruction.")
-        return
+        return html
     elif instObj.dataType != 'noise':
         print("Error: 'noise2html()' expected dataType: 'noise', got: '{0}'.".format(instObj.dataType))
-        return
+        return html
     elif instObj.step == True :
         print("Error: parameter stepping not implemented for 'noise2html()'.")
-        return
+        return html
     if label != '':
         if labelText == '':
             labelText = label
@@ -803,15 +807,16 @@ def dcVar2html(instObj, label = '', labelText = ''):
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
+    html = ''
     if instObj.errors != 0:
         print("Errors found in instruction.")
-        return
+        return html
     elif instObj.dataType != 'dcvar':
         print("Error: 'dcvar2html()' expected dataType: 'dcvar', got: '{0}'.".format(instObj.dataType))
-        return
+        return html
     elif instObj.step == True :
         print("Error: parameter stepping not implemented for 'dcvar2html()'.")
-        return
+        return html
     if label != '':
         if labelText == '':
             labelText = label
@@ -977,6 +982,7 @@ def href(label, fileName = ''):
     name of the file that will be created later. Run a project 2 times without
     closing it after the first run, automaitcally detects all labels.
     """
+    html = ''
     if fileName == '':
         fileName = ini.htmlLabels[label].page
     if fileName == ini.htmlPage:
