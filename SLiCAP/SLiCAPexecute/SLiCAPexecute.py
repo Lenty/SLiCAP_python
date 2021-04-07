@@ -515,13 +515,13 @@ def doDenom(instObj):
     if instObj.gainType == 'servo':
         (detP, detN, srcP, srcN) = makeSrcDetPos(instObj)
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
-        #(lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-        lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
+        lgNumer, lgDenom = sp.fraction(sp.together(lgValue(instObj)))
+        #lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
         numer = numer * - lgNumer
         denom = denom * lgDenom + numer
     elif instObj.gainType == 'loopgain':
-        #(lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-        lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
+        lgNumer, lgDenom = sp.fraction(sp.together(lgValue(instObj)))
+        #lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
         denom = denom * lgDenom
     return sp.collect(denom, ini.Laplace)
 
@@ -816,8 +816,8 @@ def doNumer(instObj):
     else:
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
         if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
-            #(lgNumer, lgDenom) = sp.fraction(sp.together(lgValue(instObj)))
-            lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
+            lgNumer, lgDenom = sp.fraction(sp.together(lgValue(instObj)))
+            #lgNumer, lgDenom = lgValue(instObj).as_numer_denom()
             numer *= lgNumer
         if instObj.gainType == 'servo':
             numer = -numer
