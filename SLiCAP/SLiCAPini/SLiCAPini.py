@@ -15,6 +15,7 @@ import sympy as sp
 import requests
 from scipy.signal import residue
 from scipy.optimize import newton, fsolve
+from scipy.integrate import quad
 import ply.lex as lex
 from shutil import copy2 as cp
 from time import time
@@ -27,6 +28,7 @@ import getpass
 import inspect
 import matplotlib._pylab_helpers as plotHelp
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import webbrowser
 plt.ioff() # Turn off the interactive mode for plotting
 # Increase width for display of numpy arrays:

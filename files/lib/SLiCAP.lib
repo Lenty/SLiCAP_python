@@ -69,6 +69,8 @@
 
 .model STD7N80K5 M cgs=360p cdg=1p cdb=29p gm={2*sqrt(1.0*I_D)} go={2*sqrt(0.92*I_D)*2.5m}
 
+.model Q2N3904 QV gpi={g_pi} gm={g_m} go={g_o} rb={r_b} cpi={c_pi} cbc={c_bc}
+
 * Sub circuits
 **************
 
@@ -573,9 +575,9 @@ M1 drain gate source bulk CMOS18PN
 + c_gb      = {CGBO_N18*2*L_N + (N_s_N18-1)/N_s_N18*C_OX_N18*W_N*L_N/3 + CGBO_P18*2*L_P + (N_s_P18-1)/N_s_P18*C_OX_P18*W_P*L_P/3}
 + c_db      = {CJB0_N18*W_N*LDS_N18 + CJB0_P18*W_P*LDS_P18}
 + c_sb      = {CJB0_N18*W_N*LDS_N18 + CJB0_P18*W_P*LDS_P18}
-+ IC_iN     = {ID_N*L/W/I_0_N18} ; Initial estimate of inversion coefficient
++ IC_iN     = {ID_N*L_N/W_N/I_0_N18} ; Initial estimate of inversion coefficient
 + IC_N      = {IC_iN*(1+IC_iN/4/IC_CRIT_N)} ; Inversion coefficient corrected for short-channel effects
-+ IC_iP     = {-ID_P*L/W/I_0_P18} ; Initial estimate of inversion coefficient
++ IC_iP     = {-ID_P*L_P/W_P/I_0_P18} ; Initial estimate of inversion coefficient
 + IC_P      = {IC_iP*(1+IC_iP/4/IC_CRIT_P)} ; Inversion coefficient corrected for short-channel effects
 + c_iss     = {c_gs+c_dg+c_gb}
 + f_T_PN    = {g_m/2/pi/c_iss}

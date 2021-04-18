@@ -710,11 +710,13 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.onoise
                         elif funcType == 'inoise':
                             yData = result.inoise
-                        func = sp.lambdify(ini.frequency, yData)
-                        # y = [func(x[j]) for j in range(len(x))]
-                        if ini.frequency in list(yData.atoms(sp.Symbol)):
-                            y = func(x)
-                        else:
+                        try:
+                            if ini.frequency in list(yData.atoms(sp.Symbol)):
+                                func = sp.lambdify(ini.frequency, yData)
+                                y = func(x)
+                            else:
+                                y = [yData for i in range(len(x))]
+                        except:
                             y = [yData for i in range(len(x))]
                         newTrace = trace([x, y])
                         newTrace.label = funcType
@@ -725,12 +727,14 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                 yData = result.onoiseTerms[srcName]
                             elif funcType == 'inoise':
                                 yData = result.inoiseTerms[srcName]
-                            func = sp.lambdify(ini.frequency, yData)
-                            # y = [func(x[j]) for j in range(len(x))]
-                            if ini.frequency in list(yData.atoms(sp.Symbol)):
-                                y = func(x)
-                            else:
-                                y = [yData for i in range(len(x))]
+                            try:
+                                if ini.frequency in list(yData.atoms(sp.Symbol)):
+                                    func = sp.lambdify(ini.frequency, yData)
+                                    y = func(x)
+                                else:
+                                    y = [yData for i in range(len(x))]
+                            except:
+                                 y = [yData for i in range(len(x))]
                             noiseTrace = trace([x, y])
                             noiseTrace.color = ini.defaultColors[colNum % numColors]
                             noiseTrace.label = funcType + ': ' + srcName
@@ -741,11 +745,13 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.onoiseTerms[noiseSources]
                         elif funcType == 'inoise':
                             yData = result.inoiseTerms[noiseSources]
-                        func = sp.lambdify(ini.frequency, yData)
-                        # y = [func(x[j]) for j in range(len(x))]
-                        if ini.frequency in list(yData.atoms(sp.Symbol)):
-                            y = func(x)
-                        else:
+                        try:
+                            if ini.frequency in list(yData.atoms(sp.Symbol)):
+                                func = sp.lambdify(ini.frequency, yData)
+                                y = func(x)
+                            else:
+                                y = [yData for i in range(len(x))]
+                        except:
                             y = [yData for i in range(len(x))]
                         noiseTrace = trace([x, y])
                         noiseTrace.color = ini.defaultColors[colNum % numColors]
@@ -759,11 +765,13 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                     yData = result.onoiseTerms[srcName]
                                 elif funcType == 'inoise':
                                     yData = result.inoiseTerms[srcName]
-                                func = sp.lambdify(ini.frequency, yData)
-                                # y = [func(x[j]) for j in range(len(x))]
-                                if ini.frequency in list(yData.atoms(sp.Symbol)):
-                                    y = func(x)
-                                else:
+                                try:
+                                    if ini.frequency in list(yData.atoms(sp.Symbol)):
+                                        func = sp.lambdify(ini.frequency, yData)
+                                        y = func(x)
+                                    else:
+                                        y = [yData for i in range(len(x))]
+                                except:
                                     y = [yData for i in range(len(x))]
                                 noiseTrace = trace([x, y])
                                 noiseTrace.color = ini.defaultColors[colNum % numColors]
@@ -1271,7 +1279,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
     if errors == 0 and results.step:
         if results.stepMethod.lower() == 'lin':
             p = np.linspace(results.stepStart, results.stepStop, num = results.stepNum)
-        elif xMethod.lower() == 'log':
+        elif results.stepMethod.lower() == 'log':
             p = np.geomspace(results.stepStart, results.stepStop, num = results.stepNum)
     if errors == 0:
         substitutions = {}
