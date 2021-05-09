@@ -348,7 +348,9 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             ind0    = getValue(cir.elements[elmt.refs[0]], 'value', numeric, parDefs)
             ind1    = getValue(cir.elements[elmt.refs[1]], 'value', numeric, parDefs)
             value = getValue(elmt, 'value', numeric, parDefs)
-            value = value * ini.Laplace * sqrt(ind0 * ind1)
+            value = value * ini.Laplace * sp.sqrt(ind0 * ind1)
+            M[refPos0][refPos1] -= value
+            M[refPos1][refPos0] -= value
     M = matrix(M)
     gndPos = varIndex['0']
     M.row_del(gndPos)
