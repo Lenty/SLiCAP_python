@@ -345,8 +345,8 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
         elif elmt.model == 'K':
             refPos1 = varIndex['I_' + elmt.refs[0]]
             refPos0 = varIndex['I_' + elmt.refs[1]]
-            ind0    = getValue(cir.elements[elmt.refs[0]].params['value'])
-            ind1    = getValue(cir.elements[elmt.refs[1]].params['value'])
+            ind0    = getValue(cir.elements[elmt.refs[0]], 'value', numeric, parDefs)
+            ind1    = getValue(cir.elements[elmt.refs[1]], 'value', numeric, parDefs)
             value = getValue(elmt, 'value', numeric, parDefs)
             value = value * ini.Laplace * sqrt(ind0 * ind1)
     M = matrix(M)
