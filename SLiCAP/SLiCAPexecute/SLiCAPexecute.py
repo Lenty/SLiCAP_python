@@ -566,16 +566,13 @@ def lgValue(instObj):
         value = lgRef.params['value']
     elif lgRef.model == 'E':
         value = lgRef.params['value']
-    elif lgRef.model == 'EZ':
-        if lgRef.params['zo'] != 0:
-            value = lgRef.params['value']/lgRef.params['zo']
-        else:
-            value = lgRef.params['value']
-    elif lgRef.model == 'HZ':
-        if lgRef.params['zo'] != 0:
-            value = lgRef.params['value']/lgRef.params['zo']
-        else:
-            value = lgRef.params['value']
+    elif lgRef.model == 'EZ' or lgRef.model == 'HZ':
+        value = lgRef.params['value']
+        zo = lgRef.params['zo']
+        if instObj.numeric:
+            zo = fullSubs(zo, instObj.parDefs)
+        if zo != 0:
+            value = value/lgRef.params['zo']
     elif lgRef.model == 'H':
         value = lgRef.params['value']
     elif lgRef.model == 'F':
@@ -640,7 +637,10 @@ def makeSrcDetPos(instObj):
                 detN = None
             else:
                 detN = detectors.index('V_' + lgRef.nodes[3])
-            if lgRef.params['zo'] != 0:
+            zo = lgRef.params['zo']
+            if instObj.numeric:
+                zo = fullSubs(zo, instObj. parDefs)
+            if zo != 0:
                 # A current source in parallel with Zo, hence flowing from the
                 # outN node to the outP node of the device is the new source.
                 # The gain of the reference variable needs to be divided by the
@@ -724,7 +724,10 @@ def makeSrcDetPos(instObj):
             # The detector row is that of the input current of the CCVS
             detP = detectors.index('Ii_' + instObj.lgRef)
             detN = None
-            if lgRef.params['zo'] != 0:
+            zo = lgRef.params['zo']
+            if instObj.numeric:
+                zo = fullSubs(zo, instObj.parDefs)
+            if zo != 0:
                 # A current source in parallel with Zo, hence flowing from the
                 # outN node to the outP node of the device is the new source.
                 # The gain of the reference variable needs to be divided by the
