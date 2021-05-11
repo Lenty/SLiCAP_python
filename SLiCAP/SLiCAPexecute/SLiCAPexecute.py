@@ -817,6 +817,9 @@ def doNumer(instObj):
         Iv = makeSrcVector(instObj.circuit, instObj.parDefs, 'all', value = 'value', numeric = instObj.numeric)
         return maxCramerNumer(instObj.M, Iv, detP, detN)
     else:
+        r, c = instObj.M.shape
+        if r == 1 and c==1:
+            return sp.N(1)
         numer = maxNumer(instObj.M, detP, detN, srcP, srcN)
         if instObj.gainType == 'loopgain' or instObj.gainType == 'servo':
             lgNumer, lgDenom = sp.fraction(sp.together(lgValue(instObj)))

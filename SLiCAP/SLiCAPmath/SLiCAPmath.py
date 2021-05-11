@@ -54,14 +54,9 @@ class matrix(sp.Matrix):
         """
         Returns determinant of a 2 x 2 matrix.
         """
-        if self.shape[0] == 2:
-            d = 0
-            """
-            if self[0,0] != 0 and self[1,1] != 0:
-                d += self[0,0]*self[1,1]
-            if self[1,0] != 0 and self[0,1] != 0:
-                d -= self[0,1]*self[1,0]
-            """
+        if self.shape[0] == 1:
+            d = self[0,0]
+        elif self.shape[0] == 2:
             d = self[0,0]*self[1,1] - self[0,1]*self[1,0]
         else:
             d = self.expandByMinorsRows()
