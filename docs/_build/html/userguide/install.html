@@ -40,7 +40,7 @@
 
     
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Define a circuit" href="circuit.html" />
+    <link rel="next" title="Initialize a SLiCAP project" href="project.html" />
     <link rel="prev" title="SLiCAP user guide" href="SLiCAPuserguide.html" /> 
 </head>
 
@@ -118,6 +118,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="project.html">Initialize a SLiCAP project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="circuit.html">Define a circuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html">Work with parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameterStepping.html">Parameter stepping</a></li>
@@ -345,16 +346,16 @@ You can define other global parameters by adding SPICE .param declarations in th
 ********************************************************
 
 .param
++ TOX_N18     = 4.1n  ; oxide thickness [m]
 + Vth_N18     = 0.36  ; threshold voltage [V]
++ N_s_N18     = 1.35  ; substrate factor [-]
 + Theta_N18   = 0.28  ; vertical field mobility reduction coefficient [1/V]
 + E_CRIT_N18  = 5.6M   ; lateral field strength for velocity saturation [V/m]
-+ N_s_N18     = 1.35  ; substrate factor [-]
 + u_0_N18     = 42m   ; zero field carrier mobility [m^2/V/s]
 + CGBO_N18    = 1p    ; gate-bulk overlap capacitance [F/m]
 + CGSO_N18    = 300p  ; gate-source and gate-drain overlap capacitance [F/m]
 + CJB0_N18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
 + LDS_N18     = 180n  ; length of drain and source [m]
-+ TOX_N18     = 4.1n  ; oxide thickness [m]
 + VAL_N18     = 40M   ; Early voltage per unit of length [V/m]
 + KF_N18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
 + AF_N18      = 0.85  ; flicker noise exponent [-]
@@ -362,16 +363,16 @@ You can define other global parameters by adding SPICE .param declarations in th
 + I_0_N18     = {2*N_s_N18*u_0_N18*C_OX_N18*U_T^2}  ; technology current [A]
 
 .param
++ TOX_P18     = 4.1n  ; oxide thickness [m]
 + Vth_P18     = -0.36 ; threshold voltage [V]
++ N_s_P18     = 1.35  ; substrate factor [-]
 + Theta_P18   = 0.35  ; vertical field mobility reduction factor [1/V]
 + E_CRIT_P18  = 14M   ; lateral field strength for velocity saturation [V/m]
-+ N_s_P18     = 1.35  ; substrate factor [-]
 + u_0_P18     = 8.92m ; zero field carrier mobility [m^2/V/s]
 + CGBO_P18    = 1p    ; gate-bulk overlap capacitance [F/m]
 + CGSO_P18    = 300p  ; gate-source and gate-drain overlap capacitance [F/m]
 + CJB0_P18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
 + LDS_P18     = 180n  ; length of drain and source [m]
-+ TOX_P18     = 4.1n  ; oxide thickness [m]
 + VAL_P18     = 40M   ; Early voltage per unit of length [V/m]
 + KF_P18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [-]
 + AF_P18      = 0.85  ; flicker noise exponent [-]
@@ -567,7 +568,7 @@ You can define other global parameters by adding SPICE .param declarations in th
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="circuit.html" class="btn btn-neutral float-right" title="Define a circuit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="project.html" class="btn btn-neutral float-right" title="Initialize a SLiCAP project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="SLiCAPuserguide.html" class="btn btn-neutral float-left" title="SLiCAP user guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
