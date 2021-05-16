@@ -679,11 +679,14 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         newTrace = trace([x, delayFunc_f(yData, x)])
                 elif funcType == 'time':
                     if not ax.polar:
+                        """
                         if sp.Symbol('t') in list(yData.atoms(sp.Symbol)):
                             func = sp.lambdify(sp.Symbol('t'), yData)
                             y = np.real(func(x))
                         else:
                             y = [yData for i in range(len(x))]
+                        """
+                        y = [sp.N(yData.subs(sp.Symbol('t'), x[i])) for i in range(len(x))]
                         newTrace = trace([x, y])
                 if result.dataType != 'noise':
                     if result.gainType == 'vi':
@@ -856,7 +859,6 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                     elif funcType == 'onoise' or funcType == 'inoise':
                         if not ax.polar:
                             func = sp.lambdify(ini.frequency, yData)
-                            #y = [func(x[j]) for j in range(len(x))]
                             if ini.frequency in list(yData.atoms(sp.Symbol)):
                                 y = func(x)
                             else:
