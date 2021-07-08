@@ -277,6 +277,10 @@ def coeffsTransfer(LaplaceRational):
 
     :rtype: tuple
     """
+    try:
+        LaplaceRational = sp.simplify(LaplaceRational)
+    except:
+        pass
     numer, denom = LaplaceRational.as_numer_denom()
     coeffsNumer = polyCoeffs(numer, ini.Laplace)
     coeffsDenom = polyCoeffs(denom, ini.Laplace)
@@ -393,9 +397,13 @@ def findServoBandwidth(loopgainRational):
              - mbf: lowest freqency of mbv
     :rtype: dict
     """    
-    numer, denom    = loopgainRational.as_numer_denom()
-    numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
-    denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
+    try:
+        LaplaceRational = sp.simplify(LaplaceRational)
+        numer, denom    = loopgainRational.as_numer_denom()
+    except:
+        numer, denom    = loopgainRational.as_numer_denom()
+        numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
+        denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
     poles           = numRoots(denom, ini.Laplace)
     zeros           = numRoots(numer, ini.Laplace)
     poles, zeros = cancelPZ(poles, zeros)
@@ -967,11 +975,17 @@ def simplify(expr, method = 'fraction'):
     """
     try:
         if method == 'fraction':
-            numer, denom = expr.as_numer_denom()
-            expr = numer/denom
+            try:
+                expr = sp.simplify(expr)
+            except:
+                numer, denom = expr.as_numer_denom()
+                expr = numer/denom
         elif method == 'normalize':
-            numer, denom = expr.as_numer_denom()
-            expr = numer/denom
+            try:
+                expr = sp.simplify(expr)
+            except:
+                numer, denom = expr.as_numer_denom()
+                expr = numer/denom
             expr = normalizeLaplaceRational(expr)
         elif method == 'factor':
             expr = sp.factor(expr)
@@ -1078,7 +1092,7 @@ def routh(charPoly, eps):
 
 if __name__ == "__main__":
     s = ini.Laplace
-    """
+    
     MNA = matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
                   [0, 1.98e-11*s + 0.0001, -1.2e-11*s, -1.8e-12*s - 1.0e-5, 0, 0, 0, 0, 0],
                   [0, -1.2e-11*s, 2.8e-11*s + 0.001, 0, -1.0e-11*s - 0.001, 0, 0, -1, 0],
@@ -1108,7 +1122,7 @@ if __name__ == "__main__":
     loopgain         = loopgain_numer/loopgain_denom
     servo_info       = findServoBandwidth(loopgain)
     print(servo_info)
-    """
+    
     
     k = sp.Symbol('k')
     charPoly = s**4+2*s**3+(3+k)*s**2+(1+k)*s+(1+k)
