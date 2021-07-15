@@ -675,7 +675,7 @@ def invLaplace(numer, denom):
     denom = np.poly1d(polyCoeffs(denom, ini.Laplace))
     denomCoeffs = [np.float(coeff) for coeff in denom.c]
     (r, p, k) = residue(numerCoeffs, denomCoeffs, tol=10**(-ini.disp))
-    t = sp.Symbol('t', real=True)
+    t = sp.Symbol('t')
     ft = 0
     m = 1
     for i in range(len(r)):

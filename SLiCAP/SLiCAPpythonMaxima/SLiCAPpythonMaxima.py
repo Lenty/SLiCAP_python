@@ -108,6 +108,7 @@ def maxILT(numer, denom, numeric = True):
     maxExpr = 'result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
     result = maxEval(maxExpr)
     try:
+        """
         if len(result) > 3 and result[1:5] == 'ilt(':
             if isinstance(Fs, sp.Basic):
                 params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
@@ -135,10 +136,11 @@ def maxILT(numer, denom, numeric = True):
                 print("Error: Maxima CAS processing error.")
                 return sp.Symbol('ft')
         else:
-            return sp.sympify(result)
+        """
+        return sp.sympify(result)
     except:
         try:
-            print("Trying numeric Inverse Laplace Transform with scipy.")
+            #print("Trying numeric Inverse Laplace Transform with scipy.")
             result = invLaplace(numer, denom)
             return result
         except:

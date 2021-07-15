@@ -500,6 +500,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     fig = figure(fileName)
     fig.show = show
     ax = axis(title)
+    ax.polar = False
     if type(results) != list:
         results = [results]
     colNum = 0
@@ -585,7 +586,8 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     # For time plots we use time along the x-axis
     elif funcType in timeTypes:
         ax.xLabel = 'time [' + sweepScale + 's]'
-        yUnits = result.detUnits
+        if yUnits == '':
+            yUnits = result.detUnits
     # Create the y-label for other than parameter plots
     if funcType == 'mag':
         ax.yLabel = 'magnitude [' + yScale + yUnits + ']'
@@ -679,7 +681,6 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         newTrace = trace([x, delayFunc_f(yData, x)])
                 elif funcType == 'time':
                     if not ax.polar:
-                        """
                         if sp.Symbol('t') in list(yData.atoms(sp.Symbol)):
                             func = sp.lambdify(sp.Symbol('t'), yData)
                             y = np.real(func(x))
@@ -687,17 +688,20 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             y = [yData for i in range(len(x))]
                         """
                         y = [sp.N(yData.subs(sp.Symbol('t'), x[i])) for i in range(len(x))]
+                        """
                         newTrace = trace([x, y])
                 if result.dataType != 'noise':
                     if result.gainType == 'vi':
                         newTrace.label = result.detLabel
                     else:
                         newTrace.label = result.gainType
+                    """
                     try:
                         newTrace.color = ini.gainColors[result.gainType]
                     except:
-                        newTrace.color = ini.defaultColors[colNum % numColors]
-                        colNum += 1
+                    """
+                    newTrace.color = ini.defaultColors[colNum % numColors]
+                    colNum += 1
                     if result.gainType == 'vi':
                         yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
                     else:
@@ -1213,12 +1217,12 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     ax.xLabel = xName + ' [' + xScale + xUnits + ']'
     ax.yLabel = yName + ' [' + yScale + yUnits + ']'
     for key in list(plotData.keys()):
-        if type(plotData[key]) == list:
+        if type(plotData[key]) == trace:
+            newTrace = plotData[key]
+        else:
             newTrace = trace(plotData[key])
             newTrace.label = key
             newTrace.color = ini.defaultColors[colNum % numColors]
-        elif type(plotData[key]) == trace:
-            newTrace = plotData[key]
         ax.traces.append(newTrace)
         colNum += 1
     fig.axes = [[ax]]
