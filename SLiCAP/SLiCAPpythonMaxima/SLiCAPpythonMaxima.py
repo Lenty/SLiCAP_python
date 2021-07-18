@@ -107,38 +107,47 @@ def maxILT(numer, denom, numeric = True):
     # Try inverse laplace of symbolic function
     maxExpr = 'result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
     result = maxEval(maxExpr)
-    try:
-        """
-        if len(result) > 3 and result[1:5] == 'ilt(':
-            if isinstance(Fs, sp.Basic):
-                params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
-                try:
-                    params.remove(ini.Laplace)
-                    if len(params) != 0:
-                        print("Error: symbolic variables found, cannot determine roots.")
-                        return sp.Symbol('ft')
-                    else:
-                        ncoeffs = polyCoeffs(numer, ini.Laplace)
-                        zeros = np.roots(np.array(ncoeffs))
-                        dcoeffs = polyCoeffs(denom, ini.Laplace)
-                        poles = np.roots(np.array(dcoeffs))
-                        Fs = makeLaplaceRational(ncoeffs[0]/dcoeffs[0], zeros, poles)
-                        maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
-                        result = maxEval(maxExpr)   
-                        return(sp.sympify(result))
-                    if len(result) > 3 and result[1:5] == 'ilt(':
+    if ini.invLaplace == "maxima":
+        try:
+            
+            if len(result) > 3 and result[1:5] == 'ilt(':
+                if isinstance(Fs, sp.Basic):
+                    params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
+                    try:
+                        params.remove(ini.Laplace)
+                        if len(params) != 0:
+                            print("Error: symbolic variables found, cannot determine roots.")
+                            return sp.Symbol('ft')
+                        else:
+                            ncoeffs = polyCoeffs(numer, ini.Laplace)
+                            zeros = np.roots(np.array(ncoeffs))
+                            dcoeffs = polyCoeffs(denom, ini.Laplace)
+                            poles = np.roots(np.array(dcoeffs))
+                            Fs = makeLaplaceRational(ncoeffs[0]/dcoeffs[0], zeros, poles)
+                            maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
+                            result = maxEval(maxExpr)   
+                            return(sp.sympify(result))
+                        if len(result) > 3 and result[1:5] == 'ilt(':
+                            print("Error: could not determine the inverse Laplace transform.")
+                            return sp.Symbol('ft')
+                    except:
                         print("Error: could not determine the inverse Laplace transform.")
                         return sp.Symbol('ft')
-                except:
-                    print("Error: could not determine the inverse Laplace transform.")
+            elif result == '':
+                    print("Error: Maxima CAS processing error.")
                     return sp.Symbol('ft')
-        elif result == '':
-                print("Error: Maxima CAS processing error.")
+            else:
+                return sp.sympify(result)
+        except:
+            try:
+                #print("Trying numeric Inverse Laplace Transform with scipy.")
+                result = invLaplace(numer, denom)
+                return result
+            except:
+                print("Error: could note determine the inverse Laplace transform:")
+                print('result:%s(ilt('%(numeric) + str(Fs)+',s,t)')
                 return sp.Symbol('ft')
-        else:
-        """
-        return sp.sympify(result)
-    except:
+    else:
         try:
             #print("Trying numeric Inverse Laplace Transform with scipy.")
             result = invLaplace(numer, denom)

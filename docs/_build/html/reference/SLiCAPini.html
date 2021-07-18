@@ -257,6 +257,11 @@
 of the Laplace variable will be normalized to unity.</li>
 <li>factor: True: Try to factor the numerator and denominator of expressions.</li>
 <li>MaximaMatrixDim   : Maximum dimension of a square matrix to be passed to Maxima</li>
+<li>invLaplace        : Calculation method for numeric inverse Laplace<ul>
+<li>maxima: use maxima, sometimes errors or overflows have been observed</li>
+<li>python: uses scipy.residues. Use only if maxima fails!</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Display settings<ul>
@@ -488,6 +493,13 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.installPath">
 <code class="descname">installPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.installPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Installation path of SLiCAP (<em>str</em>), defaults to None.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.invLaplace">
+<code class="descname">invLaplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.invLaplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>System to be used for calculation of the numeric inverse Laplace
+Transform. Defaults to “maxima”. Alternative = “python”.</p>
 </dd></dl>
 
 <dl class="attribute">

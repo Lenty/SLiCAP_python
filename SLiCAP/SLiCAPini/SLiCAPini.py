@@ -163,6 +163,11 @@ class settings(object):
          of the Laplace variable will be normalized to unity.
        - factor: True: Try to factor the numerator and denominator of expressions.
        - MaximaMatrixDim   : Maximum dimension of a square matrix to be passed to Maxima
+       
+       - invLaplace        : Calculation method for numeric inverse Laplace
+       
+         - maxima: use maxima, sometimes errors or overflows have been observed
+         - python: uses scipy.residues. Use only if maxima fails!
 
     #. Display settings
 
@@ -378,7 +383,13 @@ class settings(object):
         Symbol (*sympy.core.symbol.Symbol*) used for the Laplace variable.
         Defaults to sp.Symbol('s').
         """
-
+        
+        self.invLaplace         = "maxima"
+        """
+        System to be used for calculation of the numeric inverse Laplace
+        Transform. Defaults to "maxima". Alternative = "python".
+        """
+        
         self.frequency          = sp.Symbol('f')
         """
         Symbol (*sympy.core.symbol.Symbol*) used for frequency.
