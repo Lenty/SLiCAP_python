@@ -679,12 +679,14 @@ def invLaplace(numer, denom):
     ft = 0
     m = 1
     for i in range(len(r)):
+        p[i]=sp.sympify(str(p[i]))
         if i > 0:
             if abs(p[i] - p[i - 1]) < 10**(-ini.disp) * abs(p[i]):
                 m += 1
             else:
                 m = 1
         ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.E**(p[i]*t)
+    ft = ft.rewrite("cos").trigsimp()
     return ft
 
 def phaseMargin(LaplaceExpr):

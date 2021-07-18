@@ -140,7 +140,7 @@ def maxILT(numer, denom, numeric = True):
                 return sp.sympify(result)
         except:
             try:
-                #print("Trying numeric Inverse Laplace Transform with scipy.")
+                print("Trying numeric Inverse Laplace Transform with scipy.")
                 result = invLaplace(numer, denom)
                 return result
             except:
@@ -149,7 +149,7 @@ def maxILT(numer, denom, numeric = True):
                 return sp.Symbol('ft')
     else:
         try:
-            #print("Trying numeric Inverse Laplace Transform with scipy.")
+            print("Trying numeric Inverse Laplace Transform with scipy.")
             result = invLaplace(numer, denom)
             return result
         except:
