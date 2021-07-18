@@ -687,7 +687,9 @@ def invLaplace(numer, denom):
                 m = 1
         ft += (t**(m - 1)/sp.factorial(m - 1))*r[i]*sp.E**(p[i]*t)
     if ini.trigsimp:
-        ft = ft.rewrite("cos").trigsimp()
+        # This can be time consuming and the results are not always correct
+        ft = sp.expand(assumeRealParams(ft))
+        ft = clearAssumptions(sp.re(ft.rewrite("cos").trigsimp()))
     return ft
 
 def phaseMargin(LaplaceExpr):
