@@ -695,13 +695,11 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         newTrace.label = result.detLabel
                     else:
                         newTrace.label = result.gainType
-                    """
-                    try:
-                        newTrace.color = ini.gainColors[result.gainType]
-                    except:
-                    """
-                    newTrace.color = ini.defaultColors[colNum % numColors]
-                    colNum += 1
+                        try:
+                            newTrace.color = ini.gainColors[result.gainType]
+                        except:
+                            newTrace.color = ini.defaultColors[colNum % numColors]
+                            colNum += 1
                     if result.gainType == 'vi':
                         yLabel += '$' + sp.latex(sp.Symbol(result.detLabel)) + '$'
                     else:
