@@ -262,6 +262,10 @@ of the Laplace variable will be normalized to unity.</li>
 <li>python: uses scipy.residues. Use only if maxima fails!</li>
 </ul>
 </li>
+<li>trigsimp:<ul>
+<li>True: writes scipy results of inverse Laplace transform as trigonometric functions</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Display settings<ul>
@@ -498,7 +502,7 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.invLaplace">
 <code class="descname">invLaplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.invLaplace" title="Permalink to this definition">¶</a></dt>
-<dd><p>System to be used for calculation of the numeric inverse Laplace
+<dd><p>Algebra system to be used for calculation of the numeric inverse Laplace
 Transform. Defaults to “maxima”. Alternative = “python”.</p>
 </dd></dl>
 
@@ -665,6 +669,16 @@ rendering of latex in Jupyter notebooks.</li>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType">
 <code class="descname">tableFileType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType" title="Permalink to this definition">¶</a></dt>
 <dd><p>File type (<em>str</em>) for csv files. Defaults to ‘csv’.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.trigsimp">
+<code class="descname">trigsimp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.trigsimp" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<em>Bool</em>)</p>
+<ul class="simple">
+<li>True: Returns the result of scipy inverse Laplace transform as trigonometric functions.</li>
+<li>False:  Returns the result of scipy inverse Laplace transform as complex exponentials.</li>
+</ul>
 </dd></dl>
 
 <dl class="attribute">

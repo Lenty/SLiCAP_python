@@ -168,6 +168,10 @@ class settings(object):
        
          - maxima: use maxima, sometimes errors or overflows have been observed
          - python: uses scipy.residues. Use only if maxima fails!
+         
+       - trigsimp:
+           
+         - True: writes scipy results of inverse Laplace transform as trigonometric functions
 
     #. Display settings
 
@@ -386,8 +390,17 @@ class settings(object):
         
         self.invLaplace         = "maxima"
         """
-        System to be used for calculation of the numeric inverse Laplace
+        Algebra system to be used for calculation of the numeric inverse Laplace
         Transform. Defaults to "maxima". Alternative = "python".
+        """
+        
+        self.trigsimp           = False
+        """
+        (*Bool*)
+        
+        - True: Returns the result of scipy inverse Laplace transform as trigonometric functions.
+        
+        - False:  Returns the result of scipy inverse Laplace transform as complex exponentials.
         """
         
         self.frequency          = sp.Symbol('f')
