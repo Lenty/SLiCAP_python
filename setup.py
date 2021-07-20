@@ -310,6 +310,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     include_package_data=True,
-    package_data={'': ['newIlt.mac']},
+    package_data={'': ['newIlt.mac', 'det.mac']},
     python_requires='>=3.7',
 )

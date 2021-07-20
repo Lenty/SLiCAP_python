@@ -429,7 +429,7 @@ Q1 collector1 collector2 base1 base2 BJTD
 .model BJTD QD
 * device small-signal parameters
 + gm  = {g_m}     ; transconductance
-+ go  = {g_o/2}   ; output conductance
++ gcc = {g_o/2}   ; output conductance
 + gbb = {g_pi/2}  ; input conductance
 + gbc = 0         ; not modeled in GP model
 + cbb = {c_pi/2}  ; input capacitance

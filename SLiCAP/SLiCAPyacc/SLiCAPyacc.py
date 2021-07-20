@@ -616,7 +616,13 @@ def expandCircuit(elmt, parentCircuit, childCircuit):
     # Put the names and values of the parameters of the parent element in this 
     # dictionary. These names should be passed to the child.
     for key in list(elmt.params.keys()):
-        substDict[sp.Symbol(key)] = elmt.params[key]
+        # Check if this parameter is defined with the child sub circuit
+        if key in list(childCircuit.params.keys()):
+            # Pass it to the sub circuit
+            substDict[sp.Symbol(key)] = elmt.params[key]
+        else:
+            print("Error: unknown parameter.", key)
+            parentCircuit.errors += 1
     # If they are not yet in, put the default values of the child circuit 
     # parameters in this dictionary.
     for key in list(childCircuit.params.keys()):
