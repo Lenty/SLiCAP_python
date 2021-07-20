@@ -15,7 +15,7 @@ import re
 import in_place
 from shutil import copy
 
-INSTALLVERSION="1.0.1"
+INSTALLVERSION="1.0.2"
 
 class InstallWrapper(install):
     """
@@ -309,5 +309,7 @@ setuptools.setup(
         "License :: Attribution-NonCommercial-NoDerivatives 4.0 International",
         "Operating System :: OS Independent",
     ],
+    include_package_data=True,
+    package_data={'': ['newIlt.mac']},
     python_requires='>=3.7',
 )

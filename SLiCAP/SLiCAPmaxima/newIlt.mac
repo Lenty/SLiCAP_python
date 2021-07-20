@@ -1,0 +1,10 @@
+/* =============================================================================================================
+This file contains the procedure for the calculation of the inverse Laplace Transform
+============================================================================================================= */
+newIlt(ratLaplace, s, t) :=
+block
+( [],
+  demoivre   : true,
+  polyfactor : true,
+  return(bfloat(expand(ilt(num(ratLaplace)/(allroots(denom(ratLaplace))), s, t))))
+)$

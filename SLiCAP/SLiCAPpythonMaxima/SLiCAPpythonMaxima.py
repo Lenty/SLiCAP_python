@@ -6,6 +6,7 @@ SLiCAP module with symbolic math functions executed by maxima CAS.
 Imported by the module **SLiCAPplots.py**.
 """
 from SLiCAP.SLiCAPmatrices import *
+from mpmath import polyroots
 
 def sympy2maximaMatrix(M):
     """
@@ -109,8 +110,8 @@ def maxILT(numer, denom, numeric = True):
     result = maxEval(maxExpr)
     if ini.invLaplace == "maxima":
         try:
-            
-            if len(result) > 3 and result[1:5] == 'ilt(':
+            if len(result) > 5 and result[1:5] == 'ilt(':
+                # Did not succeed
                 if isinstance(Fs, sp.Basic):
                     params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
                     try:
@@ -119,15 +120,12 @@ def maxILT(numer, denom, numeric = True):
                             print("Error: symbolic variables found, cannot determine roots.")
                             return sp.Symbol('ft')
                         else:
-                            ncoeffs = polyCoeffs(numer, ini.Laplace)
-                            zeros = np.roots(np.array(ncoeffs))
-                            dcoeffs = polyCoeffs(denom, ini.Laplace)
-                            poles = np.roots(np.array(dcoeffs))
-                            Fs = makeLaplaceRational(ncoeffs[0]/dcoeffs[0], zeros, poles)
-                            maxExpr = 'result:bfloat(ilt('+ str(Fs)+',s,t));'
+                            # Use maxima newIlt
+                            maxExpr = 'load("' + ini.installPath + 'SLiCAPmaxima/newIlt.mac");\n'
+                            maxExpr += 'result:bfloat(newIlt('+ str(numer/sp.expand(denom)) + ',' +str(ini.Laplace) + ',t));'
                             result = maxEval(maxExpr)   
                             return(sp.sympify(result))
-                        if len(result) > 3 and result[1:5] == 'ilt(':
+                        if len(result) > 7 and result[1:7] == 'newIlt(':
                             print("Error: could not determine the inverse Laplace transform.")
                             return sp.Symbol('ft')
                     except:
@@ -154,12 +152,11 @@ def maxILT(numer, denom, numeric = True):
             return result
         except:
             print("Error: could note determine the inverse Laplace transform:")
-            print('result:%s(ilt('%(numeric) + str(Fs)+',s,t)')
+            print(str(Fs))
             return sp.Symbol('ft')
     
-
 def detFunc():
-    return "det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1] else block(D:0,for i from 1 thru dim do if M[1,i]#0 then D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),expand(D));compile(det);"
+    return 'load("' + ini.installPath + 'SLiCAPmaxima/det.mac");\n'
 
 def maxDet(M, numeric = True):
     """

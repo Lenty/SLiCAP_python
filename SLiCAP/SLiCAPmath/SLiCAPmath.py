@@ -210,51 +210,6 @@ def numRoots(expr, var):
             return []
     return []
 
-def makeLaplaceRational(gain, zeros, poles):
-    """
-    Creates a Laplace rational from a gain factor, a list of zeros and a list
-    of poles:
-
-    .. math::
-
-        F(s) = gain \\frac{ \prod_j(s-z_j)} {\prod_i(s-p_i)}
-
-    Terms with complex conjugated poles or zeros will be combined into
-    quadratic terms.
-
-    The gain factor should be taken as
-
-    This function is used for evaluation of the inverse Laplace transform
-    of rational functions in the Laplace variable 's' with Maxima CAS.
-
-    :param gain: The ratio of the coefficients of the highest order of the
-                 Laplace variable of the numerator and the denominator;
-                 this is not the DC gain!
-    :type gain: int, float, sympy.Symbol, sympy.Expr
-
-    :param zeros: List with solutions of the Laplace variable of the numerator
-                  of :math:`F(s)`.
-
-    :param poles: List with solutions of the Laplace variable of the
-                  denominator of :math:`F(s)`.
-
-    :return: :math:`F(s)`
-    :rtype: sympy.Expr
-
-    """
-    Fs = gain
-    for z in zeros:
-        if sp.im(z) == 0:
-            Fs *= (ini.Laplace-z)
-        elif sp.im(z) > 0:
-            Fs *= (ini.Laplace**2 - 2*sp.re(z) + sp.re(z)**2 + sp.im(z)**2)
-    for p in poles:
-        if sp.im(p) == 0:
-            Fs /= (ini.Laplace-p)
-        elif sp.im(p) > 0:
-            Fs /= (ini.Laplace**2 - 2*sp.re(p)*ini.Laplace + sp.re(p)**2 + sp.im(p)**2)
-    return(Fs)
-
 def coeffsTransfer(LaplaceRational):
     """
     Returns a nested list with the coefficients of the Laplace variable of the

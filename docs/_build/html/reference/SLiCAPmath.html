@@ -603,43 +603,6 @@ sp.I*ini.frequency.</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.makeLaplaceRational">
-<code class="descname">makeLaplaceRational</code><span class="sig-paren">(</span><em>gain</em>, <em>zeros</em>, <em>poles</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeLaplaceRational" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a Laplace rational from a gain factor, a list of zeros and a list
-of poles:</p>
-<div class="math notranslate nohighlight">
-\[F(s) = gain \frac{ \prod_j(s-z_j)} {\prod_i(s-p_i)}\]</div>
-<p>Terms with complex conjugated poles or zeros will be combined into
-quadratic terms.</p>
-<p>The gain factor should be taken as</p>
-<p>This function is used for evaluation of the inverse Laplace transform
-of rational functions in the Laplace variable ‘s’ with Maxima CAS.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>gain</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>sympy.Symbol</em><em>, </em><em>sympy.Expr</em>) – The ratio of the coefficients of the highest order of the
-Laplace variable of the numerator and the denominator;
-this is not the DC gain!</li>
-<li><strong>zeros</strong> – List with solutions of the Laplace variable of the numerator
-of <span class="math notranslate nohighlight">\(F(s)\)</span>.</li>
-<li><strong>poles</strong> – List with solutions of the Laplace variable of the
-denominator of <span class="math notranslate nohighlight">\(F(s)\)</span>.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><span class="math notranslate nohighlight">\(F(s)\)</span></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="class">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix">
 <em class="property">class </em><code class="descname">matrix</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix" title="Permalink to this definition">¶</a></dt>
