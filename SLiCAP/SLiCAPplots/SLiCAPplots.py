@@ -7,6 +7,7 @@ Imported by the module SLiCAPhtml.py
 
 """
 from SLiCAP.SLiCAPpythonMaxima import *
+from random import randint
 
 class trace(object):
     """
@@ -194,16 +195,16 @@ class axis(object):
         Scale factor (*str*) for the y-scale; e.g. M for 1E6. Defaults to ''.
         """
         return
-    
+
     def makeTraceDict(self):
         """
         Returns a dict with data of all the traces on the axis.
 
         :return: dictionary with key-value pairs:
-            
+
                  - key: *str* label of the trace
                  - value: *SLiCAPplots.trace* trace object
-                 
+
         :rtype: dict
         """
         traceDict = {}
@@ -357,7 +358,7 @@ class figure(object):
             plt.show()
         plt.close(fig)
         return
-        
+
 def defaultsPlot():
     """
     Applies default settings for plots.
@@ -459,7 +460,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
 
     :param xUnits: Units of the x axis variable.
     :type xUnits: str
-    
+
     :param xLim: Limits for the x-axis scale: [<xmin>, <xmax>]
     :type xLim: list
 
@@ -475,7 +476,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
 
     :param yUnits: Units of the y axis variable.
     :type yUnits: str
-    
+
     :param yLim: Limits for the y-axis scale: [<ymin>, <ymax>]
     :type yLim: list
 
@@ -1140,17 +1141,17 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     :type axisType: str
 
     :param plotData: dictionary with key-value pairs or dictionary with traces
-    
+
                      - key: *str* label for the trace
-                     - value: 
-                         
+                     - value:
+
                        #. *list* [<xData>, <yData>]
-                     
+
                           - xData: *list*: x values
                           - yData: *list*: y values
-                          
+
                        #. *SLiCAPplots.trace* object
-                       
+
     :type plotData: dict, SLiCAPplots.trace
 
     :param xName: Name of the variable to be plotted along the x axis. Defaults to ''.
@@ -1161,7 +1162,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
 
     :param xUnits: Units of the x axis variable. Defaults to ''.
     :type xUnits: str
-    
+
     :param xLim: Limits for the x-axis scale: [<xmin>, <xmax>]
     :type xLim: list
 
@@ -1173,7 +1174,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
 
     :param yUnits: Units of the y axis variable. Defaults to ''.
     :type yUnits: str
-    
+
     :param yLim: Limits for the y-axis scale: [<ymin>, <ymax>]
     :type yLim: list
 
@@ -1328,47 +1329,47 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 x = sp.lambdify(sp.Symbol(sVar), g)
                 xValues = x(sweepList)
             else:
-                xValues = sweepList  
+                xValues = sweepList
     return (xValues, yValues)
 
 def traces2fig(traceDict, figObject, axis = [0, 0]):
     """
     Adds traces generated from another application to an existing figure.
-    
+
     :param traceDict: Dictionary with key-value pairs:
-        
+
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :type traceDict: dict
-    
+
     :param figObject: figure object to which the traces must be added
     :type figObject: SLiCAPplots.figure
-    
+
     :param axis: List with x position and y position of the axis to which the
                  traces must be added. Defaults to [0, 0]
     :type axis: list
-    
+
     :return: Updated figure object
     :rtype: SLiCAPplots.figure
     """
     for label in list(traceDict.keys()):
-        figObject.axes[axis[0]][axis[0]].traces.append(traceDict[label])    
+        figObject.axes[axis[0]][axis[0]].traces.append(traceDict[label])
     return figObject
 
 def LTspiceData2Traces(txtFile):
     """
     Generates a dictionary with traces (key = label, value = trace object) from
     LTspice plot data (saved as .txt file).
-    
+
     :param txtFile: Name of the text file stored in the ini.txtPath directory
     :type txtFile: str
-    
+
     :return: Dictionary with key-value pairs:
-        
+
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :rtype: dict
     """
     try:
@@ -1421,22 +1422,22 @@ def csv2traces(csvFile):
     """
     Generates a dictionary with traces (key = label, value = trace object) from
     data from a csv file. The CSV file should have the following structure:
-        
-    x0_label, y0_label, x1_label, y1_label, ... 
+
+    x0_label, y0_label, x1_label, y1_label, ...
     x0_0    , y0_0    , x1_0    , y1_0    , ...
     x0_1    , y0_1    , x1_1    , y1_1    , ...
     ...     , ...     , ...     , ...     , ...
 
     The traces will be named  with their y label.
-    
+
     :param csvFile: name of the csv file (in the ini.csvPath directory)
     :type csvFile: str
-    
+
     :return: dictionary with key-value pairs:
-        
+
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :rtype: dict
     """
     try:
@@ -1470,6 +1471,138 @@ def csv2traces(csvFile):
         traceDict[label].yData = np.array(traceDict[label].yData)
         traceDict[label].label = label
     return traceDict
+
+def Cadence2traces(csvFile, absx = False, logx = False, absy = False, logy = False, selection=['all'], assignID=True):
+    """
+    Generates a dictionary with traces (key = label, value = trace object) from
+    data from a csv file generated in Cadence.
+
+    :param csvFile: name of the csv file (in the ini.csvPath directory)
+    :type csvFile: str
+
+    :param absx: if 'True', it applies the absolute (abs) function to the indpendent variable data (xData)
+    :type bool
+
+    :param logx: if 'True', it applies the logarithm in base 10 (log10) function to the independent variable data (xData)
+    :type bool
+
+    :param absy: if 'True', it applies the absolute (abs) function to the dependent variable data (yData)
+    :type bool
+
+    :param logy: if 'True', it applies the logarithm in base 10 (log10) function to the dependent variable data (yData)
+    :type bool
+
+    :param logy: if
+                    selection=['all']: Selects all traces in the dictionary and does not replace any label
+                    selection=['all',("Var1","Variable"),("Var2","Variable2")]: selects all traces and replaces all character strings mentioned in the first element of the tuples (e.g. "Var1" and "Var2") with the strings in the second element of the tuples ("Variable" and "Variable2").
+                    selection=[('Var1 (SweepVar=1e-06) Y',"New Label"),('Var2 (SweepVar=1e-06) Y',"")]: selects only the traces that are explicitly mentioned in the first element of the tuple (e.g. 'Var1 (SweepVar=1e-06) Y' and 'Var2 (SweepVar=1e-06) Y') and replaces its label with the second element of the tuple unless it is "".
+    :type list of tuples
+
+    :param assignID: if 'True', it generates an ID for each processed trace to avoid overwriting when merging dictionaries.
+    :type bool
+
+    :return: dictionary with key-value pairs:
+
+             - key: *str*: label of the trace
+             - value: *SLiCAPplots.trace* trace object
+
+    :rtype: dict
+    """
+    try:
+        f = open(ini.csvPath + csvFile)
+        lines = f.readlines()
+        f.close()
+    except:
+        print('Error: could not find CSV trace data:', ini.csvPath + csvFile)
+        return {}
+    traceDict = {}
+    labels = []
+    if assignID:
+        ID_dict=" (ID:"+str(randint(0,100))+")"
+    else:
+        ID_dict=""
+    last_raw_x=lines[-1].split(',')[1::2]
+    for element in last_raw_x:
+        try:
+            limiter=eval(element)
+            break
+        except:
+            pass
+    for i in range(len(lines)):
+        if i==0 and lines[0][0]=='"':
+            data = lines[i][1:-1].split('","')
+        else:
+            data = lines[i].split(',')
+        if len(data) % 2 != 0:
+            print("Error: expected an even number of columns in csv file:", ini.csvPath + csvFile)
+            return traceDict
+        elif i == 0:
+            for j in range(int(len(data)/2)):
+                labels.append(data[2*j+1])
+                traceDict[data[2*j+1]] = trace([[], []])
+                traceDict[data[2*j+1]].xData = []
+                traceDict[data[2*j+1]].yData = []
+        else:
+            for j in range(len(labels)):
+                try:
+                    xData = eval(data[2*j])
+                except:
+                    xData = limiter
+                if absx:
+                    xData = abs(xData)
+                if logx:
+                    try:
+                        xData = np.log10(xData)
+                    except:
+                        print("Could not calculate the log10 of the xData of:", ini.csvPath + csvFile)
+                try:
+                    yData = eval(data[2*j+1])
+                except:
+                    yData = 0
+                if absy:
+                    yData = abs(yData)
+                if logy:
+                    try:
+                        yData = np.log10(yData)
+                    except:
+                        print("Could not calculate the log10 of the yData of:", ini.csvPath + csvFile)
+                traceDict[labels[j]].xData.append(xData)
+                traceDict[labels[j]].yData.append(yData)
+    for label in labels:
+            traceDict[label].xData = np.array(traceDict[label].xData)
+            traceDict[label].yData = np.array(traceDict[label].yData)
+            traceDict[label].label = label
+    keys=list(traceDict.keys())
+    traceDict[keys[-1]].label=traceDict[keys[-1]].label.replace("\n","")
+    traceDict_ready={}
+    if selection[0]=='all':
+        selection=selection[1:]
+        unzipped_replacements = list(map(list, zip(*selection)))
+        for key in keys:
+            idx_rpl=0
+            try:
+                for replacement in unzipped_replacements[0]:
+                    traceDict[key+str(ID_dict)].label=traceDict[key+str(ID_dict)].label.replace(replacement,unzipped_replacements[1][idx_rpl])
+                    idx_rpl+=1
+            except:
+                pass
+            traceDict_ready[key+str(ID_dict)]=traceDict[key]
+        return traceDict_ready
+    else:
+        try:
+            unzipped_replacements = list(map(list, zip(*selection)))
+        except:
+            print('Error: invalid input for "selection" parameter')
+        for key in keys:
+            if (key in unzipped_replacements[0]) or (key.rstrip("\n") in unzipped_replacements[0]):
+                try:
+                    idx_rpl=unzipped_replacements[0].index(key)
+                except:
+                    idx_rpl=unzipped_replacements[0].index(key.rstrip("\n"))
+                if unzipped_replacements[1][idx_rpl] != '':
+                    traceDict[key].label=traceDict[key].label.replace(unzipped_replacements[0][idx_rpl],unzipped_replacements[1][idx_rpl])
+                traceDict_ready[key+str(ID_dict)]=traceDict[key]
+    return traceDict_ready
 
 if __name__=='__main__':
     ini.imgPath = ''
