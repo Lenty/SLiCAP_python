@@ -184,7 +184,7 @@
             
   <div class="section" id="module-SLiCAP.SLiCAPmath.SLiCAPmath">
 <span id="slicapmath-py"></span><h1>SLiCAPmath.py<a class="headerlink" href="#module-SLiCAP.SLiCAPmath.SLiCAPmath" title="Permalink to this headline">¶</a></h1>
-<p>SLiCAP module with extended matrix class and SLiCAP math functions.</p>
+<p>SLiCAP module with math functions.</p>
 <p>Imported by the module <strong>SLiCAPprotos.py</strong>.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.assumePosParams">
@@ -259,7 +259,10 @@ Laplace variable, have been redefined as real.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple with a list with poles (<em>float</em>) and a list with zeros (<em>float</em>).</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Tuple with a list with poles (<em>float</em>) and a list with zeros (<em>float</em>).</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Tuple with two lists,</p>
 </td>
 </tr>
 </tbody>
@@ -402,6 +405,48 @@ at the specified frequencies.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.det">
+<code class="descname">det</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.det" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the determinant of a square matrix ‘M’ calculated using recursive 
+minor expansion (Laplace expansion).
+For large matrices with symbolic entries, this is faster than the built-in
+sympy.Matrix.det() method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>M</strong> (<em>sympy.Matrix</em>) – Sympy matrix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Determinant of ‘M’</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dim</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;m_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D1</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">det</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span><span class="o">=</span><span class="n">time</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D2</span> <span class="o">=</span> <span class="n">determinant</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t3</span><span class="o">=</span><span class="n">time</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;M.det :&#39;</span><span class="p">,</span> <span class="n">t2</span><span class="o">-</span><span class="n">t1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;det(M):&#39;</span><span class="p">,</span> <span class="n">t3</span><span class="o">-</span><span class="n">t2</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">D1</span><span class="o">-</span><span class="n">D2</span><span class="p">))</span>
+<span class="go">M.det : 150.64841532707214 s</span>
+<span class="go">det(M): 0.4860818386077881 s</span>
+<span class="go">0</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.doCDS">
 <code class="descname">doCDS</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>tau</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.doCDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns noiseResult after multiplying it with (2*sin(pi*ini.frequency*tau))^2</p>
@@ -514,25 +559,20 @@ parameter definitions into ‘valExpr’.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.invLaplace">
-<code class="descname">invLaplace</code><span class="sig-paren">(</span><em>numer</em>, <em>denom</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.invLaplace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the Inverse Laplace Transform of a numerical rational expression
-of which the sympy polynomials of the numerator and the denominator are
-passed as arguments, respecively.</p>
-<p>ToDo: This function is not used because of observed problems with residues
-at dominant pole-zero pairs. Instead maxILT() is used, which also supports
-the symbolic inverse Laplace Transform.</p>
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.gainValue">
+<code class="descname">gainValue</code><span class="sig-paren">(</span><em>numer</em>, <em>denom</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.gainValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the zero frequency (s=0) value of numer/denom.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>numer</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
-<li><strong>denom</strong> (<em>sympy.Expr</em>) – Univariate function of the Laplace variable.</li>
+<li><strong>numer</strong> (<em>sympy.Expr</em>) – Numerator of a rational function of the Laplace variable</li>
+<li><strong>denom</strong> (<em>sympy.Expr</em>) – Denominator of a rational function of the Laplace variable</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Inverse Laplace transform of numer/denom.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">zero frequency (s=0) value of numer/denom.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
@@ -603,93 +643,23 @@ sp.I*ini.frequency.</p>
 </table>
 </dd></dl>
 
-<dl class="class">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix">
-<em class="property">class </em><code class="descname">matrix</code><span class="sig-paren">(</span><em>M</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>SLiCAP matrix class for symbolic calculations.</p>
-<p>This class is an extension to the sympy Matrix class. It calculates
-determinants using minor expansion. This is slow for large matrices.</p>
-<p>SLiCAP uses Maxima CAS for calculation of determinants.</p>
-<p>Return types for matrices are &lt;class ‘sympy.matrices.matrices.Matrix’&gt;.</p>
-<p>Adapted from: from “Bill McNeill &lt;<a class="reference external" href="mailto:billmcn&#37;&#52;&#48;speakeasy&#46;net">billmcn<span>&#64;</span>speakeasy<span>&#46;</span>net</a>&gt;”</p>
-<p><strong>Added</strong></p>
-<ul class="simple">
-<li>Test for matrix element == zero, speeds up calculation of sparse matrices.</li>
+<dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata">
+<code class="descname">makeYdata</code><span class="sig-paren">(</span><em>yFunc</em>, <em>xVar</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of values y, where y[i] = yFunc(x[i]).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>yFunc</strong> (<em>sympy.Expr</em>) – Function</li>
+<li><strong>xVar</strong> (<em>sympy.Symbol</em>) – Variable that needs to be substituted in yFunc</li>
+<li><strong>x</strong> (<em>list</em>) – List with values of x</li>
 </ul>
-<p><strong>Removed</strong></p>
-<ul class="simple">
-<li>Checks for square matrices: the matrix generated by SLiCAP is square.</li>
-</ul>
-<p><strong>Modified</strong></p>
-<ul class="simple">
-<li>Updated to the latest version of sympy.</li>
-</ul>
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.Cramer">
-<code class="descname">Cramer</code><span class="sig-paren">(</span><em>colVector</em>, <em>colNumber</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.Cramer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns matrix with colVector substituted in column colNumber</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.adjugate">
-<code class="descname">adjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.adjugate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the adjugate (transposed cofactor matrix) matrix of M.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.coFactor">
-<code class="descname">coFactor</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.coFactor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns cofactor C(i,j).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.coFactorMatrix">
-<code class="descname">coFactorMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.coFactorMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the cofactor matrix of M.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.determinant">
-<code class="descname">determinant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.determinant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns determinant of a 2 x 2 matrix.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.dot">
-<code class="descname">dot</code><span class="sig-paren">(</span><em>M2</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.dot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the dot product of two matrices M1 and M2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.dotV">
-<code class="descname">dotV</code><span class="sig-paren">(</span><em>Vr</em>, <em>Vc</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.dotV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the dot product of row vector Vr and column vector Vc.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.expandByMinorsCols">
-<code class="descname">expandByMinorsCols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.expandByMinorsCols" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates (sub)determinant by expansion of minors.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.expandByMinorsRows">
-<code class="descname">expandByMinorsRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.expandByMinorsRows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates (sub)determinant by expansion of minors.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.inverse">
-<code class="descname">inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns inverse matrix of M</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.matrix.minor">
-<code class="descname">minor</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.matrix.minor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns determinant of M after deleting row i and column j.</p>
-</dd></dl>
-
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -887,35 +857,6 @@ sp.I*ini.frequency.</p>
 <span class="go">Matrix([[1], [2], [k/2 + 5/2], [(k**2 + 2*k + 1)/(k + 5)], [k + 1]])</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.simplify">
-<code class="descname">simplify</code><span class="sig-paren">(</span><em>expr</em>, <em>method='fraction'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.simplify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simplifies an expression. Simplification methods can be:</p>
-<ol class="arabic simple">
-<li><em>fraction</em>: The expression will be rewritten as a normal fraction,
-(also common fraction or simple fraction)</li>
-<li><em>normalize</em>: The expression will be rewritten as a normal fraction,
-(also common fraction or simple fraction) in which the coefficient of
-the lowest order of ini.frequency or ini.laplace of the numerator and
-the denominatior are normalized to unity, while this rational is
-multiplied with the ratio of these coefficients.</li>
-<li><em>factor</em>: The expression is rewritten as a product of factors.</li>
-<li><em>expand</em>: The expression is expanded into a sum of normal fractions.</li>
-</ol>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Param:</th><td class="field-body">expr: sympy expression</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">simplified expression</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>

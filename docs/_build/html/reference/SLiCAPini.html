@@ -252,11 +252,8 @@
 <li>Laplace           : Parameter used for Laplace variable</li>
 <li>frequency         : Parameter used for frequency variable</li>
 <li>maxRecSubst       : Maximum number of recursive substitutions</li>
-<li>simplify          : True: simplify transfer functions</li>
-<li>normalize: True: normalize transfer functions: lowest order  coefficient
-of the Laplace variable will be normalized to unity.</li>
-<li>factor: True: Try to factor the numerator and denominator of expressions.</li>
 <li>MaximaMatrixDim   : Maximum dimension of a square matrix to be passed to Maxima</li>
+<li>MaximaTimeOut     : Maximum calculation time for Maxima</li>
 <li>invLaplace        : Calculation method for numeric inverse Laplace<ul>
 <li>maxima: use maxima, sometimes errors or overflows have been observed</li>
 <li>python: uses scipy.residues. Use only if maxima fails!</li>
@@ -390,16 +387,6 @@ Defaults to 4.</p>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.dump">
 <code class="descname">dump</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the global variables and their values.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.factor">
-<code class="descname">factor</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.factor" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<em>Bool</em>) setting for factorization of rational functions.</p>
-<ul class="simple">
-<li>True  : factorization</li>
-<li>False : no factorization</li>
-</ul>
 </dd></dl>
 
 <dl class="attribute">
@@ -611,16 +598,6 @@ locations are:</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.normalize">
-<code class="descname">normalize</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<em>Bool</em>) setting for normalization of rational functions.</p>
-<ul class="simple">
-<li>True  : normalization</li>
-<li>False : no normalization</li>
-</ul>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.notebook">
 <code class="descname">notebook</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<em>Bool</em>)</p>
@@ -641,16 +618,6 @@ rendering of latex in Jupyter notebooks.</li>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath">
 <code class="descname">projectPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Project path (<em>str</em>), will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.simplify">
-<code class="descname">simplify</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.simplify" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<em>Bool</em>) setting for simplification of expressions.</p>
-<ul class="simple">
-<li>True  : simplification</li>
-<li>False : no simplification</li>
-</ul>
 </dd></dl>
 
 <dl class="attribute">

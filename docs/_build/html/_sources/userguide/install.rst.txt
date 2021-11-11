@@ -20,6 +20,11 @@ Requirements
 
 Before installing SLiCAP you need to install `maxima CAS <http://maxima.sourceforge.net/download.html>`_ and Python 3 packages listed in `https://github.com/Lenty/SLiCAP_python/requirements.txt <https://github.com/Lenty/SLiCAP_python/blob/master/requirements.txt>`_.
 
+MacOS installation of maxima
+````````````````````````````
+#. Install maxima on macOs using the *homebrew* package manager (see `brew.sh <https://brew.sh/>`_ for installation instructions)
+#. Install maxima with homebrew: open a terminal and enter: *brew install maxima*. 
+
 Download SLiCAP
 ---------------
 

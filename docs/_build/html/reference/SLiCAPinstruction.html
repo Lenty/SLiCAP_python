@@ -745,6 +745,12 @@ value or expression</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.label">
+<code class="descname">label</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Label to be used in plots.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef">
 <code class="descname">lgRef</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refdes of the controlled source that is assigned as loop gain reference.</p>
@@ -1371,6 +1377,14 @@ parameter is obtained as follows:</p>
 <code class="descname">stepArray</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Array (<em>list of lists</em>) with values for step method array.</p>
 <p>See <strong>instruction.setStepArray(&lt;stepArray&gt;)</strong> for specification of <em>instruction.stepArray</em>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepDict">
+<code class="descname">stepDict</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.stepDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary with key-value pairs:</p>
+<p>key:   name of a step parameter (<em>sympy.Symbol</em>)
+value: list with values for this parameter</p>
 </dd></dl>
 
 <dl class="attribute">

@@ -187,6 +187,46 @@
 <p>SLiCAP module with plot functions.</p>
 <p>Imported by the module SLiCAPhtml.py</p>
 <dl class="function">
+<dt id="SLiCAP.SLiCAPplots.SLiCAPplots.Cadence2traces">
+<code class="descname">Cadence2traces</code><span class="sig-paren">(</span><em>csvFile, absx=False, logx=False, absy=False, logy=False, selection=['all'], assignID=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.Cadence2traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a dictionary with traces (key = label, value = trace object) from
+data from a csv file generated in Cadence.
+:param csvFile: name of the csv file (in the ini.csvPath directory)
+:type csvFile: str
+:param absx: if ‘True’, it applies the absolute (abs) function to the indpendent variable data (xData)
+:type bool
+:param logx: if ‘True’, it applies the logarithm in base 10 (log10) function to the independent variable data (xData)
+:type bool
+:param absy: if ‘True’, it applies the absolute (abs) function to the dependent variable data (yData)
+:type bool
+:param logy: if ‘True’, it applies the logarithm in base 10 (log10) function to the dependent variable data (yData)
+:type bool
+:param logy: if</p>
+<blockquote>
+<div>selection=[‘all’]: Selects all traces in the dictionary and does not replace any label
+selection=[‘all’,(“Var1”,”Variable”),(“Var2”,”Variable2”)]: selects all traces and replaces all character strings mentioned in the first element of the tuples (e.g. “Var1” and “Var2”) with the strings in the second element of the tuples (“Variable” and “Variable2”).
+selection=[(‘Var1 (SweepVar=1e-06) Y’,”New Label”),(‘Var2 (SweepVar=1e-06) Y’,””)]: selects only the traces that are explicitly mentioned in the first element of the tuple (e.g. ‘Var1 (SweepVar=1e-06) Y’ and ‘Var2 (SweepVar=1e-06) Y’) and replaces its label with the second element of the tuple unless it is “”.</div></blockquote>
+<p>:type list of tuples
+:param assignID: if ‘True’, it generates an ID for each processed trace to avoid overwriting when merging dictionaries.
+:type bool
+:return: dictionary with key-value pairs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>key: <em>str</em>: label of the trace</li>
+<li>value: <em>SLiCAPplots.trace</em> trace object</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces">
 <code class="descname">LTspiceData2Traces</code><span class="sig-paren">(</span><em>txtFile</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a dictionary with traces (key = label, value = trace object) from
@@ -514,7 +554,7 @@ instructions should be ‘poles’, ‘zeros’ or ‘pz’.</li>
 <p>The function to be plotted depends on the arguments ‘yVar’ and ‘funcType’:</p>
 <ul class="simple">
 <li>If funcType == ‘params’, the variable ‘yVar’ must be the name of a circuit
-parameter.</li>
+parameter, or a list with circuit parameters.</li>
 <li>If funcType == ‘auto’, the default function that will be plotted depends
 on the data type of the instruction:<ul>
 <li>data type == ‘noise’: funcType = ‘onoise’</li>
@@ -560,6 +600,9 @@ corresponds with this scale factor.</li>
 <li><strong>axisType</strong> (<em>str</em>) – Type of axis: ‘lin’, ‘log’, ‘semilogx’, ‘semilogy’ or ‘polar’.</li>
 <li><strong>funcType</strong> (<em>str</em>) – Type of function can be: ‘mag’, ‘dBmag’, ‘phase’, ‘delay’,
 ‘time’, ‘onoise’, ‘inoise’ or ‘param’.</li>
+<li><strong>yvar</strong> – if funcType = param, yVar should be the name of a circuit 
+parameter or list with names of circuit parameters. In other 
+cases yVar should be ‘auto’.</li>
 <li><strong>yScale</strong> (<em>str</em>) – Scale factor of the y axis variable.</li>
 <li><strong>yUnits</strong> (<em>str</em>) – Units of the y axis variable.</li>
 <li><strong>yLim</strong> (<em>list</em>) – Limits for the y-axis scale: [&lt;ymin&gt;, &lt;ymax&gt;]</li>
