@@ -13,6 +13,7 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
 
    install
    project
+   schematics
    circuit
    parameters
    parameterStepping
