@@ -158,30 +158,13 @@ class settings(object):
        - Laplace           : Parameter used for Laplace variable
        - frequency         : Parameter used for frequency variable
        - maxRecSubst       : Maximum number of recursive substitutions
-       - simplify          : True: simplify transfer functions
-       - normalize: True: normalize transfer functions: lowest order  coefficient
-         of the Laplace variable will be normalized to unity.
-       - factor: True: Try to factor the numerator and denominator of expressions.
-       - MaximaMatrixDim   : Maximum dimension of a square matrix to be passed to Maxima
-       
-       - invLaplace        : Calculation method for numeric inverse Laplace
-       
-         - maxima: use maxima, sometimes errors or overflows have been observed
-         - python: uses scipy.residues. Use only if maxima fails!
+       - MaximaMatrixDim   : Maximum matrix dimension for maxima.newdet()
+       - MaximaTimeOut     : Maximum calculation time for Maxima
          
-       - trigsimp:
-           
-         - True: writes scipy results of inverse Laplace transform as trigonometric functions
-
     #. Display settings
 
        - disp              : Number of digits for displaying floats on html pages
        - mathml:
-
-         - True  : math in mathml in html pages
-         - False : math in latex in html pages and MathJaX cloud
-
-       - language: language for error messages
 
     #. Plot settings
 
@@ -278,38 +261,6 @@ class settings(object):
         Path (*str*), to image files will be set by **SLiCAP.initProject()**;  defaults to None.
         """
 
-        self.mathml             = False
-        """
-        (*Bool*) setting for rendering math in html pages.
-
-        - True  : math in mathml in html pages
-        - False : math in latex in html pages and MathJaX cloud
-        """
-
-        self.simplify           = False
-        """
-        (*Bool*) setting for simplification of expressions.
-
-        - True  : simplification
-        - False : no simplification
-        """
-
-        self.normalize          = True
-        """
-        (*Bool*) setting for normalization of rational functions.
-
-        - True  : normalization
-        - False : no normalization
-        """
-
-        self.factor             = False
-        """
-        (*Bool*) setting for factorization of rational functions.
-
-        - True  : factorization
-        - False : no factorization
-        """
-
         self.htmlIndex          = None
         """
         Name (*str*) of the active html index file.
@@ -348,17 +299,13 @@ class settings(object):
         """
         (*Bool*)
 
-         - True: use Sympy.lambify for parameter stepping
-         - False : substitute step parameters in matrix
+         - True: Transfer functions are calculated with symbolic step variables
+           The step variable are substituted into these expressions.
+         - False: Step variables are substituted directly into the matrix.
+           This method faster for large circuits, or for stepped instructions
+           with multiple step variables.
+           
          """
-
-        self.maxSolve           = True
-        """
-        (*Bool*)
-
-        - True: use Maxima CAS for solving matrix equations
-        - False : use Sympy for solving matrix equations
-        """
 
         self.maxRecSubst        = 12
         """
@@ -386,21 +333,6 @@ class settings(object):
         """
         Symbol (*sympy.core.symbol.Symbol*) used for the Laplace variable.
         Defaults to sp.Symbol('s').
-        """
-        
-        self.invLaplace         = "maxima"
-        """
-        Algebra system to be used for calculation of the numeric inverse Laplace
-        Transform. Defaults to "maxima". Alternative = "python".
-        """
-        
-        self.trigsimp           = False
-        """
-        (*Bool*)
-        
-        - True: Returns the result of scipy inverse Laplace transform as trigonometric functions.
-        
-        - False:  Returns the result of scipy inverse Laplace transform as complex exponentials.
         """
         
         self.frequency          = sp.Symbol('f')
@@ -486,10 +418,10 @@ class settings(object):
         update. This is set by **SLiCAP.initProject()**.
         """
 
-        self.MaximaTimeOut      = 5
+        self.MaximaTimeOut      = 60
         """
         Maximum time in seconds (*int*) for subprocess to run Maxima. Defaults
-        to 5.
+        to 60.
         """
         
         self.MaximaMatrixDim    = 25
@@ -507,14 +439,14 @@ class settings(object):
         - Windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
         - Linux (Wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
 
-        This prefix will be followed by the name of the schematic file.
+        This variable is set during installation.
         """
 
         self.maxima             = None
         """
         MSWindows command for starting Maxima.
 
-        Defaults to *SLiCAPconfig.MAXIMA*
+        This variable is set during installation.
         """
 
         self.netlist            = None

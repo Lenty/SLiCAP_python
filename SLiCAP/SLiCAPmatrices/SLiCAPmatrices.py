@@ -351,11 +351,11 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
             value = value * ini.Laplace * sp.sqrt(ind0 * ind1)
             M[refPos0][refPos1] -= value
             M[refPos1][refPos0] -= value
-    M = matrix(M)
+    M = sp.Matrix(M)
     gndPos = varIndex['0']
     M.row_del(gndPos)
     M.col_del(gndPos)
-    Dv = matrix(Dv)
+    Dv = sp.Matrix(Dv)
     Dv.row_del(gndPos)
     # Restore circuit data
     if gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
@@ -434,7 +434,7 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
             dVarPos = varIndex['I_' + elmt.refDes]
             Iv[dVarPos] += val
     gndPos = varIndex['0']
-    Iv = matrix(Iv)
+    Iv = sp.Matrix(Iv)
     Iv.row_del(gndPos)
     return Iv
 

@@ -86,11 +86,8 @@ def HTMLhead(pageTitle):
     html += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
     html += '<meta name="Language" content="English"/>\n'
     html += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
-    if ini.mathml == True:
-        print('MathML is not (yet) supported. Only MathJaX cloud is supported!')
-    else:
-        html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
-        html += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
+    html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
+    html += '<script type="text/javascript" id="MathJax-script" async  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>\n'
     html += '</head><body><div id="top"><h1>' + pageTitle + '</h1></div>\n'
     return(html)
 
@@ -654,6 +651,8 @@ def pz2html(instObj, label = '', labelText = ''):
         ini.htmlLabels[label] = newlabel
         label = '<a id="' + label + '"></a>'
     (poles, zeros, DCgain) = (instObj.poles, instObj.zeros, instObj.DCvalue)
+    if type(DCgain) == list and len(DCgain) != 0:
+        DCgain = DCgain[0]
     if instObj.dataType == 'poles':
         headTxt = 'Poles '
     elif instObj.dataType == 'zeros':
@@ -663,10 +662,13 @@ def pz2html(instObj, label = '', labelText = ''):
     html = '<h2>' + label + headTxt + ' analysis results</h2>\n'
     html += '<h3>Gain type: %s</h3>'%(instObj.gainType)
     if DCgain != None and instObj.dataType =='pz':
-        html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, ini.disp)) + '</p>\n'
+        if instObj.numeric == True:
+            html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, ini.disp)) + '</p>\n'
+        else:
+            html += '\n<p>DC gain = $' + sp.latex(roundN(DCgain)) + '$</p>\n'
     elif instObj.dataType =='pz':
         html += '<p>DC gain could not be determined.</p>\n'
-    if ini.Hz == True:
+    if ini.Hz == True and instObj.numeric == True:
         unitsM = 'Mag [Hz]'
         unitsR = 'Re [Hz]'
         unitsI = 'Im [Hz]'
@@ -675,51 +677,63 @@ def pz2html(instObj, label = '', labelText = ''):
         unitsR = 'Re [rad/s]'
         unitsI = 'Im [rad/s]'
     if len(poles) > 0 and instObj.dataType == 'poles' or instObj.dataType == 'pz':
-        html += '<table><tr><th>pole</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
-        for i in range(len(poles)):
-            p = poles[i]
-            if ini.Hz == True:
-                p  = p/2/sp.pi
-            Re = sp.re(p)
-            Im = sp.im(p)
-            F  = sp.sqrt(Re**2+Im**2)
-            if Im != 0:
-                Q = str(sp.N(F/2/abs(Re), ini.disp))
-            else:
-                Q = ''
-            F  = str(sp.N(F, ini.disp))
-            Re = str(sp.N(Re, ini.disp))
-            if Im != 0.:
-                Im = str(sp.N(Im, ini.disp))
-            else:
-                Im = ''
-            name = 'p<sub>' + str(i + 1) + '</sub>'
-            html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
-        html += '</table>\n'
+        if instObj.numeric == True:
+            html += '<table><tr><th>pole</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
+            for i in range(len(poles)):
+                p = poles[i]
+                if ini.Hz == True:
+                    p  = p/2/sp.pi
+                Re = sp.re(p)
+                Im = sp.im(p)
+                F  = sp.sqrt(Re**2+Im**2)
+                if Im != 0:
+                    Q = str(sp.N(F/2/abs(Re), ini.disp))
+                else:
+                    Q = ''
+                F  = str(sp.N(F, ini.disp))
+                Re = str(sp.N(Re, ini.disp))
+                if Im != 0.:
+                    Im = str(sp.N(Im, ini.disp))
+                else:
+                    Im = ''
+                name = 'p<sub>' + str(i + 1) + '</sub>'
+                html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
+            html += '</table>\n'
+        else:
+            html += '<table><tr><th>pole</th><th>value</th></tr>'
+            for i in range(len(poles)):
+                html += '\n<tr><td> $p_{' +str(i) + '}$</td><td>$' + sp.latex(roundN(poles[i])) + '$</td></tr>\n'
+            html += '</table>\n'
     elif instObj.dataType == 'poles' or instObj.dataType == 'pz':
         html += '<p>No poles found.</p>\n'
     if len(zeros) > 0 and instObj.dataType == 'zeros' or instObj.dataType == 'pz':
-        html += '<table><tr><th>zero</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
-        for i in range(len(zeros)):
-            z = zeros[i]
-            if ini.Hz == True:
-                z = z/2/sp.pi
-            Re = sp.re(z)
-            Im = sp.im(z)
-            F  = sp.sqrt(Re**2+Im**2)
-            if Im != 0:
-                Q = str(sp.N(F/2/abs(Re), ini.disp))
-            else:
-                Q = ''
-            F  = str(sp.N(F, ini.disp))
-            Re = str(sp.N(Re, ini.disp))
-            if Im != 0.:
-                Im = str(sp.N(Im, ini.disp))
-            else:
-                Im = ''
-            name = 'z<sub>' + str(i + 1) + '</sub>'
-            html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
-        html += '</table>\n'
+        if instObj.numeric == True:
+            html += '<table><tr><th>zero</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
+            for i in range(len(zeros)):
+                z = zeros[i]
+                if ini.Hz == True:
+                    z = z/2/sp.pi
+                Re = sp.re(z)
+                Im = sp.im(z)
+                F  = sp.sqrt(Re**2+Im**2)
+                if Im != 0:
+                    Q = str(sp.N(F/2/abs(Re), ini.disp))
+                else:
+                    Q = ''
+                F  = str(sp.N(F, ini.disp))
+                Re = str(sp.N(Re, ini.disp))
+                if Im != 0.:
+                    Im = str(sp.N(Im, ini.disp))
+                else:
+                    Im = ''
+                name = 'z<sub>' + str(i + 1) + '</sub>'
+                html += '<tr><td>' + name + '</td><td>' + Re + '</td><td>' + Im + '</td><td>' + F + '</td><td>' + Q +'</td></tr>\n'
+            html += '</table>\n'
+        else:
+            html += '<table><tr><th>zero</th><th>value</th></tr>'
+            for i in range(len(zeros)):
+                html += '\n<tr><td> $z_{' +str(i) + '}$</td><td>$' + sp.latex(roundN(zeros[i])) + '$</td></tr>\n'
+            html += '</table>\n'
     elif instObj.dataType == 'zeros' or instObj.dataType == 'pz':
         html += '<p>No zeros found.</p>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
@@ -770,7 +784,7 @@ def noise2html(instObj, label = '', labelText = ''):
         html += '<h3>Source-referred noise spectrum</h3>\n'
         html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual noise sources</h3><table>\n'
-    keys = list(instObj.snoiseTerms.keys())
+    keys = list(instObj.onoiseTerms.keys())
     keys.sort()
     for key in keys:
         nUnits = key[0].upper()
@@ -778,9 +792,12 @@ def noise2html(instObj, label = '', labelText = ''):
             nUnits = 'A'
         nUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(nUnits)
         html += '<th colspan = "3" class="center">Noise source: %s</th>'%(key)
-        srcValue = instObj.snoiseTerms[key]
+        try:
+            srcValue = instObj.snoiseTerms[key]
+        except:
+            srcValue = 0
         if numeric:
-            srcValue = fullSubs(srcValue, instObj.parDefs)
+            srcValue = fullSubs(srcValue, instObj.circuit.parDefs)
         html += '<tr><td class="title">Spectral density:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue, numeric = instObj.numeric)), nUnits)
         html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.onoiseTerms[key], numeric = instObj.numeric)), detUnits)
         if instObj.source != None:
@@ -839,7 +856,7 @@ def dcVar2html(instObj, label = '', labelText = ''):
         html += '<h3>Source-referred variance</h3>\n'
         html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual component variances</h3><table>\n'
-    keys = list(instObj.svarTerms.keys())
+    keys = list(instObj.ovarTerms.keys())
     keys.sort()
     for key in keys:
         nUnits = key[0].upper()
@@ -847,7 +864,10 @@ def dcVar2html(instObj, label = '', labelText = ''):
             nUnits = 'A'
         nUnits = '\mathrm{\left[ %s^2 \\right]}'%(nUnits)
         html += '<th colspan = "3" class="center">Variance of source: %s</th>'%(key)
-        srcValue = instObj.svarTerms[key]
+        try:
+            srcValue = instObj.svarTerms[key]
+        except:
+            srcValue = 0
         if numeric:
             srcValue = fullSubs(srcValue, instObj.parDefs)
         html += '<tr><td class="title">Source variance:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue, numeric = instObj.numeric)), nUnits)

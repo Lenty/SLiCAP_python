@@ -8,17 +8,55 @@ Imported by the module **SLiCAPplots.py**.
 from SLiCAP.SLiCAPmatrices import *
 from mpmath import polyroots
 
-def sympy2maximaMatrix(M):
+MAXIMAFUNCTIONS = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP.mac");\n'
+
+def python2maxima(expr):
     """
-    Converts a sympy matrix object into a Maxima matrix definition.
+    Converts a sympy expression into a Maxima expression.
 
-    :param M: sympy matrix
-    :type M: symPy.Matrix
+    :param expr: sympy expression
+    :type expr: sympy.Ex
 
-    :return: sympy matrix converted to a Maxima matrix
+    :return: maxima expression
     :rtype: str
     """
-    return(str(M).replace('Matrix([','matrix(').replace(']])','])'))
+    expr = str(expr) + ' ' # Add a space for expressions ending with pi, e, E or I
+    # Remove extra brackets in matrix
+    expr = re.sub(r'Matrix\(\[\[(.*)\]\]\)', r'matrix([\1])', expr)
+    # Replace exp(1): e or E with %e
+    expr = re.sub(r'([+-/\*^\(])[eE]([\s\)+-/\*^])', r'\1%e\2', expr)
+    # Replace pi with %pi
+    expr = re.sub(r'([+-/\*^\(])pi([\s\)+-/\*^])', r'\1%pi\2', expr)
+    # Replace 1j or I with %i
+    expr = re.sub(r'([0-9])j', r'\1*%i', expr)
+    expr = re.sub(r'([+-/\*^\(\s])I([\s\)+-/\*^])', r'\1%i\2', expr)
+    # Replace the sign() function with the signum() function
+    expr = re.sub(r'sign(\(.*\))', r'signum\1', expr)
+    return expr
+
+def maxima2python(expr):
+    """
+    Converts a maxima expression into string that can be converted into a sympy expression.
+
+    :param expr: maxima expression
+    :type expr: str
+
+    :return: sympy compatible expression
+    :rtype: str
+    """
+    # Convert big float notation '12345b+123' to float notation '12345e+123':
+    expr = re.sub(r'(([+-]?)(\d+)(\.?)(\d*))b(([+-]?)(\d+))', r'\1e\6', expr)
+    # Convert complex number notation:
+    expr = re.sub(r'%i','1j', expr)
+    # Convert 'e' notation:
+    expr = re.sub(r'%e','exp(1)', expr)
+    # Convert 'pi' notation:
+    expr = re.sub(r'%pi','pi', expr)
+    # Convert Maxima matrix to sympy matrix:
+    expr = re.sub(r'matrix\(\[(.*)\]\)', r'Matrix([[\1]])', expr)
+    # Replace the signum() function with the sign() function
+    expr = re.sub(r'signum(\(.*\))', r'sign\1', expr)
+    return expr
 
 def maxEval(maxExpr):
     """
@@ -42,246 +80,20 @@ def maxEval(maxExpr):
     >>> maxEval("result:ilt(1/(s^2 + a^2), s, t);")
     'sin(a*t)/a'
     """
-    # LISP command for a  a single-line output in text format:
-    maxStringConv = ":lisp (mfuncall '$string $result);"
-    maxAssume = "assume_pos:true$assume_pos_pred:symbolp$"
-    maxInput = maxAssume + maxExpr + maxStringConv
+    #maxAssume = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
+    maxStringConv = "stringdisp:true$string(result);"
+    maxInput = maxExpr + maxStringConv
     # Read the output
-    result = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True).stdout.split('\n')
-    # Convert the result such that it can be 'sympified' by sympy
-    result = [i for i in result if i] # Added due to variability of trailing '\n'
-    if result != '' and len(result) > 0:
-        result = result[-1]
-        # Convert big float notation '12345b+123' to float notation '12345e+123':
-        result = re.sub(r'(([+-]?)(\d+)(\.?)(\d*))b(([+-]?)(\d+))', r'\1e\6', result)
-        # Convert complex number notation:
-        result = re.sub(r'%j','j', result)
-        # Convert 'e' (natural base) notation:
-        result = re.sub(r'%e','exp(1)', result)
-        # Convert 'pi' notation:
-        result = re.sub(r'%pi','pi', result)
-        # Convert Maxima matrix to sympy matrix:
-        result = result.replace('matrix(', 'Matrix([')
-        result = result.replace('])', ']])')
-        # ToDo
-        # Other conversions
-    else:
-        print("Error: maxima CAS could not evaluate:\n", maxExpr)
+    try:
+        output = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True)
+        result = output.stdout.split('"')[-2] # The quoted string is the result of the calculation
+        result = result.replace('\\\n', '')   # Remove the maxima newline characters from this result
+        result = maxima2python(result)        # Convert the maxima output into a string that can be 'sympified' by python
+    except:
+        print("""\nMaxima calculation failed or timed out. A time-out occurs if maxima requires additional input, or if maxima requires more time. 
+The latter case can be solved by increasing the time limit using the command: 'ini.MaximaTimeOut=nnn', where nnn is the number of seconds.\n""")
+        result = output
     return result
-
-def maxILT(numer, denom, numeric = True):
-    """
-    Calculates the inverse Laplace transform of  'Fs' using Maxima CAS.
-
-    This function first tries to calculate the ILT symbolically, if this fails
-    it tries to create a factorized rational expression of the Laplace variable
-    ini.laplace and then calculates the ILT of this rational expression.
-
-    :param numer: Numarator of the Laplace Transform.
-    :type numer: sympy.Expr
-
-    :param denom : Denominator of the Laplace Transform.
-    :type denom: sympy.Expr
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-
-    :return: Sympy expression of the time function if the ILT succeeded, or
-             sp.Symbol('ft') if the ILT failed.
-
-    :Example:
-
-    >>> maxILT(2, 3*ini.Laplace**2 + sp.Symbol('a')**2, numeric = False)
-    2*sqrt(3)*sin(sqrt(3)*a*t/3)/(3*a)
-
-    :Example:
-
-    >>> maxILT(2, 3*ini.Laplace**2 + sp.Symbol('a')**2, numeric = True)
-    1.154700538379252*sin(0.5773502691896258*a*t)/a
-    """
-    Fs = numer/denom
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    # Try inverse laplace of symbolic function
-    maxExpr = 'result:%s(ilt('%(numeric) + str(Fs)+',s,t));'
-    result = maxEval(maxExpr)
-    if ini.invLaplace == "maxima":
-        try:
-            if len(result) > 5 and result[1:5] == 'ilt(':
-                # Did not succeed
-                if isinstance(Fs, sp.Basic):
-                    params = set(list(numer.atoms(sp.Symbol)) + list(denom.atoms(sp.Symbol)))
-                    try:
-                        params.remove(ini.Laplace)
-                        if len(params) != 0:
-                            print("Error: symbolic variables found, cannot determine roots.")
-                            return sp.Symbol('ft')
-                        else:
-                            # Use maxima newIlt
-                            maxExpr = 'load("' + ini.installPath + 'SLiCAPmaxima/newIlt.mac");\n'
-                            maxExpr += 'result:bfloat(newIlt('+ str(numer/sp.expand(denom)) + ',' +str(ini.Laplace) + ',t));'
-                            result = maxEval(maxExpr)   
-                            return(sp.sympify(result))
-                        if len(result) > 7 and result[1:7] == 'newIlt(':
-                            print("Error: could not determine the inverse Laplace transform.")
-                            return sp.Symbol('ft')
-                    except:
-                        print("Error: could not determine the inverse Laplace transform.")
-                        return sp.Symbol('ft')
-            elif result == '':
-                    print("Error: Maxima CAS processing error.")
-                    return sp.Symbol('ft')
-            else:
-                return sp.sympify(result)
-        except:
-            try:
-                print("Trying numeric Inverse Laplace Transform with scipy.")
-                result = invLaplace(numer, denom)
-                return result
-            except:
-                print("Error: could note determine the inverse Laplace transform:")
-                print('result:%s(ilt('%(numeric) + str(Fs)+',s,t)')
-                return sp.Symbol('ft')
-    else:
-        try:
-            print("Performing numeric inverse Laplace transform with scipy.")
-            result = invLaplace(numer, denom)
-            return result
-        except:
-            print("Error: could note determine the inverse Laplace transform:")
-            print(str(Fs))
-            return sp.Symbol('ft')
-    
-def detFunc():
-    return 'load("' + ini.installPath + 'SLiCAPmaxima/det.mac");\n'
-
-def maxDet(M, numeric = True):
-    """
-    Returns the determinant of matrix 'M' in Sympy format, calculated by Maxima CAS.
-
-    Calculation of the determinant according to the GENTLEMAN-JOHNSON TREE-MINOR
-    method. This is a fast version of expansion by minors. It it implemented in
-    Maxima CAS for matrices up to 50 x 50.
-
-    :param M: Matrix of which the determinant needs to be evaluated
-    :type M: sympy.Matrix
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-    """
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    maxMatrix = sympy2maximaMatrix(M)
-    rows, cols = M.shape
-    if M.shape[0] < ini.MaximaMatrixDim:
-        maxExpr = 'm:' + maxMatrix + ';result:%s(expand(newdet(m)));'%(numeric)
-    else:
-        maxExpr = detFunc() + 'm:' + maxMatrix + ';result:%s(det(m));'%(numeric)
-    result = maxEval(maxExpr)
-    try:
-        return sp.sympify(result)
-    except:
-        print('Maxima error:', result)
-
-def maxNumer(M, detP, detN, srcP, srcN, numeric = True):
-    """
-    Returns the numerator of a transfer function.
-
-    Calculation method:
-
-    - numer = + cofactor(srcP, detP) - cofactor(srcN, detP) - cofactor(srcP, detN) + cofactor(srcN, detN)
-    - cofactor(i,j) = (-1)^(i+j)*det(minor(i,j))
-
-    The minor matrices and the multiplication factors are determined with Sympy,
-    the determinants are calculated with Maxima.
-
-    :Note: In Sympy a minor is defined as the determinant of the minor
-           matrix. Use sympy.Matrix.minor_submatrix to get the matrix only.
-
-           In Maxima a minor is the minor matrix itself.
-
-    :param M: MNA matrix
-    :type M: sympy.Matrix
-
-    :param detP: Position of positive detector in vector with dependent variables.
-                 This can be a nodal voltage or a current through a voltage source
-                 or None if the positive node is the ground node or a positive
-                 current is not used.
-    :type detP: int, bool
-
-    :param detN: Position of positive detector in vector with dependent variables.
-                 This can be a nodal voltage or a current through a voltage source
-                 or None if the negative node is the ground node or a negative
-                 current is not used.
-    :type detN: int, bool
-
-    :param srcP: Current source: position of positive node in vector with
-                 dependent variables.
-
-                 Voltage source: position of current through this source in the
-                 vector with dependent variables.
-    :type srcP: int, bool
-    :param srcN: Current source: position of positive node in vector with dependent
-                 variables.
-
-                 Voltage source: None
-    :type srcN: int, bool
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-
-
-    :return: Numerator of a transfer function
-    :rtype: sympy.Expr
-    """
-    # Create a list of matrices of which the determinant needt to be calculated
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    rows, cols = M.shape
-    if rows <= ini.MaximaMatrixDim:
-        # Create the Maxima instruction
-        maxExpr = 'result:%s(expand('%(numeric)
-        func = 'newdet('
-    else:
-        maxExpr = detFunc() + 'result:%s(expand('%(numeric)
-        func = 'det('
-    if detP != None:
-        if srcP != None:
-            if (detP+srcP)%2 == 0:
-                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
-            else:
-                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detP)) + ')'
-        if srcN != None:
-            if (detP+srcN)%2 == 0:
-                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
-            else:
-                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detP)) + ')'
-    if detN != None:
-        if srcP != None:
-            if (detN+srcP)%2 == 0:
-                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
-            else:
-                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcP, detN)) + ')'
-        if srcN != None:
-            if (detN+srcN)%2 == 0:
-                maxExpr += '+' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
-            else:
-                maxExpr += '-' + func + sympy2maximaMatrix(M.minor_submatrix(srcN, detN)) + ')'
-    maxExpr += '));'
-    result = maxEval(maxExpr)
-    try:
-        return sp.sympify(result)
-    except:
-        print('Maxima error:', result)
 
 def maxLimit(expr, var, val, pm, numeric = True):
     """
@@ -313,98 +125,9 @@ def maxLimit(expr, var, val, pm, numeric = True):
     except:
         print('Maxima error:', result)
 
-def maxCramerNumer(M, Iv, detP, detN, numeric = True):
-    """
-    Returns the numerator of the response at the detector as a result of
-    excitations from one or more sources.
-
-    Calculation method:
-
-    - numer = + determinant(subs(M, col(detP) = Iv)) - determinant(subs(M, col(detN) = Iv))
-
-    The subsititutions are made with Sympy. The determinants are calculated with Maxima CAS.
-
-    :param M: MNA matrix
-    :type M: sympy.Matrix
-
-    :param Iv: Vector with independent variables
-    :type Iv: sympy.Matrix
-
-    :param detP: Position of positive detector in vector with dependent variables.
-                 This can be a nodal voltage or a current through a voltage source
-                 or None if the positive node is the ground node or a positive
-                 current is not used.
-    :type detP: int, bool
-
-    :param detN: Position of positive detector in vector with dependent variables.
-                 This can be a nodal voltage or a current through a voltage source
-                 or None if the negative node is the ground node or a negative
-                 current is not used.
-    :type detN: int, bool
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-
-    :return: Numerator of a response
-    :rtype: sympy.Expr
-    """
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    rows, cols = M.shape
-    if rows <= ini.MaximaMatrixDim:
-        # Create the Maxima instruction
-        maxExpr = 'result:%s(expand('%(numeric)
-        func = 'newdet('
-    else:
-        maxExpr = detFunc() + 'result:%s(expand('%(numeric)
-        func = 'det('
-    if detP != None:
-        maxExpr += '+' + func + sympy2maximaMatrix(M.Cramer(Iv, detP)) + ')'
-    if detN != None:
-        maxExpr += '-' + func + sympy2maximaMatrix(M.Cramer(Iv, detN)) + ')'
-    maxExpr += '));'
-    result = maxEval(maxExpr)
-    try:
-        return sp.sympify(result)
-    except:
-        print('Maxima error:', result)
-
-def maxSolve(M, Iv, numeric = True):
-    """
-    Calculates M^(-1).Iv
-
-    :param M: MNA matrix
-    :type M: sympy.Matrix
-
-    :param Iv: Vector with independent variables
-    :type Iv: sympy.Matrix
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-    :type numeric: bool
-
-    :return: Network solution.
-    :rtype: sympy.Matrix
-    """
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    maxExpr = 'M:' + sympy2maximaMatrix(M) + ';'
-    maxExpr += 'Iv:' + sympy2maximaMatrix(Iv) + ';'
-    maxExpr += 'result:%s(invert(M).Iv);'%(numeric)
-    result = maxEval(maxExpr)
-    try:
-        return sp.sympify(result)
-    except:
-        print('Maxima error:', result)
-
 def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     """
-    Calculated definite or indefinite integral of 'expr'.
+    Calculates definite or indefinite integral of 'expr'.
 
     :param expr: Integrand
     :type expr: sympy.Expr
@@ -443,111 +166,6 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
         result = sp.sympify('Error')
     return result
 
-def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
-    """
-    Returns the solutions of the equation transferFunction = protoTypeFunction.
-
-    Both transfer and prototype should be Laplace rational functions.
-    Their numerators should be polynomials of the Laplace variable of equal
-    order and their denominators should be polynomials of the Laplace variable
-    of equal order.
-    :note: if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.
-    :param protoType: Prototype rational expression of the Laplace variable
-    :type protoType: sympy.Expr
-    :param transfer:
-
-    Transfer fucntion of which the parameters need to be
-    solved. The numerator and the denominator of this rational
-    expression should be of the same order as those of the
-    prototype.
-
-    :type transfer: sympy.Expr
-
-    :param noSolve: List with variables (*str, sympy.core.symbol.Symbol*) that do not need
-                    to be solved. These parameters will remain symbolic in the
-                    solutions.
-
-    :type noSolve: list
-
-    :param numeric: True will force Maxima to use (big) floats for numeric
-                    values.
-
-    :type numeric: bool
-
-    :return: Dictionary with key-value pairs:
-
-             - key: name of the parameter (*sympy.core.symbol.Symbol*)
-             - value: solution of this parameter: (*sympy.Expr, int, float*)
-
-    :rtype: dict
-    """
-    if numeric:
-        numeric = 'bfloat'
-    else:
-        numeric = ''
-    pars = list(set(list(protoType.atoms(sp.Symbol)) + list(transfer.atoms(sp.Symbol))))
-    for i in range(len(noSolve)):
-        noSolve[i] = sp.Symbol(str(noSolve[i]))
-    params = []
-    for par in pars:
-        if par != ini.Laplace and par not in noSolve:
-            params.append(par)
-    gainP, pN, pD = coeffsTransfer(protoType)
-    gainT, tN, tD = coeffsTransfer(transfer)
-    if len(pN) != len(tN) or len(pD) != len(tD):
-        print('Error: unequal orders of prototype and target.')
-        return values
-    values = {}
-    if ini.maxSolve:
-        equations = ''
-        for i in range(len(pN)):
-            eqn = sp.Eq(sp.N(pN[i]),sp.N(tN[i]))
-            if eqn != True:
-                equations += str(pN[i]) + '=' + str(tN[i]) + ','
-        for i in range(len(pD)):
-            eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
-            if eqn != True:
-                equations += str(pD[i]) + '=' + str(tD[i]) + ','
-        eqn = sp.Eq(gainP, gainT)
-        if eqn != True:
-            equations += str(gainP) + '=' + str(gainT) + ','
-        equations = '[' + equations[0:-1] + ']'
-        params = str(params)
-        maxExpr = 'result:(%s(solve('%(numeric) + equations + ',' + params + ')))[1];'
-        result = maxEval(maxExpr)
-        result = result[1:-1].split(',')
-        try:
-            for i in range(len(result)):
-                name, value = result[i].split('=')
-                name = sp.Symbol(name.strip())
-                values[name] = sp.N(sp.sympify(value))
-        except:
-            print('Error: could not solve equations.')
-    else:
-        equations = []
-        for i in range(len(pN)):
-            eqn = sp.Eq(sp.N(pN[i]),sp.N(tN[i]))
-            if eqn != True:
-                equations.append(eqn)
-        for i in range(len(pD)):
-            eqn = sp.Eq(sp.N(pD[i]),sp.N(tD[i]))
-            if eqn != True:
-                equations.append(eqn)
-        eqn = sp.Eq(gainP, gainT)
-        if eqn != True:
-            equations.append(eqn)
-        try:
-            solution = sp.solve(equations, (params))[0]
-            if type(solution) == dict:
-                values = solution
-            else:
-                values = {}
-                for i in range(len(params)):
-                    values[params[i]] = solution[i]
-        except:
-            print('Error: could not solve equations.')
-    return values
-
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     """
     Calculates the RMS source-referred noise or detector-referred noise,
@@ -576,55 +194,55 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
              - A list with expressions or values if parameter stepping of the instruction is enabled.
     :rtype: int, float, sympy.Expr, list
     """
+    errors = 0
     if fmin == None or fmax == None:
         print("Error in frequency range specification.")
-        return None
+        errors += 1
     fMi = checkNumber(fmin)
     fMa = checkNumber(fmax)
     if fMi != None:
+        # Numeric value for fmin
         fmin = fMi
-    if fMa != None:
+    if fMa != None: 
+        # Numeric value for fmax
         fmax = fMa
-    if fmin != None and fmax != None:
-        if fMi != None and  fMa != None and fmin >= fmax:
-            print("Error in frequency range specification.")
-            return None
-    if noiseResult.dataType != 'noise':
+    if fMi != None and  fMa != None and fmin >= fmax:
+        # Numeric values for fmin and fmax but fmin >= fmax
+        print("Error in frequency range specification.")
+        errors += 1
+    elif noiseResult.dataType != 'noise':
         print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
-        rms = None
-    keys = list(noiseResult.onoiseTerms.keys())
-    if noise == 'inoise':
-        if source == None:
-            noiseData = noiseResult.inoise
-        elif source in keys:
-            noiseData = noiseResult.inoiseTerms[source]
+        errors += 1
+    if errors == 0:
+        keys = list(noiseResult.onoiseTerms.keys())
+        if noise == 'inoise':
+            if source == None:
+                noiseData = noiseResult.inoise
+            elif source in keys:
+                noiseData = noiseResult.inoiseTerms[source]
+            else:
+                print("Error: unknown noise source: '{0}'.".format(source))
+                errors += 1
+        elif noise == 'onoise':
+            if source == None:
+                noiseData = noiseResult.onoise
+            elif source in keys:
+                noiseData = noiseResult.onoiseTerms[source]
+            else:
+                print("Error: unknown noise source: '{0}'.".format(source))
+                errors += 1
         else:
-            print("Error: unknown noise source: '{0}'.".format(source))
-            rms = None
-    elif noise == 'onoise':
-        if source == None:
-            noiseData = noiseResult.onoise
-        elif source in keys:
-            noiseData = noiseResult.onoiseTerms[source]
-        else:
-            print("Error: unknown noise source: '{0}'.".format(source))
-            rms = None
-    else:
-        print("Error: unknown noise type: '{0}'.".format(noise))
-        rms = None
-    if type(noiseData) != list:
-        noiseData = [noiseData]
-    rms =  np.array([sp.N(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType))) for i in range(len(noiseData))])
-    if len(rms) == 1:
-        rms = rms[0]
-    return rms
+            print("Error: unknown noise type: '{0}'.".format(noise))
+            errors += 1
+        if errors == 0:
+            if type(noiseData) != list:
+                noiseData = [noiseData]
+            rms =  np.array([sp.N(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType))) for i in range(len(noiseData))])
+            if len(rms) == 1:
+                rms = rms[0]
+            return rms
 
 if __name__ == '__main__':
-    print(maxILT(1, ini.Laplace**2 + sp.Symbol('a')**2, numeric = False))
-    proto_transfer = sp.sympify('0.3*(1/(1+s*0.6))')
-    circuit_transfer = sp.sympify('R_1/(R_1 + R_2)/(1 + s*R_1*R_2/(R_1 + R_2)*10e-6)')
-    circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer)
-    print(circuit_component_values)
-    proto_transfer = sp.sympify('A/(1+s*tau)')
-    circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer, noSolve=['A','tau'], numeric=False)
-    print(circuit_component_values)
+    x = sp.Symbol('x')
+    y = (1+2*x+3*x**2)/(x*sp.exp(10)+2/sp.pi)
+    print(maxIntegrate(y,x, numeric=False))

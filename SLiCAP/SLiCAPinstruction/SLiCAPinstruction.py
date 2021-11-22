@@ -8,7 +8,7 @@ Imported by the module **SLiCAP.py**.
 from SLiCAP.SLiCAPexecute import *
 
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
-DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve',
+DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 'timesolve',
              'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse',
              'step', 'params']
 
@@ -101,7 +101,15 @@ class instruction(object):
 
         See **instruction.setStepArray(<stepArray>)** for specification of *instruction.stepArray*.
         """
-
+        
+        self.stepDict = {}
+        """
+        Dictionary with key-value pairs:
+        
+        key:   name of a step parameter (*sympy.Symbol*)
+        value: list with values for this parameter
+        """
+        
         self.source = None
         """
         Refdes of the signal source (independent v or i source).
@@ -184,6 +192,11 @@ class instruction(object):
         """
         Name for the detector quantity to be used in expressions or plots
         (automatically determined in **instruction.chekDetector()**).
+        """       
+        
+        self.label = ''
+        """
+        Label to be used in plots.
         """
 
         self.parDefs = None
@@ -1327,6 +1340,9 @@ class instruction(object):
                     elif self.dataType == 'dcsolve':
                         # need nothing
                         pass
+                    elif self.dataType == 'timesolve':
+                        # need nothing
+                        pass
                     else:
                         self.errors += 1
                         print("Error: dataType '{0}' not available for gainType: '{1}'.".format(self.dataType, self.gainType))
@@ -1352,15 +1368,16 @@ class instruction(object):
                         self.checkSource()
                     elif self.dataType == 'poles':
                         # need numeric
-                        self.checkNumeric()
+                        # self.checkNumeric()
+                        pass
                     elif self.dataType == 'zeros':
                         # need numeric, source and detector
-                        self.checkNumeric()
+                        #self.checkNumeric()
                         self.checkDetector()
                         self.checkSource()
                     elif self.dataType == 'pz':
                         # need numeric source and detector
-                        self.checkNumeric()
+                        #self.checkNumeric()
                         self.checkDetector()
                         self.checkSource()
                     else:
@@ -1380,6 +1397,7 @@ class instruction(object):
                 print("Error: parameter stepping with dataType 'matrix' has not been implemented.")
             else:
                 # Check step parameters
+                self.stepDict = {} # Clear the dictionary with step data
                 self.checkStep()
         return
 
@@ -1407,13 +1425,16 @@ class instruction(object):
         """
         self.checkStepMethod()
         if self.errors == 0:
-            if self.stepMethod == 'lin':
+            if not self.step:
+                self.parDefs = self.circuit.parDefs
+            elif self.stepMethod == 'lin':
                 self.checkStepVar()
                 self.checkStepNum()
                 self.checkStepStart()
                 self.checkStepStop()
                 if self.errors == 0:
                     self.stepList = np.linspace(self.stepStart, self.stepStop, self.stepNum)
+                    self.stepDict[self.stepVar] = self.stepList
             elif self.stepMethod == 'log':
                 self.checkStepVar()
                 self.checkStepNum()
@@ -1421,17 +1442,23 @@ class instruction(object):
                 self.checkStepStop()
                 if self.errors == 0 and self.stepStart * self.stepStop > 0:
                     self.stepList = np.geomspace(self.stepStart, self.stepStop, self.stepNum)
+                    self.stepDict[self.stepVar] = self.stepList
                 else:
                     self.errors += 1
                     print("Error: logarithmic stepping cannot include zero.")
             elif self.stepMethod == 'list':
                 self.checkStepVar()
                 self.checkStepList()
+                if self.errors == 0:
+                    self.stepDict[self.stepVar] = self.stepList
             elif self.stepMethod == 'array':
                 self.checkStepVars()
                 # We need a list without errors before we can check the array
                 if self.errors == 0:
                     self.checkStepArray()
+                if self.errors == 0:
+                    for i in range(len(self.stepVars)):
+                        self.stepDict[self.stepVars[i]] = self.stepArray[i]
         return
 
     def execute(self):
@@ -1466,55 +1493,8 @@ class instruction(object):
             print("Errors found. Instruction will not be executed.")
             return(allResults())
         else:
-            # Create an instance of allResults() and copy instruction data.
-            # This keeps the correct instruction information with the result
-            # in cases that the instruction is modified at a later stage.
-            r = allResults()
-            r.simType        = self.simType
-            r.gainType       = self.gainType
-            r.dataType       = self.dataType
-            r.step           = self.step
-            r.stepVar        = self.stepVar
-            r.stepVars       = []
-            # Make a deep copy of the list
-            if type(self.stepVars) == list:
-                for var in self.stepVars:
-                    r.stepVars.append(var)
-            r.stepMethod     = self.stepMethod
-            r.stepStart      = self.stepStart
-            r.stepStop       = self.stepStop
-            r.stepNum        = self.stepNum
-            r.stepList       = []
-            # Make a deep copy of the list
-            for num in self.stepList:
-                r.stepList.append(num)
-            r.stepArray      = []
-            # Make a deep copy of the Array
-            for row in self.stepArray:
-                if type(row) == list:
-                    rowCopy = []
-                    for num in row:
-                        rowCopy.append(num)
-                    r.stepArray.append(rowCopy)
-            r.source         = self.source
-            r.detector       = self.detector
-            r.lgRef          = self.lgRef
-            r.circuit        = self.circuit
-            r.errors         = self.errors
-            r.detUnits       = self.detUnits
-            r.srcUnits       = self.srcUnits
-            r.numeric        = self.numeric
-            r.detLabel       = self.detLabel
-            if self.dataType == 'params':
-                # If data type is set to 'params', only two things need to be \
-                # done:
-                # 1. Check the definitions required for parameter stepping
-                # 2. Return an allResult() object with instruction data.
-                return r
-            else:
-                # Execute the instruction
-                return doInstruction(r)
-            
+            return doInstruction(self)  
+         
 def listPZ(pzResult):
     """
     Prints lists with poles and zeros.
@@ -1539,15 +1519,16 @@ def listPZ(pzResult):
                 print(" {:2} {:15} {:15} {:15} {:9}".format('n', 'Real part [Hz]', 'Imag part [Hz]', 'Frequency [Hz]', '   Q [-]'))
                 print("--  --------------  --------------  --------------  --------")
                 for i in range(len(poles)):
-                    realPart = poles[i].real/2/np.pi
-                    imagPart = poles[i].imag/2/np.pi
-                    frequency = np.sqrt(realPart**2 + imagPart**2)
+                    realPart = sp.re(poles[i])/2/np.pi
+                    imagPart = sp.im(poles[i])/2/np.pi
+                    frequency = sp.sqrt(realPart**2 + imagPart**2)
         
                     if imagPart != 0:
                         Q = np.abs(frequency/2/realPart)
                         print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
                     else:
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, imagPart, frequency))  
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, 0.0, frequency))  
+
             else:
                 print('\nFound no poles.')
         if pzResult.dataType == 'zeros' or pzResult.dataType == 'pz':
@@ -1557,15 +1538,15 @@ def listPZ(pzResult):
                 print(" {:2} {:15} {:15} {:15} {:9}".format('n', 'Real part [Hz]', 'Imag part [Hz]', 'Frequency [Hz]', '   Q [-]'))
                 print("--  --------------  --------------  --------------  --------")
                 for i in range(len(zeros)):
-                    realPart = zeros[i].real/2/np.pi
-                    imagPart = zeros[i].imag/2/np.pi
-                    frequency = np.sqrt(realPart**2 + imagPart**2)
+                    realPart = sp.re(zeros[i])/2/np.pi
+                    imagPart = sp.im(zeros[i])/2/np.pi
+                    frequency = sp.sqrt(realPart**2 + imagPart**2)
         
                     if imagPart != 0:
                         Q = np.abs(frequency/2/realPart)
                         print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
                     else:
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, imagPart, frequency))  
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, 0.0, frequency))  
             else:
                 print('\nFound no zeros.') 
     else:
