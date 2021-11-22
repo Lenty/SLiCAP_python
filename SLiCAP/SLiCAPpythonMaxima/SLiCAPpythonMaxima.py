@@ -83,6 +83,7 @@ def maxEval(maxExpr):
     #maxAssume = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
     maxStringConv = "stringdisp:true$string(result);"
     maxInput = maxExpr + maxStringConv
+    maxInput=maxInput.replace('\n',' ') # Windows cannot handle \n in input!
     # Read the output
     try:
         output = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True)
