@@ -252,27 +252,13 @@
 <li>Laplace           : Parameter used for Laplace variable</li>
 <li>frequency         : Parameter used for frequency variable</li>
 <li>maxRecSubst       : Maximum number of recursive substitutions</li>
-<li>MaximaMatrixDim   : Maximum dimension of a square matrix to be passed to Maxima</li>
+<li>MaximaMatrixDim   : Maximum matrix dimension for maxima.newdet()</li>
 <li>MaximaTimeOut     : Maximum calculation time for Maxima</li>
-<li>invLaplace        : Calculation method for numeric inverse Laplace<ul>
-<li>maxima: use maxima, sometimes errors or overflows have been observed</li>
-<li>python: uses scipy.residues. Use only if maxima fails!</li>
-</ul>
-</li>
-<li>trigsimp:<ul>
-<li>True: writes scipy results of inverse Laplace transform as trigonometric functions</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>Display settings<ul>
 <li>disp              : Number of digits for displaying floats on html pages</li>
-<li>mathml:<ul>
-<li>True  : math in mathml in html pages</li>
-<li>False : math in latex in html pages and MathJaX cloud</li>
-</ul>
-</li>
-<li>language: language for error messages</li>
+<li>mathml:</li>
 </ul>
 </li>
 <li>Plot settings<ul>
@@ -335,7 +321,7 @@ Defaults to sp.Symbol(‘s’).</p>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.MaximaTimeOut">
 <code class="descname">MaximaTimeOut</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.MaximaTimeOut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum time in seconds (<em>int</em>) for subprocess to run Maxima. Defaults
-to 5.</p>
+to 60.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -487,13 +473,6 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.invLaplace">
-<code class="descname">invLaplace</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.invLaplace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Algebra system to be used for calculation of the numeric inverse Laplace
-Transform. Defaults to “maxima”. Alternative = “python”.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate">
 <code class="descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.lastUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value (<em>datetime.datetime</em>) of the date and time of the last project
@@ -531,17 +510,7 @@ LTspice circuit.</p>
 <li>Windows: ‘C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
 <li>Linux (Wine): ‘wine ~/.wine/drive_c/ProgramFiles/LTC/LTspiceXVII/XVIIx64.exe -netlist ‘</li>
 </ul>
-<p>This prefix will be followed by the name of the schematic file.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.mathml">
-<code class="descname">mathml</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.mathml" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<em>Bool</em>) setting for rendering math in html pages.</p>
-<ul class="simple">
-<li>True  : math in mathml in html pages</li>
-<li>False : math in latex in html pages and MathJaX cloud</li>
-</ul>
+<p>This variable is set during installation.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -558,20 +527,10 @@ Defaults to 10.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.maxSolve">
-<code class="descname">maxSolve</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<em>Bool</em>)</p>
-<ul class="simple">
-<li>True: use Maxima CAS for solving matrix equations</li>
-<li>False : use Sympy for solving matrix equations</li>
-</ul>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.maxima">
 <code class="descname">maxima</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.maxima" title="Permalink to this definition">¶</a></dt>
 <dd><p>MSWindows command for starting Maxima.</p>
-<p>Defaults to <em>SLiCAPconfig.MAXIMA</em></p>
+<p>This variable is set during installation.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -626,8 +585,11 @@ rendering of latex in Jupyter notebooks.</li>
 <dd><p>(<em>Bool</em>)</p>
 <blockquote>
 <div><ul class="simple">
-<li>True: use Sympy.lambify for parameter stepping</li>
-<li>False : substitute step parameters in matrix</li>
+<li>True: Transfer functions are calculated with symbolic step variables
+The step variable are substituted into these expressions.</li>
+<li>False: Step variables are substituted directly into the matrix.
+This method faster for large circuits, or for stepped instructions
+with multiple step variables.</li>
 </ul>
 </div></blockquote>
 </dd></dl>
@@ -636,16 +598,6 @@ rendering of latex in Jupyter notebooks.</li>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType">
 <code class="descname">tableFileType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.tableFileType" title="Permalink to this definition">¶</a></dt>
 <dd><p>File type (<em>str</em>) for csv files. Defaults to ‘csv’.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.trigsimp">
-<code class="descname">trigsimp</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.trigsimp" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<em>Bool</em>)</p>
-<ul class="simple">
-<li>True: Returns the result of scipy inverse Laplace transform as trigonometric functions.</li>
-<li>False:  Returns the result of scipy inverse Laplace transform as complex exponentials.</li>
-</ul>
 </dd></dl>
 
 <dl class="attribute">

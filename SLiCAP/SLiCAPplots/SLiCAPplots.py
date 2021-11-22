@@ -471,6 +471,11 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                      'time', 'onoise', 'inoise' or 'param'.
     :type funcType: str
 
+    :param yvar: if funcType = param, yVar should be the name of a circuit 
+                 parameter or list with names of circuit parameters. In other 
+                 cases yVar should be 'auto'.
+    :type yVar: str, list
+
     :param yScale: Scale factor of the y axis variable.
     :type yScale: str
 
@@ -571,7 +576,13 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     # For parameter plots: the parameter names with units and scalefactors
     if funcType == 'param':
         ax.xLabel = '$' + sp.latex(sp.Symbol(xVar)) + '$ [' + xScale + xUnits + ']'
-        ax.yLabel = '$' + sp.latex(sp.Symbol(yVar)) + '$ [' + yScale + yUnits + ']'
+        if type(yVar) != list:
+            yVar = [yVar]
+        names = '$'
+        for i in range(len(yVar)):
+            names += sp.latex(sp.Symbol(yVar[i])) + '\\,'
+        names += '$'
+        ax.yLabel = names + ' [' + yScale + yUnits + ']'
     # For time frequency plots we use frequency 'Hz' or 'rad/s' along the x-axis
     elif result.dataType in freqTypes:
         if result.dataType == 'noise':
@@ -620,21 +631,22 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
     # Create the plot data for param plots, only one simulation result alowed
     # Other simulation results are simply ignored (plots would become messy).
     if funcType == 'param':
-        xData, yData = stepParams(result, xVar, yVar, sweepVar, x)
-        if type(xData) == dict:
-            keys = sorted(list(xData.keys()))
-            for i in range(len(keys)):
-                newTrace = trace([xData[keys[i]], yData[keys[i]]])
-                newTrace.label = '$%s$ = %8.1e'%(sp.latex(result.stepVar), result.stepList[i])
+        for j in range(len(yVar)):
+            xData, yData = stepParams(result, xVar, yVar[j], sweepVar, x)
+            if type(xData) == dict:
+                keys = sorted(list(xData.keys()))
+                for i in range(len(keys)):
+                    newTrace = trace([xData[keys[i]], yData[keys[i]]])
+                    newTrace.label = '$%s$ = %8.1e'%(sp.latex(result.stepVar), result.stepList[i])
+                    newTrace.color = ini.defaultColors[colNum % numColors]
+                    colNum += 1
+                    ax.traces.append(newTrace)
+            else:
+                newTrace = trace([xData, yData])
+                newTrace.label = '$' + sp.latex(sp.Symbol(yVar[j])) + '$'
                 newTrace.color = ini.defaultColors[colNum % numColors]
-                colNum += 1
                 ax.traces.append(newTrace)
-        else:
-            newTrace = trace([xData, yData])
-            newTrace.label = '$' + sp.latex(sp.Symbol(yVar)) + '$'
-            newTrace.color = ini.defaultColors[colNum % numColors]
-            ax.traces.append(newTrace)
-            colNum += 1
+                colNum += 1
     else:
         for result in results:
             if not result.step:
@@ -1289,6 +1301,10 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
             p = np.linspace(results.stepStart, results.stepStop, num = results.stepNum)
         elif results.stepMethod.lower() == 'log':
             p = np.geomspace(results.stepStart, results.stepStop, num = results.stepNum)
+        elif results.stepMethod == 'list':
+            p = results.stepList
+        else:
+            print("Error: dataType 'params' not implemented for stepMethod '", str(results.stepMethod), "'.")
     if errors == 0:
         substitutions = {}
         if results.step:

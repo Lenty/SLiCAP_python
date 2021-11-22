@@ -187,50 +187,6 @@
 <p>SLiCAP module with symbolic math functions executed by maxima CAS.</p>
 <p>Imported by the module <strong>SLiCAPplots.py</strong>.</p>
 <dl class="function">
-<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs">
-<code class="descname">equateCoeffs</code><span class="sig-paren">(</span><em>protoType</em>, <em>transfer</em>, <em>noSolve=[]</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.equateCoeffs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the solutions of the equation transferFunction = protoTypeFunction.</p>
-<p>Both transfer and prototype should be Laplace rational functions.
-Their numerators should be polynomials of the Laplace variable of equal
-order and their denominators should be polynomials of the Laplace variable
-of equal order.
-:note: if ini.maxSolve == True: Maxima CAS will be used as solver, else: sympy.
-:param protoType: Prototype rational expression of the Laplace variable
-:type protoType: sympy.Expr
-:param transfer:</p>
-<p>Transfer fucntion of which the parameters need to be
-solved. The numerator and the denominator of this rational
-expression should be of the same order as those of the
-prototype.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.core.symbol.Symbol</em>) that do not need
-to be solved. These parameters will remain symbolic in the
-solutions.</li>
-<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
-values.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Dictionary with key-value pairs:</p>
-<ul class="simple">
-<li>key: name of the parameter (<em>sympy.core.symbol.Symbol</em>)</li>
-<li>value: solution of this parameter: (<em>sympy.Expr, int, float</em>)</li>
-</ul>
-</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval">
 <code class="descname">maxEval</code><span class="sig-paren">(</span><em>maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>

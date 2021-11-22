@@ -315,17 +315,22 @@ does not represent a number.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer">
-<code class="descname">coeffsTransfer</code><span class="sig-paren">(</span><em>LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a nested list with the coefficients of the Laplace variable of the
-numerator and of the denominator of ‘LaplaceRational’.</p>
+<code class="descname">coeffsTransfer</code><span class="sig-paren">(</span><em>rational</em>, <em>variable=s</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a nested list with the coefficients of the variable of the
+numerator and of the denominator of ‘rational’.</p>
 <p>The coefficients are in ascending order.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>LaplaceRational</strong> (<em>sympy.Expr</em>) – Rational function of the Laplace variable.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rational</strong> (<em>sympy.Expr</em>) – Rational function of the variable.</li>
+<li><strong>variable</strong> (<em>sympy.Symbol</em>) – Variable of the rational function</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tuple with gain and two lists: [gain, numerCoeffs, denomCoeffs]<ol class="arabic simple">
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Tuple with gain and two lists: [gain, numerCoeffs, denomCoeffs]</p>
+<ol class="arabic simple">
 <li>gain (<em>sympy.Expr</em>): ratio of the nonzero coefficient of the
 lowest order of the numerator and the coefficient of the
 nonzero coefficient of the lowest order of the denominator.</li>
@@ -334,9 +339,11 @@ numerator in ascending order.</li>
 <li>denomCoeffs  (<em>list</em>): List with all coeffcients of the
 denominator in ascending order.</li>
 </ol>
+</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -375,7 +382,7 @@ at the specified frequencies.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f">
-<code class="descname">delayFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>delta=0.0001</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delayFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>delta=0.0001</em>, <em>lmbdfy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the group delay at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -491,6 +498,58 @@ of a noise spectrum after multiplying it with (2*sin(pi*ini.frequency*tau))^2</p
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr, sympy.Symbol, int or float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.equateCoeffs">
+<code class="descname">equateCoeffs</code><span class="sig-paren">(</span><em>protoType</em>, <em>transfer</em>, <em>noSolve=[]</em>, <em>numeric=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.equateCoeffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the solutions of the equation transferFunction = protoTypeFunction.</p>
+<p>Both transfer and prototype should be Laplace rational functions.
+Their numerators should be polynomials of the Laplace variable of equal
+order and their denominators should be polynomials of the Laplace variable
+of equal order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>protoType</strong> (<em>sympy.Expr</em>) – Prototype rational expression of the Laplace variable</li>
+<li><strong>transfer</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Transfer fucntion of which the parameters need to be
+solved. The numerator and the denominator of this rational
+expression should be of the same order as those of the
+prototype.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>noSolve</strong> (<em>list</em>) – List with variables (<em>str, sympy.core.symbol.Symbol</em>) that do not need
+to be solved. These parameters will remain symbolic in the
+solutions.</li>
+<li><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>Dictionary with key-value pairs:</p>
+<ul class="simple">
+<li>key: name of the parameter (<em>sympy.core.symbol.Symbol</em>)</li>
+<li>value: solution of this parameter: (<em>sympy.Expr, int, float</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
 </td>
 </tr>
 </tbody>
@@ -645,17 +704,30 @@ sp.I*ini.frequency.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata">
-<code class="descname">makeYdata</code><span class="sig-paren">(</span><em>yFunc</em>, <em>xVar</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata" title="Permalink to this definition">¶</a></dt>
+<code class="descname">makeYdata</code><span class="sig-paren">(</span><em>yFunc</em>, <em>xVar</em>, <em>x</em>, <em>lmbdfy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of values y, where y[i] = yFunc(x[i]).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>yFunc</strong> (<em>sympy.Expr</em>) – Function</li>
-<li><strong>xVar</strong> (<em>sympy.Symbol</em>) – Variable that needs to be substituted in yFunc</li>
+<li><strong>xVar</strong> (<em>sympy.Symbol</em>) – Variable that needs to be substituted in <em>yFunc</em></li>
 <li><strong>x</strong> (<em>list</em>) – List with values of x</li>
+<li><strong>lmbdfy</strong> – <p>Setting for calculation method of the output y</p>
+<ul>
+<li>True: Converts the symbolic expression <em>yFunc</em> into a
+numeric single-variable function using sympy.lambdify</li>
+<li>False: Subsitutes the x values in the yFunc with sympy.</li>
 </ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list with y values: y[i] = yFunc(x[i]).</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
 </td>
 </tr>
 </tbody>
@@ -663,20 +735,26 @@ sp.I*ini.frequency.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.normalizeLaplaceRational">
-<code class="descname">normalizeLaplaceRational</code><span class="sig-paren">(</span><em>LaplaceRational</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.normalizeLaplaceRational" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalizes a Laplace rational to:</p>
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.normalizeRational">
+<code class="descname">normalizeRational</code><span class="sig-paren">(</span><em>rational</em>, <em>variable=s</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.normalizeRational" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes a rational expression to:</p>
 <div class="math notranslate nohighlight">
 \[F(s) = gain\,s^{\ell}  \frac{1+b_1s + ... + b_ms^m}{1+a_1s + ... + a_ns^n}\]</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>LaplaceRational</strong> (<em>sympy.Expr</em>) – Rational function of the Laplace variable.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Rational</strong> (<em>sympy.Expr</em>) – Rational function of the variable.</li>
+<li><strong>variable</strong> (<em>sympy.Symbol</em>) – Variable of the rational function</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized rational function of the Laplace variable.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Normalized rational function of the variable.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -712,7 +790,7 @@ sp.I*ini.frequency.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f">
-<code class="descname">phaseFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="descname">phaseFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>lmbdfy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the phase angle at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with

@@ -227,6 +227,43 @@ selection=[(‘Var1 (SweepVar=1e-06) Y’,”New Label”),(‘Var2 (SweepVar=1e
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceAC2SLiCAPtraces">
+<code class="descname">LTspiceAC2SLiCAPtraces</code><span class="sig-paren">(</span><em>fileName</em>, <em>dB=False</em>, <em>color='c'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceAC2SLiCAPtraces" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function converts the results of a single-run LTspice AC analysis 
+into two traces (mag, phase) that can be added to SLiCAP plots.
+Stepping is not (yet) supported.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fileName</strong> (<em>str</em>) – Name of the file. The file should be located in 
+the ditectory given in <em>ini.txtPath</em>.</li>
+<li><strong>dB</strong> (<em>bool</em>) – True if the trace magnitude should be in dB, else False.
+Default value = False</li>
+<li><strong>color</strong> (<em>str</em>) – Matplotlib color name. Valid names can be found at:
+<a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">https://matplotlib.org/stable/gallery/color/named_colors.html</a>
+Default value is cyan (c); this does not correspond with one
+of the standard gain colors of the asymptotic-gain model.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a list with two trace dicts, magnitude and phase, respectively.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LTmag</span><span class="p">,</span> <span class="n">LTphase</span> <span class="o">=</span> <span class="n">LTspiceAC2SLiCAPtraces</span><span class="p">(</span><span class="s1">&#39;LTspiceACdata.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces">
 <code class="descname">LTspiceData2Traces</code><span class="sig-paren">(</span><em>txtFile</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPplots.SLiCAPplots.LTspiceData2Traces" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a dictionary with traces (key = label, value = trace object) from
