@@ -15,7 +15,7 @@ import re
 import in_place
 from shutil import copy
 
-INSTALLVERSION="1.0.2"
+INSTALLVERSION="1.1.0"
 
 class InstallWrapper(install):
     """
