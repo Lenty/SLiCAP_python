@@ -1,4 +1,4 @@
-# SLiCAP
+# SLiCAP: more than SYMBOLIC SPICE
 
 ## What it is
 - SLiCAP is an acronym for: **S** ymbolic **Li** near **C** ircuit **A** nalysis **P** rogram
@@ -20,20 +20,19 @@
 - Supports and facilitates structured analog design
 
 ## Capabilities
-- Conversion of hierarchically structured SPICE netlist into mixed symbolic/numeric matrix equation
+- Conversion of hierarchically structured SPICE netlist into a mixed symbolic/numeric matrix equation
 - Symbolic and numeric noise analysis
 - Symbolic and numeric noise integration over frequency
 - Symbolic and numeric determination of transfer functions and polynomial coefficients of transfer functions
 - Symbolic and numeric inverse Laplace Transform
 - Symbolic and numeric determination of network solutions
-- Accurate numeric pole-zero analysis
-- Root-locus analysis with a arbitrarily selected circuit parameters as root locus variable(s)
-- Symbolic and numeric DC and DC variance analysis for determination of budgets for resistor tolerances and offset and bias quantities
-- Symbolic and numeric derivation and solution of design equations for bandwidh, frequency response, noise performance, dc variance and temperature stability
+- Accurate numeric pole-zero analysis. Symbolic pole-zero analysis for relatively simple networks
+- Root-locus analysis with an arbitrarily selected circuit parameter as root locus variable
+- Symbolic and numeric DC and DC variance analysis for determination of budgets for resistor tolerances, offset, and bias quantities
+- Symbolic and numeric derivation and solution of design equations for bandwidh, frequency response, noise performance, dc variance, and temperature stability
 
 ## Technology
 - Python, Maxima CAS, HTML, CSS, LaTeX, MathJax, Jupyter Lab
-
 
 ## Setting up SLiCAP
 To set up SLiCAP, the following components are required:
@@ -46,7 +45,16 @@ To set up SLiCAP, the following components are required:
 
 The dependencies are listed in the 'requirements.txt' file.
 When installing SLiCAP on an Anaconda distribution, it requires installing the 'in-place' module, which can be installed using the 'python -m pip install in-place'.
-SLiCAP can be installed by running 'python setup.py install' or 'python setup.py install --user'. 
+- Download the SLiCAP archive from github
+- Extract it in some directory
+- Open a terminal or an Anaconda terminal if you run python from Anaconda
+- Enter: 'python setup.py install' or 'python setup.py install --user'
+- Answer the questions
+
+## Project file locations
+**Do not place project files in the directory where SLiCAP installs the libraries, the examples, and the documentation.**
+This location defaults to: /home/<username>/SLiCAP/ (LINUX) or \users\<username>\SLiCAP\ (WINDOWS). 
+**The contents of this directory will be overwritten if you re-install or update SLiCAP.**
 
 ## First Run
 To verify setting up of SLiCAP has been done correctly, it is possible to run one of the example projects that are in the examples/ directory. 
