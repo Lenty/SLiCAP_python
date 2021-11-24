@@ -53,7 +53,9 @@ When installing SLiCAP on an Anaconda distribution, it requires installing the '
 
 ## Project file locations
 **Do not place project files in the directory where SLiCAP installs the libraries, the examples, and the documentation.**
+
 This location defaults to: /home/<username>/SLiCAP/ (LINUX) or \users\<username>\SLiCAP\ (WINDOWS). 
+  
 **The contents of this directory will be overwritten if you re-install or update SLiCAP.**
 
 ## First Run
