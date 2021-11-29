@@ -378,7 +378,7 @@ class instruction(object):
         Defines the step variable for parameter step types 'lin', 'log' and 'list'.
 
         :param stepVar: step variable
-        :type stepVar: str, sympy.symbol.Symbol
+        :type stepVar: str, sympy.Symbol
 
         :Example:
 
@@ -391,7 +391,7 @@ class instruction(object):
 
         :note:
 
-        A list with names (*sympy.symbol.Symbol*) that can be used as stepping
+        A list with names (*sympy.Symbol*) that can be used as stepping
         parameter is obtained as follows:
 
         :Example:
@@ -418,13 +418,13 @@ class instruction(object):
             self.errors += 1
             print("Error: missing step variable.")
         elif checkNumber(self.stepVar) == None:
-            if isinstance(self.stepVar, sp.Symbol):
+            if isinstance(self.stepVar, sp.symbol.Symbol):
                 pass
             elif type(self.stepVar) == str:
                 self.stepVar = sp.Symbol(self.stepVar)
             else:
                 self.errors += 1
-                print("Error: argument type must be 'str' or 'sympy.core.symbol.Symbol'.")
+                print("Error: argument type must be 'str' or 'sympy.Symbol'.")
             if self.stepVar not in list(self.circuit.parDefs.keys()) and self.stepVar not in self.circuit.params:
                 print("Warning: unknown step parameter '{0}'.".format(self.stepVar))
         return
@@ -433,7 +433,7 @@ class instruction(object):
         """
         Defines the step variables for 'array' type stepping.
 
-        :param stepVars: List with names (*str, sympy.core.symbol.Symbol*) of step
+        :param stepVars: List with names (*str, sympy.Symbol*) of step
                          variables for array type stepping.
         :type stepVars: list
 
@@ -455,7 +455,7 @@ class instruction(object):
 
         :note:
 
-        A list with names (*sympy.core.symbol.Symbol*) that can be used as stepping
+        A list with names (*sympy.Symbol*) that can be used as stepping
         parameter is obtained as follows:
 
         :Example:
@@ -493,7 +493,7 @@ class instruction(object):
                             except:
                                 errors += 1
                                 print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
-                        if isinstance(self.stepVars[i], sp.Symbol):
+                        if isinstance(self.stepVars[i], sp.symbol.Symbol):
                             if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
                                 print("Warning: unknown step parameter '{0}'.".format(str(stepVars[i])))
                         else:

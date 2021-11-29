@@ -83,7 +83,7 @@ def HTMLhead(pageTitle):
     html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n'
     html += '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n'
     html += '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n'
-    html += '<head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>\n'
+    html += '<head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>\n'
     html += '<meta name="Language" content="English"/>\n'
     html += '<title>"' + pageTitle + '"</title><link rel="stylesheet" href="css/slicap.css">\n'
     html += '<script>MathJax = {tex:{tags: \'ams\', inlineMath:[[\'$\',\'$\'],]}, svg:{fontCache:\'global\'}};</script>\n'
@@ -982,12 +982,10 @@ def roundN(expr, numeric=False):
         expr = expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
         ints = list(expr.atoms(sp.Number))
         for i in range(len(ints)):
+            if int(ints[i]) == ints[i]:
+                expr = expr.xreplace({ints[i]: int(ints[i])})
             if sp.N(sp.Abs(ints[i])) > 10**ini.disp or sp.N(sp.Abs(ints[i])) < 10**-ini.disp:
                 expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})
-            if sp.N(ints[i]) == 1.0:
-                expr = expr.xreplace({ints[i]: 1})
-            if sp.N(ints[i]) == -1.0:
-                expr = expr.xreplace({ints[i]: -1})
     except:
         pass
     return expr
