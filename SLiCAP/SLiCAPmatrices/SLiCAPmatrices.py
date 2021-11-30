@@ -36,7 +36,7 @@ def getValues(elmt, param, numeric, parDefs):
     if numeric == True:
         value = sp.N(fullSubs(elmt.params[param], parDefs))
     else:
-        value = elmt.params[param]
+        value = checkNumber(elmt.params[param])
     try:
         if ini.Laplace in value.atoms(sp.Symbol):
             (numer, denom) = value.as_numer_denom()
@@ -74,11 +74,12 @@ def getValue(elmt, param, numeric, parDefs):
     :return type: sympy.Expr, int, float, sympy.Float
     """
     if param not in list(elmt.params.keys()):
-        return 0
+        value = 0
+    value = checkNumber(elmt.params[param])
     if numeric == True:
-        value = sp.N(fullSubs(elmt.params[param], parDefs))
+        value = sp.N(fullSubs(value, parDefs))
     else:
-        value = elmt.params[param]
+        pass
     return value
 
 def makeMatrices(cir, parDefs, numeric, gainType, lgRef):

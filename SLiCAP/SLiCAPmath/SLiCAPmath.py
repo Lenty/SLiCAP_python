@@ -349,14 +349,14 @@ def findServoBandwidth(loopgainRational):
 
 def checkNumber(var):
     """
-    Returns a number with its value represented by var, or None if var
-    does not represent a number.
+    Returns a number with its value represented by var, or the symbolic 
+    expression if var does not represent a number.
 
     :param var: Variable that may represent a number.
     :type var: str, sympy object, int, float
 
     :return: Numeric value (*int, float*) or None
-    :rtype: int, float, bool
+    :rtype: int, float
     """
     if type(var) == str:
         var = replaceScaleFactors(var)
@@ -365,7 +365,7 @@ def checkNumber(var):
     try:
         number = eval(var)
     except:
-        number = None
+        number = sp.sympify(var)
     return number
 
 def fullSubs(valExpr, parDefs):
