@@ -237,8 +237,8 @@ def makeCircuit(cir):
                         if tok.type in VALEXPR:
                             if tok.type == 'INT':
                                 # Integers are still str and need to be converted
-                                tok.value = int(tok.value)
-                            newElement.params['value'] = tok.value
+                                tok.value = sp.N(tok.value)
+                            newElement.params['value'] = sp.N(tok.value)
                             # If this field was numeric, we are missing the
                             # model and use the default model for this device
                             newElement.model = DEVICES[newElement.type].models[0]

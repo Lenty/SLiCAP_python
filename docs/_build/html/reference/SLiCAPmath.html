@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPmath.py &mdash; SLiCAP 1.1.0 documentation</title>
+  <title>SLiCAPmath.py &mdash; SLiCAP 1.1.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
             
           
@@ -270,19 +270,36 @@ Laplace variable, have been redefined as real.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.checkExpression">
+<code class="descname">checkExpression</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.checkExpression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sympy expression of expr.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> (<em>str</em><em>, </em><em>sympy object</em><em>, </em><em>int</em><em>, </em><em>float</em>) – argument that may represent a number or an expression.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sympy expression</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int, float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.checkNumber">
 <code class="descname">checkNumber</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.checkNumber" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a number with its value represented by var, or None if var
-does not represent a number.</p>
+<dd><p>Returns a number with its value represented by var.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>var</strong> (<em>str</em><em>, </em><em>sympy object</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Variable that may represent a number.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Numeric value (<em>int, float</em>) or None</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sympy expression</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int, float, bool</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int, float</td>
 </tr>
 </tbody>
 </table>

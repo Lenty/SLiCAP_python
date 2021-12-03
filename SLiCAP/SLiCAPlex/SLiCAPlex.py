@@ -128,7 +128,7 @@ def t_SCI(t):
     float.
     """
     try:
-        t.value = float(t.value)
+        t.value = sp.N(t.value)
         t.type = 'FLT'
     except:
         printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
@@ -155,9 +155,8 @@ def t_SCALE(t):
     Replaces scale factors in numbers and converts numbers into floats
     """
     try:
-        t.value = float(t.value[0:-1] + 'E' + SCALEFACTORS[t.value[-1]])
+        t.value = sp.N(t.value[0:-1] + 'E' + SCALEFACTORS[t.value[-1]])
     except:
-
         printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
         lexer.errCount += 1
     t.type = 'FLT'

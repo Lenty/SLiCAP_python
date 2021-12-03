@@ -207,9 +207,16 @@ class circuit(object):
         >>> # Or:
         >>> my_circuit.defPar('R', 2e3)
         """
-        if checkNumber(parName) == None:
+        errors = 0
+        try:
+            eval(parName)
+            errors += 1
+            print("Error: Parameter name cannot be a number.")
+        except:
+            pass
+        if errors == 0:
             parName = sp.Symbol(str(parName))
-            parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+            parValue = checkExpression(parValue)
             self.parDefs[parName] = parValue
             if type(units) == str:
                 # ToDo: checkUnits() calculate wir SI units.
@@ -217,8 +224,6 @@ class circuit(object):
             else:
                 self.parUnits[parName] = ''
             self.updateParams()
-        else:
-            print("Error: cannot define a number as parameter.")
         return
 
     def defPars(self, parDict):
@@ -241,12 +246,19 @@ class circuit(object):
         >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
         >>> my_circuit.defPars({'R': '2k', 'C': '5p')
         """
+        errors = 0
         if type(parDict) == dict:
             for key in list(parDict.keys()):
-                if checkNumber(key) == None:
+                try:
+                    eval(key)
+                    print("Error: parameter name cannot be a number.")
+                    errors += 1
+                except:
+                    pass
+                if errors == 0:
                     parName = sp.Symbol(str(key))
                     parValue = str(parDict[key])
-                    parValue = sp.sympify(replaceScaleFactors(str(parValue)))
+                    parValue = checkExpression(parValue)
                     self.parDefs[parName] = parValue
                 else:
                     print("Error: cannot define a number as parameter.")

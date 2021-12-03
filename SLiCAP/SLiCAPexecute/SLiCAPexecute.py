@@ -1156,8 +1156,8 @@ def parseMaxResult(result, indepVars, maxResult):
         oTerms, iTerms = maxResult[2:-2].split('],[')
         oTerms = oTerms.split(',')
         iTerms = iTerms.split(',')
-        ot     = 0 # Detector-referred total
-        it     = 0 # Source-referred total
+        ot     = sp.N(0) # Detector-referred total
+        it     = sp.N(0) # Source-referred total
         if result.dataType == 'noise':
             for j in range(len(indepVars)):
                 if indepVars[j] not in list(result.onoiseTerms.keys()):
@@ -1166,17 +1166,17 @@ def parseMaxResult(result, indepVars, maxResult):
                 try:
                     term = sp.sympify(oTerms[j])
                     if term == False:
-                        term = 0
+                        term = sp.N(0)
                 except:
-                    term = 0
+                    term = sp.N(0)
                 ot += term
                 result.onoiseTerms[indepVars[j]].append(term)
                 try:
                     term = sp.sympify(iTerms[j])
                     if term == False:
-                        term = 0
+                        term = sp.N(0)
                 except:
-                    term = 0
+                    term = sp.N(0)
                 it += term
                 result.inoiseTerms[indepVars[j]].append(term)
             result.onoise.append(ot)
@@ -1190,17 +1190,17 @@ def parseMaxResult(result, indepVars, maxResult):
                 try:
                     term = sp.sympify(oTerms[j])
                     if term == False:
-                        term = 0
+                        term = sp.N(0)
                 except:
-                    term = 0
+                    term = sp.N(0)
                 ot += term
                 result.ovarTerms[indepVars[j]].append(term)
                 try:
                     term = sp.sympify(iTerms[j])
                     if term == False:
-                        term = 0
+                        term = sp.N(0)
                 except:
-                    term = 0
+                    term = sp.N(0)
                 it += term
                 result.ivarTerms[indepVars[j]].append(term)
             result.ovar.append(ot)

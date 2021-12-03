@@ -417,16 +417,15 @@ class instruction(object):
         if self.stepVar == None:
             self.errors += 1
             print("Error: missing step variable.")
-        elif checkNumber(self.stepVar) == None:
-            if isinstance(self.stepVar, sp.symbol.Symbol):
-                pass
-            elif type(self.stepVar) == str:
-                self.stepVar = sp.Symbol(self.stepVar)
-            else:
-                self.errors += 1
-                print("Error: argument type must be 'str' or 'sympy.Symbol'.")
-            if self.stepVar not in list(self.circuit.parDefs.keys()) and self.stepVar not in self.circuit.params:
-                print("Warning: unknown step parameter '{0}'.".format(self.stepVar))
+        elif isinstance(self.stepVar, sp.symbol.Symbol):
+            pass
+        elif type(self.stepVar) == str:
+            self.stepVar = sp.Symbol(self.stepVar)
+        else:
+            self.errors += 1
+            print("Error: argument type must be 'str' or 'sympy.Symbol'.")
+        if self.stepVar not in list(self.circuit.parDefs.keys()) and self.stepVar not in self.circuit.params:
+            print("Warning: unknown step parameter '{0}'.".format(self.stepVar))
         return
 
     def setStepVars(self, stepVars):
@@ -486,22 +485,18 @@ class instruction(object):
         if type(self.stepVars) == list:
             if len(self.stepVars) != 0:
                 for i in range(len(self.stepVars)):
-                    if checkNumber(self.stepVars[i]) == None:
-                        if type(self.stepVars[i]) == str:
-                            try:
-                                self.stepVars[i] = sp.Symbol(self.stepVars[i])
-                            except:
-                                errors += 1
-                                print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
-                        if isinstance(self.stepVars[i], sp.symbol.Symbol):
-                            if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
-                                print("Warning: unknown step parameter '{0}'.".format(str(stepVars[i])))
-                        else:
+                    if type(self.stepVars[i]) == str:
+                        try:
+                            self.stepVars[i] = sp.Symbol(self.stepVars[i])
+                        except:
                             errors += 1
-                            print("Error: argument type must be 'str' or 'sympy.Symbol'.")
+                            print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
+                    if isinstance(self.stepVars[i], sp.symbol.Symbol):
+                        if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
+                            print("Warning: unknown step parameter '{0}'.".format(str(stepVars[i])))
                     else:
                         errors += 1
-                        print("Error: step variable cannot be numeric.")
+                        print("Error: argument type must be 'str' or 'sympy.Symbol'.")
             else:
                 errors += 1
                 print("Error: empty stepVars.")
@@ -739,7 +734,7 @@ class instruction(object):
                     self.errors += 1
                     print("Error: cannot determine numeric value of stepList[{0}].".format(i))
                 else:
-                    self.stepList[i] = value
+                    self.stepList[i] = sp.N(value)
         else:
             self.errors += 1
             print("Error: expected a list type for 'stepValues'.")
@@ -806,7 +801,7 @@ class instruction(object):
                                 self.errors += 1
                                 print("Error: cannot determine numeric value of stepArray[{0}, {1}].".format(i, j))
                             else:
-                                self.stepArray[i][j] = value
+                                self.stepArray[i][j] = sp.N(value)
         return
 
 
@@ -1434,6 +1429,8 @@ class instruction(object):
                 self.checkStepStop()
                 if self.errors == 0:
                     self.stepList = np.linspace(self.stepStart, self.stepStop, self.stepNum)
+                    for i in range(len(self.stepList)):
+                        self.stepList[i] = sp.N( self.stepList[i])
                     self.stepDict[self.stepVar] = self.stepList
             elif self.stepMethod == 'log':
                 self.checkStepVar()
@@ -1442,6 +1439,8 @@ class instruction(object):
                 self.checkStepStop()
                 if self.errors == 0 and self.stepStart * self.stepStop > 0:
                     self.stepList = np.geomspace(self.stepStart, self.stepStop, self.stepNum)
+                    for i in range(len(self.stepList)):
+                        self.stepList[i] = sp.N( self.stepList[i])
                     self.stepDict[self.stepVar] = self.stepList
                 else:
                     self.errors += 1
@@ -1450,6 +1449,8 @@ class instruction(object):
                 self.checkStepVar()
                 self.checkStepList()
                 if self.errors == 0:
+                    for i in range(len(self.stepList)):
+                        self.stepList[i] = sp.N( self.stepList[i])
                     self.stepDict[self.stepVar] = self.stepList
             elif self.stepMethod == 'array':
                 self.checkStepVars()
@@ -1458,7 +1459,7 @@ class instruction(object):
                     self.checkStepArray()
                 if self.errors == 0:
                     for i in range(len(self.stepVars)):
-                        self.stepDict[self.stepVars[i]] = self.stepArray[i]
+                        self.stepDict[self.stepVars[i]] = sp.N(self.stepArray[i])
         return
 
     def execute(self):

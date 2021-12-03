@@ -33,17 +33,10 @@ def getValues(elmt, param, numeric, parDefs):
              and the denominator of the element parameter.
     :return type: tuple
     """
-    if numeric == True:
-        value = sp.N(fullSubs(elmt.params[param], parDefs))
+    value = getValue(elmt, param, numeric, parDefs)
+    if ini.Laplace in value.atoms(sp.Symbol):
+        (numer, denom) = sp.simplify(value).as_numer_denom()
     else:
-        value = checkNumber(elmt.params[param])
-    try:
-        if ini.Laplace in value.atoms(sp.Symbol):
-            (numer, denom) = value.as_numer_denom()
-        else:
-            numer = value
-            denom = 1
-    except:
         numer = value
         denom = 1
     return (numer, denom)
@@ -73,13 +66,15 @@ def getValue(elmt, param, numeric, parDefs):
     :return: value: sympy expresssion or numeric value of the element parameter
     :return type: sympy.Expr, int, float, sympy.Float
     """
-    if param not in list(elmt.params.keys()):
-        value = 0
-    value = checkNumber(elmt.params[param])
-    if numeric == True:
-        value = sp.N(fullSubs(value, parDefs))
-    else:
-        pass
+    try:
+        if param not in list(elmt.params.keys()):
+            value = None
+    except:
+        value = None
+    if param in list(elmt.params.keys()):
+        value = elmt.params[param]
+        if numeric == True:
+            value = sp.N(fullSubs(value, parDefs))
     return value
 
 def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
@@ -427,13 +422,15 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
         elif value == 'dcvar':
             val = getValue(elmt, 'dcvar', numeric, parDefs)
         if elmt.model == 'I':
-            pos0 = varIndex[elmt.nodes[0]]
-            pos1 = varIndex[elmt.nodes[1]]
-            Iv[pos0] -= val
-            Iv[pos1] += val
+            if val != None:
+                pos0 = varIndex[elmt.nodes[0]]
+                pos1 = varIndex[elmt.nodes[1]]
+                Iv[pos0] -= val
+                Iv[pos1] += val
         elif elmt.model == 'V':
-            dVarPos = varIndex['I_' + elmt.refDes]
-            Iv[dVarPos] += val
+            if val != None:
+                dVarPos = varIndex['I_' + elmt.refDes]
+                Iv[dVarPos] += val
     gndPos = varIndex['0']
     Iv = sp.Matrix(Iv)
     Iv.row_del(gndPos)
