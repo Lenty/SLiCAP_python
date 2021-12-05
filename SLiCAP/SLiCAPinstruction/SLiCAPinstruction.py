@@ -1459,7 +1459,10 @@ class instruction(object):
                     self.checkStepArray()
                 if self.errors == 0:
                     for i in range(len(self.stepVars)):
-                        self.stepDict[self.stepVars[i]] = sp.N(self.stepArray[i])
+                        tmpLst = self.stepArray[i]
+                        for j in range(len(tmpLst)):
+                            tmpLst[j] = sp.N(tmpLst[j])
+                        self.stepDict[self.stepVars[i]] = tmpLst
         return
 
     def execute(self):
