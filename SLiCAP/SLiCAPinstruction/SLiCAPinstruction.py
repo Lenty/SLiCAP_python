@@ -417,7 +417,7 @@ class instruction(object):
         if self.stepVar == None:
             self.errors += 1
             print("Error: missing step variable.")
-        elif isinstance(self.stepVar, sp.symbol.Symbol):
+        elif isinstance(self.stepVar, sp.Basic):
             pass
         elif type(self.stepVar) == str:
             self.stepVar = sp.Symbol(self.stepVar)
@@ -491,7 +491,7 @@ class instruction(object):
                         except:
                             errors += 1
                             print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
-                    if isinstance(self.stepVars[i], sp.symbol.Symbol):
+                    if isinstance(self.stepVars[i], sp.Basic):
                         if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
                             print("Warning: unknown step parameter '{0}'.".format(str(stepVars[i])))
                     else:
