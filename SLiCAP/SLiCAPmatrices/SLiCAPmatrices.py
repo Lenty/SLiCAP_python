@@ -138,7 +138,7 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
         pass
     elif gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
         lgValue = cir.elements[lgRef].params['value']
-        cir.elements[lgRef].params['value'] = 0
+        cir.elements[lgRef].params['value'] = sp.N(0)
     varIndex = cir.varIndex
     dim = len(list(cir.varIndex.keys()))
     Dv = [0 for i in range(dim)]
@@ -439,7 +439,7 @@ def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):
 if __name__ == "__main__":
     s = ini.Laplace
 
-    MNA = matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
+    MNA = sp.Matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
                   [0, 1.98e-11*s + 0.0001, -1.2e-11*s, -1.8e-12*s - 1.0e-5, 0, 0, 0, 0, 0],
                   [0, -1.2e-11*s, 2.8e-11*s + 0.001, 0, -1.0e-11*s - 0.001, 0, 0, -1, 0],
                   [-5.0e-12*s - 0.01, -1.8e-12*s - 1.0e-5, 0, 1.0068e-9*s + 0.01101, 0, 0, 1, 0, 0],
@@ -449,4 +449,4 @@ if __name__ == "__main__":
                   [0, 0, -1, 0, 1, 0, -3.1623e-11*s, -1.0e-9*s, 0],
                   [2.048e-20*s**3 + 2.688e-11*s**2 + 0.0016*s + 1, 0, 0, 0, 0, 0, 0, 0, 0]])
 
-    print(MNA.determinant())
+    print(det(MNA))

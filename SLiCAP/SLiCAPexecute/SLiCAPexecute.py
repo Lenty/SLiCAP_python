@@ -362,7 +362,7 @@ def lgValue(instr):
              in cases in which the model of the loop gain reference is 'EZ' or
              'HZ'.
 
-    :return type: sympy.
+    :return type: sympy.symbol
     """
     lgRef = instr.circuit.elements[instr.lgRef]
     if lgRef.model == 'g':
