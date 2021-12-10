@@ -972,9 +972,8 @@ def file2html(fileName):
 
 def roundN(expr, numeric=False):
     """
-    Rounds all number atoms in an expression to ini.disp digits, but only
-    converts integers into floats if their number of digites is more than
-    ini.disp
+    Rounds all number atoms in an expression to ini.disp digits, and
+    converts integers into floats if their number of digits exceeds ini.disp
     """
     if numeric:
         expr = sp.N(expr, ini.disp)
@@ -982,10 +981,10 @@ def roundN(expr, numeric=False):
         expr = expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
         ints = list(expr.atoms(sp.Number))
         for i in range(len(ints)):
-            if int(ints[i]) == ints[i]:
+            if sp.Abs(ints[i]) < 10^ini.disp and int(ints[i]) == ints[i]:
                 expr = expr.xreplace({ints[i]: int(ints[i])})
             if sp.N(sp.Abs(ints[i])) > 10**ini.disp or sp.N(sp.Abs(ints[i])) < 10**-ini.disp:
-                expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})
+                expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})      
     except:
         pass
     return expr
