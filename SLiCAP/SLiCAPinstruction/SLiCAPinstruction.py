@@ -1529,9 +1529,9 @@ def listPZ(pzResult):
         
                     if imagPart != 0:
                         Q = np.abs(frequency/2/realPart)
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, float(realPart), float(imagPart), float(frequency), Q))
                     else:
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, 0.0, frequency))  
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, float(realPart), 0.0, float(frequency)))  
 
             else:
                 print('\nFound no poles.')
@@ -1548,9 +1548,9 @@ def listPZ(pzResult):
         
                     if imagPart != 0:
                         Q = np.abs(frequency/2/realPart)
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, realPart, imagPart, frequency, Q))
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, float(realPart), float(imagPart), float(frequency), Q))
                     else:
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, realPart, 0.0, frequency))  
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, float(realPart), 0.0, float(frequency)))  
             else:
                 print('\nFound no zeros.') 
     else:
