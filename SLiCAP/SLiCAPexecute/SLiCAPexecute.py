@@ -33,7 +33,7 @@ if gainType = "vi" then result: doCramer(M,detCols,Iv)
 else result: doNumer(M,srcRows,detCols)/doDet(M),return(bfloat(result)))$
 doCramerNumer(M,detCols,Iv):=block([],result:0,
 if detCols[1]#0 then result:result+doDet(CramerMatrix(M,Iv,detCols[1])),
-if detCols[2]#0 then result:result+doDet(CramerMatrix(M,Iv,detCols[2])),
+if detCols[2]#0 then result:result-doDet(CramerMatrix(M,Iv,detCols[2])),
 return(expand(result)))$
 doCramer(M,detCols,Iv):=block([],return(expand(doCramerNumer(M,detCols,Iv)/doDet(M))))$
 CramerMatrix(M,V,c):=block([],CramerMatrix:transpose(M),
