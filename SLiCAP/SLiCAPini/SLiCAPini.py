@@ -160,6 +160,7 @@ class settings(object):
        - maxRecSubst       : Maximum number of recursive substitutions
        - MaximaMatrixDim   : Maximum matrix dimension for maxima.newdet()
        - MaximaTimeOut     : Maximum calculation time for Maxima
+       - lambdifyTool      : "numpy" or "mpmath"; latter one in case of overflow
          
     #. Display settings
 
@@ -422,6 +423,12 @@ class settings(object):
         """
         Maximum time in seconds (*int*) for subprocess to run Maxima. Defaults
         to 60.
+        """
+        
+        self.lambdifyTool       = "numpy"
+        """
+        Tool to be used for sympy.lamddify, can be "numpy" for fast calculation
+        in case of overflow warning choose "mpmath"
         """
         
         self.MaximaMatrixDim    = 25

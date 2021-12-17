@@ -917,7 +917,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     """
     fig = figure(fileName)
     fig.show = show
-    fig.axisHeight = fig.axisWidth
+    fig.axisWidth = fig.axisHeight
     pz = axis(title)
     pz.xScale = 'lin'
     pz.yScale = 'lin'
@@ -1328,7 +1328,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 if yVar != sVar:
                     y = f.subs(results.stepVar, parValue)
                     try:
-                        yfunc = sp.lambdify(sp.Symbol(sVar), y, "numpy")
+                        yfunc = sp.lambdify(sp.Symbol(sVar), y, ini.lambdifyTool)
                         yValues[parValue] = yfunc(sweepList)
                     except:
                         yValues[parValue] = [y.subs(sp.Symbol(sVar), sweepList[i]) for i in range(len(sweepList))]
@@ -1337,7 +1337,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 if xVar != sVar:
                     x = g.subs(results.stepVar, parValue)
                     try:
-                        xfunc = sp.lambdify(sp.Symbol(sVar), x, "numpy")
+                        xfunc = sp.lambdify(sp.Symbol(sVar), x, ini.lambdifyTool)
                         xValues[parValue] = xfunc(sweepList)
                     except:
                         xValues[parValue] = [x.subs(sp.Symbol(sVar), sweepList[i]) for i in range(len(sweepList))]
@@ -1346,7 +1346,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
         else:
             if yVar != sVar:
                 try:
-                    y = sp.lambdify(sp.Symbol(sVar), f, "numpy")
+                    y = sp.lambdify(sp.Symbol(sVar), f, ini.lambdifyTool)
                     yValues = y(sweepList)
                 except:
                     yValues = [f.subs(sp.Symbol(sVar), sweepList[i]) for i in range(len(sweepList))]
@@ -1354,7 +1354,7 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 yValues = sweepList
             if xVar != sVar:
                 try:
-                    x = sp.lambdify(sp.Symbol(sVar), g, "numpy")
+                    x = sp.lambdify(sp.Symbol(sVar), g, ini.lambdifyTool)
                     xValues = x(sweepList)
                 except:
                     xValues = [g.subs(sp.Symbol(sVar), sweepList[i]) for i in range(len(sweepList))]

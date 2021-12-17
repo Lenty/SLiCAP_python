@@ -254,6 +254,7 @@
 <li>maxRecSubst       : Maximum number of recursive substitutions</li>
 <li>MaximaMatrixDim   : Maximum matrix dimension for maxima.newdet()</li>
 <li>MaximaTimeOut     : Maximum calculation time for Maxima</li>
+<li>lambdifyTool      : “numpy” or “mpmath”; latter one in case of overflow</li>
 </ul>
 </li>
 <li>Display settings<ul>
@@ -470,6 +471,13 @@ Wiil be set by <strong>SLiCAP.initProject()</strong>. Defaults to: None.</p>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.installPath">
 <code class="descname">installPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.installPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Installation path of SLiCAP (<em>str</em>), defaults to None.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.lambdifyTool">
+<code class="descname">lambdifyTool</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.lambdifyTool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tool to be used for sympy.lamddify, can be “numpy” for fast calculation
+in case of overflow warning choose “mpmath”</p>
 </dd></dl>
 
 <dl class="attribute">

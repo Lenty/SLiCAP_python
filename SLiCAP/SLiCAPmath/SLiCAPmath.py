@@ -563,7 +563,7 @@ def phaseMargin(LaplaceExpr):
             data = expr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
         else:
             data = expr.xreplace({ini.Laplace: sp.I*ini.frequency})
-        func = sp.lambdify(ini.frequency, sp.Abs(data)-1, "numpy")
+        func = sp.lambdify(ini.frequency, sp.Abs(data)-1, ini.lambdifyTool)
         guess = findServoBandwidth(expr)['lpf']
         try:
             #freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
@@ -607,7 +607,7 @@ def makeYdata(yFunc, xVar, x, lmbdfy=True):
         if xVar in list(yFunc.atoms(sp.Symbol)):
             if lmbdfy == True:
                 try:
-                    func = sp.lambdify(xVar, yFunc, "numpy")
+                    func = sp.lambdify(xVar, yFunc, ini.lambdifyTool)
                     y = func(x)
                 except:
                     y = [sp.N(yFunc.subs(xVar, x[i])) for i in range(len(x))]
@@ -715,7 +715,7 @@ def phaseFunc_f(LaplaceExpr, f, lmbdfy=True):
         data = sp.N(LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency}))
     if ini.frequency in list(data.atoms(sp.Symbol)):
         if lmbdfy == True:
-            func = sp.lambdify(ini.frequency, sp.N(data), "numpy")
+            func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             phase = np.angle(func(f))
         else:
             phase = [np.angle(sp.N(data.subs(ini.frequency, f[i]))) for i in range(len(f))]
@@ -762,7 +762,7 @@ def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp), lmbdfy=True):
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
     if ini.frequency in list(data.atoms(sp.Symbol)):
         if lmbdfy == True:
-            func = sp.lambdify(ini.frequency, sp.N(data), "numpy")
+            func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             angle1 = np.angle(func(f))
             angle2 = np.angle(func(f*(1+delta)))
         else:
@@ -872,7 +872,7 @@ def doCDS(noiseResult, tau):
     """
     return noiseResult*((2*sp.sin(sp.pi*ini.frequency*tau)))**2
 
-def routh(charPoly, eps):
+def routh(charPoly, eps=sp.Symbol('epsilon')):
     """
     Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).
     
