@@ -443,6 +443,7 @@ def doMaxLoopGainServo(instr, result):
     return numer, denom
 
 def doPoles(instr, result):
+    oldDataType = instr.dataType
     instr.dataType = "denom"
     result.dataType = "denom"
     result = doDenom(instr, result)
@@ -463,9 +464,12 @@ def doPoles(instr, result):
             result.dataType = "poles"
             result = doMaxInstr(instr, result)
             result.poles = result.poles[0]
+    instr.dataType = oldDataType
+    result.dataType = oldDataType
     return result
 
 def doZeros(instr, result):
+    oldDataType = instr.dataType
     instr.dataType = "numer"
     result.dataType = "numer"
     result = doNumer(instr, result)
@@ -486,6 +490,8 @@ def doZeros(instr, result):
             result.dataType = "zeros"
             result = doMaxInstr(instr, result)
             result.zeros = result.zeros[0]
+    instr.dataType = oldDataType
+    result.dataType = oldDataType
     return result
 
 def doPZ(instr, result):
@@ -508,6 +514,7 @@ def doPZ(instr, result):
                 result.poles.append(list(numRoots(denom, ini.Laplace)))
             else:
                 # findRoots with maxima, also for symbolic
+                result.numer = numer
                 instr.dataType = "poles"
                 result.dataType = "poles"
                 result = doMaxInstr(instr, result)
@@ -534,6 +541,7 @@ def doPZ(instr, result):
             result.dataType = "poles"
         else:
             # findRoots with maxima, also for symbolic
+            result.denom = denom
             instr.dataType = "poles"
             result.dataType = "poles"
             result = doMaxInstr(instr, result)

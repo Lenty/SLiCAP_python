@@ -100,11 +100,16 @@ fig2html(figPhase, 600, caption = 'Phase characteristic of the RC network.', lab
 figDelay = plotSweep('RCdelay', 'Group delay characteristic', numGain, 10, '100k', 100, yScale = 'u', funcType = 'delay')
 fig2html(figDelay, 600, caption = 'Group delay characteristic of the RC network.', label = 'figDelay')
 # With data type: 'pz' we can calculate the DC value of the gain and the poles and the zeros.
-# This data type requires numeric component values.
+# Symbolic pole-zero analysis is supported for relatively simple networks. 
+# Maxima is used as symbolic solver.
 i1.setDataType('pz')
+i1.setSimType('symbolic')
+pzResult = i1.execute()
+i1.setSimType('numeric')
 pzGain      = i1.execute()
 # We will create a new HTML page for displaying the results and display them also in this notebook.
 htmlPage('Poles and zeros')
+pz2html(pzResult, label = 'PZlistSym', labelText = 'Symbolic values of the poles and zeros of the network')
 pz2html(pzGain, label = 'PZlist', labelText = 'Poles and zeros of the network')
 # Let us also add a pole-zero plot of these results:
 head2html("Complex frequency domain plots")
@@ -119,7 +124,7 @@ fig2html(figPZ, 600, caption = 'Poles and zeros of the RC network.', label = 'fi
 # Displaying the result of all three data types gives you the DC gain and the non observable poles.
 #
 # With data types 'impulse' and 'step' you can calculate the impulse response and the step response
-# of the network, respctively. These responses are obtained from the inverse Laplace transform of
+# of the network, respectively. These responses are obtained from the inverse Laplace transform of
 # the transfer function (impulse response) or the transfer function multiplied with 1/ini.Laplace.
 i1.setDataType('step')
 numStep = i1.execute()
@@ -128,6 +133,8 @@ figStep = plotSweep('step', 'Unit step response', numStep, 0, 1, 50, sweepScale=
 ini.htmlPage = 'My-First-RC-network_Plots.html'
 head2html('Time domain plots')
 fig2html(figStep, 600, caption = 'Unit step response of the RC network.', label = 'figStep')
+# Symbolic pole-zero analysis and symbolic inverse Laplace calculations are
+i1.setSimType('symbolic')
 # SLiCAP is developed for setting up and solving circuit design equations
 # In the following section we will write the values of the circuit
 # components as a function of the setting time to n bit.
@@ -143,7 +150,7 @@ fig2html(figStep, 600, caption = 'Unit step response of the RC network.', label 
 htmlPage('Design equations for $R$ and $C$', label='desEq')
 head2html('The unit step response')
 # Step 1:
-i1.setSimType('symbolic')
+i1.setDataType('step')
 symStep     = i1.execute()
 mu_t        = sp.Symbol('mu_t')
 eqn2html(mu_t, symStep.stepResp, label = 'mu_t', labelText = 'Symbolic expression of the unit step response')
