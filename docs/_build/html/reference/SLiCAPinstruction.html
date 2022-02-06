@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPinstruction.py &mdash; SLiCAP 1.1.1 documentation</title>
+  <title>SLiCAPinstruction.py &mdash; SLiCAP 1.2.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.1
+                1.2.1
               </div>
             
           
@@ -220,10 +220,24 @@ Will be called by <strong>instruction.execute()</strong>.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkConvType">
+<code class="descname">checkConvType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkConvType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the circuit conversion type is defined correctly.”</p>
+<p>Called by <strong>instruction.check()</strong> and by <strong>setConvType(&lt;convType&gt;)</strong>.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDataType">
 <code class="descname">checkDataType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the data type is defined correctly.”</p>
 <p>Called by <strong>instruction.check()</strong> and by <strong>setDataType(&lt;dataType&gt;)</strong>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDetPairs">
+<code class="descname">checkDetPairs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkDetPairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a list with valid detector pairs is present.</p>
+<p>Required if self.convType != None.</p>
 </dd></dl>
 
 <dl class="method">
@@ -421,6 +435,13 @@ that can be used as loop gain reference.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.convType">
+<code class="descname">convType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.convType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the conversion type (None, dd, dc, cd, cc)</p>
+<p>See <strong>instruction.setConvType(&lt;gainType&gt;)</strong> for specification of <em>instruction.convType</em>.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.dataType">
 <code class="descname">dataType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.dataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the simulation data type.</p>
@@ -550,6 +571,14 @@ be used as detector.</p>
 <code class="descname">detLabel</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name for the detector quantity to be used in expressions or plots
 (automatically determined in <strong>instruction.chekDetector()</strong>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detPairs">
+<code class="descname">detPairs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detPairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>List with tuples of paired detector nodes or paired branch currents.
+Will be used for equivalent diff-mode of common-mode circuits.</p>
+<p>See <strong>instruction.setDetector(&lt;detector&gt;)</strong> for specification of the detector.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -902,7 +931,7 @@ detector is returned by the method: <strong>instruction.depVars()</strong>.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gainType</strong> (<em>str</em>) – gain type for the instruction’gain’, ‘asymptotic’,
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gainType</strong> (<em>str</em>) – gain type for the instruction: ‘gain’, ‘asymptotic’,
 ‘loopgain’, ‘servo’, ‘direct’, or ‘vi’.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
@@ -1345,6 +1374,21 @@ parameter is obtained as follows:</p>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setconvType">
+<code class="descname">setconvType</code><span class="sig-paren">(</span><em>convType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setconvType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the circuit conversion type for the instruction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>convType</strong> – gain type for the instruction: None, ‘dd’,
+‘dc’, ‘cd’, or ‘cc’.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType">
 <code class="descname">simType</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType" title="Permalink to this definition">¶</a></dt>
@@ -1514,7 +1558,7 @@ value: list with values for this parameter</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, SLiCAP development team.
+        &#169; Copyright 2022, SLiCAP development team.
 
     </p>
   </div>

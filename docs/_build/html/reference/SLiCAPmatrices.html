@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPmatrices.py &mdash; SLiCAP 1.1.1 documentation</title>
+  <title>SLiCAPmatrices.py &mdash; SLiCAP 1.2.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.1
+                1.2.1
               </div>
             
           
@@ -259,51 +259,21 @@ and the denominator of the element parameter.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices">
-<code class="descname">makeMatrices</code><span class="sig-paren">(</span><em>cir</em>, <em>parDefs</em>, <em>numeric</em>, <em>gainType</em>, <em>lgRef</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the MNA matrix and the vector with dependent variables of a circuit.</p>
-<p>Modifications in the circuit object, necessary for calculation of different
-gain types are temporary. The circuit data before and after
-running ‘makeMatrices’ is the same:</p>
-<ol class="arabic simple">
-<li>If gainType == ‘asymptotic’:<ul>
-<li>store the model of lgRef</li>
-<li>modify the model of lgRef to ‘N’</li>
-<li>update depVars and varIndex</li>
-<li>create the matrices</li>
-<li>restore the model of lgRef</li>
-<li>update depVars and varIndex</li>
-</ul>
-</li>
-<li>If gainType == ‘direct’, ‘loopgain’ or ‘servo’:<ul>
-<li>store value of lgRef</li>
-<li>set value of lgRef element to zero</li>
-<li>create the matrices</li>
-<li>restore the value of lgRef</li>
-<li>loopgain and servo will be calculated with the output of lgRef
-as source and the input of lgRef as detector.</li>
-</ul>
-</li>
-<li>If gainType == ‘vi’ or ‘gain’:<ul>
-<li>no alterations of the circuit need to be made</li>
-</ul>
-</li>
-</ol>
+<code class="descname">makeMatrices</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the MNA matrix and the vector with dependent variables of a circuit.
+The entries in the matrix depend on the instruction type.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</li>
-<li><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<li><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a><em>(</em><em>)</em>) – <p>SLiCAP instruction object</p>
 <ul>
 <li>key  : parameter name (sympy.Symbol)</li>
 <li>value: numeric value of sympy expression</li>
 </ul>
 </li>
-<li><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
-parameters to sympy floats</li>
-<li><strong>gainType</strong> (<em>str</em>) – Gain type of the instruction</li>
-<li><strong>lgRef</strong> (<em>str</em>) – ID of the loop gain reference of the instruction</li>
 </ul>
 </td>
 </tr>
@@ -381,7 +351,7 @@ parameters to sympy floats</li>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, SLiCAP development team.
+        &#169; Copyright 2022, SLiCAP development team.
 
     </p>
   </div>

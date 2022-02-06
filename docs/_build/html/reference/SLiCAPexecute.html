@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPexecute.py &mdash; SLiCAP 1.1.1 documentation</title>
+  <title>SLiCAPexecute.py &mdash; SLiCAP 1.2.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.1
+                1.2.1
               </div>
             
           
@@ -250,8 +250,18 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doLoopGainServo">
+<code class="descname">doLoopGainServo</code><span class="sig-paren">(</span><em>instr</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLoopGainServo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMatrix">
 <code class="descname">doMatrix</code><span class="sig-paren">(</span><em>instr</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMatrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxFunction">
+<code class="descname">doMaxFunction</code><span class="sig-paren">(</span><em>funcName</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxFunction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -262,6 +272,11 @@
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxInstr">
 <code class="descname">doMaxInstr</code><span class="sig-paren">(</span><em>instr</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxInstr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxLoopGainServo">
+<code class="descname">doMaxLoopGainServo</code><span class="sig-paren">(</span><em>instr</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxLoopGainServo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -312,24 +327,16 @@
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue">
 <code class="descname">lgValue</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.lgValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the gain of the loop gain reference.</p>
-<p>In case of a loop gain reference of the type EZ and HZ the calculation of
-the loop gain is performed with a controlled current source in parallel
-with the output impedance (zo) (Norton equivalent representation). 
-The value of this current source must then be the ratio of gain of the loop 
-gain reference and the output impedance of the device.
-In all other cases this function returns the value of the loop gain reference.</p>
+<dd><p>Return the gain of the loop gain reference.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction data.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a><em>(</em><em>)</em><em>`</em>) – SLiCAP instruction* object with the instruction data.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Gain of the loop gain reference, modified in a Norton equivalent
-in cases in which the model of the loop gain reference is ‘EZ’ or
-‘HZ’.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Gain of the loop gain reference.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.symbol</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expr</td>
 </tr>
 </tbody>
 </table>
@@ -352,8 +359,6 @@ in cases in which the model of the loop gain reference is ‘EZ’ or
 calculation of cofactors or for application of Cramer’s rule.</p>
 <p>The number range is from 0 to the dimension of the matrix. Zero is
 used for the reference node.</p>
-<p>If the gain type is ‘loopgain’ or ‘servo’, the source and the detector are
-taken at the input and the output of the loop gain reference.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -381,11 +386,6 @@ variables that corresponds with the negative source</li>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSubsDict">
 <code class="descname">makeSubsDict</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSubsDict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.modLoopGainServo">
-<code class="descname">modLoopGainServo</code><span class="sig-paren">(</span><em>instr</em>, <em>laplaceFunc</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.modLoopGainServo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -439,7 +439,7 @@ replaced with its i-th step value.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, SLiCAP development team.
+        &#169; Copyright 2022, SLiCAP development team.
 
     </p>
   </div>
