@@ -983,6 +983,34 @@ class allResults(object):
         MNA matrix.
         """
 
+        self.M0          = None
+        """
+        MNA matrix with loop gain reference set to zero.
+        Used for calculation of the direct transfer and the return difference.
+        """
+
+        self.Moo         = None
+        """
+        MNA matrix with loop gain reference replaced with a nullor.
+        Used for the calculation of the asymptotic gain.
+        """
+        
+        self.Ad          = None
+        """
+        Differential-mode incidence matrix.
+        """
+
+        self.Ac          = None
+        """
+        Common-mode incidence matrix.
+        """
+
+        self.detPairs    = None
+        """
+        Detector pairs (list with tuples). A pair of variables will be 
+        converted into a differential-mode and a common-mode variable
+        """
+
         self.Dv          = None
         """
         Vector with dependent variables.
@@ -1036,6 +1064,14 @@ class allResults(object):
         self.gainType = None
         """
         Defines the simulation gain type.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
+        the execution of the instruction.
+        """
+
+        self.convType = None
+        """
+        Defines the circuit conversion type.
 
         Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction.

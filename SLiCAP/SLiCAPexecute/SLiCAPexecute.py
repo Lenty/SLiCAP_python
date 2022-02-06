@@ -7,6 +7,7 @@ Created on Sat Aug  7 17:08:41 2021
 """
 from SLiCAP.SLiCAPyacc import *
 
+LGREF = sp.Symbol('_LGREF_')
 MAXFUNCTIONS = {}
 
 MAXFUNCTIONS['doDet'] = """MAXMATRIXDIM:25$doDet(M):=block([],if length(M)>MAXMATRIXDIM
@@ -29,7 +30,7 @@ return(result))$"""
 MAXFUNCTIONS['doLaplace'] = """
 doLaplace(M,srcRows,detCols,Iv,gainType):=block([],
 if gainType="vi" then result:doCramer(M,detCols,Iv)
-else result:doNumer(M,srcRows,detCols)/doDet(M),return(bfloat(result)))$
+else result:doNumer(M,srcRows,detCols)/doDet(M),return(result))$
 doCramerNumer(M,detCols,Iv):=block([],result:0,
 if detCols[1]#0 then result:result+doDet(CramerMatrix(M,Iv,detCols[1])),
 if detCols[2]#0 then result:result-doDet(CramerMatrix(M,Iv,detCols[2])),
@@ -89,7 +90,42 @@ result[i]:rhs(result[i]),return(result))$
 numRoots(expr):=block([],result:allroots(bfloat(expr)),for i from 1 thru length(result) do
 result[i]:rhs(result[i]),return(result))$
 """
-          
+
+MAXFUNCTIONS['doReturnRatio'] = """
+doReturnRatio(det_M, det_M0, denomLG):=block([],
+result:fullratsimp((det_M0*denomLG-det_M)/(det_M0*denomLG)),
+return(result))$
+"""
+MAXFUNCTIONS['doLoopGain'] = """
+MAXMATRIXDIM:25$doDet(M):=block([],if length(M)>MAXMATRIXDIM
+then result:det(M) else result:newdet(M),return(result))$
+det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1]
+else block(D:0,for i from 1 thru dim do if M[1,i] # 0 then 
+D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),return(expand(D)))$compile(det)
+$doLoopGain(M,lgRef):=block([],
+M_D:subst(""" + str(LGREF) + """=lgRef,M),
+D_M:doDet(M_D),
+M_0:subst(""" + str(LGREF) + """=0,M),
+D_0:doDet(M_0),
+result:fullratsimp((D_0-D_M)/D_0),
+return(result))$
+"""
+
+MAXFUNCTIONS['doServo'] = """
+MAXMATRIXDIM:25$doDet(M):=block([],if length(M)>MAXMATRIXDIM
+then result:det(M) else result:newdet(M),return(result))$
+det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1]
+else block(D:0,for i from 1 thru dim do if M[1,i] # 0 then 
+D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),return(expand(D)))$compile(det)$
+doServo(M,lgRef):=block([],
+M_D:subst(""" + str(LGREF) + """=lgRef,M),
+D_M:doDet(M_D),
+M_0:subst(""" + str(LGREF) + """=0,M),
+D_0:doDet(M_0),
+result:fullratsimp((D_0-D_M)/D_M),
+return(result))$
+"""
+
 def createResultObject(instr):
     """
     Returns an instance of the *allResults* object with the instruction daya copeid to it.
@@ -100,10 +136,10 @@ def createResultObject(instr):
     :return: result
     :rtype: SLiCAPprotos.allResults object
     """
-    
     result = allResults()
     result.simType        = instr.simType
     result.gainType       = instr.gainType
+    result.convType       = instr.convType
     result.dataType       = instr.dataType
     result.step           = instr.step
     result.stepVar        = instr.stepVar
@@ -130,6 +166,7 @@ def createResultObject(instr):
             result.stepArray.append(rowCopy)
     result.source         = instr.source
     result.detector       = instr.detector
+    result.detPairs       = instr.detPairs
     result.lgRef          = instr.lgRef
     result.circuit        = instr.circuit
     result.errors         = instr.errors
@@ -148,9 +185,6 @@ def makeMaxSrcDetPos(instr):
 
     The number range is from 0 to the dimension of the matrix. Zero is
     used for the reference node.
-    
-    If the gain type is 'loopgain' or 'servo', the source and the detector are
-    taken at the input and the output of the loop gain reference.
 
     :param instr: **allResults()** object that holds instruction data.
     :type instr: :class:`allResult()`
@@ -172,220 +206,56 @@ def makeMaxSrcDetPos(instr):
     for var in instr.circuit.depVars:
         if var != 'V_0':
             detectors.append(var)
-    if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-        lgRef = instr.circuit.elements[instr.lgRef]
-        if lgRef.model == 'E':
-            # The detector nodes are the inP and inN nodes of the VCVS
-            srcP = detectors.index('Io_' + instr.lgRef) + 1
-            srcN = 0
-            # The source row is that of the current through the controlled
-            # voltage source
-            if lgRef.nodes[2] == '0':
-                detP = 0
-            else:
-                detP = detectors.index('V_' + lgRef.nodes[2]) + 1
-            if lgRef.nodes[3] == '0':
-                detN = 0
-            else:
-                detN = detectors.index('V_' + lgRef.nodes[3]) + 1
-        elif lgRef.model == 'EZ':
-            # The detector nodes are the inP and inN nodes of the VCVS
-            if lgRef.nodes[2] == '0':
-                detP = 0
-            else:
-                detP = detectors.index('V_' + lgRef.nodes[2]) + 1
-            if lgRef.nodes[3] == '0':
-                detN = 0
-            else:
-                detN = detectors.index('V_' + lgRef.nodes[3]) + 1
-            zo = lgRef.params['zo']
-            if instr.numeric:
-                zo = fullSubs(zo, instr. parDefs)
-            if zo != 0:
-                # A current source in parallel with Zo, hence flowing from the
-                # outN node to the outP node of the device is the new source.
-                # The gain of the reference variable needs to be divided by the
-                # value of Zo.
-                if lgRef.nodes[0] == '0':
-                    srcP = 0
-                else:
-                    srcP = detectors.index('V_' + lgRef.nodes[0]) + 1
-                if lgRef.nodes[1] == '0':
-                    srcN = 0
-                else:
-                    srcN = detectors.index('V_' + lgRef.nodes[1]) + 1
-            else:
-                # If Zo is zero the method for model 'E' must be applied.
-                srcP = detectors.index('Io_' + instr.lgRef) + 1
-                srcN = 0
-        elif lgRef.model == 'F':
-            # The detector row is that of the input current of the CCCS
-            detP = detectors.index('Ii_' + instr.lgRef) + 1
-            detN = 0
-            # The source rows correspond with those of the nodes of the
-            # controlled current source at the output of the device.
-            if lgRef.nodes[1] == '0':
-                srcP = 0
-            else:
-                srcP = detectors.index('V_' + lgRef.nodes[1]) + 1
-            if lgRef.nodes[0] == '0':
-                srcN = 0
-            else:
-                srcN = detectors.index('V_' + lgRef.nodes[0]) + 1
-        elif lgRef.model == 'G':
-            # The detector rows correspond with those of the input nodes
-            # of the VCCS.
-            if lgRef.nodes[2] == '0':
-                detP = 0
-            else:
-                detP = detectors.index('V_' + lgRef.nodes[2]) + 1
-            if lgRef.nodes[3] == '0':
-                detN = 0
-            else:
-                detN = detectors.index('V_' + lgRef.nodes[3]) + 1
-            # The source current source flows from the outN node to the
-            # outP node of the device.
-            if lgRef.nodes[0] == '0':
-                srcN = 0
-            else:
-                srcN = detectors.index('V_' + lgRef.nodes[0]) + 1
-            if lgRef.nodes[1] == '0':
-                srcP = 0
-            else:
-                srcP = detectors.index('V_' + lgRef.nodes[1]) + 1
-        elif lgRef.model == 'g':
-            # The detector rows correspond with those of the input nodes
-            # of the VCCS.
-            if lgRef.nodes[2] == '0':
-                detP = 0
-            else:
-                detP = detectors.index('V_' + lgRef.nodes[2]) + 1
-            if lgRef.nodes[3] == '0':
-                detN = 0
-            else:
-                detN = detectors.index('V_' + lgRef.nodes[3]) + 1
-            # The source current source flows from the outN node to the
-            # outP node of the device.
-            if lgRef.nodes[1] == '0':
-                srcP = 0
-            else:
-                srcP = detectors.index('V_' + lgRef.nodes[1]) + 1
-            if lgRef.nodes[0] == '0':
-                srcN = 0
-            else:
-                srcN = detectors.index('V_' + lgRef.nodes[0]) + 1
-        elif lgRef.model == 'H':
-            # The detector row is that of the input current of the CCVS
-            detP = detectors.index('Ii_' + instr.lgRef) + 1
-            detN = 0
-            # The source row is that of the output current of the CCVS
-            srcP = detectors.index('Io_' + instr.lgRef) + 1
-            srcN = 0
-        elif lgRef.model == 'HZ':
-            # The detector row is that of the input current of the CCVS
-            detP = detectors.index('Ii_' + instr.lgRef) + 1
-            detN = 0
-            zo = lgRef.params['zo']
-            if instr.numeric:
-                zo = fullSubs(zo, instr.parDefs)
-            if zo != 0:
-                # A current source in parallel with Zo, hence flowing from the
-                # outN node to the outP node of the device is the new source.
-                # The gain of the reference variable needs to be divided by the
-                # value of Zo.
-                if lgRef.nodes[0] == '0':
-                    srcP = 0
-                else:
-                    srcP = detectors.index('V_' + lgRef.nodes[0]) + 1
-                if lgRef.nodes[1] == '0':
-                    srcN = 0
-                else:
-                    srcN = detectors.index('V_' + lgRef.nodes[1]) + 1
-            else:
-                # If Zo equals zero the method for model 'H' must be applied.
-                srcP = detectors.index('Io_' + instr.lgRef) + 1
-                srcN = 0
+    detP, detN = instr.detector
+    if detP != None:
+        detP = detectors.index(detP) + 1
     else:
-        # For all other gain types:
-        # The detector rows are those that correspond with the dependent
-        # variables of the detector.
-        (detP, detN) = instr.detector
-        if detP != None:
-            detP = detectors.index(detP) + 1
-        else:
-            detP = 0
-        if detN != None:
-            detN = detectors.index(detN) + 1
-        else:
-            detN = 0
-        if instr.source != None:
-            # If there is s source defined:
-            if instr.source[0].upper() == 'V':
-                # The source row corresponds with that of the current through
-                # the voltage source
-                srcP = detectors.index('I_' + instr.source) + 1
-                srcN = 0
-            elif instr.source[0].upper() == 'I':
-                # The source rows correspond with those of the nodal voltages
-                # of the source nodes
-                nodes = instr.circuit.elements[instr.source].nodes
-                if nodes[0] != '0':
-                    srcN = detectors.index('V_' + nodes[0]) + 1
-                else:
-                    srcN = 0
-                if nodes[1] != '0':
-                    srcP = detectors.index('V_' + nodes[1]) + 1
-                else:
-                    srcP = 0
-        else:
-            # If there is no source defined, srcP and srcN are set to 0
-            srcP = 0
+        detP = 0
+    if detN != None:
+        detN = detectors.index(detN) + 1
+    else:
+        detN = 0
+    if instr.source != None:
+        # If there is s source defined:
+        if instr.source[0].upper() == 'V':
+            # The source row corresponds with that of the current through
+            # the voltage source
+            srcP = detectors.index('I_' + instr.source) + 1
             srcN = 0
+        elif instr.source[0].upper() == 'I':
+            # The source rows correspond with those of the nodal voltages
+            # of the source nodes
+            nodes = instr.circuit.elements[instr.source].nodes
+            if nodes[0] != '0':
+                srcN = detectors.index('V_' + nodes[0]) + 1
+            else:
+                srcN = 0
+            if nodes[1] != '0':
+                srcP = detectors.index('V_' + nodes[1]) + 1
+            else:
+                srcP = 0
+    else:
+        # If there is no source defined, srcP and srcN are set to 0
+        srcP = 0
+        srcN = 0
     return(detP, detN, srcP, srcN)
 
 def lgValue(instr):
     """
-    Calculates the gain of the loop gain reference.
+    Return the gain of the loop gain reference.
 
-    In case of a loop gain reference of the type EZ and HZ the calculation of
-    the loop gain is performed with a controlled current source in parallel
-    with the output impedance (zo) (Norton equivalent representation). 
-    The value of this current source must then be the ratio of gain of the loop 
-    gain reference and the output impedance of the device.
-    In all other cases this function returns the value of the loop gain reference.
+    :param instr: SLiCAP instruction* object with the instruction data.
+    :type instr: SLiCAPinstruction.instruction()`
 
-    :param instr: **allResults()** object that holds instruction data.
-    :type instr: :class:`allResult()`
+    :return: Gain of the loop gain reference.
 
-    :return: Gain of the loop gain reference, modified in a Norton equivalent
-             in cases in which the model of the loop gain reference is 'EZ' or
-             'HZ'.
-
-    :return type: sympy.symbol
+    :return type: sympy.Expr
     """
-    lgRef = instr.circuit.elements[instr.lgRef]
-    if lgRef.model == 'g':
-        value = lgRef.params['value']
-    elif lgRef.model == 'E':
-        value = lgRef.params['value']
-    elif lgRef.model == 'EZ' or lgRef.model == 'HZ':
-        value = lgRef.params['value']
-        zo = lgRef.params['zo']
-        if instr.numeric:
-            if instr.step:
-                zo = fullSubs(zo, instr.parDefs)
-        if zo != 0:
-            value = sp.simplify(value/lgRef.params['zo'])
-    elif lgRef.model == 'H':
-        value = lgRef.params['value']
-    elif lgRef.model == 'F':
-        value = lgRef.params['value']
-    elif lgRef.model == 'G':
-        value = lgRef.params['value']
+    value = instr.circuit.elements[instr.lgRef].params['value']
     if instr.simType == 'numeric':
-        value = fullSubs(value, instr.parDefs)
+        value = fullSubs(sp.N(value), instr.parDefs)
     return value
-    
+
 def doInstruction(instr):
     result = createResultObject(instr)
     if instr.errors == 0:
@@ -402,7 +272,9 @@ def doInstruction(instr):
             newLGrefElement.refDes = oldLGrefElement.refDes
             instr.circuit.elements[instr.lgRef] = newLGrefElement
             instr.circuit = updateCirData(instr.circuit)
-        
+        elif instr.gainType == 'direct':
+            oldLGvalue = instr.circuit.elements[instr.lgRef].params['value']
+            instr.circuit.elements[instr.lgRef].params['value'] = sp.N(0)
         if instr.dataType == 'numer':
             result = doNumer(instr, result)            
         elif instr.dataType == 'denom':
@@ -439,129 +311,135 @@ def doInstruction(instr):
             pass
         else:
             print('Error: unknown dataType:', instr.dataType)
-    if instr.gainType == 'asymptotic':
-        # Restore the original loop gain reference element
-        instr.circuit.elements[instr.lgRef] = oldLGrefElement
-        instr.circuit = updateCirData(instr.circuit)
+        if instr.gainType == 'asymptotic':
+            # Restore the original loop gain reference element
+            instr.circuit.elements[instr.lgRef] = oldLGrefElement
+            instr.circuit = updateCirData(instr.circuit) 
+        elif instr.gainType == 'direct':
+             instr.circuit.elements[instr.lgRef].params['value'] = oldLGvalue
     return result
 
 def doNumer(instr, result):
     if instr.step:
         if ini.stepFunction:
-            numer = doMaxInstr(instr, result).numer[0]
             if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-                numer, denom = modLoopGainServo(instr, numer)
-            result.numer = stepFunctions(instr.stepDict, numer)
+                numer, denom = sp.fraction(doLoopGainServo(instr, result))
+            else:
+                numer = doMaxInstr(instr, result).numer[0]
+            result.numer = stepFunctions(instr.stepDict, sp.simplify(numer))
         else:
             stepVars = list(instr.stepDict.keys())
             numSteps = len(instr.stepDict[stepVars[0]])
             for i in range(numSteps):
                 for j in range(len(stepVars)):
-                    instr.parDefs[stepVars[j]]=instr.stepDict[stepVars[j]][i]
-                result = doMaxInstr(instr, result)
+                    instr.parDefs[stepVars[j]] = instr.stepDict[stepVars[j]][i]
                 if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-                    result.numer[-1], denom = modLoopGainServo(instr, result.numer[-1])
+                    numer, denom = sp.fraction(doLoopGainServo(instr, result))
+                    result.numer.append(numer)
+                else:
+                    result = doMaxInstr(instr, result)
     else:
-        result = doMaxInstr(instr, result)
         if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-            result.numer[0], denom = modLoopGainServo(instr, result.numer[0])
+            doLoopGainServo(instr, result)
+        else:
+            result = doMaxInstr(instr, result)
         result.numer = result.numer[0]
+        result.numer = sp.simplify(result.numer)
     return result
 
 def doDenom(instr, result):
     if instr.step:
         if ini.stepFunction:
-            if instr.gainType == 'servo':
-                instr.dataType = 'laplace'
-                result.dataType = 'laplace'
-                result = doMaxInstr(instr, result)
-                numer, denom = modLoopGainServo(instr, result.laplace[0]) 
-                instr.dataType = 'denom'
-                result.dataType = 'denom'            
+            if instr.gainType == 'loopgain' or instr.gainType == 'servo':
+                numer, denom = sp.fraction(doLoopGainServo(instr, result))
             else:
                 denom = doMaxInstr(instr, result).denom[0]
                 if instr.gainType == 'loopgain':
                     lgNumer, lgDenom = sp.fraction(lgValue(instr))
                     denom *= lgDenom
-            result.denom = stepFunctions(instr.stepDict, denom)
+            result.denom = stepFunctions(instr.stepDict, sp.simplify(denom))
         else:
             stepVars = list(instr.stepDict.keys())
             numSteps = len(instr.stepDict[stepVars[0]])
             for i in range(numSteps):
                 for j in range(len(stepVars)):
                     instr.parDefs[stepVars[j]]=instr.stepDict[stepVars[j]][i]
-                if instr.gainType == 'servo':
-                    instr.dataType = 'laplace'
-                    laplaceFunc = doMaxInstr(instr, result).laplace[-1]
-                    if instr.gainType == 'servo':
-                        numer, denom = modLoopGainServo(instr, laplaceFunc)
-                        result.denom.append(denom)
-                    instr.dataType = 'denom'
+                if instr.gainType == 'loopgain' or instr.dataType == 'servo':
+                    numer, denom = sp.fraction(doLoopGainServo(instr, result))
+                    result.denom.append(denom)
                 else:
                     result = doMaxInstr(instr, result)
-                    if instr.gainType == 'loopgain':
-                        lgNumer, lgDenom = sp.fraction(lgValue(instr))
-                        result.denom[-1] *= lgDenom
-    elif instr.gainType == 'servo':
-        instr.dataType = 'laplace'
-        result.dataType = 'laplace'
-        laplaceFunc = doMaxInstr(instr, result).laplace[0]
-        if instr.gainType == 'servo':
-            numer, denom = modLoopGainServo(instr, laplaceFunc)
-        instr.dataType = 'denom'
-        result.dataType = 'denom'
-        result.denom = denom
     else:
-        result = doMaxInstr(instr, result)
-        if instr.gainType == 'loopgain':
-            lgNumer, lgDenom = sp.fraction(lgValue(instr))
-            result.denom[0] *= lgDenom
+        if instr.gainType == 'loopgain' or instr.gainType == 'servo':
+            doLoopGainServo(instr, result)
+        else:
+            result = doMaxInstr(instr, result)
         result.denom = result.denom[0]
+        result.denom = sp.simplify(result.denom)
     return result
 
 def doLaplace(instr, result):
     if instr.step:
         if ini.stepFunction:
-            result = doMaxInstr(instr, result)
-            laplaceFunc = result.laplace[0]
             if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-                numer, denom = modLoopGainServo(instr, laplaceFunc)
-                laplaceFunc = numer/denom
+                laplaceFunc = doLoopGainServo(instr, result)
+            else:
+                result = doMaxInstr(instr, result)
+                laplaceFunc = sp.simplify(result.laplace[0])
             result.laplace = stepFunctions(instr.stepDict, laplaceFunc)
         else:
             stepVars = list(instr.stepDict.keys())
             numSteps = len(instr.stepDict[stepVars[0]])
             for i in range(numSteps):
                 for j in range(len(stepVars)):
-                    instr.parDefs[stepVars[j]]=instr.stepDict[stepVars[j]][i]
-                result = doMaxInstr(instr, result)
+                    instr.parDefs[stepVars[j]] = instr.stepDict[stepVars[j]][i]
                 if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-                    numer, denom = modLoopGainServo(instr, result.laplace[-1])
-                    result.laplace[-1] = numer/denom
+                    result.laplace.append(doLoopGainServo(instr, result))
+                else:
+                    result = doMaxInstr(instr, result)
+        result.laplace[-1] = sp.simplify(result.laplace[-1])
     else:
-        result = doMaxInstr(instr, result)
         if instr.gainType == 'loopgain' or instr.gainType == 'servo':
-            numer, denom = modLoopGainServo(instr, result.laplace[0])
-            result.laplace[0] = numer/denom
-        result.laplace = result.laplace[0]
+            result.laplace = doLoopGainServo(instr, result)
+        else:    
+            result = doMaxInstr(instr, result)
+            result.laplace = result.laplace[0]
+        result.laplace =sp.simplify(result.laplace)
     return result
 
-def modLoopGainServo(instr, laplaceFunc):
-    numer, denom = sp.fraction(sp.simplify(laplaceFunc))
-    lgNumer, lgDenom = sp.fraction(sp.simplify(lgValue(instr)))    
-    if ini.Laplace not in list(lgDenom.atoms(sp.Symbol)):
-        lgNumer /= lgDenom
-        lgDenom = 1
+def doLoopGainServo(instr, result):
+    """
+    """
+    oldDataType = instr.dataType
+    instr.dataType = 'matrix'
+    result.dataType = 'matrix'
+    oldLGvalue = instr.circuit.elements[instr.lgRef].params['value']
+    
+    instr.circuit.elements[instr.lgRef].params['value'] = LGREF
+    result = doMatrix(instr, result)
+    
+    instr.circuit.elements[instr.lgRef].params['value'] = oldLGvalue
+    num, den = doMaxLoopGainServo(instr, result)
+    if instr.numeric:
+        num = sp.N(num)
+        den = sp.N(den)
+    result.denom.append(den)
+    result.numer.append(num)
+    result.laplace.append(num/den)
+    
+    instr.dataType = oldDataType
+    result.dataType = oldDataType
+    return num/den
+
+def doMaxLoopGainServo(instr, result):
+    """
+    """
+    M = python2maxima(result.M)
     if instr.gainType == 'loopgain':
-        numer *= lgNumer
-        denom *= lgDenom
+        maxResult = doMaxFunction('doLoopGain', [M, lgValue(instr)])
+        numer, denom = sp.fraction(maxResult)
     elif instr.gainType == 'servo':
-        numer *= -lgNumer
-        denom *= lgDenom
-        denom += numer
-    
-    #print("DC", numer.subs(ini.Laplace,0)/denom.subs(ini.Laplace,0))
-    
+        numer, denom = sp.fraction(doMaxFunction('doServo', [M, lgValue(instr)]))  
     return numer, denom
 
 def doPoles(instr, result):
@@ -846,6 +724,7 @@ def doTime(instr, result):
         result.time = []
         for laplaceResult in result.laplace:
             laplaceResult = normalizeRational(laplaceResult, ini.Laplace)
+            
             result.time.append(doMaxIlt(laplaceResult))
     else:
         laplaceResult = normalizeRational(result.laplace, ini.Laplace)
@@ -936,10 +815,21 @@ def doMaxIlt(laplaceRational):
     return result
 
 def doMaxInstr(instr, result):
-    maxInstr, result = makeMaxInstr(instr, result, save=True)                  # Create the maxima instruction
-    maxResult = maxEval(maxInstr)                                              # Execute the maxima instruction results
-    result = parseMaxResult(result, instr.circuit.indepVars, maxResult)        # Convert maxima results into SLiCAP results
+    maxInstr, result = makeMaxInstr(instr, result, save=False)                  # Create the maxima instruction
+    maxResult = maxEval(maxInstr, numeric=instr.numeric)                                            # Execute the maxima instruction results
+    result = parseMaxResult(result, instr.circuit.indepVars, maxResult)        # Convert maxima results into SLiCAP results     
     return result
+
+def doMaxFunction(funcName, args):
+    maxInstr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
+    maxInstr += "result:"
+    maxInstr += MAXFUNCTIONS[funcName]
+    maxInstr += funcName +'('
+    for arg in args:
+        maxInstr += str(arg) + ','
+    maxInstr = maxInstr[:-1] + ')$'
+    result = maxEval(maxInstr)
+    return sp.sympify(result)
 
 def makeMaxInstr(instr, result, save=False):
     maxInstr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
@@ -956,7 +846,7 @@ def makeMaxInstr(instr, result, save=False):
         result.M, result.Iv, result.Dv = makeMaxMatrices(instr) 
         maxInstr += MAXFUNCTIONS['doDet'] 
         maxInstr += 'M:' + python2maxima(result.M) + '$\n'
-        maxInstr += 'result: det(M)$'
+        maxInstr += 'result: doDet(M)$'
     elif instr.dataType == 'laplace':
         result.M, result.Iv, result.Dv = makeMaxMatrices(instr) 
         detP, detN, srcP, srcN = makeMaxSrcDetPos(instr) 
@@ -1101,19 +991,21 @@ def makeMaxInstr(instr, result, save=False):
 
 def makeMaxMatrices(instr):
     # Create the MNA matrix
-    M, Dv = makeMatrices(instr.circuit, instr.parDefs, instr.numeric, instr.gainType, instr.lgRef)
+    M, Dv = makeMatrices(instr)
     
     # Create vecor with independent variables: this requires source names and values for noise and dcvar analysis
     if instr.dataType == "noise" or instr.dataType == "dcvar":
         Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'id', numeric = instr.numeric)
     elif instr.dataType == "dc" or instr.dataType == "dcsolve":
         Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'dc', numeric = instr.numeric)
-    else:
+    elif instr.dataType != 'denom':
         Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'value', numeric = instr.numeric)
+    else:
+        Iv =sp.Matrix()
     if instr.numeric:
         M = sp.N(M)
-        Iv = sp.N(Iv)
         Dv = sp.N(Dv)
+        Iv = sp.N(Iv)
     return M, Iv, Dv
 
 def makeSubsDict(instr):
@@ -1129,26 +1021,30 @@ def makeSubsDict(instr):
     return instr
 
 def parseMaxResult(result, indepVars, maxResult):
-    if result.dataType == 'numer':
-        result.numer.append(sp.sympify(maxResult))
-    elif result.dataType == 'denom':
-        result.denom.append(sp.sympify(maxResult))
-    elif result.dataType == 'laplace':
-        result.laplace.append(sp.sympify(maxResult))
-    elif result.dataType == 'impulse':
-        result.impulse.append(sp.sympify(maxResult))
-    elif result.dataType == 'step':
-        result.stepResp.append(sp.sympify(maxResult))
-    elif result.dataType == 'time':
-        result.time.append(sp.sympify(maxResult))
-    elif result.dataType == 'dc':
-        result.dc.append(sp.sympify(maxResult))
-    elif result.dataType == 'solve':
-        result.solve.append(sp.sympify(maxResult))
-    elif result.dataType == 'dcsolve':
-        result.dcSolve.append(sp.sympify(maxResult))
-    elif result.dataType == 'timesolve':
-        result.timeSolve.append(sp.sympify(maxResult))
+    if result.dataType != 'noise' and result.dataType != 'dcvar' and result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
+        maxResult = sp.sympify(maxResult)
+        if result.numeric:
+            maxResult = sp.N(maxResult)
+        if result.dataType == 'numer':
+            result.numer.append(maxResult)
+        elif result.dataType == 'denom':
+            result.denom.append(maxResult)
+        elif result.dataType == 'laplace':
+            result.laplace.append(maxResult)
+        elif result.dataType == 'impulse':
+            result.impulse.append(maxResult)
+        elif result.dataType == 'step':
+            result.stepResp.append(maxResult)
+        elif result.dataType == 'time':
+            result.time.append(maxResult)
+        elif result.dataType == 'dc':
+            result.dc.append(maxResult)
+        elif result.dataType == 'solve':
+            result.solve.append(maxResult)
+        elif result.dataType == 'dcsolve':
+            result.dcSolve.append(maxResult)
+        elif result.dataType == 'timesolve':
+            result.timeSolve.append(maxResult)
     elif result.dataType == 'noise' or result.dataType == 'dcvar':
         oTerms, iTerms = maxResult[2:-2].split('],[')
         oTerms = oTerms.split(',')
@@ -1224,6 +1120,7 @@ def parseMaxResult(result, indepVars, maxResult):
             result.zeros.append(list(sp.sympify(zeros)))
         except:
             pass
+
     return result
 
 def stepFunctions(stepDict, function):

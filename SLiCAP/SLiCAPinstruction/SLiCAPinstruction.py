@@ -7,7 +7,8 @@ Imported by the module **SLiCAP.py**.
 """
 from SLiCAP.SLiCAPexecute import *
 
-GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct',]
+GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct']
+CONVTYPES = ['dd', 'dc', 'cd', 'cc']
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 'timesolve',
              'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse',
              'step', 'params']
@@ -30,6 +31,13 @@ class instruction(object):
         Defines the simulation gain type.
 
         See **instruction.setGainType(<gainType>)** for specification of *instruction.gainType*.
+        """
+
+        self.convType = None
+        """
+        Defines the conversion type (None, dd, dc, cd, cc)
+
+        See **instruction.setConvType(<gainType>)** for specification of *instruction.convType*.
         """
 
         self.dataType = None
@@ -120,6 +128,14 @@ class instruction(object):
         self.detector = None
         """
         Names of the positive and negative detector.
+
+        See **instruction.setDetector(<detector>)** for specification of the detector.
+        """
+
+        self.detPairs = None
+        """
+        List with tuples of paired detector nodes or paired branch currents.
+        Will be used for equivalent diff-mode of common-mode circuits.
 
         See **instruction.setDetector(<detector>)** for specification of the detector.
         """
@@ -269,7 +285,7 @@ class instruction(object):
         """
         Defines the gain type for the instruction.
 
-        :param gainType: gain type for the instruction'gain', 'asymptotic',
+        :param gainType: gain type for the instruction: 'gain', 'asymptotic',
                          'loopgain', 'servo', 'direct', or 'vi'.
         :type gainType: str
 
@@ -301,6 +317,37 @@ class instruction(object):
             print("Error: argument type must be type 'str'.")
             self.errors += 1
         return
+    
+
+    def setconvType(self, convType):
+        """
+        Defines the circuit conversion type for the instruction.
+
+        :param convType: gain type for the instruction: None, 'dd',
+                         'dc', 'cd', or 'cc'.
+        :type gainType: str, Bool
+
+        """
+        self.convType = convType
+        self.checkConvType()
+
+    def checkConvType(self):
+        """
+        Checks if the circuit conversion type is defined correctly."
+
+        Called by **instruction.check()** and by **setConvType(<convType>)**.
+        """
+        if type(self.convType) == str:
+            if self.convType.lower() in CONVTYPES:
+                self.convType = self.convType.lower()
+            else:
+                print("Error: unknown gain type: '{0}'.".format(self.convType))
+                self.errors += 1
+        else:
+            print("Error: argument type must be type 'str'.")
+            self.errors += 1
+        return
+    
 
     def setDataType(self, dataType):
         """
@@ -983,6 +1030,28 @@ class instruction(object):
             print("Error: missing detector definition.")
         return
 
+    def checkDetPairs(self):
+        """
+        Checks if a list with valid detector pairs is present. 
+        
+        Required if self.convType != None.
+        """
+        if self.detPairs != None:
+            validVars = self.circuit.depVars
+            usedVars  = []
+            for pair in self.detPairs:
+                if pair[0] in validVars and par[0] not in usedVars:
+                    usedVars.append(par[0])
+                else:
+                    self.errors += 1
+                    print("Error: invalid detector variable:", par[0])
+                if pair[1] in validVars and par[1] not in usedVars:
+                    usedVars.append(par[1])
+                else:
+                    self.errors += 1
+                    print("Error: invalid detector variable:", par[1])
+        return
+
     def setLGref(self, lgRef):
         """
         Defines the loop gain reference (name of a controlled source).
@@ -1287,6 +1356,74 @@ class instruction(object):
             self.errors += 1
             print("Error: not SLiCAP a circuit object for this instruction.")
         return
+    def checkNumeric(self):
+        """
+        Checks if the simulation type is set to 'numeric'. This is required for
+        pole-zero analysis.
+
+        Called by **instruction.check()** in cases in which a numeric
+        simulation is required.
+        """
+        if not self.numeric:
+            self.errors += 1
+            print("Error: dataType '{0}' not available for simType: '{1}'.".format(self.dataType, self.simType))
+        return
+
+    def checkStep(self):
+        """
+        This method will check the completeness and the consistency of the
+        instruction data for parameter stepping, before executing the
+        instruction.
+
+        Called by **instruction.check()** in cases in which
+        instruction.step == True
+        """
+        self.checkStepMethod()
+        if self.errors == 0:
+            if not self.step:
+                self.parDefs = self.circuit.parDefs
+            elif self.stepMethod == 'lin':
+                self.checkStepVar()
+                self.checkStepNum()
+                self.checkStepStart()
+                self.checkStepStop()
+                if self.errors == 0:
+                    self.stepList = np.linspace(self.stepStart, self.stepStop, self.stepNum)
+                    for i in range(len(self.stepList)):
+                        self.stepList[i] = sp.N( self.stepList[i])
+                    self.stepDict[self.stepVar] = self.stepList
+            elif self.stepMethod == 'log':
+                self.checkStepVar()
+                self.checkStepNum()
+                self.checkStepStart()
+                self.checkStepStop()
+                if self.errors == 0 and self.stepStart * self.stepStop > 0:
+                    self.stepList = np.geomspace(self.stepStart, self.stepStop, self.stepNum)
+                    for i in range(len(self.stepList)):
+                        self.stepList[i] = sp.N( self.stepList[i])
+                    self.stepDict[self.stepVar] = self.stepList
+                else:
+                    self.errors += 1
+                    print("Error: logarithmic stepping cannot include zero.")
+            elif self.stepMethod == 'list':
+                self.checkStepVar()
+                self.checkStepList()
+                if self.errors == 0:
+                    for i in range(len(self.stepList)):
+                        self.stepList[i] = sp.N( self.stepList[i])
+                    self.stepDict[self.stepVar] = self.stepList
+            elif self.stepMethod == 'array':
+                self.checkStepVars()
+                # We need a list without errors before we can check the array
+                if self.errors == 0:
+                    self.checkStepArray()
+                if self.errors == 0:
+                    for i in range(len(self.stepVars)):
+                        tmpLst = self.stepArray[i]
+                        for j in range(len(tmpLst)):
+                            tmpLst[j] = sp.N(tmpLst[j])
+                        self.stepDict[self.stepVars[i]] = tmpLst
+        return
 
     def check(self):
         """
@@ -1383,6 +1520,13 @@ class instruction(object):
                     self.checkLGref()
                 else:
                     pass
+        if self.convType != None:
+            self.checkConvType()
+            # Need detector pairs
+            if self.detPairs == None:
+                self.errors += 1
+            else:
+                self.checkDetPairs()
         if self.step == True:
             if not self.numeric and self.dataType != 'params':
                 self.errors += 1
@@ -1396,74 +1540,6 @@ class instruction(object):
                 self.checkStep()
         return
 
-    def checkNumeric(self):
-        """
-        Checks if the simulation type is set to 'numeric'. This is required for
-        pole-zero analysis.
-
-        Called by **instruction.check()** in cases in which a numeric
-        simulation is required.
-        """
-        if not self.numeric:
-            self.errors += 1
-            print("Error: dataType '{0}' not available for simType: '{1}'.".format(self.dataType, self.simType))
-        return
-
-    def checkStep(self):
-        """
-        This method will check the completeness and the consistency of the
-        instruction data for parameter stepping, before executing the
-        instruction.
-
-        Called by **instruction.check()** in cases in which
-        instruction.step == True
-        """
-        self.checkStepMethod()
-        if self.errors == 0:
-            if not self.step:
-                self.parDefs = self.circuit.parDefs
-            elif self.stepMethod == 'lin':
-                self.checkStepVar()
-                self.checkStepNum()
-                self.checkStepStart()
-                self.checkStepStop()
-                if self.errors == 0:
-                    self.stepList = np.linspace(self.stepStart, self.stepStop, self.stepNum)
-                    for i in range(len(self.stepList)):
-                        self.stepList[i] = sp.N( self.stepList[i])
-                    self.stepDict[self.stepVar] = self.stepList
-            elif self.stepMethod == 'log':
-                self.checkStepVar()
-                self.checkStepNum()
-                self.checkStepStart()
-                self.checkStepStop()
-                if self.errors == 0 and self.stepStart * self.stepStop > 0:
-                    self.stepList = np.geomspace(self.stepStart, self.stepStop, self.stepNum)
-                    for i in range(len(self.stepList)):
-                        self.stepList[i] = sp.N( self.stepList[i])
-                    self.stepDict[self.stepVar] = self.stepList
-                else:
-                    self.errors += 1
-                    print("Error: logarithmic stepping cannot include zero.")
-            elif self.stepMethod == 'list':
-                self.checkStepVar()
-                self.checkStepList()
-                if self.errors == 0:
-                    for i in range(len(self.stepList)):
-                        self.stepList[i] = sp.N( self.stepList[i])
-                    self.stepDict[self.stepVar] = self.stepList
-            elif self.stepMethod == 'array':
-                self.checkStepVars()
-                # We need a list without errors before we can check the array
-                if self.errors == 0:
-                    self.checkStepArray()
-                if self.errors == 0:
-                    for i in range(len(self.stepVars)):
-                        tmpLst = self.stepArray[i]
-                        for j in range(len(tmpLst)):
-                            tmpLst[j] = sp.N(tmpLst[j])
-                        self.stepDict[self.stepVars[i]] = tmpLst
-        return
 
     def execute(self):
         """

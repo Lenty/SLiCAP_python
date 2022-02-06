@@ -261,7 +261,7 @@ lexer = lex.lex()
 lexer.errCount = 0
 
 if __name__ == '__main__':
-    fi = ini.installPath + 'examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir'
+    fi = '/mnt/DATA/Cursussen/SLiCAP_LTspice_book/Chapter11/SLiCAP/cir/RL3_0.cir'
     print(fi)
     lexer = tokenize(fi)
     tok = lexer.token()

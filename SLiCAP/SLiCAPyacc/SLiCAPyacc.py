@@ -235,10 +235,10 @@ def makeCircuit(cir):
                             if not tok:
                                 break
                         if tok.type in VALEXPR:
-                            if tok.type == 'INT':
-                                # Integers are still str and need to be converted
+                            if tok.type != 'EXPR':
+                                # Convert numeric values to sympy numeric types
                                 tok.value = sp.N(tok.value)
-                            newElement.params['value'] = sp.N(tok.value)
+                            newElement.params['value'] = tok.value
                             # If this field was numeric, we are missing the
                             # model and use the default model for this device
                             newElement.model = DEVICES[newElement.type].models[0]

@@ -58,7 +58,7 @@ def maxima2python(expr):
     expr = re.sub(r'signum(\(.*\))', r'sign\1', expr)
     return expr
 
-def maxEval(maxExpr):
+def maxEval(maxExpr, numeric=False):
     """
     Evaluates the expression 'maxExpr' with Maxima CAS and returns the result.
 
@@ -81,7 +81,10 @@ def maxEval(maxExpr):
     'sin(a*t)/a'
     """
     #maxAssume = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
-    maxStringConv = "stringdisp:true$string(result);"
+    if numeric:
+        maxStringConv = "stringdisp:true$string(bfloat(result));"
+    else:
+        maxStringConv = "stringdisp:true$string(result);"
     maxInput = maxExpr + maxStringConv
     maxInput=maxInput.replace('\n',' ') # Windows cannot handle \n in input!
     maxInput=maxInput.replace(', ',',') # Shorten the input string for Windows

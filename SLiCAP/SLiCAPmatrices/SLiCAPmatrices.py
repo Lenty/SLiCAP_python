@@ -77,56 +77,19 @@ def getValue(elmt, param, numeric, parDefs):
             value = sp.N(fullSubs(value, parDefs))
     return value
 
-def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
+def makeMatrices(instr):
     """
     Returns the MNA matrix and the vector with dependent variables of a circuit.
-
-    Modifications in the circuit object, necessary for calculation of different
-    gain types are temporary. The circuit data before and after
-    running 'makeMatrices' is the same:
-
-    #. If gainType == 'asymptotic':
-
-       - store the model of lgRef
-       - modify the model of lgRef to 'N'
-       - update depVars and varIndex
-       - create the matrices
-       - restore the model of lgRef
-       - update depVars and varIndex
-
-    #. If gainType == 'direct', 'loopgain' or 'servo':
-
-       - store value of lgRef
-       - set value of lgRef element to zero
-       - create the matrices
-       - restore the value of lgRef
-
-       - loopgain and servo will be calculated with the output of lgRef
-         as source and the input of lgRef as detector.
-
-    #. If gainType == 'vi' or 'gain':
-
-       - no alterations of the circuit need to be made
+    The entries in the matrix depend on the instruction type.
 
     :param cir: Circuit of which the matrices need to be returned.
     :type cir: SLiCAPprotos.circuit
 
-    :param parDefs: Dict with key value pairs:
+    :param instr: SLiCAP instruction object
 
                     - key  : parameter name (sympy.Symbol)
                     - value: numeric value of sympy expression
-    :type parDefs: dict
-
-
-    :param numeric: If True is uses full substitution and sympy.N for converting
-                    parameters to sympy floats
-    :type numeric: bool
-
-    :param gainType: Gain type of the instruction
-    :type gainType: str
-
-    :param lgRef: ID of the loop gain reference of the instruction
-    :type lgRef: str
+    :type instr: SLiCAPinstruction.instruction()
 
     :return: tuple with two sympy matrices:
 
@@ -134,11 +97,10 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
              #. Vector with dependent variables Dv
     :return type: tuple
     """
-    if gainType == 'vi' or gainType == 'gain':
-        pass
-    elif gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
-        lgValue = cir.elements[lgRef].params['value']
-        cir.elements[lgRef].params['value'] = sp.N(0)
+    cir      = instr.circuit
+    parDefs  = instr.parDefs
+    numeric  = instr.numeric
+
     varIndex = cir.varIndex
     dim = len(list(cir.varIndex.keys()))
     Dv = [0 for i in range(dim)]
@@ -353,9 +315,6 @@ def makeMatrices(cir, parDefs, numeric, gainType, lgRef):
     M.col_del(gndPos)
     Dv = sp.Matrix(Dv)
     Dv.row_del(gndPos)
-    # Restore circuit data
-    if gainType == 'direct' or gainType == 'loopgain' or gainType == 'servo':
-        cir.elements[lgRef].params['value'] = lgValue
     return (M, Dv)
 
 def makeSrcVector(cir, parDefs, elid, value = 'id', numeric = True):

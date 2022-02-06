@@ -126,8 +126,7 @@ def coeffsTransfer(rational, variable=ini.Laplace):
 
     :rtype: tuple
     """
-    rational = sp.simplify(rational)
-    numer, denom = rational.as_numer_denom()
+    numer, denom = sp.fraction(rational)
     coeffsNumer = polyCoeffs(numer, variable)
     coeffsDenom = polyCoeffs(denom, variable)
     # find index coefficient of the lowsest order of the numerator
@@ -231,11 +230,11 @@ def gainValue(numer, denom):
     if numerValue == 0 and denomValue == 0:
         gain = sp.sympify("undefined")
     elif numerValue == 0:
-        gain = sp.simplify(0)
+        gain = sp.N(0)
     elif denomValue == 0:
         gain = sp.oo
     else:
-        gain = sp.simplify(numerValue/denomValue)
+        gain = numerValue/denomValue
     return gain
 
 def findServoBandwidth(loopgainRational):
@@ -256,14 +255,10 @@ def findServoBandwidth(loopgainRational):
              - mbv: mid-band value of the loopgain (highest value at order = zero)
              - mbf: lowest freqency of mbv
     :rtype: dict
-    """    
-    try:
-        LaplaceRational = sp.simplify(LaplaceRational)
-        numer, denom    = loopgainRational.as_numer_denom()
-    except:
-        numer, denom    = loopgainRational.as_numer_denom()
-        numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
-        denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
+    """  
+    numer, denom    = sp.fraction(sp.N(loopgainRational))
+    numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
+    denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
     poles           = numRoots(denom, ini.Laplace)
     zeros           = numRoots(numer, ini.Laplace)
     poles, zeros = cancelPZ(poles, zeros)
@@ -602,7 +597,7 @@ def makeYdata(yFunc, xVar, x, lmbdfy=True):
     :return: list with y values: y[i] = yFunc(x[i]).
     :rtype:  list
     """
-    yFunc = sp.N(sp.simplify(yFunc))
+    yFunc = sp.N(yFunc)
     try:
         if xVar in list(yFunc.atoms(sp.Symbol)):
             if lmbdfy == True:
@@ -1028,3 +1023,6 @@ if __name__ == "__main__":
     rational = normalizeRational(numer/denom)
     gain     = gainValue(numer, denom)   
     print(gain)
+    
+    M = sp.sympify('Matrix([[0, 1, -1, 0, 0], [1, 1/R_GND + 1/R_1, 0, 0, -1/R_1], [-1, 0, 1/R_1, -1/R_1, 0], [0, 0, -1/R_1, 1/R_2 + 1/R_1, -1/R_2], [0, -1/R_1, 0, -1/R_2, 1/R_2 + 1/R_1]])')
+    print(det(M))
