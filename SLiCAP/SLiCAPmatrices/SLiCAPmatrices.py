@@ -103,8 +103,8 @@ def makeMatrices(instr):
 
     varIndex = cir.varIndex
     dim = len(list(cir.varIndex.keys()))
-    Dv = [0 for i in range(dim)]
-    M  = [[0 for i in range(dim)] for i in range(dim)]
+    Dv = sp.Matrix([0 for i in range(dim)])
+    M  = sp.zeros(dim)
     for i in range(len(cir.depVars)):
         Dv[i] = sp.Symbol(cir.depVars[i])
     for el in list(cir.elements.keys()):
@@ -113,38 +113,38 @@ def makeMatrices(instr):
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][pos0] += value * ini.Laplace
-            M[pos0][pos1] -= value * ini.Laplace
-            M[pos1][pos0] -= value * ini.Laplace
-            M[pos1][pos1] += value * ini.Laplace
+            M[pos0, pos0] += value * ini.Laplace
+            M[pos0, pos1] -= value * ini.Laplace
+            M[pos1, pos0] -= value * ini.Laplace
+            M[pos1, pos1] += value * ini.Laplace
         elif elmt.model == 'L':
             dVarPos = varIndex['I_'+ elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos0] += 1
-            M[dVarPos][pos1] -= 1
-            M[dVarPos][dVarPos] -= value * ini.Laplace
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos0] += 1
+            M[dVarPos, pos1] -= 1
+            M[dVarPos, dVarPos] -= value * ini.Laplace
         elif elmt.model == 'R':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = 1/getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][pos0] += value
-            M[pos0][pos1] -= value
-            M[pos1][pos0] -= value
-            M[pos1][pos1] += value
+            M[pos0, pos0] += value
+            M[pos0, pos1] -= value
+            M[pos1, pos0] -= value
+            M[pos1, pos1] += value
         elif elmt.model == 'r':
             dVarPos = varIndex['I_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos0] += 1
-            M[dVarPos][pos1] -= 1
-            M[dVarPos][dVarPos] -= value
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos0] += 1
+            M[dVarPos, pos1] -= 1
+            M[dVarPos, dVarPos] -= value
         elif elmt.model == 'E':
             dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -152,12 +152,12 @@ def makeMatrices(instr):
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             (numer, denom) = getValues(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos0] += denom
-            M[dVarPos][pos1] -= denom
-            M[dVarPos][pos2] -= numer
-            M[dVarPos][pos3] += numer
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos0] += denom
+            M[dVarPos, pos1] -= denom
+            M[dVarPos, pos2] -= numer
+            M[dVarPos, pos3] += numer
         elif elmt.model == 'EZ':
             dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -166,13 +166,13 @@ def makeMatrices(instr):
             pos3 = varIndex[elmt.nodes[3]]
             (numer, denom) = getValues(elmt, 'value', numeric, parDefs)
             (zoN, zoD) = getValues(elmt, 'zo', numeric, parDefs)
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos0] += denom * zoD
-            M[dVarPos][pos1] -= denom * zoD
-            M[dVarPos][pos2] -= numer * zoD
-            M[dVarPos][pos3] += numer * zoD
-            M[dVarPos][dVarPos] -= zoN * denom
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos0] += denom * zoD
+            M[dVarPos, pos1] -= denom * zoD
+            M[dVarPos, pos2] -= numer * zoD
+            M[dVarPos, pos3] += numer * zoD
+            M[dVarPos, dVarPos] -= zoN * denom
         elif elmt.model == 'F':
             dVarPos = varIndex['Ii_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -180,22 +180,22 @@ def makeMatrices(instr):
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             (numer, denom) = getValues(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += numer
-            M[pos1][dVarPos] -= numer
-            M[pos2][dVarPos] += denom
-            M[pos3][dVarPos] -= denom
-            M[dVarPos][pos2] += 1
-            M[dVarPos][pos3] -= 1
+            M[pos0, dVarPos] += numer
+            M[pos1, dVarPos] -= numer
+            M[pos2, dVarPos] += denom
+            M[pos3, dVarPos] -= denom
+            M[dVarPos, pos2] += 1
+            M[dVarPos, pos3] -= 1
         elif elmt.model == 'g':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][pos2] += value
-            M[pos0][pos3] -= value
-            M[pos1][pos2] -= value
-            M[pos1][pos3] += value
+            M[pos0, pos2] += value
+            M[pos0, pos3] -= value
+            M[pos1, pos2] -= value
+            M[pos1, pos3] += value
         elif elmt.model == 'G':
             dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -203,11 +203,11 @@ def makeMatrices(instr):
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             (numer, denom) = getValues(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos2] += numer
-            M[dVarPos][pos3] -= numer
-            M[dVarPos][dVarPos] -= denom
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos2] += numer
+            M[dVarPos, pos3] -= numer
+            M[dVarPos, dVarPos] -= denom
         elif elmt.model == 'H':
             dVarPosO = varIndex['Io_' + elmt.refDes]
             dVarPosI = varIndex['Ii_' + elmt.refDes]
@@ -216,15 +216,15 @@ def makeMatrices(instr):
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             (numer, denom) = getValues(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPosO] += 1
-            M[pos1][dVarPosO] -= 1
-            M[pos2][dVarPosI] += 1
-            M[pos3][dVarPosI] -= 1
-            M[dVarPosI][pos2] += 1
-            M[dVarPosI][pos3] -= 1
-            M[dVarPosO][pos0] += denom
-            M[dVarPosO][pos1] -= denom
-            M[dVarPosO][dVarPosI] -= numer
+            M[pos0, dVarPosO] += 1
+            M[pos1, dVarPosO] -= 1
+            M[pos2, dVarPosI] += 1
+            M[pos3, dVarPosI] -= 1
+            M[dVarPosI, pos2] += 1
+            M[dVarPosI, pos3] -= 1
+            M[dVarPosO, pos0] += denom
+            M[dVarPosO, pos1] -= denom
+            M[dVarPosO, dVarPosI] -= numer
         elif elmt.model == 'HZ':
             dVarPosO = varIndex['Io_' + elmt.refDes]
             dVarPosI = varIndex['Ii_' + elmt.refDes]
@@ -234,26 +234,26 @@ def makeMatrices(instr):
             pos3 = varIndex[elmt.nodes[3]]
             (numer, denom) = getValues(elmt, 'value', numeric, parDefs)
             (zoN, zoD) = getValues(elmt, 'zo', numeric, parDefs)
-            M[pos0][dVarPosO] += 1
-            M[pos1][dVarPosO] -= 1
-            M[pos2][dVarPosI] += 1
-            M[pos3][dVarPosI] -= 1
-            M[dVarPosI][pos2] += 1
-            M[dVarPosI][pos3] -= 1
-            M[dVarPosO][pos0] += denom * zoD
-            M[dVarPosO][pos1] -= denom * zoD
-            M[dVarPosO][dVarPosI] -= numer * zoD
-            M[dVarPosO][dVarPosO] -= zoN * denom
+            M[pos0, dVarPosO] += 1
+            M[pos1, dVarPosO] -= 1
+            M[pos2, dVarPosI] += 1
+            M[pos3, dVarPosI] -= 1
+            M[dVarPosI, pos2] += 1
+            M[dVarPosI, pos3] -= 1
+            M[dVarPosO, pos0] += denom * zoD
+            M[dVarPosO, pos1] -= denom * zoD
+            M[dVarPosO, dVarPosI] -= numer * zoD
+            M[dVarPosO, dVarPosO] -= zoN * denom
         elif elmt.model == 'N':
             dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos2] += 1
-            M[dVarPos][pos3] -= 1
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos2] += 1
+            M[dVarPos, pos3] -= 1
         elif elmt.model == 'T':
             dVarPos = varIndex['Io_' + elmt.refDes]
             pos0 = varIndex[elmt.nodes[0]]
@@ -261,45 +261,45 @@ def makeMatrices(instr):
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[pos2][dVarPos] -= value
-            M[pos3][dVarPos] += value
-            M[dVarPos][pos0] += 1
-            M[dVarPos][pos1] -= 1
-            M[dVarPos][pos2] -= value
-            M[dVarPos][pos3] += value
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[pos2, dVarPos] -= value
+            M[pos3, dVarPos] += value
+            M[dVarPos, pos0] += 1
+            M[dVarPos, pos1] -= 1
+            M[dVarPos, pos2] -= value
+            M[dVarPos, pos3] += value
         elif elmt.model == 'V':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             dVarPos = varIndex['I_' + elmt.refDes]
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos0] += 1
-            M[dVarPos][pos1] -= 1
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos0] += 1
+            M[dVarPos, pos1] -= 1
         elif elmt.model == 'VZ':
             (zoN, zoD) = getValues(elmt, 'zo', numeric, parDefs)
             pos1 = varIndex[elmt.nodes[1]]
             pos0 = varIndex[elmt.nodes[0]]
-            M[pos0][dVarPos] += 1
-            M[pos1][dVarPos] -= 1
-            M[dVarPos][pos0] += zoD
-            M[dVarPos][pos1] -= zoD
-            M[dVarPos][dVarPos] -= zoN
+            M[pos0, dVarPos] += 1
+            M[pos1, dVarPos] -= 1
+            M[dVarPos, pos0] += zoD
+            M[dVarPos, pos1] -= zoD
+            M[dVarPos, dVarPos] -= zoN
         elif elmt.model == 'W':
             pos0 = varIndex[elmt.nodes[0]]
             pos1 = varIndex[elmt.nodes[1]]
             pos2 = varIndex[elmt.nodes[2]]
             pos3 = varIndex[elmt.nodes[3]]
             value = getValue(elmt, 'value', numeric, parDefs)
-            M[pos0][pos2] += value
-            M[pos0][pos3] -= value
-            M[pos1][pos2] -= value
-            M[pos1][pos3] += value
-            M[pos2][pos0] -= value
-            M[pos2][pos1] += value
-            M[pos3][pos0] += value
-            M[pos3][pos1] -= value
+            M[pos0, pos2] += value
+            M[pos0, pos3] -= value
+            M[pos1, pos2] -= value
+            M[pos1, pos3] += value
+            M[pos2, pos0] -= value
+            M[pos2, pos1] += value
+            M[pos3, pos0] += value
+            M[pos3, pos1] -= value
         elif elmt.model == 'K':
             refPos1 = varIndex['I_' + elmt.refs[0]]
             refPos0 = varIndex['I_' + elmt.refs[1]]
@@ -307,9 +307,8 @@ def makeMatrices(instr):
             ind1    = getValue(cir.elements[elmt.refs[1]], 'value', numeric, parDefs)
             value = getValue(elmt, 'value', numeric, parDefs)
             value = value * ini.Laplace * sp.sqrt(ind0 * ind1)
-            M[refPos0][refPos1] -= value
-            M[refPos1][refPos0] -= value
-    M = sp.Matrix(M)
+            M[refPos0, refPos1] -= value
+            M[refPos1, refPos0] -= value
     gndPos = varIndex['0']
     M.row_del(gndPos)
     M.col_del(gndPos)

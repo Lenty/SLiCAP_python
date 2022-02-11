@@ -3,6 +3,9 @@
 Created on Tue Sep 29 09:28:49 2020
 
 @author: luc_e
+
+Modified by Anton 11 Feb 2022:
+Removed in_place
 """
 
 import os, shutil
@@ -12,7 +15,6 @@ from setuptools.command.install import install
 import platform
 import subprocess
 import re
-import in_place
 from shutil import copy
 
 INSTALLVERSION="1.2.1"
@@ -244,23 +246,24 @@ class InstallWrapper(install):
     def _gen_config_file(self):
         print("Generating the configuration file")
         fileloc = os.path.join("SLiCAPtemplate.py")
-        filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")
+        filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")       
         if os.path.isfile(fileloc):
             print("Found template file: ", fileloc)
-            copy(fileloc, filetarg)
-            with in_place.InPlace(filetarg) as file:
-                for line in file:
-                    line = line.replace("$VERSION", self._SLiCAP_version)
-                    line = line.replace("$SYSINSTALL", ' ')
-                    line = line.replace("$LIBCOREPATH", self._library_location)
-                    line = line.replace("$MAXIMAPATH", self._maxima_cmd)
-                    line = line.replace("$LTSPICE", self._LTSpice_cmd)
-                    line = line.replace("$DOCPATH", self._doc_location)
-                    # print(line)
-                    file.write(line)
+            fi = open(fileloc, 'r')
+            txt = fi.read()
+            fi.close()
+            txt = txt.replace("$VERSION", self._SLiCAP_version)
+            txt = txt.replace("$SYSINSTALL", ' ')
+            txt = txt.replace("$LIBCOREPATH", self._library_location)
+            txt = txt.replace("$MAXIMAPATH", self._maxima_cmd)
+            txt = txt.replace("$LTSPICE", self._LTSpice_cmd)
+            txt = txt.replace("$DOCPATH", self._doc_location)  
+            print(txt)
+            fi = open(filetarg, 'w')
+            fi.write(txt)
+            fi.close()
         print("Created config file: ", filetarg)
-
-
+        
     def _find_maxima_windows(self):
         drive = os.sep.join(os.getcwd().split(os.sep)[:1])+os.sep
         print(drive)
@@ -268,6 +271,7 @@ class InstallWrapper(install):
             for name in dirs:
                 if re.match('maxima-*', name, flags=0):
                     print("found Maxima dir")
+                    
                     path = os.path.join(root,name, 'bin','maxima.bat')
                     print("Maxima path set as:", path)
                     return path
