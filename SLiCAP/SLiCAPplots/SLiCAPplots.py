@@ -985,7 +985,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
             if result.dataType != 'poles' and result.dataType != 'zeros' and result.dataType != 'pz':
                 print("Error: wrong data type '{0}' for 'plotPZ()'.".format(result.dataType))
                 return fig
-        elif result.dataType == 'poles' or result.dataType == 'pz':
+        else:
             poles = result.poles
             if len(poles) != 0:
                 # start of root locus
@@ -1060,7 +1060,6 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 else:
                     polesTrace.label += ', %s = %8.1e ... %8.1e'%(result.stepVar, result.stepList[0], result.stepList[-1])
                 pzTraces.append(polesTrace)
-        elif result.dataType == 'zeros' or result.dataType == 'pz':
             zeros = result.zeros
             if len(zeros) != 0:
                 # start of zeros locus
@@ -1077,7 +1076,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 zerosTrace.marker = 'o'
                 zerosTrace.lineWidth = '0'
                 if result.label == '':
-                    zerosTrace.label = 'zeross ' + result.gainType
+                    zerosTrace.label = 'zeros ' + result.gainType
                 else:
                     zerosTrace.label = 'zeros ' + result.label
                 if result.stepMethod == 'array':
@@ -1099,7 +1098,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 zerosTrace.marker = 's'
                 zerosTrace.lineWidth = '0'
                 if result.label == '':
-                    zerosTrace.label = 'zeross ' + result.gainType
+                    zerosTrace.label = 'zeros ' + result.gainType
                 else:
                     zerosTrace.label = 'zeros ' + result.label
                 if result.stepMethod == 'array':
@@ -1126,7 +1125,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
                 zerosTrace.markerSize = 2
                 zerosTrace.markerFaceColor = zerosTrace.markerColor
                 if result.label == '':
-                    zerosTrace.label = 'zeross ' + result.gainType
+                    zerosTrace.label = 'zeros ' + result.gainType
                 else:
                     zerosTrace.label = 'zeros ' + result.label
                 if result.stepMethod == 'array':
