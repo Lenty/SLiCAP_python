@@ -56,13 +56,13 @@ expr:newIlt(bfloat(expr),s,t) else expr:ilt(expr,s,t),return(expr))$"""
 MAXFUNCTIONS['doNoise'] = """
 doNoise(M,srcRows,detCols,Iv,sources):=block(
 [den,n,onoise,srcName,srcValue,noiseTerm,onoiseTerms:[],inoiseTerms:[]],
-den:subst([s=%i*2*pi*f],doDet(M)),den: factor(den*conjugate(den)),if srcRows#[0,0]
-then (n:doNumer(M, srcRows, detCols),n:subst([s=%i*2*%pi*f],n),n:factor(n*conjugate(n)))
+den:subst([s=%i*2*pi*f],doDet(M)),den:fullratsimp(den*conjugate(den)),if srcRows#[0,0]
+then (n:doNumer(M, srcRows, detCols),n:subst([s=%i*2*%pi*f],n),n:fullratsimp(n*conjugate(n)))
 else n:false,onoise:subst([s=%i*2*%pi*f],doCramerNumer(M,detCols,Iv)),
 for i from 1 thru length(sources) do (srcName:lhs(sources[i]),srcValue:rhs(sources[i]),
-noiseTerm:coeff(onoise,srcName,1),noiseTerm:factor(noiseTerm*conjugate(noiseTerm)),
-onoiseTerms:append(onoiseTerms,[factor(fullratsimp(noiseTerm/den))*srcValue]),
-if n#false then inoiseTerms:append(inoiseTerms,[factor(fullratsimp(noiseTerm/n))*srcValue])
+noiseTerm:coeff(onoise,srcName,1),noiseTerm:fullratsimp(noiseTerm*conjugate(noiseTerm)),
+onoiseTerms:append(onoiseTerms,[noiseTerm/den*srcValue]),
+if n#false then inoiseTerms:append(inoiseTerms,[noiseTerm/n*srcValue])
 else inoiseTerms:append(inoiseTerms,[false])),return([onoiseTerms,inoiseTerms]))$"""
 
 MAXFUNCTIONS['doDCvar'] = """
@@ -71,8 +71,8 @@ doDCvar(M,srcRows,detCols,Iv,sources):=block(
 M:subst([s=0],M),den:(doDet(M))^2,if srcRows#[0,0]
 then (n:doNumer(M,srcRows,detCols),n:n^2) else n:false,ovar:doCramerNumer(M,detCols,Iv),
 for i from 1 thru length(sources) do (srcName:lhs(sources[i]),srcValue:rhs(sources[i]),
-varTerm:coeff(ovar,srcName,1)^2,ovarTerms:append(ovarTerms,[factor(fullratsimp(varTerm/den))*srcValue]),
-if n#false then ivarTerms:append(ivarTerms,[factor(fullratsimp(varTerm/n))*srcValue])
+varTerm:coeff(ovar,srcName,1)^2,ovarTerms:append(ovarTerms,[varTerm/den*srcValue]),
+if n#false then ivarTerms:append(ivarTerms,[varTerm/n*srcValue])
 else ivarTerms:append(ivarTerms,[false])),return([ovarTerms,ivarTerms]))$"""
 
 MAXFUNCTIONS['solve'] = """
