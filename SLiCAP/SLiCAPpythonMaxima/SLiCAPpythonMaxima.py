@@ -7,6 +7,7 @@ Imported by the module **SLiCAPplots.py**.
 """
 from SLiCAP.SLiCAPmatrices import *
 from mpmath import polyroots
+import scipy.integrate as integrate
 
 MAXIMAFUNCTIONS = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP.mac");\n'
 
@@ -200,6 +201,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     :rtype: int, float, sympy.Expr, list
     """
     errors = 0
+    numlimits = False
     if fmin == None or fmax == None:
         print("Error in frequency range specification.")
         errors += 1
@@ -215,6 +217,9 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         # Numeric values for fmin and fmax but fmin >= fmax
         print("Error in frequency range specification.")
         errors += 1
+    elif fMi != None and  fMa != None and fmax > fmin:
+        # Numeric values for fmin and fmax and fmax >= fmin
+        numlimits = True
     elif noiseResult.dataType != 'noise':
         print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
         errors += 1
@@ -242,7 +247,20 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         if errors == 0:
             if type(noiseData) != list:
                 noiseData = [noiseData]
-            rms =  np.array([sp.N(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType))) for i in range(len(noiseData))])
+            rms = []
+            for i in range(len(noiseData)):
+                params = list(sp.N(noiseData[i]).atoms(sp.Symbol))
+                if len(params) == 0 or ini.frequency not in params:
+                    # Frequency-independent spectrum, multiply with (fmax-fmin)
+                    rms.append(sp.sqrt(noiseData[i]*(fmax-fmin)))
+                elif len(params) == 1 and numlimits:
+                    # Numeric frequency-dependent spectrum, use numeric integration
+                    noise_spectrum = sp.lambdify(ini.frequency, noiseData[i])
+                    rms.append(sp.sqrt(integrate.quad(noise_spectrum, fmin, fmax)[0]))
+                else:
+                    # Symbolic integration preformed by maxima (no warranty)
+                    rms.append(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)))
+            rms = np.array(rms)
             if len(rms) == 1:
                 rms = rms[0]
             return rms
