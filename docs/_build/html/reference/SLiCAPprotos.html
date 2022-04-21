@@ -1,23 +1,32 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>SLiCAPprotos.py &mdash; SLiCAP 1.2.1 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -30,11 +39,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="SLiCAPmath.py" href="SLiCAPmath.html" />
     <link rel="prev" title="SLiCAPmatrices.py" href="SLiCAPmatrices.html" /> 
@@ -78,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -113,6 +118,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,11 +153,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="SLiCAPreference.html">SLiCAP reference</a> &raquo;</li>
         
@@ -160,7 +168,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/reference/SLiCAPprotos.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -184,15 +192,9 @@
 <dd><p>Return  structure for results, has attributes with 
 instruction data and execution results.</p>
 <dl class="attribute">
-<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Ac">
-<code class="descname">Ac</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Ac" title="Permalink to this definition">¶</a></dt>
-<dd><p>Common-mode incidence matrix.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Ad">
-<code class="descname">Ad</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Ad" title="Permalink to this definition">¶</a></dt>
-<dd><p>Differential-mode incidence matrix.</p>
+<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.A">
+<code class="descname">A</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base conversion matrix.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -217,20 +219,6 @@ instruction data and execution results.</p>
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M">
 <code class="descname">M</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M" title="Permalink to this definition">¶</a></dt>
 <dd><p>MNA matrix.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M0">
-<code class="descname">M0</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.M0" title="Permalink to this definition">¶</a></dt>
-<dd><p>MNA matrix with loop gain reference set to zero.
-Used for calculation of the direct transfer and the return difference.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Moo">
-<code class="descname">Moo</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.Moo" title="Permalink to this definition">¶</a></dt>
-<dd><p>MNA matrix with loop gain reference replaced with a nullor.
-Used for the calculation of the asymptotic gain.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -282,13 +270,6 @@ the execution of the instruction.</p>
 <dd><p>Name for the detector quantity to be used in expressions or plots.</p>
 <p>Will be generated by <strong>SLiCAPinstruction.instruction</strong> at the start of
 the execution of the instruction.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detPairs">
-<code class="descname">detPairs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.detPairs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Detector pairs (list with tuples). A pair of variables will be 
-converted into a differential-mode and a common-mode variable</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -412,6 +393,22 @@ the execution of the instruction.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.pairedCircuits">
+<code class="descname">pairedCircuits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.pairedCircuits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifiers of paired subcircuits for base transformation of the circuit.</p>
+<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
+the execution of the instruction. This instance will be e deep copy.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.pairedVars">
+<code class="descname">pairedVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.pairedVars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension of paired nodes and branches for base transformation of the circuit.</p>
+<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
+the execution of the instruction. This instance will be e deep copy.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.parDefs">
 <code class="descname">parDefs</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.parDefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameter definitions for the instruction.</p>
@@ -429,6 +426,14 @@ the execution of the instruction. This instance will be e deep copy.</p>
 <dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.poles">
 <code class="descname">poles</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.poles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complex frequencies in [rad/s] or [Hz]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.removePairSubName">
+<code class="descname">removePairSubName</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults.removePairSubName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setting for changing the parameter names of paired subcircuits.</p>
+<p>Will be copied from <strong>SLiCAPinstruction.instruction</strong> at the start of 
+the execution of the instruction. This instance will be e deep copy.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1126,29 +1131,29 @@ model.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="SLiCAPmath.html" class="btn btn-neutral float-right" title="SLiCAPmath.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="SLiCAPmatrices.html" class="btn btn-neutral float-left" title="SLiCAPmatrices.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="SLiCAPmath.html" class="btn btn-neutral float-right" title="SLiCAPmath.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="SLiCAPmatrices.html" class="btn btn-neutral float-left" title="SLiCAPmatrices.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2022, SLiCAP development team
+        &#169; Copyright 2022, SLiCAP development team.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1156,7 +1161,6 @@ model.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
