@@ -102,7 +102,7 @@ def numRoots(expr, var):
                 print("Error: symbolic variables found, cannot determine the numeric roots of:", str(expr))
     return roots
 
-def coeffsTransfer(rational, variable=ini.Laplace):
+def coeffsTransfer(rational, variable=ini.Laplace, normalize='lowest'):
     """
     Returns a nested list with the coefficients of the variable of the
     numerator and of the denominator of 'rational'.
@@ -114,6 +114,15 @@ def coeffsTransfer(rational, variable=ini.Laplace):
     
     :param variable: Variable of the rational function
     :type variable: sympy.Symbol
+    
+    :param normalize: Normalization method: 
+        
+                   - "highest": the coefficients of the highest order of 
+                     <variable> of the denominator will be noramalized to unity.
+                   - "lowest": the coefficients of the lowest order of 
+                     <variable> of the denominator will be noramalized to unity.
+                     
+    :type normalize: str
 
     :return: Tuple with gain and two lists: [gain, numerCoeffs, denomCoeffs]
 
@@ -130,26 +139,31 @@ def coeffsTransfer(rational, variable=ini.Laplace):
     numer, denom = sp.fraction(rational)
     coeffsNumer = polyCoeffs(numer, variable)
     coeffsDenom = polyCoeffs(denom, variable)
-    # find index coefficient of the lowsest order of the numerator
-    idxN = 0
-    while idxN > -len(coeffsNumer):
-        idxN -= 1
-        if coeffsNumer[idxN] != 0:
-            break
-    # find index coefficient of the lowsest order of the denominator
-    idxD = 0
-    while idxD > -len(coeffsDenom):
-        idxD -= 1
-        if coeffsDenom[idxD] != 0:
-            break
-    gain = sp.simplify(coeffsNumer[idxN]/coeffsDenom[idxD])
-    coeffsNumer = [coeffsNumer[i]/coeffsNumer[idxN] for i in range(len(coeffsNumer))]
-    coeffsDenom = [coeffsDenom[i]/coeffsDenom[idxD] for i in range(len(coeffsDenom))]
+    if normalize == 'lowest':
+        # find index coefficient of the lowsest order of the numerator
+        idxN = 0
+        while idxN > -len(coeffsNumer):
+            idxN -= 1
+            if coeffsNumer[idxN] != 0:
+                break
+        # find index coefficient of the lowsest order of the denominator
+        idxD = 0
+        while idxD > -len(coeffsDenom):
+            idxD -= 1
+            if coeffsDenom[idxD] != 0:
+                break
+        gain = sp.simplify(coeffsNumer[idxN]/coeffsDenom[idxD])
+        coeffsNumer = [sp.simplify(coeffsNumer[i]/coeffsNumer[idxN]) for i in range(len(coeffsNumer))]
+        coeffsDenom = [sp.simplify(coeffsDenom[i]/coeffsDenom[idxD]) for i in range(len(coeffsDenom))]
+    elif normalize == 'highest':
+        gain = sp.simplify(coeffsNumer[0]/coeffsDenom[0])
+        coeffsNumer = [sp.simplify(coeffsNumer[i]/coeffsNumer[0]) for i in range(len(coeffsNumer))]
+        coeffsDenom = [sp.simplify(coeffsDenom[i]/coeffsDenom[0]) for i in range(len(coeffsDenom))]
     coeffsNumer.reverse()
     coeffsDenom.reverse()
     return (gain, coeffsNumer, coeffsDenom)
 
-def normalizeRational(rational, variable=ini.Laplace):
+def normalizeRational(rational, variable=ini.Laplace, method='lowest'):
     """
     Normalizes a rational expression to:
 
@@ -162,6 +176,15 @@ def normalizeRational(rational, variable=ini.Laplace):
     
     :param variable: Variable of the rational function
     :type variable: sympy.Symbol
+    
+    :param method: Normalization method: 
+        
+                   - "highest": the coefficients of the highest order of 
+                     <variable> of the denominator will be noramalized to unity.
+                   - "lowest": the coefficients of the lowest order of 
+                     <variable> of the denominator will be noramalized to unity.
+                     
+    :type method: str
 
     :return:  Normalized rational function of the variable.
     :rtype: sympy.Expr
@@ -170,7 +193,7 @@ def normalizeRational(rational, variable=ini.Laplace):
         # Exception will be raised of non positive integer powers of variable.
         # Then, we just pass the rational without normaling it.
         try:
-            gain, coeffsNumer, coeffsDenom = coeffsTransfer(rational, variable)
+            gain, coeffsNumer, coeffsDenom = coeffsTransfer(rational, variable, method)
             coeffsNumer.reverse()
             coeffsDenom.reverse()
             rational = gain*(sp.Poly(coeffsNumer, variable)/sp.Poly(coeffsDenom, variable))
