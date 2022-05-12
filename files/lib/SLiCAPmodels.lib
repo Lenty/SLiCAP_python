@@ -149,13 +149,11 @@ Gbb 1 2 1 2 g value={gbb}
 Gcc c1 c2 c1 c2 g value={gcc}
 Gbc1 1 c1 1 c1 g value={gbc}
 Gbc2 2 c2 2 c2 g value={gbc}
-Rb1 b1 1 r value=0
-Rb2 b2 2 r value=0
+Rb1 b1 1 r value={rb}
+Rb2 b2 2 r value={rb}
 Cbb 1 2 {cbb}
 Cbc1 1 c1 {cbc}
 Cbc2 2 c2 {cbc}
 Cbx1 b1 c1 {cbx}
 Cbx2 b2 c2 {cbx}
 .ends
-
-.end

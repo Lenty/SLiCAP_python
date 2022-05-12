@@ -30,7 +30,9 @@ def t_PARDEF(t):
     |([+-]?\d+\.?\d*[yzafpnumkMGTPEZY])
     |([+-]?\d+\.\d*)
     |([+-]?\d+))"""
-    t.value = t.value.replace(' ', '')
+    # remove whitespace characters
+    t.value = "".join(t.value.split())
+    # split name and value/expression
     t.value = t.value.split('=')
     # replace scale factors in t.value[1]
     if t.value[1][0] == '{' and t.value[1][-1] == '}':

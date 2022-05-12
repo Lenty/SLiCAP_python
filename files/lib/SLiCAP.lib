@@ -433,7 +433,7 @@ Q1 collector1 collector2 base1 base2 BJTD
 + gbb = {g_pi/2}  ; input conductance
 + gbc = 0         ; not modeled in GP model
 + cbb = {c_pi/2}  ; input capacitance
-+ cbc = {cbc}     ; collector-base capacitance
++ cbc = {c_bc}    ; collector-base capacitance
 + rb  = 0         ; zero base resistance
 .param
 * device equations GP model
@@ -582,5 +582,3 @@ M1 drain gate source bulk CMOS18PN
 + c_iss     = {c_gs+c_dg+c_gb}
 + f_T_PN    = {g_m/2/pi/c_iss}
 .ends
-
-.end
