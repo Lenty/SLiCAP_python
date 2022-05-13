@@ -689,7 +689,7 @@ def initAll():
     newModel                = model()
     newModel.name           = 'QD'
     newModel.stamp          = False
-    newModel.params         = {'cbb': False, 'cbc': False, 'gbb': False, 'gm': False, 'go': False, 'gbc': False}
+    newModel.params         = {'cbb': False, 'cbc': False, 'gbb': False, 'gm': False, 'gcc': False, 'gbc': False}
     MODELS[newModel.name]   = newModel
     # Resistor (resistance cannot be zero)
     newModel                = model()
