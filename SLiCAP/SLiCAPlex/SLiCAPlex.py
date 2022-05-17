@@ -10,19 +10,12 @@ from SLiCAP.SLiCAPini import *
 # list of token names
 
 tokens = ('PARDEF', 'EXPR', 'SCALE', 'SCI', 'FLT', 'INT', 'CMD', 'FNAME',
-          'PARAMS', 'ID', 'QSTRING', 'PLUS', 'LEFTBR', 'RIGHTBR', 'COMMENT')
+          'PARAMS', 'ID', 'QSTRING', 'PLUS', 'LEFTBR', 'RIGHTBR', 'COMMENT',
+          'NEWLINE')
 
 SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
                     'u':'-6','m':'-3','k':'3','M':'6','G':'9','T':'12','P':'15',
                     'E':'18','Z':'21','Y':'24'}
-
-
-t_FLT     = r'[+-]?\d+\.\d*'
-t_INT     = r'[+-]?\d+'
-t_FNAME   = r'/?[^\s]+\.[a-zA-Z]+'
-t_ID      = r'[a-zA-Z]\w*'
-t_QSTRING = r'"(.*)"'
-t_PLUS    = r'\+'
 
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
@@ -55,7 +48,7 @@ def t_PARDEF(t):
     try:
         t.value[1] = sp.sympify(t.value[1])
     except:
-        printError("Error in expression.", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
+        printError("Error in expression.", get_input_line(t), find_column(t))
         lexer.errCount += 1
     return t
 
@@ -72,7 +65,6 @@ def t_COMMENT(t):
     """
     Comment is ignored.
     """
-    pass
 
 def t_LEFTBR(t):
     r'\('
@@ -120,7 +112,7 @@ def t_EXPR(t):
         t.value = sp.sympify(out)
     except:
         lexer.errCount += 1
-        printError("Error in expression:", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
+        printError("Error in expression:", t)
     return t
 
 def t_SCI(t):
@@ -133,22 +125,18 @@ def t_SCI(t):
         t.value = sp.N(t.value)
         t.type = 'FLT'
     except:
-        printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
+        printError('Cannot convert number to float.', t)
     return t
 
 # Define a rule so we can track line numbers
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+def t_NEWLINE(t):
+    r'\n'
+    t.lexer.lineno += 1
+    return t
 
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
 
- # Error handling rule
-def t_error(t):
-    t.lexer.errCount += 1
-    printError("Error: illegal character.", lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
-    t.lexer.skip(1)
 
 # Define a rule for numbers with scale factors (postfixes)
 def t_SCALE(t):
@@ -159,23 +147,41 @@ def t_SCALE(t):
     try:
         t.value = sp.N(t.value[0:-1] + 'E' + SCALEFACTORS[t.value[-1]])
     except:
-        printError('Cannot convert number to float.', lexer.lexdata.splitlines()[lexer.lineno], find_column(t))
+        printError('Cannot convert number to float.', t)
         lexer.errCount += 1
     t.type = 'FLT'
     return t
 
-def find_column(token):
-    """
-    Computes and returns the column number of 'token'.
+def t_FLT(t):
+    r'[+-]?\d+\.\d*'
+    return t
 
-    :param token: Token of which the column number has to be calculated.
-    :type token: ply.lex.token
+def t_INT(t):
+    r'[+-]?\d+'
+    return t
 
-    :return: Column position of this token.
-    :rtype: int
-    """
-    line_start = lexer.lexdata.rfind('\n', 0, token.lexpos) + 1
-    return (token.lexpos - line_start) + 1
+def t_FNAME(t):
+    r'/?[^\s]+\.[a-zA-Z]+'
+    return t
+
+def t_ID(t):
+    r'[a-zA-Z](\w*)'
+    t.value = t.value.strip()
+    return t
+
+def t_QSTRING(t):
+    r'"(.*)"'
+    return t
+
+def t_PLUS(t):
+    r'\+'
+    return t
+
+# Error handling rule
+def t_error(t):
+    t.lexer.errCount += 1
+    printError("Error: illegal character.", t)
+    t.lexer.skip(1)
 
 def replaceScaleFactors(txt):
     """
@@ -202,40 +208,40 @@ def replaceScaleFactors(txt):
     out += txt[pos:]
     return out
 
-def tokenize(cirFileName):
+def tokenize(netlist):
     """
     Reset the lexer, and create the tokens from the file: 'cirFileName'.
 
     :param cirFileName: Name of the netlist file to be tokenized.
     :type cirFileName: str
 
-    :return: lexer
-    :rtype: ply.lex.lex
+    :return: list with title line, command liness, or element definition lines.
+             
+             Each line consists of a list of tokens
+             
+    :rtype: list
     """
+    # Initialize the lexer
     lexer.errCount = 0
     lexer.lineno = 0
-    f = open(cirFileName, 'r')
-    data = f.read()
-    f.close()
-    lexer.input(data)
-    return lexer
+    lexer.input(netlist)
+    lines = []
+    lastLine = []
+    tok = lexer.token()
+    while  tok:
+        if tok.type != 'NEWLINE' and tok.type != 'PLUS':
+            lastLine.append(tok)
+        elif tok.type == 'NEWLINE':
+            if len(lastLine) != 0:
+                lines.append(lastLine)
+                lastLine = []
+        elif tok.type == 'PLUS':
+            lastLine = lines[-1]
+            del lines[-1]
+        tok = lexer.token()
+    return lines, lexer.errCount
 
-def tokenizeTxt(textString):
-    """
-    Reset the lexer, and create the tokens from text input 'textString'.
-
-    :param textString: Text input to be tokenized.
-    :type textString: str
-
-    :return: lexer
-    :rtype: ply.lex.lex
-    """
-    lexer.errCount = 0
-    lexer.lineno = 0
-    lexer.input(textString)
-    return lexer
-
-def printError(msg, line, pos):
+def printError(msg, tok):
     """
     Prints the line with the error and an error message, and shows the position
     of the error.
@@ -252,22 +258,49 @@ def printError(msg, line, pos):
     :return: out: Input line with error message.
     :rtype: str
     """
-    out = '\n' + line + '\n'
+    pos = find_column(tok)
+    txt = get_input_line(tok)
+    out = '\n' + txt + '\n'
     for i in range(pos-1):
         out += '.'
     out += '|\n' + msg
     print(out)
 
-# Initialize the lexer
+def find_column(token):
+    """
+    Computes and returns the column number of 'token'.
+
+    :param token: Token of which the column number has to be calculated.
+    :type token: ply.lex.token
+
+    :return: Column position of this token.
+    :rtype: int
+    """
+    line_start = lexer.lexdata.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
+
+def get_input_line(token):
+    """
+    Returns the input text line of the token.    
+    
+    :param token: Token of which the column number has to be calculated.
+    :type token: ply.lex.token
+
+    :return: Text of the input line.
+    :rtype: str
+    """
+    return lexer.lexdata.splitlines()[token.lineno]
+    
 lexer = lex.lex()
-lexer.errCount = 0
 
 if __name__ == '__main__':
-    fi = '/mnt/DATA/Cursussen/SLiCAP_LTspice_book/Chapter11/SLiCAP/cir/RL3_0.cir'
+
+    fi = '/mnt/DATA/SLiCAP/SLiCAP_python_tests/balancedTramp/cir/balancedMOStrampCMF.cir'
     print(fi)
-    lexer = tokenize(fi)
-    tok = lexer.token()
-    while tok:
-        print(tok)
-        tok = lexer.token()
-    print('\nnumber of errors =', lexer.errCount, '\n')
+    f = open(fi, 'r')
+    netlist = f.read()
+    f.close()
+    lines, errors = tokenize(netlist)
+    for line in lines:
+        print(line)
+    print('\nnumber of errors =', errors, '\n')

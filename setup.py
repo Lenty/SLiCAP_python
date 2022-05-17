@@ -4,8 +4,8 @@ Created on Tue Sep 29 09:28:49 2020
 
 @author: luc_e
 
-Modified by Anton 11 Feb 2022:
-Removed in_place
+Modified by Anton 16 May 2022:
+Updated to version 1.3.0
 """
 
 import os, shutil
@@ -17,7 +17,7 @@ import subprocess
 import re
 from shutil import copy
 
-INSTALLVERSION="1.2.1"
+INSTALLVERSION="1.3.0"
 
 class InstallWrapper(install):
     """

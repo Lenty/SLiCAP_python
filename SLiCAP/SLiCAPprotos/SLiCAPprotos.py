@@ -558,7 +558,7 @@ def initAll():
     newModel.name           = 'C'
     newModel.stamp          = True
     newModel.depVars        = []
-    newModel.params         = {'value': False}
+    newModel.params         = {'value': False, 'vinit': 0}
     MODELS[newModel.name]   = newModel
     # Diode
     newModel                = model()
@@ -640,7 +640,7 @@ def initAll():
     newModel.name           = 'L'
     newModel.stamp          = True
     newModel.depVars        = ['I']
-    newModel.params         = {'value': False}
+    newModel.params         = {'value': False, 'iinit': 0}
     MODELS[newModel.name]   = newModel
     # MOSFET
     newModel                = model()
@@ -689,21 +689,21 @@ def initAll():
     newModel                = model()
     newModel.name           = 'QD'
     newModel.stamp          = False
-    newModel.params         = {'cbb': False, 'cbc': False, 'gbb': False, 'gm': False, 'gcc': False, 'gbc': False}
+    newModel.params         = {'cbb': False, 'cbc': False, 'gbb': False, 'gm': False, 'gcc': False, 'gbc': False, 'rb': False}
     MODELS[newModel.name]   = newModel
     # Resistor (resistance cannot be zero)
     newModel                = model()
     newModel.name           = 'R'
     newModel.stamp          = True
     newModel.depVars        = []
-    newModel.params         = {'value': False}
+    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False}
     MODELS[newModel.name]   = newModel
     # Resistor (resistance can be zero)
     newModel                = model()
     newModel.name           = 'r'
     newModel.stamp          = True
     newModel.depVars        = ['I']
-    newModel.params         = {'value': False, 'dcvar': False, 'noise': False}
+    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False}
     MODELS[newModel.name]   = newModel
     # Ideal transformer
     newModel                = model()
@@ -982,33 +982,10 @@ class allResults(object):
         """
         MNA matrix.
         """
-
-        self.M0          = None
-        """
-        MNA matrix with loop gain reference set to zero.
-        Used for calculation of the direct transfer and the return difference.
-        """
-
-        self.Moo         = None
-        """
-        MNA matrix with loop gain reference replaced with a nullor.
-        Used for the calculation of the asymptotic gain.
-        """
         
-        self.Ad          = None
+        self.A           = None
         """
-        Differential-mode incidence matrix.
-        """
-
-        self.Ac          = None
-        """
-        Common-mode incidence matrix.
-        """
-
-        self.detPairs    = None
-        """
-        Detector pairs (list with tuples). A pair of variables will be 
-        converted into a differential-mode and a common-mode variable
+        Base conversion matrix.
         """
 
         self.Dv          = None
@@ -1238,6 +1215,27 @@ class allResults(object):
         self.parDefs = None
         """
         Parameter definitions for the instruction.  
+        
+        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        the execution of the instruction. This instance will be e deep copy.
+        """
+        self.pairedVars   = None
+        """
+        Extension of paired nodes and branches for base transformation of the circuit.  
+        
+        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        the execution of the instruction. This instance will be e deep copy.
+        """
+        self.pairedCircuits = None
+        """
+        Identifiers of paired subcircuits for base transformation of the circuit.  
+        
+        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        the execution of the instruction. This instance will be e deep copy.
+        """
+        self.removePairSubName = False
+        """
+        Setting for changing the parameter names of paired subcircuits.
         
         Will be copied from **SLiCAPinstruction.instruction** at the start of 
         the execution of the instruction. This instance will be e deep copy.

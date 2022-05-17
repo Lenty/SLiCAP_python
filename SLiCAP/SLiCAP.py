@@ -7,8 +7,6 @@ When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.
 """
-
-
 from SLiCAP.SLiCAPinstruction import *
 
 try:
@@ -109,7 +107,8 @@ def initProject(name, firstRun=True):
         # Create the HTML project index file
     startHTML(name)
         # Create the libraries
-    makeLibraries()
+    if len(SLiCAPCIRCUITS) == 0:
+        makeLibraries()
     return prj    
 
 def makeNetlist(fileName, cirTitle):

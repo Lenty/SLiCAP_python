@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPlex.py &mdash; SLiCAP 1.2.1 documentation</title>
+  <title>SLiCAPlex.py &mdash; SLiCAP 1.3.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.2.1
+                1.3.0
               </div>
             
           
@@ -205,8 +205,26 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.get_input_line">
+<code class="descname">get_input_line</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.get_input_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the input text line of the token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token</strong> (<em>ply.lex.token</em>) – Token of which the column number has to be calculated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Text of the input line.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPlex.SLiCAPlex.printError">
-<code class="descname">printError</code><span class="sig-paren">(</span><em>msg</em>, <em>line</em>, <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.printError" title="Permalink to this definition">¶</a></dt>
+<code class="descname">printError</code><span class="sig-paren">(</span><em>msg</em>, <em>tok</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.printError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the line with the error and an error message, and shows the position
 of the error.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -276,9 +294,39 @@ corresponding scientific notation.</td>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_FLT">
+<code class="descname">t_FLT</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_FLT" title="Permalink to this definition">¶</a></dt>
+<dd><p>[+-]?d+.d*</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_FNAME">
+<code class="descname">t_FNAME</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_FNAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>/?[^s]+.[a-zA-Z]+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_ID">
+<code class="descname">t_ID</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>[a-zA-Z](w*)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_INT">
+<code class="descname">t_INT</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_INT" title="Permalink to this definition">¶</a></dt>
+<dd><p>[+-]?d+</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_LEFTBR">
 <code class="descname">t_LEFTBR</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_LEFTBR" title="Permalink to this definition">¶</a></dt>
 <dd><p>(</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_NEWLINE">
+<code class="descname">t_NEWLINE</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_NEWLINE" title="Permalink to this definition">¶</a></dt>
+<dd><p>n</p>
 </dd></dl>
 
 <dl class="function">
@@ -295,6 +343,18 @@ corresponding scientific notation.</td>
 <a href="#id3"><span class="problematic" id="id4">|</span></a>([+-]?d+.?d*[yzafpnumkMGTPEZY])
 <a href="#id5"><span class="problematic" id="id6">|</span></a>([+-]?d+.d*)
 <a href="#id7"><span class="problematic" id="id8">|</span></a>([+-]?d+))</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_PLUS">
+<code class="descname">t_PLUS</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_PLUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_QSTRING">
+<code class="descname">t_QSTRING</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_QSTRING" title="Permalink to this definition">¶</a></dt>
+<dd><p>“(.*)”</p>
 </dd></dl>
 
 <dl class="function">
@@ -321,12 +381,6 @@ corresponding scientific notation.</td>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_newline">
-<code class="descname">t_newline</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_newline" title="Permalink to this definition">¶</a></dt>
-<dd><p>n+</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="SLiCAP.SLiCAPlex.SLiCAPlex.t_t_RIGHTBR">
 <code class="descname">t_t_RIGHTBR</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.t_t_RIGHTBR" title="Permalink to this definition">¶</a></dt>
 <dd><p>)</p>
@@ -334,7 +388,7 @@ corresponding scientific notation.</td>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPlex.SLiCAPlex.tokenize">
-<code class="descname">tokenize</code><span class="sig-paren">(</span><em>cirFileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.tokenize" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>netlist</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.tokenize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the lexer, and create the tokens from the file: ‘cirFileName’.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -342,27 +396,10 @@ corresponding scientific notation.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cirFileName</strong> (<em>str</em>) – Name of the netlist file to be tokenized.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">lexer</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list with title line, command liness, or element definition lines.<p>Each line consists of a list of tokens</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ply.lex.lex</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlex.SLiCAPlex.tokenizeTxt">
-<code class="descname">tokenizeTxt</code><span class="sig-paren">(</span><em>textString</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlex.SLiCAPlex.tokenizeTxt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reset the lexer, and create the tokens from text input ‘textString’.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>textString</strong> (<em>str</em>) – Text input to be tokenized.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">lexer</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ply.lex.lex</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
 </tbody>
 </table>

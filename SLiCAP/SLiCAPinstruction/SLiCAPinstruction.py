@@ -8,7 +8,7 @@ Imported by the module **SLiCAP.py**.
 from SLiCAP.SLiCAPexecute import *
 
 GAINTYPES = ['vi', 'gain', 'loopgain', 'servo', 'asymptotic', 'direct']
-CONVTYPES = ['dd', 'dc', 'cd', 'cc']
+CONVTYPES = ['dd', 'dc', 'cd', 'cc', 'all']
 DATATYPES = ['matrix', 'noise', 'solve', 'time', 'dc', 'dcvar', 'dcsolve', 'timesolve',
              'numer', 'denom', 'laplace', 'zeros', 'poles', 'pz', 'impulse',
              'step', 'params']
@@ -35,9 +35,9 @@ class instruction(object):
 
         self.convType = None
         """
-        Defines the conversion type (None, dd, dc, cd, cc)
+        Defines the conversion type (None, 'dd', 'dc', 'cd', 'cc')
 
-        See **instruction.setConvType(<gainType>)** for specification of *instruction.convType*.
+        See **instruction.setConvType(<convType>)** for specification of *instruction.convType*.
         """
 
         self.dataType = None
@@ -118,7 +118,7 @@ class instruction(object):
         value: list with values for this parameter
         """
         
-        self.source = None
+        self.source = [None, None]
         """
         Refdes of the signal source (independent v or i source).
 
@@ -132,22 +132,43 @@ class instruction(object):
         See **instruction.setDetector(<detector>)** for specification of the detector.
         """
 
-        self.detPairs = None
+        self.pairedNodes = [None, None]
         """
-        List with tuples of paired detector nodes or paired branch currents.
-        Will be used for equivalent diff-mode of common-mode circuits.
-
-        See **instruction.setDetector(<detector>)** for specification of the detector.
+        List with extensions of node names that should be paired for base conversion.
+        Default is: [None, None].
         """
 
-        self.lgRef = None
+        self.pairedCircuits = [None, None]
         """
-        Refdes of the controlled source that is assigned as loop gain reference.
+        List with extensions of subcircuit IDs that should be paired for base conversion.
+        Default is: [None, None].
+        """
+        
+        self.removePairSubName = True
+        """
+        If True, the subcircuit ID extension will be removed from parameters in
+        expressions of paired elements in sub circuits. Defaults to True.
+        
+        :note: Warning: this may result in undesired behavior if global parameters
+               carry the name of parameters in paired sub circuits.
+        """
+
+        self.lgRef = [None, None]
+        """
+        Refdes of the controlled source(s) that is (are) assigned as loop gain 
+        reference. A second controlled source is required for decomposition
+        of circuits in common-mode and differential-mode equivalents.
 
         See **instruction.setLGref(<detector>)** for specification of the loop
         gain reference.
         """
 
+        self.lgValue = [None, None]
+        """ 
+        Value of the loopgain reference will be stored during execution of the 
+        instruction.
+        """
+        
         self.circuit = None
         """
         Circuit (*SLiCAPprotos.circuit*) used for this instruction. Can be
@@ -318,13 +339,12 @@ class instruction(object):
             self.errors += 1
         return
     
-
-    def setconvType(self, convType):
+    def setConvType(self, convType):
         """
         Defines the circuit conversion type for the instruction.
 
         :param convType: gain type for the instruction: None, 'dd',
-                         'dc', 'cd', or 'cc'.
+                         'dc', 'cd', 'cc', or 'all'.
         :type gainType: str, Bool
 
         """
@@ -341,13 +361,91 @@ class instruction(object):
             if self.convType.lower() in CONVTYPES:
                 self.convType = self.convType.lower()
             else:
-                print("Error: unknown gain type: '{0}'.".format(self.convType))
+                print("Error: unknown conversion type: '{0}'.".format(self.convType))
                 self.errors += 1
         else:
-            print("Error: argument type must be type 'str'.")
-            self.errors += 1
+            self.convType = None
         return
     
+    def setPairedNodes(self, nodePairs):
+        """
+        Defines the paired nodes for matrix conversion.
+
+        :param varPairs: list with extensions for paired nodes. 
+
+        :type varPairs: list
+        """
+        if self.checkPairedNodes(nodePairs) == 0:
+            self.pairedNodes = nodePairs
+        return
+    
+    def checkPairedNodes(self, nodePairs):
+        """
+        Check the list with extensions of paired nodes.
+        
+        :param varPairs: list with extensions of paired nodes.
+        
+        :type varPairs: list
+        
+        :return: number of errors
+        :rtype: int
+        """
+        errors = 0
+        if type(nodePairs) != list and len(nodePairs) != 2:
+            print("Error: expected a list with two extensions of paired nodes.")
+            errors += 1
+        else:
+            nodeExtensions = []
+            for elName in list(self.circuit.elements.keys()):
+                nodes = self.circuit.elements[elName].nodes
+                for node in nodes:
+                    nodeExtensions.append(node[-1])
+            nodeExtensions = list(set(nodeExtensions))
+            for ext in nodePairs:
+                if ext not in nodeExtensions:
+                    print("Error: cannot pair node with extension: ", ext)
+                    errors += 1
+        return errors
+    
+    def setPairedCircuits(self, cirPairs):
+        """
+        Defines the paired subcircuits for matrix conversion.
+
+        :param varPairs: list with tuples of names (str) of subcircuits 
+                         that must be considered pairs.
+        :type varPairs: tuple
+        """
+        if self.checkPairedCircuits(cirPairs) == 0:
+            self.pairedCircuits = cirPairs
+        return
+    
+    def checkPairedCircuits(self, circuitPairs):
+        """
+        Check the list with names of with paired subcircuits.
+        
+        :param cirPairs: list with refDes of two subcircuits
+        
+        :type varPairs: list
+        
+        :return: number of errors
+        :rtype: int
+        """
+        errors = 0
+        if type(circuitPairs) != list and len(circuitPairs) != 2:
+            print("Error: expected a list with two circuit names")
+            errors += 1
+        else:
+            cirNames = []
+            for elName in list(self.circuit.elements.keys()):
+                elName = elName.split('_')[-1]
+                elType = elName[0].upper()
+                if elType == 'X':
+                    cirNames.append(elName)
+            for cirName in circuitPairs:
+                if cirName not in cirNames:
+                    print("Error: cannot pair unknown circuit: ", cirName)
+                    errors += 1
+        return errors
 
     def setDataType(self, dataType):
         """
@@ -886,7 +984,14 @@ class instruction(object):
         >>> # Obtaine a list with names of independent sources:
         >>> my_instr.circuit.idepVars()
         """
-        self.source = source
+        if type(source) == str:
+            self.source = [source, None]
+            self.checkSource()
+        elif type(source) == list and len(source) == 2:
+            self.source = source
+            self.checkSource()
+        else:
+            print("Error in loop gain reference specification.")
         self.checkSource(need = False)
         return
 
@@ -904,17 +1009,23 @@ class instruction(object):
 
         :type need: bool
         """
-        if self.source is None:
-            if need:
+        for i in range(len(self.source)):
+            if self.source[i] == None:
+                if need and i == 0:
+                    self.errors += 1
+                    print("Error: missing source definition.")
+            elif self.source[i] != None and self.source[i] not in self.indepVars():
                 self.errors += 1
-                print("Error: missing source definition.")
-        elif self.source not in self.circuit.indepVars:
-            self.errors += 1
-            print("Error: unkown source: '{0}'.".format(self.source))
-        else:
-            self.srcUnits = self.source[0].upper()
-            if self.srcUnits == 'I':
-                self.srcUnits = 'A'
+                print("Error: unkown source: '{0}'.".format(self.source[i]))  
+            elif self.source[i] != None:
+                if i == 0:
+                    self.srcUnits = self.source[i][0].upper()
+                else:
+                    if self.source[i][0].upper() != self.srcUnits:
+                        self.errors += 1
+                        print("Error: two sources must be of the same type.")
+        if self.srcUnits == 'I':
+            self.srcUnits = 'A'
         return
 
     def setDetector(self, detector):
@@ -993,30 +1104,31 @@ class instruction(object):
             if detP == None and detN == None:
                 self.errors += 1
                 print("Error: missing detector specification.")
-                return
-            # detectors must be of the same type
-            if detP == None or detN == None:
-                pass
-            elif detP[0] != detN[0]:
+            elif detP == detN:
+                self.errors += 1
+                print("Error: equal positive and negative detector.")
+            elif detP == detN:
                 self.errors += 1
                 print("Error: two detectors must be of the same type.")
-            if detP != None and detP not in self.circuit.depVars:
-                self.errors += 1
-                print("Error: unkown detector: '{0}'.".format(detP))
-            if detN != None and detN not in self.circuit.depVars:
-                self.errors += 1
-                print("Error: unkown detector: '{0}'.".format(detN))
-            if self.lgRef != None:
-                # Impossible to calculate the asymptotic gain with these values
-                forbidden = 'I_i_' + self.lgRef
-                if detP == forbidden or detN == forbidden:
+                
+            if self.errors == 0 and self.convType == None:
+                if detP != None and detP not in self.depVars():
                     self.errors += 1
-                    print("Error: forbidden combination of lgRef and detector.")
-            # Node zero does not exist in the matrix. It is the reference node.
-            if detP == 'V_0':
-                self.detector[0] = None
-            if detN == 'V_0':
-                self.detector[1] = None
+                    print("Error: unkown detector: '{0}'.".format(detP))
+                    print("Available detectors:", str(self.depVars()))
+                elif detN != None and detN not in self.depVars():
+                    self.errors += 1
+                    print("Error: unkown detector: '{0}'.".format(detN))
+                    print("Available detectors:", str(self.depVars()))
+            
+            if self.errors == 0:
+                for lgRef in self.lgRef:
+                    if lgRef != None:
+                        # Impossible to calculate the asymptotic gain with these values
+                        forbidden = 'I_i_' + lgRef
+                        if detP == forbidden or detN == forbidden:
+                            self.errors += 1
+                            print("Error: forbidden combination of lgRef and detector.")
             if self.detector[0] != None:
                 self.detUnits = detP[0].upper()
                 self.detLabel += detP
@@ -1028,28 +1140,6 @@ class instruction(object):
         else:
             self.errors += 1
             print("Error: missing detector definition.")
-        return
-
-    def checkDetPairs(self):
-        """
-        Checks if a list with valid detector pairs is present. 
-        
-        Required if self.convType != None.
-        """
-        if self.detPairs != None:
-            validVars = self.circuit.depVars
-            usedVars  = []
-            for pair in self.detPairs:
-                if pair[0] in validVars and par[0] not in usedVars:
-                    usedVars.append(par[0])
-                else:
-                    self.errors += 1
-                    print("Error: invalid detector variable:", par[0])
-                if pair[1] in validVars and par[1] not in usedVars:
-                    usedVars.append(par[1])
-                else:
-                    self.errors += 1
-                    print("Error: invalid detector variable:", par[1])
         return
 
     def setLGref(self, lgRef):
@@ -1072,8 +1162,14 @@ class instruction(object):
         >>> # Display a list with controlled sources of the circuit:
         >>> my_instr.controlled()
         """
-        self.lgRef = lgRef
-        self.checkLGref()
+        if type(lgRef) == str:
+            self.lgRef = [lgRef, None]
+            self.checkLGref()
+        elif type(lgRef) == list and len(lgRef) == 2:
+            self.lgRef = lgRef
+            self.checkLGref()
+        else:
+            print("Error in loop gain reference specification.")
         return
 
     def checkLGref(self):
@@ -1083,12 +1179,13 @@ class instruction(object):
 
         Called by **instruction.check()** and by **instruction.setLGref(<lgRef>)**.
         """
-        if self.lgRef is None:
+        if self.lgRef == [None, None]:
             self.errors += 1
             print("Error: missing loop gain reference definition.")
-        elif self.lgRef not in self.circuit.controlled:
-            self.errors += 1
-            print("Error: unkown loop gain reference: '{0}'.".format(self.lgRef))
+        for lgRef in self.lgRef:
+            if lgRef != None and lgRef not in self.circuit.controlled:
+                self.errors += 1
+                print("Error: unkown loop gain reference: '{0}'.".format(self.lgRef))
         return
 
     def delPar(self, parName):
@@ -1295,9 +1392,13 @@ class instruction(object):
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Obtain a list with names of dependent variables:
         >>> my_instr.depVars()
-        ['I_V1', 'V_0', 'V_N001', 'V_out']
+        ['I_V1', 'V_N001', 'V_out']
         """
-        return self.circuit.depVars
+        depVars = []
+        for var in self.circuit.depVars:
+            if var != 'V_0':
+                depVars.append(var)
+        return depVars
 
     def controlled(self):
         """
@@ -1356,6 +1457,7 @@ class instruction(object):
             self.errors += 1
             print("Error: not SLiCAP a circuit object for this instruction.")
         return
+    
     def checkNumeric(self):
         """
         Checks if the simulation type is set to 'numeric'. This is required for
@@ -1440,6 +1542,13 @@ class instruction(object):
         """
         self.errors = 0
         self.checkCircuit()
+        if self.dataType == 'noise':
+            # Noise sources of resistors add k and T to the circuit parameters
+            # These sources should be added before executing the instruction.
+            delResNoiseSources(self)
+            self.circuit = updateCirData(self.circuit)
+            self = addResNoiseSources(self)
+            self.circuit = updateCirData(self.circuit)
         if self.dataType != 'params':
             self.checkSimType()
             self.checkGainType()
@@ -1522,11 +1631,10 @@ class instruction(object):
                     pass
         if self.convType != None:
             self.checkConvType()
-            # Need detector pairs
-            if self.detPairs == None:
-                self.errors += 1
-            else:
-                self.checkDetPairs()
+            if self.pairedNodes != [None, None]:
+                self.checkPairedNodes(self.pairedNodes)
+            if self.pairedCircuits != [None, None]:
+                self.checkPairedCircuits(self.pairedCircuits)
         if self.step == True:
             if not self.numeric and self.dataType != 'params':
                 self.errors += 1
@@ -1539,7 +1647,6 @@ class instruction(object):
                 self.stepDict = {} # Clear the dictionary with step data
                 self.checkStep()
         return
-
 
     def execute(self):
         """
@@ -1574,7 +1681,30 @@ class instruction(object):
             return(allResults())
         else:
             return doInstruction(self)  
-         
+        
+    def useMatrixConversion(self, method=None):
+        """
+        Converts the basis of the MNA matrices. Execution of the instruction
+        will be performed with this matrix conversion.
+        
+        Built-in conversion conversion methods are:
+        
+        - None  : No conversion, MNA matrix equation (default)
+        - DM    : Differential-mode transfer
+        - CM    : Common-mode transfer
+        - DMCM  : Differential-mode to common-mode transfer
+        - CMDM  : Common-mode to differential-mode transfer
+        
+        :param method: Conversion method can be one of the above.
+        :type method: str
+        
+        :return: None
+        :rType: NoneType
+        """
+        METHODS = [None, 'DM', 'CM', 'DMCM', 'CMDM', 'ALL' ]
+        if method in methods:
+            self.conversionMethod = method
+            
 def listPZ(pzResult):
     """
     Prints lists with poles and zeros.

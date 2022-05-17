@@ -190,7 +190,7 @@ def normalizeRational(rational, variable=ini.Laplace, method='lowest'):
     :rtype: sympy.Expr
     """
     if variable in list(sp.N(rational).atoms(sp.Symbol)):
-        # Exception will be raised of non positive integer powers of variable.
+        # Exception will be raised for non positive integer powers of variable.
         # Then, we just pass the rational without normaling it.
         try:
             gain, coeffsNumer, coeffsDenom = coeffsTransfer(rational, variable, method)

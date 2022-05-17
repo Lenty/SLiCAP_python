@@ -1572,23 +1572,26 @@ def Cadence2traces(csvFile, absx = False, logx = False, absy = False, logy = Fal
     :param csvFile: name of the csv file (in the ini.csvPath directory)
     :type csvFile: str
     :param absx: if 'True', it applies the absolute (abs) function to the indpendent variable data (xData)
-    :type bool
+    :type absx: bool
     :param logx: if 'True', it applies the logarithm in base 10 (log10) function to the independent variable data (xData)
-    :type bool
+    :type logx: bool
     :param absy: if 'True', it applies the absolute (abs) function to the dependent variable data (yData)
-    :type bool
+    :type absy: bool
     :param logy: if 'True', it applies the logarithm in base 10 (log10) function to the dependent variable data (yData)
-    :type bool
-    :param logy: if
-                    selection=['all']: Selects all traces in the dictionary and does not replace any label
-                    selection=['all',("Var1","Variable"),("Var2","Variable2")]: selects all traces and replaces all character strings mentioned in the first element of the tuples (e.g. "Var1" and "Var2") with the strings in the second element of the tuples ("Variable" and "Variable2").
-                    selection=[('Var1 (SweepVar=1e-06) Y',"New Label"),('Var2 (SweepVar=1e-06) Y',"")]: selects only the traces that are explicitly mentioned in the first element of the tuple (e.g. 'Var1 (SweepVar=1e-06) Y' and 'Var2 (SweepVar=1e-06) Y') and replaces its label with the second element of the tuple unless it is "".
-    :type list of tuples
+    :type logy: bool
+    :param selection: if:
+        
+                      - selection=['all']: Selects all traces in the dictionary and does not replace any label
+                      - selection=['all',("Var1","Variable"),("Var2","Variable2")]: selects all traces and replaces all character strings mentioned in the first element of the tuples (e.g. "Var1" and "Var2") with the strings in the second element of the tuples ("Variable" and "Variable2").
+                      - selection=[('Var1 (SweepVar=1e-06) Y',"New Label"),('Var2 (SweepVar=1e-06) Y',"")]: selects only the traces that are explicitly mentioned in the first element of the tuple (e.g. 'Var1 (SweepVar=1e-06) Y' and 'Var2 (SweepVar=1e-06) Y') and replaces its label with the second element of the tuple unless it is "".
+    
+    :type selection: list of tuples
     :param assignID: if 'True', it generates an ID for each processed trace to avoid overwriting when merging dictionaries.
-    :type bool
+    :type assignID: bool
     :return: dictionary with key-value pairs:
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
+             
     :rtype: dict
     """
     try:

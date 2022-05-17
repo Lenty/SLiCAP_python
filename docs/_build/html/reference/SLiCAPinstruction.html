@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPinstruction.py &mdash; SLiCAP 1.2.1 documentation</title>
+  <title>SLiCAPinstruction.py &mdash; SLiCAP 1.3.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.2.1
+                1.3.0
               </div>
             
           
@@ -190,12 +190,6 @@
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction">
 <em class="property">class </em><code class="descname">instruction</code><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype Instruction object.</p>
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.DMCMsource">
-<code class="descname">DMCMsource</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.DMCMsource" title="Permalink to this definition">¶</a></dt>
-<dd><p>Source rows specification for analysis of balanced circuits.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.check">
 <code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.check" title="Permalink to this definition">¶</a></dt>
@@ -268,6 +262,42 @@ the circuit.</p>
 pole-zero analysis.</p>
 <p>Called by <strong>instruction.check()</strong> in cases in which a numeric
 simulation is required.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkPairedCircuits">
+<code class="descname">checkPairedCircuits</code><span class="sig-paren">(</span><em>circuitPairs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkPairedCircuits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the list with names of with paired subcircuits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cirPairs</strong> – list with refDes of two subcircuits</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">number of errors</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkPairedNodes">
+<code class="descname">checkPairedNodes</code><span class="sig-paren">(</span><em>nodePairs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.checkPairedNodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the list with extensions of paired nodes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>varPairs</strong> (<em>list</em>) – list with extensions of paired nodes.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">number of errors</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -773,9 +803,18 @@ value or expression</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef">
 <code class="descname">lgRef</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgRef" title="Permalink to this definition">¶</a></dt>
-<dd><p>Refdes of the controlled source that is assigned as loop gain reference.</p>
+<dd><p>Refdes of the controlled source(s) that is (are) assigned as loop gain 
+reference. A second controlled source is required for decomposition
+of circuits in common-mode and differential-mode equivalents.</p>
 <p>See <strong>instruction.setLGref(&lt;detector&gt;)</strong> for specification of the loop
 gain reference.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgValue">
+<code class="descname">lgValue</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.lgValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of the loopgain reference will be stored during execution of the 
+instruction.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -799,14 +838,14 @@ to alter the simulation method!</p>
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.pairedCircuits">
 <code class="descname">pairedCircuits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.pairedCircuits" title="Permalink to this definition">¶</a></dt>
 <dd><p>List with extensions of subcircuit IDs that should be paired for base conversion.
-Default is: [‘XX1’, ‘XX2’].</p>
+Default is: [None, None].</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.pairedVars">
-<code class="descname">pairedVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.pairedVars" title="Permalink to this definition">¶</a></dt>
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.pairedNodes">
+<code class="descname">pairedNodes</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.pairedNodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>List with extensions of node names that should be paired for base conversion.
-Default is: [‘P’, ‘N’].</p>
+Default is: [None, None].</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -820,7 +859,7 @@ the instruction.</p>
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.removePairSubName">
 <code class="descname">removePairSubName</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.removePairSubName" title="Permalink to this definition">¶</a></dt>
 <dd><p>If True, the subcircuit ID extension will be removed from parameters in
-expressions of paired elements in sub circuits.</p>
+expressions of paired elements in sub circuits. Defaults to True.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1007,6 +1046,35 @@ method <strong>instruction.controlled()</strong>.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_instr</span><span class="o">.</span><span class="n">controlled</span><span class="p">()</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setPairedCircuits">
+<code class="descname">setPairedCircuits</code><span class="sig-paren">(</span><em>cirPairs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setPairedCircuits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the paired subcircuits for matrix conversion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>varPairs</strong> (<em>tuple</em>) – list with tuples of names (str) of subcircuits 
+that must be considered pairs.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setPairedNodes">
+<code class="descname">setPairedNodes</code><span class="sig-paren">(</span><em>nodePairs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setPairedNodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the paired nodes for matrix conversion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>varPairs</strong> (<em>list</em>) – list with extensions for paired nodes.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">

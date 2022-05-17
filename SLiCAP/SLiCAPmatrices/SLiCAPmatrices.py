@@ -89,6 +89,7 @@ def makeMatrices(instr):
 
                     - key  : parameter name (sympy.Symbol)
                     - value: numeric value of sympy expression
+                    
     :type instr: SLiCAPinstruction.instruction()
 
     :return: tuple with two sympy matrices:

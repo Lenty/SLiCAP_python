@@ -30,6 +30,7 @@ import matplotlib._pylab_helpers as plotHelp
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import webbrowser
+from copy import deepcopy
 plt.ioff() # Turn off the interactive mode for plotting
 # Increase width for display of numpy arrays:
 np.set_printoptions(edgeitems=30, linewidth=1000, 

@@ -89,6 +89,9 @@ def maxEval(maxExpr, numeric=False):
     maxInput = maxExpr + maxStringConv
     maxInput=maxInput.replace('\n',' ') # Windows cannot handle \n in input!
     maxInput=maxInput.replace(', ',',') # Shorten the input string for Windows
+    
+    #print(maxInput)
+    
     # Read the output
     try:
         output = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True)
@@ -99,6 +102,9 @@ def maxEval(maxExpr, numeric=False):
         print("""\nMaxima calculation failed or timed out. A time-out occurs if maxima requires additional input, or if maxima requires more time. 
 The latter case can be solved by increasing the time limit using the command: 'ini.MaximaTimeOut=nnn', where nnn is the number of seconds.\n""")
         result = output
+        
+    #print(result)    
+     
     return result
 
 def maxLimit(expr, var, val, pm, numeric = True):
@@ -200,6 +206,8 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
              - A list with expressions or values if parameter stepping of the instruction is enabled.
     :rtype: int, float, sympy.Expr, list
     """
+    if type(source)==list:
+        source = source[0]
     errors = 0
     numlimits = False
     if fmin == None or fmax == None:
