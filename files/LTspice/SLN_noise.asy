@@ -34,7 +34,6 @@ SYMATTR SpiceModel N_noise
 SYMATTR Value si={S_i} sv={S_v}
 SYMATTR Prefix X
 SYMATTR Description Nullor with equivalent-input noise sources
-SYMATTR ModelFile SLiCAP.lib
 PIN -80 16 NONE 0
 PINATTR PinName NC+
 PINATTR SpiceOrder 1

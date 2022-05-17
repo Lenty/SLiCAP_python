@@ -16,7 +16,6 @@ SYMATTR SpiceModel ?
 SYMATTR Value IC={IC} VCE={VCE}
 SYMATTR Prefix X
 SYMATTR Description equivalent-input noise sources BJT
-SYMATTR ModelFile SLiCAP.lib
 PIN -80 16 NONE 0
 PINATTR PinName ext
 PINATTR SpiceOrder 1

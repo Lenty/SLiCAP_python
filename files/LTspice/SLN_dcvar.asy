@@ -55,7 +55,6 @@ SYMATTR Value svo={sigma_vo} sib={sigma_ib} sio={sigma_io} iib={I_b}
 SYMATTR SpiceModel N_dcvar
 SYMATTR Prefix X
 SYMATTR Description Nullor with input bias and offset sources
-SYMATTR ModelFile SLiCAP.lib
 PIN 0 -80 NONE 0
 PINATTR PinName NC+
 PINATTR SpiceOrder 1

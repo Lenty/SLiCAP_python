@@ -558,7 +558,7 @@ def initAll():
     newModel.name           = 'C'
     newModel.stamp          = True
     newModel.depVars        = []
-    newModel.params         = {'value': False, 'vinit': 0}
+    newModel.params         = {'value': False, 'vinit': False}
     MODELS[newModel.name]   = newModel
     # Diode
     newModel                = model()
@@ -640,7 +640,7 @@ def initAll():
     newModel.name           = 'L'
     newModel.stamp          = True
     newModel.depVars        = ['I']
-    newModel.params         = {'value': False, 'iinit': 0}
+    newModel.params         = {'value': False, 'iinit': False}
     MODELS[newModel.name]   = newModel
     # MOSFET
     newModel                = model()

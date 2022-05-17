@@ -19,7 +19,6 @@ SYMATTR SpiceModel ?
 SYMATTR Value ID={ID} IG={IG} W={W} L={L}
 SYMATTR Prefix X
 SYMATTR Description eq. input noise sources MOSFET
-SYMATTR ModelFile SLiCAP.lib
 PIN -80 16 NONE 0
 PINATTR PinName ext
 PINATTR SpiceOrder 1

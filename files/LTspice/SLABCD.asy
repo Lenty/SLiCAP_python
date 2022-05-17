@@ -21,7 +21,6 @@ SYMATTR SpiceModel ABCD
 SYMATTR Value at={A_T} bt={B_T} ct={C_T} dt={D_T}
 SYMATTR Prefix X
 SYMATTR Description ABCD matrix
-SYMATTR ModelFile SLiCAP.lib
 PIN 64 16 NONE 0
 PINATTR PinName +
 PINATTR SpiceOrder 1
