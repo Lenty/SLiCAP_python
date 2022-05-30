@@ -38,7 +38,6 @@ Valid model parameters and their default values are listed in the subsequent row
 		3. ``Laplace``: a boolean ``TRUE | FALSE`` indicating if the Laplace variable ``s`` is allowed in the device expression
 		4. ``description``: a description of the parameter
 
-
 C: Capacitor
 ------------
 
@@ -171,8 +170,7 @@ Model E
 			 :alt: Syntax, symbol and matrix stamp of a VCVS: model E
 			 
 			 Syntax, symbol and matrix stamp of a VCVS model E
-		
-		
+				
 Parameters model E
 ~~~~~~~~~~~~~~~~~~
    
@@ -181,7 +179,6 @@ Parameters model E
 		+=======+==================+=========+=========+
 		| value | voltage gain     | 1       | TRUE    | 
 		+-------+------------------+---------+---------+
-
 
 .. _EZ:
 
@@ -246,7 +243,6 @@ Model F
 			 Syntax, symbol and matrix stamp of a CCCS model F
 			 
 		Please notice the independent variable :math:`I_{Fx}` which is added to the vector of independent variables equals the product of the denominator of the current gain :math:`Df_s` and the input current :math:`Ii_{Fx}`, rather than the input current.
-
 
 		+-------+------------------+-------+-------+-------+
 		| name  | description      | type  | Ii    | Io    |
@@ -405,7 +401,6 @@ Parameters model H
 		+=======+==================+=========+=========+
 		| value | transimpedance   | 1       | TRUE    | 
 		+-------+------------------+---------+---------+
-
 
 .. _HZ:
 
@@ -591,7 +586,6 @@ Examples
 
 L: Inductor
 -----------
-
 
 Below the syntax, the symbol and the matrix stamp for an inductor: model L_.
 
@@ -1094,7 +1088,7 @@ Models
 		+=======+==========================+=======+=======+=======+
 		| R     | Resistor resistance > 0  | stamp | FALSE | FALSE |
 		+-------+--------------------------+-------+-------+-------+
-		| value | Resistor resistance >= 0 | stamp | FALSE | TRUE  |
+		| r     | Resistor resistance >= 0 | stamp | FALSE | TRUE  |
 		+-------+--------------------------+-------+-------+-------+
 		
 .. _R:
@@ -1111,11 +1105,19 @@ Model R
 Parameters model R
 ~~~~~~~~~~~~~~~~~~
 
-		+-------+------------------+---------+---------+
-		| name  | description      | default | Laplace |
-		+=======+==================+=========+=========+
-		| value | resistance       | 1       | FALSE   | 
-		+-------+------------------+---------+---------+
+		+-----------+-------------------+---------+---------+
+		| name      | description       | default | Laplace |
+		+===========+===================+=========+=========+
+		| value     | resistance        | 1       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| dcvar     | variance          | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| noisetemp | noise temperature | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| noiseflow | variance          | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| dcvar     | variance          | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
 		
 .. _type r:
 
@@ -1131,14 +1133,19 @@ Model r
 Parameters model r
 ~~~~~~~~~~~~~~~~~~
 
-		+-------+------------------+---------+---------+
-		| name  | description      | default | Laplace |
-		+=======+==================+=========+=========+
-		| value | resistance       | 1       | FALSE   | 
-		+-------+------------------+---------+---------+
-		| dcvar | variance         | 1       | FALSE   | 
-		+-------+------------------+---------+---------+
-
+		+-----------+-------------------+---------+---------+
+		| name      | description       | default | Laplace |
+		+===========+===================+=========+=========+
+		| value     | resistance        | 1       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| dcvar     | variance          | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| noisetemp | noise temperature | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| noiseflow | variance          | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
+		| dcvar     | variance          | 0       | FALSE   | 
+		+-----------+-------------------+---------+---------+
 
 Examples
 ~~~~~~~~
@@ -1147,7 +1154,7 @@ The examples below illustrates four different ways for specifying a resistor tha
 
 .. code-block:: text
 
-		R1 nP nN 10k
+		R1 nP nN R value = {R} noiseTemp = {T} noiseflow ={f_ell} dcvar = {R * sigma_R^2}
 
 .. code-block:: text
 
@@ -1163,7 +1170,6 @@ The examples below illustrates four different ways for specifying a resistor tha
 		.model myR R value = {20 * alpha}
 		.param alpha = 500
 			
-		
 T: Ideal transformer
 --------------------
 
@@ -1185,8 +1191,7 @@ Model T
 		+=======+==========================+=======+=======+=======+
 		| T     | Ideal transformer        | stamp | FALSE | TRUE  |
 		+-------+--------------------------+-------+-------+-------+
-		
-		
+				
 Parameters model T
 ~~~~~~~~~~~~~~~~~~
 
@@ -1217,27 +1222,23 @@ Examples
 		
 V: Independent voltage source
 -----------------------------
-
-		
+	
 .. _V:
 
 Model V
 ~~~~~~~
-		
-		
+				
 		.. figure:: ../img/stampV.svg
 			 :width: 800
 			 :alt: Symbol, syntax and matrix stamp of an ideal independent voltage source: model V
 			 
 			 Symbol, syntax and matrix stamp of an ideal independent voltage source: model V
 
-
 		+-------+--------------------------------------------------+-------+-------+-------+
 		| name  | description                                      | type  | Ii    | Io    |
 		+=======+==================================================+=======+=======+=======+
 		| V     | Independent voltage source                       | stamp | FALSE | TRUE  |
 		+-------+--------------------------------------------------+-------+-------+-------+
-   
    
 Parameters model V
 ~~~~~~~~~~~~~~~~~~
@@ -1254,7 +1255,6 @@ Parameters model V
 		| noise | Noise voltage density [V^2/Hz] | 0       | TRUE    | 
 		+-------+--------------------------------+---------+---------+
 		
-
 Examples
 ~~~~~~~~
 
@@ -1268,7 +1268,6 @@ Examples
 
 		Vin 0 input V value = {V_s} noise = 1e-16 dc = 0 dcvar = 10e-8
 		.param V_s = {1/s}; Step of 1V starting at t = 0
-
 
 W: Gyrator
 ----------
@@ -1289,7 +1288,6 @@ Model W
 		+=======+==========================+=======+=======+=======+
 		| W     | Gyrator                  | stamp | FALSE | FALSE |
 		+-------+--------------------------+-------+-------+-------+
-		
 		
 Parameters model W
 ~~~~~~~~~~~~~~~~~~

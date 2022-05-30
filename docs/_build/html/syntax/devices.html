@@ -2102,7 +2102,7 @@ k12 L1 L2 0.98
 <td>FALSE</td>
 <td>FALSE</td>
 </tr>
-<tr class="row-odd"><td>value</td>
+<tr class="row-odd"><td>r</td>
 <td>Resistor resistance &gt;= 0</td>
 <td>stamp</td>
 <td>FALSE</td>
@@ -2126,10 +2126,10 @@ k12 L1 L2 0.98
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col width="23%" />
+<col width="40%" />
+<col width="19%" />
+<col width="19%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">name</th>
@@ -2142,6 +2142,26 @@ k12 L1 L2 0.98
 <tr class="row-even"><td>value</td>
 <td>resistance</td>
 <td>1</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-odd"><td>dcvar</td>
+<td>variance</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-even"><td>noisetemp</td>
+<td>noise temperature</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-odd"><td>noiseflow</td>
+<td>variance</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-even"><td>dcvar</td>
+<td>variance</td>
+<td>0</td>
 <td>FALSE</td>
 </tr>
 </tbody>
@@ -2162,10 +2182,10 @@ k12 L1 L2 0.98
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col width="23%" />
+<col width="40%" />
+<col width="19%" />
+<col width="19%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">name</th>
@@ -2182,7 +2202,22 @@ k12 L1 L2 0.98
 </tr>
 <tr class="row-odd"><td>dcvar</td>
 <td>variance</td>
-<td>1</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-even"><td>noisetemp</td>
+<td>noise temperature</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-odd"><td>noiseflow</td>
+<td>variance</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-even"><td>dcvar</td>
+<td>variance</td>
+<td>0</td>
 <td>FALSE</td>
 </tr>
 </tbody>
@@ -2192,7 +2227,7 @@ k12 L1 L2 0.98
 <div class="section" id="id24">
 <h3>Examples<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <p>The examples below illustrates four different ways for specifying a resistor that is connected between the nodes nP and nN and has a numerical value of 10kOhm.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN 10k
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN R value = {R} noiseTemp = {T} noiseflow ={f_ell} dcvar = {R * sigma_R^2}
 </pre></div>
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 nP nN {20 * alpha}
