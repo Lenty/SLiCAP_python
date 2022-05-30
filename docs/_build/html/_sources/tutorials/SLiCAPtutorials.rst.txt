@@ -7,9 +7,10 @@ SLiCAP tutorials
     :width: 88
     :alt: Creative Commons License
 
-SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License <http://creativecommons.org/licenses/by-nc-nd/4.0/>`_. Based on a work at: `http://www.analog-electronics.eu/slicap/slicap.html <http://www.analog-electronics.eu/slicap/slicap.html>`_
+SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License <http://creativecommons.org/licenses/by-nc-nd/4.0/>`_. Based on a work at: `https://analog-electronics.tudelft.nl/slicap/slicap.html <https://analog-electronics.tudelft.nl/slicap/slicap.html>`_
 
 .. toctree::
 
    LTspice
    jupyter
+   noise

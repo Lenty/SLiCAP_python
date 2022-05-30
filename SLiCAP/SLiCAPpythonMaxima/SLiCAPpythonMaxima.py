@@ -165,11 +165,11 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
         expr=sp.N(expr)
     else:
         numeric = ''
-    
+    maxExpr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
     if start != None and stop != None:
-        maxExpr = 'result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
+        maxExpr += 'result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
     else:
-        maxExpr = 'result:%s(integrate(%s, %s));'%(numeric, str(expr), str(var))
+        maxExpr += 'result:%s(integrate(%s, %s));'%(numeric, str(expr), str(var))
     result = maxEval(maxExpr)
     try:
         result = sp.sympify(result)
@@ -260,14 +260,22 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
                 params = list(sp.N(noiseData[i]).atoms(sp.Symbol))
                 if len(params) == 0 or ini.frequency not in params:
                     # Frequency-independent spectrum, multiply with (fmax-fmin)
+                    print("Integration by multiplication")
                     rms.append(sp.sqrt(noiseData[i]*(fmax-fmin)))
                 elif len(params) == 1 and numlimits:
                     # Numeric frequency-dependent spectrum, use numeric integration
+                    print("Integration by numpy")
                     noise_spectrum = sp.lambdify(ini.frequency, noiseData[i])
                     rms.append(sp.sqrt(integrate.quad(noise_spectrum, fmin, fmax)[0]))
                 else:
-                    # Symbolic integration preformed by maxima (no warranty)
-                    rms.append(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)))
+                    try:
+                        # Symbolic integration performed by maxima (no warranty)
+                        print("Trying symbolic integration by maxima CAS")
+                        rms.append(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)))
+                    except:
+                        # Try sympy integration (no questions asked)
+                        print("Trying symbolic integration by sympy")
+                        rms.append(sp.sqrt(sp.integrate(noiseData[i], (ini.frequency, fmin, fmax))))
             rms = np.array(rms)
             if len(rms) == 1:
                 rms = rms[0]
