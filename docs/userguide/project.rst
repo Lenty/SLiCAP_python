@@ -202,7 +202,7 @@ Sympy symbol used for frequency.
 gainColors
 ----------
 
-Dictionary with agin types and associated colors for plotting.
+Dictionary with gain types and associated colors for plotting.
 
 **Default value** is *{'gain': 'b', 'asymptotic': 'r', 'loopgain': 'k', 'direct': 'g', 'servo': 'm', 'vi': 'c'}*.
 

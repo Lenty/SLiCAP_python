@@ -19,7 +19,9 @@ The simulation type can be set with the method **SLiCAPinstruction.instruction.s
     >>> from SLiCAP import *
     >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
     >>> instr = instruction()        # Create an instance of an instruction object
-    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit object from the netlist 
+                                     # file 'myFirstRCnetwork.cir' and make it an attribute 
+                                     # *instr.circuit* of the instruction object
     No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
 
     >>> instr.setSimType('numeric')  # Set the simulation type to 'numeric'.
@@ -94,7 +96,9 @@ The gain type can be defined with the method: **SLiCAPinstruction.instruction.se
 Signal source
 -------------
 
-Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: **SLiCAPinstruction.instruction.setSource(*args)**.  The argument of the function should be the name (identifier) of an inpependent source in the circuit. A list of available independent sources is returned by the method: **SLiCAPinstruction.instruction.indepVars()**. 
+Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: **SLiCAPinstruction.instruction.setSource(*args)**.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: **SLiCAPinstruction.instruction.indepVars()**. 
+
+For the analysis of balanced circuits, SLiCAP supports the definition of dual sources.
 
 .. code-block:: python
 
@@ -108,7 +112,7 @@ Any independent current source or independent voltage source in the circuit can 
     ['V1']
     >>> instr.setSource('V1')           # Define the signal source
     >>> print(instr.source)             # Print the signal source
-    V1
+    [V1, None]
 
 --------
 Detector 
@@ -157,7 +161,9 @@ Loop gain reference
 
 The asymptotic-gain negative-feedback model uses one controlled source of the circuit as *loop gain reference variable*. The name of this controlled source is stored in the attribute: **SLiCAPinstruction.instruction.lgRef**. A list with controlled sources that are available for this purpose is returned by the method:  **SLiCAPinstruction.instruction.controlled()**. 
 
-One of the controlled sources of this list can be assigned as loop gain reference variable. This can be done with the method **SLiCAPinstruction.instruction.setLGref()**. 
+Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method **SLiCAPinstruction.instruction.setLGref()**. 
+
+For the analysis of balanced circuits, SLiCAP supports the definition of dual loop gain references.
 
 .. code-block:: python
 
@@ -169,6 +175,31 @@ One of the controlled sources of this list can be assigned as loop gain referenc
 
     >>> print instr.controlled()        # Print a list with names of controlled sources
     []
+
+----------------------
+Matrix conversion type
+----------------------
+
+SLiCAP can convert the MNA equation of a network into an equivalent equation of
+
+- A network that decribes the differential-mode behavior: *instr.convType='dd'*
+- A network that decribes the differential-mode to common-mode conversion: *instr.convType='dc'*
+- A network that decribes the common-mode to differential-mode conversion: *instr.convType='cd'*
+- A network that decribes the common-mode behavior: *instr.convType='cc'*
+- The complete network transformed to a differential-mode and common-mode base: *instr.convType='all'*
+
+.. code-block:: python
+
+    >>> instr.setConvType('dd')  # differential-mode equivalent network
+    >>> instr.setConvType('dc')  # differential-mode to common-mode equivalent network
+    >>> instr.setConvType('cd')  # common-mode to differential-mode equivalent network
+    >>> instr.setConvType('cc')  # common-mode equivalent network
+    >>> instr.setConvType('all') # MNA matrix transformed to differential-mode and common-mode base
+    >>> instr.setConvType(None)  # MNA matrix (default)
+
+    >>> print(instr.convType)
+
+    None
 
 ---------
 Data type

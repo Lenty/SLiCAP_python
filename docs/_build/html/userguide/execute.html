@@ -102,22 +102,22 @@
 <li class="toctree-l2"><a class="reference internal" href="instruction.html">Define an instruction</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Execute an instruction</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#execution-results">Execution results</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-dc">Data type dc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-dcsolve">Data type dcsolve</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-dcvar">Data type dcvar</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-denom">Data type denom</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-impulse">Data type impulse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-laplace">Data type laplace</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-matrix">Data type matrix</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-noise">Data type noise</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-numer">Data type numer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-params">Data type params</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-poles">Data type poles</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-pz">Data type pz</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-solve">Data type solve</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-step">Data type step</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-time">Data type time</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-type-zeros">Data type zeros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-dc">Data type <em>dc</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-dcsolve">Data type <em>dcsolve</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-dcvar">Data type <em>dcvar</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-denom">Data type <em>denom</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-impulse">Data type <em>impulse</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-laplace">Data type <em>laplace</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-matrix">Data type <em>matrix</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-noise">Data type <em>noise</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-numer">Data type <em>numer</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-params">Data type <em>params</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-poles">Data type <em>poles</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-pz">Data type <em>pz</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-solve">Data type <em>solve</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-step">Data type <em>step</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-time">Data type <em>time</em></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-type-zeros">Data type <em>zeros</em></a></li>
 </ul>
 </li>
 </ul>
@@ -206,10 +206,10 @@
 <p>The method <strong>SLiCAPinstruction.instruction.execute()</strong> executes the instruction and returns a <strong>SLiCAPprotos.allResults()</strong> object with attributes comprising instruction data and instruction results. See <a class="reference external" href="../reference/SLiCAPprotos.html">SLiCAPprotos.allResults()</a>.</p>
 <div class="section" id="execution-results">
 <h2>Execution results<a class="headerlink" href="#execution-results" title="Permalink to this headline">¶</a></h2>
-<p>All attributes from the instance of the <strong>SLiCAPinstruction.instruction()</strong> object are copied to the corresponding attribute of the <strong>SLiCAPprotos.allResults()</strong> object. All copies, except that of the <strong>SLiCAPinstruction.instruction.circuit</strong> attribute are <em>deep</em> copies.</p>
+<p>At the start of the execution, attributes from the instance of the <strong>SLiCAPinstruction.instruction()</strong> object are copied to corresponding attributes of the <strong>SLiCAPprotos.allResults()</strong> object. All copies, except that of the <strong>SLiCAPinstruction.instruction.circuit</strong> attribute are <em>deep</em> copies.</p>
 <p>In the following sections we will describe the attributes that carry the execution results. We will do this for all data types.</p>
 <div class="section" id="data-type-dc">
-<h3>Data type dc<a class="headerlink" href="#data-type-dc" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>dc</em><a class="headerlink" href="#data-type-dc" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the DC value of the detector quantity; only for gain type ‘vi’.</p>
 <ul class="simple">
 <li>If parameter stepping is enabled:<ul>
@@ -223,7 +223,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-dcsolve">
-<h3>Data type dcsolve<a class="headerlink" href="#data-type-dcsolve" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>dcsolve</em><a class="headerlink" href="#data-type-dcsolve" title="Permalink to this headline">¶</a></h3>
 <p>Calculates DC solution of the network; only for gain type ‘vi’.</p>
 <ul class="simple">
 <li>If parameter stepping is enabled:<ul>
@@ -237,21 +237,21 @@
 </ul>
 </div>
 <div class="section" id="data-type-dcvar">
-<h3>Data type dcvar<a class="headerlink" href="#data-type-dcvar" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>dcvar</em><a class="headerlink" href="#data-type-dcvar" title="Permalink to this headline">¶</a></h3>
 <p>Calculates contribution of all dc variances (sources and resistors) to the detector-referred variance. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred variance.</p>
 <ul class="simple">
 <li>If parameter stepping is enabled:<ul>
 <li>A list with values of the total detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ovar</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: List with contributions of <em>source</em> to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 <li>If a signal source has been defined:<ul>
 <li>A list with values of the total source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: List with contributions of this source to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 </ul>
@@ -262,14 +262,14 @@
 <li>The total detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ovar</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ovarTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: Contributions of this source to the detector-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 <li>If a signal source has been defined:<ul>
 <li>The total source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.ivar</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.ivarTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: Contributions this source to the source-referred variance (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 </ul>
@@ -279,7 +279,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-denom">
-<h3>Data type denom<a class="headerlink" href="#data-type-denom" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>denom</em><a class="headerlink" href="#data-type-denom" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the denominator of the Laplace Transform of the unit-impulse response or of a voltage or a current.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
@@ -291,7 +291,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-impulse">
-<h3>Data type impulse<a class="headerlink" href="#data-type-impulse" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>impulse</em><a class="headerlink" href="#data-type-impulse" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the unit-impulse response (inverse Laplace Transform); may not work with symbolic values. Not for gain type ‘vi’.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
@@ -303,7 +303,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-laplace">
-<h3>Data type laplace<a class="headerlink" href="#data-type-laplace" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>laplace</em><a class="headerlink" href="#data-type-laplace" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
@@ -315,8 +315,8 @@
 </ul>
 </div>
 <div class="section" id="data-type-matrix">
-<h3>Data type matrix<a class="headerlink" href="#data-type-matrix" title="Permalink to this headline">¶</a></h3>
-<p>Calculates the matrix equation of the circuit.</p>
+<h3>Data type <em>matrix</em><a class="headerlink" href="#data-type-matrix" title="Permalink to this headline">¶</a></h3>
+<p>Calculates the matrix equation of the circuit and applies the specified conversion.</p>
 <ul class="simple">
 <li>If parameter stepping is disabled:<ul>
 <li>The vector with independent variables (<em>sympy.Matrix</em>) is assigned to <strong>SLiCAPprotos.allResults.Iv</strong></li>
@@ -328,21 +328,21 @@
 </ul>
 </div>
 <div class="section" id="data-type-noise">
-<h3>Data type noise<a class="headerlink" href="#data-type-noise" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>noise</em><a class="headerlink" href="#data-type-noise" title="Permalink to this headline">¶</a></h3>
 <p>Calculates contributions to the detector-referred noise of all noise sources. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred noise.</p>
 <ul class="simple">
 <li>If parameter stepping is enabled:<ul>
 <li>A list with values of the total detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.onoise</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.onoiseTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: List with contributions of this source to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 <li>If a signal source has been defined:<ul>
 <li>A list with values of the total source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.inoise</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.inoiseTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: List with contributions to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: List with contributions of this source to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 </ul>
@@ -353,14 +353,14 @@
 <li>The total detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.onoise</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.onoiseTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: Contributions of this source to the detector-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 <li>If a signal source has been defined:<ul>
 <li>The total source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>) is assigned to <strong>SLiCAPprotos.allResults.noise</strong></li>
 <li>A dict with key-value pairs is assigned to <strong>SLiCAPprotos.allResults.inoiseTerms</strong><ul>
 <li>key: Name of the source (<em>str</em>)</li>
-<li>value: Contributions to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
+<li>value: Contributions of this source to the source-referred noise spectral density in <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{V^2}{Hz}}\right]\)</span> or <span class="math notranslate nohighlight">\(\left[\mathrm{\frac{A^2}{Hz}}\right]\)</span> (<em>float, sympy.Symbol, symPy.Expr</em>)</li>
 </ul>
 </li>
 </ul>
@@ -370,7 +370,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-numer">
-<h3>Data type numer<a class="headerlink" href="#data-type-numer" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>numer</em><a class="headerlink" href="#data-type-numer" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the numerator of the Laplace Transform of the unit-impulse response or of a voltage or a current.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
@@ -382,12 +382,12 @@
 </ul>
 </div>
 <div class="section" id="data-type-params">
-<h3>Data type params<a class="headerlink" href="#data-type-params" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>params</em><a class="headerlink" href="#data-type-params" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the values of parameters, while sweeping or stepping other parameters. This data type should be used when plotting parameters against each other. Only the copied instruction data is returned.</p>
 </div>
 <div class="section" id="data-type-poles">
-<h3>Data type poles<a class="headerlink" href="#data-type-poles" title="Permalink to this headline">¶</a></h3>
-<p>Calculates the complex solutions of the denominator of the Laplace transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
+<h3>Data type <em>poles</em><a class="headerlink" href="#data-type-poles" title="Permalink to this headline">¶</a></h3>
+<p>Calculates the complex solutions of the denominator of the Laplace transfer function. It may not work with symbolic parameters and it not implemented for dataType <em>vi</em>.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
 <p>A list of lists with solutions (<em>complex</em>) is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p>
@@ -398,8 +398,8 @@
 </ul>
 </div>
 <div class="section" id="data-type-pz">
-<h3>Data type pz<a class="headerlink" href="#data-type-pz" title="Permalink to this headline">¶</a></h3>
-<p>Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomials.</p>
+<h3>Data type <em>pz</em><a class="headerlink" href="#data-type-pz" title="Permalink to this headline">¶</a></h3>
+<p>Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Poles and zeros with the same frequency cancel each other out. It may not work with symbolic parameters and it not implemented for dataType <em>vi</em>.</p>
 <div class="admonition-note admonition">
 <p class="first admonition-title">note</p>
 <p class="last">pole-zero pairs with equal complex frequencies (tolerance = <span class="math notranslate nohighlight">\(10^{\mathrm{-ini.disp}}\)</span>) are removed from the results.</p>
@@ -420,7 +420,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-solve">
-<h3>Data type solve<a class="headerlink" href="#data-type-solve" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>solve</em><a class="headerlink" href="#data-type-solve" title="Permalink to this headline">¶</a></h3>
 <p>Calculates the network solution; only for gain type ‘vi’.</p>
 <ul class="simple">
 <li>If parameter stepping is enabled:<ul>
@@ -434,7 +434,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-step">
-<h3>Data type step<a class="headerlink" href="#data-type-step" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>step</em><a class="headerlink" href="#data-type-step" title="Permalink to this headline">¶</a></h3>
 <p>Calculates inverse Laplace transform of (1/s) times the transfer function. It may not work with symbolic values.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
@@ -446,7 +446,7 @@
 </ul>
 </div>
 <div class="section" id="data-type-time">
-<h3>Data type time<a class="headerlink" href="#data-type-time" title="Permalink to this headline">¶</a></h3>
+<h3>Data type <em>time</em><a class="headerlink" href="#data-type-time" title="Permalink to this headline">¶</a></h3>
 <p>Calculates inverse Laplace transform of a detector voltage or current. Only for gain type ‘vi’. It may not work with symbolic values.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
@@ -458,8 +458,8 @@
 </ul>
 </div>
 <div class="section" id="data-type-zeros">
-<h3>Data type zeros<a class="headerlink" href="#data-type-zeros" title="Permalink to this headline">¶</a></h3>
-<p>Calculates the complex solutions of the numerator of the Laplace transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
+<h3>Data type <em>zeros</em><a class="headerlink" href="#data-type-zeros" title="Permalink to this headline">¶</a></h3>
+<p>Calculates the complex solutions of the numerator of the Laplace transfer function. It may not work with symbolic parameters and it not implemented for dataType <em>vi</em>.</p>
 <ul>
 <li><p class="first">If parameter stepping is enabled:</p>
 <p>A list of lists with solutions (<em>complex</em>) is assigned to <strong>SLiCAPprotos.allResults.poles</strong></p>

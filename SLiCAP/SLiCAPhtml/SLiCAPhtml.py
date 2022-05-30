@@ -771,7 +771,6 @@ def noise2html(instObj, label = '', labelText = ''):
         ini.htmlLabels[label] = newlabel
         label = '<a id="' + label + '"></a>'
     detUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(instObj.detUnits)
-    srcUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(instObj.srcUnits)
     if instObj.simType == 'symbolic':
         html = '<h2>Symbolic noise analysis results</h2>\n'
         numeric = False
@@ -780,7 +779,8 @@ def noise2html(instObj, label = '', labelText = ''):
         numeric = True
     html += '<h3>Detector-referred noise spectrum</h3>\n'
     html += '$$S_{out}=%s\, %s$$\n'%(sp.latex(roundN(instObj.onoise, numeric = instObj.numeric)), detUnits)
-    if instObj.source != None:
+    if instObj.srcUnits != None:
+        srcUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(instObj.srcUnits)
         html += '<h3>Source-referred noise spectrum</h3>\n'
         html += '$$S_{in}=%s\, %s$$\n'%(sp.latex(roundN(instObj.inoise, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual noise sources</h3><table>\n'
@@ -800,7 +800,7 @@ def noise2html(instObj, label = '', labelText = ''):
             srcValue = fullSubs(srcValue, instObj.circuit.parDefs)
         html += '<tr><td class="title">Spectral density:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue, numeric = instObj.numeric)), nUnits)
         html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.onoiseTerms[key], numeric = instObj.numeric)), detUnits)
-        if instObj.source != None:
+        if instObj.srcUnits != None:
             html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.inoiseTerms[key], numeric = instObj.numeric)), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
@@ -841,7 +841,6 @@ def dcVar2html(instObj, label = '', labelText = ''):
         ini.htmlLabels[label] = newlabel
         label = '<a id="' + label + '"></a>'
     detUnits = '\mathrm{\left[ %s^2 \\right]}'%(instObj.detUnits)
-    srcUnits = '\mathrm{\left[ %s^2 \\right]}'%(instObj.srcUnits)
     if instObj.simType == 'symbolic':
         html = '<h2>Symbolic dcvar analysis results</h2>\n'
         numeric = False
@@ -852,7 +851,8 @@ def dcVar2html(instObj, label = '', labelText = ''):
     html += '$$%s=%s$$\n'%(sp.latex(roundN(instObj.Dv)), sp.latex(roundN(instObj.dcSolve, numeric = instObj.numeric)))
     html += '<h3>Detector-referred variance</h3>\n'
     html += '$$\sigma_{out}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ovar, numeric = instObj.numeric)), detUnits)
-    if instObj.source != None:
+    if instObj.srcUnits != None:
+        srcUnits = '\mathrm{\left[\\frac{%s^2}{Hz}\\right]}'%(instObj.srcUnits)
         html += '<h3>Source-referred variance</h3>\n'
         html += '$$\sigma_{in}^2=%s\, %s$$\n'%(sp.latex(roundN(instObj.ivar, numeric = instObj.numeric)), srcUnits)
     html += '<h3>Contributions of individual component variances</h3><table>\n'
@@ -872,7 +872,7 @@ def dcVar2html(instObj, label = '', labelText = ''):
             srcValue = fullSubs(srcValue, instObj.parDefs)
         html += '<tr><td class="title">Source variance:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(srcValue, numeric = instObj.numeric)), nUnits)
         html += '<tr><td class="title">Detector-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ovarTerms[key], numeric = instObj.numeric)), detUnits)
-        if instObj.source != None:
+        if instObj.srcUnits != None:
             html += '<tr><td class="title">Source-referred:</td><td>$%s$</td><td class="units">$\,%s$</td></tr>\n'%(sp.latex(roundN(instObj.ivarTerms[key], numeric = instObj.numeric)), srcUnits)
     html += '</table>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)

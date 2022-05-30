@@ -208,24 +208,51 @@
 </div>
 <div class="section" id="capabilities">
 <h2>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Conversion of hierarchically structured SPICE netlist into mixed symbolic/numeric matrix equation</li>
-<li>Symbolic and numeric noise analysis</li>
-<li>Symbolic and numeric noise integration over frequency</li>
-<li>Symbolic and numeric determination of transfer functions and polynomial coefficients of transfer functions</li>
-<li>Symbolic and numeric determination of the Routh array</li>
-<li>Symbolic and numeric inverse Laplace Transform</li>
-<li>Symbolic and numeric determination of network solutions</li>
-<li>Accurate numeric pole-zero analysis</li>
-<li>Root-locus analysis with a arbitrarily selected circuit parameters as root locus variable(s)</li>
-<li>Symbolic and numeric DC and DC variance analysis for determination of budgets for resistor tolerances and offset and bias quantities</li>
-<li>Symbolic and numeric derivation and solution of design equations for bandwidh, frequency response, noise performance, dc variance and temperature stability</li>
+<ul>
+<li><p class="first">Conversion of hierarchically structured SPICE netlist into mixed symbolic/numeric matrix equation</p>
+</li>
+<li><p class="first">Symbolic and numeric noise analysis</p>
+</li>
+<li><p class="first">Symbolic and numeric noise integration over frequency</p>
+</li>
+<li><p class="first">Symbolic and numeric determination of transfer functions and polynomial coefficients of transfer functions</p>
+</li>
+<li><p class="first">Symbolic and numeric determination of the Routh array</p>
+</li>
+<li><p class="first">Symbolic and numeric inverse Laplace Transform</p>
+</li>
+<li><p class="first">Symbolic and numeric determination of network solutions</p>
+</li>
+<li><p class="first">Accurate numeric pole-zero analysis</p>
+</li>
+<li><p class="first">Root-locus analysis with a arbitrarily selected circuit parameters as root locus variable(s)</p>
+</li>
+<li><p class="first">Symbolic and numeric DC and DC variance analysis for determination of budgets for resistor tolerances and offset and bias quantities</p>
+</li>
+<li><p class="first">Symbolic and numeric derivation and solution of design equations for bandwidh, frequency response, noise performance, dc variance and temperature stability</p>
+</li>
+<li><p class="first">Decomposition of balanced networks into four sub networks:</p>
+<ol class="arabic simple">
+<li>A network that models the differential-mode behavior</li>
+<li>A network that models the differential-mode to common-mode conversion</li>
+<li>A network that models the common-mode to differential-mode conversion</li>
+<li>A network that models the common-mode behavior</li>
+</ol>
+</li>
+<li><p class="first">Use built-in small signal models for semiconductor devices of which the small-signal parameters are functions of the device geometry and the operating point:</p>
+<ol class="arabic simple">
+<li>Gummel-Poon model for BJTs</li>
+<li>EKV model for MOS devices</li>
+<li>Any user-defined model with user-defined geometry parameters</li>
+</ol>
+<p>This makes it possible to design the signal performance of an amplifier before designing the biasing of the amplifier. The impact of errors introduces by bias sources on the signal transfer can be investigated and specified by simply adding these imperfections to the signal path design.</p>
+</li>
 </ul>
 </div>
 <div class="section" id="technology">
 <h2>Technology<a class="headerlink" href="#technology" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Python, Maxima CAS, HTML, CSS, LaTeX, MathJax, Python, Jupyther Lab</li>
+<li>Python, Maxima CAS, HTML, CSS, LaTeX, MathJax, Python, Jupyther Notebook</li>
 </ul>
 </div>
 </div>
@@ -252,9 +279,10 @@
 <ol class="arabic">
 <li><p class="first">Define the symbolic or numerical calculation mode: SLiCAP uses symbolic calculation methods, even if the data is numeric. If the simulation type is set to <em>numeric</em>, parameter values will recursively be substituted into the expressions for the circuit element values.</p>
 </li>
-<li><p class="first">Define the gain type: SLiCAP can provide expression for:</p>
+<li><p class="first">Define the gain type and the data type: SLiCAP can provide symbolic and numeric expressions for:</p>
 <ul class="simple">
-<li>Nodal voltages or currents through voltage sources (or other elements that have been defined in current-controlled notation)</li>
+<li>The Laplace Transform, the Inverse Laplace Transform, and the DC value of<ul>
+<li>Nodal voltages or currents through voltage sources (or other elements that have been defined in current-controlled notation, such as inductors)</li>
 <li>Transfer functions of the asymptotic-gain model:<ul>
 <li>the gain (source to detector transfer)</li>
 <li>the asymptotic-gain</li>
@@ -265,10 +293,24 @@
 </li>
 </ul>
 </li>
+<li>Poles and zeros of these transfer functions (symbolic only for limited order)</li>
+<li>Spectral densities of noise sources and their contributions to source-referred noise and/ore detector referred noise</li>
+<li>Variance of DC voltage and currents resulting from resistor tolerances, and variances of voltage and current sources</li>
+</ul>
+</li>
 <li><p class="first">Define the signal source, the detector and the loop gain reference variable according to the asymptotic-gain feedback model.</p>
 </li>
+<li><p class="first">Define the matrix base converstion type:</p>
+<p>If you work with balanced circuits and you want to design or analyse the differential-mode behavior and the common mode behavior, SLiCAP can automatically convert your complete network equation (MNA equation) into smaller matrix equations that model the:</p>
+<ul class="simple">
+<li>differential-mode  behavior</li>
+<li>differential-mode to common-mode conversion</li>
+<li>common-mode to differential-mode conversion</li>
+<li>common-mode behavior</li>
+</ul>
+</li>
 <li><p class="first">Define the data type:</p>
-<p>SLiCAP can provide many types of data:</p>
+<p>SLiCAP can provide many types of data for both symbolic and numeric circuit analysis:</p>
 <ul class="simple">
 <li>Matrix equations for the circuit, with the matrices adapted to the gaintype</li>
 <li>Laplace transform of voltages, currents or transfer functions</li>
@@ -276,22 +318,38 @@
 <li>Time functions, unit impulse and unit step functions; calculated from the inverse Laplace transform</li>
 <li>Contributions to spectral densities of source-referred or detector-referred noise or integrated noise</li>
 <li>Poles, zeros and DC gain of a transfer function, with and without cancellation of coinciding poles and zeros</li>
-<li>DC voltage and current and their variance due to offset and bias currents and resistor tolerances</li>
+<li>DC voltage and current and their variance due to offset errors, bias errors, and resistor tolerances</li>
 </ul>
 </li>
-<li><p class="first">Enable or disable parameter stepping for the instruction and define the step parameters.</p>
+<li><p class="first">Use parameter stepping for the instruction and define the step parameters and concurrently step multiple parameters.</p>
 </li>
 </ol>
 </li>
 <li><p class="first">Execute the instruction</p>
 </li>
 <li><p class="first">Work with the results</p>
+<ul>
+<li><p class="first">SLiCAP has predefined functions for plotting, displaying tables and generation of web pages with beautifully typeset expressions, tables, figures and files.</p>
+</li>
+<li><p class="first">SLiCAP has a lot of postprocessing functions available for finding budgets (show-stopper values or design limits) for all kinds of performance parameters of electronic circuits:</p>
+<ul>
+<li><p class="first">Budgeting of noise sources:</p>
+<p>Given the integrated RMS noise of limits for source or detector referred noise, you can find show-stopper values for contributions of noise sources.</p>
+</li>
+<li><p class="first">Budgeting of offset errors, bias errors and resistor tolerances:</p>
+<p>Given the total source or detector referred dc error (variance), you can find show-stopper values for contributions of tolerances of resistors, offset voltages and currents and bias voltages and currents.</p>
+</li>
+<li><p class="first">Budgeting of GB product of operational amplifiers or loop gain-poles product of transistor feedback amplifiers:</p>
+<p>Given the required bandwidth of an amplifier in an application, SLiCAP helps you to find design limits or show-stopper values for different contributers to bandwidth limitation.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">There are many examples available for the design of the dynamic behavior and the noise behavior of amplifiers:</p>
 <ul class="simple">
-<li>SLiCAP has predefined functions for plotting, displaying tables and generation of web pages with beautifully typeset expressions, tables, figures and files.</li>
-<li>SLiCAP has a lot of postprocessing functions available for finding budgets for all kinds of performance parameters of electronic devices.</li>
-<li>There are many examples available for the design of the dynamic behavior and the noise behavior of amplifiers.</li>
 <li>It will be clear that once you have the (symbolic) matrix equation of a circuit, you have sufficient knowledge of Structured Analog Design, SLiCAP can help you with setting up and solving design equations for almost any design problem and, ultimately, with the automation of design engineering.</li>
 <li>While doing your design work with SLiCAP, you concurrently generate a collection of linked html pages that document your work and help you to discuss your work with colleagues and present it to others on any platform with a web browser.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>

@@ -105,6 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#signal-source">Signal source</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#detector">Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#loop-gain-reference">Loop gain reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#matrix-conversion-type">Matrix conversion type</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#data-type">Data type</a></li>
 </ul>
 </li>
@@ -199,7 +200,9 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit object from the netlist</span>
+<span class="go">                                 # file &#39;myFirstRCnetwork.cir&#39; and make it an attribute</span>
+<span class="go">                                 # *instr.circuit* of the instruction object</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>  <span class="c1"># Set the simulation type to &#39;numeric&#39;.</span>
@@ -280,7 +283,8 @@
 </div>
 <div class="section" id="signal-source">
 <h2>Signal source<a class="headerlink" href="#signal-source" title="Permalink to this headline">¶</a></h2>
-<p>Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: <strong>SLiCAPinstruction.instruction.setSource(*args)</strong>.  The argument of the function should be the name (identifier) of an inpependent source in the circuit. A list of available independent sources is returned by the method: <strong>SLiCAPinstruction.instruction.indepVars()</strong>.</p>
+<p>Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: <strong>SLiCAPinstruction.instruction.setSource(*args)</strong>.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: <strong>SLiCAPinstruction.instruction.indepVars()</strong>.</p>
+<p>For the analysis of balanced circuits, SLiCAP supports the definition of dual sources.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -291,7 +295,7 @@
 <span class="go">[&#39;V1&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSource</span><span class="p">(</span><span class="s1">&#39;V1&#39;</span><span class="p">)</span>           <span class="c1"># Define the signal source</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>             <span class="c1"># Print the signal source</span>
-<span class="go">V1</span>
+<span class="go">[V1, None]</span>
 </pre></div>
 </div>
 </div>
@@ -335,7 +339,8 @@
 <div class="section" id="loop-gain-reference">
 <h2>Loop gain reference<a class="headerlink" href="#loop-gain-reference" title="Permalink to this headline">¶</a></h2>
 <p>The asymptotic-gain negative-feedback model uses one controlled source of the circuit as <em>loop gain reference variable</em>. The name of this controlled source is stored in the attribute: <strong>SLiCAPinstruction.instruction.lgRef</strong>. A list with controlled sources that are available for this purpose is returned by the method:  <strong>SLiCAPinstruction.instruction.controlled()</strong>.</p>
-<p>One of the controlled sources of this list can be assigned as loop gain reference variable. This can be done with the method <strong>SLiCAPinstruction.instruction.setLGref()</strong>.</p>
+<p>Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method <strong>SLiCAPinstruction.instruction.setLGref()</strong>.</p>
+<p>For the analysis of balanced circuits, SLiCAP supports the definition of dual loop gain references.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -344,6 +349,29 @@
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">controlled</span><span class="p">()</span>        <span class="c1"># Print a list with names of controlled sources</span>
 <span class="go">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="matrix-conversion-type">
+<h2>Matrix conversion type<a class="headerlink" href="#matrix-conversion-type" title="Permalink to this headline">¶</a></h2>
+<p>SLiCAP can convert the MNA equation of a network into an equivalent equation of</p>
+<ul class="simple">
+<li>A network that decribes the differential-mode behavior: <em>instr.convType=’dd’</em></li>
+<li>A network that decribes the differential-mode to common-mode conversion: <em>instr.convType=’dc’</em></li>
+<li>A network that decribes the common-mode to differential-mode conversion: <em>instr.convType=’cd’</em></li>
+<li>A network that decribes the common-mode behavior: <em>instr.convType=’cc’</em></li>
+<li>The complete network transformed to a differential-mode and common-mode base: <em>instr.convType=’all’</em></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;dd&#39;</span><span class="p">)</span>  <span class="c1"># differential-mode equivalent network</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;dc&#39;</span><span class="p">)</span>  <span class="c1"># differential-mode to common-mode equivalent network</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;cd&#39;</span><span class="p">)</span>  <span class="c1"># common-mode to differential-mode equivalent network</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>  <span class="c1"># common-mode equivalent network</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="c1"># MNA matrix transformed to differential-mode and common-mode base</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>  <span class="c1"># MNA matrix (default)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">convType</span><span class="p">)</span>
+
+<span class="go">None</span>
 </pre></div>
 </div>
 </div>
