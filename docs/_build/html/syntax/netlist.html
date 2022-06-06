@@ -99,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#comment">Comment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#numbers">Numbers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#expressions">Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reserved-sympy-symbols-and-slicap-built-in-variables">Reserved (sympy) symbols and SLiCAP built-in variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#title-line">Title line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lib-line">.lib line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#subckt-ends-lines">.subckt … .ends lines</a><ul>
@@ -269,7 +270,101 @@
 </div>
 <div class="section" id="expressions">
 <h2>Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h2>
-<p>As with SPICE, expressions should be placed between curly brackets: <code class="docutils literal notranslate"><span class="pre">{&lt;</span> <span class="pre">myExpression</span> <span class="pre">&gt;}</span></code>. Metric prefixes as well as white space characters and line break characters: <code class="docutils literal notranslate"><span class="pre">+</span></code>, can be included in expressions.</p>
+<p>As with SPICE, expressions should be placed between curly brackets: <code class="docutils literal notranslate"><span class="pre">{&lt;</span> <span class="pre">myExpression</span> <span class="pre">&gt;}</span></code>. Metric prefix symbols, and white space characters can be included in expressions.</p>
+</div>
+<div class="section" id="reserved-sympy-symbols-and-slicap-built-in-variables">
+<h2>Reserved (sympy) symbols and SLiCAP built-in variables<a class="headerlink" href="#reserved-sympy-symbols-and-slicap-built-in-variables" title="Permalink to this headline">¶</a></h2>
+<p>Reserved symbols have a special meaning or value (within sympy). These symbols <strong>cannot be used as free variables</strong> in expressions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>E</td>
+<td>sympy.E = <span class="math notranslate nohighlight">\(2.71828122845905 \cdots\)</span></td>
+</tr>
+<tr class="row-odd"><td>I</td>
+<td>sympy.I =  <span class="math notranslate nohighlight">\(\sqrt{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td>N</td>
+<td>sympy.N function; evaluates the numeric value of an expression</td>
+</tr>
+<tr class="row-odd"><td>O</td>
+<td>sympy.O function</td>
+</tr>
+<tr class="row-even"><td>S</td>
+<td>sympy.S function</td>
+</tr>
+<tr class="row-odd"><td>beta</td>
+<td>sympy.beta function</td>
+</tr>
+<tr class="row-even"><td>gamma</td>
+<td>sympy.gamma function</td>
+</tr>
+<tr class="row-odd"><td>lambda</td>
+<td>sympy.lambda function</td>
+</tr>
+<tr class="row-even"><td>Lambda</td>
+<td>sympy.Lambda function</td>
+</tr>
+<tr class="row-odd"><td>pi</td>
+<td>sympy.pi = <span class="math notranslate nohighlight">\(3.1459265358979 \cdots\)</span></td>
+</tr>
+<tr class="row-even"><td>zeta</td>
+<td>sympy.zeta function</td>
+</tr>
+</tbody>
+</table>
+<p>SLiCAP built-in variables are defined in the library file <a class="reference external" href="../../../../files/lib/SLiCAPmodels.lib">SLiCAPmodels.lib</a>. These variables can be redefined by the user:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>c</td>
+<td>SLiCAP built-in variable for the speed of light <span class="math notranslate nohighlight">\(c=2.99792458\cdot 10^8\)</span> m/s</td>
+</tr>
+<tr class="row-odd"><td>f</td>
+<td>SLiCAP default symbol for frequency in [Hz] (ini.frequency)</td>
+</tr>
+<tr class="row-even"><td>k</td>
+<td>SLiCAP built-in variable for Boltzmann’s constant: <span class="math notranslate nohighlight">\(k=1.38064852\cdot 10^{-23}\)</span> J/K</td>
+</tr>
+<tr class="row-odd"><td>q</td>
+<td>SLiCAP built-in variable for the charge of an electron: <span class="math notranslate nohighlight">\(q=1.60217662\cdot 10^{-19}\)</span> C</td>
+</tr>
+<tr class="row-even"><td>s</td>
+<td>SLiCAP default symbol for the Laplace variable (ini.Laplace)</td>
+</tr>
+<tr class="row-odd"><td>T</td>
+<td>SLiCAP built-in variable for the absolute temperature <span class="math notranslate nohighlight">\(T=300\)</span> K</td>
+</tr>
+<tr class="row-even"><td>U_T</td>
+<td>SLiCAP built-in variable for the thermal voltage: <span class="math notranslate nohighlight">\(U_T=\frac{kT}{q}\)</span> [V]</td>
+</tr>
+<tr class="row-odd"><td>mu_0</td>
+<td>SLiCAP built-in vriable for the permittivity of vacuum : <span class="math notranslate nohighlight">\(\mu_0=4\pi 10^{-7}\)</span> H/m</td>
+</tr>
+<tr class="row-even"><td>epsilon_0</td>
+<td>SLiCAP built-in variable for the permittivity of vacuum: <span class="math notranslate nohighlight">\(\epsilon_0=\frac{1}{\mu_0 c^2}\)</span> [F/m]</td>
+</tr>
+<tr class="row-odd"><td>epsilon_SiO2</td>
+<td>SLiCAP built-in variable for the relative permittivity of <span class="math notranslate nohighlight">\(SiO_2\)</span> : <span class="math notranslate nohighlight">\(\epsilon_{SiO_2}=3.9\)</span></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="title-line">
 <span id="title"></span><h2>Title line<a class="headerlink" href="#title-line" title="Permalink to this headline">¶</a></h2>
@@ -381,11 +476,24 @@ Q1 c b 0 0 Q2N3904 gm={I_c*q_e/(k_B*T_A)} gpi={I_c*q_e/(k_B*T_A)/beta_AC}
 </pre></div>
 </div>
 <p>A device definition line starts with the device identifier field: <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">deviceID</span> <span class="pre">&gt;</span></code> . The first character of name is interpreted as the device type identifier. The device type identifier is not case sensitive.</p>
-<p>An overview of device types can be found in section LINK.</p>
 <p>Other required fields are: at least two fields with node names or deviceIDs of other devices. If no <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">value</span> <span class="pre">|</span> <span class="pre">{expr}</span> <span class="pre">|</span> <span class="pre">modelName</span> <span class="pre">&gt;</span></code> field is specified, a default model with default parameter valuess is
 assumed. Node names and model names are case sensitive character strings.</p>
 <p>A model name is a character string that cannot be interpreted as a number. Expressions need to be placed between curly brackets: <code class="docutils literal notranslate"><span class="pre">{}</span></code>. A coupling factor device has two references to inductors instead of two nodes.</p>
 <p>Parameter definitions can only be given in combination with a model name. If no model parameters are specified, values from a <code class="docutils literal notranslate"><span class="pre">.model</span></code> line are assumed. If such a line does not exist, default parameter values are assumed.</p>
+<p>Below different ways of defining a resistor R1 of 10kOhm between nodes 1 and 2:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R1 1 2 10k ; default model (R) will be used
+
+R1 1 2 R value=10k ; model R: resistor value cannot be zero
+
+R1 1 2 r value=10k ; model r: resistor value can be zero
+
+R1 1 2 myR
+.model myR R value=10k
+
+R1 1 2 myOtherR value=10k
+.model myOtherR R
+</pre></div>
+</div>
 </div>
 <div class="section" id="end-line">
 <h2>.end line<a class="headerlink" href="#end-line" title="Permalink to this headline">¶</a></h2>

@@ -11,16 +11,19 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
 
 .. toctree::
 
-   install
-   project
-   schematics
-   circuit
-   parameters
-   parameterStepping
-   instruction
-   execute
-   postproc
-   dynamic
-   noise
-   plots
-   htmlreports
+    install
+    project
+    schematics
+    circuit
+    instruction
+    parameters
+    parameterStepping
+    execute
+    postproc
+    dynamic
+    noise
+    dcvar
+    pz
+    plots
+    balanced
+    htmlreports

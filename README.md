@@ -36,25 +36,25 @@
 
 ## Setting up SLiCAP
 To set up SLiCAP, the following components are required:
+
 - A Python 3 install -  Dependencies of packages is found in requirements.txt
-- Maxima CAS
+- Maxima CAS (MSWindows: install maxima on the system drive)
 - SLiCAP can generate netlists from schematics made with:
-  - LTspice
-  - gschem
+  - LTspice (MSWindows: install LTspice on the system drive)
+  - gschem (MSWindows: install gschem and its netlister on the system drive)
   - lepton-eda
 
 The dependencies are listed in the 'requirements.txt' file.
-When installing SLiCAP on an Anaconda distribution, it requires installing the 'in-place' module, which can be installed using the 'python -m pip install in-place'.
-- Download the SLiCAP archive from github
-- Extract it in some directory
-- Open a terminal or an Anaconda terminal if you run python from Anaconda
-- Enter: 'python setup.py install' or 'python setup.py install --user'
-- Answer the questions
+
+1. Download or clone the SLiCAP archive from github
+2. Extract it in some directory
+3. Open a terminal or an Anaconda terminal if you run python from Anaconda in the directory with setup.py
+4. Enter: 'pip install . ' (don't forget the dot!)
 
 ## Project file locations
 **Do not place project files in the directory where SLiCAP installs the libraries, the examples, and the documentation.**
 
-This location defaults to: /home/<username>/SLiCAP/ (LINUX) or \users\<username>\SLiCAP\ (WINDOWS). 
+This location defaults to: /home/yourUserName/SLiCAP/ (LINUX) or \users\yourUserName\SLiCAP\ (WINDOWS). 
   
 **The contents of this directory will be overwritten if you re-install or update SLiCAP.**
 

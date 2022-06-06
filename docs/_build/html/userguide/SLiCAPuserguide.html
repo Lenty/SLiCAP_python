@@ -97,14 +97,17 @@
 <li class="toctree-l2"><a class="reference internal" href="project.html">Initialize a SLiCAP project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schematics.html">Schematic capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="circuit.html">Define a circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html">Define an instruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html">Work with parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameterStepping.html">Parameter stepping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html">Define an instruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="execute.html">Execute an instruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postproc.html">Work with the results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic.html">Design of dynamic behavior</a></li>
-<li class="toctree-l2"><a class="reference internal" href="noise.html">Noise design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="noise.html">Noise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcvar.html">DC variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pz.html">Pole-zero analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plots.html">Create plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="balanced.html">Balanced circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="htmlreports.html">Generate HTML reports</a></li>
 </ul>
 </li>
@@ -187,6 +190,8 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Download, install and configure SLiCAP</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="install.html#download-and-install-slicap">Download and Install SLiCAP</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="install.html#requirements">Requirements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="install.html#mswindows-installation-of-maxima">MSWindows installation of maxima</a></li>
+<li class="toctree-l4"><a class="reference internal" href="install.html#mswindows-installation-of-ltspice">MSWindows installation of LTspice</a></li>
 <li class="toctree-l4"><a class="reference internal" href="install.html#macos-installation-of-maxima">MacOS installation of maxima</a></li>
 </ul>
 </li>
@@ -267,6 +272,16 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="instruction.html">Define an instruction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#simulation-type">Simulation type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#gain-type">Gain type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#signal-source">Signal source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#detector">Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#loop-gain-reference">Loop gain reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#matrix-conversion-type">Matrix conversion type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html#data-type">Data type</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html">Work with parameters</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html#get-all-circuit-parameters">Get all circuit parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html#get-all-parameter-definitions">Get all parameter definitions</a></li>
@@ -291,16 +306,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="parameterStepping.html#enable-or-disable-parameter-stepping">Enable or disable parameter stepping</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="instruction.html">Define an instruction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#simulation-type">Simulation type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#gain-type">Gain type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#signal-source">Signal source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#detector">Detector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#loop-gain-reference">Loop gain reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#matrix-conversion-type">Matrix conversion type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html#data-type">Data type</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="execute.html">Execute an instruction</a><ul>
@@ -332,7 +337,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dynamic.html#estimate-the-bandwith-and-system-order-of-a-negative-feedback-circuit">Estimate the bandwith and system order of a negative-feedback circuit</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="noise.html">Noise design</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="noise.html">Noise</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="noise.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="noise.html#define-a-noise-analysis">Define a noise analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="noise.html#noise-analysis-results">Noise analysis results</a></li>
@@ -340,7 +345,18 @@
 <li class="toctree-l2"><a class="reference internal" href="noise.html#noise-tutorials">Noise tutorials</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="dcvar.html">DC variance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dcvar.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcvar.html#define-a-dcvar-analysis">Define a dcvar analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcvar.html#dc-variance-analysis-results">DC variance analysis results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dcvar.html#dc-variance-tutorials">DC variance tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pz.html">Pole-zero analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plots.html">Create plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="balanced.html">Balanced circuits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="htmlreports.html">Generate HTML reports</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="htmlreports.html#html-site-structure">HTML site structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="htmlreports.html#main-index-html">Main Index.html</a></li>
@@ -348,6 +364,25 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="htmlreports.html#start-a-new-html-page">Start a new html page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-a-header-on-an-html-page">Place a header on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-text-on-an-html-page">Place text on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-a-text-file-on-an-html-page">Place a text file on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-an-image-on-an-html-page">Place an image on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-netlist-of-a-circuit-on-an-html-page">Place the netlist of a circuit on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-flattened-circuit-data-on-an-html-page">Place the flattened circuit data on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-all-parameters-on-an-html-page">Place all parameters on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-an-expression-on-an-html-page">Place an expression on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-an-equation-on-an-html-page">Place an equation on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-circuit-s-matrix-equation-on-an-html-page">Place the circuit’s matrix equation on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-a-plot-on-an-html-page">Place a plot on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-a-csv-table-on-an-html-page">Place a csv table on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-results-of-a-noise-analysis-on-an-html-page">Place the results of a noise analysis on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-results-of-a-dcvar-analysis-on-an-html-page">Place the results of a dcvar analysis on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-results-of-a-pole-zero-analysis-on-an-html-page">Place the results of a pole-zero analysis on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-coefficients-of-a-laplace-transfer-function-on-an-html-page">Place the coefficients of a Laplace transfer function on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-a-link-to-an-html-object-on-an-html-page">Place a link to an HTML object on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-all-links-to-html-objects-on-an-html-page">Place all links to HTML objects on an HTML page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="htmlreports.html#place-the-step-data-for-array-stepping-on-an-html-page">Place the step data for array stepping on an HTML page</a></li>
 </ul>
 </li>
 </ul>

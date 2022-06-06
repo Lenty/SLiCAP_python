@@ -113,14 +113,17 @@
 <li class="toctree-l2"><a class="reference internal" href="project.html">Initialize a SLiCAP project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schematics.html">Schematic capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="circuit.html">Define a circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instruction.html">Define an instruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html">Work with parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameterStepping.html">Parameter stepping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instruction.html">Define an instruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="execute.html">Execute an instruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postproc.html">Work with the results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic.html">Design of dynamic behavior</a></li>
-<li class="toctree-l2"><a class="reference internal" href="noise.html">Noise design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="noise.html">Noise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcvar.html">DC variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pz.html">Pole-zero analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plots.html">Create plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="balanced.html">Balanced circuits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="htmlreports.html">Generate HTML reports</a></li>
 </ul>
 </li>
@@ -206,6 +209,14 @@
 <div class="section" id="requirements">
 <h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <p>Before installing SLiCAP you need to install <a class="reference external" href="http://maxima.sourceforge.net/download.html">maxima CAS</a> and Python 3 packages listed in <a class="reference external" href="https://github.com/Lenty/SLiCAP_python/blob/master/requirements.txt">https://github.com/Lenty/SLiCAP_python/requirements.txt</a>.</p>
+<div class="section" id="mswindows-installation-of-maxima">
+<h4>MSWindows installation of maxima<a class="headerlink" href="#mswindows-installation-of-maxima" title="Permalink to this headline">¶</a></h4>
+<p>The preferred install path for maxima under MSWindows is on the system drive. If the program is installed on another drive, SLiCAP will only work after the <em>MAXIMA</em> command in the <em>SLiCAPsettings.py</em> has been set to the correct value. The file <em>SLiCAPsettings.py</em> is located in the SLiCAP installation directory (use file search).</p>
+</div>
+<div class="section" id="mswindows-installation-of-ltspice">
+<h4>MSWindows installation of LTspice<a class="headerlink" href="#mswindows-installation-of-ltspice" title="Permalink to this headline">¶</a></h4>
+<p>The preferred install path for LTspice under MSWindows is on the system drive. If the program is installed on another drive, <em>makeNetlist(&lt;netlistFile&gt;.asc)</em> will only work after the <em>LTspice</em> command in the <em>SLiCAPsettings.py</em> has been set to the correct value. The file <em>SLiCAPsettings.py</em> is located in the SLiCAP installation directory (use file search).</p>
+</div>
 <div class="section" id="macos-installation-of-maxima">
 <h4>MacOS installation of maxima<a class="headerlink" href="#macos-installation-of-maxima" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
@@ -234,15 +245,15 @@
 <li>If you have python installed under Windows, open a terminal by running the command <em>cmd</em></li>
 <li>If you have python installed under Linux or mac Open a <em>terminal</em></li>
 </ul>
-<ol class="arabic simple">
-<li>Go to the folder with the file <em>setup.py</em> (usually: <em>&lt;where_you_downloaded_or_cloned&gt;/SLiCAP_python-master/)</em> and enter the command:</li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span>
+<p>Go to the folder with the file <em>setup.py</em> (usually: <em>&lt;where_you_downloaded_or_cloned&gt;/SLiCAP_python-master/)</em> and enter the command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span> <span class="o">--</span><span class="n">user</span>
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li>Enter the requested directory paths or accept the defaults.</li>
-</ol>
+<ul class="simple">
+<li>If you install SLiCAP under MSWindows (Anaconda), the installation searches for the maxima command and the LTspice command on the Winwows system drive (usually C:).</li>
+<li>In cases in which maxima cannot be found, SLiCAP will only work after maxima has been installed and the <em>MAXIMA</em> command in the <em>SLiCAPsettings.py</em> has been set to the correct value. The file <em>SLiCAPsettings.py</em> is located in the SLiCAP installation directory (use file search).</li>
+<li>In cases in which the LTspice command is not found, the instruction <em>makeNetlist(&lt;cirFileName&gt;.asc)</em> will only run after LTspice has been installed and the <em>LTSPICE</em> command in the <em>SLiCAPsettings.py</em> has been set to the correct value. The file <em>SLiCAPsettings.py</em> is located in the SLiCAP installation directory (use file search).</li>
+</ul>
 </div>
 </div>
 <div class="section" id="configure-slicap-options">
@@ -260,7 +271,7 @@ in some project directory. The minimum content of this (python) file is:</p>
 <code class="docutils literal notranslate"><span class="pre">SLiCAPconfig.py</span></code> file, which is created in the project directory.</p>
 <div class="section" id="mathjax">
 <h3>MathJax<a class="headerlink" href="#mathjax" title="Permalink to this headline">¶</a></h3>
-<p>SLiCAP uses MathJax to render LaTeX embedded in html. LaTeX is used for expressions. MathJax rendering of equations requires an Internet connection. The scripts of the <a class="reference external" href="https://www.mathjax.org/">MathJax CDN</a> will then be used for this purpose. For proper rendering of equations you need to have JavaScript enabled in your browser.</p>
+<p>SLiCAP uses MathJax to render LaTeX embedded in html. LaTeX is used for expressions. MathJax rendering of equations requires an Internet connection. The scripts of the <a class="reference external" href="https://www.mathjax.org/">MathJax CDN</a> will then be used for this purpose. For proper rendering of equations you need to be connected to the Internet and have JavaScript enabled in your browser.</p>
 </div>
 <div class="section" id="global-parameters">
 <h3>Global parameters<a class="headerlink" href="#global-parameters" title="Permalink to this headline">¶</a></h3>

@@ -41,11 +41,67 @@ Please noitice these prefixes are case sentitive, and ``MEG`` and ``meg`` are no
 
 From version 0.4 build 1350 the expression syntax checker can handle parameter names identical to metric prefixes. 
 
-
 Expressions
 -----------
 
-As with SPICE, expressions should be placed between curly brackets: ``{< myExpression >}``. Metric prefixes as well as white space characters and line break characters: ``+``, can be included in expressions.
+As with SPICE, expressions should be placed between curly brackets: ``{< myExpression >}``. Metric prefix symbols, and white space characters can be included in expressions.
+
+Reserved (sympy) symbols and SLiCAP built-in variables
+------------------------------------------------------
+
+Reserved symbols have a special meaning or value (within sympy). These symbols **cannot be used as free variables** in expressions:
+
++---------+-----------------------------------------------------------------+
+|variable | Description                                                     |
++=========+=================================================================+
+|E        | sympy.E = :math:`2.71828122845905 \cdots`                       |
++---------+-----------------------------------------------------------------+
+|I        | sympy.I =  :math:`\sqrt{-1}`                                    |
++---------+-----------------------------------------------------------------+
+|N        | sympy.N function; evaluates the numeric value of an expression  |
++---------+-----------------------------------------------------------------+
+|O        | sympy.O function                                                |
++---------+-----------------------------------------------------------------+
+|S        | sympy.S function                                                |
++---------+-----------------------------------------------------------------+
+|beta     | sympy.beta function                                             |
++---------+-----------------------------------------------------------------+
+|gamma    | sympy.gamma function                                            |
++---------+-----------------------------------------------------------------+
+|lambda   | sympy.lambda function                                           |
++---------+-----------------------------------------------------------------+
+|Lambda   | sympy.Lambda function                                           |
++---------+-----------------------------------------------------------------+
+|pi       | sympy.pi = :math:`3.1459265358979 \cdots`                       |
++---------+-----------------------------------------------------------------+
+|zeta     | sympy.zeta function                                             |
++---------+-----------------------------------------------------------------+
+
+SLiCAP built-in variables are defined in the library file `SLiCAPmodels.lib <../../../../files/lib/SLiCAPmodels.lib>`_. These variables can be redefined by the user:
+
++--------------+---------------------------------------------------------------------------------------------------------+
+|variable      | Description                                                                                             |
++==============+=========================================================================================================+
+|c             | SLiCAP built-in variable for the speed of light :math:`c=2.99792458\cdot 10^8` m/s                      |
++--------------+---------------------------------------------------------------------------------------------------------+
+|f             | SLiCAP default symbol for frequency in [Hz] (ini.frequency)                                             |
++--------------+---------------------------------------------------------------------------------------------------------+
+|k             | SLiCAP built-in variable for Boltzmann's constant: :math:`k=1.38064852\cdot 10^{-23}` J/K               |
++--------------+---------------------------------------------------------------------------------------------------------+
+|q             | SLiCAP built-in variable for the charge of an electron: :math:`q=1.60217662\cdot 10^{-19}` C            |
++--------------+---------------------------------------------------------------------------------------------------------+
+|s             | SLiCAP default symbol for the Laplace variable (ini.Laplace)                                            |
++--------------+---------------------------------------------------------------------------------------------------------+
+|T             | SLiCAP built-in variable for the absolute temperature :math:`T=300` K                                   |
++--------------+---------------------------------------------------------------------------------------------------------+
+|U_T           | SLiCAP built-in variable for the thermal voltage: :math:`U_T=\frac{kT}{q}` [V]                          |
++--------------+---------------------------------------------------------------------------------------------------------+
+|mu_0          | SLiCAP built-in vriable for the permittivity of vacuum : :math:`\mu_0=4\pi 10^{-7}` H/m                 |
++--------------+---------------------------------------------------------------------------------------------------------+
+|epsilon_0     | SLiCAP built-in variable for the permittivity of vacuum: :math:`\epsilon_0=\frac{1}{\mu_0 c^2}` [F/m]   |
++--------------+---------------------------------------------------------------------------------------------------------+
+| epsilon_SiO2 | SLiCAP built-in variable for the relative permittivity of :math:`SiO_2` : :math:`\epsilon_{SiO_2}=3.9`  |
++--------------+---------------------------------------------------------------------------------------------------------+
 
 .. _title:
 
@@ -195,14 +251,28 @@ The actual circuit is specified by the device definition lines. The syntax for t
 
 A device definition line starts with the device identifier field: ``< deviceID >`` . The first character of name is interpreted as the device type identifier. The device type identifier is not case sensitive. 
 
-An overview of device types can be found in section LINK. 
-
 Other required fields are: at least two fields with node names or deviceIDs of other devices. If no ``< value | {expr} | modelName >`` field is specified, a default model with default parameter valuess is
 assumed. Node names and model names are case sensitive character strings.
 
 A model name is a character string that cannot be interpreted as a number. Expressions need to be placed between curly brackets: ``{}``. A coupling factor device has two references to inductors instead of two nodes.
 
 Parameter definitions can only be given in combination with a model name. If no model parameters are specified, values from a ``.model`` line are assumed. If such a line does not exist, default parameter values are assumed.
+
+Below different ways of defining a resistor R1 of 10kOhm between nodes 1 and 2:
+
+.. code-block:: text
+
+    R1 1 2 10k ; default model (R) will be used
+
+    R1 1 2 R value=10k ; model R: resistor value cannot be zero
+
+    R1 1 2 r value=10k ; model r: resistor value can be zero
+
+    R1 1 2 myR
+    .model myR R value=10k
+
+    R1 1 2 myOtherR value=10k
+    .model myOtherR R 
 
 .end line
 ---------

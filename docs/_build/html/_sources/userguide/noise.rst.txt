@@ -1,6 +1,6 @@
-============
-Noise design
-============
+=====
+Noise
+=====
 
 ------------
 Introduction

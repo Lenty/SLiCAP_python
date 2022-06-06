@@ -336,7 +336,7 @@ Command for running maxima CAS.
 netlist
 -------
 
-Command for generating a netlist from a '.sch' schematic file.
+Command for generating a netlist from a *'.sch'* schematic file.
 
 **Default value** is determined during installation.
 
@@ -386,7 +386,7 @@ Setting for parameter stepping.
 
 #. False
 
-   Numeric values of step variable(s) are substituted in the metrices before calculation of the determinant. This can be faster if many step variables are used.
+   Numeric values of step variable(s) are substituted in the matrices before calculation of the determinant. This can be faster if many step variables are used.
 
 
 **Default value** is *True*.
@@ -402,7 +402,7 @@ File extension for *comma seperated value* table files.
 txtPath
 -------
 
-Search paths for importing text files with text2html().
+Search paths for importing text files with *text2html()*.
 
 **Default value** is defined in *SLiCAPconfig.py* in the project directory.
 

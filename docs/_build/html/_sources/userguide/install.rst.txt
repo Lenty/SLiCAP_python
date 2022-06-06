@@ -20,6 +20,14 @@ Requirements
 
 Before installing SLiCAP you need to install `maxima CAS <http://maxima.sourceforge.net/download.html>`_ and Python 3 packages listed in `https://github.com/Lenty/SLiCAP_python/requirements.txt <https://github.com/Lenty/SLiCAP_python/blob/master/requirements.txt>`_.
 
+MSWindows installation of maxima
+````````````````````````````````
+The preferred install path for maxima under MSWindows is on the system drive. If the program is installed on another drive, SLiCAP will only work after the *MAXIMA* command in the *SLiCAPsettings.py* has been set to the correct value. The file *SLiCAPsettings.py* is located in the SLiCAP installation directory (use file search).
+
+MSWindows installation of LTspice
+`````````````````````````````````
+The preferred install path for LTspice under MSWindows is on the system drive. If the program is installed on another drive, *makeNetlist(<netlistFile>.asc)* will only work after the *LTspice* command in the *SLiCAPsettings.py* has been set to the correct value. The file *SLiCAPsettings.py* is located in the SLiCAP installation directory (use file search).
+
 MacOS installation of maxima
 ````````````````````````````
 #. Install maxima on macOs using the *homebrew* package manager (see `brew.sh <https://brew.sh/>`_ for installation instructions)
@@ -38,7 +46,6 @@ or
 
 - Download the zip file from: `https://github.com/Lenty/SLiCAP_python <https://github.com/Lenty/SLiCAP_python>`_ and extract it in some folder.
 
-
 Install SLiCAP
 --------------
 
@@ -46,13 +53,17 @@ Install SLiCAP
 - If you have python installed under Windows, open a terminal by running the command *cmd*
 - If you have python installed under Linux or mac Open a *terminal*
 
-#. Go to the folder with the file *setup.py* (usually: *<where_you_downloaded_or_cloned>/SLiCAP_python-master/)* and enter the command:
+Go to the folder with the file *setup.py* (usually: *<where_you_downloaded_or_cloned>/SLiCAP_python-master/)* and enter the command:
 
 .. code-block:: python
 
-   python setup.py install --user
+   pip install . --user
 
-#. Enter the requested directory paths or accept the defaults.
+- If you install SLiCAP under MSWindows (Anaconda), the installation searches for the maxima command and the LTspice command on the Winwows system drive (usually C:).
+
+- In cases in which maxima cannot be found, SLiCAP will only work after maxima has been installed and the *MAXIMA* command in the *SLiCAPsettings.py* has been set to the correct value. The file *SLiCAPsettings.py* is located in the SLiCAP installation directory (use file search).
+
+- In cases in which the LTspice command is not found, the instruction *makeNetlist(<cirFileName>.asc)* will only run after LTspice has been installed and the *LTSPICE* command in the *SLiCAPsettings.py* has been set to the correct value. The file *SLiCAPsettings.py* is located in the SLiCAP installation directory (use file search).
 
 ------------------------
 Configure SLiCAP options
@@ -75,7 +86,7 @@ You can modify the directory structure and update the paths for circuit files, l
 MathJax
 -------
 
-SLiCAP uses MathJax to render LaTeX embedded in html. LaTeX is used for expressions. MathJax rendering of equations requires an Internet connection. The scripts of the `MathJax CDN`_ will then be used for this purpose. For proper rendering of equations you need to have JavaScript enabled in your browser.
+SLiCAP uses MathJax to render LaTeX embedded in html. LaTeX is used for expressions. MathJax rendering of equations requires an Internet connection. The scripts of the `MathJax CDN`_ will then be used for this purpose. For proper rendering of equations you need to be connected to the Internet and have JavaScript enabled in your browser.
 
 .. _MathJax CDN: https://www.mathjax.org/
 

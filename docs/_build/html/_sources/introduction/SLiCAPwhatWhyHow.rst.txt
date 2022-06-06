@@ -110,7 +110,7 @@ Working with SLiCAP usually requires the following steps:
 
    #. Define the matrix base converstion type:
 
-      If you work with balanced circuits and you want to design or analyse the differential-mode behavior and the common mode behavior, SLiCAP can automatically convert your complete network equation (MNA equation) into smaller matrix equations that model the:  
+      SLiCAP can automatically convert the complete network equation (MNA equation) of balanced circuits into smaller matrix equations that model the:  
 
       - differential-mode  behavior
       - differential-mode to common-mode conversion

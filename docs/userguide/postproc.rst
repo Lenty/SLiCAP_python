@@ -15,4 +15,4 @@ It will be clear that once you have the (symbolic) matrix equation of a circuit 
 
 SLiCAP can help you with setting up and solving design equations for almost any design problem. Ultimately, it facilitates the automation of design engineering.
 
-But there is more: while doing your design work with SLiCAP, you generate a collection of linked HTML pages that document your work. This helps you to discuss your work with colleagues or present it to students, on any platform that has a browser and a network connection.
+But there is more: while doing your design work with SLiCAP, you generate a collection of linked HTML pages that document your work. This helps you to discuss your work with colleagues or present it to others on any platform with a browser and an Internet connection.
