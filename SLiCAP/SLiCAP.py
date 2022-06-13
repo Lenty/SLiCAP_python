@@ -107,7 +107,7 @@ def initProject(name, firstRun=True):
         # Create the HTML project index file
     startHTML(name)
         # Create the libraries
-    if len(SLiCAPCIRCUITS) == 0:
+    if len(list(SLiCAPCIRCUITS.keys())) == 0 or len(list(SLiCAPPARAMS.keys())) == 0:
         makeLibraries()
     return prj    
 
