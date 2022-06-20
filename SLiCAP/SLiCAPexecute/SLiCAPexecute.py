@@ -7,117 +7,9 @@ Created on Sat Aug  7 17:08:41 2021
 """
 from SLiCAP.SLiCAPyacc import *
 
-_LGREF_ = sp.Symbol('_LGREF_')
-
-# MAXIMA FUNCTIONS
-
-MAXFUNCTIONS = {}
-
-MAXFUNCTIONS['doDet'] = """MAXMATRIXDIM:25$doDet(M):=block([],if length(M)>MAXMATRIXDIM
-then result:det(M) else result:newdet(M),return(result))$
-det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1]
-else block(D:0,for i from 1 thru dim do if M[1,i] # 0 then 
-D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),return(expand(D)))$compile(det)$"""
-
-MAXFUNCTIONS['doNumer'] = """
-doNumer(M,detCols,Iv):=block([i],result:0,for i from 1 thru length(Iv[1]) do(
-if Iv[1,i]#0  then (if detCols[1]#0 then 
-result:result+Iv[1,i]*(-1)^(i+detCols[1])*doDet(minor(M,i,detCols[1])),
-if detCols[2]#0 then result:result-Iv[1,i]*(-1)^(i+detCols[2])*doDet(minor(M,i,detCols[2])))),
-return(expand(result)))$"""
-
-MAXFUNCTIONS['doLaplace'] = """
-doLaplace(M,detCols,Iv):=block([],
-result:doNumer(M,detCols,Iv)/doDet(M),return(result))$"""
-
-MAXFUNCTIONS['newIlt'] = """
-newIlt(ratLaplace,s,t):=block([oldD,oldP],oldD:demoivre,oldP:polyfactor,demoivre:true,polyfactor:true,
-result:bfloat(expand(ilt(expand(num(ratLaplace))/(allroots(expand(denom(ratLaplace)))),s,t))),
-demoivre:oldD,polyfactor:oldP,return(result))$
-doIlt(expr,s,t):=block([lof],lof:listofvars(expr),if length(lof)=1 and lof[1]=s then 
-expr:newIlt(bfloat(expr),s,t) else expr:ilt(expr,s,t),return(expr))$"""
-
-MAXFUNCTIONS['doNoise'] = """
-doNoise(M,n,detCols,Iv,sources):=block(
-[den,onoise,srcName,srcValue,noiseTerm,onoiseTerms:[], inoiseTerms:[]],
-den:subst([s=%i*2*pi*f],doDet(M)),den:factor(den*conjugate(den)),
-onoise:subst([s=%i*2*%pi*f],doNumer(M,detCols,Iv)),
-if n # false then (n:subst([s=%i*2*%pi*f],n), n:n*conjugate(n)),
-for i from 1 thru length(sources) do(
-srcName:lhs(sources[i]), srcValue:rhs(sources[i]),noiseTerm:coeff(onoise,srcName,1),
-noiseTerm:factor(noiseTerm*conjugate(noiseTerm)),
-onoiseTerms:append(onoiseTerms,[factor(fullratsimp(noiseTerm/den))*srcValue]),
-if n # false then inoiseTerms: append(inoiseTerms,[factor(fullratsimp(noiseTerm/n))*srcValue])
-else inoiseTerms: append(inoiseTerms,[false])),return([onoiseTerms, inoiseTerms]))$"""
-
-MAXFUNCTIONS['doDCvar'] = """
-doDCvar(M,IvGain,detCols,Iv,sources):=block(
-[den,n,ovar,srcName,srcValue,varTerm,ovarTerms:[],ivarTerms:[]],
-M:subst([s=0],M),den:(doDet(M))^2,ovar:doNumer(M,detCols,Iv),
-for i from 1 thru length(sources) do (srcName:lhs(sources[i]),srcValue:rhs(sources[i]),
-varTerm:coeff(ovar,srcName,1)^2,ovarTerms:append(ovarTerms,[varTerm/den*srcValue]),
-if n#false then ivarTerms:append(ivarTerms,[varTerm/n*srcValue])
-else ivarTerms:append(ivarTerms,[false])),return([ovarTerms,ivarTerms]))$"""
-
-MAXFUNCTIONS['solve'] = """
-doSolve(M,Iv):=block([],result:factor(invert(M).transpose(Iv)),return(result))$
-doSolveDC(M,Iv):=block([],M:subst([s=0],M),Iv:subst([s=0],Iv),result:doSolve(M,Iv),return(result))$
-doSolveTime(M,Iv):=block([l,i],expr:doSolve(M,Iv),l:length(transpose(Iv)),for i from 1 thru l do 
-expr[i][1]:doIlt(expr[i][1],s,t),return(expr))$"""
-
-MAXFUNCTIONS['pz'] = """
-roots(listWithExpr):=block([],results:[],for i from 1 thru length(listWithExpr) do 
-results:append(results,[findRoots(listWithExpr[i])]),return(results))$
-findRoots(expr):=block([lof],lof:listofvars(expr),if length(lof)=1 and lof[1]=s then
-result: allroots(bfloat(expr)) else result:solve(expr,s),for i from 1 thru length(result) do
-result[i]:rhs(result[i]),return(result))$
-numRoots(expr):=block([],result:allroots(bfloat(expr)),for i from 1 thru length(result) do
-result[i]:rhs(result[i]),return(result))$
-"""
-
-MAXFUNCTIONS['doReturnRatio'] = """
-doReturnRatio(det_M, det_M0, denomLG):=block([],
-result:fullratsimp((det_M0*denomLG-det_M)/(det_M0*denomLG)),
-return(result))$
-"""
-
-MAXFUNCTIONS['doLoopGain'] = """
-MAXMATRIXDIM:25$doDet(M):=block([],if length(M)>MAXMATRIXDIM
-then result:det(M) else result:newdet(M),return(result))$
-det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1]
-else block(D:0,for i from 1 thru dim do if M[1,i] # 0 then 
-D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),return(expand(D)))$compile(det)
-$doLoopGain(M,lgRef_1,lgRef_2):=block([],
-M_D:subst(""" + str(_LGREF_) + """1=lgRef_1,M),
-M_D:subst(""" + str(_LGREF_) + """2=lgRef_2,M_D),
-D_M:doDet(M_D),
-M_0:subst(""" + str(_LGREF_) + """1=0,M),
-M_0:subst(""" + str(_LGREF_) + """2=0,M_0),
-D_0:doDet(M_0),
-result:fullratsimp((D_0-D_M)/D_0),
-return(result))$
-"""
-
-MAXFUNCTIONS['doServo'] = """
-MAXMATRIXDIM:25$doDet(M):=block([],if length(M)>MAXMATRIXDIM
-then result:det(M) else result:newdet(M),return(result))$
-det(M):=block([D,dim,i],dim:length(M),if dim=2 then D:M[1,1]*M[2,2]-M[1,2]*M[2,1]
-else block(D:0,for i from 1 thru dim do if M[1,i] # 0 then 
-D:D+M[1,i]*(-1)^(i+1)*det(minor(M,1,i))),return(expand(D)))$compile(det)$
-doServo(M,lgRef_1,lgRef_2):=block([],
-M_D:subst(""" + str(_LGREF_) + """1=lgRef_1,M),
-M_D:subst(""" + str(_LGREF_) + """2=lgRef_2,M_D),
-D_M:doDet(M_D),
-M_0:subst(""" + str(_LGREF_) + """1=0,M),
-M_0:subst(""" + str(_LGREF_) + """2=0,M_0),
-D_0:doDet(M_0),
-result:fullratsimp((D_0-D_M)/D_M),
-return(result))$
-"""
-
 def createResultObject(instr):
     """
-    Returns an instance of the *allResults* object with the instruction daya copeid to it.
+    Returns an instance of the *allResults* object with the instruction data copied to it.
     
     :param instr: SLiCAP instruction object.
     :type instr: SLiCAPinstruction.instruction
@@ -244,7 +136,7 @@ def doInstruction(instr):
                     if instr.gainType == 'direct':
                         instr.circuit.elements[instr.lgRef[i]].params['value'] = sp.N(0)
                     else:    
-                        instr.circuit.elements[instr.lgRef[i]].params['value'] = sp.Symbol(str(_LGREF_) + str(i+1))
+                        instr.circuit.elements[instr.lgRef[i]].params['value'] = sp.Symbol("_LGREF_" + str(i+1))
         if instr.dataType == 'numer':
             result = doNumer(instr, result)            
         elif instr.dataType == 'denom':
@@ -1148,8 +1040,7 @@ def doMaxIlt(laplaceRational):
         laplaceRational = normalizeLaplaceRational(laplaceRational)
     except:
         pass
-    maxInstr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
-    maxInstr += MAXFUNCTIONS['newIlt']
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$\n'
     varList = list(laplaceRational.atoms(sp.Symbol))
     if len(varList) == 1 and varList[0] == ini.Laplace:
         maxInstr += 'result:newIlt(' + python2maxima(laplaceRational) + ',s,t)$\n'
@@ -1201,9 +1092,8 @@ def doMaxFunction(funcName, args):
     :return: Sympy expression (execution result)
     :rtype: Sympy.Expr
     """
-    maxInstr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$\n'
     maxInstr += "result:"
-    maxInstr += MAXFUNCTIONS[funcName]
     maxInstr += funcName +'('
     for arg in args:
         maxInstr += str(arg) + ','
@@ -1224,48 +1114,35 @@ def makeMaxInstr(instr, result):
     :return: tuple with Input for Maxima CAS and result object.
     :rtype: tuple with str and :class:`allResult()`
     """
-    maxInstr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$\n'
     if instr.dataType == 'numer':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result)  
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['doNumer']  
         maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
         maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
         maxInstr += 'result: doNumer(M,detCols, Iv)$'
     elif instr.dataType == 'denom': 
         result = makeMaxMatrices(instr, result) 
-        maxInstr += MAXFUNCTIONS['doDet'] 
         maxInstr += 'M:' + python2maxima(result.M) + '$\n'
         maxInstr += 'result: doDet(M)$'
     elif instr.dataType == 'laplace':
         result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result) 
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['doLaplace']  
+        detP, detN = makeMaxDetPos(instr, result)  
         maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
         maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += MAXFUNCTIONS['doNumer']
         maxInstr += 'result:doLaplace(M,detCols,Iv)$'
     elif instr.dataType == 'dc':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result) 
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['doLaplace']  
-        maxInstr += MAXFUNCTIONS['doNumer']
         maxInstr += 'M : ' + python2maxima(result.M.subs(ini.Laplace, 0)) + '$\n'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.subs(ini.Laplace, 0).transpose()) + '$\n'
         maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
         maxInstr += 'result: doLaplace(M,detCols,Iv)$'
     elif instr.dataType == 'noise':
         result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result) 
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['doNumer']
-        maxInstr += MAXFUNCTIONS['doLaplace']
-        maxInstr += MAXFUNCTIONS['doNoise']   
+        detP, detN = makeMaxDetPos(instr, result)   
         maxInstr += 'M: ' + python2maxima(result.M) + '$\n'
         maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
         if instr.source != [None, None] and result.numer[0] !=0:
@@ -1287,11 +1164,7 @@ def makeMaxInstr(instr, result):
         maxInstr += 'result:doNoise(M,n,detCols,Iv,sources)$'
     elif instr.dataType == 'dcvar':
         result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result) 
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['doNumer']
-        maxInstr += MAXFUNCTIONS['doLaplace']
-        maxInstr += MAXFUNCTIONS['doDCvar']   
+        detP, detN = makeMaxDetPos(instr, result)   
         maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
         maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
         if instr.source != [None, None] and result.numer[0] !=0:
@@ -1312,44 +1185,33 @@ def makeMaxInstr(instr, result):
         maxInstr += ']$\n'
         maxInstr += 'result:doDCvar(M,n,detCols,Iv,sources)$'
     elif instr.dataType == 'solve':
-        result = makeMaxMatrices(instr, result)       
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['solve'] 
+        result = makeMaxMatrices(instr, result)   
         maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
         maxInstr += 'result: doSolve(M,Iv)$'
     elif instr.dataType == 'dcsolve':
-        result = makeMaxMatrices(instr, result)      
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['solve'] 
+        result = makeMaxMatrices(instr, result)     
         maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
         maxInstr += 'result: doSolveDC(M,Iv)$'
     elif instr.dataType == 'timesolve':
         result = makeMaxMatrices(instr, result) 
-        maxInstr += MAXFUNCTIONS['doDet'] 
-        maxInstr += MAXFUNCTIONS['solve'] 
-        maxInstr += MAXFUNCTIONS['newIlt'] 
         maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
         maxInstr += 'result: doSolveTime(M,Iv)$'
     elif instr.dataType == "poles":
-        maxInstr += MAXFUNCTIONS['pz']
         maxInstr += 'expr: ' + python2maxima(result.denom) + '$\n'
         maxInstr += 'result:findRoots(expr)$'
     elif instr.dataType == "zeros":
-        maxInstr += MAXFUNCTIONS['pz']
         maxInstr += 'expr: ' + python2maxima(result.numer) + '$\n'
         maxInstr += 'result:findRoots(expr)$'
     elif instr.dataType == "solve":
         result = makeMaxMatrices(instr, result) 
-        maxInstr += MAXFUNCTIONS["solve"]
         maxInstr += 'instr@M :' + python2maxima(result.M) + '$\n'
         maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$\n'
         maxInstr += 'result:doSolve(M,Iv)$'
     elif instr.dataType == "dcsolve":
         result = makeMaxMatrices(instr, result) 
-        maxInstr += MAXFUNCTIONS["solve"]
         maxInstr += 'instr@M :' + python2maxima(result.M) + '$\n'
         maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$\n'
         maxInstr += 'result:doSolveDC(M,Iv)$'

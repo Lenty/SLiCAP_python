@@ -234,7 +234,7 @@ setuptools.setup(
         "License :: Attribution-NonCommercial-NoDerivatives 4.0 International",
         "Operating System :: OS Independent",
     ],
-    #include_package_data=True,
-    #package_data={'': ['newIlt.mac', 'det.mac']},
+    include_package_data=True,
+    package_data={'': ['SLiCAP_python.mac']},
     python_requires='>=3.7',
 )
