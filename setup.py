@@ -16,6 +16,8 @@ import platform
 import subprocess
 import re
 from shutil import copy
+if platform.system() == 'Windows':
+    import win32api
 
 INSTALLVERSION="1.3.0"
 
@@ -50,46 +52,43 @@ class InstallWrapper(install):
         """
         Determining the Maxima command
         This contains two flows:
-            Windows -   Searches the drive root dir (e.g. C:\) for a maxima directory and generates the full path
+            Windows -   Searches the drives for a maxima directory and generates the full path
                         This path points to maxima.bat, which is found in the bin directory
-                        Manual entry of the maxima path is also possible
             Linux -     test is the 'maxima' command is callable from the command line
-
-        Returns
-        -------
-        None.
+            MacOS -     test is the 'maxima' command is callable from the command line
         """
-        self._maxima_cmd="maxima"
+        
+        self._maxima_cmd = " "
         print("Acquiring Maxima Command")
-        maxInput = '1+1;'
         if platform.system() == 'Windows':
-            self._find_maxima_windows()
-            result = 0
+            maxima_path = self._find_maxima_windows()
+            if maxima_path != None:
+                self._maxima_cmd = maxima_path
+        else:
+            self._maxima_cmd ="maxima"
+            
+        maxInput = '1+1;'
+        result = 0
+        if platform.system() == 'Windows':
+            print("The Maxima path found is:", self._maxima_cmd )
             try:
                 result = subprocess.run([self._maxima_cmd, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
                 result = [i for i in result if i] # Added due to variability of trailing '\n'
                 result = result[-1]
                 if int(result) == 2:
-                    print("Succesfully ran 'Maxima' command")
-                else:
-                    print("Could not successfully run the 'Maxima' command.")
-
+                    print("Succesfully ran Maxima command")
             except:
-                print("Not able to succesfully execute the 'Maxima' command, you need to edit the configuration file manually!")
+                print("Not able to succesfully execute the maxima command, please make sure the full path points to 'maxima.bat'")
         else:
             try:
                 result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
                 result = [i for i in result if i] # Added due to variability of trailing '\n'
                 result = result[-1]
                 if int(result) == 2:
-                    print("Succesfully ran 'Maxima' command")
-                else:
-                    print("Could not successfully run the 'Maxima' command.")
-
+                    print("Succesfully ran Maxima command")
             except:
-                print("Not able to run the 'Maxima' command, verify Maxima is installed by typing 'Maxima' in the command line")
-                print("In case Maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
-                succes= succes + 2
+                print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line")
+                print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima')")
 
     def _set_ltspice_command(self):
         """
@@ -117,7 +116,7 @@ class InstallWrapper(install):
 
         """
         self._SLiCAP_version = INSTALLVERSION
-        print("Slicap version:", self._SLiCAP_version)
+        print("SLiCAP version:", self._SLiCAP_version)
 
     def _set_install_location(self):
         """
@@ -182,43 +181,39 @@ class InstallWrapper(install):
         -------
         None.
         """
-        drive = os.sep.join(os.getcwd().split(os.sep)[:1])+os.sep
-        winpath = os.environ['WINDIR'] + "\\System\\"
-        drive = os.sep.join(winpath.split(os.sep)[:1]) + os.sep
-        for root, dirs, files in os.walk(drive, topdown=True):
-            for name in dirs:
-                if re.match('maxima-*', name, flags=0):
-                    print("found Maxima dir")
-                    found = True
-                    path = os.path.join(root,name, 'bin','maxima.bat')
-                    print("Maxima command set as:", path)
-                    self._maxima_cmd = path
-                    return
+        for drive in win32api.GetLogicalDriveStrings().split('\000')[:-1]:
+            for root,dirs,files in os.walk(drive):
+                for name in dirs:
+                    if re.match('maxima-*', name, flags=0):
+                        file_name = os.path.join(root, name,'bin','maxima.bat')
+                        if os.path.exists(file_name):
+                            self._maxima_cmd = file_name
+                            return
 
     def _find_ltspice(self):
         """
         Searches for the LTspice command under windows. If found it sets
-        self._maxima_cmd.
+        self._LTSpice_cmd.
 
         Returns
         -------
         None.
         """
         if platform.system() == 'Windows':
-            winpath = os.environ['WINDIR'] + "\\System\\"
-            main_drive = os.sep.join(winpath.split(os.sep)[:1]) + os.sep
+            drives = win32api.GetLogicalDriveStrings().split('\000')[:-1]
         else:
+            # Assuming default 'wine' installation
             home = expanduser("~")
-            main_drive = os.path.join(home, '.wine', 'drive_c')
-        drive = os.path.join(main_drive, 'Program Files')
-        for root, dirs, files in os.walk(drive, topdown=True):
-            for name in dirs:
-                if re.match('LT(S|s)pice*', name, flags=0):
-                    path = os.path.join(root,name,'XVIIx64.exe')
-                    found = True
-                    print("LTSpice command set as:", path)
-                    self._LTSpice_cmd = path
-                    return
+            drives = [os.path.join(home, '.wine', 'drive_c')]
+        for drive in drives:
+            drive = os.path.join(drive, 'Program Files')
+            for root, dirs, files in os.walk(drive, topdown=True):
+                for name in dirs:
+                    if re.match('LT(S|s)pice*', name, flags=0):
+                        path = os.path.join(root,name,'XVIIx64.exe')
+                        print("LTSpice command set as:", path)
+                        self._LTSpice_cmd = path
+                        return
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
