@@ -152,8 +152,8 @@ doSolveDC(M, Iv) :=
 block
 (
 [],
-instr@M:  subst([s=0], M),
-instr@Iv: subst([s=0], Iv),
+M:  subst([s=0], M),
+Iv: subst([s=0], Iv),
 result: doSolve(M, Iv),
 return(result)
 )$
