@@ -5,11 +5,108 @@ SLiCAP module with symbolic math functions executed by maxima CAS.
 
 Imported by the module **SLiCAPplots.py**.
 """
+import socket
+from multiprocessing import Process
 from SLiCAP.SLiCAPmatrices import *
 from mpmath import polyroots
 import scipy.integrate as integrate
 
-MAXIMAFUNCTIONS = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP.mac");\n'
+terminate       = ['$', ';']
+
+def startMaxima():
+    os.system(ini.maxima + ' -s ' + str(ini.PORT))
+    
+def serveMaxima(maxInstr):
+    p = Process(target=startMaxima)
+    p.start()
+    if maxInstr != None:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            s.bind((ini.HOST, ini.PORT))
+            s.listen(1)
+            conn, addr = s.accept()
+            with conn:
+                data = ""
+                end_output = '"\n'
+                new_input = "(%i"
+                new_output = "(%o"
+                output = ""
+                # Get welcome message from Maxima
+                receive_data = conn.recv(1024).decode()
+                line = receive_data.split()
+                # Wait until maxima asks for input
+                while line[-1][0:3] != new_input:
+                    receive_data = conn.recv(1024).decode()
+                    if not receive_data:
+                        break
+                    else:
+                        line = receive_data.split()
+                # Now we are asked for input and send the maxima instruction
+                conn.sendall(maxInstr.encode())
+                ################################################################### 
+                begin_of_line = None
+                end_of_line = None
+                got_result = False
+                while begin_of_line != new_input and end_of_line != new_input:
+                    receive_data = conn.recv(1024).decode()
+                    if not receive_data:
+                        break
+                    else:
+                        line = receive_data.split()
+                    line = receive_data.split()
+                    if len(line) > 0:
+                        if len(line[0]) > 2:
+                            begin_of_line = line[0][0:3]
+                            end_of_line = line[-1][0:3]
+                    if end_of_line == new_input:
+                        output += ''.join(line[0:-1])
+                        break
+                    elif begin_of_line == new_input:
+                        if maxInstr != None:
+                            conn.sendall(maxInstr.encode())
+                            maxInstr = None
+                        else:
+                            break
+                    elif begin_of_line == new_output:
+                        got_result = True
+                        if len(line) > 1:
+                            if end_of_line == new_input:
+                                output += ''.join(line[1:-1])
+                            else:
+                                output += ''.join(line[1:])
+                        if receive_data.count('"') > 1:
+                            break
+                        if end_of_line == end_output:
+                            break
+                    elif got_result and len(line) > 0:
+                        if end_of_line == new_input:
+                            output += ''.join(line[0:-1])
+                            break
+                        elif begin_of_line == new_input:
+                            break
+                        else:
+                            output += ''.join(line)
+                        if receive_data.count('"') > 0:
+                            break
+                    elif len(line) > 0:
+                        if len(line[-1]) > 1:
+                            if line[-1][-2] == "?":
+                                send_data = input(receive_data + '>> ')
+                                while len(send_data) == 0 or send_data[-1] not in terminate:
+                                    send_data += input('>> '+ send_data)
+                                conn.sendall(send_data.encode())
+                            elif receive_data.count('"') > 1:
+                                output += ''.join(line)
+                                break
+                        else:
+                            output = '"Error"'
+                            break
+                    else:
+                        print(receive_data)
+    output = output.replace("\\","").split('"')[1]
+    output = maxima2python(output)
+    p.terminate()
+    return output
 
 def python2maxima(expr):
     """
@@ -59,7 +156,7 @@ def maxima2python(expr):
     expr = re.sub(r'signum(\(.*\))', r'sign\1', expr)
     return expr
 
-def maxEval(maxExpr, numeric=False):
+def maxEval(maxExpr):
     """
     Evaluates the expression 'maxExpr' with Maxima CAS and returns the result.
 
@@ -81,30 +178,21 @@ def maxEval(maxExpr, numeric=False):
     >>> maxEval("result:ilt(1/(s^2 + a^2), s, t);")
     'sin(a*t)/a'
     """
-    #maxAssume = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
-    if numeric:
-        maxStringConv = "stringdisp:true$string(bfloat(result));"
+    output = "Error"
+
+    if ini.socket:
+        result = serveMaxima(maxExpr)
     else:
-        maxStringConv = "stringdisp:true$string(result);"
-    maxInput = maxExpr + maxStringConv
-    maxInput=maxInput.replace('\n',' ') # Windows cannot handle \n in input!
-    maxInput=maxInput.replace(', ',',') # Shorten the input string for Windows
-    
-    #print(maxInput)
-    
-    # Read the output
-    try:
-        output = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=ini.MaximaTimeOut, text=True)
-        result = output.stdout.split('"')[-2] # The quoted string is the result of the calculation
-        result = result.replace('\\\n', '')   # Remove the maxima newline characters from this result
-        result = maxima2python(result)        # Convert the maxima output into a string that can be 'sympified' by python
-    except:
-        print("""\nMaxima calculation failed or timed out. A time-out occurs if maxima requires additional input, or if maxima requires more time. 
+        try:
+            output = subprocess.run([ini.maxima, '--very-quiet', '-batch-string', maxExpr], capture_output=True, timeout=ini.MaximaTimeOut, text=True)
+            result = output.stdout.split('"')[-2] # The quoted string is the result of the calculation
+            result = result.replace('\\\n', '')   # Remove the maxima newline characters from this result
+            result = maxima2python(result)        # Convert the maxima output into a string that can be 'sympified' by python
+        except:
+            print("""\nMaxima calculation failed or timed out. A time-out occurs if maxima requires additional input, or if maxima requires more time. 
 The latter case can be solved by increasing the time limit using the command: 'ini.MaximaTimeOut=nnn', where nnn is the number of seconds.\n""")
-        result = output
-        
-    #print(result)    
-     
+            result = output
+            result = maxima2python(result)
     return result
 
 def maxLimit(expr, var, val, pm, numeric = True):
@@ -130,7 +218,7 @@ def maxLimit(expr, var, val, pm, numeric = True):
         numeric = 'bfloat'
     else:
         numeric = ''
-    maxExpr = 'result:%s(limit(' + str(expr) + ',' + str(var) + ',' + str(val) + ',' + pm +' ));'%(numeric)
+    maxExpr = 'string(%s(limit(' + str(expr) + ',' + str(var) + ',' + str(val) + ',' + pm +' )));'%(numeric)
     result = maxEval(maxExpr)
     try:
         return sp.sympify(result)
@@ -165,11 +253,11 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
         expr=sp.N(expr)
     else:
         numeric = ''
-    maxExpr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$"
+    maxExpr = "assume_pos:true$assume_pos_pred:symbolp$ratprint:false$stringdisp:true$"
     if start != None and stop != None:
-        maxExpr += 'result:%s(integrate(%s, %s, %s, %s));'%(numeric, str(expr), str(var), str(start), str(stop))
+        maxExpr += 'string(%s(integrate(%s, %s, %s, %s)));'%(numeric, str(expr), str(var), str(start), str(stop))
     else:
-        maxExpr += 'result:%s(integrate(%s, %s));'%(numeric, str(expr), str(var))
+        maxExpr += 'string(%s(integrate(%s, %s)));'%(numeric, str(expr), str(var))
     result = maxEval(maxExpr)
     try:
         result = sp.sympify(result)
@@ -282,6 +370,9 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
             return rms
 
 if __name__ == '__main__':
+    ini.socket = True
+    ini.MaximaTimeOut = 1
     x = sp.Symbol('x')
     y = (1+2*x+3*x**2)/(x*sp.exp(10)+2/sp.pi)
     print(maxIntegrate(y,x, numeric=False))
+    print(sp.sympify(maxEval('stringdisp:true$string(ilt(1/(s^2+a),s,t));')))

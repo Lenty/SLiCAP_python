@@ -306,7 +306,7 @@ currents to common-mode and differential-mode equivalents.</p>
 <dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.createResultObject">
 <code class="descname">createResultObject</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.createResultObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an instance of the <em>allResults</em> object with the instruction daya copeid to it.</p>
+<dd><p>Returns an instance of the <em>allResults</em> object with the instruction data copied to it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -995,6 +995,31 @@ for the instruction.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Updated instruction object</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">:class`SLiCAPinstruction.instruction()`</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.maxString">
+<code class="descname">maxString</code><span class="sig-paren">(</span><em>maxInstr</em>, <em>numeric</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.maxString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the instruction for maxima with either symbolic or numeric output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>maxInstr</strong> (<em>str</em>) – Function to be evaluated by maxima CAS.</li>
+<li><strong>numeric</strong> (<em>Bool</em>) – True if the result must be converted to ‘big float’, else
+False.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Maxima instruction for string output.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str.</p>
+</td>
 </tr>
 </tbody>
 </table>

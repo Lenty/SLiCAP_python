@@ -293,7 +293,23 @@ required by Jupyter notebook</li>
 <li>maxima: command to start maxima under MSWindows</li>
 </ul>
 </li>
+<li>Maxima execution method:<ul>
+<li>socket:<ul>
+<li>True : maxima runs in a socket (passes maxima messages)</li>
+<li>False : maxima runs as a subprocess (ignores maxima messages)</li>
+</ul>
+</li>
+<li>HOST = 127.0.0.1 : Standard loopback interface address (localhost)</li>
+<li>PORT = 53118     : Port to listen on (non-privileged ports are &gt; 1023)</li>
+</ul>
+</li>
 </ol>
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.HOST">
+<code class="descname">HOST</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.HOST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard loopback interface address (localhost)</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.Hz">
 <code class="descname">Hz</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.Hz" title="Permalink to this definition">¶</a></dt>
@@ -323,6 +339,12 @@ Defaults to sp.Symbol(‘s’).</p>
 <code class="descname">MaximaTimeOut</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.MaximaTimeOut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum time in seconds (<em>int</em>) for subprocess to run Maxima. Defaults
 to 60.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.PORT">
+<code class="descname">PORT</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.PORT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Port to listen on (non-privileged ports are &gt; 1023)</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -585,6 +607,12 @@ rendering of latex in Jupyter notebooks.</li>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath">
 <code class="descname">projectPath</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.projectPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Project path (<em>str</em>), will be set by <strong>SLiCAP.initProject()</strong>;  defaults to None.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.socket">
+<code class="descname">socket</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.socket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setting for maxima operation method.</p>
 </dd></dl>
 
 <dl class="attribute">

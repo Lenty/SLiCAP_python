@@ -198,6 +198,18 @@ class settings(object):
     #. Maxima command setting (only required for MSWindows)
 
        - maxima: command to start maxima under MSWindows
+       
+    #. Maxima execution method:
+        
+       - socket: 
+         
+         - True : maxima runs in a socket (passes maxima messages)
+         - False : maxima runs as a subprocess (ignores maxima messages)
+         
+       - HOST = 127.0.0.1 : Standard loopback interface address (localhost)
+       
+       - PORT = 53118     : Port to listen on (non-privileged ports are > 1023)
+                 
     """
     def __init__(self):
         """
@@ -456,7 +468,22 @@ class settings(object):
 
         This variable is set during installation.
         """
-
+        
+        self.socket             = False
+        """
+        Setting for maxima operation method.
+        """
+        
+        self.HOST               = "127.0.0.1" 
+        """
+        Standard loopback interface address (localhost)
+        """
+        
+        self.PORT               = 53118
+        """
+        Port to listen on (non-privileged ports are > 1023)
+        """
+        
         self.netlist            = None
         """
         gschem or lepton-schematic command for generating a netlist.

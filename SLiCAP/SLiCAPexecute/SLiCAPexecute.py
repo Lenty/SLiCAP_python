@@ -1040,17 +1040,17 @@ def doMaxIlt(laplaceRational):
         laplaceRational = normalizeLaplaceRational(laplaceRational)
     except:
         pass
-    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$\n'
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$'
     varList = list(laplaceRational.atoms(sp.Symbol))
     if len(varList) == 1 and varList[0] == ini.Laplace:
-        maxInstr += 'result:newIlt(' + python2maxima(laplaceRational) + ',s,t)$\n'
+        maxInstr += 'string(newIlt(' + python2maxima(laplaceRational) + ',s,t));'
         result = maxEval(maxInstr)
         try:
             result = sp.sympify(result) 
         except:
             print("Error: could not evaluate the Inverse Laplace Transform")
     elif len(varList) > 1 and ini.Laplace in varList:
-        maxInstr += 'result:ilt(' + python2maxima(laplaceRational) + ',s,t)$\n'
+        maxInstr += 'string(ilt(' + python2maxima(laplaceRational) + ',s,t));'
         result = maxEval(maxInstr)
         try:
             result = sp.sympify(result) 
@@ -1074,9 +1074,9 @@ def doMaxInstr(instr, result):
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
     """
-    maxInstr, result = makeMaxInstr(instr, result)                             # Create the maxima instruction
-    maxResult = maxEval(maxInstr, numeric=instr.numeric)                       # Execute the maxima instruction results
-    result = parseMaxResult(result, instr.circuit.indepVars, maxResult)        # Convert maxima results into SLiCAP results     
+    maxInstr, result = makeMaxInstr(instr, result)      # Create the maxima instruction
+    maxResult = maxEval(maxInstr)                       # Execute the maxima instruction results
+    result = parseMaxResult(result, instr.circuit.indepVars, maxResult) # Convert maxima results into SLiCAP results     
     return result
 
 def doMaxFunction(funcName, args):
@@ -1092,12 +1092,12 @@ def doMaxFunction(funcName, args):
     :return: Sympy expression (execution result)
     :rtype: Sympy.Expr
     """
-    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$\n'
-    maxInstr += "result:"
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$'
+    maxInstr += "string("
     maxInstr += funcName +'('
     for arg in args:
         maxInstr += str(arg) + ','
-    maxInstr = maxInstr[:-1] + ')$'
+    maxInstr = maxInstr[:-1] + '));'
     result = maxEval(maxInstr)
     return sp.sympify(result)
 
@@ -1114,43 +1114,43 @@ def makeMaxInstr(instr, result):
     :return: tuple with Input for Maxima CAS and result object.
     :rtype: tuple with str and :class:`allResult()`
     """
-    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$\n'
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$'
     if instr.dataType == 'numer':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result)  
-        maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result: doNumer(M,detCols, Iv)$'
+        maxInstr += 'M : ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doNumer(M,detCols, Iv)', instr.numeric )   
     elif instr.dataType == 'denom': 
         result = makeMaxMatrices(instr, result) 
-        maxInstr += 'M:' + python2maxima(result.M) + '$\n'
-        maxInstr += 'result: doDet(M)$'
+        maxInstr += 'M:' + python2maxima(result.M) + '$'
+        maxInstr += maxString('doDet(M)', instr.numeric )  
     elif instr.dataType == 'laplace':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result)  
-        maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result:doLaplace(M,detCols,Iv)$'
+        maxInstr += 'M : ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doLaplace(M,detCols,Iv)', instr.numeric)
     elif instr.dataType == 'dc':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result) 
-        maxInstr += 'M : ' + python2maxima(result.M.subs(ini.Laplace, 0)) + '$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.subs(ini.Laplace, 0).transpose()) + '$\n'
-        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
-        maxInstr += 'result: doLaplace(M,detCols,Iv)$'
+        maxInstr += 'M : ' + python2maxima(result.M.subs(ini.Laplace, 0)) + '$'
+        maxInstr += 'Iv: ' + python2maxima(result.Iv.subs(ini.Laplace, 0).transpose()) + '$'
+        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += maxString('doLaplace(M,detCols,Iv)', instr.numeric)
     elif instr.dataType == 'noise':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result)   
-        maxInstr += 'M: ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
+        maxInstr += 'M: ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
         if instr.source != [None, None] and result.numer[0] !=0:
-            maxInstr += 'n: ' + python2maxima(result.numer[0]) + '$\n'
+            maxInstr += 'n: ' + python2maxima(result.numer[0]) + '$'
         else:
-            maxInstr += 'n: false$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'sources: ['        
+            maxInstr += 'n:false$'
+        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += 'sources:['        
         for name in instr.circuit.indepVars:
             if 'noise' in list(instr.circuit.elements[name].params.keys()):
                 value = instr.circuit.elements[name].params['noise']
@@ -1160,19 +1160,19 @@ def makeMaxInstr(instr, result):
                 maxInstr += name + '=' + str(value) + ','
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
-        maxInstr += ']$\n'
-        maxInstr += 'result:doNoise(M,n,detCols,Iv,sources)$'
+        maxInstr += ']$'
+        maxInstr += maxString('doNoise(M,n,detCols,Iv,sources)', instr.numeric)
     elif instr.dataType == 'dcvar':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result)   
-        maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$\n'
+        maxInstr += 'M: ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
         if instr.source != [None, None] and result.numer[0] !=0:
-            maxInstr += 'n: ' + python2maxima(result.numer[0]) + '$\n'
+            maxInstr += 'n:' + python2maxima(result.numer[0]) + '$'
         else:
-            maxInstr += 'n: false$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose().subs(ini.Laplace, 0)) + '$\n'
-        maxInstr += 'sources: ['
+            maxInstr += 'n:false$'
+        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose().subs(ini.Laplace, 0)) + '$'
+        maxInstr += 'sources:['
         for name in instr.circuit.indepVars:
             if 'dcvar' in list(instr.circuit.elements[name].params.keys()):
                 value = instr.circuit.elements[name].params['dcvar']
@@ -1182,42 +1182,62 @@ def makeMaxInstr(instr, result):
                 maxInstr += name + '=' + str(value) + ','
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
-        maxInstr += ']$\n'
-        maxInstr += 'result:doDCvar(M,n,detCols,Iv,sources)$'
+        maxInstr += ']$'
+        maxInstr += maxString('doDCvar(M,n,detCols,Iv,sources)', instr.numeric)
     elif instr.dataType == 'solve':
         result = makeMaxMatrices(instr, result)   
-        maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result: doSolve(M,Iv)$'
+        maxInstr += 'M : ' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolve(M,Iv)', instr.numeric)
     elif instr.dataType == 'dcsolve':
         result = makeMaxMatrices(instr, result)     
-        maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result: doSolveDC(M,Iv)$'
+        maxInstr += 'M : ' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolveDC(M,Iv)', instr.numeric)
     elif instr.dataType == 'timesolve':
         result = makeMaxMatrices(instr, result) 
-        maxInstr += 'M : ' + python2maxima(result.M) + '$\n'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result: doSolveTime(M,Iv)$'
+        maxInstr += 'M : ' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('(doSolveTime(M,Iv)', instr.numeric)
     elif instr.dataType == "poles":
-        maxInstr += 'expr: ' + python2maxima(result.denom) + '$\n'
-        maxInstr += 'result:findRoots(expr)$'
+        maxInstr += 'expr: ' + python2maxima(result.denom) + '$'
+        maxInstr += maxString('findRoots(expr)', instr.numeric)
     elif instr.dataType == "zeros":
-        maxInstr += 'expr: ' + python2maxima(result.numer) + '$\n'
-        maxInstr += 'result:findRoots(expr)$'
+        maxInstr += 'expr: ' + python2maxima(result.numer) + '$'
+        maxInstr += maxString('findRoots(expr)', instr.numeric)
     elif instr.dataType == "solve":
         result = makeMaxMatrices(instr, result) 
-        maxInstr += 'instr@M :' + python2maxima(result.M) + '$\n'
-        maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result:doSolve(M,Iv)$'
+        maxInstr += 'instr@M :' + python2maxima(result.M) + '$'
+        maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolve(M,Iv)', instr.numeric)
     elif instr.dataType == "dcsolve":
         result = makeMaxMatrices(instr, result) 
-        maxInstr += 'instr@M :' + python2maxima(result.M) + '$\n'
-        maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$\n'
-        maxInstr += 'result:doSolveDC(M,Iv)$'
-    else:
+        maxInstr += 'instr@M :' + python2maxima(result.M) + '$'
+        maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolveDC(M,Iv)', instr.numeric)
         print("Error: no Maxima CAS function implemented for this data type.")     
     return (maxInstr, result)
+
+def maxString(maxInstr, numeric):
+    """
+    Returns the instruction for maxima with either symbolic or numeric output.
+    
+    :param maxInstr: Function to be evaluated by maxima CAS.
+    :type maxInstr: str
+    
+    :param numeric: True if the result must be converted to 'big float', else
+                    False.
+    
+    :type numeric: Bool
+    
+    :return: Maxima instruction for string output.
+    :rtype: str.
+    """
+    if numeric:
+        maxInstr = 'string(bfloat(' + maxInstr + '));'
+    else:
+        maxInstr = 'string(' + maxInstr + ');'
+    return maxInstr
 
 def makeMaxMatrices(instr, result):
     """
