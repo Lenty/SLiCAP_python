@@ -1198,7 +1198,7 @@ def makeMaxInstr(instr, result):
         result = makeMaxMatrices(instr, result) 
         maxInstr += 'M : ' + python2maxima(result.M) + '$'
         maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('(doSolveTime(M,Iv)', instr.numeric)
+        maxInstr += maxString('doSolveTime(M,Iv)', instr.numeric)
     elif instr.dataType == "poles":
         maxInstr += 'expr: ' + python2maxima(result.denom) + '$'
         maxInstr += maxString('findRoots(expr)', instr.numeric)
