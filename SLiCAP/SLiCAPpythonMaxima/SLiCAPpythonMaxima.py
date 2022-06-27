@@ -179,7 +179,6 @@ def maxEval(maxExpr):
     'sin(a*t)/a'
     """
     output = "Error"
-
     if ini.socket:
         result = serveMaxima(maxExpr)
     else:
@@ -258,12 +257,7 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
         maxExpr += 'string(%s(integrate(%s, %s, %s, %s)));'%(numeric, str(expr), str(var), str(start), str(stop))
     else:
         maxExpr += 'string(%s(integrate(%s, %s)));'%(numeric, str(expr), str(var))
-    result = maxEval(maxExpr)
-    try:
-        result = sp.sympify(result)
-    except:
-        print("Error: could not integrate expression: '{0}'.".format(str(expr)))
-        result = sp.sympify('Error')
+    result = sp.sympify(maxEval(maxExpr))
     return result
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
@@ -356,14 +350,14 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
                     noise_spectrum = sp.lambdify(ini.frequency, noiseData[i])
                     rms.append(sp.sqrt(integrate.quad(noise_spectrum, fmin, fmax)[0]))
                 else:
-                    try:
-                        # Symbolic integration performed by maxima (no warranty)
-                        print("Trying symbolic integration by maxima CAS")
-                        rms.append(sp.sqrt(maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)))
-                    except:
+                    # Symbolic integration performed by maxima (no warranty)
+                    print("Trying symbolic integration by maxima CAS")
+                    result = maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)
+                    if result == sp.Symbol("Error"):
                         # Try sympy integration (no questions asked)
                         print("Trying symbolic integration by sympy")
-                        rms.append(sp.sqrt(sp.integrate(noiseData[i], (ini.frequency, fmin, fmax))))
+                        result = sp.integrate(noiseData[i], (ini.frequency, fmin, fmax))
+                    rms.append(sp.sqrt(result))
             rms = np.array(rms)
             if len(rms) == 1:
                 rms = rms[0]

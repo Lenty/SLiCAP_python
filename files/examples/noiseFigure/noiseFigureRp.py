@@ -40,23 +40,38 @@ f_max = sp.Symbol('f_max')
 # Execute the instruction
 
 result = i1.execute()
+
+# Symbolic integration with maxima may require extra input.
+# You can run maxima in a socket for passing answers 
+# To this end uncomment the next line
+#ini.socket=True
+
 timeOut = ini.MaximaTimeOut
 ini.MaximaTimeOut = 1
+
 # Calculate the squared RMS noise at the detector
 var_onoise     = rmsNoise(result, 'onoise', f_min, f_max)**2
 # Calculate the contribution of the source to the squared RMS detector noise
 var_onoise_src = rmsNoise(result, 'onoise', f_min, f_max, 'V1')**2
 # Calculated the noise figure
 F_o = 10*sp.log(sp.simplify(var_onoise/var_onoise_src))/sp.log(10)
-ini.MaximaTimeOut = timeOut
 
+ini.MaximaTimeOut = timeOut
+ini.socket=False
 # Create an HTML page with the results of the noise analysis
 
 htmlPage('Symbolic noise analysis')
 noise2html(result)
 head2html('Noise figure')
-text2html('The noise figure is obtained as')
+text2html('The noise figure of a circuit is defined as the ratio of the signal-to-noise at the output of the circuit and the signal-to-noise ratio of its input signal.')
+text2html('Alternatively, the noise figure can be defined as the as the ratio of the total source referred noise power and the noise power of the signal source, ' +
+          'or the ratio of the total detector-referred noise power and the contribution of the noise of the signal source to the detector-referred noise power.')
+text2html('The variance $P_{onoise}\\,\\left[ V^2 \\right]$ of the total detector referred noise is:')
+eqn2html('P_onoise', var_onoise, units='V^2/Hz')
+text2html('The contribution $P_{onoise,source}\\,\\left[ V^2 \\right]$ of the source to $P_{onoise}\\,\\left[ V^2 \\right]$ is:')
+eqn2html('P_onoise', var_onoise_src, units='V^2/Hz')
+text2html('Hence, the noise figure is obtained as')
 eqn2html('F', F_o)
 head2html('Detector referred noise spectrum')
-text2html('The spectral density of the total output noise equals')
+text2html('The spectral density of the total output noise can be written as')
 eqn2html('S_out', sp.together(result.onoise))
