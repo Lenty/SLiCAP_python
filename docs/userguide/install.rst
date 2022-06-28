@@ -57,9 +57,9 @@ Go to the folder with the file *setup.py* (usually: *<where_you_downloaded_or_cl
 
 .. code-block:: python
 
-   pip install . --user
+   python -m pip install .
 
-- If you install SLiCAP under MSWindows (Anaconda), the installation searches for the maxima command and the LTspice command on the Winwows system drive (usually C:).
+- If you install SLiCAP under MSWindows (Anaconda), the installation searches for the maxima command and the LTspice command.
 
 - In cases in which maxima cannot be found, SLiCAP will only work after maxima has been installed and the *MAXIMA* command in the *SLiCAPsettings.py* has been set to the correct value. The file *SLiCAPsettings.py* is located in the SLiCAP installation directory (use file search).
 
