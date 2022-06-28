@@ -95,6 +95,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="SLiCAPuserguide.html">SLiCAP user guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="install.html">Download, install and configure SLiCAP</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Initialize a SLiCAP project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#host">HOST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hz">Hz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#laplace">Laplace</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maximamatrixdim">MaximaMatrixDim</a></li>
@@ -135,7 +136,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#notebook">notebook</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#plotfontsize">plotFontSize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#projectpath">projectPath</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simplify">simplify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#socket">socket</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stepfunction">stepFunction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tablefiletype">tableFileType</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#txtpath">txtPath</a></li>
@@ -239,18 +240,19 @@
 <p>The function <code class="docutils literal notranslate"><span class="pre">initProject&lt;projectName&gt;</span></code> creates the (missing parts) of the directory structure in the working directory. Directories once created will not be overwritten.</p>
 <p>The settings are stored in the <cite>ini()</cite> object. You can view these settings by entering:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<span class="go">HOST.............. : 127.0.0.1</span>
 <span class="go">Hz................ : True</span>
 <span class="go">Laplace........... : s</span>
 <span class="go">MaximaMatrixDim... : 25</span>
-<span class="go">MaximaTimeOut..... : 5</span>
-<span class="go">circuitPath....... : /home/anton/SLiCAP/Project/cir/</span>
-<span class="go">csvPath........... : /home/anton/SLiCAP/Project/csv/</span>
+<span class="go">MaximaTimeOut..... : 60</span>
+<span class="go">PORT.............. : 53118</span>
+<span class="go">circuitPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/</span>
+<span class="go">csvPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/csv/</span>
 <span class="go">defaultColors..... : [&#39;r&#39;, &#39;b&#39;, &#39;g&#39;, &#39;c&#39;, &#39;m&#39;, &#39;y&#39;, &#39;k&#39;]</span>
 <span class="go">defaultLib........ : /home/anton/SLiCAP/lib</span>
 <span class="go">defaultMarkers.... : [&#39;&#39;]</span>
 <span class="go">disp.............. : 4</span>
 <span class="go">docPath........... : /home/anton/SLiCAP/docs</span>
-<span class="go">factor............ : False</span>
 <span class="go">figureAxisHeight.. : 5</span>
 <span class="go">figureAxisWidth... : 7</span>
 <span class="go">figureFileType.... : svg</span>
@@ -260,32 +262,35 @@
 <span class="go">htmlLabels.keys(). : []</span>
 <span class="go">htmlPage.......... :</span>
 <span class="go">htmlPages......... : [&#39;index.html&#39;]</span>
-<span class="go">htmlPath.......... : /home/anton/SLiCAP/Project/html/</span>
+<span class="go">htmlPath.......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/html/</span>
 <span class="go">htmlPrefix........ :</span>
-<span class="go">imgPath........... : /home/anton/SLiCAP/Project/img/</span>
+<span class="go">imgPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/img/</span>
 <span class="go">installPath....... : /home/anton/.local/lib/python3.8/site-packages/SLiCAP/</span>
-<span class="go">lastUpdate........ : 2021-03-23 13:28:34.371803</span>
-<span class="go">latexPath......... : /home/anton/SLiCAP/Project/tex/</span>
+<span class="go">lambdifyTool...... : numpy</span>
+<span class="go">lastUpdate........ : 2022-06-28 09:17:57.580901</span>
+<span class="go">latexPath......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/tex/</span>
 <span class="go">legendLoc......... : best</span>
-<span class="go">libraryPath....... : /home/anton/SLiCAP/Project/lib/</span>
+<span class="go">libraryPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/lib/</span>
 <span class="go">ltspice........... : /home/anton/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe</span>
-<span class="go">mathml............ : False</span>
-<span class="go">mathmlPath........ : /home/anton/SLiCAP/Project/mathml/</span>
+<span class="go">mathmlPath........ : /home/anton/SLiCAP/examples/myFirstRCnetwork/mathml/</span>
 <span class="go">maxRecSubst....... : 12</span>
-<span class="go">maxSolve.......... : True</span>
 <span class="go">maxima............ : maxima</span>
 <span class="go">netlist........... : lepton-netlist -g spice-noqsi</span>
-<span class="go">normalize......... : True</span>
 <span class="go">notebook.......... : True</span>
 <span class="go">plotFontSize...... : 12</span>
-<span class="go">projectPath....... : /home/anton/SLiCAP/Project/</span>
-<span class="go">simplify.......... : False</span>
+<span class="go">projectPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/</span>
+<span class="go">socket............ : False</span>
 <span class="go">stepFunction...... : True</span>
 <span class="go">tableFileType..... : csv</span>
-<span class="go">txtPath........... : /home/anton/SLiCAP/Project/txt/</span>
+<span class="go">txtPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/txt/</span>
+<span class="go">Checking netlist: /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir</span>
 </pre></div>
 </div>
 <p>Below the meaning of the variables.</p>
+<div class="section" id="host">
+<h2>HOST<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h2>
+<p>Loop back IP address for socket operation of Maxima CAS (not fully tested for Windows, works under Linux).</p>
+</div>
 <div class="section" id="hz">
 <h2>Hz<a class="headerlink" href="#hz" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
@@ -509,9 +514,9 @@
 <p>Path to the project files for the current project.</p>
 <p><strong>Default value</strong> is determined during the initialization of a project.</p>
 </div>
-<div class="section" id="simplify">
-<h2>simplify<a class="headerlink" href="#simplify" title="Permalink to this headline">¶</a></h2>
-<p>Setting for simplifying expressions.</p>
+<div class="section" id="socket">
+<h2>socket<a class="headerlink" href="#socket" title="Permalink to this headline">¶</a></h2>
+<p>True for Maxima CAS operation in socket (Not fully tested with Windows, works under Linux). False for Maxima CAS operation as subprocess.</p>
 <p><strong>Default value</strong> is <em>False</em>.</p>
 </div>
 <div class="section" id="stepfunction">

@@ -16,18 +16,19 @@ The settings are stored in the `ini()` object. You can view these settings by en
 .. code-block :: python
 
     >>> ini.dump()
+    HOST.............. : 127.0.0.1
     Hz................ : True
     Laplace........... : s
     MaximaMatrixDim... : 25
-    MaximaTimeOut..... : 5
-    circuitPath....... : /home/anton/SLiCAP/Project/cir/
-    csvPath........... : /home/anton/SLiCAP/Project/csv/
+    MaximaTimeOut..... : 60
+    PORT.............. : 53118
+    circuitPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/
+    csvPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/csv/
     defaultColors..... : ['r', 'b', 'g', 'c', 'm', 'y', 'k']
     defaultLib........ : /home/anton/SLiCAP/lib
     defaultMarkers.... : ['']
     disp.............. : 4
     docPath........... : /home/anton/SLiCAP/docs
-    factor............ : False
     figureAxisHeight.. : 5
     figureAxisWidth... : 7
     figureFileType.... : svg
@@ -37,31 +38,35 @@ The settings are stored in the `ini()` object. You can view these settings by en
     htmlLabels.keys(). : []
     htmlPage.......... : 
     htmlPages......... : ['index.html']
-    htmlPath.......... : /home/anton/SLiCAP/Project/html/
+    htmlPath.......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/html/
     htmlPrefix........ : 
-    imgPath........... : /home/anton/SLiCAP/Project/img/
+    imgPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/img/
     installPath....... : /home/anton/.local/lib/python3.8/site-packages/SLiCAP/
-    lastUpdate........ : 2021-03-23 13:28:34.371803
-    latexPath......... : /home/anton/SLiCAP/Project/tex/
+    lambdifyTool...... : numpy
+    lastUpdate........ : 2022-06-28 09:17:57.580901
+    latexPath......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/tex/
     legendLoc......... : best
-    libraryPath....... : /home/anton/SLiCAP/Project/lib/
+    libraryPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/lib/
     ltspice........... : /home/anton/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe
-    mathml............ : False
-    mathmlPath........ : /home/anton/SLiCAP/Project/mathml/
+    mathmlPath........ : /home/anton/SLiCAP/examples/myFirstRCnetwork/mathml/
     maxRecSubst....... : 12
-    maxSolve.......... : True
     maxima............ : maxima
     netlist........... : lepton-netlist -g spice-noqsi
-    normalize......... : True
     notebook.......... : True
     plotFontSize...... : 12
-    projectPath....... : /home/anton/SLiCAP/Project/
-    simplify.......... : False
+    projectPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/
+    socket............ : False
     stepFunction...... : True
     tableFileType..... : csv
-    txtPath........... : /home/anton/SLiCAP/Project/txt/
+    txtPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/txt/
+    Checking netlist: /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir
 
 Below the meaning of the variables.
+
+HOST
+----
+
+Loop back IP address for socket operation of Maxima CAS (not fully tested for Windows, works under Linux).
 
 Hz
 --
@@ -368,10 +373,10 @@ Path to the project files for the current project.
 
 **Default value** is determined during the initialization of a project.
 
-simplify
---------
+socket
+------
 
-Setting for simplifying expressions.
+True for Maxima CAS operation in socket (Not fully tested with Windows, works under Linux). False for Maxima CAS operation as subprocess.
 
 **Default value** is *False*.
 
