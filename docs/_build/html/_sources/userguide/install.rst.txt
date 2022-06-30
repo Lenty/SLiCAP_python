@@ -57,7 +57,7 @@ Go to the folder with the file *setup.py* (usually: *<where_you_downloaded_or_cl
 
 .. code-block:: python
 
-   python -m pip install .
+   python setup.py install --user
 
 - If you install SLiCAP under MSWindows (Anaconda), the installation searches for the maxima command and the LTspice command.
 
