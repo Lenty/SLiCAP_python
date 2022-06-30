@@ -36,18 +36,14 @@ i1.setDetector('V_out')
 f_min = sp.Symbol('f_min')
 f_max = sp.Symbol('f_max')
 
-
 # Execute the instruction
 
 result = i1.execute()
 
 # Symbolic integration with maxima may require extra input.
-# You can run maxima in a socket for passing answers 
-# To this end uncomment the next line
-#ini.socket=True
+# We will run maxima in a socket for passing answers
 
-timeOut = ini.MaximaTimeOut
-ini.MaximaTimeOut = 1
+ini.socket=True
 
 # Calculate the squared RMS noise at the detector
 var_onoise     = rmsNoise(result, 'onoise', f_min, f_max)**2
@@ -56,8 +52,8 @@ var_onoise_src = rmsNoise(result, 'onoise', f_min, f_max, 'V1')**2
 # Calculated the noise figure
 F_o = 10*sp.log(sp.simplify(var_onoise/var_onoise_src))/sp.log(10)
 
-ini.MaximaTimeOut = timeOut
 ini.socket=False
+
 # Create an HTML page with the results of the noise analysis
 
 htmlPage('Symbolic noise analysis')

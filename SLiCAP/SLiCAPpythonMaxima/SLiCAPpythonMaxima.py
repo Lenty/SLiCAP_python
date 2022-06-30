@@ -6,19 +6,32 @@ SLiCAP module with symbolic math functions executed by maxima CAS.
 Imported by the module **SLiCAPplots.py**.
 """
 import socket
-from multiprocessing import Process
+from threading import Thread
 from SLiCAP.SLiCAPmatrices import *
 from mpmath import polyroots
 import scipy.integrate as integrate
 
-terminate       = ['$', ';']
-
 def startMaxima():
+    """
+    System call starts Maxima CAS as a client listening to port ini.PORT.
+    """
     os.system(ini.maxima + ' -s ' + str(ini.PORT))
     
 def serveMaxima(maxInstr):
-    p = Process(target=startMaxima)
-    p.start()
+    """
+    Starts a socket server at port ini.PORT.
+    
+    Starts Maxima CAS as client listening to that port.
+    
+    :param maxInstr: Instruction to be executed by Maxima CAS.
+    :type maxInstr: string
+    
+    :return: Result of the calculation that can be converted into a sympy expression.
+    :rtype: string
+    
+    """
+    thread = Thread(target=startMaxima)
+    thread.start()
     if maxInstr != None:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -26,29 +39,19 @@ def serveMaxima(maxInstr):
             s.listen(1)
             conn, addr = s.accept()
             with conn:
-                data = ""
-                end_output = '"\n'
-                new_input = "(%i"
-                new_output = "(%o"
-                output = ""
-                # Get welcome message from Maxima
-                receive_data = conn.recv(1024).decode()
-                line = receive_data.split()
-                # Wait until maxima asks for input
-                while line[-1][0:3] != new_input:
-                    receive_data = conn.recv(1024).decode()
-                    if not receive_data:
-                        break
-                    else:
-                        line = receive_data.split()
-                # Now we are asked for input and send the maxima instruction
-                conn.sendall(maxInstr.encode())
-                ################################################################### 
-                begin_of_line = None
-                end_of_line = None
-                got_result = False
+                terminate       = ['$', ';']
+                answers         = ['p', 'n', 'z', 'r', 'c']
+                end_output      = '"\n'
+                new_input       = "(%i"
+                new_output      = "(%o"
+                error           = "^"
+                output          = ""
+                begin_of_line   = None
+                end_of_line     = None
+                got_result      = False
+                receive_data    = ""
                 while begin_of_line != new_input and end_of_line != new_input:
-                    receive_data = conn.recv(1024).decode()
+                    receive_data += conn.recv(1024).decode()
                     if not receive_data:
                         break
                     else:
@@ -59,12 +62,23 @@ def serveMaxima(maxInstr):
                             begin_of_line = line[0][0:3]
                             end_of_line = line[-1][0:3]
                     if end_of_line == new_input:
-                        output += ''.join(line[0:-1])
-                        break
+                        receive_data = ""
+                        if maxInstr != None:
+                            conn.sendall(maxInstr.encode())
+                            maxInstr = None
+                            end_of_line = None
+                            begin_of_line = None
+                            receive_data = ""
+                            output = ""
+                        else:
+                            output += ''.join(line[0:-1])
+                            break
                     elif begin_of_line == new_input:
                         if maxInstr != None:
                             conn.sendall(maxInstr.encode())
                             maxInstr = None
+                            receive_data = ""
+                            output = ""
                         else:
                             break
                     elif begin_of_line == new_output:
@@ -72,8 +86,10 @@ def serveMaxima(maxInstr):
                         if len(line) > 1:
                             if end_of_line == new_input:
                                 output += ''.join(line[1:-1])
+                                receive_data = ""
                             else:
                                 output += ''.join(line[1:])
+                                receive_data = ""
                         if receive_data.count('"') > 1:
                             break
                         if end_of_line == end_output:
@@ -86,26 +102,33 @@ def serveMaxima(maxInstr):
                             break
                         else:
                             output += ''.join(line)
-                        if receive_data.count('"') > 0:
-                            break
+                            receive_data = ""
                     elif len(line) > 0:
                         if len(line[-1]) > 1:
                             if line[-1][-2] == "?":
-                                send_data = input(receive_data + '>> ')
-                                while len(send_data) == 0 or send_data[-1] not in terminate:
-                                    send_data += input('>> '+ send_data)
+                                send_data = ''
+                                while len(send_data) == 0:
+                                    send_data = input(receive_data + '>> ')
+                                    if len(send_data) > 0:
+                                        if send_data[0].lower() not in answers:
+                                            send_data = ""
+                                        else:
+                                            send_data = send_data[0].lower() + ';'
                                 conn.sendall(send_data.encode())
+                                receive_data = ""
                             elif receive_data.count('"') > 1:
                                 output += ''.join(line)
                                 break
-                        else:
-                            output = '"Error"'
-                            break
+                            elif line[-1] == error:
+                                output = '"Error"'
+                                break
+                            else:
+                                output += ''.join(line)
+                                receive_data = ""
                     else:
-                        print(receive_data)
+                        pass
     output = output.replace("\\","").split('"')[1]
     output = maxima2python(output)
-    p.terminate()
     return output
 
 def python2maxima(expr):
