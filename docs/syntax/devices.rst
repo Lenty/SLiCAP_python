@@ -68,30 +68,37 @@ Parameters model C
 		+=======+==================+=========+=========+
 		| value | capacitance      | 1       | FALSE   | 
 		+-------+------------------+---------+---------+
+		| vinit | initial voltage  | 0       | FALSE   | 
+		+-------+------------------+---------+---------+
 
 Examples
 ~~~~~~~~
 
 .. code-block:: text
 
-		C1 nodeP nodeN 100n                ; Capacitor of 100n between nodeP and nodeN
+		C1 nodeP nodeN 100n                      ; Capacitor of 100n between nodeP and nodeN
 
 .. code-block:: text
 
-		C1 nodeP nodeN C value = 100n      ; Same as above
+		C1 nodeP nodeN C value = 100n            ; Same as above
 
 .. code-block:: text
 
-		C1 nodeP nodeN {1/tau/R}           ; Capacitance as an expression
+		C1 nodeP nodeN C value = 100n vinit = 0  ; Same as above with initial condition (not yet implemented)
 
 .. code-block:: text
 
-		C1 nodeP nodeN C value = {1/tau/R} ; Same as above
+		C1 nodeP nodeN {1/tau/R}                 ; Capacitance as an expression
 
 .. code-block:: text
 
-		C1 nodeP nodeN myCap               ; Same as above with a .model line
-		.model myCap C value={1/tau/R}
+		C1 nodeP nodeN C value = {1/tau/R}       ; Same as above
+
+.. code-block:: text
+
+		C1 nodeP nodeN myCap                     ; Same as above with a .model line
+		.model myCap C value={1/tau/R} vinit = 0
+
 		
 D: Diode
 --------
@@ -609,11 +616,13 @@ Model L:
 Parameters model L
 ~~~~~~~~~~~~~~~~~~
 
-		+-------+------------------+---------+---------+
-		| name  | description      | default | Laplace |
-		+=======+==================+=========+=========+
-		| value | inductance       | 1       | FALSE   | 
-		+-------+------------------+---------+---------+
+		+-------+-------------------+---------+---------+
+		| name  | description       | default | Laplace |
+		+=======+===================+=========+=========+
+		| value | inductance        | 1       | FALSE   | 
+		+-------+-------------------+---------+---------+
+		| iinit | initial condition | 0       | FALSE   | 
+		+-------+-------------------+---------+---------+
 
 Examples
 ~~~~~~~~
@@ -629,7 +638,12 @@ Examples
 .. code-block:: text
 
 		L1 n1 n2 L myL
-		.model myL L value = {L_a}		
+		.model myL L value = {L_a}	
+
+.. code-block:: text
+
+		L1 n1 n2 L myL
+		.model myL L value = {L_a} iinit = 0	
 
 M: 4-terminal MOS
 -----------------

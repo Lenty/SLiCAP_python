@@ -409,26 +409,34 @@ concatenation of two strings:</p>
 <td>1</td>
 <td>FALSE</td>
 </tr>
+<tr class="row-odd"><td>vinit</td>
+<td>initial voltage</td>
+<td>0</td>
+<td>FALSE</td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
 </div>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN 100n                ; Capacitor of 100n between nodeP and nodeN
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN 100n                      ; Capacitor of 100n between nodeP and nodeN
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = 100n      ; Same as above
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = 100n            ; Same as above
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN {1/tau/R}           ; Capacitance as an expression
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = 100n vinit = 0  ; Same as above with initial condition (not yet implemented)
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = {1/tau/R} ; Same as above
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN {1/tau/R}                 ; Capacitance as an expression
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN myCap               ; Same as above with a .model line
-.model myCap C value={1/tau/R}
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN C value = {1/tau/R}       ; Same as above
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C1 nodeP nodeN myCap                     ; Same as above with a .model line
+.model myCap C value={1/tau/R} vinit = 0
 </pre></div>
 </div>
 </div>
@@ -1296,9 +1304,9 @@ k12 L1 L2 0.98
 <div><table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
-<col width="42%" />
-<col width="21%" />
-<col width="21%" />
+<col width="43%" />
+<col width="20%" />
+<col width="20%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">name</th>
@@ -1311,6 +1319,11 @@ k12 L1 L2 0.98
 <tr class="row-even"><td>value</td>
 <td>inductance</td>
 <td>1</td>
+<td>FALSE</td>
+</tr>
+<tr class="row-odd"><td>iinit</td>
+<td>initial condition</td>
+<td>0</td>
 <td>FALSE</td>
 </tr>
 </tbody>
@@ -1327,6 +1340,10 @@ k12 L1 L2 0.98
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 n1 n2 L myL
 .model myL L value = {L_a}
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 n1 n2 L myL
+.model myL L value = {L_a} iinit = 0
 </pre></div>
 </div>
 </div>
