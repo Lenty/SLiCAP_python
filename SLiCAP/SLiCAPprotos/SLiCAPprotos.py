@@ -882,9 +882,6 @@ def initAll():
     DEVICES[newDev.ID]  = newDev
     return
 
-initAll() # Initialize all models, devices, etc.
-
-
 class allResults(object):
     """
     Return  structure for results, has attributes with 
@@ -1266,3 +1263,5 @@ def copyNotOverwrite(src, dest):
     if not os.path.exists(dest):
         cp(src, dest)
     return
+
+initAll() # Initialize all models, devices, etc.

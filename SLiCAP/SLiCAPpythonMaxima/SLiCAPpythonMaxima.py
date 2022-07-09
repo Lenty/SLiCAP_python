@@ -11,36 +11,22 @@ from SLiCAP.SLiCAPmatrices import *
 from mpmath import polyroots
 import scipy.integrate as integrate
 
+terminate       = ['$', ';']
 def startMaxima():
-    """
-    System call starts Maxima CAS as a client listening to port ini.PORT.
-    """
     os.system(ini.maxima + ' -s ' + str(ini.PORT))
     
 def serveMaxima(maxInstr):
-    """
-    Starts a socket server at port ini.PORT.
-    
-    Starts Maxima CAS as client listening to that port.
-    
-    :param maxInstr: Instruction to be executed by Maxima CAS.
-    :type maxInstr: string
-    
-    :return: Result of the calculation that can be converted into a sympy expression.
-    :rtype: string
-    
-    """
-    thread = Thread(target=startMaxima)
-    thread.start()
     if maxInstr != None:
+        thread = Thread(target=startMaxima)
+        thread.start()
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             s.bind((ini.HOST, ini.PORT))
-            s.listen(1)
+            s.listen()
             conn, addr = s.accept()
             with conn:
                 terminate       = ['$', ';']
-                answers         = ['p', 'n', 'z', 'r', 'c']
+                answers         = ['p', 'n', 'z', 'r', 'c', 'y']
                 end_output      = '"\n'
                 new_input       = "(%i"
                 new_output      = "(%o"
@@ -127,7 +113,11 @@ def serveMaxima(maxInstr):
                                 receive_data = ""
                     else:
                         pass
-    output = output.replace("\\","").split('"')[1]
+    try:
+        output = output.replace("\\","").split('"')[1]
+    except:
+        print("\nERROR:", output, "\n")
+        output = "Error"
     output = maxima2python(output)
     return output
 

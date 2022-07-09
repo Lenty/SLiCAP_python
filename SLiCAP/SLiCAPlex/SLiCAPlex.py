@@ -74,7 +74,7 @@ def t_LEFTBR(t):
     """
     pass
 
-def t_t_RIGHTBR(t):
+def t_RIGHTBR(t):
     r'\)'
     """
     End of model parameters will be ignored.
