@@ -233,9 +233,10 @@ def maxLimit(expr, var, val, pm, numeric = True):
     maxExpr = 'string(%s(limit(' + str(expr) + ',' + str(var) + ',' + str(val) + ',' + pm +' )));'%(numeric)
     result = maxEval(maxExpr)
     try:
-        return sp.sympify(result)
+        result = sp.sympify(result)
     except:
-        print('Maxima error:', result)
+        result = sp.sympify("Error")
+    return result
 
 def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     """
@@ -270,7 +271,11 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
         maxExpr += 'string(%s(integrate(%s, %s, %s, %s)));'%(numeric, str(expr), str(var), str(start), str(stop))
     else:
         maxExpr += 'string(%s(integrate(%s, %s)));'%(numeric, str(expr), str(var))
-    result = sp.sympify(maxEval(maxExpr))
+    result = maxEval(maxExpr)
+    try:
+        result = sp.sympify(result)
+    except:
+        result = sp.sympify("Error")
     return result
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
