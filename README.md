@@ -51,6 +51,32 @@ The dependencies are listed in the 'requirements.txt' file.
 3. Open a terminal or an Anaconda terminal if you run python from Anaconda in the directory with setup.py
 4. Enter: 'python setup.py install --user
 
+## Known problems
+
+If you use Anaconda with Spyder 5.1, you may encounter a problem when you use socket communication with maxima (ini.socket=True):
+
+https://github.com/spyder-ide/spyder/issues/17616
+
+You can sole this problem as described on the page above, but after the creation of a new Spyder environment you need to reinstall SLiCAP, numpy, sympy, scipy, ply and matplotlib in this new environment. To this end open an Anaconda command terminal and run the following commands:
+
+conda create -n spyder-cf -c conda-forge spyder
+
+onda activate spyder-cf
+
+
+conda install numpy
+
+conda install sympy
+
+conda install scipy
+
+conda install ply
+
+conda install matplotlib
+
+
+spyder
+
 ## Project file locations
 **Do not place project files in the directory where SLiCAP installs the libraries, the examples, and the documentation.**
 
