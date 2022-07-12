@@ -1,0 +1,342 @@
+
+STRINGS   :
+           CIRCUITPATH
+           CSVPATH
+           DOCPATH
+           HTMLINSERT
+           HTMLPATH
+           IMGPATH
+           LATEXPATH
+           LIBCOREPATH
+           LIBRARYPATH
+           LTSPICE
+           MATHMLPATH
+           MAXIMA
+           NETLIST
+           PROJECTPATH
+           SYSINSTALL
+           TXTPATH
+           VERSION
+           t_ignore
+
+LISTS     :
+           CIRCUITNAMES
+           CONTROLLED
+           CONVTYPES
+           DATATYPES
+           DEVICETYPES
+           GAINTYPES
+           INDEPSCRCS
+           LABELTYPES
+           NODES
+           SLiCAPLIBS
+           TITLE
+           USERLIBS
+           VALEXPR
+
+TUPLES    :
+           tokens
+
+DICTS     :
+           CIRCUITS
+           DEVICES
+           MODELS
+           SCALEFACTORS
+           SLiCAPCIRCUITS
+           SLiCAPMODELS
+           SLiCAPPARAMS
+           USERCIRCUITS
+           USERMODELS
+           USERPARAMS
+
+FUNCTIONS :
+           Cadence2traces
+           HTMLfoot
+           HTMLhead
+           Help
+           LTspiceAC2SLiCAPtraces
+           LTspiceData2Traces
+           addDCvarSources
+           addResNoiseSources
+           assumePosParams
+           assumeRealParams
+           calcNumer
+           cancelPZ
+           checkCircuit
+           checkElementModel
+           checkElementModelParams
+           checkElementReferences
+           checkExpression
+           checkModelDefs
+           checkNumber
+           checkReferences
+           checkSubCircuitElementModelParams
+           clearAssumptions
+           coeffsTransfer
+           coeffsTransfer2html
+           compileSLiCAPLibraries
+           compileUSERLibrary
+           convertMatrices
+           copyNotOverwrite
+           createConversionMatrices
+           createResultObject
+           csv2html
+           csv2traces
+           dBmagFunc_f
+           dcVar2html
+           defaultsPlot
+           delDCvarSources
+           delResNoiseSources
+           delayFunc_f
+           det
+           doCDS
+           doCDSint
+           doDC
+           doDCsolve
+           doDCvar
+           doDenom
+           doImpulse
+           doInstruction
+           doLaplace
+           doLoopGainServo
+           doMatrix
+           doMaxFunction
+           doMaxIlt
+           doMaxInstr
+           doMaxLoopGainServo
+           doNoise
+           doNumer
+           doPZ
+           doPoles
+           doSolve
+           doStep
+           doTime
+           doTimeSolve
+           doZeros
+           elementData2html
+           eqn2html
+           equateCoeffs
+           expandCircuit
+           expr2html
+           fig2html
+           file2html
+           findServoBandwidth
+           find_column
+           fullSubs
+           gainValue
+           getSubMatrices
+           getValue
+           getValues
+           get_input_line
+           head2html
+           head3html
+           href
+           htmlLink
+           htmlPage
+           img2html
+           initAll
+           initProject
+           insertHTML
+           lib2html
+           links2html
+           listPZ
+           magFunc_f
+           mag_f
+           makeDir
+           makeLibraries
+           makeMatrices
+           makeMaxDetPos
+           makeMaxInstr
+           makeMaxMatrices
+           makeNetlist
+           makeSrcVector
+           makeSubsDict
+           makeYdata
+           matrices2html
+           maxEval
+           maxIntegrate
+           maxLimit
+           maxString
+           maxima2python
+           netlist2html
+           noise2html
+           normalizeRational
+           numRoots
+           pairVariables
+           params2html
+           parseCommand
+           parseElement
+           parseLibrary
+           parseMaxResult
+           parseNetlist
+           parseSubcircuitElement
+           phaseFunc_f
+           phaseMargin
+           phase_f
+           plot
+           plotPZ
+           plotSweep
+           polyCoeffs
+           printError
+           python2maxima
+           pz2html
+           readFile
+           replaceScaleFactors
+           rmsNoise
+           roundN
+           routh
+           serveMaxima
+           sortDepVars
+           startHTML
+           startMaxima
+           stepArray2html
+           stepFunctions
+           stepParams
+           t_CMD
+           t_COMMENT
+           t_EXPR
+           t_FLT
+           t_FNAME
+           t_ID
+           t_INT
+           t_LEFTBR
+           t_NEWLINE
+           t_PARAMS
+           t_PARDEF
+           t_PLUS
+           t_QSTRING
+           t_RETURN
+           t_SCALE
+           t_SCI
+           t_error
+           t_t_RIGHTBR
+           text2html
+           tokenize
+           traces2fig
+           updateCirData
+           updateElementParams
+           updateNodes
+           updateParDefs
+           writeFile
+
+CLASSES   :
+           Label
+           SLiCAPproject
+           allResults
+           axis
+           circuit
+           device
+           element
+           figure
+           instruction
+           model
+           modelDef
+           settings
+           trace
+
+======================================================================
+                  Classes in detail
+======================================================================
+
+
+Label(name, self, typ, text, page): SLiCAP/SLiCAPhtml
+
+SLiCAPproject(self, name): SLiCAP
+
+allResults(self): SLiCAP/SLiCAPprotos
+
+axis(title, self): SLiCAP/SLiCAPplots
+ - makeTraceDict(self.traces, self.label)
+
+circuit(self): SLiCAP/SLiCAPprotos
+ - delPar(self.parUnits, self.parDefs)
+ - defPar(self.parUnits, self.parDefs)
+   - checkExpression
+ - defPars(self.parDefs)
+   - checkExpression
+ - getParValue(self.parDefs)
+   - fullSubs
+ - updateParams(self.elements, self.Laplace, self.params, self.Symbol, self.frequency, self.parDefs)
+ - getElementValue(self.elements, self.parDefs, self.params)
+   - fullSubs
+
+device(self): SLiCAP/SLiCAPprotos
+
+element(self): SLiCAP/SLiCAPprotos
+
+figure(self, fileName): SLiCAP/SLiCAPplots
+ - plot(self.fileName, self.lineType, self.shape, self.markerFaceColor, self.markerSize, self.defaultMarkers, self.lineWidth, self.imgPath, self.xScale, self.show, self.axisHeight, self.yLabel, self.title, self.xLim, self.yScaleFactor, self.text, self.xData, self.axes, self.markerColor, self.polar, self.plotFontSize, self.label, self.add_subplot, self.plot, self.defaultColors, self.yScale, self.traces, self.marker, self.yLim, self.color, self.yData, self.figure, self.xScaleFactor, self.axisWidth, self.xLabel)
+   - defaultsPlot
+
+instruction(self): SLiCAP/SLiCAPinstruction
+ - setSimType(self.simType)
+ - checkSimType(self.numeric, self.simType, self.errors)
+ - setGainType(self.gainType)
+ - checkGainType(self.errors, self.gainType)
+ - setConvType(self.convType)
+ - checkConvType(self.errors, self.convType)
+ - setPairedNodes(self.pairedNodes)
+ - checkPairedNodes(self.nodes, self.elements, self.circuit)
+ - setPairedCircuits(self.pairedCircuits)
+ - checkPairedCircuits(self.elements, self.circuit)
+ - setDataType(self.dataType)
+ - checkDataType(self.errors, self.dataType)
+ - stepOn(self.step)
+ - stepOff(self.step)
+ - setStepVar(self.stepVar)
+ - checkStepVar(self.errors, self.params, self.Basic, self.stepVar, self.parDefs, self.circuit)
+ - setStepVars(self.stepVars)
+ - checkStepVars(self.stepVars, self.errors, self.params, self.Basic, self.parDefs, self.circuit)
+ - setStepMethod(self.stepMethod)
+ - checkStepMethod(self.errors, self.stepMethod)
+ - setStepStart(self.stepStart)
+ - checkStepStart(self.errors, self.stepStart)
+   - checkNumber
+ - setStepStop(self.stepStop)
+ - checkStepStop(self.errors, self.stepStop)
+   - checkNumber
+ - setStepNum(self.stepNum)
+ - checkStepNum(self.stepNum, self.errors)
+ - setStepList(self.stepList)
+ - checkStepList(self.stepList, self.errors)
+   - checkNumber
+ - setStepArray(self.stepArray)
+ - checkStepArray(self.stepArray, self.errors, self.stepVars)
+   - checkNumber
+ - setSource(self.source, self.checkSource)
+ - checkSource(self.srcUnits, self.source, self.errors)
+ - setDetector(self.detector)
+ - checkDetector(self.errors, self.detUnits, self.convType, self.lgRef, self.detector, self.detLabel)
+ - setLGref(self.lgRef)
+ - checkLGref(self.errors, self.circuit, self.controlled, self.lgRef)
+ - delPar(self.circuit)
+ - defPar(self.circuit)
+ - defPars(self.circuit)
+ - getParValue(self.numeric, self.circuit, self.simType)
+ - getElementValue(self.numeric, self.circuit, self.simType)
+ - indepVars(self.indepVars, self.circuit)
+ - depVars(self.circuit, self.depVars)
+ - controlled(self.circuit, self.controlled)
+ - setCircuit(self.circuit)
+   - checkCircuit
+ - checkCircuit(self.errors, self.circuit, self.params)
+ - checkNumeric(self.numeric, self.dataType, self.errors, self.simType)
+ - checkStep(self.stepVars, self.errors, self.step, self.stepNum, self.stepDict, self.stepVar, self.parDefs, self.stepStop, self.stepStart, self.stepMethod, self.stepArray, self.stepList, self.circuit)
+ - check(self.errors, self.step, self.stepDict, self.dataType, self.convType, self.pairedNodes, self.checkSource, self.pairedCircuits, self.numeric, self.circuit, self.gainType)
+   - delResNoiseSources
+   - updateCirData
+   - addResNoiseSources
+ - execute(self.errors)
+   - doInstruction
+ - useMatrixConversion(self.conversionMethod)
+
+model(self): SLiCAP/SLiCAPprotos
+
+modelDef(self): SLiCAP/SLiCAPprotos
+
+settings(self): SLiCAP/SLiCAPini
+ - dump()
+ - updatePaths(self.maxima, self.csvPath, self.docPath, self.circuitPath, self.latexPath, self.projectPath, self.htmlPath, self.ltspice, self.netlist, self.defaultLib, self.txtPath, self.libraryPath, self.imgPath, self.mathmlPath)
+
+trace(traceData, self): SLiCAP/SLiCAPplots
+ - makeTable(self.yData, self.yName, self.xData, self.xName)
