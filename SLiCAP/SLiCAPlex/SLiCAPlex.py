@@ -48,7 +48,7 @@ def t_PARDEF(t):
     try:
         t.value[1] = sp.sympify(t.value[1])
     except:
-        printError("Error in expression.", get_input_line(t), find_column(t))
+        printError("Error in expression.", t)
         lexer.errCount += 1
     return t
 
@@ -295,7 +295,7 @@ lexer = lex.lex()
 
 if __name__ == '__main__':
 
-    fi = '/mnt/DATA/SLiCAP/SLiCAP_python_tests/balancedTramp/cir/balancedMOStrampCMF.cir'
+    fi = '/mnt/DATA/Cursussen/TUDelft/AfstuderenZitao/noise_analysis/cir/N18noise.cir'
     print(fi)
     f = open(fi, 'r')
     netlist = f.read()

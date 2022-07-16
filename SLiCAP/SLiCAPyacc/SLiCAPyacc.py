@@ -384,8 +384,8 @@ def parseCommand(line, circuitDict = CIRCUITS):
     """
     global CIRCUITNAMES
     errors = 0
-    cmd = line[0].value
-    if cmd == 'LIB' or cmd == 'INC':
+    cmd = line[0].value.upper()
+    if cmd == 'LIB' or (len(cmd) >= 3 and cmd[:3] == 'INC'):
         parseLibrary(line, circuitDict = CIRCUITS)
     elif cmd == 'PARAM':
         for i in range(1, len(line)):

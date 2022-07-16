@@ -474,7 +474,7 @@ I2 ext comm I value=0 noise={2*q*IG}           ; gate shot noise
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC_i    = {ID*L/W/I_0_N18} ; Correction for initial estimate of inversion coefficient
 + IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
-+ f_ell   = {g_m^2*R_N*KF_N18/(4*k*T*W*L*C_OX_N18)}
++ f_ell   = {3*KF_N18*g_m*(1+2*N_s_N18*U_T*sqrt(IC)/V_KF_N18)/(8*k*T*W*L*N_s_N18*C_OX_N18^2)}
 .ends
 
 .subckt PM18_noise ext comm int ID={ID} IG={IG} W={W} L={L}
@@ -498,7 +498,7 @@ I2 ext comm I value=0 noise={-2*q*IG}          ; gate shot noise
 + c_iss   = {c_gs+c_dg+c_gb}
 + IC_i    = {-ID*L/W/I_0_P18} ; Initial estimate of inversion coefficient
 + IC      = {IC_i*(1+IC_i/4/IC_CRIT)} ; Inversion coefficient corrected for short-channel effects
-+ f_ell   = {g_m^2*R_N*KF_P18/(4*k*T*W*L*C_OX_P18)}
++ f_ell   = {3*KF_P18*g_m*(1+2*N_s_P18*U_T*sqrt(IC)/V_KF_P18)/(8*k*T*W*L*N_s_P18*C_OX_P18^2)}
 .ends
 
 .subckt J_noise ext comm int ID={ID} IG={IG} W={W} L={L}
