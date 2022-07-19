@@ -136,11 +136,10 @@ def compileUSERLibrary(fileName):
     for param in list(USERCIRCUITS[cirName].parDefs.keys()):
         USERPARAMS[param] = USERCIRCUITS[cirName].parDefs[param]
     del USERCIRCUITS[cirName]
-    CIRCUITNAMES = CIRCUITNAMES[:-1]
     # PASS 2 and 3     
     for cir in list(USERCIRCUITS.keys()):
         checkReferences(USERCIRCUITS[cir])
-        #expandCircuit(USERCIRCUITS[cir])
+
 
 def parseNetlist(netlist, cirName = 'main', circuitDict = CIRCUITS):
     """
@@ -939,26 +938,10 @@ def updateParDefs(parentParDefs, childParDefs, parentParams, prototypeParams, pa
             elif str(parName) in list(prototypeParams.keys()):
                 substDictValues[parName] = prototypeParams[str(parName)]
             elif str(parName) in list(USERPARAMS.keys()):
-                substDictValues[parName] = USERPARAMS[str(parName)]
+                #substDictValues[parName] = USERPARAMS[str(parName)]
                 parentParDefs[str(parName)] = USERPARAMS[str(parName)]
-                newPars = list(USERPARAMS[str(parName)].atoms(sp.Symbol))
-                for newPar in newPars:
-                    if str(newPar) in list(USERPARAMS.keys()):
-                        parentParDefs[str(newPar)] = USERPARAMS[str(newPar)]
-                    elif str(newPar) in list(SLiCAPPARAMS.keys()):
-                        parentParDefs[str(newPar)] = SLiCAPPARAMS[str(newPar)]
-                    else :
-                        substDictValues[newPar] = sp.Symbol(str(newPar) + '_' + parentRefDes)
-                        substDictNames[newPar] = sp.Symbol(str(newPar) + '_' + parentRefDes)
             elif str(parName) in list(SLiCAPPARAMS.keys()):
                 parentParDefs[str(parName)] = SLiCAPPARAMS[str(parName)]
-                newPars = list(SLiCAPPARAMS[str(parName)].atoms(sp.Symbol))
-                for newPar in newPars:
-                    if str(newPar) in list(SLiCAPPARAMS.keys()):
-                        parentParDefs[str(newPar)] = SLiCAPPARAMS[str(newPar)]
-                    else :
-                        substDictValues[newPar] = sp.Symbol(str(newPar) + '_' + parentRefDes)
-                        substDictNames[newPar] = sp.Symbol(str(newPar) + '_' + parentRefDes)
             else :
                 substDictNames[parName] = sp.Symbol(str(parName) + '_' + parentRefDes)
                 substDictValues[parName] = sp.Symbol(str(parName) + '_' + parentRefDes)
