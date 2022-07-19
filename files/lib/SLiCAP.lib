@@ -582,3 +582,5 @@ M1 drain gate source bulk CMOS18PN
 + c_iss     = {c_gs+c_dg+c_gb}
 + f_T_PN    = {g_m/2/pi/c_iss}
 .ends
+
+.end
