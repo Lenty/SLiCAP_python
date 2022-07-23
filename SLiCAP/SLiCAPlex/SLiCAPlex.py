@@ -14,7 +14,8 @@ tokens = ('PARDEF', 'EXPR', 'SCALE', 'SCI', 'FLT', 'INT', 'CMD', 'FNAME',
           'NEWLINE')
 
 SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
-                    'u':'-6','m':'-3','k':'3','M':'6','G':'9','T':'12','P':'15'}
+                    'u':'-6','m':'-3','k':'3','M':'6','G':'9','T':'12','P':'15',
+                    'E':'18','Z':'21','Y':'24'}
 
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
@@ -47,7 +48,7 @@ def t_PARDEF(t):
     try:
         t.value[1] = sp.sympify(t.value[1])
     except:
-        printError("Error in expression.", t)
+        printError("Error in expression.", get_input_line(t), find_column(t))
         lexer.errCount += 1
     return t
 
@@ -73,7 +74,7 @@ def t_LEFTBR(t):
     """
     pass
 
-def t_RIGHTBR(t):
+def t_t_RIGHTBR(t):
     r'\)'
     """
     End of model parameters will be ignored.
@@ -294,7 +295,7 @@ lexer = lex.lex()
 
 if __name__ == '__main__':
 
-    fi = '/mnt/DATA/Cursussen/TUDelft/AfstuderenZitao/noise_analysis/cir/N18noise.cir'
+    fi = '/mnt/DATA/SLiCAP/SLiCAP_python_tests/balancedTramp/cir/balancedMOStrampCMF.cir'
     print(fi)
     f = open(fi, 'r')
     netlist = f.read()

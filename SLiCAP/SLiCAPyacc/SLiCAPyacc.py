@@ -938,34 +938,50 @@ def updateParDefs(parentParDefs, childParDefs, parentParams, prototypeParams, pa
             elif str(parName) in list(prototypeParams.keys()):
                 substDictValues[parName] = prototypeParams[str(parName)]
             elif str(parName) in list(USERPARAMS.keys()):
-                parentParDefs[str(parName)] = USERPARAMS[str(parName)]
-                newPars = list(USERPARAMS[str(parName)].atoms(sp.Symbol))
-                for newPar in newPars:
-                    if str(newPar) in list(USERPARAMS.keys()):
-                        parentParDefs[str(newPar)] = USERPARAMS[str(newPar)]
-                    elif str(newPar) in list(SLiCAPPARAMS.keys()):
-                        parentParDefs[str(newPar)] = SLiCAPPARAMS[str(newPar)]
+                parentParDefs = addParDefsParam(parName, parentParDefs)
             elif str(parName) in list(SLiCAPPARAMS.keys()):
-                parentParDefs[str(parName)] = SLiCAPPARAMS[str(parName)]
-                newPars = list(SLiCAPPARAMS[str(parName)].atoms(sp.Symbol))
-                for newPar in newPars:
-                    if str(newPar) in list(SLiCAPPARAMS.keys()):
-                        parentParDefs[str(newPar)] = SLiCAPPARAMS[str(newPar)]
+                parentParDefs = addParDefsParam(parName, parentParDefs)
             else :
                 substDictNames[parName] = sp.Symbol(str(parName) + '_' + parentRefDes)
                 substDictValues[parName] = sp.Symbol(str(parName) + '_' + parentRefDes)
     for parName in list(childParDefs.keys()):
         """
-        Don't include a child parameter definition in that of the parent if:
-            - the parameter is the Laplace or Fourier variable
-            - the parameter is in the prototype definition
+        Add a child parameter definition to the parent parameter definitions if:
+            - the parameter is not the Laplace or Fourier variable
+            - the parameter is not in the prototype definition
         """
         if sp.Symbol(parName) != ini.Laplace and sp.Symbol(parName) != ini.frequency and parName not in list(prototypeParams.keys()):
             parentParDefs[fullSubs(sp.Symbol(parName), substDictNames)] = fullSubs(childParDefs[parName], substDictValues)
     return parentParDefs
 
-""" PASS 4 FUNCTIONS """
+def addParDefsParam(parName, parDict):
+    """
+    Adds a the definition of a global parameter (from SLiCAP.lib or from a 
+    ser library) and, recursively, the parameters from its expression to
+    the dictionary parDict. 
+    
+    :param parName: Name of the parameter.
+    :type parName: sympy.Symbol, or str.
+    
+    :return: parDict
+    :rtype: dict
+    """
+    parName = str(parName)
+    if parName not in list(parDict.keys()):
+        if parName in list(USERPARAMS.keys()):
+            parDict[parName] = USERPARAMS[parName]
+            newParams = list(USERPARAMS[parName].atoms(sp.Symbol))
+            for newParam in newParams:
+                addParDefsParam(newParam, parDict)
+        elif parName in list(SLiCAPPARAMS.keys()):
+            parDict[parName] = SLiCAPPARAMS[parName]
+            newParams = list(SLiCAPPARAMS[parName].atoms(sp.Symbol))
+            for newParam in newParams:
+                addParDefsParam(newParam, parDict)
+    return parDict
 
+""" PASS 4 FUNCTIONS """
+    
 def updateCirData(circuitObject):
     """
     Updates data of the main expanded circuit required for instructions.

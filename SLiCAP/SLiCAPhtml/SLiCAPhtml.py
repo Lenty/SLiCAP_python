@@ -663,7 +663,7 @@ def pz2html(instObj, label = '', labelText = ''):
     html += '<h3>Gain type: %s</h3>'%(instObj.gainType)
     if DCgain != None and instObj.dataType =='pz':
         if instObj.numeric == True:
-            html += '\n' + '<p>DC gain = ' + str(sp.N(DCgain, ini.disp)) + '</p>\n'
+            html += '\n' + '<p>DC value = ' + str(sp.N(DCgain, ini.disp)) + '</p>\n'
         else:
             html += '\n<p>DC gain = $' + sp.latex(roundN(DCgain)) + '$</p>\n'
     elif instObj.dataType =='pz':

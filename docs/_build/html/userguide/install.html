@@ -367,10 +367,11 @@ You can define other global parameters by adding SPICE .param declarations in th
 + CJB0_N18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
 + LDS_N18     = 180n  ; length of drain and source [m]
 + VAL_N18     = 40M   ; Early voltage per unit of length [V/m]
-+ KF_N18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [J]
-+ AF_N18      = 0.85  ; flicker noise exponent [-]
++ KF_N18      = 2e-27 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [C/m^2]
++ AF_N18      = 1     ; flicker noise exponent [-]
 + C_OX_N18    = {epsilon_0 * epsilon_SiO2 / TOX_N18}; oxide capacitance per unit of area [F/m^2]
 + I_0_N18     = {2*N_s_N18*u_0_N18*C_OX_N18*U_T^2}  ; technology current [A]
++ V_KF_N18    = 2     ; flicker noise voltage coefficient [V]
 
 .param
 + TOX_P18     = 4.1n  ; oxide thickness [m]
@@ -384,10 +385,9 @@ You can define other global parameters by adding SPICE .param declarations in th
 + CJB0_P18    = 1m    ; source/bulk drain/bulk capacitance [F/m^2]
 + LDS_P18     = 180n  ; length of drain and source [m]
 + VAL_P18     = 40M   ; Early voltage per unit of length [V/m]
-+ KF_P18      = 3e-25 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [J]
-+ AF_P18      = 0.85  ; flicker noise exponent [-]
++ KF_P18      = 1e-27 ; flicker noise (1/f noise) coefficient, zero for f_ell=0 [C/m^2]
++ AF_P18      = 1     ; flicker noise exponent [-]
 + C_OX_P18    = {epsilon_0 * epsilon_SiO2 / TOX_P18}; oxide capacitance per unit of area [F/m^2]
-+ I_0_P18     = {2*N_s_P18*u_0_P18*C_OX_P18*U_T^2} ; technology current [A]
 </pre></div>
 </td></tr></table></div>
 </div>

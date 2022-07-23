@@ -39,6 +39,7 @@ Improvements
 #. Run maxima CAS in socket and communicate input and output in terminal, python IDE or notebook.
 #. Make both maxima functions and sympy versions of math functions and a let the user user select the CAS per math function
 #. Different report structure:
+
    #. Labels for all objects in a report
    #. Organize labels and generate report from the labels
 

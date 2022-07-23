@@ -369,11 +369,17 @@ def doMaxLoopGainServo(instr, result):
     makeMaxMatrices(instr, result)
     M = python2maxima(result.M)
     if instr.lgValue[0] != None:
-        lg1 = fullSubs(instr.lgValue[0], instr.parDefs)
+        if instr.numeric:
+            lg1 = fullSubs(instr.lgValue[0], instr.parDefs)
+        else:
+            lg1 = instr.lgValue[0]
     else:
         lg1 = None
     if instr.lgValue[1] != None:
-        lg2 = fullSubs(instr.lgValue[1], instr.parDefs)
+        if instr.numeric:
+            lg2 = fullSubs(instr.lgValue[1], instr.parDefs)
+        else:
+            lg2 = instr.lgValue[1]
     else:
         lg2 = None
     if instr.gainType == 'loopgain':

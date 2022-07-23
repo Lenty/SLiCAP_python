@@ -185,6 +185,26 @@
   <div class="section" id="module-SLiCAP.SLiCAPyacc.SLiCAPyacc">
 <span id="slicapyacc-py"></span><h1>SLiCAPyacc.py<a class="headerlink" href="#module-SLiCAP.SLiCAPyacc.SLiCAPyacc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.addParDefsParam">
+<code class="descname">addParDefsParam</code><span class="sig-paren">(</span><em>parName</em>, <em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.addParDefsParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a the definition of a global parameter (from SLiCAP.lib or from a 
+ser library) and, recursively, the parameters from its expression to
+the dictionary parDict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parName</strong> (<em>sympy.Symbol</em><em>, or </em><em>str.</em>) – Name of the parameter.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">parDict</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.checkCircuit">
 <code class="descname">checkCircuit</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.checkCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main function for checking a netlist and converting it into a ‘flattened’
