@@ -33,6 +33,7 @@ LISTS     :
            TITLE
            USERLIBS
            VALEXPR
+           terminate
 
 TUPLES    :
            tokens
@@ -57,6 +58,7 @@ FUNCTIONS :
            LTspiceAC2SLiCAPtraces
            LTspiceData2Traces
            addDCvarSources
+           addParDefsParam
            addResNoiseSources
            assumePosParams
            assumeRealParams
@@ -149,9 +151,9 @@ FUNCTIONS :
            makeMaxInstr
            makeMaxMatrices
            makeNetlist
+           makeNumData
            makeSrcVector
            makeSubsDict
-           makeYdata
            matrices2html
            maxEval
            maxIntegrate
@@ -189,6 +191,7 @@ FUNCTIONS :
            sortDepVars
            startHTML
            startMaxima
+           step2PeriodicPulse
            stepArray2html
            stepFunctions
            stepParams
@@ -239,25 +242,25 @@ CLASSES   :
 ======================================================================
 
 
-Label(name, self, typ, text, page): SLiCAP/SLiCAPhtml
+Label(self, page, typ, text, name): SLiCAP/SLiCAPhtml
 
 SLiCAPproject(self, name): SLiCAP
 
 allResults(self): SLiCAP/SLiCAPprotos
 
-axis(title, self): SLiCAP/SLiCAPplots
- - makeTraceDict(self.traces, self.label)
+axis(self, title): SLiCAP/SLiCAPplots
+ - makeTraceDict(self.label, self.traces)
 
 circuit(self): SLiCAP/SLiCAPprotos
- - delPar(self.parUnits, self.parDefs)
- - defPar(self.parUnits, self.parDefs)
+ - delPar(self.parDefs, self.parUnits)
+ - defPar(self.parDefs, self.parUnits)
    - checkExpression
  - defPars(self.parDefs)
    - checkExpression
  - getParValue(self.parDefs)
    - fullSubs
- - updateParams(self.elements, self.Laplace, self.params, self.Symbol, self.frequency, self.parDefs)
- - getElementValue(self.elements, self.parDefs, self.params)
+ - updateParams(self.elements, self.parDefs, self.Laplace, self.params, self.Symbol, self.frequency)
+ - getElementValue(self.parDefs, self.params, self.elements)
    - fullSubs
 
 device(self): SLiCAP/SLiCAPprotos
@@ -265,67 +268,67 @@ device(self): SLiCAP/SLiCAPprotos
 element(self): SLiCAP/SLiCAPprotos
 
 figure(self, fileName): SLiCAP/SLiCAPplots
- - plot(self.fileName, self.lineType, self.shape, self.markerFaceColor, self.markerSize, self.defaultMarkers, self.lineWidth, self.imgPath, self.xScale, self.show, self.axisHeight, self.yLabel, self.title, self.xLim, self.yScaleFactor, self.text, self.xData, self.axes, self.markerColor, self.polar, self.plotFontSize, self.label, self.add_subplot, self.plot, self.defaultColors, self.yScale, self.traces, self.marker, self.yLim, self.color, self.yData, self.figure, self.xScaleFactor, self.axisWidth, self.xLabel)
+ - plot(self.defaultColors, self.markerSize, self.figure, self.xScaleFactor, self.defaultMarkers, self.text, self.xLabel, self.label, self.xData, self.xLim, self.fileName, self.xScale, self.axes, self.yScaleFactor, self.axisHeight, self.markerColor, self.show, self.yData, self.title, self.traces, self.add_subplot, self.imgPath, self.yLabel, self.plot, self.shape, self.marker, self.polar, self.yScale, self.yLim, self.axisWidth, self.lineType, self.lineWidth, self.color, self.markerFaceColor, self.plotFontSize)
    - defaultsPlot
 
 instruction(self): SLiCAP/SLiCAPinstruction
  - setSimType(self.simType)
- - checkSimType(self.numeric, self.simType, self.errors)
+ - checkSimType(self.simType, self.errors, self.numeric)
  - setGainType(self.gainType)
- - checkGainType(self.errors, self.gainType)
+ - checkGainType(self.gainType, self.errors)
  - setConvType(self.convType)
  - checkConvType(self.errors, self.convType)
  - setPairedNodes(self.pairedNodes)
- - checkPairedNodes(self.nodes, self.elements, self.circuit)
+ - checkPairedNodes(self.circuit, self.elements, self.nodes)
  - setPairedCircuits(self.pairedCircuits)
- - checkPairedCircuits(self.elements, self.circuit)
+ - checkPairedCircuits(self.circuit, self.elements)
  - setDataType(self.dataType)
  - checkDataType(self.errors, self.dataType)
  - stepOn(self.step)
  - stepOff(self.step)
  - setStepVar(self.stepVar)
- - checkStepVar(self.errors, self.params, self.Basic, self.stepVar, self.parDefs, self.circuit)
+ - checkStepVar(self.Basic, self.parDefs, self.errors, self.circuit, self.params, self.stepVar)
  - setStepVars(self.stepVars)
- - checkStepVars(self.stepVars, self.errors, self.params, self.Basic, self.parDefs, self.circuit)
+ - checkStepVars(self.Basic, self.parDefs, self.errors, self.circuit, self.params, self.stepVars)
  - setStepMethod(self.stepMethod)
  - checkStepMethod(self.errors, self.stepMethod)
  - setStepStart(self.stepStart)
- - checkStepStart(self.errors, self.stepStart)
+ - checkStepStart(self.stepStart, self.errors)
    - checkNumber
  - setStepStop(self.stepStop)
  - checkStepStop(self.errors, self.stepStop)
    - checkNumber
  - setStepNum(self.stepNum)
- - checkStepNum(self.stepNum, self.errors)
+ - checkStepNum(self.errors, self.stepNum)
  - setStepList(self.stepList)
  - checkStepList(self.stepList, self.errors)
    - checkNumber
  - setStepArray(self.stepArray)
- - checkStepArray(self.stepArray, self.errors, self.stepVars)
+ - checkStepArray(self.errors, self.stepArray, self.stepVars)
    - checkNumber
  - setSource(self.source, self.checkSource)
- - checkSource(self.srcUnits, self.source, self.errors)
+ - checkSource(self.source, self.srcUnits, self.errors)
  - setDetector(self.detector)
- - checkDetector(self.errors, self.detUnits, self.convType, self.lgRef, self.detector, self.detLabel)
+ - checkDetector(self.detLabel, self.errors, self.detUnits, self.lgRef, self.detector, self.convType)
  - setLGref(self.lgRef)
- - checkLGref(self.errors, self.circuit, self.controlled, self.lgRef)
+ - checkLGref(self.circuit, self.errors, self.controlled, self.lgRef)
  - delPar(self.circuit)
  - defPar(self.circuit)
  - defPars(self.circuit)
- - getParValue(self.numeric, self.circuit, self.simType)
- - getElementValue(self.numeric, self.circuit, self.simType)
+ - getParValue(self.simType, self.circuit, self.numeric)
+ - getElementValue(self.simType, self.circuit, self.numeric)
  - indepVars(self.indepVars, self.circuit)
  - depVars(self.circuit, self.depVars)
  - controlled(self.circuit, self.controlled)
  - setCircuit(self.circuit)
    - checkCircuit
- - checkCircuit(self.errors, self.circuit, self.params)
- - checkNumeric(self.numeric, self.dataType, self.errors, self.simType)
- - checkStep(self.stepVars, self.errors, self.step, self.stepNum, self.stepDict, self.stepVar, self.parDefs, self.stepStop, self.stepStart, self.stepMethod, self.stepArray, self.stepList, self.circuit)
- - check(self.errors, self.step, self.stepDict, self.dataType, self.convType, self.pairedNodes, self.checkSource, self.pairedCircuits, self.numeric, self.circuit, self.gainType)
+ - checkCircuit(self.circuit, self.params, self.errors)
+ - checkNumeric(self.simType, self.errors, self.numeric, self.dataType)
+ - checkStep(self.stepMethod, self.step, self.errors, self.parDefs, self.stepVar, self.circuit, self.stepNum, self.stepArray, self.stepList, self.stepDict, self.stepStart, self.stepStop, self.stepVars)
+ - check(self.gainType, self.numeric, self.step, self.errors, self.circuit, self.checkSource, self.pairedCircuits, self.stepDict, self.pairedNodes, self.convType, self.dataType)
    - delResNoiseSources
-   - updateCirData
    - addResNoiseSources
+   - updateCirData
  - execute(self.errors)
    - doInstruction
  - useMatrixConversion(self.conversionMethod)
@@ -336,7 +339,7 @@ modelDef(self): SLiCAP/SLiCAPprotos
 
 settings(self): SLiCAP/SLiCAPini
  - dump()
- - updatePaths(self.maxima, self.csvPath, self.docPath, self.circuitPath, self.latexPath, self.projectPath, self.htmlPath, self.ltspice, self.netlist, self.defaultLib, self.txtPath, self.libraryPath, self.imgPath, self.mathmlPath)
+ - updatePaths(self.txtPath, self.latexPath, self.ltspice, self.maxima, self.mathmlPath, self.netlist, self.docPath, self.htmlPath, self.csvPath, self.defaultLib, self.imgPath, self.circuitPath, self.libraryPath, self.projectPath)
 
-trace(traceData, self): SLiCAP/SLiCAPplots
- - makeTable(self.yData, self.yName, self.xData, self.xName)
+trace(self, traceData): SLiCAP/SLiCAPplots
+ - makeTable(self.yData, self.xData, self.xName, self.yName)

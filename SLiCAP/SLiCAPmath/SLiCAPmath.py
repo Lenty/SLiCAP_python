@@ -599,7 +599,7 @@ def phaseMargin(LaplaceExpr):
         freqs = freqs[0]
     return (mrgns, freqs)
 
-def makeYdata(yFunc, xVar, x, lmbdfy=True):
+def makeNumData(yFunc, xVar, x):
     """
     Returns a list of values y, where y[i] = yFunc(x[i]).
     
@@ -611,31 +611,19 @@ def makeYdata(yFunc, xVar, x, lmbdfy=True):
     
     :param x: List with values of x
     :type x: list
-    
-    :param lmbdfy: Setting for calculation method of the output y
-    
-                   - True: Converts the symbolic expression *yFunc* into a
-                     numeric single-variable function using sympy.lambdify
-                   - False: Subsitutes the x values in the yFunc with sympy.
                    
     :return: list with y values: y[i] = yFunc(x[i]).
     :rtype:  list
     """
     yFunc = sp.N(yFunc)
-    try:
-        if xVar in list(yFunc.atoms(sp.Symbol)):
-            if lmbdfy == True:
-                try:
-                    func = sp.lambdify(xVar, yFunc, ini.lambdifyTool)
-                    y = func(x)
-                except:
-                    y = [sp.N(yFunc.subs(xVar, x[i])) for i in range(len(x))]
-            else:
-                y = [sp.N(yFunc.subs(xVar, x[i])) for i in range(len(x))]
-        else:
-            y = [yFunc for i in range(len(x))]
-    except:
-         y = [yFunc for i in range(len(x))]
+    if xVar in list(yFunc.atoms(sp.Symbol)):
+        try:
+            func = sp.lambdify(xVar, yFunc, ini.lambdifyTool)
+            y = sp.N(func(x))
+        except:
+            y = [sp.N(yFunc.subs(xVar, x[i])).doit() for i in range(len(x))]
+    else:
+        y = [sp.N(yFunc) for i in range(len(x))]
     return y
 
 def magFunc_f(LaplaceExpr, f):
@@ -669,7 +657,7 @@ def magFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    result = makeYdata(sp.Abs(sp.N(data)), ini.frequency, f, lmbdfy=True)
+    result = makeNumData(sp.Abs(sp.N(data)), ini.frequency, f)
     return result
 
 def dBmagFunc_f(LaplaceExpr, f):
@@ -701,10 +689,10 @@ def dBmagFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: 2*sp.pi*sp.I*ini.frequency})
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
-    result = makeYdata(20*sp.log(sp.Abs(sp.N(data)), 10), ini.frequency, f, lmbdfy=True)
+    result = makeNumData(20*sp.log(sp.Abs(sp.N(data)), 10), ini.frequency, f)
     return result
     
-def phaseFunc_f(LaplaceExpr, f, lmbdfy=True):
+def phaseFunc_f(LaplaceExpr, f):
     """
     Calculates the phase angle at the real frequency f (Fourier) from the
     univariate function 'LaplaceExpr' of the Laplace variable.
@@ -733,10 +721,10 @@ def phaseFunc_f(LaplaceExpr, f, lmbdfy=True):
     else:
         data = sp.N(LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency}))
     if ini.frequency in list(data.atoms(sp.Symbol)):
-        if lmbdfy == True:
+        try:
             func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             phase = np.angle(func(f))
-        else:
+        except:
             phase = [np.angle(sp.N(data.subs(ini.frequency, f[i]))) for i in range(len(f))]
     elif data >= 0:
         phase = [0 for i in range(len(f))]
@@ -750,7 +738,7 @@ def phaseFunc_f(LaplaceExpr, f, lmbdfy=True):
         phase = phase * 180/np.pi
     return phase
 
-def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp), lmbdfy=True):
+def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp)):
     """
     Calculates the group delay at the real frequency f (Fourier) from the
     univariate function 'LaplaceExpr' of the Laplace variable.
@@ -780,11 +768,11 @@ def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp), lmbdfy=True):
     else:
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
     if ini.frequency in list(data.atoms(sp.Symbol)):
-        if lmbdfy == True:
+        try:
             func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             angle1 = np.angle(func(f))
             angle2 = np.angle(func(f*(1+delta)))
-        else:
+        except:
             angle1 = np.array([np.angle(sp.N(data.subs(ini.frequency, f[i]) for i in range(len(f))))])
             angle2 = np.array([np.angle(sp.N(data.subs(ini.frequency, f[i]*(1+delta)) for i in range(len(f))))])
         try:
@@ -1024,6 +1012,46 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     except:
         print('Error: could not solve equations.')
     return values
+
+
+def step2PeriodicPulse(ft, t_pulse, t_period, n_periods):
+    """
+    Converts a step response in a periodic pulse response. Works with symbolic
+    and numeric time functions. 
+    
+    For evaluation of numeric values, use the SLiCAP function: makeNumData().
+    
+    :param ft: Time function f(t)
+    :type ft: sympy.Expr
+    
+    :param t_pulse: Pulse width
+    :type t_pulse: int, float
+    
+    :param t_period: Pulse period
+    :type t_period: int, float
+    
+    :param n_periods: Number of pulses
+    :typen_periods: int, float
+    
+    :return: modified time function
+    :rtype: sympy.Expr
+    """
+    t = sp.Symbol('t')
+    ft *= sp.Heaviside(t, 1)
+    ft_out = ft
+    n_edges = 2*n_periods - 1
+    t_delay = 0
+    if t in list(ft.atoms(sp.Symbol)):
+        for i in range(n_edges):
+            if i % 2 == 0:
+                t_delay += t_pulse
+                ft_out -= ft.subs(t, sp.UnevaluatedExpr(t - t_delay))
+            else:
+                t_delay += t_period - t_pulse
+                ft_out += ft.subs(t, sp.UnevaluatedExpr(t - t_delay))
+    else:
+        print("Error: expected a time function f(t).")
+    return ft_out
 
 if __name__ == "__main__":
     s = ini.Laplace

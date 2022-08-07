@@ -670,7 +670,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                 if funcType == 'mag':
                     if ax.polar:
                         radius = magFunc_f(yData, x)
-                        angle = phaseFunc_f(yData, x, lmbdfy=True)
+                        angle = phaseFunc_f(yData, x)
                         if ini.Hz:
                             angle = angle/180*np.pi
                         newTrace = trace([angle, radius])
@@ -679,7 +679,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                 elif funcType == 'dBmag':
                     if ax.polar:
                         radius = dBmagFunc_f(yData, x)
-                        angle = phaseFunc_f(yData, x, lmbdfy=True)
+                        angle = phaseFunc_f(yData, x)
                         if ini.Hz:
                             angle = angle/180*np.pi
                         newTrace = trace([angle, radius])
@@ -687,13 +687,13 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         newTrace = trace([x, dBmagFunc_f(yData, x)])
                 elif funcType == 'phase':
                     if not ax.polar:
-                        newTrace = trace([x, phaseFunc_f(yData, x, lmbdfy=True)])
+                        newTrace = trace([x, phaseFunc_f(yData, x)])
                 elif funcType == 'delay':
                     if not ax.polar:
-                        newTrace = trace([x, delayFunc_f(yData, x, lmbdfy=True)])
+                        newTrace = trace([x, delayFunc_f(yData, x)])
                 elif funcType == 'time':
                     if not ax.polar:
-                        y = makeYdata(yData, sp.Symbol('t'), x, lmbdfy=False)
+                        y = makeNumData(yData, sp.Symbol('t'), x)
                         newTrace = trace([x, y])
                 if result.dataType != 'noise':
                     newTrace.label = result.label
@@ -729,7 +729,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.onoise
                         elif funcType == 'inoise':
                             yData = result.inoise
-                        y = makeYdata(normalizeRational(yData, ini.frequency), ini.frequency, x, lmbdfy=True)
+                        y = makeNumData(normalizeRational(yData, ini.frequency), ini.frequency, x)
                         newTrace = trace([x, y])
                         newTrace.label = funcType
                         ax.traces.append(newTrace)
@@ -739,7 +739,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                 yData = result.onoiseTerms[srcName]
                             elif funcType == 'inoise':
                                 yData = result.inoiseTerms[srcName]
-                            y = makeYdata(normalizeRational(yData, ini.frequency), ini.frequency, x, lmbdfy=True)
+                            y = makeNumData(normalizeRational(yData, ini.frequency), ini.frequency, x)
                             noiseTrace = trace([x, y])
                             noiseTrace.color = ini.defaultColors[colNum % numColors]
                             colNum += 1
@@ -750,7 +750,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.onoiseTerms[noiseSources]
                         elif funcType == 'inoise':
                             yData = result.inoiseTerms[noiseSources]
-                        y = makeYdata(normalizeRational(yData, ini.frequency), ini.frequency, x, lmbdfy=True)
+                        y = makeNumData(normalizeRational(yData, ini.frequency), ini.frequency, x)
                         noiseTrace = trace([x, y])
                         noiseTrace.color = ini.defaultColors[colNum % numColors]
                         colNum += 1
@@ -763,7 +763,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                     yData = result.onoiseTerms[srcName]
                                 elif funcType == 'inoise':
                                     yData = result.inoiseTerms[srcName]
-                                y = makeYdata(normalizeRational(yData, ini.frequency), ini.frequency, x, lmbdfy=True)
+                                y = makeNumData(normalizeRational(yData, ini.frequency), ini.frequency, x)
                                 noiseTrace = trace([x, y])
                                 noiseTrace.color = ini.defaultColors[colNum % numColors]
                                 colNum += 1
@@ -819,7 +819,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                     if funcType == 'mag':
                         if ax.polar:
                             radius = magFunc_f(yData, x)
-                            angle = phaseFunc_f(yData, x, lmbdfy=True)
+                            angle = phaseFunc_f(yData, x)
                             if ini.Hz:
                                 angle = angle/180*np.pi
                             newTrace = trace([angle, radius])
@@ -828,7 +828,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                     elif funcType == 'dBmag':
                         if ax.polar:
                             radius = dBmagFunc_f(yData, x)
-                            angle = phaseFunc_f(yData, x, lmbdfy=True)
+                            angle = phaseFunc_f(yData, x)
                             if ini.Hz:
                                 angle = angle/180*np.pi
                             newTrace = trace([angle, radius])
@@ -836,17 +836,17 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             newTrace = trace([x, dBmagFunc_f(yData, x)])
                     elif funcType == 'phase':
                         if not ax.polar:
-                            newTrace = trace([x, phaseFunc_f(yData, x, lmbdfy=True)])
+                            newTrace = trace([x, phaseFunc_f(yData, x)])
                     elif funcType == 'delay':
                         if not ax.polar:
-                            newTrace = trace([x, delayFunc_f(yData, x, lmbdfy=True)])
+                            newTrace = trace([x, delayFunc_f(yData, x)])
                     elif funcType == 'time':
                         if not ax.polar:
-                            y = makeYdata(yData, sp.Symbol('t'), x, lmbdfy=False)
+                            y = makeNumData(yData, sp.Symbol('t'), x)
                             newTrace = trace([x, y])
                     elif funcType == 'onoise' or funcType == 'inoise':
                         if not ax.polar:
-                            y = makeYdata(yData, ini.frequency, x, lmbdfy=True)
+                            y = makeNumData(yData, ini.frequency, x)
                             newTrace = trace([x, y])
                     newTrace.color = ini.defaultColors[colNum % numColors]
                     colNum += 1

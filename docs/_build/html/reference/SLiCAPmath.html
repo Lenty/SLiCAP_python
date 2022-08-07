@@ -407,7 +407,7 @@ at the specified frequencies.</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f">
-<code class="descname">delayFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>delta=0.0001</em>, <em>lmbdfy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delayFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>delta=0.0001</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.delayFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the group delay at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -728,8 +728,8 @@ sp.I*ini.frequency.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata">
-<code class="descname">makeYdata</code><span class="sig-paren">(</span><em>yFunc</em>, <em>xVar</em>, <em>x</em>, <em>lmbdfy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeYdata" title="Permalink to this definition">¶</a></dt>
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.makeNumData">
+<code class="descname">makeNumData</code><span class="sig-paren">(</span><em>yFunc</em>, <em>xVar</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.makeNumData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of values y, where y[i] = yFunc(x[i]).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -739,13 +739,6 @@ sp.I*ini.frequency.</p>
 <li><strong>yFunc</strong> (<em>sympy.Expr</em>) – Function</li>
 <li><strong>xVar</strong> (<em>sympy.Symbol</em>) – Variable that needs to be substituted in <em>yFunc</em></li>
 <li><strong>x</strong> (<em>list</em>) – List with values of x</li>
-<li><strong>lmbdfy</strong> – <p>Setting for calculation method of the output y</p>
-<ul>
-<li>True: Converts the symbolic expression <em>yFunc</em> into a
-numeric single-variable function using sympy.lambdify</li>
-<li>False: Subsitutes the x values in the yFunc with sympy.</li>
-</ul>
-</li>
 </ul>
 </td>
 </tr>
@@ -823,7 +816,7 @@ numeric single-variable function using sympy.lambdify</li>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f">
-<code class="descname">phaseFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em>, <em>lmbdfy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
+<code class="descname">phaseFunc_f</code><span class="sig-paren">(</span><em>LaplaceExpr</em>, <em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.phaseFunc_f" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the phase angle at the real frequency f (Fourier) from the
 univariate function ‘LaplaceExpr’ of the Laplace variable.</p>
 <p>If ini.Hz == true, the Laplace variable will be replaced with
@@ -968,6 +961,37 @@ sp.I*ini.frequency.</p>
 <span class="go">Matrix([[1], [2], [k/2 + 5/2], [(k**2 + 2*k + 1)/(k + 5)], [k + 1]])</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.step2PeriodicPulse">
+<code class="descname">step2PeriodicPulse</code><span class="sig-paren">(</span><em>ft</em>, <em>t_pulse</em>, <em>t_period</em>, <em>n_periods</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.step2PeriodicPulse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a step response in a periodic pulse response. Works with symbolic
+and numeric time functions.</p>
+<p>For evaluation of numeric values, use the SLiCAP function: makeNumData().</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ft</strong> (<em>sympy.Expr</em>) – Time function f(t)</li>
+<li><strong>t_pulse</strong> (<em>int</em><em>, </em><em>float</em>) – Pulse width</li>
+<li><strong>t_period</strong> (<em>int</em><em>, </em><em>float</em>) – Pulse period</li>
+<li><strong>n_periods</strong> – Number of pulses</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Typen_periods:</th><td class="field-body"><p class="first">int, float</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">modified time function</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expr</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
