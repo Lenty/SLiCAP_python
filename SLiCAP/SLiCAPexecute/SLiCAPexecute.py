@@ -1046,7 +1046,7 @@ def doMaxIlt(laplaceRational):
         laplaceRational = normalizeLaplaceRational(laplaceRational)
     except:
         pass
-    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$'
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$'
     varList = list(laplaceRational.atoms(sp.Symbol))
     if len(varList) == 1 and varList[0] == ini.Laplace:
         maxInstr += 'string(newIlt(' + python2maxima(laplaceRational) + ',s,t));'
@@ -1098,7 +1098,7 @@ def doMaxFunction(funcName, args):
     :return: Sympy expression (execution result)
     :rtype: Sympy.Expr
     """
-    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$'
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$'
     maxInstr += "string("
     maxInstr += funcName +'('
     for arg in args:
@@ -1120,7 +1120,7 @@ def makeMaxInstr(instr, result):
     :return: tuple with Input for Maxima CAS and result object.
     :rtype: tuple with str and :class:`allResult()`
     """
-    maxInstr = 'load("' + ini.installPath + 'SLiCAPmaxima/SLiCAP_python.mac")$'
+    maxInstr = 'load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$'
     if instr.dataType == 'numer':
         result = makeMaxMatrices(instr, result) 
         detP, detN = makeMaxDetPos(instr, result)  
