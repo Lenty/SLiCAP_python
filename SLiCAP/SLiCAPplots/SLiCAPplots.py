@@ -1690,6 +1690,23 @@ def Cadence2traces(csvFile, absx = False, logx = False, absy = False, logy = Fal
                 traceDict_ready[key+str(ID_dict)]=traceDict[key]
     return traceDict_ready
 
+def addTraces(figObj, traceDict):
+    """
+    Adds the traces in the dictionary 'traceDict' to the figure object 'figObj'.
+    
+    :param figObj: SLiCAP figure object to which the traces will be added.
+    :type csvFile: SLiCAP figure object
+    
+    :param traceDict: dictionary with traces (result from csv2traces)
+    :type traceDict: dict
+    
+    :return: updated figure object (traces addad)
+    :rtype: SLiCAP figure object
+    """
+    for key in traceDict.keys():
+        figObj.axes[0][0].traces.append(traceDict[key])
+    return figObj
+
 if __name__=='__main__':
     ini.imgPath = ''
     x = np.linspace(0, 2*np.pi, endpoint = True)
