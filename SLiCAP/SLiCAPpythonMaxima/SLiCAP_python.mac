@@ -245,7 +245,7 @@ return(expr))$
 
 /* =============================================================================================================
 Function:       doLoopgain
-Arguments:      M       : Rational function of Laplace variable
+Arguments:      M       : MNA matrix with loop gain references _LGREF_1 and _LGREF_
                 lgRef_1 : Loop gain reference 1
                 lgRef_2 : Loop gain reference 2
 Returns:        result    : Inverse Laplace Transform of expr
@@ -263,7 +263,7 @@ return(result))$
 
 /* =============================================================================================================
 Function:       doServo
-Arguments:      M       : Rational function of Laplace variable
+Arguments:      M       : MNA matrix with loop gain references _LGREF_1 and _LGREF_
                 lgRef_1 : Loop gain reference 1
                 lgRef_2 : Loop gain reference 2
 Returns:        result    : Inverse Laplace Transform of expr
@@ -276,7 +276,7 @@ D_M: doDet(M_D),
 M_0: subst(_LGREF_1=0,M),
 M_0: subst(_LGREF_2=0,M_0),
 D_0: doDet(M_0),
-result: fullratsimp((D_0-D_M)/D_M),
+result: fullratsimp((D_M-D_0)/D_M),
 return(result))$
 
 compile(det)$
