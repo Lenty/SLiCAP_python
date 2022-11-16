@@ -17,7 +17,6 @@ try:
 except NameError:
     ini.notebook = False
 
-
 class SLiCAPproject(object):
     """
     Prototype of a SLiCAPproject.
@@ -42,7 +41,7 @@ class SLiCAPproject(object):
         SLiCAPproject.initProject(<name>)
         """
 
-def initProject(name, firstRun=True):
+def initProject(name):
     """
     Initializes a SLiCAP project.
 
@@ -91,23 +90,30 @@ def initProject(name, firstRun=True):
         f = open(ini.projectPath + 'SLiCAPconfig.py', 'w')
         f.writelines(lines)
         f.close()
-    if firstRun:
-        makeDir(ini.circuitPath)
-        makeDir(ini.imgPath)
-        makeDir(ini.libraryPath)
-        makeDir(ini.csvPath)
-        makeDir(ini.txtPath)
-        makeDir(ini.htmlPath)
-        makeDir(ini.htmlPath + 'img/')
-        makeDir(ini.htmlPath + 'css/')
-        copyNotOverwrite(ini.defaultLib + '/slicap.css', ini.htmlPath + 'css/slicap.css')
-        copyNotOverwrite(ini.defaultLib + '/Grid.png', ini.htmlPath + 'css/Grid.png')
-        makeDir(ini.mathmlPath)
-        makeDir(ini.latexPath)
-        # Create the HTML project index file
+    #if firstRun:
+    makeDir(ini.circuitPath)
+    makeDir(ini.imgPath)
+    makeDir(ini.libraryPath)
+    makeDir(ini.csvPath)
+    makeDir(ini.txtPath)
+    makeDir(ini.htmlPath)
+    makeDir(ini.htmlPath + 'img/')
+    makeDir(ini.htmlPath + 'css/')
+    copyNotOverwrite(ini.defaultLib + '/slicap.css', ini.htmlPath + 'css/slicap.css')
+    copyNotOverwrite(ini.defaultLib + '/Grid.png', ini.htmlPath + 'css/Grid.png')
+    makeDir(ini.mathmlPath)
+    makeDir(ini.latexPath)
+    ini.socket = True
+    if ini.maximaHandler == None:
+        # Start the maxima client
+        print("Sarting Maxima client")
+        startMaxima()
+    else:
+        restartMaxima()
+    # Create the HTML project index file
     startHTML(name)
         # Create the libraries
-    if len(list(SLiCAPCIRCUITS.keys())) == 0 or len(list(SLiCAPPARAMS.keys())) == 0:
+    if len(list(SLiCAPPARAMS.keys())) == 0:
         makeLibraries()
     return prj    
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>DC variance &mdash; SLiCAP 1.3.0 documentation</title>
+  <title>DC variance &mdash; SLiCAP 1.4.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.4.0
               </div>
             
           
@@ -260,10 +260,10 @@ V1 N1 N2 0 value={V_DC} dcvar = {(sigma_V*V_DC)^2}
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print the contributions of the DC error sources to the detector-referred variance</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">source_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ovar_terms</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="n">source_name</span><span class="p">,</span> <span class="n">ovar_terms</span><span class="p">[</span><span class="n">source_name</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">source_name</span><span class="p">,</span> <span class="n">ovar_terms</span><span class="p">[</span><span class="n">source_name</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print the contributions of the DC error sources to the source-referred variance</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">source_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ivar_terms</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span><span class="p">(</span><span class="n">source_name</span><span class="p">,</span> <span class="n">ivar_terms</span><span class="p">[</span><span class="n">source_name</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">source_name</span><span class="p">,</span> <span class="n">ivar_terms</span><span class="p">[</span><span class="n">source_name</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

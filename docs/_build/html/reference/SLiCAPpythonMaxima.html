@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPpythonMaxima.py &mdash; SLiCAP 1.3.0 documentation</title>
+  <title>SLiCAPpythonMaxima.py &mdash; SLiCAP 1.4.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.4.0
               </div>
             
           
@@ -187,14 +187,14 @@
 <p>SLiCAP module with symbolic math functions executed by maxima CAS.</p>
 <p>Imported by the module <strong>SLiCAPplots.py</strong>.</p>
 <dl class="function">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.checkMaxima">
+<code class="descname">checkMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.checkMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval">
 <code class="descname">maxEval</code><span class="sig-paren">(</span><em>maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
-<p>Starts a subprocess that evaluates maxExpr with Maxima CAS and returns the
-resulting expression in text format. The variable that needs to be output
-must be named: ‘result’.</p>
-<p>In some cases Maxima CAS will ask for extra input.
-This will be ignored and a time out will kill the subprocess.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -288,6 +288,74 @@ values.</li>
 </table>
 </dd></dl>
 
+<dl class="class">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler">
+<em class="property">class </em><code class="descname">maximaHandler</code><span class="sig-paren">(</span><em>port</em>, <em>host</em>, <em>maxima</em>, <em>timeout=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.active">
+<code class="descname">active</code><em class="property"> = False</em><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.active" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.answers">
+<code class="descname">answers</code><em class="property"> = ['p', 'n', 'z', 'r', 'c', 'y']</em><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.answers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse">
+<code class="descname">getResponse</code><span class="sig-paren">(</span><em>timeout=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.maxEval">
+<code class="descname">maxEval</code><span class="sig-paren">(</span><em>maxExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.maxEval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>maxExpr</strong> (<em>str</em>) – Expression in Maxima format to be evaluated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">String that can be converted into a sympy expression.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
+<span class="go">&#39;sin(a*t)/a&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.mut">
+<code class="descname">mut</code><em class="property"> = &lt;unlocked _thread.lock object&gt;</em><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.mut" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.parseMaxima">
+<code class="descname">parseMaxima</code><span class="sig-paren">(</span><em>maxInstr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.parseMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.restartMaxima">
+<code class="descname">restartMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.restartMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.runMaxima">
+<code class="descname">runMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.runMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.startMaxima">
+<code class="descname">startMaxima</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.startMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.python2maxima">
 <code class="descname">python2maxima</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.python2maxima" title="Permalink to this definition">¶</a></dt>
@@ -305,6 +373,11 @@ values.</li>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.restartMaxima">
+<code class="descname">restartMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.restartMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise">
@@ -344,13 +417,18 @@ for ‘noise’ are accepted.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.serveMaxima">
-<code class="descname">serveMaxima</code><span class="sig-paren">(</span><em>maxInstr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.serveMaxima" title="Permalink to this definition">¶</a></dt>
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima">
+<code class="descname">startMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima">
-<code class="descname">startMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima" title="Permalink to this definition">¶</a></dt>
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.start_new_thread">
+<code class="descname">start_new_thread</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.start_new_thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.wait_until">
+<code class="descname">wait_until</code><span class="sig-paren">(</span><em>somepredicate</em>, <em>timeout</em>, <em>period=0.25</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.wait_until" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

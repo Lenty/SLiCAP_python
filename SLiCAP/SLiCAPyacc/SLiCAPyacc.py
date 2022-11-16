@@ -646,7 +646,7 @@ def checkElementModelParams(circuitObject, el):
             modelParams = SLiCAPMODELS[elModel].params
             basicModel = SLiCAPMODELS[elModel].type
         else:
-            print("Error: missing definition of model: " + elModel + ".")
+            print("Error: missing definition of model: " + str(elModel) + ".")
             circuitObject.errors += 1
             basicModel = False
     # Assign basic model to element

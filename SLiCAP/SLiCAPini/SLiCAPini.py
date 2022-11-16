@@ -6,22 +6,16 @@ SLiCAP initialization module, imports external modules and defines settings.
 Imported by the module **SLiCAini.py**
 """
 
-from SLiCAP.SLiCAPsetting import *
-from SLiCAP.SLiCAPconfig import *
 import docutils.core
 import docutils.writers.html5_polyglot
 import numpy as np
 import sympy as sp
 import requests
-from scipy.signal import residue
-from scipy.optimize import newton, fsolve
-from scipy.integrate import quad
 import ply.lex as lex
-from shutil import copy2 as cp
-from time import time
-from datetime import datetime
 import re
 import subprocess
+import socket
+import scipy.integrate as integrate
 import platform
 import os
 import getpass
@@ -29,7 +23,16 @@ import inspect
 import matplotlib._pylab_helpers as plotHelp
 import matplotlib.pyplot as plt
 import webbrowser
+from SLiCAP.SLiCAPsetting import *
+from SLiCAP.SLiCAPconfig import *
 from copy import deepcopy
+from scipy.signal import residue
+from scipy.optimize import newton, fsolve
+from scipy.integrate import quad
+from threading import Thread, Lock
+from shutil import copy2 as cp
+from time import time, sleep
+from datetime import datetime
 plt.ioff() # Turn off the interactive mode for plotting
 # Increase width for display of numpy arrays:
 np.set_printoptions(edgeitems=30, linewidth=1000, 
@@ -208,6 +211,8 @@ class settings(object):
        - HOST = 127.0.0.1 : Standard loopback interface address (localhost)
        
        - PORT = 53118     : Port to listen on (non-privileged ports are > 1023)
+       
+       - maximaHandler    : Maxima client process handler
                  
     """
     def __init__(self):
@@ -468,7 +473,7 @@ class settings(object):
         This variable is set during installation.
         """
         
-        self.socket             = False
+        self.socket             = True
         """
         Setting for maxima operation method.
         """
@@ -481,6 +486,11 @@ class settings(object):
         self.PORT               = 53118
         """
         Port to listen on (non-privileged ports are > 1023)
+        """
+        
+        self.maximaHandler      = None
+        """
+        Maxima client process handler will be activated at start-up
         """
         
         self.netlist            = None

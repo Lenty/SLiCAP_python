@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Define an instruction &mdash; SLiCAP 1.3.0 documentation</title>
+  <title>Define an instruction &mdash; SLiCAP 1.4.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.4.0
               </div>
             
           
@@ -209,10 +209,10 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>  <span class="c1"># Set the simulation type to &#39;numeric&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">simType</span><span class="p">)</span>         <span class="c1"># Print the current setting of the simulation type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">simType</span><span class="p">)</span>         <span class="c1"># Print the current setting of the simulation type</span>
 <span class="go">numeric</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;symbolic&#39;</span><span class="p">)</span> <span class="c1"># Set the simulation mode to &#39;symbolic&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">simType</span><span class="p">)</span>         <span class="c1"># Print the current setting of the simulation type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">simType</span><span class="p">)</span>         <span class="c1"># Print the current setting of the simulation type</span>
 <span class="go">symbolic</span>
 </pre></div>
 </div>
@@ -264,22 +264,22 @@
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;vi&#39;</span><span class="p">)</span>         <span class="c1"># Set the gain type to &#39;vi&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
 <span class="go">vi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">)</span>       <span class="c1"># Set the gain type to &#39;gain&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
 <span class="go">gain</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;asymptotic&#39;</span><span class="p">)</span> <span class="c1"># Set the gain type to &#39;asymptotic&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
 <span class="go">asymptotic</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;loopgain&#39;</span><span class="p">)</span>   <span class="c1"># Set the gain type to &#39;loopgain&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
 <span class="go">loopgain</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;servo&#39;</span><span class="p">)</span>      <span class="c1"># Set the gain type to &#39;servo&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
 <span class="go">servo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;direct&#39;</span><span class="p">)</span>     <span class="c1"># Set the gain type to &#39;direct&#39;.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">gainType</span><span class="p">)</span>           <span class="c1"># Print the current setting of the gain type</span>
 <span class="go">direct</span>
 </pre></div>
 </div>
@@ -294,10 +294,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">indepVars</span><span class="p">())</span>        <span class="c1"># Print a list with independent sources in the circuit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">indepVars</span><span class="p">())</span>        <span class="c1"># Print a list with independent sources in the circuit</span>
 <span class="go">[&#39;V1&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSource</span><span class="p">(</span><span class="s1">&#39;V1&#39;</span><span class="p">)</span>           <span class="c1"># Define the signal source</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>             <span class="c1"># Print the signal source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>             <span class="c1"># Print the signal source</span>
 <span class="go">[V1, None]</span>
 </pre></div>
 </div>
@@ -325,16 +325,16 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">depVars</span><span class="p">())</span>          <span class="c1"># print a list with independent sources in the circuit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">depVars</span><span class="p">())</span>          <span class="c1"># print a list with independent sources in the circuit</span>
 <span class="go">[&#39;I_V1&#39;, &#39;V_0&#39;, &#39;V_N001&#39;, &#39;V_out&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;V_out&#39;</span><span class="p">)</span>      <span class="c1"># Nodal voltage &#39;V_out&#39; is detector voltage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
 <span class="go">[&#39;V_out&#39;, None]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">([</span><span class="s1">&#39;V_out&#39;</span><span class="p">,</span> <span class="s1">&#39;V_N001&#39;</span><span class="p">])</span> <span class="c1"># Voltage &#39;V_out&#39;-&#39;V_N001&#39; is the detector voltage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
 <span class="go">[&#39;V_out&#39;, &#39;V_N001&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;I_V1&#39;</span><span class="p">)</span>       <span class="c1"># Current through &#39;V1&#39; is the detector current</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
 <span class="go">[&#39;I_V1&#39;, None]</span>
 </pre></div>
 </div>
@@ -350,7 +350,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">controlled</span><span class="p">()</span>        <span class="c1"># Print a list with names of controlled sources</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">instr</span><span class="o">.</span><span class="n">controlled</span><span class="p">()</span>        <span class="c1"># Print a list with names of controlled sources</span>
 <span class="go">[]</span>
 </pre></div>
 </div>
@@ -370,9 +370,9 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;cd&#39;</span><span class="p">)</span>  <span class="c1"># common-mode to differential-mode equivalent network</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>  <span class="c1"># common-mode equivalent network</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="c1"># MNA matrix transformed to differential-mode and common-mode base</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>  <span class="c1"># MNA matrix (default)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setConvType</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># MNA matrix (default)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">convType</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">convType</span><span class="p">)</span>
 
 <span class="go">None</span>
 </pre></div>
@@ -445,7 +445,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">)</span>     <span class="c1"># Define the gain type</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDataType</span><span class="p">(</span><span class="s1">&#39;laplace&#39;</span><span class="p">)</span>  <span class="c1"># Define the data type</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>      <span class="c1"># Execute the instruction and assign the results to &#39;result&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">result</span><span class="o">.</span><span class="n">laplace</span>          <span class="c1"># Print the Laplace transform of the gain</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">result</span><span class="o">.</span><span class="n">laplace</span>          <span class="c1"># Print the Laplace transform of the gain</span>
 <span class="go">1.0/(1.0*C*R*s + 1.0)</span>
 </pre></div>
 </div>
