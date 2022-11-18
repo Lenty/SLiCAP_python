@@ -617,11 +617,12 @@ def makeNumData(yFunc, xVar, x):
     """
     yFunc = sp.N(yFunc)
     if xVar in list(yFunc.atoms(sp.Symbol)):
-        try:
-            func = sp.lambdify(xVar, yFunc, ini.lambdifyTool)
-            y = sp.N(func(x))
-        except:
+        # Check for periodic function (not implemented in sp.lambdify)
+        if len(list(yFunc.atoms(sp.Heaviside))) != 0:
             y = [sp.N(yFunc.subs(xVar, x[i])).doit() for i in range(len(x))]
+        else:
+            func = sp.lambdify(xVar, yFunc, ini.lambdifyTool)
+            y = func(x)
     else:
         y = [sp.N(yFunc) for i in range(len(x))]
     return y
