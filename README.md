@@ -5,7 +5,7 @@
 - SliCAP is a tool for **algorithm-based analog design automation**
 - SLiCAP is intended for setting up and solving **design equations** of electronic circuits
 - SLiCAP is a an **open source** application written in Python and maxima CAS
-- SLiCAP is part of the tool set for teaching 'Structured Electronic Design' at the Delft University of Technology
+- SLiCAP is part of the tool set for teaching [Structured Electronics Design](https://analog-electronics.tudelft.nl) at the Delft University of Technology
 
 ## Why you should use it
 - SLiCAP facilitates analog design automation
