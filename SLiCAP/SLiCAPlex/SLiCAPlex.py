@@ -43,11 +43,13 @@ def t_PARDEF(t):
         try:
             scaleFactor = SCALEFACTORS[t.value[1][-1]]
             t.value[1] = t.value[1][0:-1] + 'E' + scaleFactor
-        except:
+        except BaseException:
             pass
     try:
         t.value[1] = sp.sympify(t.value[1])
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         printError("Error in expression.", get_input_line(t), find_column(t))
         lexer.errCount += 1
     return t
@@ -110,7 +112,9 @@ def t_EXPR(t):
     t.value = out
     try:
         t.value = sp.sympify(out)
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         lexer.errCount += 1
         printError("Error in expression:", t)
     return t
@@ -124,7 +128,9 @@ def t_SCI(t):
     try:
         t.value = sp.N(t.value)
         t.type = 'FLT'
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         printError('Cannot convert number to float.', t)
     return t
 
@@ -146,7 +152,9 @@ def t_SCALE(t):
     """
     try:
         t.value = sp.N(t.value[0:-1] + 'E' + SCALEFACTORS[t.value[-1]])
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         printError('Cannot convert number to float.', t)
         lexer.errCount += 1
     t.type = 'FLT'

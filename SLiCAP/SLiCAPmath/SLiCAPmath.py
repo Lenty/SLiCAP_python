@@ -5,7 +5,7 @@ SLiCAP module with math functions.
 
 Imported by the module **SLiCAPprotos.py**.
 """
-from SLiCAP.SLiCAPlex import *
+from SLiCAP.SLiCAPpythonMaxima import *
 
 def det(M):
     """
@@ -96,7 +96,9 @@ def numRoots(expr, var):
                 try:
                     coeffs = polyCoeffs(expr, ini.Laplace)
                     roots = np.flip(np.roots(np.array(coeffs)),0)
-                except:
+                except BaseException:
+                    exc_type, value, exc_traceback = sys.exc_info()
+                    print('\n', value)
                     print("Error: cannot determine the roots of:", str(expr))
             else:
                 print("Error: symbolic variables found, cannot determine the numeric roots of:", str(expr))
@@ -197,8 +199,9 @@ def normalizeRational(rational, variable=ini.Laplace, method='lowest'):
             coeffsNumer.reverse()
             coeffsDenom.reverse()
             rational = gain*(sp.Poly(coeffsNumer, variable)/sp.Poly(coeffsDenom, variable))
-        except:
-            pass
+        except BaseException:
+            exc_type, value, exc_traceback = sys.exc_info()
+            print('\n', value)
     return rational
 
 def cancelPZ(poles, zeros):
@@ -354,15 +357,15 @@ def findServoBandwidth(loopgainRational):
     if ini.Hz:
         try:
             result['hpf'] = result['hpf']/np.pi/2
-        except:
+        except BaseException:
             pass
         try:
             result['lpf'] = result['lpf']/np.pi/2
-        except:
+        except BaseException:
             pass
         try:
             result['mbf'] = result['mbf']/np.pi/2
-        except:
+        except BaseException:
             pass
     return result
 
@@ -383,7 +386,7 @@ def checkNumber(var):
         var = str(var)
     try:
         var = eval(var)
-    except:
+    except BaseException:
         var = None
     return var
 
@@ -404,7 +407,9 @@ def checkExpression(expr):
         expr = str(expr)
     try:
         expr = sp.sympify(expr)
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         print("Error in expression:", input_expr)
     return expr
 
@@ -470,7 +475,7 @@ def assumeRealParams(expr, params = 'all'):
             params = list(expr.atoms(sp.Symbol))
             try:
                 params.remove(ini.Laplace)
-            except:
+            except BaseException:
                 pass
             for i in range(len(params)):
                 expr = expr.xreplace({sp.Symbol(str(params[i])): sp.Symbol(str(params[i]), real = True)})
@@ -503,7 +508,7 @@ def assumePosParams(expr, params = 'all'):
             params = list(expr.atoms(sp.Symbol))
             try:
                 params.remove(ini.Laplace)
-            except:
+            except BaseException:
                 pass
             for i in range(len(params)):
                 expr = expr.xreplace({sp.Symbol(str(params[i])): sp.Symbol(str(params[i]), positive = True)})
@@ -537,7 +542,7 @@ def clearAssumptions(expr, params = 'all'):
             params = list(expr.atoms(sp.Symbol))
             try:
                 params.remove(ini.Laplace)
-            except:
+            except BaseException:
                 pass
             for i in range(len(params)):
                 expr = expr.xreplace({sp.Symbol(str(params[i]), positive = True): sp.Symbol(str(params[i]))})
@@ -588,7 +593,9 @@ def phaseMargin(LaplaceExpr):
             #freq = newton(func, guess, tol = 10**(-ini.disp), maxiter = 50)
             freq = fsolve(func, guess)[0]
             mrgn = phaseFunc_f(expr, freq)
-        except:
+        except BaseException:
+            exc_type, value, exc_traceback = sys.exc_info()
+            print('\n', value)
             print("Error: could not determine unity-gain frequency for phase margin.")
             freq = None
             mrgn = None
@@ -725,7 +732,7 @@ def phaseFunc_f(LaplaceExpr, f):
         try:
             func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             phase = np.angle(func(f))
-        except:
+        except BaseException:
             phase = [np.angle(sp.N(data.subs(ini.frequency, f[i]))) for i in range(len(f))]
     elif data >= 0:
         phase = [0 for i in range(len(f))]
@@ -733,7 +740,7 @@ def phaseFunc_f(LaplaceExpr, f):
         phase = [np.pi for i in range(len(f))]
     try:
         phase = np.unwrap(phase)
-    except:
+    except BaseException:
         pass
     if ini.Hz:
         phase = phase * 180/np.pi
@@ -773,13 +780,13 @@ def delayFunc_f(LaplaceExpr, f, delta=10**(-ini.disp)):
             func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             angle1 = np.angle(func(f))
             angle2 = np.angle(func(f*(1+delta)))
-        except:
+        except BaseException:
             angle1 = np.array([np.angle(sp.N(data.subs(ini.frequency, f[i]) for i in range(len(f))))])
             angle2 = np.array([np.angle(sp.N(data.subs(ini.frequency, f[i]*(1+delta)) for i in range(len(f))))])
         try:
             angle1 = np.unwrap(angle1)
             angle2 = np.unwrap(angle2)
-        except:
+        except BaseException:
             pass
         delay  = (angle1 - angle2)/delta/f
         if ini.Hz == True:
@@ -1010,7 +1017,9 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
             values = {}
             for i in range(len(params)):
                 values[params[i]] = solution[i]
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         print('Error: could not solve equations.')
     return values
 
@@ -1053,6 +1062,110 @@ def step2PeriodicPulse(ft, t_pulse, t_period, n_periods):
     else:
         print("Error: expected a time function f(t).")
     return ft_out
+
+
+def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
+    """
+    Calculates the RMS source-referred noise or detector-referred noise,
+    or the contribution of a specific noise source to it.
+
+    :param noiseResult: Results of the execution of an instruction with data type 'noise'.
+    :type noiseResult: SLiCAPprotos.allResults
+
+    :param noise: 'inoise' or 'onoise' for source-referred noise or detector-
+                referred noise, respectively.
+    :type noise': str
+
+    :param fmin: Lower limit of the frequency range in Hz.
+    :type fmin: str, int, float, sp.Symbol
+
+    :param fmax: Upper limit of the frequency range in Hz.
+    :type fmax: str, int, float, sp.Symbol
+
+    :param source: 'all' or refDes (ID) of a noise source of which the
+                contribution to the RMS noise needs to be evaluated. Only
+                IDs of current of voltage sources with a nonzero value
+                for 'noise' are accepted.
+    :return: RMS noise over the frequency interval.
+
+            - An expression or value if parameter stepping of the instruction is disabled.
+            - A list with expressions or values if parameter stepping of the instruction is enabled.
+    :rtype: int, float, sympy.Expr, list
+    """
+    if type(source)==list:
+        source = source[0]
+    errors = 0
+    numlimits = False
+    if fmin == None or fmax == None:
+        print("Error in frequency range specification.")
+        errors += 1
+    fMi = checkNumber(fmin)
+    fMa = checkNumber(fmax)
+    if fMi != None:
+        # Numeric value for fmin
+        fmin = fMi
+    if fMa != None: 
+        # Numeric value for fmax
+        fmax = fMa
+    if fMi != None and  fMa != None and fmin >= fmax:
+        # Numeric values for fmin and fmax but fmin >= fmax
+        print("Error in frequency range specification.")
+        errors += 1
+    elif fMi != None and  fMa != None and fmax > fmin:
+        # Numeric values for fmin and fmax and fmax >= fmin
+        numlimits = True
+    elif noiseResult.dataType != 'noise':
+        print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
+        errors += 1
+    if errors == 0:
+        keys = list(noiseResult.onoiseTerms.keys())
+        if noise == 'inoise':
+            if source == None:
+                noiseData = noiseResult.inoise
+            elif source in keys:
+                noiseData = noiseResult.inoiseTerms[source]
+            else:
+                print("Error: unknown noise source: '{0}'.".format(source))
+                errors += 1
+        elif noise == 'onoise':
+            if source == None:
+                noiseData = noiseResult.onoise
+            elif source in keys:
+                noiseData = noiseResult.onoiseTerms[source]
+            else:
+                print("Error: unknown noise source: '{0}'.".format(source))
+                errors += 1
+        else:
+            print("Error: unknown noise type: '{0}'.".format(noise))
+            errors += 1
+        if errors == 0:
+            if type(noiseData) != list:
+                noiseData = [noiseData]
+            rms = []
+            for i in range(len(noiseData)):
+                params = list(sp.N(noiseData[i]).atoms(sp.Symbol))
+                if len(params) == 0 or ini.frequency not in params:
+                    # Frequency-independent spectrum, multiply with (fmax-fmin)
+                    print("Integration by multiplication.")
+                    rms.append(sp.sqrt(noiseData[i]*(fmax-fmin)))
+                elif len(params) == 1 and numlimits:
+                    # Numeric frequency-dependent spectrum, use numeric integration
+                    print("Integration by numpy.")
+                    noise_spectrum = sp.lambdify(ini.frequency, noiseData[i])
+                    rms.append(sp.sqrt(integrate.quad(noise_spectrum, fmin, fmax)[0]))
+                else:
+                    # Symbolic integration performed by maxima (no warranty)
+                    print("Trying symbolic integration by Maxima CAS.")
+                    result = maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)
+                    if result == sp.Symbol("Error"):
+                        # Try sympy integration (no questions asked)
+                        print("Trying symbolic integration by sympy.")
+                        result = sp.integrate(noiseData[i], (ini.frequency, fmin, fmax))
+                    rms.append(sp.sqrt(result))
+            rms = np.array(rms)
+            if len(rms) == 1:
+                rms = rms[0]
+            return rms
 
 if __name__ == "__main__":
     s = ini.Laplace

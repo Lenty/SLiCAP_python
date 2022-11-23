@@ -695,19 +695,19 @@ def addDCvarSources(instr, dcSolution):
                 else:
                     Vneg = 0
                 DCcurrent = (Vpos - Vneg)/instr.circuit.elements[el].params['value']
-        if DCcurrent != 0:
-            errorCurrentVariance = instr.circuit.elements[refDes].params['dcvar']/instr.circuit.elements[refDes].params['value']**2 * DCcurrent**2
-            newCurrentSource = element()
-            newCurrentSource.refDes          = 'I_dcvar_' + refDes
-            newCurrentSource.params['dcvar'] = sp.simplify(errorCurrentVariance)
-            newCurrentSource.params['noise'] = 0
-            newCurrentSource.params['dc']    = 0
-            newCurrentSource.params['value'] = 0
-            newCurrentSource.model           = 'I'
-            newCurrentSource.type            = 'I'
-            newCurrentSource.nodes           = instr.circuit.elements[refDes].nodes
-            instr.circuit.elements[newCurrentSource.refDes] = newCurrentSource
-            instr.circuit.indepVars.append(newCurrentSource.refDes)
+            if DCcurrent != 0:
+                errorCurrentVariance = instr.circuit.elements[refDes].params['dcvar']/instr.circuit.elements[refDes].params['value']**2 * DCcurrent**2
+                newCurrentSource = element()
+                newCurrentSource.refDes          = 'I_dcvar_' + refDes
+                newCurrentSource.params['dcvar'] = sp.simplify(errorCurrentVariance)
+                newCurrentSource.params['noise'] = 0
+                newCurrentSource.params['dc']    = 0
+                newCurrentSource.params['value'] = 0
+                newCurrentSource.model           = 'I'
+                newCurrentSource.type            = 'I'
+                newCurrentSource.nodes           = instr.circuit.elements[refDes].nodes
+                instr.circuit.elements[newCurrentSource.refDes] = newCurrentSource
+                instr.circuit.indepVars.append(newCurrentSource.refDes)
     return instr
 
 def delDCvarSources(instr):

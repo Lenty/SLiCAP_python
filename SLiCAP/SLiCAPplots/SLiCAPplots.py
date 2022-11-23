@@ -6,7 +6,7 @@ SLiCAP module with plot functions.
 Imported by the module SLiCAPhtml.py
 
 """
-from SLiCAP.SLiCAPpythonMaxima import *
+from SLiCAP.SLiCAPmatrices import *
 
 class trace(object):
     """

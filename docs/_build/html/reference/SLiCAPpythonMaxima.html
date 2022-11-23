@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SLiCAPpythonMaxima.py &mdash; SLiCAP 1.4.0 documentation</title>
+  <title>SLiCAPpythonMaxima.py &mdash; SLiCAP 1.5.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.4.0
+                1.5.0
               </div>
             
           
@@ -303,7 +303,7 @@ values.</li>
 
 <dl class="method">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse">
-<code class="descname">getResponse</code><span class="sig-paren">(</span><em>timeout=True</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getResponse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -378,43 +378,6 @@ values.</li>
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.restartMaxima">
 <code class="descname">restartMaxima</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.restartMaxima" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise">
-<code class="descname">rmsNoise</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>noise</em>, <em>fmin</em>, <em>fmax</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.rmsNoise" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the RMS source-referred noise or detector-referred noise,
-or the contribution of a specific noise source to it.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>noiseResult</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults"><em>SLiCAPprotos.allResults</em></a>) – Results of the execution of an instruction with data type ‘noise’.</li>
-<li><strong>noise</strong> – ‘inoise’ or ‘onoise’ for source-referred noise or detector-
-referred noise, respectively.</li>
-<li><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</li>
-<li><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</li>
-<li><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
-contribution to the RMS noise needs to be evaluated. Only
-IDs of current of voltage sources with a nonzero value
-for ‘noise’ are accepted.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>RMS noise over the frequency interval.</p>
-<ul class="simple">
-<li>An expression or value if parameter stepping of the instruction is disabled.</li>
-<li>A list with expressions or values if parameter stepping of the instruction is enabled.</li>
-</ul>
-</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int, float, sympy.Expr, list</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima">

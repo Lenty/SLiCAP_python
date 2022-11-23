@@ -212,7 +212,7 @@ class circuit(object):
             eval(parName)
             errors += 1
             print("Error: Parameter name cannot be a number.")
-        except:
+        except BaseException:
             pass
         if errors == 0:
             parName = sp.Symbol(str(parName))
@@ -253,7 +253,7 @@ class circuit(object):
                     eval(key)
                     print("Error: parameter name cannot be a number.")
                     errors += 1
-                except:
+                except BaseException:
                     pass
                 if errors == 0:
                     parName = sp.Symbol(str(key))
@@ -316,7 +316,9 @@ class circuit(object):
                 parValue = sp.N(fullSubs(self.parDefs[parNames], self.parDefs))
             else:
                 parValue = self.parDefs[parNames]
-        except:
+        except BaseException:
+            exc_type, value, exc_traceback = sys.exc_info()
+            print('\n', value)
             print("Error: parameter '{0}' has not been defined.".format(str(parNames)))
             parValue = None
         return parValue
@@ -332,13 +334,13 @@ class circuit(object):
             for par in list(self.elements[elmt].params.keys()):
                 try:
                     self.params += list(self.elements[elmt].params[par].atoms(sp.Symbol))
-                except:
+                except BaseException:
                     pass
         # Get all the parameters used in parameter definitions
         for par in list(self.parDefs.keys()):
             try:
                 self.params += list(self.parDefs[par].atoms(sp.Symbol))
-            except:
+            except BaseException:
                 pass
         # Remove duplicates
         self.params = list(set(self.params))

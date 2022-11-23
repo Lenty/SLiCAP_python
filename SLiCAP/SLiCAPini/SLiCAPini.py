@@ -18,6 +18,7 @@ import socket
 import scipy.integrate as integrate
 import platform
 import os
+import sys
 import getpass
 import inspect
 import matplotlib._pylab_helpers as plotHelp
@@ -57,7 +58,10 @@ def _selftest_maxima():
         try:
             result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
 
-        except:
+        
+        except BaseException:
+            exc_type, value, exc_traceback = sys.exc_info()
+            print('\n', value)
             print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line.")
             print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima').")
     
@@ -95,7 +99,9 @@ def _get_latest_version():
     try:
         response = requests.get("https://api.github.com/repos/Lenty/SLiCAP_python/releases/latest")
         return response.json()["tag_name"]
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         print("Could not access github to check the latest available version of SLiCAP.")
         return VERSION
 

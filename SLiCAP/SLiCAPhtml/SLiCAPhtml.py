@@ -8,7 +8,6 @@ This module is imported by SLiCAPyacc.py
 
 from SLiCAP.SLiCAPplots import *
 
-
 # Initialize HTML globals
 ini.htmlIndex    = ''
 ini.htmlPrefix   = ''
@@ -61,7 +60,6 @@ def startHTML(projectName):
     :param: projectName: Name of the project.
     :type projectName: str
     """
-    global HTMLINDEX, HTMLPAGES
     ini.htmlIndex = 'index.html'
     toc = '<h2>Table of contents</h2>'
     html = HTMLhead(projectName) + toc + '<ol>' + HTMLINSERT + '</ol>' + HTMLfoot(ini.htmlIndex)

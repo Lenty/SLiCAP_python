@@ -5,7 +5,7 @@ SLiCAP module with symbolic math functions executed by maxima CAS.
 
 Imported by the module **SLiCAPplots.py**.
 """
-from SLiCAP.SLiCAPmatrices import *
+from SLiCAP.SLiCAPlex import *
 
 def start_new_thread(function):
     def decorator(*args, **kwargs):
@@ -42,7 +42,7 @@ class maximaHandler():
 
     @start_new_thread
     def startMaxima(self):     
-        thread = Thread(target=self.runMaxima)
+        thread = Thread(target = self.runMaxima)
         thread.start()
 
         self.mut.acquire() # lock the mutex so the other functions can't grab the
@@ -65,25 +65,16 @@ class maximaHandler():
         sleep(2)
         self.startMaxima()
 
-    ## Setting timeout to True can be used to flush the buffer
-    ## Setting timeout to false always returns all the data
-    def getResponse(self, timeout = True):
+    def getResponse(self):
         receive_data = ""
-        if timeout:
+        while True:
             try:
                 while True:
                     receive_data += self.conn.recv(4096).decode()
             except BaseException:
                 pass
-        else:
-            while True:
-                try:
-                    while True:
-                        receive_data += self.conn.recv(4096).decode()
-                except BaseException:
-                    pass
-                if receive_data != "":
-                    break
+            if receive_data != "":
+                break
         #print(receive_data.encode("utf-8"))
         return receive_data
 
@@ -99,7 +90,7 @@ class maximaHandler():
         # Check if a question is present?
         while True:
             # Grab the response
-            receive_data = self.getResponse(timeout = False)
+            receive_data = self.getResponse()
             if "?" in receive_data:
                 while len(send_data) == 0:
                     send_data = input(receive_data.strip() + '\n>> ')
@@ -159,7 +150,9 @@ def maxLimit(expr, var, val, pm, numeric = True):
     result = maxEval(maxExpr)
     try:
         result = sp.sympify(result)
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         result = sp.sympify("ERROR")
     return result
 
@@ -199,112 +192,11 @@ def maxIntegrate(expr, var, start = None, stop = None, numeric = True):
     result = maxEval(maxExpr)
     try:
         result = sp.sympify(result)
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
         result = sp.sympify("ERROR")
     return result
-
-def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
-    """
-    Calculates the RMS source-referred noise or detector-referred noise,
-    or the contribution of a specific noise source to it.
-
-    :param noiseResult: Results of the execution of an instruction with data type 'noise'.
-    :type noiseResult: SLiCAPprotos.allResults
-
-    :param noise: 'inoise' or 'onoise' for source-referred noise or detector-
-                referred noise, respectively.
-    :type noise': str
-
-    :param fmin: Lower limit of the frequency range in Hz.
-    :type fmin: str, int, float, sp.Symbol
-
-    :param fmax: Upper limit of the frequency range in Hz.
-    :type fmax: str, int, float, sp.Symbol
-
-    :param source: 'all' or refDes (ID) of a noise source of which the
-                contribution to the RMS noise needs to be evaluated. Only
-                IDs of current of voltage sources with a nonzero value
-                for 'noise' are accepted.
-    :return: RMS noise over the frequency interval.
-
-            - An expression or value if parameter stepping of the instruction is disabled.
-            - A list with expressions or values if parameter stepping of the instruction is enabled.
-    :rtype: int, float, sympy.Expr, list
-    """
-    if type(source)==list:
-        source = source[0]
-    errors = 0
-    numlimits = False
-    if fmin == None or fmax == None:
-        print("Error in frequency range specification.")
-        errors += 1
-    fMi = checkNumber(fmin)
-    fMa = checkNumber(fmax)
-    if fMi != None:
-        # Numeric value for fmin
-        fmin = fMi
-    if fMa != None: 
-        # Numeric value for fmax
-        fmax = fMa
-    if fMi != None and  fMa != None and fmin >= fmax:
-        # Numeric values for fmin and fmax but fmin >= fmax
-        print("Error in frequency range specification.")
-        errors += 1
-    elif fMi != None and  fMa != None and fmax > fmin:
-        # Numeric values for fmin and fmax and fmax >= fmin
-        numlimits = True
-    elif noiseResult.dataType != 'noise':
-        print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
-        errors += 1
-    if errors == 0:
-        keys = list(noiseResult.onoiseTerms.keys())
-        if noise == 'inoise':
-            if source == None:
-                noiseData = noiseResult.inoise
-            elif source in keys:
-                noiseData = noiseResult.inoiseTerms[source]
-            else:
-                print("Error: unknown noise source: '{0}'.".format(source))
-                errors += 1
-        elif noise == 'onoise':
-            if source == None:
-                noiseData = noiseResult.onoise
-            elif source in keys:
-                noiseData = noiseResult.onoiseTerms[source]
-            else:
-                print("Error: unknown noise source: '{0}'.".format(source))
-                errors += 1
-        else:
-            print("Error: unknown noise type: '{0}'.".format(noise))
-            errors += 1
-        if errors == 0:
-            if type(noiseData) != list:
-                noiseData = [noiseData]
-            rms = []
-            for i in range(len(noiseData)):
-                params = list(sp.N(noiseData[i]).atoms(sp.Symbol))
-                if len(params) == 0 or ini.frequency not in params:
-                    # Frequency-independent spectrum, multiply with (fmax-fmin)
-                    print("Integration by multiplication.")
-                    rms.append(sp.sqrt(noiseData[i]*(fmax-fmin)))
-                elif len(params) == 1 and numlimits:
-                    # Numeric frequency-dependent spectrum, use numeric integration
-                    print("Integration by numpy.")
-                    noise_spectrum = sp.lambdify(ini.frequency, noiseData[i])
-                    rms.append(sp.sqrt(integrate.quad(noise_spectrum, fmin, fmax)[0]))
-                else:
-                    # Symbolic integration performed by maxima (no warranty)
-                    print("Trying symbolic integration by Maxima CAS.")
-                    result = maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)
-                    if result == sp.Symbol("Error"):
-                        # Try sympy integration (no questions asked)
-                        print("Trying symbolic integration by sympy.")
-                        result = sp.integrate(noiseData[i], (ini.frequency, fmin, fmax))
-                    rms.append(sp.sqrt(result))
-            rms = np.array(rms)
-            if len(rms) == 1:
-                rms = rms[0]
-            return rms
 
 def python2maxima(expr):
     """
@@ -380,7 +272,9 @@ def maxEval(maxExpr):
             result = output.stdout.split('"')[-2] # The quoted string is the result of the calculation
             result = result.replace('\\\n', '')   # Remove the maxima newline characters from this result
             result = maxima2python(result)        # Convert the maxima output into a string that can be 'sympified' by python
-        except:
+        except BaseException:
+            exc_type, value, exc_traceback = sys.exc_info()
+            print('\n', value)
             print("""\nMaxima CAS calculation failed or timed out. A time-out occurs if Maxima requires additional input, or if Maxima CAS requires more time. 
 The latter case can be solved by increasing the time limit using the command: 'ini.MaximaTimeOut=nnn', where nnn is the number of seconds.\n""")
             result = output
@@ -412,7 +306,10 @@ def checkMaxima():
         else:
             ini.socket = False
             print("Maxima CAS client is NOT active, switched to subprocess communication.")
-    except:
+    except BaseException:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
+        print("Maxima CAS client is NOT active, switched to subprocess communication.")
         ini.socket = False
 
 if __name__ == '__main__':
@@ -424,7 +321,7 @@ if __name__ == '__main__':
         y = (1+2*x+3*x**2)/(x*sp.exp(10)+2/sp.pi)
         for i in range(100):
             #print(maxIntegrate(y, x, numeric=False))
-            ini.maximaHandler.maxIntegrate(y, x, numeric=False)
+            maxIntegrate(y, x, numeric=False)
 
     #import cProfile
     #cProfile.run("test()")
