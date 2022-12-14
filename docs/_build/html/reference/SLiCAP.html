@@ -217,7 +217,7 @@ on the main html index page</p>
 
 <dl class="function">
 <dt id="SLiCAP.SLiCAP.initProject">
-<code class="descname">initProject</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
+<code class="descname">initProject</code><span class="sig-paren">(</span><em>name</em>, <em>port=53118</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a SLiCAP project.</p>
 <ul class="simple">
 <li>Copies the directory structure from the templates subdirectory to the
@@ -232,12 +232,18 @@ title bar</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the project will be passed to an instance of the
-SLiCAPproject object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) – Name of the project will be passed to an instance of the
+SLiCAPproject object.</li>
+<li><strong>port</strong> (<em>int</em>) – Port number for communication with maxima CAS (&gt; 8000).</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SLiCAPproject</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">SLiCAPproject</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#SLiCAP.SLiCAP.SLiCAPproject" title="SLiCAP.SLiCAP.SLiCAPproject">SLiCAP.SLiCAPproject</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#SLiCAP.SLiCAP.SLiCAPproject" title="SLiCAP.SLiCAP.SLiCAPproject">SLiCAP.SLiCAPproject</a></p>
+</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>

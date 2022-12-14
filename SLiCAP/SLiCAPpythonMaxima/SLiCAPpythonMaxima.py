@@ -281,8 +281,8 @@ The latter case can be solved by increasing the time limit using the command: 'i
             result = maxima2python(result)
     return result
 
-def startMaxima(maxPort):
-    ini.maximaHandler = maximaHandler(maxPort, host=ini.HOST, maxima=ini.maxima, timeout=0.05)
+def startMaxima():
+    ini.maximaHandler = maximaHandler(port=ini.PORT, host=ini.HOST, maxima=ini.maxima, timeout=0.05)
     ini.maximaHandler.startMaxima()
     checkMaxima()
     

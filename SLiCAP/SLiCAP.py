@@ -56,6 +56,10 @@ def initProject(name, port=ini.PORT):
     :param name: Name of the project will be passed to an instance of the
                  SLiCAPproject object.
     :type name: str
+    
+    :param port: Port number for communication with maxima CAS (> 8000).
+    :type port: int
+    
     :return:     SLiCAPproject
     :rtype:      SLiCAP.SLiCAPproject
 
@@ -106,8 +110,12 @@ def initProject(name, port=ini.PORT):
     ini.socket = True
     if ini.maximaHandler == None:
         # Start the maxima client
-        print("Sarting Maxima client")
-        startMaxima(port)
+        if port <= 8000:
+            port = ini.PORT
+        else:
+            ini.PORT = port
+        print("Sarting Maxima client on port", port)
+        startMaxima()
     else:
         restartMaxima()
     # Create the HTML project index file
