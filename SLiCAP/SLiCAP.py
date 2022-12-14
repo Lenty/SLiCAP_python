@@ -41,7 +41,7 @@ class SLiCAPproject(object):
         SLiCAPproject.initProject(<name>)
         """
 
-def initProject(name):
+def initProject(name, port=ini.PORT):
     """
     Initializes a SLiCAP project.
 
@@ -107,7 +107,7 @@ def initProject(name):
     if ini.maximaHandler == None:
         # Start the maxima client
         print("Sarting Maxima client")
-        startMaxima()
+        startMaxima(port)
     else:
         restartMaxima()
     # Create the HTML project index file
