@@ -218,9 +218,25 @@ def python2maxima(expr):
     # Replace 1j or I with %i
     expr = re.sub(r'([0-9])j', r'\1*%i', expr)
     expr = re.sub(r'([+-/\*^\(\s])I([\s\)+-/\*^])', r'\1%i\2', expr)
-    # Replace the sign() function with the signum() function
-    expr = re.sub(r'sign(\(.*\))', r'signum\1', expr)
+    # Replace the sign() function with the signum() function-
+    # This must be done recursively because of overlapping patterns
+    new_expr = sign2signum(expr)
+    while new_expr != expr:
+        expr = new_expr
+        new_expr = sign2signum(new_expr)
     return expr
+
+def sign2signum(expr):
+    """
+    Performs a non-overlapping replacement of sign(expr) with signum(expr)
+    
+    :param expr: text string
+    :type expr: str
+    
+    :return: expr
+    :rtype: str
+    """
+    return re.sub(r'sign(\(.*\))', r'signum\1', expr)
 
 def maxima2python(expr):
     """
