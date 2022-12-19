@@ -254,6 +254,7 @@
 <li>maxRecSubst       : Maximum number of recursive substitutions</li>
 <li>MaximaMatrixDim   : Maximum matrix dimension for maxima.newdet()</li>
 <li>MaximaTimeOut     : Maximum calculation time for Maxima</li>
+<li>assumePosMaxVars  : Assume postive parameters in Maxima expressions</li>
 <li>lambdifyTool      : “numpy” or “mpmath”; latter one in case of overflow</li>
 </ul>
 </li>
@@ -346,6 +347,13 @@ to 60.</p>
 <dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.PORT">
 <code class="descname">PORT</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.PORT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Port to listen on (non-privileged ports are &gt; 1023)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SLiCAP.SLiCAPini.SLiCAPini.settings.assumePosMaxVars">
+<code class="descname">assumePosMaxVars</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPini.SLiCAPini.settings.assumePosMaxVars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assume positive parameters in Maxima expressions. In many cases this
+prevents Maxima from asking questions about the sign of parameters.</p>
 </dd></dl>
 
 <dl class="attribute">
