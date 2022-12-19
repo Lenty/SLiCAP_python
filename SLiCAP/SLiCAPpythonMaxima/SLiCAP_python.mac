@@ -3,7 +3,7 @@ Assumptions and global constants
 ============================================================================================================= */
 MAXMATRIXDIM: 25$ /* Limit for calculation of the determinant using the Gentleman-Johnson method.
                      Above this dimension the recursive Laplace expansion will be used. */
-assume_pos:true$
+/* assume_pos:true$ */
 assume_pos_pred:symbolp$
 ratprint: false$
 stringdisp: true$

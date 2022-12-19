@@ -917,7 +917,7 @@ def plotPZ(fileName, title, results, xmin = None, xmax = None, ymin = None, ymax
     """
     fig = figure(fileName)
     fig.show = show
-    fig.axisWidth = fig.axisHeight
+    fig.axisHeight = fig.axisWidth
     pz = axis(title)
     pz.xScale = 'lin'
     pz.yScale = 'lin'

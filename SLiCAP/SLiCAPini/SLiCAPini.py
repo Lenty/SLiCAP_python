@@ -169,6 +169,7 @@ class settings(object):
        - maxRecSubst       : Maximum number of recursive substitutions
        - MaximaMatrixDim   : Maximum matrix dimension for maxima.newdet()
        - MaximaTimeOut     : Maximum calculation time for Maxima
+       - assumePosMaxVars  : Assume postive parameters in Maxima expressions
        - lambdifyTool      : "numpy" or "mpmath"; latter one in case of overflow
          
     #. Display settings
@@ -457,6 +458,12 @@ class settings(object):
         self.MaximaMatrixDim    = 25
         """
         Maximum size of sa square matrix to be passed to maxima.
+        """
+        
+        self.assumePosMaxVars   = True
+        """
+        Assume positive parameters in Maxima expressions. In many cases this
+        prevents Maxima from asking questions about the sign of parameters.
         """
 
         self.ltspice = None

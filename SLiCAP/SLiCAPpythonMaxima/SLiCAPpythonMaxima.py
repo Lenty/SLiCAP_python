@@ -238,6 +238,18 @@ def sign2signum(expr):
     """
     return re.sub(r'sign(\(.*\))', r'signum\1', expr)
 
+def signum2sign(expr):
+    """
+    Performs a non-overlapping replacement of signum(expr) with sign(expr)
+    
+    :param expr: text string
+    :type expr: str
+    
+    :return: expr
+    :rtype: str
+    """
+    return re.sub(r'signum(\(.*\))', r'sign\1', expr)
+
 def maxima2python(expr):
     """
     Converts a maxima expression into string that can be converted into a sympy expression.
@@ -258,8 +270,10 @@ def maxima2python(expr):
     expr = re.sub(r'%pi','pi', expr)
     # Convert Maxima matrix to sympy matrix:
     expr = re.sub(r'matrix\(\[(.*)\]\)', r'Matrix([[\1]])', expr)
-    # Replace the signum() function with the sign() function
-    expr = re.sub(r'signum(\(.*\))', r'sign\1', expr)
+    new_expr = signum2sign(expr)
+    while new_expr != expr:
+        expr = new_expr
+        new_expr = signum2sign(new_expr)
     return expr
     
 def maxEval(maxExpr):
@@ -277,6 +291,10 @@ def maxEval(maxExpr):
     >>> maxEval("result:ilt(1/(s^2 + a^2), s, t);")
     'sin(a*t)/a'
     """
+    if ini.assumePosMaxVars == True:
+        maxExpr = "assume_pos:true$" + maxExpr
+    else:
+        maxExpr = "assume_pos:false$" + maxExpr
     if ini.socket == True:
         result = maxima2python(ini.maximaHandler.maxEval(maxExpr))
     else:
@@ -313,7 +331,7 @@ def checkMaxima():
     result = ini.maximaHandler.maxEval('stringdisp:true$string(1-1);')
     try:
         if result == '0':
-            result = ini.maximaHandler.maxEval('load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$stringdisp:true$M:matrix([a,b],[c,d])$string(det(M));')
+            result = ini.maximaHandler.maxEval('load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$M:matrix([a,b],[c,d])$string(det(M));')
             if result == 'a*d-b*c':
                 print("Maxima CAS client is active and functions have been uploaded.")
             else:
