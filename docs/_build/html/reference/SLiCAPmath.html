@@ -187,6 +187,31 @@
 <p>SLiCAP module with math functions.</p>
 <p>Imported by the module <strong>SLiCAPprotos.py</strong>.</p>
 <dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.PdBm2V">
+<code class="descname">PdBm2V</code><span class="sig-paren">(</span><em>p</em>, <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.PdBm2V" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the RMS value of the voltage that generates <em>p</em> dBm power
+in a resistor with resistance <em>r</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>p</strong> (<em>sympy.Symbol</em><em>, </em><em>sympy.Expression</em><em>, </em><em>int</em><em>, or </em><em>float</em>) – Power in dBm</li>
+<li><strong>r</strong> (<em>sympy.Symbol</em><em>, </em><em>sympy.Expression</em><em>, </em><em>int</em><em>, or </em><em>float</em>) – Resistance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">voltage</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sympy.Expression</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.assumePosParams">
 <code class="descname">assumePosParams</code><span class="sig-paren">(</span><em>expr</em>, <em>params='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.assumePosParams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sympy expression ‘expr’ in which  variables, except the

@@ -7,7 +7,7 @@ When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.
 """
-from SLiCAP.SLiCAPinstruction import *
+from SLiCAP.SLiCAPextras import *
 
 try:
     __IPYTHON__
@@ -105,6 +105,21 @@ def initProject(name, port=ini.PORT):
     makeDir(ini.htmlPath + 'css/')
     copyNotOverwrite(ini.defaultLib + '/slicap.css', ini.htmlPath + 'css/slicap.css')
     copyNotOverwrite(ini.defaultLib + '/Grid.png', ini.htmlPath + 'css/Grid.png')
+    makeDir(ini.sphinxPath)
+    copyNotOverwrite(ini.defaultLib + '/conf.py', ini.sphinxPath + 'conf.py')
+    copyNotOverwrite(ini.defaultLib + '/make.bat', ini.sphinxPath + 'make.bat')
+    copyNotOverwrite(ini.defaultLib + '/Makefile', ini.sphinxPath + 'Makefile')
+    makeDir(ini.sphinxPath + 'img/')
+    copyNotOverwrite(ini.defaultLib + '/colorCode.svg', ini.sphinxPath + '/img/colorCode.svg')
+    makeDir(ini.sphinxPath + '_static/')
+    copyNotOverwrite(ini.defaultLib + '/amp.ico', ini.sphinxPath + '/_static/amp.ico')
+    copyNotOverwrite(ini.defaultLib + '/amp.png', ini.sphinxPath + '/_static/amp.png')
+    copyNotOverwrite(ini.defaultLib + '/amp.xcf', ini.sphinxPath + '/_static/amp.xcf')
+    copyNotOverwrite(ini.defaultLib + '/custom.css', ini.sphinxPath + '/_static/custom.css')
+    copyNotOverwrite(ini.defaultLib + '/handsontable.full.min.css', ini.sphinxPath + '/_static/handsontable.full.min.css')
+    copyNotOverwrite(ini.defaultLib + '/handsontable.full.min.js', ini.sphinxPath + '/_static/handsontable.full.min.js')
+    makeDir(ini.sphinxPath + '_templates/')
+    copyNotOverwrite(ini.defaultLib + '/layout.html', ini.sphinxPath + '/_templates/layout.html')
     makeDir(ini.mathmlPath)
     makeDir(ini.latexPath)
     ini.socket = True

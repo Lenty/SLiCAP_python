@@ -3,7 +3,7 @@ Assumptions and global constants
 ============================================================================================================= */
 MAXMATRIXDIM: 25$ /* Limit for calculation of the determinant using the Gentleman-Johnson method.
                      Above this dimension the recursive Laplace expansion will be used. */
-/* assume_pos:true$ */
+assume_pos:true$
 assume_pos_pred:symbolp$
 ratprint: false$
 stringdisp: true$
@@ -245,7 +245,7 @@ return(expr))$
 
 /* =============================================================================================================
 Function:       doLoopgain
-Arguments:      M       : MNA matrix with loop gain references _LGREF_1 and _LGREF_
+Arguments:      M       : Rational function of Laplace variable
                 lgRef_1 : Loop gain reference 1
                 lgRef_2 : Loop gain reference 2
 Returns:        result    : Inverse Laplace Transform of expr
@@ -263,7 +263,7 @@ return(result))$
 
 /* =============================================================================================================
 Function:       doServo
-Arguments:      M       : MNA matrix with loop gain references _LGREF_1 and _LGREF_
+Arguments:      M       : Rational function of Laplace variable
                 lgRef_1 : Loop gain reference 1
                 lgRef_2 : Loop gain reference 2
 Returns:        result    : Inverse Laplace Transform of expr

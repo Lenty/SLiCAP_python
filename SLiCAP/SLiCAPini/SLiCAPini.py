@@ -121,7 +121,7 @@ class settings(object):
        - libraryPath       : Directory with SLiCAP user libraries
        - txtPath           : Directory with text files for HTML output
        - csvPath           : Directory with csv files for HTML tables
-       - latexPath         : Directory with csv files for HTML tables
+       - sphinxPath        : Directory for sphinx output
        - mathmlPath        : Directory for mathML output
        - imgPath           : Directory with images for HTML output
        - defaultLib        : Directory with SLiCAP basic library files
@@ -274,6 +274,11 @@ class settings(object):
         self.latexPath          = None
         """
         Path (*str*) for saving latex files, will be set by **SLiCAP.initProject()**;  defaults to None.
+        """
+        
+        self.sphinxPath         = None
+        """
+        Path (*str*) for saving sphinx files, will be set by **SLiCAP.initProject()**;  defaults to None.
         """
 
         self.mathmlPath         = None
@@ -578,6 +583,7 @@ class settings(object):
         self.txtPath          = projectPath + TXTPATH
         self.csvPath          = projectPath + CSVPATH
         self.latexPath        = projectPath + LATEXPATH
+        self.sphinxPath       = projectPath + SPHINXPATH
         self.mathmlPath       = projectPath + MATHMLPATH
         self.imgPath          = projectPath + IMGPATH
         self.maxima           = MAXIMA

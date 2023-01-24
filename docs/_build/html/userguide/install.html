@@ -422,7 +422,9 @@ You can define other global parameters by adding SPICE .param declarations in th
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">SLiCAP module with user-defined path settings.</span>
@@ -434,22 +436,24 @@ You can define other global parameters by adding SPICE .param declarations in th
 <span class="sd">&gt;&gt;&gt; HTMLPATH    = &#39;html/&#39;   # path for html output</span>
 <span class="sd">&gt;&gt;&gt; CIRCUITPATH = &#39;cir/&#39;    # path for .asc, .net, .cir, .sch files</span>
 <span class="sd">&gt;&gt;&gt; LIBRARYPATH = &#39;lib/&#39;    # path for include and library files</span>
-<span class="sd">&gt;&gt;&gt; TXTPATH     = &#39;txt/&#39;    # path for text files (text2html)</span>
-<span class="sd">&gt;&gt;&gt; CSVPATH     = &#39;csv/&#39;    # path for CSV files (csv2html)</span>
-<span class="sd">&gt;&gt;&gt; LATEXPATH   = &#39;tex/&#39;    # path for LaTeX output saveTeX()</span>
-<span class="sd">&gt;&gt;&gt; MATHMLPATH  = &#39;mathml/&#39; # path for mathML output saveMathML()</span>
+<span class="sd">&gt;&gt;&gt; TXTPATH     = &#39;txt/&#39;    # path for text files</span>
+<span class="sd">&gt;&gt;&gt; CSVPATH     = &#39;csv/&#39;    # path for CSV files</span>
+<span class="sd">&gt;&gt;&gt; LATEXPATH   = &#39;tex/&#39;    # path for LaTeX output</span>
+<span class="sd">&gt;&gt;&gt; MATHMLPATH  = &#39;mathml/&#39; # path for mathML output</span>
 <span class="sd">&gt;&gt;&gt; IMGPATH     = &#39;img/&#39;    # path for image files</span>
+<span class="sd">&gt;&gt;&gt; SPHINXPATH  = &#39;sphinx/&#39; # path for Sphinx output</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="n">PROJECTPATH</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># Leave it for automatic detection</span>
 <span class="c1"># PATHS: relative to the project path</span>
 <span class="n">HTMLPATH</span>    <span class="o">=</span> <span class="s1">&#39;html/&#39;</span>   <span class="c1"># path for html output</span>
 <span class="n">CIRCUITPATH</span> <span class="o">=</span> <span class="s1">&#39;cir/&#39;</span>    <span class="c1"># path for .asc, .net, .cir, .sch files</span>
 <span class="n">LIBRARYPATH</span> <span class="o">=</span> <span class="s1">&#39;lib/&#39;</span>    <span class="c1"># path for include and library files</span>
-<span class="n">TXTPATH</span>     <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files (text2html)</span>
-<span class="n">CSVPATH</span>     <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files (csv2html)</span>
-<span class="n">LATEXPATH</span>   <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output saveTeX()</span>
-<span class="n">MATHMLPATH</span>  <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output saveMathML()</span>
+<span class="n">TXTPATH</span>     <span class="o">=</span> <span class="s1">&#39;txt/&#39;</span>    <span class="c1"># path for text files</span>
+<span class="n">CSVPATH</span>     <span class="o">=</span> <span class="s1">&#39;csv/&#39;</span>    <span class="c1"># path for CSV files</span>
+<span class="n">LATEXPATH</span>   <span class="o">=</span> <span class="s1">&#39;tex/&#39;</span>    <span class="c1"># path for LaTeX output</span>
+<span class="n">MATHMLPATH</span>  <span class="o">=</span> <span class="s1">&#39;mathml/&#39;</span> <span class="c1"># path for mathML output</span>
 <span class="n">IMGPATH</span>     <span class="o">=</span> <span class="s1">&#39;img/&#39;</span>    <span class="c1"># path for image files</span>
+<span class="n">SPHINXPATH</span>  <span class="o">=</span> <span class="s1">&#39;sphinx/&#39;</span> <span class="c1"># path for Sphinx output</span>
 </pre></div></td></tr></table></div>
 </div>
 </div>

@@ -733,7 +733,12 @@ def phaseFunc_f(LaplaceExpr, f):
             func = sp.lambdify(ini.frequency, sp.N(data), ini.lambdifyTool)
             phase = np.angle(func(f))
         except BaseException:
-            phase = [np.angle(sp.N(data.subs(ini.frequency, f[i]))) for i in range(len(f))]
+            phase = []
+            for i in range(len(f)):
+                try:
+                    phase.append(np.angle(sp.N(data.subs(ini.frequency, f[i]))))
+                except BaseException:
+                    phase.append(0)
     elif data >= 0:
         phase = [0 for i in range(len(f))]
     elif data < 0:
@@ -1166,6 +1171,23 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
             if len(rms) == 1:
                 rms = rms[0]
             return rms
+        
+def PdBm2V(p, r):
+    """
+    Returns the RMS value of the voltage that generates *p* dBm power
+    in a resistor with resistance *r*.
+    
+    :param p: Power in dBm
+    :type p:  sympy.Symbol, sympy.Expression, int, or float
+    
+    :param r: Resistance
+    :type r:  sympy.Symbol, sympy.Expression, int, or float
+    
+    :return: voltage
+    :rtype: sympy.Expression
+    """
+    voltage = sp.sqrt(r * 0.001*10**(p/10))
+    return voltage
 
 if __name__ == "__main__":
     s = ini.Laplace
