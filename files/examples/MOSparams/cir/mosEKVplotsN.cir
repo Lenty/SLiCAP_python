@@ -1,0 +1,6 @@
+mosEKVplots
+* SLiCAP netlist file
+.include SLiCAP.lib
+X1 d g s 0 CMOS18N W={W} L={L} ID={I_D}
+.param I_D=1a W=220n L=180n
+.end
