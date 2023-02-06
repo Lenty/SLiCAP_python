@@ -130,6 +130,7 @@ class InstallWrapper(install):
         """
         home = expanduser("~")
         slicap_home = os.path.join(home, 'SLiCAP')
+        self.slicap_home = slicap_home
         try:
             if os.path.exists(slicap_home):
                 shutil.rmtree(slicap_home)
@@ -162,6 +163,7 @@ class InstallWrapper(install):
             fi.close()
             txt = txt.replace("$VERSION", self._SLiCAP_version)
             txt = txt.replace("$SYSINSTALL", ' ')
+            txt = txt.replace("$USERPATH", self.slicap_home)
             txt = txt.replace("$LIBCOREPATH", self._library_location)
             txt = txt.replace("$MAXIMAPATH", self._maxima_cmd)
             txt = txt.replace("$LTSPICE", self._LTSpice_cmd)

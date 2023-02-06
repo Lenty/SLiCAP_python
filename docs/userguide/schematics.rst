@@ -120,7 +120,7 @@ Be sure you save these two files ``gafrc`` and ``gschemrc`` without any file ext
 
 The **gnet-spice-noqsi** spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with lepton-eda and this netlister. 
 
-The spice netlister for lepton-eda can be found in the ``lepton-eda/gnet-spice-noqsi-master/`` folder in the SLiCAP main library path that you have selected during installation.
+The spice netlister for lepton-eda can be found in the ``lepton-eda/gnet-spice-noqsi-master/`` folder in the SLiCAP main library path that you have selected during installation. An install script is provided.
 
 For compact node names (important for use in symbolic expressions) you need to reconfigure the default *net name prefix*.
 
@@ -129,6 +129,8 @@ This is how it should be done under Ubuntu-based Linux systems:
 .. code:: bash
 
     sudo lepton-cli config --system "netlist" "default-net-name" ""
+
+The install script for the netlister also executes this command.
 
 Display schematics on html pages
 --------------------------------

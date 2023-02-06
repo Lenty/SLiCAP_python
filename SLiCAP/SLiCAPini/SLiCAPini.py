@@ -115,6 +115,7 @@ class settings(object):
     #. path settings
 
        - installPath       : Directory with SLiCAP modules files
+       - userPath          : Directory with SLiCAP libraries and examples
        - projectPath       : Directory with SLiCAP project files
        - htmlPath          : Directory with SLiCAP HTML output
        - circuitPath       : Directory with SLiCAP project circuit files
@@ -226,9 +227,15 @@ class settings(object):
         """
         Initializes the start-up values of the global parameters.
         """
+        
         self.installPath        = None
         """
         Installation path of SLiCAP (*str*), defaults to None.
+        """
+        
+        self.userPath        = None
+        """
+        User path of SLiCAP (*str*), defaults to None.
         """
         
         self.defaultLib         = None
@@ -576,6 +583,7 @@ class settings(object):
         :type projectPath: str
         """
         self.defaultLib       = LIBCOREPATH
+        self.userPath         = USERPATH
         self.projectPath      = projectPath
         self.htmlPath         = projectPath + HTMLPATH
         self.circuitPath      = projectPath + CIRCUITPATH

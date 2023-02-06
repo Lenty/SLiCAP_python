@@ -86,6 +86,33 @@ class specItem(object):
         else:
             html += '<td class="left">$\\mathrm{' + sp.latex(self.units) + '}$</td></tr>\n'       # Units
         return html
+    
+    def rstLine(self):
+        # symbol
+        rst     = ':math:`' + sp.latex(self.symbol) + '`,'
+        # description
+        rst     += self.description + ','
+        # minValue
+        if type(self.minValue) == str:
+            rst += ','
+        else:
+            rst += ':math:`' + sp.latex(roundN(self.minValue)) + '`,' # minValue
+        # typValue    
+        if type(self.typValue) == str:
+            rst += ','
+        else:
+            rst += ':math:`' + sp.latex(roundN(self.typValue)) + '`,' # typValue
+        # maxValue    
+        if type(self.maxValue) == str:
+            rst += ','
+        else:
+            rst += ':math:`' + sp.latex(roundN(self.maxValue)) + '`,' # maxValue
+        # units
+        if type(self.units) == str:
+            rst += '\n'
+        else:
+            rst += ':amth:`\\mathrm{' + sp.latex(self.units) + '}`\n'  # Units
+        return rst        
 
 def specList2dict(specList):
     specDict = {}
@@ -117,6 +144,32 @@ def csv2specs(specList, csvFile):
     return specList
         
 def specs2html(dictWithSpecs, types=False):
+    keys = sorted(list(dictWithSpecs.keys()))
+    html = {}
+    for key in keys:
+        if dictWithSpecs[key].specType not in list(html.keys()):
+            html[dictWithSpecs[key].specType] =  '<h3>' + dictWithSpecs[key].specType + ' specification</h3>\n'
+            html[dictWithSpecs[key].specType] += '<table><a id="table_' + dictWithSpecs[key].specType + '"></a><caption>Table ' + dictWithSpecs[key].specType + ' specification </caption>'
+            html[dictWithSpecs[key].specType] += '<tr><th class="left">symbol</th><th class="left">description</th><th class="left">min</th><th class="left">typ</th><th class="left">max</th><th class="left">units</th></tr>\n'
+            html[dictWithSpecs[key].specType] += dictWithSpecs[key].htmlLine()
+        else:
+            html[dictWithSpecs[key].specType] += dictWithSpecs[key].htmlLine()
+    txt = ''
+    if types:
+        for spectype in types:
+            try:
+                txt += html[spectype] + '</table>\n'
+            except BaseException:
+                pass
+    else:
+        for key in list(html.keys()):
+            txt += html[key] + '</table>\n'
+    insertHTML(ini.htmlPath + ini.htmlPage, txt)
+    if ini.notebook:
+        txt = txt.replace('$', '$$')
+    return txt
+
+def specs2rst(dictWithSpecs, types=False):
     keys = sorted(list(dictWithSpecs.keys()))
     html = {}
     for key in keys:

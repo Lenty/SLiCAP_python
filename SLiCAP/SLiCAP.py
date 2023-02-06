@@ -7,7 +7,7 @@ When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.
 """
-from SLiCAP.SLiCAPextras import *
+from SLiCAP.SLiCAPdesignData import *
 
 try:
     __IPYTHON__
@@ -103,23 +103,24 @@ def initProject(name, port=ini.PORT):
     makeDir(ini.htmlPath)
     makeDir(ini.htmlPath + 'img/')
     makeDir(ini.htmlPath + 'css/')
-    copyNotOverwrite(ini.defaultLib + '/slicap.css', ini.htmlPath + 'css/slicap.css')
-    copyNotOverwrite(ini.defaultLib + '/Grid.png', ini.htmlPath + 'css/Grid.png')
+    copyNotOverwrite(ini.userPath + '/html/css/slicap.css', ini.htmlPath + 'css/slicap.css')
+    copyNotOverwrite(ini.userPath + '/html/img/Grid.png', ini.htmlPath + 'css/Grid.png')
     makeDir(ini.sphinxPath)
-    copyNotOverwrite(ini.defaultLib + '/conf.py', ini.sphinxPath + 'conf.py')
-    copyNotOverwrite(ini.defaultLib + '/make.bat', ini.sphinxPath + 'make.bat')
-    copyNotOverwrite(ini.defaultLib + '/Makefile', ini.sphinxPath + 'Makefile')
-    makeDir(ini.sphinxPath + 'img/')
-    copyNotOverwrite(ini.defaultLib + '/colorCode.svg', ini.sphinxPath + '/img/colorCode.svg')
-    makeDir(ini.sphinxPath + '_static/')
-    copyNotOverwrite(ini.defaultLib + '/amp.ico', ini.sphinxPath + '/_static/amp.ico')
-    copyNotOverwrite(ini.defaultLib + '/amp.png', ini.sphinxPath + '/_static/amp.png')
-    copyNotOverwrite(ini.defaultLib + '/amp.xcf', ini.sphinxPath + '/_static/amp.xcf')
-    copyNotOverwrite(ini.defaultLib + '/custom.css', ini.sphinxPath + '/_static/custom.css')
-    copyNotOverwrite(ini.defaultLib + '/handsontable.full.min.css', ini.sphinxPath + '/_static/handsontable.full.min.css')
-    copyNotOverwrite(ini.defaultLib + '/handsontable.full.min.js', ini.sphinxPath + '/_static/handsontable.full.min.js')
-    makeDir(ini.sphinxPath + '_templates/')
-    copyNotOverwrite(ini.defaultLib + '/layout.html', ini.sphinxPath + '/_templates/layout.html')
+    copyNotOverwrite(ini.userPath + '/sphinx/projectInfo.py', ini.sphinxPath + 'projectInfo.py')
+    copyNotOverwrite(ini.userPath + '/sphinx/make.bat', ini.sphinxPath + 'make.bat')
+    copyNotOverwrite(ini.userPath + '/sphinx/Makefile', ini.sphinxPath + 'Makefile')
+    makeDir(ini.sphinxPath + 'source/')
+    makeDir(ini.sphinxPath + 'source/img/')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/img' + '/colorCode.svg', ini.sphinxPath + 'source/img/colorCode.svg')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/img' + '/SLiCAP.svg', ini.sphinxPath + 'source/img/SLiCAP.svg')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/img' + '/SLiCAP-h1.svg', ini.sphinxPath + 'source/img/SLiCAP-h1.svg')
+    makeDir(ini.sphinxPath + 'source/_static/')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/_static/html_logo.png', ini.sphinxPath + 'source/_static/html_logo.png')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/_static/custom.css', ini.sphinxPath + 'source/_static/custom.css')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/_static/handsontable.full.min.css', ini.sphinxPath + 'source/_static/handsontable.full.min.css')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/_static/handsontable.full.min.js', ini.sphinxPath + 'source/_static/handsontable.full.min.js')
+    makeDir(ini.sphinxPath + 'source/_templates/')
+    copyNotOverwrite(ini.userPath + '/sphinx/source/_templates/layout.html', ini.sphinxPath + 'source/_templates/layout.html')
     makeDir(ini.mathmlPath)
     makeDir(ini.latexPath)
     ini.socket = True

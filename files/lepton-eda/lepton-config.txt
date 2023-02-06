@@ -1,3 +1,0 @@
-sudo lepton-cli config --system "netlist" "default-net-name" ""
-
-# Do not use "_" for default-net-name

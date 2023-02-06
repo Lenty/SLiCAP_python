@@ -1,59 +1,49 @@
-v 20130925 2
+v 20200319 2
 P 0 200 300 200 1 0 0
 {
-T 200 0 5 10 0 0 0 0 1
-pintype=pas
-T 200 0 5 10 0 0 0 0 1
+T -600 400 5 6 0 0 0 0 1
 pinseq=4
-T 200 0 5 10 0 0 0 0 1
+T -600 500 5 6 0 0 0 0 1
 pinnumber=4
-T 0 200 5 10 0 0 0 0 1
+T -600 300 5 6 0 0 0 0 1
 pinlabel=NC-
 }
 P 0 1000 300 1000 1 0 0
 {
-T 200 1300 5 10 0 0 0 0 1
-pintype=pas
-T 200 1300 5 10 0 0 0 0 1
+T -600 750 5 6 0 0 0 0 1
 pinseq=3
-T 200 1200 5 10 0 0 0 0 1
+T -600 850 5 6 0 0 0 0 1
 pinnumber=3
-T 0 1000 5 10 0 0 0 0 1
+T -600 650 5 6 0 0 0 0 1
 pinlabel=NC+
 }
 P 1600 200 1300 200 1 0 0
 {
-T 1200 0 5 10 0 0 0 0 1
-pintype=pwr
-T 1200 0 5 10 0 0 0 0 1
+T 1400 400 5 6 0 0 0 0 1
 pinseq=2
-T 1200 0 5 10 0 0 0 0 1
+T 1400 500 5 6 0 0 0 0 1
 pinnumber=2
-T 1600 200 5 10 0 0 0 0 1
+T 1400 300 5 6 0 0 0 0 1
 pinlabel=N-
 }
 P 1600 1000 1300 1000 1 0 0
 {
-T 1200 1300 5 10 0 0 0 0 1
-pintype=pwr
-T 1200 1300 5 10 0 0 0 0 1
+T 1400 750 5 6 0 0 0 0 1
 pinseq=1
-T 1200 1200 5 10 0 0 0 0 1
+T 1400 850 5 6 0 0 0 0 1
 pinnumber=1
-T 1600 1000 5 10 0 0 0 0 1
+T 1400 650 5 6 0 0 0 0 1
 pinlabel=N+
 }
 B 300 0 1000 1200 3 10 0 0 -1 -1 0 -1 -1 -1 -1 -1
-T 1400 800 5 10 0 1 0 0 1
+T -600 2300 5 6 0 0 0 0 1
 device=twoPort-slicap
 T 250 1900 8 8 1 1 0 0 1
 refdes=X?
-T 1400 200 8 10 0 1 0 0 1
-spice-prototype=? %pinseq ABCD at={A_T} bt={B_T} ct={C_T} dt={D_T}
-T 1400 600 8 10 0 1 0 0 1
-description=Gain block vcvs
-T 1400 0 8 10 0 1 0 0 1
-numslots=0
+T -600 2100 8 6 0 0 0 0 1
+spice-prototype=? %pinseq ABCD A=A@ B=B@ C=C@ D=D@
+T -600 2200 8 6 0 0 0 0 1
+description=Two-port with T1 matrix parameters (Laplace variable not allowed in expressions)
 T 350 750 9 10 1 0 0 0 1
 +
 T 1150 750 9 10 1 0 0 0 1
@@ -85,10 +75,10 @@ z
 T 600 700 5 8 1 0 0 0 1
 ABCD
 T 750 1900 8 8 1 0 0 0 1
-at={A_T}
+A={A}
 T 750 1700 8 8 1 0 0 0 1
-bt={B_T}
+B={B}
 T 750 1500 8 8 1 0 0 0 1
-ct={C_T}
+C={C}
 T 750 1300 8 8 1 0 0 0 1
-dt={D_T}
+D={D}

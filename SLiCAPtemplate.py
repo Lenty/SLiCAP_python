@@ -8,6 +8,7 @@ Default parameters:
 
 >>> VERSION     = None  # Version number
 >>> SYSINSTALL  = ''    # System install path
+>>> USERPATH    = ''    # User install path
 >>> LIBCOREPATH = ''    # Library install path
 >>> DOCPATH     = ''    # Documentation install path
 >>> MAXIMA      = ''    # Windows command for maxima
@@ -16,6 +17,7 @@ Default parameters:
 """
 VERSION     = '$VERSION'
 SYSINSTALL  = r'$SYSINSTALL'
+USERPATH    = r'$USERPATH'
 LIBCOREPATH = r'$LIBCOREPATH'
 DOCPATH     = r'$DOCPATH'
 MAXIMA      = r'$MAXIMAPATH' # Windows command for maxima

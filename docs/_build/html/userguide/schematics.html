@@ -269,12 +269,13 @@
 </div>
 <p>Be sure you save these two files <code class="docutils literal notranslate"><span class="pre">gafrc</span></code> and <code class="docutils literal notranslate"><span class="pre">gschemrc</span></code> without any file extension.</p>
 <p>The <strong>gnet-spice-noqsi</strong> spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with lepton-eda and this netlister.</p>
-<p>The spice netlister for lepton-eda can be found in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
+<p>The spice netlister for lepton-eda can be found in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation. An install script is provided.</p>
 <p>For compact node names (important for use in symbolic expressions) you need to reconfigure the default <em>net name prefix</em>.</p>
 <p>This is how it should be done under Ubuntu-based Linux systems:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">lepton</span><span class="o">-</span><span class="n">cli</span> <span class="n">config</span> <span class="o">--</span><span class="n">system</span> <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
+<p>The install script for the netlister also executes this command.</p>
 </div>
 <div class="section" id="display-schematics-on-html-pages">
 <h2>Display schematics on html pages<a class="headerlink" href="#display-schematics-on-html-pages" title="Permalink to this headline">¶</a></h2>

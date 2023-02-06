@@ -20,42 +20,42 @@ clearAssumptions--------------------------------------------: SLiCAP/SLiCAPmath/
 coeffsTransfer2html-----------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 csv2html----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--readFile-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--readFile-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
-csv2specs---------------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+csv2specs---------------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
 
 csv2traces--------------------------------------------------: SLiCAP/SLiCAPplots/SLiCAPplots.py
 
 dcVar2html--------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 doCDS-------------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 
 doCDSint----------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 
 elementData2html--------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 eqn2html----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 equateCoeffs------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--coeffsTransfer-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -64,116 +64,116 @@ equateCoeffs------------------------------------------------: SLiCAP/SLiCAPmath/
 expr2html---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 fig2html----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 file2html---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 head2html---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 head3html---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
-htmlElValue-------------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+htmlElValue-------------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
++--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--checkExpression------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-+--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 htmlLink----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
-htmlParValue------------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+htmlParValue------------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 img2html----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 initAll-----------------------------------------------------: SLiCAP/SLiCAPprotos/SLiCAPprotos.py
 
 initProject-------------------------------------------------: SLiCAP/SLiCAP.py
++--makeDir--------------------------------------------------: SLiCAP/SLiCAPprotos/SLiCAPprotos.py
++--copyNotOverwrite-----------------------------------------: SLiCAP/SLiCAPprotos/SLiCAPprotos.py
++--startHTML------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--HTMLhead----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--HTMLfoot----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--makeLibraries--------------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 |  +--compileSLiCAPLibraries--------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--checkReferences------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--checkElementModel-------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--checkSubCircuitElementModelParams------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--checkElementModelParams----------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--checkModelDefs----------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--checkReferences---------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--checkElementReferences--------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 |  |  +--parseNetlist---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--parseCommand------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--parseLibrary---------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  +--compileUSERLibrary------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  +--checkReferences------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  +--checkElementModel-------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  |  +--checkSubCircuitElementModelParams: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  |  +--checkElementModelParams----------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  +--checkModelDefs----------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  +--checkReferences---------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  +--checkElementReferences--------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  +--parseNetlist---------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  +--printError--------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  |  +--find_column----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  |  +--get_input_line-------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  +--parseElement------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  +--tokenize----------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  |  |  +--parseSubcircuitElement--------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 |  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  +--tokenize----------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  +--parseElement------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  +--parseCommand------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--parseLibrary---------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  +--printError--------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  |  +--find_column----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  |  +--get_input_line-------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--compileUSERLibrary------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  +--parseNetlist---------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  +--checkReferences------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  +--checkElementReferences--------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  +--checkElementModel-------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  |  +--checkElementModelParams----------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  |  +--checkSubCircuitElementModelParams: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  +--checkReferences---------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  +--checkModelDefs----------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  +--checkReferences------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--checkElementReferences--------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--checkElementModel-------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--checkElementModelParams----------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--checkSubCircuitElementModelParams------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--checkReferences---------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--checkModelDefs----------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 +--restartMaxima--------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--checkMaxima-------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  +--startMaxima-------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--checkMaxima----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--checkMaxima-------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 +--startMaxima----------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  +--checkMaxima-------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-+--startHTML------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--HTMLhead----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--HTMLfoot----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--copyNotOverwrite-----------------------------------------: SLiCAP/SLiCAPprotos/SLiCAPprotos.py
-+--makeDir--------------------------------------------------: SLiCAP/SLiCAPprotos/SLiCAPprotos.py
 
 lib2html----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--readFile-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--readFile-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 links2html--------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--htmlPage-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--HTMLhead----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--HTMLfoot----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--insertHTML--------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  +--readFile-------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  +--writeFile------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--href-----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--href-----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--htmlPage-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--HTMLhead----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--insertHTML--------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  +--writeFile------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  +--readFile-------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--HTMLfoot----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 listPZ------------------------------------------------------: SLiCAP/SLiCAPinstruction/SLiCAPinstruction.py
@@ -185,8 +185,8 @@ makeNetlist-------------------------------------------------: SLiCAP/SLiCAP.py
 matrices2html-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 maxLimit----------------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 +--maxEval--------------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
@@ -194,35 +194,35 @@ maxLimit----------------------------------------------------: SLiCAP/SLiCAPpytho
 |  |  +--signum2sign----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 
 netlist2html------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--readFile-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--readFile-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 noise2html--------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 params2html-------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-+--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
++--fullSubs-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 phaseMargin-------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-+--findServoBandwidth---------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--cancelPZ----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--numRoots----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--polyCoeffs-----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--coeffsTransfer----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--polyCoeffs-----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--phaseFunc_f----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--normalizeRational----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  +--coeffsTransfer----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--polyCoeffs-----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
++--findServoBandwidth---------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--coeffsTransfer----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--polyCoeffs-----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--cancelPZ----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--numRoots----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  +--polyCoeffs-----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 
 phase_f-----------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -234,47 +234,52 @@ plotPZ------------------------------------------------------: SLiCAP/SLiCAPplots
 |  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
 plotSweep---------------------------------------------------: SLiCAP/SLiCAPplots/SLiCAPplots.py
-+--delayFunc_f----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-+--phaseFunc_f----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-+--stepParams-----------------------------------------------: SLiCAP/SLiCAPplots/SLiCAPplots.py
-|  +--fullSubs----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--dBmagFunc_f----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  +--makeNumData-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-+--checkNumber----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
++--magFunc_f------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--makeNumData-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
++--delayFunc_f----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
++--phaseFunc_f----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--normalizeRational----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  +--coeffsTransfer----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  +--polyCoeffs-----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 +--makeNumData----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-+--magFunc_f------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--makeNumData-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
++--checkNumber----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
++--stepParams-----------------------------------------------: SLiCAP/SLiCAPplots/SLiCAPplots.py
+|  +--fullSubs----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 
 pz2html-----------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 rmsNoise----------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
++--checkNumber----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 +--maxIntegrate---------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  +--maxEval-----------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--maxima2python--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--signum2sign-------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-+--checkNumber----------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
 routh-------------------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 
-specList2dict-----------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+specList2dict-----------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
 
-specs2circuit-----------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+specs2circuit-----------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
 
-specs2csv---------------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+specs2csv---------------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
 
-specs2html--------------------------------------------------: SLiCAP/SLiCAPextras/SLiCAPextras.py
+specs2html--------------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+
+specs2rst---------------------------------------------------: SLiCAP/SLiCAPdesignData/SLiCAPdesignData.py
++--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 start_new_thread--------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 
@@ -282,8 +287,8 @@ step2PeriodicPulse------------------------------------------: SLiCAP/SLiCAPmath/
 
 stepArray2html----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 t_CMD-------------------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
@@ -309,11 +314,11 @@ t_NEWLINE---------------------------------------------------: SLiCAP/SLiCAPlex/S
 t_PARAMS----------------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
 t_PARDEF----------------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
++--get_input_line-------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
++--find_column----------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 +--printError-----------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  +--find_column-------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  +--get_input_line----------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-+--find_column----------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-+--get_input_line-------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
 t_PLUS------------------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
@@ -340,8 +345,8 @@ t_t_RIGHTBR-------------------------------------------------: SLiCAP/SLiCAPlex/S
 
 text2html---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 +--insertHTML-----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 |  +--writeFile---------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--readFile----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
 
 traces2fig--------------------------------------------------: SLiCAP/SLiCAPplots/SLiCAPplots.py
 
@@ -380,191 +385,76 @@ SLiCAP/SLiCAPinstruction.instruction.checkStepArray()
 
 SLiCAP/SLiCAPinstruction.instruction.setCircuit()
 +--checkCircuit---------------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  +--expandCircuit-----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--expandCircuit--------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--updateElementParams--------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--fullSubs----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--updateParDefs--------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--fullSubs----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  +--addParDefsParam---------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--addParDefsParam------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--updateNodes----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  +--updateCirData-----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--sortDepVars----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  +--htmlPage----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  +--writeFile------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  +--HTMLhead-------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  +--HTMLfoot-------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  +--insertHTML-----------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  |  +--readFile----------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  |  |  +--writeFile---------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
-|  +--checkReferences---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--checkElementModel----------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--checkSubCircuitElementModelParams---------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--checkElementModelParams-------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--checkModelDefs-------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--checkReferences------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--checkElementReferences-----------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 |  +--parseNetlist------------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--parseCommand---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  +--parseLibrary------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--compileUSERLibrary---------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  +--checkReferences---------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  +--checkElementModel----------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  +--checkSubCircuitElementModelParams---: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  |  +--checkElementModelParams-------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  +--checkModelDefs-------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  +--checkReferences------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  |  +--checkElementReferences-----------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  |  +--parseNetlist------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  +--printError-----------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  +--find_column-------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  +--get_input_line----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  +--parseElement---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
-|  |  +--tokenize-------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  |  +--parseSubcircuitElement-----------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 |  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 |  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  +--tokenize-------------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  +--parseElement---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  +--printError-----------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  +--find_column-------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  +--get_input_line----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  +--parseCommand---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--parseLibrary------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--printError-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--find_column-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  |  +--get_input_line----------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--compileUSERLibrary---------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  +--parseNetlist------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  +--checkReferences---------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  +--checkElementReferences-----------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  +--checkElementModel----------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  +--checkElementModelParams-------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  |  +--checkSubCircuitElementModelParams---: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  +--checkReferences------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  |  |  +--checkModelDefs-------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--printError--------------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--find_column----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  |  |  |  +--get_input_line-------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
+|  +--expandCircuit-----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--updateElementParams--------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--fullSubs----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--updateParDefs--------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--addParDefsParam---------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  |  +--addParDefsParam------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--fullSubs----------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--expandCircuit--------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--updateNodes----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  +--checkReferences---------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--checkElementReferences-----------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--checkElementModel----------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--checkElementModelParams-------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  |  +--checkSubCircuitElementModelParams---------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--checkReferences------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--checkModelDefs-------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  +--htmlPage----------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  +--HTMLhead-------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  +--insertHTML-----------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  |  +--writeFile---------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  |  +--readFile----------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  +--HTMLfoot-------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  |  +--writeFile------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+|  +--updateCirData-----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--sortDepVars----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 
 SLiCAP/SLiCAPinstruction.instruction.check()
++--addResNoiseSources---------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
++--delResNoiseSources---------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 +--updateCirData--------------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
 |  +--sortDepVars-------------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-+--delResNoiseSources---------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-+--addResNoiseSources---------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 
 SLiCAP/SLiCAPinstruction.instruction.execute()
 +--doInstruction--------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  +--doTime------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--normalizeRational----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  +--coeffsTransfer----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--polyCoeffs-----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--doMaxIlt-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--python2maxima-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--sign2signum----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--doDC--------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  +--doNumer-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--doLaplace---------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--doLoopGainServo------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--doMaxLoopGainServo------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -574,22 +464,25 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--doMaxFunction--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--maxEval-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  +--maxima2python--------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  +--signum2sign-------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--doPZ--------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--cancelPZ-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -599,52 +492,20 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  +--numRoots-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  +--polyCoeffs--------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--gainValue------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  +--doPoles-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doDenom--------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -654,271 +515,142 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--numRoots-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  +--polyCoeffs--------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--doStep------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--normalizeRational----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  +--coeffsTransfer----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--polyCoeffs-----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--doTimeSolve-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--createResultObject------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  +--doZeros-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doNumer--------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--numRoots-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  +--polyCoeffs--------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--doImpulse---------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--normalizeRational----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  +--coeffsTransfer----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--polyCoeffs-----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  +--doMaxIlt-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--python2maxima-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  +--sign2signum----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--doSolve-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--doDenom-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  +--doLoopGainServo------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxLoopGainServo------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--doMaxFunction--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--maxEval-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--maxima2python--------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  |  +--signum2sign-------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--updateCirData-----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  |  +--sortDepVars----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
-|  +--doNoise-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--makeSubsDict------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  +--doDCvar-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--delDCvarSources------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--calcNumer------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -928,22 +660,22 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -953,21 +685,43 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--addDCvarSources------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  +--doSolve-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  +--doMatrix----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--makeMaxMatrices------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--convertMatrices---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--createConversionMatrices---------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--pairVariables-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--getSubMatrices-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--makeMatrices------------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  +--getValue-------------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -977,123 +731,28 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  +--makeSrcVector-----------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  +--getValue-------------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--doDCsolve---------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--convertMatrices---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--createConversionMatrices---------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--pairVariables-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--getSubMatrices-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  +--updateCirData-----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  |  +--sortDepVars----------------------------------------: SLiCAP/SLiCAPyacc/SLiCAPyacc.py
+|  +--doTime------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--normalizeRational----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  +--coeffsTransfer----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--polyCoeffs-----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--doMaxIlt-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--doDCvar-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--calcNumer------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  +--addDCvarSources------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  +--delDCvarSources------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  +--doPoles-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  +--doDenom--------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--python2maxima-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--sign2signum----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -1103,22 +762,237 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doNoise-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--calcNumer------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doPZ--------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--normalizeRational----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  +--coeffsTransfer----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--polyCoeffs-----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--cancelPZ-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--numRoots-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  +--polyCoeffs--------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--gainValue------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--doZeros-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doNumer--------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -1128,50 +1002,26 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  +--makeSubsDict------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  +--doNumer-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--numRoots-------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  +--polyCoeffs--------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  +--doTimeSolve-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  +--doLoopGainServo------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxLoopGainServo------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -1181,51 +1031,106 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doLaplace---------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doLoopGainServo------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--doMaxLoopGainServo------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--doMaxFunction--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--maxEval-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  +--maxima2python--------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  +--signum2sign-------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  +--doStep------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doDCsolve---------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doImpulse---------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  +--normalizeRational----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  +--coeffsTransfer----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  +--polyCoeffs-----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  +--doMaxIlt-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--python2maxima-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--sign2signum----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  +--doLaplace------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--stepFunctions-----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
-|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  +--doLoopGainServo---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  +--doMaxLoopGainServo---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
@@ -1235,26 +1140,129 @@ SLiCAP/SLiCAPinstruction.instruction.execute()
 |  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
 |  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--doMaxFunction-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  |  +--maxEval--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  +--maxima2python-----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  |  |  |  +--signum2sign----------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--doMaxInstr--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--parseMaxResult-------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxEval--------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--maxima2python-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--signum2sign----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--makeMaxInstr---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMaxDetPos-----------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  |  |  +--fullSubs----------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
-|  |  +--doMaxIlt-------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
-|  |  |  +--python2maxima-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
-|  |  |  |  +--sign2signum----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--makeMaxMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--makeMatrices---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  |  +--getValues---------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--getValue-------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  |  +--fullSubs----------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--makeSrcVector--------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--convertMatrices------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--createConversionMatrices------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  |  +--pairVariables--------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--getSubMatrices----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxString---------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--python2maxima-----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--sign2signum----------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doDenom-----------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doLoopGainServo------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--doMaxLoopGainServo------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--doMaxFunction--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--maxEval-----------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  +--maxima2python--------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  |  |  +--signum2sign-------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 |  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 |  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--doDC--------------------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--stepFunctions--------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  +--doMaxInstr-----------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--parseMaxResult----------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  +--maxEval-----------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  +--maxima2python--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--signum2sign-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  +--makeMaxInstr------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--makeMaxDetPos--------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--fullSubs-------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  +--makeMaxMatrices------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  +--makeMatrices------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  |  +--getValues------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--getValue----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  |  +--fullSubs-------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--makeSrcVector-----------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  +--getValue-------------------------------: SLiCAP/SLiCAPmatrices/SLiCAPmatrices.py
+|  |  |  |  |  |  |  +--fullSubs----------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
+|  |  |  |  |  +--convertMatrices---------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--createConversionMatrices---------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  |  +--pairVariables-----------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  |  |  +--getSubMatrices-------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--maxString------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
+|  |  |  |  +--python2maxima--------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  |  |  |  |  +--sign2signum-------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
+|  +--createResultObject------------------------------------: SLiCAP/SLiCAPexecute/SLiCAPexecute.py
 
 SLiCAP/SLiCAPpythonMaxima.maximaHandler.parseMaxima()
 +--wait_until-----------------------------------------------: SLiCAP/SLiCAPpythonMaxima/SLiCAPpythonMaxima.py
 
-SLiCAP/SLiCAPextras.specItem.update()
+SLiCAP/SLiCAPdesignData.specItem.update()
 +--checkExpression------------------------------------------: SLiCAP/SLiCAPmath/SLiCAPmath.py
 |  +--replaceScaleFactors-----------------------------------: SLiCAP/SLiCAPlex/SLiCAPlex.py
 
-SLiCAP/SLiCAPextras.specItem.htmlLine()
+SLiCAP/SLiCAPdesignData.specItem.htmlLine()
++--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
+
+SLiCAP/SLiCAPdesignData.specItem.rstLine()
 +--roundN---------------------------------------------------: SLiCAP/SLiCAPhtml/SLiCAPhtml.py
