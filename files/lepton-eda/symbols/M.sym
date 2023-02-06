@@ -53,7 +53,7 @@ model-name=?
 T -600 1150 8 10 0 0 0 0 1
 spice-prototype=? %pinseq model-name@ params@
 T -600 1350 8 10 0 0 0 0 1
-description=4-terminal NMOS
+description=4-terminal MOS
 H 3 0 0 0 -1 -1 1 -1 -1 -1 -1 -1 5
 M 450,200
 L 400,150
