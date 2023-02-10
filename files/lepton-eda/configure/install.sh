@@ -1,5 +1,5 @@
 #!/bin/sh
-found=$(locate gnet-spice-sdb.scm)
+found=$(locate gnet-spice.scm)
 if [ -z $found ] ; then
     echo Coud not find installation path.
 else

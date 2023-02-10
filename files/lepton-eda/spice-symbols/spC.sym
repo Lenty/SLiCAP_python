@@ -22,10 +22,8 @@ device=C-sipce
 T 150 1150 8 6 0 0 0 0 1
 description=Capacitor
 T 150 1050 8 6 0 0 0 0 1
-spice-prototype=? %pinseq value@ params@
-T 600 600 8 8 1 1 0 0 1
+spice-prototype=? %pinseq value@
+T 550 500 8 8 1 1 0 0 1
 refdes=C?
-T 600 450 8 8 1 1 0 0 1
+T 550 350 8 8 1 1 0 0 1
 value=?
-T 600 300 8 8 1 1 0 0 1
-params=?

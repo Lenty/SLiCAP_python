@@ -28,7 +28,7 @@ L 100,300
 z
 {
 T 299 299 8 8 1 1 0 0 1
-params=params?
+params=?
 }
 T 0 1300 5 6 0 0 0 0 1
 device=D-spice
