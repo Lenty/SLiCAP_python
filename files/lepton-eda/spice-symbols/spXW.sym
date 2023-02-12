@@ -48,15 +48,17 @@ T 400 200 9 10 1 0 0 0 1
 -
 T 700 200 9 10 1 0 0 0 1
 -
-T -700 1450 5 6 0 0 0 0 1
-device=W-slicap
-T -700 1250 8 6 0 0 0 0 1
+T -700 1750 5 6 0 0 0 0 1
+device=W-spice
+T -700 1650 8 6 0 0 0 0 1
 description=Gyrator
 T 500 1150 8 8 1 1 0 0 1
-value=?
-T -700 1350 8 6 0 0 0 0 1
-spice-prototype=? %pinseq value@
+G={G}
+T -700 1550 8 6 0 0 0 0 1
+spice-prototype=? %pinseq spXGyrator G=G@
 T 500 1300 8 8 1 1 0 0 1
 refdes=W?
-T 300 950 9 6 1 0 0 0 1
-1:<value>
+T 450 950 9 6 1 0 0 0 1
+1:<G>
+T -695 1450 8 6 0 0 0 0 1
+source=spXGyrator.sch

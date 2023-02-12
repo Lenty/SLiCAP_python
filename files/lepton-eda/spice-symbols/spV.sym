@@ -24,7 +24,7 @@ value=?
 T 450 450 8 8 1 1 0 0 1
 refdes=V?
 T 0 1000 8 6 0 0 0 0 1
-spice-prototype=? %pinseq V value=0 dc=0 dcvar=0 noise=0
+spice-prototype=? %pinseq value@
 T 250 600 9 10 1 0 0 0 1
 +
 T 250 100 9 10 1 0 0 0 1
