@@ -165,7 +165,7 @@ def coeffsTransfer(rational, variable=ini.Laplace, normalize='lowest'):
     coeffsDenom.reverse()
     return (gain, coeffsNumer, coeffsDenom)
 
-def normalizeRational(rational, variable=ini.Laplace, method='lowest'):
+def normalizeRational(rational, var=ini.Laplace, method='lowest'):
     """
     Normalizes a rational expression to:
 
@@ -191,14 +191,18 @@ def normalizeRational(rational, variable=ini.Laplace, method='lowest'):
     :return:  Normalized rational function of the variable.
     :rtype: sympy.Expr
     """
-    if variable in list(sp.N(rational).atoms(sp.Symbol)):
+    num, den = rational.as_numer_denom()
+    num = sp.collect(sp.expand(num), var)
+    den = sp.collect(sp.expand(den), var)
+    rational = num/den
+    if var in list(sp.N(rational).atoms(sp.Symbol)):
         # Exception will be raised for non positive integer powers of variable.
         # Then, we just pass the rational without normaling it.
         try:
-            gain, coeffsNumer, coeffsDenom = coeffsTransfer(rational, variable, method)
+            gain, coeffsNumer, coeffsDenom = coeffsTransfer(rational, variable=var, normalize=method)
             coeffsNumer.reverse()
             coeffsDenom.reverse()
-            rational = gain*(sp.Poly(coeffsNumer, variable)/sp.Poly(coeffsDenom, variable))
+            rational = gain*(sp.Poly(coeffsNumer, var)/sp.Poly(coeffsDenom, var))
         except BaseException:
             exc_type, value, exc_traceback = sys.exc_info()
             print('\n', value)
