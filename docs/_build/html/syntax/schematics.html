@@ -40,7 +40,7 @@
 
     
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SLiCAP reference" href="../reference/SLiCAPreference.html" />
+    <link rel="next" title="SLiCAP development" href="../development/SLiCAPdevelopment.html" />
     <link rel="prev" title="Devices and built-in models" href="devices.html" /> 
 </head>
 
@@ -101,7 +101,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#spice-directives">SPICE directives</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#gschem">gSchem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gschem-and-lepton-eda">gSchem and lepton-eda</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#node-names">Node names</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">SPICE directives</a></li>
 </ul>
@@ -114,6 +114,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
@@ -189,7 +190,7 @@
 <h1>Schematic capture for SLiCAP<a class="headerlink" href="#schematic-capture-for-slicap" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="ltspice">
 <h2>LTSpice<a class="headerlink" href="#ltspice" title="Permalink to this headline">¶</a></h2>
-<p>A symbol set for schematic capture and netlist generation with LTSpice can be found in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal notranslate"><span class="pre">slicap.lib</span></code> file.</p>
+<p>A symbol set for schematic capture and netlist generation with LTSpice can be found in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder in the user install path (default ~/SLiCAP/).</p>
 <p>The following table gives an overview of the available symbols. Model descriptions can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section.</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -384,9 +385,9 @@
 <p>Parameter definitions <code class="docutils literal notranslate"><span class="pre">.param</span></code>, model definitions <code class="docutils literal notranslate"><span class="pre">.model</span></code>, library definitions <code class="docutils literal notranslate"><span class="pre">.lib</span></code> can be placed on a schematic page using <strong>spice directives</strong>. LTSpice also defines the coupling between inductors with the aid of spice directives.</p>
 </div>
 </div>
-<div class="section" id="gschem">
-<h2>gSchem<a class="headerlink" href="#gschem" title="Permalink to this headline">¶</a></h2>
-<p>A symbol set for schematic capture and netlist generation with gSchem can be found in the <code class="docutils literal notranslate"><span class="pre">gSchem/symbols/</span></code> directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the <code class="docutils literal notranslate"><span class="pre">slicap.lib</span></code> file.</p>
+<div class="section" id="gschem-and-lepton-eda">
+<h2>gSchem and lepton-eda<a class="headerlink" href="#gschem-and-lepton-eda" title="Permalink to this headline">¶</a></h2>
+<p>A symbol set for schematic capture and netlist generation with gSchem or lepton-eda can be found in the <code class="docutils literal notranslate"><span class="pre">gSchem/symbols/</span></code> folder and in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/symbols/</span></code> folder in the user install path (default ~/SLiCAP/).</p>
 <p>The following table gives an overview of the available symbols. Model descriptions can be found in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section. Please scroll the table to the left to see the associated sub circuits.</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -886,7 +887,7 @@ save them under a <strong>different</strong> name in your project directory or i
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../reference/SLiCAPreference.html" class="btn btn-neutral float-right" title="SLiCAP reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../development/SLiCAPdevelopment.html" class="btn btn-neutral float-right" title="SLiCAP development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="devices.html" class="btn btn-neutral float-left" title="Devices and built-in models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -894,7 +895,7 @@ save them under a <strong>different</strong> name in your project directory or i
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, SLiCAP development team.
+        &#169; Copyright 2023, SLiCAP development team.
 
     </p>
   </div>

@@ -2,15 +2,52 @@
 Define an instruction
 =====================
 
-All the aspects of an instruction can at any time be changed from within the SLiCAP environment. An instruction can be executed if the instruction data is complete and consistent (this will be checked by SLiCAP).
+Working with SLiCAP comes to the definition and execution of SLiCAP instructions. After setting all relevant attributes of a SLiCAP instruction object, its execution returns a result object that comprises results and instruction settings. 
 
-In the following sections the instruction data and their default values will be discussed.
+SLiCAP has built-in plot functions and HTML report functions to convert these result objects automatically into plots or HTML pages.
 
----------------	  
-Simulation type
----------------
+Before execution, SLiCAP always checks the completeness and consistency of the instruction.
 
-SLiCAP uses symbolic calculation methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the expressions for the circuit elements.
+See :ref:`Execute` for execution of the instruction and a description of the result object that comprises the instruction results.
+
+The following sections discuss the main attributes of the instruction:
+
+#. :ref:`defCircuit`
+#. :ref:`defSimType`
+#. :ref:`defGainType`
+#. :ref:`source`
+#. :ref:`detector`
+#. :ref:`LGref`
+#. :ref:`defConvType`
+#. :ref:`defDataType`
+
+.. _defCircuit:
+
+-------------------------------------------------------
+Create a circuit object and assign it to an instruction
+-------------------------------------------------------
+
+The *instruction.setCircuit(<netlistfilename>)* method checks syntax of the netlist, converts the netlist into a *flattened* circuit and assignes this circuit to the *instruction.circuit* attribute.
+
+.. code-block:: python
+
+    >>> from SLiCAP import *
+    >>> prj = initProject('My first RC network') # Initialize a SLiCAP project
+    >>> instr = instruction()        # Create an instance of an instruction object
+    >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit object from the netlist 
+                                     # file 'myFirstRCnetwork.cir' and make it an attribute 
+                                     # *instr.circuit* of the instruction object
+    No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
+
+View section :ref:`html` for displaying circuit data on an HTML page.
+
+.. _defSimType:
+
+--------------------------
+Define the simulation type
+--------------------------
+
+SLiCAP can perform symbolic and numeric analyis. The *simType* attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the circuit element expressions.
 
 The simulation type can be set with the method **SLiCAPinstruction.instruction.setSimType(*args)**.
 
@@ -31,17 +68,19 @@ The simulation type can be set with the method **SLiCAPinstruction.instruction.s
     >>> print(instr.simType)         # Print the current setting of the simulation type
     symbolic
 
----------
-Gain type
----------
+.. _defGainType:
+
+--------------------
+Define the gain type
+--------------------
 
 SLiCAP can provide expressions for:
 
-#. Nodal voltages or currents through elements that have been defined in current-controlled notation (the voltage has been defined as a function of the current).
+#. Detector voltage or current (see :ref:`detector` for definition of the detector)
 
    - gain type: *vi*
 
-#. Transfer functions of the asymptotic-gain model:
+#. Transfer functions of the asymptotic-gain model  (see :ref:`detector` for definition of the detector, :ref:`source` for definition of the signal source, and :ref:`LGref` for definition of the loop gain reference)
 	
    - source-to-detector transfer: gain type *gain*
 		
@@ -92,13 +131,15 @@ The gain type can be defined with the method: **SLiCAPinstruction.instruction.se
     >>> print(instr.gainType)           # Print the current setting of the gain type
     direct
 
--------------
-Signal source
--------------
+.. _source:
+
+------------------------
+Define the signal source
+------------------------
 
 Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: **SLiCAPinstruction.instruction.setSource(*args)**.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: **SLiCAPinstruction.instruction.indepVars()**. 
 
-For the analysis of balanced circuits, SLiCAP supports the definition of dual sources.
+For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) sources.
 
 .. code-block:: python
 
@@ -114,9 +155,11 @@ For the analysis of balanced circuits, SLiCAP supports the definition of dual so
     >>> print(instr.source)             # Print the signal source
     [V1, None]
 
---------
-Detector 
---------
+.. _detector:
+
+-------------------
+Define the detector 
+-------------------
 	  
 SLiCAP can calculate one of the following:
 
@@ -143,27 +186,29 @@ Any dependent circuit variable can be selected as detector quantity. A symbolic 
     >>> instr.setCircuit('myFirstRCnetwork.cir') # Create a circuit from 'myFirstRCnetwork.cir'
     No errors found for circuit: 'My first RC network' from file: 'myFirstRCnetwork.cir'.
 
-    >>> print(instr.depVars())          # print a list with independent sources in the circuit
+    >>> print(instr.depVars())          # print a list with ipossible detectors in the circuit
     ['I_V1', 'V_0', 'V_N001', 'V_out']
     >>> instr.setDetector('V_out')      # Nodal voltage 'V_out' is detector voltage
-    >>> print(instr.detector)           # Print the detecor quantity
+    >>> print(instr.detector)           # Print the detector
     ['V_out', None]
     >>> instr.setDetector(['V_out', 'V_N001']) # Voltage 'V_out'-'V_N001' is the detector voltage
-    >>> print(instr.detector)           # Print the detecor quantity
+    >>> print(instr.detector)           # Print the detector
     ['V_out', 'V_N001']
     >>> instr.setDetector('I_V1')       # Current through 'V1' is the detector current
-    >>> print(instr.detector)           # Print the detecor quantity
+    >>> print(instr.detector)           # Print the detector
     ['I_V1', None]
 
--------------------
-Loop gain reference
--------------------
+.. _LGref:
+
+------------------------------
+Define the loop gain reference
+------------------------------
 
 The asymptotic-gain negative-feedback model uses one controlled source of the circuit as *loop gain reference variable*. The name of this controlled source is stored in the attribute: **SLiCAPinstruction.instruction.lgRef**. A list with controlled sources that are available for this purpose is returned by the method:  **SLiCAPinstruction.instruction.controlled()**. 
 
 Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method **SLiCAPinstruction.instruction.setLGref()**. 
 
-For the analysis of balanced circuits, SLiCAP supports the definition of dual loop gain references.
+For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) loop gain references.
 
 .. code-block:: python
 
@@ -176,9 +221,13 @@ For the analysis of balanced circuits, SLiCAP supports the definition of dual lo
     >>> print instr.controlled()        # Print a list with names of controlled sources
     []
 
-----------------------
-Matrix conversion type
-----------------------
+.. _defConvType:
+
+---------------------------------
+Define the matrix conversion type
+---------------------------------
+
+The definition of the matrix conversion type is only required when working with balanced networks. See :ref:`balanced` for detailed information.
 
 SLiCAP can convert the MNA equation of a network into an equivalent equation of
 
@@ -201,9 +250,11 @@ SLiCAP can convert the MNA equation of a network into an equivalent equation of
 
     None
 
----------
-Data type
----------
+.. _defDataType:
+
+--------------------
+Define the data type
+--------------------
 
 SLiCAP can provide 16 types of data. The data type for the instruction is stored in the attribute **SLiCAPinstruction.instruction.dataType**. It is defined by the method: **SLiCAPinstruction.instruction.setDataType**. Below an overview of the availabe data types and their meaning.
 
@@ -229,11 +280,11 @@ SLiCAP can provide 16 types of data. The data type for the instruction is stored
 
 #. laplace
 
-   Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.
+   Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce Transform of a voltage or a current.
 
 #. matrix
 
-   Calculates the matrix equation of the circuit.
+   Returns the MNA matrix equation of the circuit.
 
 #. noise
 
@@ -249,11 +300,11 @@ SLiCAP can provide 16 types of data. The data type for the instruction is stored
 
 #. poles
 
-   Calculates the complex solutions of the denominator of the Laplace transform of a transfer function. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomial.
+   Calculates the complex solutions of the denominator of the Laplace transform of a transfer function. Not available for gain type 'vi'.
 
 #. pz
 
-   Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomials. Poles and zeros with equal values are cancelled.
+   Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type 'vi'. Poles and zeros with equal values are cancelled.
 
 #. solve
 
@@ -269,7 +320,7 @@ SLiCAP can provide 16 types of data. The data type for the instruction is stored
 
 #. zeros
 
-   Calculates the complex solutions of the numerator of the Laplace transform of a transfer function. Not available for gain type 'vi'. It requires numeric values for the coefficients of the Laplace polynomial.
+   Calculates the complex solutions of the numerator of the Laplace transform of a transfer function. Not available for gain type 'vi'.
 
 .. code-block:: python
 

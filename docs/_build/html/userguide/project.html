@@ -100,6 +100,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#laplace">Laplace</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maximamatrixdim">MaximaMatrixDim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maximatimeout">MaximaTimeOut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#port">PORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assumeposmaxvars">assumePosMaxVars</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#circuitpath">circuitPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#csvpath">csvPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#defaultcolors">defaultColors</a></li>
@@ -107,7 +109,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#defaultmarkers">defaultMarkers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#disp">disp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docpath">docPath</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#factor">factor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#figureaxisheight">figureAxisHeight</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#figureaxiswidth">figureAxisWidth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#figurefiletype">figureFileType</a></li>
@@ -121,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#htmlprefix">htmlPrefix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#imgpath">imgPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installpath">installPath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lambdifytool">lambdifyTool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lastupdate">lastUpdate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#latexpath">latexPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#legendloc">legendLoc</a></li>
@@ -129,7 +131,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#mathml">mathml</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mathmlpath">mathmlPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxrecsubst">maxRecSubst</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maxsolve">maxSolve</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxima">maxima</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#netlist">netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#normalize">normalize</a></li>
@@ -140,6 +141,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#stepfunction">stepFunction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tablefiletype">tableFileType</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#txtpath">txtPath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#userpath">userPath</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="schematics.html">Schematic capture</a></li>
@@ -159,6 +161,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
@@ -234,62 +237,70 @@
 <h1>Initialize a SLiCAP project<a class="headerlink" href="#initialize-a-slicap-project" title="Permalink to this headline">¶</a></h1>
 <p>You start SLiCAP by importing of the scripts and initialization of a python project:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span> <span class="c1"># This imports the SLiCAP scripts</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My SLiCAP project&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My SLiCAP project&#39;</span><span class="p">)</span> <span class="c1"># default PORT for socket communication with maxima CAS.</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My SLiCAP project&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8099</span><span class="p">)</span> <span class="c1"># project-defined port for socket communication with maxima CAS is set to 8099.</span>
 </pre></div>
 </div>
-<p>The function <code class="docutils literal notranslate"><span class="pre">initProject&lt;projectName&gt;</span></code> creates the (missing parts) of the directory structure in the working directory. Directories once created will not be overwritten.</p>
-<p>The settings are stored in the <cite>ini()</cite> object. You can view these settings by entering:</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">initProject&lt;projectName&gt;</span></code> creates / updates the directory structure in the working directory. Directories once created will not be overwritten.</p>
+<p>The settings are stored in the <code class="docutils literal notranslate"><span class="pre">ini</span></code> object. You can view these settings by entering:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
-<span class="go">HOST.............. : 127.0.0.1</span>
-<span class="go">Hz................ : True</span>
-<span class="go">Laplace........... : s</span>
-<span class="go">MaximaMatrixDim... : 25</span>
-<span class="go">MaximaTimeOut..... : 60</span>
-<span class="go">PORT.............. : 53118</span>
-<span class="go">circuitPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/</span>
-<span class="go">csvPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/csv/</span>
-<span class="go">defaultColors..... : [&#39;r&#39;, &#39;b&#39;, &#39;g&#39;, &#39;c&#39;, &#39;m&#39;, &#39;y&#39;, &#39;k&#39;]</span>
-<span class="go">defaultLib........ : /home/anton/SLiCAP/lib</span>
-<span class="go">defaultMarkers.... : [&#39;&#39;]</span>
-<span class="go">disp.............. : 4</span>
-<span class="go">docPath........... : /home/anton/SLiCAP/docs</span>
-<span class="go">figureAxisHeight.. : 5</span>
-<span class="go">figureAxisWidth... : 7</span>
-<span class="go">figureFileType.... : svg</span>
-<span class="go">frequency......... : f</span>
-<span class="go">gainColors........ : {&#39;gain&#39;: &#39;b&#39;, &#39;asymptotic&#39;: &#39;r&#39;, &#39;loopgain&#39;: &#39;k&#39;, &#39;direct&#39;: &#39;g&#39;, &#39;servo&#39;: &#39;m&#39;, &#39;vi&#39;: &#39;c&#39;}</span>
-<span class="go">htmlIndex......... : index.html</span>
-<span class="go">htmlLabels.keys(). : []</span>
-<span class="go">htmlPage.......... :</span>
-<span class="go">htmlPages......... : [&#39;index.html&#39;]</span>
-<span class="go">htmlPath.......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/html/</span>
-<span class="go">htmlPrefix........ :</span>
-<span class="go">imgPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/img/</span>
-<span class="go">installPath....... : /home/anton/.local/lib/python3.8/site-packages/SLiCAP/</span>
-<span class="go">lambdifyTool...... : numpy</span>
-<span class="go">lastUpdate........ : 2022-06-28 09:17:57.580901</span>
-<span class="go">latexPath......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/tex/</span>
-<span class="go">legendLoc......... : best</span>
-<span class="go">libraryPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/lib/</span>
-<span class="go">ltspice........... : /home/anton/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe</span>
-<span class="go">mathmlPath........ : /home/anton/SLiCAP/examples/myFirstRCnetwork/mathml/</span>
-<span class="go">maxRecSubst....... : 12</span>
-<span class="go">maxima............ : maxima</span>
-<span class="go">netlist........... : lepton-netlist -g spice-noqsi</span>
-<span class="go">notebook.......... : True</span>
-<span class="go">plotFontSize...... : 12</span>
-<span class="go">projectPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/</span>
-<span class="go">socket............ : False</span>
-<span class="go">stepFunction...... : True</span>
-<span class="go">tableFileType..... : csv</span>
-<span class="go">txtPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/txt/</span>
-<span class="go">Checking netlist: /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir</span>
 </pre></div>
 </div>
+<p>Below the output generated after executing <code class="docutils literal notranslate"><span class="pre">myFisrtRCnetwork.py</span></code> in the folder <code class="docutils literal notranslate"><span class="pre">~/SLiCAP/examples/myFirstRCnetwork/</span></code> under Linux:</p>
+<blockquote>
+<div>HOST………….. : 127.0.0.1
+Hz……………. : True
+Laplace……….. : s
+MaximaMatrixDim… : 25
+MaximaTimeOut….. : 60
+PORT………….. : 53118
+assumePosMaxVars.. : True
+circuitPath……. : ~/SLiCAP/examples/myFirstRCnetwork/cir/
+csvPath……….. : ~/SLiCAP/examples/myFirstRCnetwork/csv/
+defaultColors….. : [‘r’, ‘b’, ‘g’, ‘c’, ‘m’, ‘y’, ‘k’]
+defaultLib…….. : ~/SLiCAP/lib
+defaultMarkers…. : [‘’]
+disp………….. : 4
+docPath……….. : ~/SLiCAP/docs
+figureAxisHeight.. : 5
+figureAxisWidth… : 7
+figureFileType…. : svg
+frequency……… : f
+gainColors…….. : {‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’, ‘direct’: ‘g’, ‘servo’: ‘m’, ‘vi’: ‘c’}
+htmlIndex……… : index.html
+htmlLabels.keys(). : [‘’]
+htmlPage………. :
+htmlPages……… : [‘index.html’]
+htmlPath………. : ~/SLiCAP/examples/myFirstRCnetwork/html/
+htmlPrefix…….. :
+imgPath……….. : ~/SLiCAP/examples/myFirstRCnetwork/img/
+installPath……. : ~/.local/lib/python3.8/site-packages/SLiCAP/
+lambdifyTool…… : numpy
+lastUpdate…….. : 2022-06-28 09:17:57.580901
+latexPath……… : ~/SLiCAP/examples/myFirstRCnetwork/tex/
+legendLoc……… : best
+libraryPath……. : ~/SLiCAP/examples/myFirstRCnetwork/lib/
+ltspice……….. : ~/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe
+mathmlPath…….. : ~/SLiCAP/examples/myFirstRCnetwork/mathml/
+maxRecSubst……. : 12
+maxima………… : maxima
+maximaHandler….. : &lt;SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler object at 0x7ff834057820&gt;
+netlist……….. : lepton-netlist -g spice-noqsi
+notebook………. : True
+plotFontSize…… : 12
+projectPath……. : ~/SLiCAP/examples/myFirstRCnetwork/
+socket………… : True
+sphinxPath…….. : ~/SLiCAP/examples/myFirstRCnetwork/sphinx/
+stepFunction…… : True
+tableFileType….. : csv
+txtPath……….. : ~/SLiCAP/examples/myFirstRCnetwork/txt/
+userPath………. : ~/SLiCAP</div></blockquote>
 <p>Below the meaning of the variables.</p>
 <div class="section" id="host">
 <h2>HOST<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h2>
-<p>Loop back IP address for socket operation of Maxima CAS (not fully tested for Windows, works under Linux).</p>
+<p>Loop back IP address for socket operation of Maxima CAS.</p>
+<p><strong>Default value</strong> is ‘127.0.0.1’</p>
 </div>
 <div class="section" id="hz">
 <h2>Hz<a class="headerlink" href="#hz" title="Permalink to this headline">¶</a></h2>
@@ -309,7 +320,7 @@
 <div class="section" id="laplace">
 <h2>Laplace<a class="headerlink" href="#laplace" title="Permalink to this headline">¶</a></h2>
 <p>Sympy symbol that will be used as Laplace variable.</p>
-<p><strong>Default value</strong> is s</p>
+<p><strong>Default value</strong> is <em>sympy.Symbol(‘s’)</em></p>
 </div>
 <div class="section" id="maximamatrixdim">
 <h2>MaximaMatrixDim<a class="headerlink" href="#maximamatrixdim" title="Permalink to this headline">¶</a></h2>
@@ -320,6 +331,16 @@
 <h2>MaximaTimeOut<a class="headerlink" href="#maximatimeout" title="Permalink to this headline">¶</a></h2>
 <p>Many symbolic and numeric math functions are performed by <em>maxima CAS</em>. Currently the python subprocess module is used for this purpose. If for some reason <em>maxima CAS</em> required input that cannot be passed to this subprocess, the execution of this subprocess is times out after <code class="docutils literal notranslate"><span class="pre">MaximaTimeOut</span></code> seconds.</p>
 <p><strong>Default value</strong> is 5 seconds</p>
+</div>
+<div class="section" id="port">
+<h2>PORT<a class="headerlink" href="#port" title="Permalink to this headline">¶</a></h2>
+<p>Port number for socket communication with maxima. Can be set at the initialization of a project (&gt; 8000).</p>
+<p><strong>Default value</strong> is 81153</p>
+</div>
+<div class="section" id="assumeposmaxvars">
+<h2>assumePosMaxVars<a class="headerlink" href="#assumeposmaxvars" title="Permalink to this headline">¶</a></h2>
+<p>If true, symbols (except the Laplace variable) passed to maxima are assumed to be positive real numbers. If false, maxima may return questions during evaluation of integrals, limits and/or powers.</p>
+<p><strong>Default value</strong> is <em>True</em></p>
 </div>
 <div class="section" id="circuitpath">
 <h2>circuitPath<a class="headerlink" href="#circuitpath" title="Permalink to this headline">¶</a></h2>
@@ -369,11 +390,6 @@
 <p>Path to the SLiCAP html documentation</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
-<div class="section" id="factor">
-<h2>factor<a class="headerlink" href="#factor" title="Permalink to this headline">¶</a></h2>
-<p>Setting for factorization of expressions.</p>
-<p><strong>Default value</strong> is False</p>
-</div>
 <div class="section" id="figureaxisheight">
 <h2>figureAxisHeight<a class="headerlink" href="#figureaxisheight" title="Permalink to this headline">¶</a></h2>
 <p>Height of a figure object (depends on DPI).</p>
@@ -392,7 +408,7 @@
 <div class="section" id="frequency">
 <h2>frequency<a class="headerlink" href="#frequency" title="Permalink to this headline">¶</a></h2>
 <p>Sympy symbol used for frequency.</p>
-<p><strong>Default value</strong> is <em>f</em>.</p>
+<p><strong>Default value</strong> is <em>sympy.Symbol(‘f’)</em>.</p>
 </div>
 <div class="section" id="gaincolors">
 <h2>gainColors<a class="headerlink" href="#gaincolors" title="Permalink to this headline">¶</a></h2>
@@ -439,6 +455,11 @@
 <p>SLiCAP install path.</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
+<div class="section" id="lambdifytool">
+<h2>lambdifyTool<a class="headerlink" href="#lambdifytool" title="Permalink to this headline">¶</a></h2>
+<p>Tool for conversion of multivariate symbolic expressions to multivariate numeric functions.</p>
+<p><strong>Default value</strong> “numpy”</p>
+</div>
 <div class="section" id="lastupdate">
 <h2>lastUpdate<a class="headerlink" href="#lastupdate" title="Permalink to this headline">¶</a></h2>
 <p>Last date/time of execution of the project.</p>
@@ -479,11 +500,6 @@
 <p>Setting for maximum number of recursisve substitutions.</p>
 <p><strong>Default value</strong> is 12.</p>
 </div>
-<div class="section" id="maxsolve">
-<h2>maxSolve<a class="headerlink" href="#maxsolve" title="Permalink to this headline">¶</a></h2>
-<p>Setting for using maxima CAS for finding the complete network solution.</p>
-<p><strong>Default value</strong> is <em>True</em>.</p>
-</div>
 <div class="section" id="maxima">
 <h2>maxima<a class="headerlink" href="#maxima" title="Permalink to this headline">¶</a></h2>
 <p>Command for running maxima CAS.</p>
@@ -516,8 +532,8 @@
 </div>
 <div class="section" id="socket">
 <h2>socket<a class="headerlink" href="#socket" title="Permalink to this headline">¶</a></h2>
-<p>True for Maxima CAS operation in socket (Not fully tested with Windows, works under Linux). False for Maxima CAS operation as subprocess.</p>
-<p><strong>Default value</strong> is <em>False</em>.</p>
+<p>True for Maxima CAS socket communication. False for Maxima CAS subprocess communication.</p>
+<p><strong>Default value</strong> is <em>True</em>.</p>
 </div>
 <div class="section" id="stepfunction">
 <h2>stepFunction<a class="headerlink" href="#stepfunction" title="Permalink to this headline">¶</a></h2>
@@ -539,8 +555,13 @@
 </div>
 <div class="section" id="txtpath">
 <h2>txtPath<a class="headerlink" href="#txtpath" title="Permalink to this headline">¶</a></h2>
-<p>Search paths for importing text files with <em>text2html()</em>.</p>
+<p>Search path for importing text files with <em>text2html()</em>.</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
+</div>
+<div class="section" id="userpath">
+<h2>userPath<a class="headerlink" href="#userpath" title="Permalink to this headline">¶</a></h2>
+<p>Install path for libraries and documentation.</p>
+<p><strong>Default value</strong> is <em>~/SLiCAP</em>.</p>
 </div>
 </div>
 
@@ -558,7 +579,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, SLiCAP development team.
+        &#169; Copyright 2023, SLiCAP development team.
 
     </p>
   </div>

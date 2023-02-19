@@ -1,12 +1,19 @@
+.. _parameterStepping:
+
 ==================
 Parameter stepping
 ==================
 
 SLiCAP can execute an instruction while stepping the value of one or more circuit parameters. 
 
-Functions for parameters stepping will be discussed below
+SLiCAP functions for parameters stepping are discussed below
 
-.. _parameterStepping:
+#. :ref:`stepMethod`
+#. :ref:`stepVar`
+#. :ref:`stepVals`
+#. :ref:`stepEnable`
+
+.. _stepMethod:
 
 ----------------------
 Define the step method
@@ -33,7 +40,9 @@ The step method is defined with by the method **SLiCAPinstruction.instruction.se
     >>> instr.setStepMethod('log')    # logarithmic stepping 
     >>> instr.setStepMethod('list')   # stepping through a list
     >>> instr.setStepMethod('array')  # concurrent stepping of multiple parameters 
-    
+ 
+.. _stepVar:
+   
 ---------------------------
 Define the step variable(s)
 ---------------------------
@@ -77,6 +86,8 @@ As with single parameters stepping, the step variables can be selected from all 
     >>> instr.setStepVars(['R', 'C']) # Define 'R' and 'C' as step parameters
     >>> print(instr.stepVars)
     ['R', 'C']
+
+.. _stepVals:
 
 ----------------------
 Define the step values
@@ -148,6 +159,8 @@ For array stepping the step values need to be provided in the form of a matrix. 
     >>> instr.setStepMethod('array')          # Define array type stepping
     >>> instr.setStepArray([[100, 200], ['50p', '100p']])
     >>> instr.stepOn()                        # Enable stepping
+
+.. _stepEnable:
 
 ------------------------------------
 Enable or disable parameter stepping

@@ -110,7 +110,7 @@ Title line
 
 The title definitions differs from SPICE:
 
-**The first word or double quoted string of an uncommented line of the netlist file is considered the title of the main circuit.** If a title comprises several words separated by white space characters it should be placed between double quotation marks: ``"``. Examples are listed below.
+**The first word or a double quoted string of an uncommented line of the netlist file is considered the title of the main circuit.** If a title comprises several words separated by white space characters it should be placed between double quotation marks: ``"``. Examples are listed below.
 
 .. code-block:: text
 
@@ -131,6 +131,14 @@ The title definitions differs from SPICE:
 ---------
 
 Library files containing model definitions and/or sub circuit definitions need to be included in the search path with the aid of the ``.lib`` instruction. Multiple library definitions can be included in one ``.lib`` line. Library files containing white space characters should be places between double quotation marks: ``"``. The search path for the library file is specified by the variable ``LIBRARYPATH`` in ``SLiCAPconfig.py`` in the project directory. 
+
+The syntax for library files slightly differs from SPICE: 
+
+- The first line is consideres as tile
+- The last lane should be ``.end``
+
+In fact, SLiCAP library files have the same syntax as SLiCAP netlist files.
+
 Library definitions should be declared before called. A call to a library occurs if a model name or sub circuit name occurs in an element definition while that model or sub circuit is not specified by a ``.model`` or a ``.subckt`` definition in the netlist itself. Valid library specifications look like:
 
 .. code-block:: text

@@ -127,6 +127,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
@@ -199,11 +200,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="parameter-stepping">
-<h1>Parameter stepping<a class="headerlink" href="#parameter-stepping" title="Permalink to this headline">¶</a></h1>
+<span id="parameterstepping"></span><h1>Parameter stepping<a class="headerlink" href="#parameter-stepping" title="Permalink to this headline">¶</a></h1>
 <p>SLiCAP can execute an instruction while stepping the value of one or more circuit parameters.</p>
-<p>Functions for parameters stepping will be discussed below</p>
+<p>SLiCAP functions for parameters stepping are discussed below</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="#stepmethod"><span class="std std-ref">Define the step method</span></a></li>
+<li><a class="reference internal" href="#stepvar"><span class="std std-ref">Define the step variable(s)</span></a></li>
+<li><a class="reference internal" href="#stepvals"><span class="std std-ref">Define the step values</span></a></li>
+<li><a class="reference internal" href="#stepenable"><span class="std std-ref">Enable or disable parameter stepping</span></a></li>
+</ol>
 <div class="section" id="define-the-step-method">
-<span id="parameterstepping"></span><h2>Define the step method<a class="headerlink" href="#define-the-step-method" title="Permalink to this headline">¶</a></h2>
+<span id="stepmethod"></span><h2>Define the step method<a class="headerlink" href="#define-the-step-method" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP has four methods for parameter stepping:</p>
 <ol class="arabic simple">
 <li>Three of them are intended for stepping of a single parameter:<ul>
@@ -227,7 +234,7 @@
 </div>
 </div>
 <div class="section" id="define-the-step-variable-s">
-<h2>Define the step variable(s)<a class="headerlink" href="#define-the-step-variable-s" title="Permalink to this headline">¶</a></h2>
+<span id="stepvar"></span><h2>Define the step variable(s)<a class="headerlink" href="#define-the-step-variable-s" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="linear-log-and-list-stepping">
 <h3>Linear, log and list stepping<a class="headerlink" href="#linear-log-and-list-stepping" title="Permalink to this headline">¶</a></h3>
 <p>The step variable for linear logarithmic and list stepping can be selected from the available circuit parameters.</p>
@@ -266,7 +273,7 @@
 </div>
 </div>
 <div class="section" id="define-the-step-values">
-<h2>Define the step values<a class="headerlink" href="#define-the-step-values" title="Permalink to this headline">¶</a></h2>
+<span id="stepvals"></span><h2>Define the step values<a class="headerlink" href="#define-the-step-values" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="linear-and-logarithmic-stepping">
 <h3>Linear and logarithmic stepping<a class="headerlink" href="#linear-and-logarithmic-stepping" title="Permalink to this headline">¶</a></h3>
 <p>Linear and logarithmic stepping required the definition of the step variable, the start value, the stop value and the number of steps.</p>
@@ -329,7 +336,7 @@
 </div>
 </div>
 <div class="section" id="enable-or-disable-parameter-stepping">
-<h2>Enable or disable parameter stepping<a class="headerlink" href="#enable-or-disable-parameter-stepping" title="Permalink to this headline">¶</a></h2>
+<span id="stepenable"></span><h2>Enable or disable parameter stepping<a class="headerlink" href="#enable-or-disable-parameter-stepping" title="Permalink to this headline">¶</a></h2>
 <p>Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step method, etc.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -358,7 +365,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, SLiCAP development team.
+        &#169; Copyright 2023, SLiCAP development team.
 
     </p>
   </div>

@@ -13,3 +13,4 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
 
    SLiCAPwhatWhyHow
    SLiCAPcontribute
+   SLiCAPandSED

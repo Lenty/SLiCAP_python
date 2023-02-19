@@ -22,5 +22,6 @@ Contents
    introduction/SLiCAPintroduction
    userguide/SLiCAPuserguide
    syntax/SLiCAPnetlistSyntax
+   development/SLiCAPdevelopment
    reference/SLiCAPreference
    tutorials/SLiCAPtutorials

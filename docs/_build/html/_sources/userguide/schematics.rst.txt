@@ -156,5 +156,5 @@ When printing a schematic from LTspice with a PDF printer, the full path of the 
 
 Inkscape runs under Windows, Linux and Mac OS. Inkscape versions can be downloaded from: `inkscape.org <https://inkscape.org/release/inkscape-1.0.1/>`_.
 
-If you import PDF files with Inkscape use the import settings *Poppler/Cairo import*. With this selection, fonts will be concverted into *Bezier curves*.
+If you import PDF files with Inkscape use the import settings *Poppler/Cairo import*. With this selection, fonts will be converted to *Bezier curves*.
 

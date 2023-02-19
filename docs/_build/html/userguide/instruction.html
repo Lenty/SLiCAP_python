@@ -98,13 +98,14 @@
 <li class="toctree-l2"><a class="reference internal" href="schematics.html">Schematic capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="circuit.html">Define a circuit</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Define an instruction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#simulation-type">Simulation type</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gain-type">Gain type</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#signal-source">Signal source</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#detector">Detector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#loop-gain-reference">Loop gain reference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#matrix-conversion-type">Matrix conversion type</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-type">Data type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-circuit-object-and-assign-it-to-an-instruction">Create a circuit object and assign it to an instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-simulation-type">Define the simulation type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-gain-type">Define the gain type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-signal-source">Define the signal source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-detector">Define the detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-loop-gain-reference">Define the loop gain reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-matrix-conversion-type">Define the matrix conversion type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-the-data-type">Define the data type</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html">Work with parameters</a></li>
@@ -121,6 +122,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
@@ -194,11 +196,38 @@
             
   <div class="section" id="define-an-instruction">
 <h1>Define an instruction<a class="headerlink" href="#define-an-instruction" title="Permalink to this headline">¶</a></h1>
-<p>All the aspects of an instruction can at any time be changed from within the SLiCAP environment. An instruction can be executed if the instruction data is complete and consistent (this will be checked by SLiCAP).</p>
-<p>In the following sections the instruction data and their default values will be discussed.</p>
-<div class="section" id="simulation-type">
-<h2>Simulation type<a class="headerlink" href="#simulation-type" title="Permalink to this headline">¶</a></h2>
-<p>SLiCAP uses symbolic calculation methods, even if the data is numerical. If the simulation type has been set to <em>numeric</em>, parameter values are recursively substituted into the expressions for the circuit elements.</p>
+<p>Working with SLiCAP comes to the definition and execution of SLiCAP instructions. After setting all relevant attributes of a SLiCAP instruction object, its execution returns a result object that comprises results and instruction settings.</p>
+<p>SLiCAP has built-in plot functions and HTML report functions to convert these result objects automatically into plots or HTML pages.</p>
+<p>Before execution, SLiCAP always checks the completeness and consistency of the instruction.</p>
+<p>See <a class="reference internal" href="execute.html#execute"><span class="std std-ref">Execute an instruction</span></a> for execution of the instruction and a description of the result object that comprises the instruction results.</p>
+<p>The following sections discuss the main attributes of the instruction:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="#defcircuit"><span class="std std-ref">Create a circuit object and assign it to an instruction</span></a></li>
+<li><a class="reference internal" href="#defsimtype"><span class="std std-ref">Define the simulation type</span></a></li>
+<li><a class="reference internal" href="#defgaintype"><span class="std std-ref">Define the gain type</span></a></li>
+<li><a class="reference internal" href="#source"><span class="std std-ref">Define the signal source</span></a></li>
+<li><a class="reference internal" href="#detector"><span class="std std-ref">Define the detector</span></a></li>
+<li><a class="reference internal" href="#lgref"><span class="std std-ref">Define the loop gain reference</span></a></li>
+<li><a class="reference internal" href="#defconvtype"><span class="std std-ref">Define the matrix conversion type</span></a></li>
+<li><a class="reference internal" href="#defdatatype"><span class="std std-ref">Define the data type</span></a></li>
+</ol>
+<div class="section" id="create-a-circuit-object-and-assign-it-to-an-instruction">
+<span id="defcircuit"></span><h2>Create a circuit object and assign it to an instruction<a class="headerlink" href="#create-a-circuit-object-and-assign-it-to-an-instruction" title="Permalink to this headline">¶</a></h2>
+<p>The <em>instruction.setCircuit(&lt;netlistfilename&gt;)</em> method checks syntax of the netlist, converts the netlist into a <em>flattened</em> circuit and assignes this circuit to the <em>instruction.circuit</em> attribute.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit object from the netlist</span>
+<span class="go">                                 # file &#39;myFirstRCnetwork.cir&#39; and make it an attribute</span>
+<span class="go">                                 # *instr.circuit* of the instruction object</span>
+<span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
+</pre></div>
+</div>
+<p>View section <a class="reference internal" href="htmlreports.html#html"><span class="std std-ref">HTML site structure</span></a> for displaying circuit data on an HTML page.</p>
+</div>
+<div class="section" id="define-the-simulation-type">
+<span id="defsimtype"></span><h2>Define the simulation type<a class="headerlink" href="#define-the-simulation-type" title="Permalink to this headline">¶</a></h2>
+<p>SLiCAP can perform symbolic and numeric analyis. The <em>simType</em> attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to <em>numeric</em>, parameter values are recursively substituted into the circuit element expressions.</p>
 <p>The simulation type can be set with the method <strong>SLiCAPinstruction.instruction.setSimType(*args)</strong>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -217,16 +246,16 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="gain-type">
-<h2>Gain type<a class="headerlink" href="#gain-type" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="define-the-gain-type">
+<span id="defgaintype"></span><h2>Define the gain type<a class="headerlink" href="#define-the-gain-type" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can provide expressions for:</p>
 <ol class="arabic">
-<li><p class="first">Nodal voltages or currents through elements that have been defined in current-controlled notation (the voltage has been defined as a function of the current).</p>
+<li><p class="first">Detector voltage or current (see <a class="reference internal" href="#detector"><span class="std std-ref">Define the detector</span></a> for definition of the detector)</p>
 <ul class="simple">
 <li>gain type: <em>vi</em></li>
 </ul>
 </li>
-<li><p class="first">Transfer functions of the asymptotic-gain model:</p>
+<li><p class="first">Transfer functions of the asymptotic-gain model  (see <a class="reference internal" href="#detector"><span class="std std-ref">Define the detector</span></a> for definition of the detector, <a class="reference internal" href="#source"><span class="std std-ref">Define the signal source</span></a> for definition of the signal source, and <a class="reference internal" href="#lgref"><span class="std std-ref">Define the loop gain reference</span></a> for definition of the loop gain reference)</p>
 <ul>
 <li><p class="first">source-to-detector transfer: gain type <em>gain</em></p>
 <blockquote>
@@ -284,10 +313,10 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="signal-source">
-<h2>Signal source<a class="headerlink" href="#signal-source" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="define-the-signal-source">
+<span id="source"></span><h2>Define the signal source<a class="headerlink" href="#define-the-signal-source" title="Permalink to this headline">¶</a></h2>
 <p>Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: <strong>SLiCAPinstruction.instruction.setSource(*args)</strong>.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: <strong>SLiCAPinstruction.instruction.indepVars()</strong>.</p>
-<p>For the analysis of balanced circuits, SLiCAP supports the definition of dual sources.</p>
+<p>For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) sources.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -302,8 +331,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="detector">
-<h2>Detector<a class="headerlink" href="#detector" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="define-the-detector">
+<span id="detector"></span><h2>Define the detector<a class="headerlink" href="#define-the-detector" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can calculate one of the following:</p>
 <ol class="arabic simple">
 <li>One branch current through an element defined by its V(I) relation in current-controlled notation</li>
@@ -325,25 +354,25 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
 <span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">depVars</span><span class="p">())</span>          <span class="c1"># print a list with independent sources in the circuit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">depVars</span><span class="p">())</span>          <span class="c1"># print a list with ipossible detectors in the circuit</span>
 <span class="go">[&#39;I_V1&#39;, &#39;V_0&#39;, &#39;V_N001&#39;, &#39;V_out&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;V_out&#39;</span><span class="p">)</span>      <span class="c1"># Nodal voltage &#39;V_out&#39; is detector voltage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detector</span>
 <span class="go">[&#39;V_out&#39;, None]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">([</span><span class="s1">&#39;V_out&#39;</span><span class="p">,</span> <span class="s1">&#39;V_N001&#39;</span><span class="p">])</span> <span class="c1"># Voltage &#39;V_out&#39;-&#39;V_N001&#39; is the detector voltage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detector</span>
 <span class="go">[&#39;V_out&#39;, &#39;V_N001&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setDetector</span><span class="p">(</span><span class="s1">&#39;I_V1&#39;</span><span class="p">)</span>       <span class="c1"># Current through &#39;V1&#39; is the detector current</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detecor quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>           <span class="c1"># Print the detector</span>
 <span class="go">[&#39;I_V1&#39;, None]</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="loop-gain-reference">
-<h2>Loop gain reference<a class="headerlink" href="#loop-gain-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="define-the-loop-gain-reference">
+<span id="lgref"></span><h2>Define the loop gain reference<a class="headerlink" href="#define-the-loop-gain-reference" title="Permalink to this headline">¶</a></h2>
 <p>The asymptotic-gain negative-feedback model uses one controlled source of the circuit as <em>loop gain reference variable</em>. The name of this controlled source is stored in the attribute: <strong>SLiCAPinstruction.instruction.lgRef</strong>. A list with controlled sources that are available for this purpose is returned by the method:  <strong>SLiCAPinstruction.instruction.controlled()</strong>.</p>
 <p>Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method <strong>SLiCAPinstruction.instruction.setLGref()</strong>.</p>
-<p>For the analysis of balanced circuits, SLiCAP supports the definition of dual loop gain references.</p>
+<p>For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) loop gain references.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -355,8 +384,9 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="matrix-conversion-type">
-<h2>Matrix conversion type<a class="headerlink" href="#matrix-conversion-type" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="define-the-matrix-conversion-type">
+<span id="defconvtype"></span><h2>Define the matrix conversion type<a class="headerlink" href="#define-the-matrix-conversion-type" title="Permalink to this headline">¶</a></h2>
+<p>The definition of the matrix conversion type is only required when working with balanced networks. See <a class="reference internal" href="balanced.html#balanced"><span class="std std-ref">Balanced circuits</span></a> for detailed information.</p>
 <p>SLiCAP can convert the MNA equation of a network into an equivalent equation of</p>
 <ul class="simple">
 <li>A network that decribes the differential-mode behavior: <em>instr.convType=’dd’</em></li>
@@ -378,8 +408,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="data-type">
-<h2>Data type<a class="headerlink" href="#data-type" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="define-the-data-type">
+<span id="defdatatype"></span><h2>Define the data type<a class="headerlink" href="#define-the-data-type" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can provide 16 types of data. The data type for the instruction is stored in the attribute <strong>SLiCAPinstruction.instruction.dataType</strong>. It is defined by the method: <strong>SLiCAPinstruction.instruction.setDataType</strong>. Below an overview of the availabe data types and their meaning.</p>
 <ol class="arabic">
 <li><p class="first">dc</p>
@@ -400,10 +430,10 @@
 <p>Calculates inverse laplace transform of a transfer not for gain type ‘vi’; may not work with symbolic values.</p>
 </li>
 <li><p class="first">laplace</p>
-<p>Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce tarsnform of a voltage or a current.</p>
+<p>Calculates the Laplace transfer function (Laplace transform of the unit-impulse response) or the Lapalce Transform of a voltage or a current.</p>
 </li>
 <li><p class="first">matrix</p>
-<p>Calculates the matrix equation of the circuit.</p>
+<p>Returns the MNA matrix equation of the circuit.</p>
 </li>
 <li><p class="first">noise</p>
 <p>Calculates contributions to the detector-referred noise of all noise sources. Only for gain type ‘vi’. If a signal source has been defined it also calculates the contibutions to the source-referred noise.</p>
@@ -415,10 +445,10 @@
 <p>Calculates the values of parameters, while sweeping or stepping other parameters.</p>
 </li>
 <li><p class="first">poles</p>
-<p>Calculates the complex solutions of the denominator of the Laplace transform of a transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
+<p>Calculates the complex solutions of the denominator of the Laplace transform of a transfer function. Not available for gain type ‘vi’.</p>
 </li>
 <li><p class="first">pz</p>
-<p>Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomials. Poles and zeros with equal values are cancelled.</p>
+<p>Calculates the complex solutions of the numerator and of the denominator of the Laplace Transform of the unit-impulse response and the zero-frequency value of the transfer. Not available for gain type ‘vi’. Poles and zeros with equal values are cancelled.</p>
 </li>
 <li><p class="first">solve</p>
 <p>Calculates the network solution; only for gain type ‘vi’.</p>
@@ -430,7 +460,7 @@
 <p>Calculates inverse Laplace transform of a detector voltage or current. Only for gain type ‘vi’. It may not work with symbolic values.</p>
 </li>
 <li><p class="first">zeros</p>
-<p>Calculates the complex solutions of the numerator of the Laplace transform of a transfer function. Not available for gain type ‘vi’. It requires numeric values for the coefficients of the Laplace polynomial.</p>
+<p>Calculates the complex solutions of the numerator of the Laplace transform of a transfer function. Not available for gain type ‘vi’.</p>
 </li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -466,7 +496,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, SLiCAP development team.
+        &#169; Copyright 2023, SLiCAP development team.
 
     </p>
   </div>

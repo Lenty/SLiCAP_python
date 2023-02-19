@@ -7,12 +7,34 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    width="1052.5"
    height="743.75"
    id="svg2"
-   xml:space="preserve"><metadata
+   xml:space="preserve"
+   sodipodi:docname="HZ.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1738"
+     inkscape:window-height="741"
+     id="namedview67"
+     showgrid="false"
+     inkscape:zoom="1.494162"
+     inkscape:cx="676.3024"
+     inkscape:cy="549.49005"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g110" /><metadata
      id="metadata8"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
@@ -168,27 +190,29 @@
          style="fill:none;stroke:#000000;stroke-width:41.77470016;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" /><g
          transform="scale(10,10)"
          id="g88"><text
-           transform="matrix(0,1,1,0,82.9109,207.988)"
-           id="text90"><tspan
-             x="0 43.566418"
-             y="0"
-             id="tspan92"
-             style="font-size:60.34130096px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">H?</tspan><tspan
-             x="0 30.17065 63.720413 77.11618 110.66595 144.21571 179.45503"
-             y="62.662102"
-             id="tspan94"
-             style="font-size:60.34130096px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">value=1</tspan></text>
+   transform="matrix(0,1,1,0,82.9109,207.988)"
+   id="text90"><tspan
+     x="0 43.566418"
+     y="0"
+     id="tspan92"
+     style="font-size:60.34130096px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">H?</tspan><tspan
+     x="0 30.17065 63.720413 77.11618 110.66595 144.21571 179.45503"
+     y="62.662102"
+     id="tspan94"
+     style="font-size:60.34130096px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">value=1</tspan></text>
+
 <text
-           transform="matrix(0,1,1,0,291.785,312.425)"
-           id="text96"><tspan
-             x="0"
-             y="0"
-             id="tspan98"
-             style="font-size:75.4265976px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">+</tspan><tspan
-             x="0"
-             y="208.87399"
-             id="tspan100"
-             style="font-size:75.4265976px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">−</tspan></text>
+   transform="matrix(0,1,1,0,291.785,312.425)"
+   id="text96"><tspan
+     x="0"
+     y="0"
+     id="tspan98"
+     style="font-size:75.4265976px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">+</tspan><tspan
+     x="0"
+     y="208.87399"
+     id="tspan100"
+     style="font-size:75.4265976px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">−</tspan></text>
+
 </g><path
          d="m 2395.66,6466.23 0,-1670.99"
          inkscape:connector-curvature="0"
@@ -208,12 +232,13 @@
          style="fill:none;stroke:#000000;stroke-width:41.77470016;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" /><g
          transform="scale(10,10)"
          id="g110"><text
-           transform="matrix(0,1,1,0,145.573,500.412)"
-           id="text112"><tspan
-             x="0 30.17065 60.341301 95.58062"
-             y="0"
-             id="tspan114"
-             style="font-size:60.34130096px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Helvetica;-inkscape-font-specification:Helvetica">zs=0</tspan></text>
+   transform="matrix(0,1,1,0,145.573,500.412)"
+   id="text112"><tspan
+     x="0"
+     y="0"
+     id="tspan114"
+     style="font-variant:normal;font-weight:normal;font-size:60.34130096px;font-family:Helvetica;-inkscape-font-specification:Helvetica;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none">zo=0</tspan></text>
+
 </g><path
          d="m 2082.35,4795.24 0,-835.49"
          inkscape:connector-curvature="0"

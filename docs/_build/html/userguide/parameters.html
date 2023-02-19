@@ -101,11 +101,11 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Work with parameters</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#get-all-circuit-parameters">Get all circuit parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#get-all-parameter-definitions">Get all parameter definitions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#assign-a-value-to-a-parameter">Assign a value to a parameter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-the-value-of-a-parameter">Get the value of a parameter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-the-values-of-multiple-parameters">Get the values of multiple parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#assign-values-to-multiple-parameters">Assign values to multiple parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#delete-a-parameter-definition">Delete a parameter definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assign-a-value-or-an-expression-to-a-parameter">Assign a value or an expression to a parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assign-values-or-expressions-to-multiple-parameters">Assign values or expressions to multiple parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-the-definition-or-the-numeric-value-of-a-parameter">Get the definition or the numeric value of a parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-the-definitions-or-the-numeric-values-of-multiple-parameters">Get the definitions or the numeric values of multiple parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="parameterStepping.html">Parameter stepping</a></li>
@@ -121,6 +121,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../syntax/SLiCAPnetlistSyntax.html">SLiCAP netlist syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/SLiCAPdevelopment.html">SLiCAP development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/SLiCAPreference.html">SLiCAP reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/SLiCAPtutorials.html">SLiCAP tutorials</a></li>
 </ul>
@@ -194,10 +195,24 @@
             
   <div class="section" id="work-with-parameters">
 <h1>Work with parameters<a class="headerlink" href="#work-with-parameters" title="Permalink to this headline">¶</a></h1>
-<p><em>Circuit parameters</em> are symbolic variables used in expressions in the netlist. They can be assigned a value using the SPICE ‘.PARAM’ directive in the netlist. These values may again be given in the form of expressions with symbolic variables. When SLiCAP is working in numeric simulation mode, parameter values will recursively be substituted in expressions.</p>
-<p>Parameter definitions can be added, modified or deleted from within SLiCAP. The sections below show the way in which this should be done.</p>
+<p><em>Circuit parameters</em> are symbolic variables used in element expressions. There are two ways of assigning values or expressions to these parameters:</p>
+<ol class="arabic simple">
+<li>In the netlist using the SPICE ‘.PARAM’ directives.</li>
+<li>From the python using the instruction.defPar() method.</li>
+</ol>
+<p>When SLiCAP is working in numeric simulation mode, parameter and expressions values will recursively be substituted into element expressions.</p>
+<p>The sections show parameter related topics:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="#pardefs"><span class="std std-ref">Get all circuit parameters</span></a>; including parameters without definition</li>
+<li><a class="reference internal" href="#parvals"><span class="std std-ref">Get all parameter definitions</span></a></li>
+<li><a class="reference internal" href="#delpar"><span class="std std-ref">Delete a parameter definition</span></a></li>
+<li><a class="reference internal" href="#defpar"><span class="std std-ref">Assign a value or an expression to a parameter</span></a></li>
+<li><a class="reference internal" href="#defpars"><span class="std std-ref">Assign values or expressions to multiple parameters</span></a></li>
+<li><a class="reference internal" href="#getpar"><span class="std std-ref">Get the definition or the numeric value of a parameter</span></a></li>
+<li><a class="reference internal" href="#getpars"><span class="std std-ref">Get the definitions or the numeric values of multiple parameters</span></a></li>
+</ol>
 <div class="section" id="get-all-circuit-parameters">
-<h2>Get all circuit parameters<a class="headerlink" href="#get-all-circuit-parameters" title="Permalink to this headline">¶</a></h2>
+<span id="pardefs"></span><h2>Get all circuit parameters<a class="headerlink" href="#get-all-circuit-parameters" title="Permalink to this headline">¶</a></h2>
 <p>A list with all circuit parameters can be obtained as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -212,7 +227,7 @@
 </div>
 </div>
 <div class="section" id="get-all-parameter-definitions">
-<h2>Get all parameter definitions<a class="headerlink" href="#get-all-parameter-definitions" title="Permalink to this headline">¶</a></h2>
+<span id="parvals"></span><h2>Get all parameter definitions<a class="headerlink" href="#get-all-parameter-definitions" title="Permalink to this headline">¶</a></h2>
 <p>A dictionary with key-value pairs of all circuit parameter definitions can be obtained as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -226,9 +241,9 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="assign-a-value-to-a-parameter">
-<h2>Assign a value to a parameter<a class="headerlink" href="#assign-a-value-to-a-parameter" title="Permalink to this headline">¶</a></h2>
-<p>The method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong> sets the value of a parameter.</p>
+<div class="section" id="delete-a-parameter-definition">
+<span id="delpar"></span><h2>Delete a parameter definition<a class="headerlink" href="#delete-a-parameter-definition" title="Permalink to this headline">¶</a></h2>
+<p>You can delete a parameter definition using the method <strong>SLiCAPinstruction.instruction.delPar(*args)</strong>. This method does not delete the circuit parameter itself: it only clears its definition so that it can be used as a symbolic variable in numeric simulations.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
@@ -238,13 +253,47 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;tau/C&#39;</span><span class="p">)</span>      <span class="c1"># Define the value of &#39;R&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;10n&#39;</span><span class="p">)</span>        <span class="c1"># Define the value of &#39;C&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;1u&#39;</span><span class="p">)</span>       <span class="c1"># Define the value of &#39;tau&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">delPar</span><span class="p">(</span><span class="s1">&#39;f_c&#39;</span><span class="p">)</span>             <span class="c1"># Delete the definition of &#39;f_c&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
+<span class="go">{C: 1.00000000000000e-8, tau: 1.00000000000000e-6, R: tau/C}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="assign-a-value-or-an-expression-to-a-parameter">
+<span id="defpar"></span><h2>Assign a value or an expression to a parameter<a class="headerlink" href="#assign-a-value-or-an-expression-to-a-parameter" title="Permalink to this headline">¶</a></h2>
+<p>The method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong> sets the value of a parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;tau/C&#39;</span><span class="p">)</span>      <span class="c1"># Define the value of &#39;R&#39; as :math:`C=\frac{\tau}{C}`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;10n&#39;</span><span class="p">)</span>        <span class="c1"># Define the value of &#39;C&#39; as :math:`C=10 \cdot 10^{-9}`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;1u&#39;</span><span class="p">)</span>       <span class="c1"># Define the value of &#39;tau&#39; as :math:`\tau = 1 \cdot 10^{-6}`</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
 <span class="go">{f_c: 1000.00000000000, C: 1.00000000000000e-8, tau: 1.00000000000000e-6, R: tau/C}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="get-the-value-of-a-parameter">
-<h2>Get the value of a parameter<a class="headerlink" href="#get-the-value-of-a-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="assign-values-or-expressions-to-multiple-parameters">
+<span id="defpars"></span><h2>Assign values or expressions to multiple parameters<a class="headerlink" href="#assign-values-or-expressions-to-multiple-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Multiple parameters can be assigned by passing a dictionary with key-value pairs of parameters as argument of the method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
+<span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPars</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;tau/C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;10n&#39;</span><span class="p">,</span> <span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="s1">&#39;1u&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">getParValue</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]))</span>
+<span class="go">{C: 1.00000000000000e-8, R: 100.000000000000}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-the-definition-or-the-numeric-value-of-a-parameter">
+<span id="getpar"></span><h2>Get the definition or the numeric value of a parameter<a class="headerlink" href="#get-the-definition-or-the-numeric-value-of-a-parameter" title="Permalink to this headline">¶</a></h2>
 <p>The method <strong>SLiCAPinstruction.instruction.getParValue(*args)</strong> returns the value of a parameter. If the simulation type (SLiCAPinstruction.instruction.simType) has been set to ‘symbolic’ it returns the symbolic definition of the parameter. If the simulation type has been set to ‘numeric’ it returns its value after recursive substitution of all parameter definitions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -266,8 +315,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="get-the-values-of-multiple-parameters">
-<h2>Get the values of multiple parameters<a class="headerlink" href="#get-the-values-of-multiple-parameters" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-the-definitions-or-the-numeric-values-of-multiple-parameters">
+<span id="getpars"></span><h2>Get the definitions or the numeric values of multiple parameters<a class="headerlink" href="#get-the-definitions-or-the-numeric-values-of-multiple-parameters" title="Permalink to this headline">¶</a></h2>
 <p>If the argument of the method <strong>SLiCAPinstruction.instruction.getParValues(*args)</strong> is a list with parameter names, this method returns a dict with key-value pairs of those parameters. If the simulation type (SLiCAPinstruction.instruction.simType) has been set to ‘symbolic’ it returns the symbolic definitions. If the simulation type has been set to ‘numeric’ it returns the values after recursive substitution of all parameter definitions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -289,40 +338,6 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="assign-values-to-multiple-parameters">
-<h2>Assign values to multiple parameters<a class="headerlink" href="#assign-values-to-multiple-parameters" title="Permalink to this headline">¶</a></h2>
-<p>Multiple parameters can be assigned by passing a dictionary with key-value pairs of parameters as argument of the method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
-<span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPars</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;tau/C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;10n&#39;</span><span class="p">,</span> <span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="s1">&#39;1u&#39;</span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">getParValue</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]))</span>
-<span class="go">{C: 1.00000000000000e-8, R: 100.000000000000}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="delete-a-parameter-definition">
-<h2>Delete a parameter definition<a class="headerlink" href="#delete-a-parameter-definition" title="Permalink to this headline">¶</a></h2>
-<p>You can delete a parameter definition using the method <strong>SLiCAPinstruction.instruction.delPar(*args)</strong>. This method does not delete the circuit parameter itself: it only clears its definition so that it can be used as a symbolic variable in numeric simulations.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span> <span class="c1"># Create an instance of an instruction object</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork.cir&#39;</span><span class="p">)</span> <span class="c1"># Create a circuit from &#39;myFirstRCnetwork.cir&#39;</span>
-<span class="go">No errors found for circuit: &#39;My first RC network&#39; from file: &#39;myFirstRCnetwork.cir&#39;.</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;tau/C&#39;</span><span class="p">)</span>      <span class="c1"># Define the value of &#39;R&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;10n&#39;</span><span class="p">)</span>        <span class="c1"># Define the value of &#39;C&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">defPar</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;1u&#39;</span><span class="p">)</span>       <span class="c1"># Define the value of &#39;tau&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">delPar</span><span class="p">(</span><span class="s1">&#39;f_c&#39;</span><span class="p">)</span>             <span class="c1"># Delete the definition of &#39;f_c&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parDefs</span><span class="p">)</span>
-<span class="go">{C: 1.00000000000000e-8, tau: 1.00000000000000e-6, R: tau/C}</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 
@@ -339,7 +354,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, SLiCAP development team.
+        &#169; Copyright 2023, SLiCAP development team.
 
     </p>
   </div>

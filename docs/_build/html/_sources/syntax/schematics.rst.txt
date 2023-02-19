@@ -8,7 +8,7 @@ Schematic capture for SLiCAP
 LTSpice
 -------
 
-A symbol set for schematic capture and netlist generation with LTSpice can be found in the ``LTspice/`` directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the ``slicap.lib`` file.
+A symbol set for schematic capture and netlist generation with LTSpice can be found in the ``LTspice/`` folder in the user install path (default ~/SLiCAP/).
 
 The following table gives an overview of the available symbols. Model descriptions can be found in the `Device Models <../syntax/netlist.html#devices-and-built-in-models>`__ section.
 
@@ -63,12 +63,11 @@ Parameter definitions ``.param``, model definitions ``.model``, library definiti
 
 .. gschem:
 
-------
-gSchem
-------
+---------------------
+gSchem and lepton-eda
+---------------------
 
-A symbol set for schematic capture and netlist generation with gSchem can be found in the ``gSchem/symbols/`` directory of the downloaded SLiCAP_VXX_xxxx.zip file (XX = version number, xxxx = build number). Associated sub circuits can be found in the ``slicap.lib`` file.
-
+A symbol set for schematic capture and netlist generation with gSchem or lepton-eda can be found in the ``gSchem/symbols/`` folder and in the ``lepton-eda/symbols/`` folder in the user install path (default ~/SLiCAP/).
 
 The following table gives an overview of the available symbols. Model descriptions can be found in the `Device Models <../syntax/netlist.html#devices-and-built-in-models>`__ section. Please scroll the table to the left to see the associated sub circuits.
 

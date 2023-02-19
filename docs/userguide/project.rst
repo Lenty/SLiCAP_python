@@ -7,66 +7,76 @@ You start SLiCAP by importing of the scripts and initialization of a python proj
 .. code-block:: python
 
     >>> from SLiCAP import * # This imports the SLiCAP scripts
-    >>> prj = initProject('My SLiCAP project')
+    >>> prj = initProject('My SLiCAP project') # default PORT for socket communication with maxima CAS.
 
-The function ``initProject<projectName>`` creates the (missing parts) of the directory structure in the working directory. Directories once created will not be overwritten. 
+    >>> prj = initProject('My SLiCAP project', port=8099) # project-defined port for socket communication with maxima CAS is set to 8099.
 
-The settings are stored in the `ini()` object. You can view these settings by entering:
+The function ``initProject<projectName>`` creates / updates the directory structure in the working directory. Directories once created will not be overwritten. 
+
+The settings are stored in the ``ini`` object. You can view these settings by entering:
 
 .. code-block :: python
 
     >>> ini.dump()
+
+Below the output generated after executing ``myFisrtRCnetwork.py`` in the folder ``~/SLiCAP/examples/myFirstRCnetwork/`` under Linux:
+
     HOST.............. : 127.0.0.1
     Hz................ : True
     Laplace........... : s
     MaximaMatrixDim... : 25
     MaximaTimeOut..... : 60
     PORT.............. : 53118
-    circuitPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/
-    csvPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/csv/
+    assumePosMaxVars.. : True
+    circuitPath....... : ~/SLiCAP/examples/myFirstRCnetwork/cir/
+    csvPath........... : ~/SLiCAP/examples/myFirstRCnetwork/csv/
     defaultColors..... : ['r', 'b', 'g', 'c', 'm', 'y', 'k']
-    defaultLib........ : /home/anton/SLiCAP/lib
+    defaultLib........ : ~/SLiCAP/lib
     defaultMarkers.... : ['']
     disp.............. : 4
-    docPath........... : /home/anton/SLiCAP/docs
+    docPath........... : ~/SLiCAP/docs
     figureAxisHeight.. : 5
     figureAxisWidth... : 7
     figureFileType.... : svg
     frequency......... : f
     gainColors........ : {'gain': 'b', 'asymptotic': 'r', 'loopgain': 'k', 'direct': 'g', 'servo': 'm', 'vi': 'c'}
     htmlIndex......... : index.html
-    htmlLabels.keys(). : []
+    htmlLabels.keys(). : ['']
     htmlPage.......... : 
     htmlPages......... : ['index.html']
-    htmlPath.......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/html/
+    htmlPath.......... : ~/SLiCAP/examples/myFirstRCnetwork/html/
     htmlPrefix........ : 
-    imgPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/img/
-    installPath....... : /home/anton/.local/lib/python3.8/site-packages/SLiCAP/
+    imgPath........... : ~/SLiCAP/examples/myFirstRCnetwork/img/
+    installPath....... : ~/.local/lib/python3.8/site-packages/SLiCAP/
     lambdifyTool...... : numpy
     lastUpdate........ : 2022-06-28 09:17:57.580901
-    latexPath......... : /home/anton/SLiCAP/examples/myFirstRCnetwork/tex/
+    latexPath......... : ~/SLiCAP/examples/myFirstRCnetwork/tex/
     legendLoc......... : best
-    libraryPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/lib/
-    ltspice........... : /home/anton/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe
-    mathmlPath........ : /home/anton/SLiCAP/examples/myFirstRCnetwork/mathml/
+    libraryPath....... : ~/SLiCAP/examples/myFirstRCnetwork/lib/
+    ltspice........... : ~/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe
+    mathmlPath........ : ~/SLiCAP/examples/myFirstRCnetwork/mathml/
     maxRecSubst....... : 12
     maxima............ : maxima
+    maximaHandler..... : <SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler object at 0x7ff834057820>
     netlist........... : lepton-netlist -g spice-noqsi
     notebook.......... : True
     plotFontSize...... : 12
-    projectPath....... : /home/anton/SLiCAP/examples/myFirstRCnetwork/
-    socket............ : False
+    projectPath....... : ~/SLiCAP/examples/myFirstRCnetwork/
+    socket............ : True
+    sphinxPath........ : ~/SLiCAP/examples/myFirstRCnetwork/sphinx/
     stepFunction...... : True
     tableFileType..... : csv
-    txtPath........... : /home/anton/SLiCAP/examples/myFirstRCnetwork/txt/
-    Checking netlist: /home/anton/SLiCAP/examples/myFirstRCnetwork/cir/myFirstRCnetwork.cir
+    txtPath........... : ~/SLiCAP/examples/myFirstRCnetwork/txt/
+    userPath.......... : ~/SLiCAP
 
 Below the meaning of the variables.
 
 HOST
 ----
 
-Loop back IP address for socket operation of Maxima CAS (not fully tested for Windows, works under Linux).
+Loop back IP address for socket operation of Maxima CAS.
+
+**Default value** is '127.0.0.1'
 
 Hz
 --
@@ -91,7 +101,7 @@ Laplace
 
 Sympy symbol that will be used as Laplace variable.
 
-**Default value** is s
+**Default value** is *sympy.Symbol('s')*
 
 MaximaMatrixDim
 ---------------
@@ -106,6 +116,20 @@ MaximaTimeOut
 Many symbolic and numeric math functions are performed by *maxima CAS*. Currently the python subprocess module is used for this purpose. If for some reason *maxima CAS* required input that cannot be passed to this subprocess, the execution of this subprocess is times out after ``MaximaTimeOut`` seconds. 
 
 **Default value** is 5 seconds
+
+PORT
+----
+
+Port number for socket communication with maxima. Can be set at the initialization of a project (> 8000).
+
+**Default value** is 81153
+
+assumePosMaxVars
+----------------
+
+If true, symbols (except the Laplace variable) passed to maxima are assumed to be positive real numbers. If false, maxima may return questions during evaluation of integrals, limits and/or powers.
+
+**Default value** is *True*
 
 circuitPath
 -----------
@@ -169,13 +193,6 @@ Path to the SLiCAP html documentation
 
 **Default value** is determined during installation.
 
-factor
-------
-
-Setting for factorization of expressions.
-
-**Default value** is False
-
 figureAxisHeight
 ----------------
 
@@ -202,7 +219,7 @@ frequency
 
 Sympy symbol used for frequency.
 
-**Default value** is *f*.
+**Default value** is *sympy.Symbol('f')*.
 
 gainColors
 ----------
@@ -267,6 +284,14 @@ SLiCAP install path.
 
 **Default value** is determined during installation.
 
+
+lambdifyTool
+------------
+
+Tool for conversion of multivariate symbolic expressions to multivariate numeric functions. 
+
+**Default value** "numpy"
+
 lastUpdate
 ----------
 
@@ -324,13 +349,6 @@ Setting for maximum number of recursisve substitutions.
 
 **Default value** is 12.
 
-maxSolve
---------
-
-Setting for using maxima CAS for finding the complete network solution.
-
-**Default value** is *True*.
-
 maxima
 ------
 
@@ -376,9 +394,9 @@ Path to the project files for the current project.
 socket
 ------
 
-True for Maxima CAS operation in socket (Not fully tested with Windows, works under Linux). False for Maxima CAS operation as subprocess.
+True for Maxima CAS socket communication. False for Maxima CAS subprocess communication.
 
-**Default value** is *False*.
+**Default value** is *True*.
 
 stepFunction
 ------------
@@ -407,7 +425,14 @@ File extension for *comma seperated value* table files.
 txtPath
 -------
 
-Search paths for importing text files with *text2html()*.
+Search path for importing text files with *text2html()*.
 
 **Default value** is defined in *SLiCAPconfig.py* in the project directory.
+
+userPath
+--------
+
+Install path for libraries and documentation.
+
+**Default value** is *~/SLiCAP*.
 
