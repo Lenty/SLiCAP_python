@@ -157,9 +157,9 @@ X-Y plots
 
 .. _extData:
 
----------------------------------------
-Generate traces from other applications
----------------------------------------
+---------------------------------
+Plot data from other applications
+---------------------------------
 
 Add traces to a figure
 ----------------------

@@ -196,7 +196,7 @@
             
   <div class="section" id="define-an-instruction">
 <h1>Define an instruction<a class="headerlink" href="#define-an-instruction" title="Permalink to this headline">¶</a></h1>
-<p>Working with SLiCAP comes to the definition and execution of SLiCAP instructions. After setting all relevant attributes of a SLiCAP instruction object, its execution returns a result object that comprises results and instruction settings.</p>
+<p>Working with SLiCAP comes to the definition and execution of SLiCAP instructions. After setting all relevant attributes of a <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction">SLiCAP instruction object</a>, its execution returns a result object that comprises results and instruction settings.</p>
 <p>SLiCAP has built-in plot functions and HTML report functions to convert these result objects automatically into plots or HTML pages.</p>
 <p>Before execution, SLiCAP always checks the completeness and consistency of the instruction.</p>
 <p>See <a class="reference internal" href="execute.html#execute"><span class="std std-ref">Execute an instruction</span></a> for execution of the instruction and a description of the result object that comprises the instruction results.</p>
@@ -213,7 +213,7 @@
 </ol>
 <div class="section" id="create-a-circuit-object-and-assign-it-to-an-instruction">
 <span id="defcircuit"></span><h2>Create a circuit object and assign it to an instruction<a class="headerlink" href="#create-a-circuit-object-and-assign-it-to-an-instruction" title="Permalink to this headline">¶</a></h2>
-<p>The <em>instruction.setCircuit(&lt;netlistfilename&gt;)</em> method checks syntax of the netlist, converts the netlist into a <em>flattened</em> circuit and assignes this circuit to the <em>instruction.circuit</em> attribute.</p>
+<p>The <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit">instruction.setCircuit()</a> method checks syntax of the netlist, converts the netlist into a <em>flattened</em> circuit and assignes this circuit to the <em>instruction.circuit</em> attribute.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
@@ -228,7 +228,7 @@
 <div class="section" id="define-the-simulation-type">
 <span id="defsimtype"></span><h2>Define the simulation type<a class="headerlink" href="#define-the-simulation-type" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can perform symbolic and numeric analyis. The <em>simType</em> attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to <em>numeric</em>, parameter values are recursively substituted into the circuit element expressions.</p>
-<p>The simulation type can be set with the method <strong>SLiCAPinstruction.instruction.setSimType(*args)</strong>.</p>
+<p>The simulation type can be set with the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType">instruction.setSymType()</a> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
@@ -285,7 +285,7 @@
 </ul>
 </li>
 </ol>
-<p>The gain type can be defined with the method: <strong>SLiCAPinstruction.instruction.setGainType(*args)</strong>.</p>
+<p>The gain type can be defined with the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType">instruction.setGainType()</a> method method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -315,7 +315,7 @@
 </div>
 <div class="section" id="define-the-signal-source">
 <span id="source"></span><h2>Define the signal source<a class="headerlink" href="#define-the-signal-source" title="Permalink to this headline">¶</a></h2>
-<p>Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: <strong>SLiCAPinstruction.instruction.setSource(*args)</strong>.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: <strong>SLiCAPinstruction.instruction.indepVars()</strong>.</p>
+<p>Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the  <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSource">instruction.setSource()</a> method.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.indepVars">instruction.indepVars()</a>.</p>
 <p>For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) sources.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -342,12 +342,12 @@
 <li>One transfer function</li>
 <li>The complete network solution</li>
 </ol>
-<p>For (1) - (5) this variable is defined by the detector: <strong>SLiCAPinstruction.instruction.detector</strong> which can be set with the method: <strong>SLiCAPinstruction.instruction.setDetector(*args)</strong> The name of this function should be composed as follows:</p>
+<p>For (1) - (5) this variable is defined by the detector, which can be set with the method: <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDetector">instruction.setDetector()</a>. The name of this function should be composed as follows:</p>
 <ul class="simple">
 <li>In the case of a voltage detector, the name should be the concatenation of ‘V_’ and the name of the output node; in general: ‘V_&lt;outputNode&gt;’. For the voltage difference between two nodes, simply use two arguments (see example below)</li>
 <li>In the case of a current detector, the name should be the concatenation of ‘I_’ and the name of the element (identifier) whose current is taken as detector current.</li>
 </ul>
-<p>Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables is returned by the method: <strong>SLiCAPinstruction.instruction.depVars()</strong></p>
+<p>Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables is returned by the method: <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.depVars">instruction.depVars()</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -370,8 +370,8 @@
 </div>
 <div class="section" id="define-the-loop-gain-reference">
 <span id="lgref"></span><h2>Define the loop gain reference<a class="headerlink" href="#define-the-loop-gain-reference" title="Permalink to this headline">¶</a></h2>
-<p>The asymptotic-gain negative-feedback model uses one controlled source of the circuit as <em>loop gain reference variable</em>. The name of this controlled source is stored in the attribute: <strong>SLiCAPinstruction.instruction.lgRef</strong>. A list with controlled sources that are available for this purpose is returned by the method:  <strong>SLiCAPinstruction.instruction.controlled()</strong>.</p>
-<p>Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method <strong>SLiCAPinstruction.instruction.setLGref()</strong>.</p>
+<p>The asymptotic-gain negative-feedback model uses one controlled source of the circuit as <em>loop gain reference variable</em>. A list with controlled sources that are available for this purpose is returned by the method:  <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.controlled">instruction.controlled()</a>.</p>
+<p>Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setLGref">instruction.setLGref()</a>.</p>
 <p>For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) loop gain references.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -410,7 +410,7 @@
 </div>
 <div class="section" id="define-the-data-type">
 <span id="defdatatype"></span><h2>Define the data type<a class="headerlink" href="#define-the-data-type" title="Permalink to this headline">¶</a></h2>
-<p>SLiCAP can provide 16 types of data. The data type for the instruction is stored in the attribute <strong>SLiCAPinstruction.instruction.dataType</strong>. It is defined by the method: <strong>SLiCAPinstruction.instruction.setDataType</strong>. Below an overview of the availabe data types and their meaning.</p>
+<p>SLiCAP can provide 16 types of data. It is defined with the method: <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType">instruction.setDataType()</a>.. Below an overview of the availabe data types and their meaning.</p>
 <ol class="arabic">
 <li><p class="first">dc</p>
 <blockquote>

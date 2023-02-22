@@ -242,8 +242,8 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My SLiCAP project&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8099</span><span class="p">)</span> <span class="c1"># project-defined port for socket communication with maxima CAS is set to 8099.</span>
 </pre></div>
 </div>
-<p>The function <code class="docutils literal notranslate"><span class="pre">initProject&lt;projectName&gt;</span></code> creates / updates the directory structure in the working directory. Directories once created will not be overwritten.</p>
-<p>The settings are stored in the <code class="docutils literal notranslate"><span class="pre">ini</span></code> object. You can view these settings by entering:</p>
+<p>The function <cite>initProlect() &lt;../reference/SLiCAP.html#SLiCAP.SLiCAP.SLiCAPinitProject&gt;</cite> creates / updates the directory structure in the working directory. Directories once created will not be overwritten.</p>
+<p>The settings are stored in <code class="docutils literal notranslate"><span class="pre">ini</span></code>: a <a class="reference external" href="../reference/SLiCAPini.html#SLiCAP.SLiCAPini.SLiCAPini.settings">settings</a> object. You can view these settings ny evoking the function <code class="docutils literal notranslate"><span class="pre">ini.dump()</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>

@@ -99,8 +99,13 @@ class maximaHandler():
                             send_data = ""
                 self.conn.sendall((send_data[0].lower() + ';').encode())
             else:
-                output = receive_data.replace("\n","").replace("\\", "").split('"')[1]
-                break
+                try:
+                    output = receive_data.replace("\n","").replace("\\", "").split('"')[1]
+                    break
+                except IndexError:
+                    print(receive_data)
+                    print("Unexpected error in instruction!")
+                    break
 
         self.mut.release()
         return output

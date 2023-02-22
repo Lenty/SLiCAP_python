@@ -2,7 +2,7 @@
 Define an instruction
 =====================
 
-Working with SLiCAP comes to the definition and execution of SLiCAP instructions. After setting all relevant attributes of a SLiCAP instruction object, its execution returns a result object that comprises results and instruction settings. 
+Working with SLiCAP comes to the definition and execution of SLiCAP instructions. After setting all relevant attributes of a `SLiCAP instruction object <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction>`_, its execution returns a result object that comprises results and instruction settings. 
 
 SLiCAP has built-in plot functions and HTML report functions to convert these result objects automatically into plots or HTML pages.
 
@@ -27,7 +27,7 @@ The following sections discuss the main attributes of the instruction:
 Create a circuit object and assign it to an instruction
 -------------------------------------------------------
 
-The *instruction.setCircuit(<netlistfilename>)* method checks syntax of the netlist, converts the netlist into a *flattened* circuit and assignes this circuit to the *instruction.circuit* attribute.
+The `instruction.setCircuit() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit>`_ method checks syntax of the netlist, converts the netlist into a *flattened* `circuit <../reference/SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit>`_ object, and assignes this circuit to the `instruction.circuit <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.circuit>`_  attribute.
 
 .. code-block:: python
 
@@ -47,9 +47,9 @@ View section :ref:`html` for displaying circuit data on an HTML page.
 Define the simulation type
 --------------------------
 
-SLiCAP can perform symbolic and numeric analyis. The *simType* attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the circuit element expressions.
+SLiCAP can perform symbolic and numeric analyis. The `simType <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType>`_ attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the circuit element expressions.
 
-The simulation type can be set with the method **SLiCAPinstruction.instruction.setSimType(*args)**.
+The simulation type can be set with the `instruction.setSymType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType>`_ method.
 
 .. code-block:: python
 
@@ -102,8 +102,8 @@ SLiCAP can provide expressions for:
 		
 	 This is :math:`\frac{-L}{1-L}` in which :math:`L` is the loop gain according to the definition above.
 
-The gain type can be defined with the method: **SLiCAPinstruction.instruction.setGainType(*args)**.
-
+The gain type can be defined with the `instruction.setGainType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType>`_ method. It sets the `gainype `<../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType>`_ attribute of the instruction.
+ 
 .. code-block:: python
 
     >>> from SLiCAP import *
@@ -137,7 +137,7 @@ The gain type can be defined with the method: **SLiCAPinstruction.instruction.se
 Define the signal source
 ------------------------
 
-Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the method: **SLiCAPinstruction.instruction.setSource(*args)**.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: **SLiCAPinstruction.instruction.indepVars()**. 
+Any independent current source or independent voltage source in the circuit can be selected as signal source. A source can be defined with the  `instruction.setSource() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSource>`_ method.  The argument of the function should be the name (identifier) of an inpependent source in the circuit, or a list with the names of two sources. A list of available independent sources is returned by the method: `instruction.indepVars() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.indepVars>`_. 
 
 For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) sources.
 
@@ -170,13 +170,13 @@ SLiCAP can calculate one of the following:
 #. One transfer function
 #. The complete network solution
 
-For (1) - (5) this variable is defined by the detector: **SLiCAPinstruction.instruction.detector** which can be set with the method: **SLiCAPinstruction.instruction.setDetector(*args)** The name of this function should be composed as follows:
+For (1) - (5) this variable is defined by the detector, which can be set with the method: `instruction.setDetector() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDetector>`_. The name of this function should be composed as follows:
 
 - In the case of a voltage detector, the name should be the concatenation of 'V\_' and the name of the output node; in general: 'V_<outputNode>'. For the voltage difference between two nodes, simply use two arguments (see example below)
 
 - In the case of a current detector, the name should be the concatenation of 'I\_' and the name of the element (identifier) whose current is taken as detector current.
 
-Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables is returned by the method: **SLiCAPinstruction.instruction.depVars()**
+Any dependent circuit variable can be selected as detector quantity. A symbolic list with available dependent variables is returned by the method: `instruction.depVars() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.depVars>`_.
 
 .. code-block:: python
 
@@ -204,9 +204,9 @@ Any dependent circuit variable can be selected as detector quantity. A symbolic 
 Define the loop gain reference
 ------------------------------
 
-The asymptotic-gain negative-feedback model uses one controlled source of the circuit as *loop gain reference variable*. The name of this controlled source is stored in the attribute: **SLiCAPinstruction.instruction.lgRef**. A list with controlled sources that are available for this purpose is returned by the method:  **SLiCAPinstruction.instruction.controlled()**. 
+The asymptotic-gain negative-feedback model uses one controlled source of the circuit as *loop gain reference variable*. A list with controlled sources that are available for this purpose is returned by the method:  `instruction.controlled() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.controlled>`_. 
 
-Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method **SLiCAPinstruction.instruction.setLGref()**. 
+Any controlled source from this list can be assigned as loop gain reference variable. This can be done with the method `instruction.setLGref() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setLGref>`_. 
 
 For the analysis of balanced circuits, SLiCAP supports the definition of dual (paired) loop gain references.
 
@@ -256,7 +256,7 @@ SLiCAP can convert the MNA equation of a network into an equivalent equation of
 Define the data type
 --------------------
 
-SLiCAP can provide 16 types of data. The data type for the instruction is stored in the attribute **SLiCAPinstruction.instruction.dataType**. It is defined by the method: **SLiCAPinstruction.instruction.setDataType**. Below an overview of the availabe data types and their meaning.
+SLiCAP can provide 16 types of data. It is defined with the method: `instruction.setDataType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType>`_.. Below an overview of the availabe data types and their meaning.
 
 #. dc     
 

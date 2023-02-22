@@ -99,7 +99,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Define a circuit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-circuit-netlist">Create a circuit netlist</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#differences-between-spice-and-slicap-netlist">Differences between SPICE and SLiCAP netlist</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#automatic-determination-of-the-netlister">Automatic determination of the netlister</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#automatic-generation-of-a-netlist">Automatic generation of a netlist</a></li>
 </ul>
 </li>
 </ul>
@@ -204,16 +204,22 @@
 <h2>Create a circuit netlist<a class="headerlink" href="#create-a-circuit-netlist" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="differences-between-spice-and-slicap-netlist">
 <h3>Differences between SPICE and SLiCAP netlist<a class="headerlink" href="#differences-between-spice-and-slicap-netlist" title="Permalink to this headline">¶</a></h3>
-<p>The netlist syntax for SLiCAP slightly differs from the standard SPICE syntax. The differences are listed in the section <a class="reference external" href="../syntax/netlist.html">SLiCAP netlist syntax</a>.</p>
+<p>Many schematic capture programs can generate Spice netlist from schematics. However, the netlist syntax for SLiCAP slightly differs from the standard SPICE syntax. The differences are listed in the section <a class="reference external" href="../syntax/netlist.html">SLiCAP netlist syntax</a>. For this reason, the netlist syntax associated with built-in schematic symbols of schematic capture packages needs to be adapted to generate correct SLiCAP netlists.</p>
+<p>SLiCAP schematic symbols for LTspice, gschem, and lepton-eda are available in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code>, <code class="docutils literal notranslate"><span class="pre">gSchem/symbols/</span></code>, and <code class="docutils literal notranslate"><span class="pre">lepton-eda/symbols/</span></code> directories in the user install path (default <code class="docutils literal notranslate"><span class="pre">~/SLiCAP</span></code>).</p>
 </div>
-<div class="section" id="automatic-determination-of-the-netlister">
-<h3>Automatic determination of the netlister<a class="headerlink" href="#automatic-determination-of-the-netlister" title="Permalink to this headline">¶</a></h3>
-<p>SLiCAP can create netlists from LTspice and from gSchem.</p>
+<div class="section" id="automatic-generation-of-a-netlist">
+<h3>Automatic generation of a netlist<a class="headerlink" href="#automatic-generation-of-a-netlist" title="Permalink to this headline">¶</a></h3>
+<p>SLiCAP can create netlists from schematics created with LTspice (MSWindows, Linux), gSchem (MSWindows, Linux, MAC), and lepton-eda (Linux, MAC).</p>
 <p>Below the syntax for generation of the netlist file <code class="docutils literal notranslate"><span class="pre">myCircuit.cir</span></code> from the ‘gSchem’ schematic file <code class="docutils literal notranslate"><span class="pre">myCircuit.sch</span></code> or from the ‘LTspice’ schematic file <code class="docutils literal notranslate"><span class="pre">myCircuit.asc</span></code> in the project directory. The title of the circuit needs to be added separately. It will be placed at the beginning of the netlist file and used in the table of contents of html reports.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.sch&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *gnet-spice-noqsi* netlister.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Netlist generation from LTspice schematic files:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.asc&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *LTspice* netlister.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Netlist generation from gschem, or lepton-eda schematic files:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="s1">&#39;myCircuit.sch&#39;</span><span class="p">,</span> <span class="s1">&#39;My Circuit Title&#39;</span><span class="p">)</span> <span class="c1"># Use the *gnet-spice-noqsi* netlister.</span>
 </pre></div>
 </div>
+<p>Tthe <a class="reference external" href="../reference/SLiCAP.html#SLiCAP.SLiCAP.makeNetlist">makeNetlist()</a> function inserts a title line at the start of the netlist file.</p>
 </div>
 </div>
 </div>

@@ -8,7 +8,7 @@ SLiCAP has a number of built-in scripts to support circuit designers with the an
 Obtain the coefficients of a Laplace rational
 ---------------------------------------------
 
-The function **SLiCAPmath.coeffsTransfer(*args)** returns a tuple with:
+The function `coefsTransfer() <../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer>`_ returns a tuple with:
 
 - The gain
 - A list of coefficients of the Laplace variable of the numerator in ascending order
@@ -32,7 +32,7 @@ All coefficients have been normalized to obtain unity for the coefficient of the
 Determine circuit parameters from a prototype transfer
 ------------------------------------------------------
 
-The function **SLiCAPpythonMaxima.equateCoeffs(*args)** can be used to find values of circuit elements such that the dynamic transfer of that circuit equals that of a prototype. This function is is particularly useful for the design of passive and active filters.
+The function `equateCoeffs <../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.equateCoeffs>`_ can be used to find values of circuit elements such that the dynamic transfer of that circuit equals that of a prototype. This function is is particularly useful for the design of passive and active filters.
 
 .. code-block:: python
 
@@ -52,11 +52,11 @@ The function **SLiCAPpythonMaxima.equateCoeffs(*args)** can be used to find valu
 Estimate the bandwith and system order of a negative-feedback circuit
 ---------------------------------------------------------------------
 
-The function **SLiCAPmath.findServoBandwidth(*args)** strongly facilitates the design of the dynamic behavior of negative feedback amplifiers. 
+The function `findServoBandwidth <../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth>`_ facilitates the design of the small-signal bandwidth of negative feedback amplifiers. 
     
 With the loop gain reference variable properly selected, the dynamic behavior of a negative feedback amplifier is the product its ideal gain and the servo function. The servo function is determined by the loop gain. If the loop gain reaches infinity, the servo fuction approaches unity. The bandwidth of the servo functions is a measure for the frequency range over which the gain of a negative feedback system approaches its ideal gain.
 
-The function **SLiCAPmath.findServoBandwidth(*args)** determines the unity gain frequencies of the asymptotes of the magnitude characteristic of the loop gain. It assumes a single passband, low-pass, band-pass or high-pass behavior of the servo function. This means that there are maximally two unity gain frequencies of the loop gain. The function returns:
+`findServoBandwidth <../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth>`_ determines the unity gain frequencies of the asymptotes of the magnitude characteristic of the loop gain. It assumes a single passband, low-pass, band-pass or high-pass behavior of the servo function. This means that there are maximally two unity gain frequencies of the loop gain. The function returns:
 
 - The frequencies of intersection of the asymptoties of the magnitude characteristic of the loop gain and unity
 - The order (slope) at these frequencies

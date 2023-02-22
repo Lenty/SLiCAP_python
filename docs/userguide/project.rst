@@ -11,9 +11,9 @@ You start SLiCAP by importing of the scripts and initialization of a python proj
 
     >>> prj = initProject('My SLiCAP project', port=8099) # project-defined port for socket communication with maxima CAS is set to 8099.
 
-The function ``initProject<projectName>`` creates / updates the directory structure in the working directory. Directories once created will not be overwritten. 
+The function `initProlect() <../reference/SLiCAP.html#SLiCAP.SLiCAP.SLiCAPinitProject>` creates / updates the directory structure in the working directory. Directories once created will not be overwritten. 
 
-The settings are stored in the ``ini`` object. You can view these settings by entering:
+The settings are stored in ``ini``: a `settings <../reference/SLiCAPini.html#SLiCAP.SLiCAPini.SLiCAPini.settings>`_ object. You can view these settings ny evoking the function ``ini.dump()``:
 
 .. code-block :: python
 
