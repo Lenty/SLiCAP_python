@@ -37,7 +37,7 @@ plotSweep('Inoise', 'Source-referred noise spectrum', noise_result, 1e8, 1e11, 1
 
 # Calculate the noise figure at critical inversion and the given width
 tot_inoise      = rmsNoise(noise_result, 'inoise', 1e9, 5e9)
-tot_inoise_src  = rmsNoise(noise_result, 'inoise', 1e9, 5e9, source = noise_result.source)
+tot_inoise_src  = rmsNoise(noise_result, 'inoise', 1e9, 5e9, source = 'I_noise_R1')
 
 NF              = 20*sp.log(tot_inoise/tot_inoise_src)/sp.log(10)
 print("The noise figure equals: %s [dB]."%(sp.N(NF, ini.disp)))
@@ -56,7 +56,7 @@ noise_w = i1.execute() # calculate the noise spectra as a function of W and f
 f_min = sp.Symbol('f_min')
 f_max = sp.Symbol('f_max')
 rms_noise_w        = rmsNoise(noise_w, 'inoise', f_min, f_max)
-rms_noise_w_source = rmsNoise(noise_w, 'inoise', f_min, f_max, noise_w.source)
+rms_noise_w_source = rmsNoise(noise_w, 'inoise', f_min, f_max, 'I_noise_R1')
 # We will now calculate the noise figure as a function of 'W', 'f_min' and 'f_max':
 # We will use the variance instead of the RMS value:
 NF_W               = (rms_noise_w/rms_noise_w_source)**2
@@ -69,6 +69,7 @@ for w in W_opt:
     if w > 0:
         W = w
         print(W)
+        
 # Create a plot of the noise figure versus the with for different values of f_max and f_min = 1G
 # Define the plot parameters, 'fw', 'W' and 'fmax'
 i1.defPar('W', W)
