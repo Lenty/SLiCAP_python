@@ -103,8 +103,15 @@ class maximaHandler():
                     output = receive_data.replace("\n","").replace("\\", "").split('"')[1]
                     break
                 except IndexError:
+                    output = "ERROR"
                     print(receive_data)
-                    print("Unexpected error in instruction!")
+                    print("""Unexpected error in instruction! 
+                          
+                          This error may be caused by a singular matrix. Please check your
+                          circuit for floating nodes and/or shorted branches. 
+                          
+                          In case of decomposed balanced circuits, check for equal polarity
+                          of the signal sources in both halfs of the balanced circuit.""")
                     break
 
         self.mut.release()

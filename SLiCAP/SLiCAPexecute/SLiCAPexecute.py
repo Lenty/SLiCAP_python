@@ -1210,13 +1210,13 @@ def makeMaxInstr(instr, result):
         maxInstr += maxString('findRoots(expr)', instr.numeric)
     elif instr.dataType == "solve":
         result = makeMaxMatrices(instr, result) 
-        maxInstr = 'instr@M :' + python2maxima(result.M) + '$'
-        maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr = 'M :' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose()) + '$'
         maxInstr += maxString('doSolve(M,Iv)', instr.numeric)
     elif instr.dataType == "dcsolve":
         result = makeMaxMatrices(instr, result) 
-        maxInstr = 'instr@M :' + python2maxima(result.M) + '$'
-        maxInstr += 'instr@Iv:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr = 'M :' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose()) + '$'
         maxInstr += maxString('doSolveDC(M,Iv)', instr.numeric)
         print("Error: no Maxima CAS function implemented for this data type.")     
     return (maxInstr, result)
@@ -1288,25 +1288,25 @@ def makeMaxMatrices(instr, result):
                     nodeP, nodeN = instr.circuit.elements[instr.source[i]].nodes
                     if nodeP != '0':
                         pos = instr.depVars().index('V_' + nodeP)
-                        if instr.convType == 'dd' or instr.convType == 'dc':
-                            # differential input
-                            result.Iv[pos] = -(-1)**i/ns
+                        if instr.convType == 'cc' or instr.convType == 'cd':
+                            result.Iv[pos] -= 1/ns
                         else:
-                            result.Iv[pos] = -1
+                            # differential input
+                            result.Iv[pos] -= (-1)**i
                     if nodeN != '0':
                         pos = instr.depVars().index('V_' + nodeN)
-                        if instr.convType == 'dd' or instr.convType == 'dc':
-                            # differential input
-                            result.Iv[pos] = (-1)**i/ns
+                        if instr.convType == 'cc' or instr.convType == 'cd':
+                            result.Iv[pos] += 1/ns
                         else:
-                            result.Iv[pos] = 1
+                            # differential input
+                            result.Iv[pos] += (-1)**i
                 elif instr.source[i][0].upper() == 'V':
                     pos = instr.depVars().index('I_' + instr.source[i])
-                    if instr.convType == 'dd' or instr.convType == 'dc':
+                    if instr.convType == 'cc' or instr.convType == 'cd':
+                        result.Iv[pos] = 1
+                    else:
                         # differential input
                         result.Iv[pos] = (-1)**i/ns
-                    else:
-                        result.Iv[pos] = 1
     else:
         result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'value', numeric = instr.numeric)
     if instr.numeric:

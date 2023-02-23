@@ -84,18 +84,34 @@ Function:       doNumer
 Arguments:      M       : MNA matrix
                 detCols : Columns corresponding with the detector
                 Iv      : Vector with independent variables
-Description:    Returns the numerator of a transfer function
+Description:    Returns the Laplace transform of the numerator of the detector current or voltage
 ============================================================================================================= */
-doNumer(M,detCols,Iv) := block(
-[i],
-result: 0,
-for i from 1 thru length(Iv[1]) do (
-if Iv[1,i] # 0  then (
-   if detCols[1] # 0 then result: result + Iv[1,i] * (-1)^(i+detCols[1]) * doDet(minor(M,i,detCols[1])),
-   if detCols[2] # 0 then result: result - Iv[1,i] * (-1)^(i+detCols[2]) * doDet(minor(M,i,detCols[2])))
-),
+doNumer(M, detCols, Iv) :=
+block
+(
+[],
+result : 0,
+if detCols[1] # 0 then result: result + doDet(CramerMatrix(M, Iv, detCols[1])),
+if detCols[2] # 0 then result: result - doDet(CramerMatrix(M, Iv, detCols[2])),
 return(expand(result))
 )$
+
+/* =============================================================================================================
+Function:       CramerMatrix
+Arguments:      M: square matrix (MNA matrix)
+                V: Row vector with independent sources
+                c: column number (Number of the detector column in M)
+Description:    Returns the matrix M in which column c is replaced with vector V
+============================================================================================================= */
+CramerMatrix(M, V, c) :=
+block
+(
+[],
+CramerMatrix : transpose(M),
+CramerMatrix[c] : V[1],
+return(transpose(CramerMatrix))
+)$
+
 
 /* =============================================================================================================
 Function:       doLaplace
