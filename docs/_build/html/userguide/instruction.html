@@ -213,7 +213,7 @@
 </ol>
 <div class="section" id="create-a-circuit-object-and-assign-it-to-an-instruction">
 <span id="defcircuit"></span><h2>Create a circuit object and assign it to an instruction<a class="headerlink" href="#create-a-circuit-object-and-assign-it-to-an-instruction" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit">instruction.setCircuit()</a> method checks syntax of the netlist, converts the netlist into a <em>flattened</em> circuit and assignes this circuit to the <em>instruction.circuit</em> attribute.</p>
+<p>The <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit">instruction.setCircuit()</a> method checks syntax of the netlist, converts the netlist into a <em>flattened</em> <a class="reference external" href="../reference/SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit">circuit</a> object, and assignes this circuit to the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.circuit">instruction.circuit</a>  attribute.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>        <span class="c1"># Create an instance of an instruction object</span>
@@ -227,7 +227,7 @@
 </div>
 <div class="section" id="define-the-simulation-type">
 <span id="defsimtype"></span><h2>Define the simulation type<a class="headerlink" href="#define-the-simulation-type" title="Permalink to this headline">¶</a></h2>
-<p>SLiCAP can perform symbolic and numeric analyis. The <em>simType</em> attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to <em>numeric</em>, parameter values are recursively substituted into the circuit element expressions.</p>
+<p>SLiCAP can perform symbolic and numeric analyis. The <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType">simType</a> attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to <em>numeric</em>, parameter values are recursively substituted into the circuit element expressions.</p>
 <p>The simulation type can be set with the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType">instruction.setSymType()</a> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -250,7 +250,7 @@
 <span id="defgaintype"></span><h2>Define the gain type<a class="headerlink" href="#define-the-gain-type" title="Permalink to this headline">¶</a></h2>
 <p>SLiCAP can provide expressions for:</p>
 <ol class="arabic">
-<li><p class="first">Detector voltage or current (see <a class="reference internal" href="#detector"><span class="std std-ref">Define the detector</span></a> for definition of the detector)</p>
+<li><p class="first">Detector voltage or current (see <a class="reference internal" href="#detector"><span class="std std-ref">Define the detector</span></a> for definition of the detector); this requires:</p>
 <ul class="simple">
 <li>gain type: <em>vi</em></li>
 </ul>
@@ -285,7 +285,7 @@
 </ul>
 </li>
 </ol>
-<p>The gain type can be defined with the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType">instruction.setGainType()</a> method method.</p>
+<p>The gain type can be defined with the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType">instruction.setGainType()</a> method. It sets the <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType">gainType</a> attribute of the instruction.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>           <span class="c1"># Create an instance of an instruction object</span>
@@ -410,7 +410,7 @@
 </div>
 <div class="section" id="define-the-data-type">
 <span id="defdatatype"></span><h2>Define the data type<a class="headerlink" href="#define-the-data-type" title="Permalink to this headline">¶</a></h2>
-<p>SLiCAP can provide 16 types of data. It is defined with the method: <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType">instruction.setDataType()</a>.. Below an overview of the availabe data types and their meaning.</p>
+<p>SLiCAP can provide 16 types of data. It is defined with the method: <a class="reference external" href="../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType">instruction.setDataType()</a>. Below an overview of the availabe data types and their meaning.</p>
 <ol class="arabic">
 <li><p class="first">dc</p>
 <blockquote>

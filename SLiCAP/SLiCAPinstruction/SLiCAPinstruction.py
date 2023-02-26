@@ -132,15 +132,9 @@ class instruction(object):
         See **instruction.setDetector(<detector>)** for specification of the detector.
         """
 
-        self.pairedNodes = [None, None]
+        self.pairExt = [None, None]
         """
-        List with extensions of node names that should be paired for base conversion.
-        Default is: [None, None].
-        """
-
-        self.pairedCircuits = [None, None]
-        """
-        List with extensions of subcircuit IDs that should be paired for base conversion.
+        Extensions used to indicate paired nodes or elements.
         Default is: [None, None].
         """
         
@@ -367,19 +361,19 @@ class instruction(object):
             self.convType = None
         return
     
-    def setPairedNodes(self, nodePairs):
+    def setPairExt(self, pairExt):
         """
-        Defines the paired nodes for matrix conversion.
+        Defines the extension to element or node IDs for DM and CM pairs.
 
-        :param varPairs: list with extensions for paired nodes. 
+        :param pairExt: list with extensions for paired nodes. 
 
-        :type varPairs: list
+        :type pairExt: list
         """
-        if self.checkPairedNodes(nodePairs) == 0:
-            self.pairedNodes = nodePairs
+        if self.checkPairExt(pairExt) == 0:
+            self.pairExt = pairExt
         return
     
-    def checkPairedNodes(self, nodePairs):
+    def checkPairExt(self, pairExt):
         """
         Check the list with extensions of paired nodes.
         
@@ -391,20 +385,17 @@ class instruction(object):
         :rtype: int
         """
         errors = 0
-        if type(nodePairs) != list and len(nodePairs) != 2:
-            print("Error: expected a list with two extensions of paired nodes.")
+        if type(pairExt) != list and len(pairExt) != 2:
+            print("Error: expected a list with two extensions for nodes or elements.")
             errors += 1
-        else:
-            nodeExtensions = []
-            for elName in list(self.circuit.elements.keys()):
-                nodes = self.circuit.elements[elName].nodes
-                for node in nodes:
-                    nodeExtensions.append(node[-1])
-            nodeExtensions = list(set(nodeExtensions))
-            for ext in nodePairs:
-                if ext not in nodeExtensions:
-                    print("Error: cannot pair node with extension: ", ext)
-                    errors += 1
+        if type(pairExt[0]) != str or type(pairExt[1]) != str:
+            print("Error: pair extensions for nodes and elements should be of type 'str'.")
+            errors += 1
+        if len(pairExt[0]) != len(pairExt[1]):
+            print("Error: pair extensions should have the same length.")
+            errors += 1
+        if errors == 0:
+            self.pairExt =  pairExt
         return errors
     
     def setPairedCircuits(self, cirPairs):
@@ -1631,10 +1622,8 @@ class instruction(object):
                     pass
         if self.convType != None:
             self.checkConvType()
-            if self.pairedNodes != [None, None]:
-                self.checkPairedNodes(self.pairedNodes)
-            if self.pairedCircuits != [None, None]:
-                self.checkPairedCircuits(self.pairedCircuits)
+            if self.pairExt != [None, None]:
+                self.checkPairExt(self.pairExt)
         if self.step == True:
             if not self.numeric and self.dataType != 'params':
                 self.errors += 1

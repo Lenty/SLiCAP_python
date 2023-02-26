@@ -37,7 +37,7 @@ print(result.laplace)
 
 head2html("DM-CM matrix equation")
 i1.defPar("R_b", "R_a")
-i1.setPairedNodes(['P', 'N'])
+i1.setPairExt(['P', 'N'])
 i1.setConvType('all') 
 i1.setGainType("vi")
 i1.setDataType("matrix")

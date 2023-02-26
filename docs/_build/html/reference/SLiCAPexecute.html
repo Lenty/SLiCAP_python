@@ -254,6 +254,8 @@ this instruction with dataType: ‘dcsolve’</li>
 <code class="descname">convertMatrices</code><span class="sig-paren">(</span><em>instr</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.convertMatrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts the result attributes M, Iv and Dv into those of equivalent
 common-mode or differential mode circuits.</p>
+<p>If instruction.removePairSubName == True, it also removes the pair extensions
+from paired parameters.</p>
 <p>The conversion type is defined by the attribute instr.convType it can be:</p>
 <blockquote>
 <div><ul class="simple">
@@ -859,6 +861,25 @@ result object.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.findBaseNames">
+<code class="descname">findBaseNames</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.findBaseNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with base names of paired elements. The base name is the 
+element identifier without the pairing extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a><em>(</em><em>)</em>) – instruction with circuit and pairing extensions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">base IDs</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.getSubMatrices">
 <code class="descname">getSubMatrices</code><span class="sig-paren">(</span><em>result</em>, <em>dimDm</em>, <em>dimCm</em>, <em>convType</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.getSubMatrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the attributes M, Iv, and Dv of result according to the conversion
@@ -1022,6 +1043,25 @@ False.</li>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str.</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPexecute.SLiCAPexecute.pairParDefs">
+<code class="descname">pairParDefs</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.pairParDefs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the pair extension from paired parameters in both keys and values in
+instr.parDefs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a><em>(</em><em>)</em>) – instruction with circuit and pairing extensions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">instr</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Rtupe:</th><td class="field-body">SLiCAPinstruction.instruction()</td>
 </tr>
 </tbody>
 </table>

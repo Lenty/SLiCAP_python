@@ -23,8 +23,6 @@ def wait_until(somepredicate, timeout, period=0.25, *args, **kwargs):
   return False
 
 class maximaHandler():
-    answers = ['p', 'n', 'z', 'r', 'c', 'y']
-
     mut = Lock()
     active = False
 
@@ -94,10 +92,14 @@ class maximaHandler():
             if "?" in receive_data:
                 while len(send_data) == 0:
                     send_data = input(receive_data.strip() + '\n>> ')
-                    if len(send_data) > 0:
-                        if send_data[0].lower() not in self.answers:
-                            send_data = ""
-                self.conn.sendall((send_data[0].lower() + ';').encode())
+                    receive_data = ""
+                if send_data == ';' or send_data == '$':
+                    send_data = 'quit();'
+                if len(send_data) > 0 and send_data[-1] != ';' and send_data[-1] != '$':
+                    send_data += ';'
+                self.conn.sendall(send_data.encode())
+                if send_data == 'quit();' or send_data == 'quit()$':
+                    break
             else:
                 try:
                     output = receive_data.replace("\n","").replace("\\", "").split('"')[1]
@@ -105,15 +107,18 @@ class maximaHandler():
                 except IndexError:
                     output = "ERROR"
                     print(receive_data)
-                    print("""Unexpected error in instruction! 
+                    print("""
+Error in Maxima instruction! 
                           
-                          This error may be caused by a singular matrix. Please check your
-                          circuit for floating nodes and/or shorted branches. 
-                          
-                          In case of decomposed balanced circuits, check for equal polarity
-                          of the signal sources in both halfs of the balanced circuit.""")
-                    break
+Known causes:
 
+- syntax error
+- invalid answer to a question  
+- symbolic indices  
+- divide by zero
+- determinant of a non-square matrix
+""")
+                    break
         self.mut.release()
         return output
 
@@ -309,6 +314,8 @@ def maxEval(maxExpr):
         maxExpr = "assume_pos:false$" + maxExpr
     if ini.socket == True:
         result = maxima2python(ini.maximaHandler.maxEval(maxExpr))
+        if result == "ERROR":
+            restartMaxima()
     else:
         preambule = 'load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$'
         maxExpr = preambule + maxExpr
@@ -375,7 +382,15 @@ if __name__ == '__main__':
     ## Restart maxima server example, uncomment next lines otherwise
     print(maxEval('stringdisp:true$string(ilt(1/(s^2+a),s,t));'))
     restartMaxima()
+    # This generates an error which is handled properly
+    print(maxEval('M:matrix([0, 0, 1, 0, 0, 0], [0, 0, 0, -A_v, 1, A_v], [1, 0, 1/R_s, -1/R_s, 0, 0], [0, 0, -1/R_s, 1/R_s, 0, 0], [0, 1, 0, 0, 1/R_ell + 1/R_a, -1/R_a])$ newdet(M);'))
+    # This generates an error with a message and automatic recovery
+    print(maxEval('M[a,1];'))
     print(maxEval('load("/home/anton/.local/lib/python3.8/site-packages/SLiCAP/SLiCAPpythonMaxima/SLiCAP_python.mac")$M : matrix([0, 0, 1, 0, 0, 0], [0, 0, 0, -A_v, 1, A_v], [1, 0, 1/R_s, -1/R_s, 0, 0], [0, 0, -1/R_s, 1/R_s, 0, 0], [0, 1, 0, 0, 1/R_ell + 1/R_a, -1/R_a], [0, 0, 0, 0, -1/R_a, 1/R_b + 1/R_a]) $detCols:[5,0]$Iv: matrix([1, 0, 0, 0, 0, 0]) $string(doLaplace(M,detCols,Iv));'))
+    # This generates an error with a message and recovers after input.
+    print(maxEval('load("/home/anton/.local/lib/python3.8/site-packages/SLiCAP/SLiCAPpythonMaxima/SLiCAP_python.mac")$M : matrix([0, 0, 1, 0, 0, 0], [0, 0, 0, -A_v, 1, A_v], [1, 0, 1/R_s, -1/R_s, 0, 0], [0, 0, -1/R_s, 1/R_s, 0, 0], [0, 1, 0, 0, 1/R_ell + 1/R_a, -1/R_a], [0, 0, 0, 0, -1/R_a, 1/R_b + 1/R_a]) $detCols:[V_alpha,0]$Iv: matrix([1, 0, 0, 0, 0, 0]) $string(doLaplace(M,detCols,Iv));'))
+    # Recovered after error
+    print(maxEval('stringdisp:true$string(ilt(1/(s^2+a),s,t));'))
     ini.maximaHandler.__del__()
     sleep(3)
     print("Nice")

@@ -1335,28 +1335,9 @@ def makeSubsDict(instr):
                 instr.parDefs[key] = instr.circuit.parDefs[key]
     else:
         instr.parDefs = instr.circuit.parDefs
-    
     # Adapt instr.ParDefs for balancing
     if instr.convType != None and instr.removePairSubName:
-        # remove subcircuit extension of paired circuits from parameter names
-        newParDefs = {}
-        for key in list(instr.parDefs.keys()):
-            # remove subcircuit extension of paired circuits from parameters
-            # used in the value/expression of the parameter
-            value = instr.parDefs[key]
-            params = list(value.atoms(sp.Symbol))
-            for param in params:
-                paramParts = str(param).split('_')
-                if paramParts[-1] in instr.pairedCircuits:
-                    newParam = sp.Symbol('_'.join(paramParts[0:-1]))
-                    value = value.subs(param, newParam)
-            # remove subcircuit extension of paired circuits from parameter name
-            keyParts = str(key).split('_')
-            if keyParts[-1] in instr.pairedCircuits:
-                key = sp.Symbol('_'.join(keyParts[0:-1]))
-            # store the new parameter and its value in the dictionary
-            newParDefs[key] = value
-        instr.parDefs = newParDefs
+        instr = pairParDefs(instr)
     return instr
 
 def parseMaxResult(result, indepVars, maxResult):
@@ -1504,10 +1485,85 @@ def stepFunctions(stepDict, function):
 # Functions for converting the MNA matrix anf the vecors with independent and
 # dependent variables into equivalent common-mode and differential-mode variables.    
 
+def findBaseNames(instr):
+    """
+    Returns a list with base names of paired elements. The base name is the 
+    element identifier without the pairing extension.
+    
+    :param instr: instruction with circuit and pairing extensions
+    :type instr: SLiCAPinstruction.instruction()
+    
+    :return: base IDs
+    :rtype: list
+    """
+    lenExt = len(instr.pairExt[0])
+    pairedElements = {}
+    baseIDs = []
+    for refDes in list(instr.circuit.elements.keys()):
+        if len(refDes) > lenExt:
+            if refDes[-lenExt:] == instr.pairExt[0]:
+                if refDes[:-lenExt] not in list(pairedElements.keys()):
+                    pairedElements[refDes[:-lenExt]] = [instr.pairExt[0]]
+                elif pairedElements[refDes[:-lenExt]][0] == instr.pairExt[1]:
+                    pairedElements[refDes[:-lenExt]].append(instr.pairExt[0])
+            if refDes[-lenExt:] == instr.pairExt[1]:
+                if refDes[:-lenExt] not in list(pairedElements.keys()):
+                    pairedElements[refDes[:-lenExt]] = [instr.pairExt[1]]
+                elif pairedElements[refDes[:-lenExt]][0] == instr.pairExt[0]:
+                    pairedElements[refDes[:-lenExt]].append(instr.pairExt[1])
+    for key in list(pairedElements.keys()):
+        if len(pairedElements[key]) == 2:
+            baseID = key.split('_')[-1]
+            if baseID not in baseIDs:
+                baseIDs.append(baseID)
+    return baseIDs
+
+def pairParDefs(instr):
+    """
+    Removes the pair extension from paired parameters in both keys and values in
+    instr.parDefs.
+    
+    :param instr: instruction with circuit and pairing extensions
+    :type instr: SLiCAPinstruction.instruction()
+    
+    :return: instr
+    :rtupe: SLiCAPinstruction.instruction()
+    """
+    baseIDs = findBaseNames(instr)
+    lenExt  = len(instr.pairExt[0])
+    substDict = {}
+    newParDefs = {}
+    # remove subcircuit extension of paired circuits from parameter names
+    for key in list(instr.parDefs.keys()):
+        parName = str(key)
+        nameParts = parName.split('_')
+        if len(nameParts[-1]) > lenExt and nameParts[-1][-lenExt:] in instr.pairExt and nameParts[-1][:-lenExt] in baseIDs:
+            value = instr.parDefs[key]
+            newParDefs[sp.Symbol(parName[:-lenExt])] = value
+            params = list(value.atoms(sp.Symbol))
+            # remove subcircuit extension of paired circuits from parameters in expressions
+            for param in params:
+                parName = str(param)
+                nameParts = parName.split('_')
+                if len(nameParts[-1]) > lenExt:
+                    if nameParts[-1][-lenExt:] in instr.pairExt and nameParts[-1][:-lenExt] in baseIDs:
+                        substDict[param] = sp.Symbol(parName[:-lenExt])
+        else:
+            newParDefs[key] = instr.parDefs[key]
+    # perform substitutions
+    for param in list(newParDefs.keys()):
+        # In parameter names
+        newParDefs[param].subs(substDict)
+    instr.parDefs = newParDefs
+    return instr
+
 def convertMatrices(instr, result):
     """
     Converts the result attributes M, Iv and Dv into those of equivalent
     common-mode or differential mode circuits. 
+    
+    If instruction.removePairSubName == True, it also removes the pair extensions
+    from paired parameters.
     
     The conversion type is defined by the attribute instr.convType it can be:
         
@@ -1526,16 +1582,19 @@ def convertMatrices(instr, result):
     """
     pairs, unPaired, dmVars, cmVars, A = createConversionMatrices(instr)
     if instr.removePairSubName:
+        baseIDs = findBaseNames(instr)
+        lenExt  = len(instr.pairExt[0])
         params = list(set(list(result.M.atoms(sp.Symbol)) + list(result.Iv.atoms(sp.Symbol))))
+        substDict = {}   
         for param in params:
             parName = str(param)
-            if '_' in parName:
-                nameParts = parName.split('_')
-                if nameParts[-1] in instr.pairedCircuits:
-                    newParam = sp.Symbol('_'.join(nameParts[0:-1]))
-                    result.M = result.M.subs(param, newParam)
-                    result.Iv = result.Iv.subs(param, newParam)
-    A = sp.Matrix(A)
+            nameParts = parName.split('_')
+            if len(nameParts[-1]) > lenExt:
+                if nameParts[-1][-lenExt:] in instr.pairExt and nameParts[-1][:-lenExt] in baseIDs:
+                    newParam = sp.Symbol(parName[:-lenExt])
+                    substDict[param] = newParam           
+        result.M = result.M.subs(substDict)
+        result.Iv = result.Iv.subs(substDict)
     result.Dv = sp.Matrix(dmVars + cmVars)
     result.M  = A*result.M*A.transpose()
     result.Iv = A*result.Iv
@@ -1543,7 +1602,7 @@ def convertMatrices(instr, result):
     dimCm = dimDm + len(unPaired)
     result = getSubMatrices(result, dimDm, dimCm, instr.convType)
     return result
-
+    
 def createConversionMatrices(instr):
     """
     Creates the matrax for a base transformation from nodal voltages and branche
@@ -1576,19 +1635,22 @@ def createConversionMatrices(instr):
         col0 = depVars.index(pairs[i][0]) # nodal voltage or branch current
         col1 = depVars.index(pairs[i][1]) # nodal voltage or branch current
         if pairs[i][0][0] == 'V':
+            # transform pair of node voltages into DM and CM node voltage
             A[i, col0] = 1/2
             A[i, col1]  = -1/2
             A[i+n, col0] = 1
             A[i+n, col1] = 1
         elif pairs[i][0][0] == 'I':
+            # transform pair of branch currents into DM and CM branch current
             A[i, col0] = 1
             A[i, col1]  = -1
             A[i+n, col0] = 1/2
             A[i+n, col1] = 1/2
     for i in range(m):
+        # Unpaired variable, no transformation
         col = depVars.index(unPaired[i])
         row = 2*n  + i
-        A[row, col] = 1
+        A[row, col] = 1 
     return pairs, unPaired, dmVars, cmVars, A
 
 def pairVariables(instr):
@@ -1616,32 +1678,15 @@ def pairVariables(instr):
     unPaired = []
     dmVars = []
     cmVars = []
-    sub1 = instr.pairedCircuits[0]
-    sub2 = instr.pairedCircuits[1]
-    ext1 = instr.pairedNodes[0]
-    ext2 = instr.pairedNodes[1]
-    if ext1 != None and ext2 != None:
-        l_ext1 = len(ext1)
-        l_ext2 = len(ext2)
+    sub1, sub2 = instr.pairExt
     if sub1 != None and sub2 != None:
         l_sub1 = len(sub1)
         l_sub2 = len(sub2)
-    while len(depVars) != 0:
-        var = depVars[0]
-        if var != 'V_0':
-            paired = False
-            if ext1 != None and ext2 != None:
-                if var[-l_ext1:] == ext1:
-                    pairedVar = var[0:-l_ext1] + ext2
-                    if pairedVar in depVars:
-                        pairs.append((var, pairedVar))
-                        paired = True
-                elif var[-l_ext2:] == ext2:
-                    pairedVar = var[0:-l_ext1] + ext1
-                    if pairedVar in depVars:
-                        pairs.append((pairedVar, var))
-                        paired = True
-            if sub1 != None and sub2 != None:
+        
+        while len(depVars) != 0:
+            var = depVars[0]
+            if var != 'V_0':
+                paired = False
                 if var[-l_sub1:] == sub1:
                     pairedVar = var[0:-l_sub1] + sub2
                     if pairedVar in depVars:
@@ -1652,22 +1697,20 @@ def pairVariables(instr):
                     if pairedVar in depVars:
                         pairs.append((pairedVar, var))
                         paired = True
-            if paired:
-                depVars.remove(var)
-                depVars.remove(pairedVar)
-                if pairs[-1][0][-l_ext1:] == ext1:
-                    baseName = pairs[-1][0][0: -l_ext1]
-                elif pairs[-1][0][-l_sub1:] == sub1:
-                    baseName = pairs[-1][0][0: -l_sub1]
-                if baseName[-1] != '_':
-                    baseName += '_'
-                dmVars.append(baseName + 'D')
-                cmVars.append(baseName + 'C')
+                if paired:
+                    depVars.remove(var)
+                    depVars.remove(pairedVar)
+                    if pairs[-1][0][-l_sub1:] == sub1:
+                        baseName = pairs[-1][0][0: -l_sub1]
+                    if baseName[-1] != '_':
+                        baseName += '_'
+                    dmVars.append(baseName + 'D')
+                    cmVars.append(baseName + 'C')
+                else:
+                    unPaired.append(var)   
+                    depVars.remove(var)
             else:
-                unPaired.append(var)   
                 depVars.remove(var)
-        else:
-            depVars.remove(var)
     cmVars += unPaired
     return pairs, unPaired, dmVars, cmVars
   

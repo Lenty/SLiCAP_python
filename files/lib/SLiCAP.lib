@@ -41,6 +41,20 @@
 + av = {A_0*(1+s/2/pi/40M)/(1+s/2/pi/120)/(1+s/2/pi/20M)}   ; voltage gain 
 + zo = {3.6k/(1+s*3.6k*8u) + 0.7 + s*900n*60/(60+s*900n)}   ; output impedance
 
+.model OPA209 OV 
++ cd = 4p  ; differential-mode input capacitance 
++ gd = 5u  ; differential-mode input conductance 
++ cc = 2p  ; common-mode input capacitance 
++ av = {3.16M*(1-s/2/pi/100M)/(1+s*1.1)}   ; voltage gain 
++ zo = {3.6k/(1+s*3.6k*27u) + 2 + s*1.8u*30/(30+s*1.8u)}   ; output impedance
+
+.model OPA209_A0 OV 
++ cd = 4p  ; differential-mode input capacitance 
++ gd = 5u  ; differential-mode input conductance 
++ cc = 2p  ; common-mode input capacitance 
++ av = {A_0*(1-s/2/pi/100M)/(1+s*1.1)}   ; voltage gain 
++ zo = {3.6k/(1+s*3.6k*27u) + 2 + s*1.8u*30/(30+s*1.8u)}   ; output impedance
+
 .model OPA300_A0 OV
 + av={A_0/(1+s*200k/2/pi/180M)/(1+s/2/pi/300M)*(1-s/2/pi/400M)/(1+s/2/pi/400M)}
 + cd=3p
@@ -54,13 +68,13 @@
 + zo={20k/(1+s*200k/2/pi/180M)*(1+s/2/pi/80k)*(1+s/2/pi/5M)}
 
 .model OPA627 OV
-+ av={1M/(1+s*1/2/pi/16)}
++ av={1M/(1-s*2n)/(1+s*1/2/pi/16)/(1+s*2n)}
 + cd=8p
 + cc=8p
 + zo=55
 
 .model OPA627_A0 OV
-+ av={A0/(1+s*1/2/pi/16)}
++ av={A0*(1-s*2n)/(1+s*1/2/pi/16)/(1+s*2n)}
 + cd=8p
 + cc=8p
 + zo=55

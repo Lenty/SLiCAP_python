@@ -76,7 +76,7 @@ Define the gain type
 
 SLiCAP can provide expressions for:
 
-#. Detector voltage or current (see :ref:`detector` for definition of the detector)
+#. Detector voltage or current (see :ref:`detector` for definition of the detector); this requires:
 
    - gain type: *vi*
 
@@ -102,7 +102,7 @@ SLiCAP can provide expressions for:
 		
 	 This is :math:`\frac{-L}{1-L}` in which :math:`L` is the loop gain according to the definition above.
 
-The gain type can be defined with the `instruction.setGainType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType>`_ method. It sets the `gainype `<../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType>`_ attribute of the instruction.
+The gain type can be defined with the `instruction.setGainType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType>`_ method. It sets the `gainType <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType>`_ attribute of the instruction.
  
 .. code-block:: python
 
@@ -256,7 +256,7 @@ SLiCAP can convert the MNA equation of a network into an equivalent equation of
 Define the data type
 --------------------
 
-SLiCAP can provide 16 types of data. It is defined with the method: `instruction.setDataType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType>`_.. Below an overview of the availabe data types and their meaning.
+SLiCAP can provide 16 types of data. It is defined with the method: `instruction.setDataType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType>`_. Below an overview of the availabe data types and their meaning.
 
 #. dc     
 

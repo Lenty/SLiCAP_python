@@ -27,7 +27,7 @@ The following sections discuss the main attributes of the instruction:
 Create a circuit object and assign it to an instruction
 -------------------------------------------------------
 
-The `instruction.setCircuit() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit>`_ method checks syntax of the netlist, converts the netlist into a *flattened* circuit and assignes this circuit to the *instruction.circuit* attribute.
+The `instruction.setCircuit() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setCircuit>`_ method checks syntax of the netlist, converts the netlist into a *flattened* `circuit <../reference/SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit>`_ object, and assignes this circuit to the `instruction.circuit <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.circuit>`_  attribute.
 
 .. code-block:: python
 
@@ -47,7 +47,7 @@ View section :ref:`html` for displaying circuit data on an HTML page.
 Define the simulation type
 --------------------------
 
-SLiCAP can perform symbolic and numeric analyis. The *simType* attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the circuit element expressions.
+SLiCAP can perform symbolic and numeric analyis. The `simType <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.simType>`_ attribute of an instruction tells SLiCAP which method to use. However, in most cases, SLiCAP uses symbolic methods, even if the data is numerical. If the simulation type has been set to *numeric*, parameter values are recursively substituted into the circuit element expressions.
 
 The simulation type can be set with the `instruction.setSymType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setSimType>`_ method.
 
@@ -76,7 +76,7 @@ Define the gain type
 
 SLiCAP can provide expressions for:
 
-#. Detector voltage or current (see :ref:`detector` for definition of the detector)
+#. Detector voltage or current (see :ref:`detector` for definition of the detector); this requires:
 
    - gain type: *vi*
 
@@ -102,8 +102,8 @@ SLiCAP can provide expressions for:
 		
 	 This is :math:`\frac{-L}{1-L}` in which :math:`L` is the loop gain according to the definition above.
 
-The gain type can be defined with the `instruction.setGainType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType>`_ method method.
-
+The gain type can be defined with the `instruction.setGainType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setGainType>`_ method. It sets the `gainType <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.gainType>`_ attribute of the instruction.
+ 
 .. code-block:: python
 
     >>> from SLiCAP import *
@@ -256,7 +256,7 @@ SLiCAP can convert the MNA equation of a network into an equivalent equation of
 Define the data type
 --------------------
 
-SLiCAP can provide 16 types of data. It is defined with the method: `instruction.setDataType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType>`_.. Below an overview of the availabe data types and their meaning.
+SLiCAP can provide 16 types of data. It is defined with the method: `instruction.setDataType() <../reference/SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.setDataType>`_. Below an overview of the availabe data types and their meaning.
 
 #. dc     
 

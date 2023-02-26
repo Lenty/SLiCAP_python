@@ -54,7 +54,7 @@ i1.setDataType("matrix")
 matrices2html(i1.execute())
 
 head2html("DM-CM matrix equation")
-i1.setPairedNodes(['P', 'N'])
+i1.setPairExt(['P', 'N'])
 
 i1.setConvType('all') 
 matrices2html(i1.execute())
