@@ -367,8 +367,8 @@ def defaultsPlot():
         plt.tight_layout()
         for i in range(len(fig.axes)):
             fig.axes[i].title.set_fontsize(ini.plotFontSize)
-            fig.axes[i].grid(b=True, which='major', color='0.5',linestyle='-')
-            fig.axes[i].grid(b=True, which='minor', color='0.5',linestyle=':')
+            fig.axes[i].grid(visible=True, which='major', color='0.5',linestyle='-')
+            fig.axes[i].grid(visible=True, which='minor', color='0.5',linestyle=':')
             t = fig.axes[i].xaxis.get_offset_text()
             t.set_fontsize(ini.plotFontSize)
             t = fig.axes[i].yaxis.get_offset_text()
