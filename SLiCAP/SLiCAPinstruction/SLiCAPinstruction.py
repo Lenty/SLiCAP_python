@@ -629,7 +629,7 @@ class instruction(object):
                             print("Error: step variable '{0}' is not a parameter.".format(str(self.stepVars[i])))
                     if isinstance(self.stepVars[i], sp.Basic):
                         if self.stepVars[i] not in list(self.circuit.parDefs.keys()) and self.stepVars[i] not in self.circuit.params:
-                            print("Warning: unknown step parameter '{0}'.".format(str(stepVars[i])))
+                            print("Warning: unknown step parameter '{0}'.".format(str(self.stepVars[i])))
                     else:
                         errors += 1
                         print("Error: argument type must be 'str' or 'sympy.Symbol'.")

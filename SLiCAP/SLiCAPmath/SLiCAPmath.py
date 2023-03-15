@@ -1072,6 +1072,48 @@ def step2PeriodicPulse(ft, t_pulse, t_period, n_periods):
         print("Error: expected a time function f(t).")
     return ft_out
 
+def butterworthPoly(n):
+    """
+    Returns a narmalized Butterworth polynomial of the n-th order of the 
+    Laplace variable.
+    
+    :param n: order
+    :type n: int
+    
+    :return: Butterworth polynomial of the n-th order of the Laplace variable
+    :rtype: sympy.Expression
+    """
+    s = ini.Laplace
+    if n%2:
+        B_s = (s+1)
+        for i in range(int((n-1)/2)):
+            k = i + 1
+            B_s *= (s**2-2*s*sp.cos((2*k+n-1)*sp.pi/2/n)+1)
+    else:
+        B_s = 1
+        for i in range(int(n/2)):
+            k = i + 1
+            B_s *= (s**2-2*s*sp.cos((2*k+n-1)*sp.pi/2/n)+1)
+    B_s = sp.simplify(B_s)
+    return(B_s)
+
+def besselPoly(n):
+    """
+    Returns a normalized Bessel polynomial of the n-th order of the Laplace 
+    variable.
+    
+    :param n: order
+    :type n: int
+    
+    :return: Bessel polynomial of the n-th order of the Laplace variable
+    :rtype: sympy.Expression
+    """
+    s = ini.Laplace
+    B_s = 0
+    for k in range(n+1):
+        B_s += (sp.factorial(2*n-k)/((2**(n-k))*sp.factorial(k)*sp.factorial(n-k)))*s**k
+    B_s = sp.simplify(B_s/B_s.subs(s,0))
+    return(B_s)     
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     """
