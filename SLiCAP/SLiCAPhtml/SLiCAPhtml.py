@@ -416,9 +416,12 @@ def params2html(circuitObject, label = '', caption = ''):
     parNames = [sp.Symbol(names[i]) for i in range(len(names))]
     for par in parNames:
         parName = '$' + sp.latex(par) + '$'
-        symValue = '$' + sp.latex(roundN(circuitObject.parDefs[par])) + '$'
-        numValue = '$' + sp.latex(roundN(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs), numeric=True)) + '$'
-        html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
+        try:
+            symValue = '$' + sp.latex(roundN(circuitObject.parDefs[par])) + '$'
+            numValue = '$' + sp.latex(roundN(fullSubs(circuitObject.parDefs[par], circuitObject.parDefs), numeric=True)) + '$'
+            html += '<tr><td class="left">' + parName +'</td><td class="left">' + symValue + '</td><td class="left">' + numValue + '</td></tr>\n'
+        except:
+            pass
     html += '</table>\n'
     if len(circuitObject.params) > 0:
         caption = "<caption>Table: Parameters without definition in '%s.</caption>\n"%(circuitObject.title)
