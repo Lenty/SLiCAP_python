@@ -45,14 +45,14 @@
 + cd = 4p  ; differential-mode input capacitance 
 + gd = 5u  ; differential-mode input conductance 
 + cc = 2p  ; common-mode input capacitance 
-+ av = {3.16M*(1-s/2/pi/100M)/(1+s*0.028)}   ; voltage gain 
++ av = {3.16M*(1-s/2/pi/100M)/(1+s*31.83m)}   ; voltage gain 
 + zo = {3.6k/(1+s*3.6k*27u) + 2 + s*1.8u*30/(30+s*1.8u)}   ; output impedance
 
 .model OPA209_A0 OV 
 + cd = 4p  ; differential-mode input capacitance 
 + gd = 5u  ; differential-mode input conductance 
 + cc = 2p  ; common-mode input capacitance 
-+ av = {A_0*(1-s/2/pi/100M)/(1+s*1.1)}   ; voltage gain 
++ av = {A_0*(1-s/2/pi/100M)/(1+s*31.83m)}   ; voltage gain 
 + zo = {3.6k/(1+s*3.6k*27u) + 2 + s*1.8u*30/(30+s*1.8u)}   ; output impedance
 
 .model OPA300_A0 OV
