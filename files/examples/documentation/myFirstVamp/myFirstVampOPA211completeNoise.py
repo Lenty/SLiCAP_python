@@ -6,7 +6,8 @@ Created on Sun Mar 28 18:20:46 2021
 @author: anton
 """
 from SLiCAP import *
-from SLiCAP.SLiCAPdocTools import *
+from SLiCAP.SLiCAPrst import *
+from SLiCAP.SLiCAPlatex import *
 
 SHOW = False
 fileName = 'myFirstVampOPA211completeNoise';

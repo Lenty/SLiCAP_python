@@ -6,7 +6,7 @@ Created on Sun Mar 28 18:03:04 2021
 @author: anton
 """
 from SLiCAP import *
-from SLiCAP.SLiCAPdocTools import *
+from SLiCAP.SLiCAPrst import *
 
 fileName = 'myFirstVampOPA211bias'
 

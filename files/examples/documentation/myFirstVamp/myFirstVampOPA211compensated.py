@@ -6,7 +6,8 @@ Created on Sun Mar 28 17:34:52 2021
 @author: anton
 """
 from SLiCAP import *
-from SLiCAP.SLiCAPdocTools import *
+from SLiCAP.SLiCAPrst import *
+from SLiCAP.SLiCAPlatex import *
 
 SHOW = True
 fileName = 'myFirstVampOPA211compensated';

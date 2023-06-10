@@ -33,4 +33,4 @@ SPHINXPATH  = 'sphinx/' # path for Sphinx output
 PROJECT    = 'myFirstVampOPA211compensated'
 AUTHOR     = 'anton'
 CREATED    = '2023-05-10 06:43:08.751809'
-LASTUPDATE = '2023-06-09 14:01:25.339884'
+LASTUPDATE = '2023-06-10 17:37:53.080387'
