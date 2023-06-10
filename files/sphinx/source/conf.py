@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import time
 import sphinx_rtd_theme
-from projectinfo import project, copyright, author, version, release
+
+# -- Adapt the next two lines to your wishes ----------------------------------
+project   = "SLiCAP project documentation"
+copyright = "2023, Anton Montagne"
 
 # -- Sphinx extensions --------------------------------------------------------
 extensions = [
@@ -11,16 +14,13 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosectionlabel',
-    'sphinxcontrib.excel',
-    'sphinxcontrib.excel_table',
-    'sphinxcontrib.inkscapeconverter',
 ]
 
 # -- Sphinx settings ----------------------------------------------------------
 source_suffix    = '.rst'
 master_doc       = 'index'
 language         = None
-exclude_patterns = ['build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['build', 'Thumbs.db', '.DS_Store', 'SLiCAPdata']
 templates_path   = ['_templates']
 pygments_style   = None
 numfig           = True
@@ -37,7 +37,6 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'both',
     'style_external_links': False,
-    'vcs_pageview_mode': '',
     'style_nav_header_background': '#2980B9',
     # Toc options
     'collapse_navigation': True,
@@ -54,7 +53,6 @@ latex_elements = {
     'pointsize': '12pt',
     'preamble': r'''
      \usepackage{float}
-     \usepackage{svg}
     ''',
     'figure_align': 'htb',
 }

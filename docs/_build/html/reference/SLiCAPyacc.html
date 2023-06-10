@@ -190,7 +190,7 @@
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.addParDefsParam">
 <code class="descname">addParDefsParam</code><span class="sig-paren">(</span><em>parName</em>, <em>parDict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.addParDefsParam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a the definition of a global parameter (from SLiCAP.lib or from a 
-ser library) and, recursively, the parameters from its expression to
+user library) and, recursively, the parameters from its expression to
 the dictionary parDict.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -422,6 +422,25 @@ respectively.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.createDepVarIndex">
+<code class="descname">createDepVarIndex</code><span class="sig-paren">(</span><em>circuitObject</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.createDepVarIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an index dict for the dependent variables, this easies the 
+construction of the matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>circuitObject</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit object to be updated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SLiCAP circuit object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">SLiCAP circuit object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.expandCircuit">
 <code class="descname">expandCircuit</code><span class="sig-paren">(</span><em>circuitObject</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.expandCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>This functions flattens the hierarchy of circuitObject:</p>
@@ -599,26 +618,6 @@ defaults to CIRCUITS.</li>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Integer</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPyacc.SLiCAPyacc.sortDepVars">
-<code class="descname">sortDepVars</code><span class="sig-paren">(</span><em>circuitObject</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPyacc.SLiCAPyacc.sortDepVars" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sorts the dependent variables of the main circuit. This controls the 
-construction of the matrix such that the number of zero entries per column 
-decreases from left to right.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>circuitObject</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit object to be updated</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SLiCAP circuit object</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">SLiCAP circuit object</td>
 </tr>
 </tbody>
 </table>

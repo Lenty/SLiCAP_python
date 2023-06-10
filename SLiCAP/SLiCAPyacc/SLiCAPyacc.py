@@ -870,8 +870,16 @@ def updateElementParams(newElement, parentParams, prototypeParams, parentRefDes)
             substDict[parName] = prototypeParams[str(parName)]
         elif str(parName) in list(USERPARAMS.keys()):
             newParDefs[parName] = USERPARAMS[str(parName)]
+            
+            # recursively add parameters from expression in parameter definition
+            # from USERPARAMS
+            
         elif str(parName) in list(SLiCAPPARAMS.keys()):
             newParDefs[parName] = SLiCAPPARAMS[str(parName)]
+            
+            # recursively add parameters from expression in parameter definition
+            # from SLiAPPARAMS
+            
         elif parName != ini.Laplace and parName != ini.frequency:
             substDict[parName] = sp.Symbol(str(parName) + '_' + parentRefDes)
     # Perform the full substitution in the parameter values of the element
@@ -957,7 +965,7 @@ def updateParDefs(parentParDefs, childParDefs, parentParams, prototypeParams, pa
 def addParDefsParam(parName, parDict):
     """
     Adds a the definition of a global parameter (from SLiCAP.lib or from a 
-    ser library) and, recursively, the parameters from its expression to
+    user library) and, recursively, the parameters from its expression to
     the dictionary parDict. 
     
     :param parName: Name of the parameter.
@@ -1057,16 +1065,16 @@ def updateCirData(circuitObject):
     if '0' not in circuitObject.nodes:
         circuitObject.errors += 1
         print("Error: could not find ground node '0'.")
-    for i in range(len(circuitObject.nodes)):
-        circuitObject.depVars.append('V_' + circuitObject.nodes[i])
-    circuitObject = sortDepVars(circuitObject)
+    nodeVoltages = ['V_' + circuitObject.nodes[i] for i in range(len(circuitObject.nodes))]
+    #circuitObject.depVars = nodeVoltages + circuitObject.depVars
+    circuitObject.depVars += nodeVoltages
+    circuitObject = createDepVarIndex(circuitObject)
     return circuitObject
 
-def sortDepVars(circuitObject):
+def createDepVarIndex(circuitObject):
     """
-    Sorts the dependent variables of the main circuit. This controls the 
-    construction of the matrix such that the number of zero entries per column 
-    decreases from left to right.
+    Creates an index dict for the dependent variables, this easies the 
+    construction of the matrix.
   
     :param circuitObject: Circuit object to be updated
     :type circuitObject: SLiCAPprotos.circuit
@@ -1074,102 +1082,13 @@ def sortDepVars(circuitObject):
     :return: SLiCAP circuit object
     :rtype: SLiCAP circuit object
     """
-    depVars = list(set(circuitObject.depVars))
-    
-    vGnd = []
-    nGnd = []
-    rGnd = []
-    lGnd = []
-    eGnd = []
-    ezGnd = []
-    gGnd = []
-    tGnd = []
-    hGnd = []
-    hzGnd = []
-    fGnd = []
-    v = []
-    n = []
-    r = []
-    l = []
-    e = []
-    ez = []
-    f = []
-    g = []
-    t = []
-    h = []
-    hz = []
-    for var in depVars:
-        varType = var[0]
-        if varType == 'I':
-            if var[1] == '_':
-                varElement = var[2:]
-                model = circuitObject.elements[varElement].model
-                nodes = circuitObject.elements[varElement].nodes
-                if nodes[0] == '0' or nodes[1] == '0':
-                    if model == 'V':
-                        vGnd.append(var)
-                    elif model == 'r':
-                        rGnd.append(var)
-                    elif model == 'L':
-                        lGnd.append(var)
-                else:
-                    if model == 'V':
-                        v.append(var)
-                    elif model == 'r':
-                        r.append(var)
-                    elif model == 'L':
-                        l.append(var)
-            if var[2] == '_':
-                varElement = var[3:]
-                model = circuitObject.elements[varElement].model
-                nodes = circuitObject.elements[varElement].nodes
-                if nodes[0] == '0' or nodes[1] == '0':
-                    if model == 'N':
-                        nGnd.append(var)
-                    elif model == 'E':
-                        eGnd.append(var)
-                    elif model == 'G':
-                        gGnd.append(var)
-                    elif model == 'T':
-                        tGnd.append(var)
-                    elif model == 'H':
-                        hGnd.append(var)
-                    elif model == 'EZ':
-                        ezGnd.append(var)
-                    elif model == 'HZ':
-                        hzGnd.append(var)
-                    elif model == 'F':
-                        fGnd.append(var)               
-                else:
-                    if model == 'N':
-                        n.append(var)
-                    elif model == 'E':
-                        e.append(var)
-                    elif model == 'G':
-                        g.append(var)
-                    elif model == 'T':
-                        t.append(var)
-                    elif model == 'H':
-                        h.append(var)
-                    elif model == 'EZ':
-                        ez.append(var)
-                    elif model == 'HZ':
-                        hz.append(var)
-                    elif model == 'F':
-                        f.append(var)
-    circuitObject.depVars = vGnd + nGnd + rGnd + lGnd + eGnd + fGnd + gGnd + hGnd + ezGnd + hzGnd + tGnd + v + n + r + l + e + f + g + h + ez + hz + t
-    
     circuitObject.varIndex = {}
-    varIndexPos = 0
+    #varIndexPos = 0
     for i in range(len(circuitObject.depVars)):
-        circuitObject.varIndex[circuitObject.depVars[i]] = varIndexPos
-        varIndexPos += 1
-    
-    for i in range(len(circuitObject.nodes)):
-        circuitObject.depVars.append('V_' + circuitObject.nodes[i])
-        circuitObject.varIndex[circuitObject.nodes[i]] = varIndexPos
-        varIndexPos += 1
-    
+        if circuitObject.depVars[i][0:2] == 'V_':
+            circuitObject.varIndex[circuitObject.depVars[i][2:]] = i
+        else:
+            circuitObject.varIndex[circuitObject.depVars[i]] = i
     return circuitObject
 
 def checkCircuit(fileName):

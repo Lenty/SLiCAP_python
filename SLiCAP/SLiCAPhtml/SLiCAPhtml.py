@@ -971,25 +971,6 @@ def file2html(fileName):
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return html
 
-def roundN(expr, numeric=False):
-    """
-    Rounds all number atoms in an expression to ini.disp digits, and
-    converts integers into floats if their number of digits exceeds ini.disp
-    """
-    if numeric:
-        expr = sp.N(expr, ini.disp)
-    try:
-        expr = expr.xreplace({n : sp.N(n, ini.disp) for n in expr.atoms(sp.Float)})
-        ints = list(expr.atoms(sp.Number))
-        for i in range(len(ints)):
-            if sp.Abs(ints[i]) < 10^ini.disp and int(ints[i]) == ints[i]:
-                expr = expr.xreplace({ints[i]: int(ints[i])})
-            if sp.N(sp.Abs(ints[i])) > 10**ini.disp or sp.N(sp.Abs(ints[i])) < 10**-ini.disp:
-                expr = expr.xreplace({ints[i]: sp.N(ints[i], ini.disp)})      
-    except:
-        pass
-    return expr
-
 ### HTML links and labels
 
 def href(label, fileName = ''):
@@ -1070,8 +1051,42 @@ def htmlLink(address, text):
     html = '<a href="' + address + '">' + text + '</a>\n'
     return html
 
+def htmlParValue(instr, parName):
+    """
+    Returns code for inline display of parameter 'parName' from instruction
+    'instr'. If instr.simType == 'numeric' it applies a full substitution of
+    all other parameter definitions.
+
+    :param instr: Instruction that holds the parameter definition
+    :type instr: SLiCAPinstruction.instruction
+    
+    :param parName: Name of the parameter
+    :type parName: string
+
+    :return: html code for the parameter value
+    :rtype: string
+    """
+    return '$' + str(sp.latex(roundN(instr.getParValue(parName)))) + '$'
+
+def htmlElValue(instr, elName):
+    """
+    Returns code for inline display of value of element 'elName' from instruction
+    'instr'. If instr.simType == 'numeric' it applies a full substitution of
+    all other parameter definitions.
+
+    :param instr: Instruction that holds the parameter definition
+    :type instr: SLiCAPinstruction.instruction
+    
+    :param elName: Element identifier
+    :type elName: string
+
+    :return: html code for the element value
+    :rtype: string
+    """
+    return '$' + str(sp.latex(roundN(instr.getElementValue(elName)))) + '$'
+
 if __name__ == '__main__':
-    ini.projectPath = ini.installPath + 'examples/CSstage/'
-    ini.htmlPath    = ini.projectPath + 'html/'
+    ini.projectPath = ini.userPath + '/examples/CSstage/'
+    ini.htmlPath    = ini.userPath + '/examples/CSstage/html/'
     ini.lastUpdate  = datetime.now()
     startHTML('Test project')

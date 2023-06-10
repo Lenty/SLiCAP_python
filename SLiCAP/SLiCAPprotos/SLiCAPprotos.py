@@ -34,11 +34,6 @@ class circuit(object):
         Name (*str*) of the netlist file. Defaults to None.
         """
 
-        self.lexer      = None
-        """
-        Tokenized (*ply.lex.lex*) netlist file. Defaults to None.
-        """
-
         self.subCKT     = False
         """
         (*bool*) True if the circuit is a sub circuit. Defaults to False.

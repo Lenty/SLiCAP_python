@@ -20,7 +20,7 @@ SCALEFACTORS    =  {'y':'-24','z':'-21','a':'-18','f':'-15','p':'-12','n':'-9',
 def t_PARDEF(t):
     r"""[a-zA-Z]\w*\s*\=\s*({[\w\(\)\/*+-\^ .]*}
     |([+-]?\d+\.?\d*[eE][+-]?\d+)
-    |([+-]?\d+\.?\d*[yzafpnumkMGTPEZY])
+    |([+-]?\d+\.?\d*[yzafpnumkMGTP])
     |([+-]?\d+\.\d*)
     |([+-]?\d+))"""
     # remove whitespace characters
@@ -32,7 +32,7 @@ def t_PARDEF(t):
         # Do this for an expression
         pos = 1
         out = ''
-        for m in re.finditer(r'\d+\.?\d*[yzafpnumkMGTPEZY]', t.value[1]):
+        for m in re.finditer(r'\d+\.?\d*[yzafpnumkMGTP]', t.value[1]):
             out += t.value[1][pos: m.end()-1] + 'E'
             out += SCALEFACTORS[m.group(0)[-1]]
             pos = m.end()

@@ -211,18 +211,18 @@ class instruction(object):
 
         self.detUnits = None
         """
-        Detector units 'V' or 'A' (automatically detected in **instruction.chekDetector()**).
+        Detector units 'V' or 'A' (automatically detected in **instruction.checkDetector()**).
         """
 
         self.srcUnits = None
         """
-        Source units 'V' or 'A' (automatically detected in **instruction.chekDetector()**).
+        Source units 'V' or 'A' (automatically detected in **instruction.checkSource()**).
         """
 
         self.detLabel = None
         """
         Name for the detector quantity to be used in expressions or plots
-        (automatically determined in **instruction.chekDetector()**).
+        (automatically determined in **instruction.checkDetector()**).
         """       
         
         self.label = ''
@@ -1320,7 +1320,7 @@ class instruction(object):
                       
         :type param: str
         
-        :return: if type(parNames) == list:
+        :return: if type(param) == list:
             
                  return value = dict with key-value pairs: key (*sympy.Symbol*): 
                  name of the parameter, value (*int, float, sympy expression*): 

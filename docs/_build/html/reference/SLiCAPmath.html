@@ -675,6 +675,25 @@ represents the loop gain of a circuit.</td>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.float2rational">
+<code class="descname">float2rational</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.float2rational" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts floats in expr into rational numbers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> (<em>sympy.Expression</em>) – Sympy expression in which floats need to be converterd into
+rational numbers.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">expression in which floats have been replaced with rational numbers.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expression</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.fullSubs">
 <code class="descname">fullSubs</code><span class="sig-paren">(</span><em>valExpr</em>, <em>parDefs</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.fullSubs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns ‘valExpr’ after all parameters of ‘parDefs’ have been substituted
@@ -993,6 +1012,25 @@ sp.I*ini.frequency.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.rational2float">
+<code class="descname">rational2float</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.rational2float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts rational numbers in expr into floats.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> (<em>sympy.Expression</em>) – Sympy expression in which rational numbers need to be 
+converterd intoc floats.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">expression in which rational numbers have been replaced with floats.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sympy.Expression</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise">
 <code class="descname">rmsNoise</code><span class="sig-paren">(</span><em>noiseResult</em>, <em>noise</em>, <em>fmin</em>, <em>fmax</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the RMS source-referred noise or detector-referred noise,
@@ -1027,6 +1065,13 @@ for ‘noise’ are accepted.</li>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPmath.SLiCAPmath.roundN">
+<code class="descname">roundN</code><span class="sig-paren">(</span><em>expr</em>, <em>numeric=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.roundN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rounds all floaat and rational atoms in an expression to ini.disp digits,
+and converts integers into floats if their number of digits exceeds ini.disp</p>
 </dd></dl>
 
 <dl class="function">

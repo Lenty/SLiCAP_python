@@ -118,6 +118,8 @@ Known causes:
 - divide by zero
 - determinant of a non-square matrix
 """)
+                    print("MAXIMA INSTRUCTION:")
+                    print(maxInstr)
                     break
         self.mut.release()
         return output
@@ -137,6 +139,9 @@ Known causes:
         >>> maxEval("result:ilt(1/(s^2 + a^2), s, t);")
         'sin(a*t)/a'
         """
+        
+        #print(maxExpr)
+        
         result = self.parseMaxima(maxExpr)
         return result
 

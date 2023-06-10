@@ -38,7 +38,13 @@ def getValues(elmt, param, numeric, parDefs):
         (numer, denom) = sp.simplify(value).as_numer_denom()
     else:
         numer = value
-        denom = 1
+        denom = sp.sympify('1')
+    if numeric == True:
+        numer = float2rational(sp.N(fullSubs(numer, parDefs)))
+        denom = float2rational(sp.N(fullSubs(denom, parDefs)))
+    else:
+        numer = float2rational(numer)
+        denom = float2rational(denom)
     return (numer, denom)
 
 def getValue(elmt, param, numeric, parDefs):
@@ -74,7 +80,9 @@ def getValue(elmt, param, numeric, parDefs):
     if param in list(elmt.params.keys()):
         value = elmt.params[param]
         if numeric == True:
-            value = sp.N(fullSubs(value, parDefs))
+            value = float2rational(sp.N(fullSubs(value, parDefs)))
+        else:
+            value = float2rational(sp.sympify(str(value)))
     return value
 
 def makeMatrices(instr):

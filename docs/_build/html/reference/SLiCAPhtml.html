@@ -486,6 +486,32 @@ closing it after the first run, automaitcally detects all labels.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="SLiCAP.SLiCAPhtml.SLiCAPhtml.htmlElValue">
+<code class="descname">htmlElValue</code><span class="sig-paren">(</span><em>instr</em>, <em>elName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPhtml.SLiCAPhtml.htmlElValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns code for inline display of value of element ‘elName’ from instruction
+‘instr’. If instr.simType == ‘numeric’ it applies a full substitution of
+all other parameter definitions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a>) – Instruction that holds the parameter definition</li>
+<li><strong>elName</strong> (<em>string</em>) – Element identifier</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">html code for the element value</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="SLiCAP.SLiCAPhtml.SLiCAPhtml.htmlLink">
 <code class="descname">htmlLink</code><span class="sig-paren">(</span><em>address</em>, <em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPhtml.SLiCAPhtml.htmlLink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the html code for placing a link on an html page with <em>text2html()</em>.</p>
@@ -526,6 +552,32 @@ page will be placed on the current index page.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">htmlPage</span><span class="p">(</span><span class="s1">&#39;Circuit data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="SLiCAP.SLiCAPhtml.SLiCAPhtml.htmlParValue">
+<code class="descname">htmlParValue</code><span class="sig-paren">(</span><em>instr</em>, <em>parName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPhtml.SLiCAPhtml.htmlParValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns code for inline display of parameter ‘parName’ from instruction
+‘instr’. If instr.simType == ‘numeric’ it applies a full substitution of
+all other parameter definitions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a>) – Instruction that holds the parameter definition</li>
+<li><strong>parName</strong> (<em>string</em>) – Name of the parameter</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">html code for the parameter value</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -768,13 +820,6 @@ HTML page.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SLiCAP.SLiCAPhtml.SLiCAPhtml.roundN">
-<code class="descname">roundN</code><span class="sig-paren">(</span><em>expr</em>, <em>numeric=False</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPhtml.SLiCAPhtml.roundN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rounds all number atoms in an expression to ini.disp digits, and
-converts integers into floats if their number of digits exceeds ini.disp</p>
 </dd></dl>
 
 <dl class="function">

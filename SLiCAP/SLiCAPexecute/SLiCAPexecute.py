@@ -1157,9 +1157,9 @@ def makeMaxInstr(instr, result):
         for name in instr.circuit.indepVars:
             if 'noise' in list(instr.circuit.elements[name].params.keys()):
                 value = instr.circuit.elements[name].params['noise']
-                result.snoiseTerms[name] = value
                 if instr.numeric == True:
                     value = fullSubs(value, instr.parDefs)
+                result.snoiseTerms[name] = value
                 maxInstr += name + '=' + str(value) + ','
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
@@ -1266,7 +1266,9 @@ def makeMaxMatrices(instr, result):
     result.M, result.Dv = makeMatrices(instr)
     
     # Create vecor with independent variables
-    Iv = [0 for i in range(len(instr.depVars()))]
+    # Iv = [0 for i in range(len(instr.depVars()))]
+    Iv = [0 for i in range(result.M.shape[0])]
+    
     result.Iv = sp.Matrix(Iv)
     gainTypes = ['gain', 'asymptotic', 'direct']
     if instr.gainType == 'vi':
@@ -1309,10 +1311,6 @@ def makeMaxMatrices(instr, result):
                         result.Iv[pos] = (-1)**i/ns
     else:
         result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'value', numeric = instr.numeric)
-    if instr.numeric:
-        result.M = sp.N(result.M)
-        result.Dv = sp.N(result.Dv)
-        result.Iv = sp.N(result.Iv)
     if instr.convType != None:
         result = convertMatrices(instr, result)
     return result
@@ -1451,7 +1449,6 @@ def parseMaxResult(result, indepVars, maxResult):
             result.zeros.append(list(sp.sympify(zeros)))
         except:
             pass
-
     return result
 
 def stepFunctions(stepDict, function):

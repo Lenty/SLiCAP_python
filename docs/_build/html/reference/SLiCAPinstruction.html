@@ -601,13 +601,13 @@ be used as detector.</p>
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detLabel">
 <code class="descname">detLabel</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detLabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name for the detector quantity to be used in expressions or plots
-(automatically determined in <strong>instruction.chekDetector()</strong>).</p>
+(automatically determined in <strong>instruction.checkDetector()</strong>).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detUnits">
 <code class="descname">detUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.detUnits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Detector units ‘V’ or ‘A’ (automatically detected in <strong>instruction.chekDetector()</strong>).</p>
+<dd><p>Detector units ‘V’ or ‘A’ (automatically detected in <strong>instruction.checkDetector()</strong>).</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -703,7 +703,7 @@ numeric = True if instruction.simType is set to ‘numeric’.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>if type(parNames) == list:</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>if type(param) == list:</p>
 <p>return value = dict with key-value pairs: key (<em>sympy.Symbol</em>): 
 name of the parameter, value (<em>int, float, sympy expression</em>): 
 value of the parameter</p>
@@ -1490,7 +1490,7 @@ parameter is obtained as follows:</p>
 <dl class="attribute">
 <dt id="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.srcUnits">
 <code class="descname">srcUnits</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction.srcUnits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Source units ‘V’ or ‘A’ (automatically detected in <strong>instruction.chekDetector()</strong>).</p>
+<dd><p>Source units ‘V’ or ‘A’ (automatically detected in <strong>instruction.checkSource()</strong>).</p>
 </dd></dl>
 
 <dl class="attribute">
