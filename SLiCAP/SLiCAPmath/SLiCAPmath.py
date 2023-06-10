@@ -1272,19 +1272,22 @@ def roundN(expr, numeric=False):
     elif numeric:
         expr = sp.N(rational2float(expr), ini.disp)
     else:
-        expr   = expr.xreplace({n : sp.Float(n, ini.disp) for n in expr.atoms(sp.Float)})
-        expr   = expr.xreplace({n : sp.Float(rational2float(n), ini.disp) for n in expr.atoms(sp.Rational)})
-        ints   = expr.atoms(sp.Integer)
-        floats = expr.atoms(sp.Float)
-        maxInt = 10**ini.disp # Maximum integer to be displayed within display accuracy
-        for flt in floats:
-            # Remove '.0' for integer numbers smaller than 10^ini.disp
-            intNumber = sp.Integer(flt)
-            if intNumber == flt and sp.Abs(flt) < maxInt:
-                expr = expr.xreplace({flt: intNumber})
-        for integer in ints:
-            if sp.Abs(integer) >= maxInt:
-                expr = expr.xreplace({integer: sp.Float(integer, ini.disp)})
+        try:
+            expr   = expr.xreplace({n : sp.Float(n, ini.disp) for n in expr.atoms(sp.Float)})
+            expr   = expr.xreplace({n : sp.Float(rational2float(n), ini.disp) for n in expr.atoms(sp.Rational)})
+            ints   = expr.atoms(sp.Integer)
+            floats = expr.atoms(sp.Float)
+            maxInt = 10**ini.disp # Maximum integer to be displayed within display accuracy
+            for flt in floats:
+                # Remove '.0' for integer numbers smaller than 10^ini.disp
+                intNumber = sp.Integer(flt)
+                if intNumber == flt and sp.Abs(flt) < maxInt:
+                    expr = expr.xreplace({flt: intNumber})
+            for integer in ints:
+                if sp.Abs(integer) >= maxInt:
+                    expr = expr.xreplace({integer: sp.Float(integer, ini.disp)})
+        except AttributeError:
+            pass
     return expr
 
 if __name__ == "__main__":
