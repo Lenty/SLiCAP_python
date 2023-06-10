@@ -1,0 +1,13 @@
+myFirstVampOPA211compensated
+O1 N001 N003 N002 0 OPA211_A0
+R1 N002 N003 {R_a}
+R2 N003 0 {R_b}
+R3 N001 N004 {R_s}
+V1 N004 0 V value=0 dc=0 dcvar=0 noise=0
+C1 out 0 {C_ell}
+R4 out N002 {R_phz}
+C2 N002 N003 {C_phz}
+.include SLiCAP.lib
+.param R_s=600 R_a=20k R_b=220 C_ell=3.3n A_0=667k
+.param R_phz=27 C_phz=2.2p
+.end

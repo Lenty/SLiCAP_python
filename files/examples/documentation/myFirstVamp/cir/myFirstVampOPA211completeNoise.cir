@@ -1,0 +1,20 @@
+myFirstVampOPA211completeNoise
+R1 N003 N005 {R_a}
+R2 N005 N006 {R_b}
+R3 N001 N004 {R_s}
+V1 N004 0 V value=0 dc=0 dcvar=0 noise={4*k*T*R_s}
+C1 out 0 {C_ell}
+R4 out N003 {R_phz}
+C2 N003 N005 {C_phz}
+C3 N006 0 47u
+C4 N002 N001 1u
+R5 N002 0 20k
+XU1 N002 N005 N003 0 O_noise sv={1.2e-18} si={2.9e-24}
+I1 N002 0 I value=0 dc=0 dcvar=0 noise={4*k*T/20k}
+I2 N005 N006 I value=0 dc=0 dcvar=0 noise={4*k*T/R_b}
+I3 N003 N005 I value=0 dc=0 dcvar=0 noise={4*k*T/R_a}
+.include SLiCAP.lib
+.param R_s=600 R_a=20k R_b=220 C_ell=3.3n A_0=667k
+.param R_phz=27 C_phz=2.2p
+.backanno
+.end

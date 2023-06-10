@@ -1,0 +1,9 @@
+myFirstVampOPA211uncompensated
+O1 N001 N002 out 0 OPA211_A0
+R1 out N002 {R_a}
+R2 N002 0 {R_b}
+R3 N001 N003 {R_s}
+V1 N003 0 V value=0 dc=0 dcvar=0 noise=0
+C1 out 0 {C_ell}
+.param R_s=600 R_a=20k R_b=220 C_ell=3.3n A_0=667k
+.end
