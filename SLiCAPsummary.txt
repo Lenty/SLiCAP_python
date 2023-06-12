@@ -65,6 +65,8 @@ FUNCTIONS :
            addTraces
            assumePosParams
            assumeRealParams
+           besselPoly
+           butterworthPoly
            calcNumer
            cancelPZ
            checkCircuit
@@ -85,6 +87,7 @@ FUNCTIONS :
            convertMatrices
            copyNotOverwrite
            createConversionMatrices
+           createDepVarIndex
            createResultObject
            csv2html
            csv2specs
@@ -127,8 +130,10 @@ FUNCTIONS :
            expr2html
            fig2html
            file2html
+           findBaseNames
            findServoBandwidth
            find_column
+           float2rational
            fullSubs
            gainValue
            getSubMatrices
@@ -171,6 +176,7 @@ FUNCTIONS :
            noise2html
            normalizeRational
            numRoots
+           pairParDefs
            pairVariables
            params2html
            parseCommand
@@ -189,6 +195,7 @@ FUNCTIONS :
            printError
            python2maxima
            pz2html
+           rational2float
            readFile
            replaceScaleFactors
            restartMaxima
@@ -197,12 +204,10 @@ FUNCTIONS :
            routh
            sign2signum
            signum2sign
-           sortDepVars
            specList2dict
            specs2circuit
            specs2csv
            specs2html
-           specs2rst
            startHTML
            startMaxima
            start_new_thread
@@ -260,9 +265,9 @@ CLASSES   :
 ======================================================================
 
 
-Label(text, page, typ, self, name): SLiCAP/SLiCAPhtml
+Label(text, page, name, typ, self): SLiCAP/SLiCAPhtml
 
-SLiCAPproject(self, name): SLiCAP
+SLiCAPproject(name, self): SLiCAP
 
 allResults(self): SLiCAP/SLiCAPprotos
 
@@ -277,8 +282,8 @@ circuit(self): SLiCAP/SLiCAPprotos
    - checkExpression
  - getParValue(self.parDefs)
    - fullSubs
- - updateParams(self.Symbol, self.params, self.parDefs, self.elements, self.frequency, self.Laplace)
- - getElementValue(self.elements, self.parDefs, self.params)
+ - updateParams(self.params, self.frequency, self.Symbol, self.Laplace, self.elements, self.parDefs)
+ - getElementValue(self.params, self.elements, self.parDefs)
    - fullSubs
 
 device(self): SLiCAP/SLiCAPprotos
@@ -286,32 +291,32 @@ device(self): SLiCAP/SLiCAPprotos
 element(self): SLiCAP/SLiCAPprotos
 
 figure(fileName, self): SLiCAP/SLiCAPplots
- - plot(self.xScale, self.plotFontSize, self.label, self.polar, self.shape, self.yLabel, self.imgPath, self.axes, self.markerFaceColor, self.fileName, self.markerSize, self.defaultMarkers, self.xScaleFactor, self.axisHeight, self.color, self.add_subplot, self.traces, self.yData, self.lineType, self.figure, self.xLabel, self.yScale, self.yScaleFactor, self.axisWidth, self.markerColor, self.yLim, self.xData, self.xLim, self.defaultColors, self.text, self.show, self.plot, self.marker, self.title, self.lineWidth)
+ - plot(self.plotFontSize, self.markerColor, self.xData, self.add_subplot, self.yLabel, self.fileName, self.yData, self.lineWidth, self.axisHeight, self.axes, self.yScaleFactor, self.imgPath, self.polar, self.marker, self.markerFaceColor, self.yScale, self.traces, self.figure, self.title, self.xScale, self.yLim, self.xScaleFactor, self.xLabel, self.markerSize, self.text, self.defaultColors, self.show, self.color, self.lineType, self.shape, self.defaultMarkers, self.xLim, self.plot, self.axisWidth, self.label)
    - defaultsPlot
 
 instruction(self): SLiCAP/SLiCAPinstruction
  - setSimType(self.simType)
- - checkSimType(self.numeric, self.errors, self.simType)
+ - checkSimType(self.simType, self.errors, self.numeric)
  - setGainType(self.gainType)
- - checkGainType(self.gainType, self.errors)
+ - checkGainType(self.errors, self.gainType)
  - setConvType(self.convType)
  - checkConvType(self.errors, self.convType)
- - setPairedNodes(self.pairedNodes)
- - checkPairedNodes(self.circuit, self.elements, self.nodes)
+ - setPairExt(self.pairExt)
+ - checkPairExt(self.pairExt)
  - setPairedCircuits(self.pairedCircuits)
  - checkPairedCircuits(self.circuit, self.elements)
  - setDataType(self.dataType)
- - checkDataType(self.dataType, self.errors)
+ - checkDataType(self.errors, self.dataType)
  - stepOn(self.step)
  - stepOff(self.step)
  - setStepVar(self.stepVar)
- - checkStepVar(self.stepVar, self.params, self.parDefs, self.Basic, self.errors, self.circuit)
+ - checkStepVar(self.errors, self.params, self.Basic, self.stepVar, self.circuit, self.parDefs)
  - setStepVars(self.stepVars)
- - checkStepVars(self.params, self.parDefs, self.Basic, self.errors, self.stepVars, self.circuit)
+ - checkStepVars(self.errors, self.stepVars, self.params, self.Basic, self.circuit, self.parDefs)
  - setStepMethod(self.stepMethod)
  - checkStepMethod(self.errors, self.stepMethod)
  - setStepStart(self.stepStart)
- - checkStepStart(self.errors, self.stepStart)
+ - checkStepStart(self.stepStart, self.errors)
    - checkNumber
  - setStepStop(self.stepStop)
  - checkStepStop(self.errors, self.stepStop)
@@ -322,42 +327,42 @@ instruction(self): SLiCAP/SLiCAPinstruction
  - checkStepList(self.errors, self.stepList)
    - checkNumber
  - setStepArray(self.stepArray)
- - checkStepArray(self.stepVars, self.errors, self.stepArray)
+ - checkStepArray(self.stepArray, self.errors, self.stepVars)
    - checkNumber
  - setSource(self.source, self.checkSource)
  - checkSource(self.source, self.errors, self.srcUnits)
  - setDetector(self.detector)
- - checkDetector(self.detector, self.detUnits, self.detLabel, self.errors, self.lgRef, self.convType)
+ - checkDetector(self.errors, self.convType, self.detUnits, self.detector, self.detLabel, self.lgRef)
  - setLGref(self.lgRef)
- - checkLGref(self.circuit, self.controlled, self.errors, self.lgRef)
+ - checkLGref(self.errors, self.controlled, self.circuit, self.lgRef)
  - delPar(self.circuit)
  - defPar(self.circuit)
  - defPars(self.circuit)
- - getParValue(self.numeric, self.circuit, self.simType)
- - getElementValue(self.numeric, self.circuit, self.simType)
+ - getParValue(self.simType, self.circuit, self.numeric)
+ - getElementValue(self.simType, self.circuit, self.numeric)
  - indepVars(self.circuit, self.indepVars)
  - depVars(self.circuit, self.depVars)
- - controlled(self.circuit, self.controlled)
+ - controlled(self.controlled, self.circuit)
  - setCircuit(self.circuit)
    - checkCircuit
- - checkCircuit(self.circuit, self.errors, self.params)
- - checkNumeric(self.numeric, self.dataType, self.errors, self.simType)
- - checkStep(self.stepStart, self.stepVar, self.parDefs, self.stepStop, self.stepArray, self.stepDict, self.errors, self.stepMethod, self.stepNum, self.stepVars, self.circuit, self.stepList, self.step)
- - check(self.pairedCircuits, self.numeric, self.circuit, self.checkSource, self.step, self.stepDict, self.errors, self.pairedNodes, self.dataType, self.gainType, self.convType)
+ - checkCircuit(self.errors, self.circuit, self.params)
+ - checkNumeric(self.dataType, self.errors, self.numeric, self.simType)
+ - checkStep(self.errors, self.stepVars, self.stepDict, self.stepNum, self.stepList, self.stepArray, self.stepStart, self.stepMethod, self.step, self.circuit, self.stepVar, self.stepStop, self.parDefs)
+ - check(self.errors, self.checkSource, self.numeric, self.convType, self.pairExt, self.stepDict, self.dataType, self.gainType, self.step, self.circuit)
    - addResNoiseSources
-   - delResNoiseSources
    - updateCirData
+   - delResNoiseSources
  - execute(self.errors)
    - doInstruction
  - useMatrixConversion(self.conversionMethod)
 
-maximaHandler(timeout, port, host, self, maxima): SLiCAP/SLiCAPpythonMaxima
+maximaHandler(timeout, port, maxima, host, self): SLiCAP/SLiCAPpythonMaxima
  - __del__(self.active)
  - runMaxima(self.PORT, self.maxima)
  - startMaxima(self.daemon)
  - restartMaxima(self.active)
  - getResponse(self.conn)
- - parseMaxima(self.mut, self.active, self.answers, self.conn)
+ - parseMaxima(self.conn, self.active, self.mut)
    - wait_until
  - maxEval()
 
@@ -367,16 +372,15 @@ modelDef(self): SLiCAP/SLiCAPprotos
 
 settings(self): SLiCAP/SLiCAPini
  - dump()
- - updatePaths(self.defaultLib, self.ltspice, self.imgPath, self.csvPath, self.htmlPath, self.sphinxPath, self.projectPath, self.txtPath, self.latexPath, self.mathmlPath, self.netlist, self.docPath, self.maxima, self.userPath, self.circuitPath, self.libraryPath)
+ - updatePaths(self.txtPath, self.imgPath, self.ltspice, self.libraryPath, self.sphinxPath, self.mathmlPath, self.circuitPath, self.userPath, self.maxima, self.defaultLib, self.csvPath, self.htmlPath, self.projectPath, self.netlist, self.latexPath, self.docPath)
 
-specItem(description, minValue, typValue, maxValue, self, symbol, units, specType): SLiCAP/SLiCAPdesignData
- - update(self.minValue, self.typValue, self.maxValue, self.symbol, self.spectype, self.units, self.specType)
+specItem(specType, units, typValue, self, maxValue, description, symbol, minValue): SLiCAP/SLiCAPdesignData
+ - update(self.spectype, self.specType, self.units, self.maxValue, self.typValue, self.symbol, self.minValue)
    - checkExpression
- - csvLine(self.description, self.minValue, self.typValue, self.maxValue, self.symbol, self.units, self.specType)
- - htmlLine(self.description, self.minValue, self.typValue, self.maxValue, self.symbol, self.units)
+ - csvLine(self.description, self.specType, self.units, self.typValue, self.maxValue, self.symbol, self.minValue)
+ - htmlLine(self.description, self.units, self.typValue, self.maxValue, self.symbol, self.minValue)
    - roundN
- - rstLine(self.description, self.minValue, self.typValue, self.maxValue, self.symbol, self.units)
-   - roundN
+ - specLine(self.description, self.units, self.typValue, self.maxValue, self.symbol, self.minValue)
 
 trace(traceData, self): SLiCAP/SLiCAPplots
- - makeTable(self.xName, self.xData, self.yData, self.yName)
+ - makeTable(self.xName, self.yName, self.yData, self.xData)
