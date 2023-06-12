@@ -9,7 +9,7 @@ Created on Sun Jul  5 19:15:00 2020
 from SLiCAP import *
 t1 = time()
 
-prj = initProject('NMOS EKV plots') # Creates the SLiCAP libraries and the
+#prj = initProject('NMOS EKV plots') # Creates the SLiCAP libraries and the
                              # project HTML index page
 
 fileName = 'mosEKVplotsN.cir'

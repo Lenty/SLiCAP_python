@@ -32,7 +32,7 @@
 \usepackage{datatool}
 % https://www.ctan.org/pkg/datatool
 \DTLsetseparator{,}
-\DTLloaddb[noheader, keys={thekey,thevalue}]{SLiCAPdata}{TEXsubstitutions.csv}
+\DTLloaddb[noheader, keys={thekey,thevalue}]{SLiCAPdata}{SLiCAPdata/TEXsubstitutions.tex}
 \newcommand{\var}[1]{\DTLfetch{SLiCAPdata}{thekey}{#1}{thevalue}}
 % use: \var{<thekey>} for inline substitution of a variable in your text.
 

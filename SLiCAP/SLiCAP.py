@@ -125,6 +125,7 @@ def initProject(name, port=ini.PORT):
     copyNotOverwrite(ini.userPath + '/sphinx/source/_templates/layout.html', ini.sphinxPath + 'source/_templates/layout.html')
     makeDir(ini.mathmlPath)
     makeDir(ini.latexPath)
+    makeDir(ini.latexPath + 'SLiCAPdata/')
     copyNotOverwrite(ini.userPath + '/tex/preambuleSLiCAP.tex', ini.latexPath + 'preambuleSLiCAP.tex')
     ini.socket = True
     if ini.maximaHandler == None:

@@ -139,7 +139,7 @@ With **LTspice** you can print schematics to a .PDF file using a PDF printer.
 
 With **gschem** running under **MSwindows** you can write your schematic file to a .PDF file.
 
-For proper display of schematics on html pages these .PDF files need to be be converted to .SVG files, you can use `pdf2svg <https://github.com/jalios/pdf2svg-windows>`_ or `pdf2svg <https://www.pdftron.com/documentation/cli/download/windows/>`_for this purpose. Under Linux and Mac OS you can install 'psd2svg' from the package manager.
+For proper display of schematics on html pages these .PDF files need to be be converted to .SVG files, you can use `pdf2svg <https://github.com/jalios/pdf2svg-windows>`_ or `pdf2svg <https://www.pdftron.com/documentation/cli/download/windows/>`_ for this purpose. Under Linux and Mac OS you can install 'psd2svg' from the package manager.
 
 With **gschem** running under **Linux** or **Mac OS** you can write your schematic file to a .EPS file.
 

@@ -137,43 +137,42 @@ class specItem(object):
             html += '<td class="left">$\\mathrm{' + sp.latex(self.units) + '}$</td></tr>\n'       # Units
         return html
     
-    def rstLine(self):
+    def specLine(self):
         """
-        Creates an rst output line for this spec item. 
+        Creates an output line for this spec item (used with latex and rst reports)
         
-        :return: rst code of this specitem
-        :rtype: str
+        :return: list with: symbol, description, minValue, typValue, maxValue, units
+        :rtype: list
         """
         # symbol
-        rst     = [self.symbol]
+        line     = [self.symbol]
         # description
-        rst.append(self.description)
+        line .append(self.description)
         
         # minValue
         if type(self.minValue) == str:
-            rst.append(',')
+            line .append(',')
         else:
-            rst.append(self.minValue)
+            line .append(self.minValue)
             
         # typValue    
         if type(self.typValue) == str:
-            rst.append(',')
+            line .append(',')
         else:
-            rst.append(typValue)
+            line .append(typValue)
             
         # maxValue    
         if type(self.maxValue) == str:
-            rst.append(',')
+            line .append(',')
         else:
-            rst.append(self.maxValue)
+            line .append(self.maxValue)
             
         # units
         if type(self.units) == str:
-            rst.append(',')
+            line .append(',')
         else:
-            rst.append(self.units)
-        rst.append(self.spectype)
-        return rst        
+            line .append(self.units)
+        return line         
 
 def specList2dict(specList):
     """

@@ -32,4 +32,4 @@ IMGPATH     = 'img/'    # path for image files
 PROJECT    = 'NMOS EKV plots'
 AUTHOR     = 'anton'
 CREATED    = '2021-03-08 21:20:03.955436'
-LASTUPDATE = '2021-03-08 21:20:03.955436'
+LASTUPDATE = '2023-06-12 11:46:46.537682'

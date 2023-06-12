@@ -1,6 +1,6 @@
-==============
-SLiCAP LTspice
-==============
+=====================================
+SLiCAP schematic capture with LTspice
+=====================================
 
 ---------------------------------------------------
 Install and configure LTspice for schematic capture

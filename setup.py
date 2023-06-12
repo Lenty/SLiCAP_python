@@ -4,8 +4,8 @@ Created on Tue Sep 29 09:28:49 2020
 
 @author: luc_e
 
-Modified by Anton 16 November 2022:
-Updated to version 1.4.0
+Modified by Anton 1June 11 2023:
+Updated to version 1.6.0
 """
 
 import os, shutil
@@ -19,7 +19,7 @@ from shutil import copy
 if platform.system() == 'Windows':
     import win32api
 
-INSTALLVERSION="1.5.0"
+INSTALLVERSION="1.6.0"
 
 class InstallWrapper(install):
     """

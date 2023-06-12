@@ -25,7 +25,7 @@ $$S_{in}=4 R_{s} T k + \frac{4 R_{s}^{2} T k \left(f + f_{\ell}\right)}{R_{p} f}
 <p>Alternatively, the noise figure can be defined as the as the ratio of the total source referred noise power and the noise power of the signal source, or the ratio of the total detector-referred noise power and the contribution of the noise of the signal source to the detector-referred noise power.</p>
 <p>The variance $P_{onoise}\,\left[ V^2 \right]$ of the total detector referred noise is:</p>
 \begin{equation}
-P_{onoise}=\frac{4 R_{p} R_{s}^{2} T f_{\ell} k \log{\left(f_{max} \right)} + f_{max} \left(4 R_{p}^{2} R_{s} T k + 4 R_{p} R_{s}^{2} T k\right)}{R_{p}^{2} + 2 R_{p} R_{s} + R_{s}^{2}} - \frac{4 R_{p} R_{s}^{2} T f_{\ell} k \log{\left(f_{min} \right)} + f_{min} \left(4 R_{p}^{2} R_{s} T k + 4 R_{p} R_{s}^{2} T k\right)}{R_{p}^{2} + 2 R_{p} R_{s} + R_{s}^{2}}\,\left[ \mathrm{\frac{V^{2}}{Hz}}\right]
+P_{onoise}=\frac{k \left(4 R_{p} R_{s}^{2} T f_{\ell} \log{\left(f_{max} \right)} + T f_{max} \left(4 R_{p}^{2} R_{s} + 4 R_{p} R_{s}^{2}\right)\right)}{R_{p}^{2} + 2 R_{p} R_{s} + R_{s}^{2}} - \frac{k \left(4 R_{p} R_{s}^{2} T f_{\ell} \log{\left(f_{min} \right)} + T f_{min} \left(4 R_{p}^{2} R_{s} + 4 R_{p} R_{s}^{2}\right)\right)}{R_{p}^{2} + 2 R_{p} R_{s} + R_{s}^{2}}\,\left[ \mathrm{\frac{V^{2}}{Hz}}\right]
 \end{equation}
 <p>The contribution $P_{onoise,source}\,\left[ V^2 \right]$ of the source to $P_{onoise}\,\left[ V^2 \right]$ is:</p>
 \begin{equation}
@@ -33,7 +33,7 @@ P_{onoise}=\frac{4 R_{p}^{2} R_{s} T k \left(f_{max} - f_{min}\right)}{\left(R_{
 \end{equation}
 <p>Hence, the noise figure is obtained as</p>
 \begin{equation}
-F=\frac{10 \log{\left(\frac{R_{p} f_{max} - R_{p} f_{min} + R_{s} f_{\ell} \log{\left(f_{max} \right)} - R_{s} f_{\ell} \log{\left(f_{min} \right)} + R_{s} f_{max} - R_{s} f_{min}}{R_{p} \left(f_{max} - f_{min}\right)} \right)}}{\log{\left(10 \right)}}
+F=4.343 \log{\left(\frac{R_{p} f_{max} - R_{p} f_{min} + R_{s} f_{\ell} \log{\left(f_{max} \right)} - R_{s} f_{\ell} \log{\left(f_{min} \right)} + R_{s} f_{max} - R_{s} f_{min}}{R_{p} \left(f_{max} - f_{min}\right)} \right)}
 \end{equation}
 <h2>Detector referred noise spectrum</h2>
 <p>The spectral density of the total output noise can be written as</p>
@@ -43,7 +43,7 @@ S_{out}=\frac{4 R_{p} R_{s} T k \left(R_{p} f + R_{s} \left(f + f_{\ell}\right)\
 <!-- INSERT -->
 <div id="footnote">
 <p>Go to <a href="Noise-Figure-$R_p$_index.html">Noise-Figure-$R_p$_index</a></p>
-<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.3.0 &copy 2009-2022 SLiCAP development team</p>
+<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.5.0 &copy 2009-2023 SLiCAP development team</p>
 <p>For documentation, examples, support, updates and courses please visit: <a href="https://analog-electronics.tudelft.nl">analog-electronics.tudelft.nl</a></p>
-<p>Last project update: 2022-06-28 00:28:24</p>
+<p>Last project update: 2023-06-12 11:49:08</p>
 </div></body></html>

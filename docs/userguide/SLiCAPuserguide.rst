@@ -27,3 +27,5 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
     plots
     balanced
     htmlreports
+    sphinxreports
+    latexreports

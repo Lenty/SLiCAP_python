@@ -12,5 +12,7 @@ SLiCAP is licensed under a `Creative Commons Attribution-NonCommercial-NoDerivat
 .. toctree::
 
    LTspice
-   jupyter
+   myFirstRCnetwork
    noise
+   MOS-EKV
+   balanced
