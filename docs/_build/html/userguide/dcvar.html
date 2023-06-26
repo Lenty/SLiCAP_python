@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -195,14 +196,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="dc-variance">
-<h1>DC variance<a class="headerlink" href="#dc-variance" title="Permalink to this headline">¶</a></h1>
+<h1>DC variance<a class="headerlink" href="#dc-variance" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>SLiCAP can be used to determine:</p>
 <ol class="arabic simple">
-<li>Source-referred and detector-referred variance in <span class="math notranslate nohighlight">\(\left[ V^2 \right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2 \right]\)</span>.</li>
-<li>Individual contributions of DC error sources to the source-referred and detector-reffered variance</li>
-<li>Design limits (show stopper values) for all kinds of DC error sources</li>
+<li><p>Source-referred and detector-referred variance in <span class="math notranslate nohighlight">\(\left[ V^2 \right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2 \right]\)</span>.</p></li>
+<li><p>Individual contributions of DC error sources to the source-referred and detector-reffered variance</p></li>
+<li><p>Design limits (show stopper values) for all kinds of DC error sources</p></li>
 </ol>
 <p>All of the above can be performed symbolically or numerically.</p>
 <p>Tolerances of resistors and independent DC sources can be defined by setting their DC variance attribute <em>‘dcvar’</em> to a nonzero value or expression.</p>
@@ -217,13 +218,13 @@ V1 N1 N2 0 value={V_DC} dcvar = {(sigma_V*V_DC)^2}
 <p>It is not (yet) possible to define the variance of the gain of dependent (controlled) sources.</p>
 <p>SLiCAP uses a simplified algorithm for evaluation of the total variance of the detector qantity (voltage or current):</p>
 <ol class="arabic simple">
-<li>Calculate the nominal (no errors) DC solution of a network</li>
-<li>Add error current sources in parallel with resistors. The variance of a current source is the variance of the resistor multiplied with the nominal DC current through that resistor</li>
-<li>Calculate the variance of the detector quantity, by adding the contributions of all error sources.</li>
+<li><p>Calculate the nominal (no errors) DC solution of a network</p></li>
+<li><p>Add error current sources in parallel with resistors. The variance of a current source is the variance of the resistor multiplied with the nominal DC current through that resistor</p></li>
+<li><p>Calculate the variance of the detector quantity, by adding the contributions of all error sources.</p></li>
 </ol>
 </div>
 <div class="section" id="define-a-dcvar-analysis">
-<h2>Define a dcvar analysis<a class="headerlink" href="#define-a-dcvar-analysis" title="Permalink to this headline">¶</a></h2>
+<h2>Define a dcvar analysis<a class="headerlink" href="#define-a-dcvar-analysis" title="Permalink to this heading">¶</a></h2>
 <p>DC variance analysis requires the data type <em>‘dcvar’</em> and the gain type <em>‘vi’</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span><span class="o">=</span><span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;vi&#39;</span><span class="p">)</span>
@@ -231,14 +232,15 @@ V1 N1 N2 0 value={V_DC} dcvar = {(sigma_V*V_DC)^2}
 </pre></div>
 </div>
 <div class="section" id="dc-variance-analysis-results">
-<h3>DC variance analysis results<a class="headerlink" href="#dc-variance-analysis-results" title="Permalink to this headline">¶</a></h3>
+<h3>DC variance analysis results<a class="headerlink" href="#dc-variance-analysis-results" title="Permalink to this heading">¶</a></h3>
 <p>DC variance analysis provides the following results:</p>
 <ol class="arabic simple">
-<li>Detector-referred DC variance (output DC variance) in <span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></li>
-<li>Contributions of all DC error sources to the detector-referred variance in <span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></li>
-<li>If a source has been defined:<ol class="arabic">
-<li>Source-referred variance in <span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></li>
-<li>Contributions of all DC error sources to the source-referred variance in :<span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></li>
+<li><p>Detector-referred DC variance (output DC variance) in <span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></p></li>
+<li><p>Contributions of all DC error sources to the detector-referred variance in <span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></p></li>
+<li><p>If a source has been defined:</p>
+<ol class="arabic simple">
+<li><p>Source-referred variance in <span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></p></li>
+<li><p>Contributions of all DC error sources to the source-referred variance in :<span class="math notranslate nohighlight">\(\left[ V^2\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ A^2\right]\)</span></p></li>
 </ol>
 </li>
 </ol>
@@ -272,7 +274,7 @@ V1 N1 N2 0 value={V_DC} dcvar = {(sigma_V*V_DC)^2}
 </div>
 </div>
 <div class="section" id="dc-variance-tutorials">
-<h2>DC variance tutorials<a class="headerlink" href="#dc-variance-tutorials" title="Permalink to this headline">¶</a></h2>
+<h2>DC variance tutorials<a class="headerlink" href="#dc-variance-tutorials" title="Permalink to this heading">¶</a></h2>
 <p>See: <a class="reference external" href="../tutorials/SLiCAPtutorials.html">Tutorials section</a></p>
 </div>
 </div>

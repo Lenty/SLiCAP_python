@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -202,27 +202,29 @@
            <div itemprop="articleBody">
             
   <div class="section" id="parameter-stepping">
-<span id="parameterstepping"></span><h1>Parameter stepping<a class="headerlink" href="#parameter-stepping" title="Permalink to this headline">¶</a></h1>
+<span id="parameterstepping"></span><h1>Parameter stepping<a class="headerlink" href="#parameter-stepping" title="Permalink to this heading">¶</a></h1>
 <p>SLiCAP can execute an instruction while stepping the value of one or more circuit parameters.</p>
 <p>SLiCAP functions for parameters stepping are discussed below</p>
 <ol class="arabic simple">
-<li><a class="reference internal" href="#stepmethod"><span class="std std-ref">Define the step method</span></a></li>
-<li><a class="reference internal" href="#stepvar"><span class="std std-ref">Define the step variable(s)</span></a></li>
-<li><a class="reference internal" href="#stepvals"><span class="std std-ref">Define the step values</span></a></li>
-<li><a class="reference internal" href="#stepenable"><span class="std std-ref">Enable or disable parameter stepping</span></a></li>
+<li><p><a class="reference internal" href="#stepmethod"><span class="std std-ref">Define the step method</span></a></p></li>
+<li><p><a class="reference internal" href="#stepvar"><span class="std std-ref">Define the step variable(s)</span></a></p></li>
+<li><p><a class="reference internal" href="#stepvals"><span class="std std-ref">Define the step values</span></a></p></li>
+<li><p><a class="reference internal" href="#stepenable"><span class="std std-ref">Enable or disable parameter stepping</span></a></p></li>
 </ol>
 <div class="section" id="define-the-step-method">
-<span id="stepmethod"></span><h2>Define the step method<a class="headerlink" href="#define-the-step-method" title="Permalink to this headline">¶</a></h2>
+<span id="stepmethod"></span><h2>Define the step method<a class="headerlink" href="#define-the-step-method" title="Permalink to this heading">¶</a></h2>
 <p>SLiCAP has four methods for parameter stepping:</p>
 <ol class="arabic simple">
-<li>Three of them are intended for stepping of a single parameter:<ul>
-<li>linear stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘lin’</li>
-<li>logarithmic stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘log’</li>
-<li>stepping through a list of values <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘list’</li>
+<li><p>Three of them are intended for stepping of a single parameter:</p>
+<ul class="simple">
+<li><p>linear stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘lin’</p></li>
+<li><p>logarithmic stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘log’</p></li>
+<li><p>stepping through a list of values <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘list’</p></li>
 </ul>
 </li>
-<li>One method is intended for concurrently stepping multiple parameters:<ul>
-<li>array stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘array’</li>
+<li><p>One method is intended for concurrently stepping multiple parameters:</p>
+<ul class="simple">
+<li><p>array stepping: <strong>SLiCAPinstruction.instruction.stepMethod</strong> = ‘array’</p></li>
 </ul>
 </li>
 </ol>
@@ -236,9 +238,9 @@
 </div>
 </div>
 <div class="section" id="define-the-step-variable-s">
-<span id="stepvar"></span><h2>Define the step variable(s)<a class="headerlink" href="#define-the-step-variable-s" title="Permalink to this headline">¶</a></h2>
+<span id="stepvar"></span><h2>Define the step variable(s)<a class="headerlink" href="#define-the-step-variable-s" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="linear-log-and-list-stepping">
-<h3>Linear, log and list stepping<a class="headerlink" href="#linear-log-and-list-stepping" title="Permalink to this headline">¶</a></h3>
+<h3>Linear, log and list stepping<a class="headerlink" href="#linear-log-and-list-stepping" title="Permalink to this heading">¶</a></h3>
 <p>The step variable for linear logarithmic and list stepping can be selected from the available circuit parameters.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -256,7 +258,7 @@
 </div>
 </div>
 <div class="section" id="array-stepping">
-<h3>Array stepping<a class="headerlink" href="#array-stepping" title="Permalink to this headline">¶</a></h3>
+<h3>Array stepping<a class="headerlink" href="#array-stepping" title="Permalink to this heading">¶</a></h3>
 <p>As with single parameters stepping, the step variables can be selected from all available circuit parameters:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -275,9 +277,9 @@
 </div>
 </div>
 <div class="section" id="define-the-step-values">
-<span id="stepvals"></span><h2>Define the step values<a class="headerlink" href="#define-the-step-values" title="Permalink to this headline">¶</a></h2>
+<span id="stepvals"></span><h2>Define the step values<a class="headerlink" href="#define-the-step-values" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="linear-and-logarithmic-stepping">
-<h3>Linear and logarithmic stepping<a class="headerlink" href="#linear-and-logarithmic-stepping" title="Permalink to this headline">¶</a></h3>
+<h3>Linear and logarithmic stepping<a class="headerlink" href="#linear-and-logarithmic-stepping" title="Permalink to this heading">¶</a></h3>
 <p>Linear and logarithmic stepping required the definition of the step variable, the start value, the stop value and the number of steps.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -299,7 +301,7 @@
 <p>With logarithmic stepping SLiCAP calculates the number of decades and the number of points per decade from the start, the stop value and the total number of steps. Logarithmically stepping through zero is not allowed.</p>
 </div>
 <div class="section" id="stepping-through-a-list-of-values">
-<h3>Stepping through a list of values<a class="headerlink" href="#stepping-through-a-list-of-values" title="Permalink to this headline">¶</a></h3>
+<h3>Stepping through a list of values<a class="headerlink" href="#stepping-through-a-list-of-values" title="Permalink to this heading">¶</a></h3>
 <p>The function <cite>stepList(&lt;listOfValues&gt;)</cite> is used to define a list of step values for a step variable.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -318,7 +320,7 @@
 </div>
 </div>
 <div class="section" id="id1">
-<h3>Array stepping<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>Array stepping<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>For array stepping the step values need to be provided in the form of a matrix. Row i in the matrix carries the values of SLiCAPinstruction.instruction.stepVars[i]. Hence, the number of rows equals the number of times the instruction will be executed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -338,7 +340,7 @@
 </div>
 </div>
 <div class="section" id="enable-or-disable-parameter-stepping">
-<span id="stepenable"></span><h2>Enable or disable parameter stepping<a class="headerlink" href="#enable-or-disable-parameter-stepping" title="Permalink to this headline">¶</a></h2>
+<span id="stepenable"></span><h2>Enable or disable parameter stepping<a class="headerlink" href="#enable-or-disable-parameter-stepping" title="Permalink to this heading">¶</a></h2>
 <p>Parameter stepping can be enabled or disabled without affecting the settings for parameter stepping, such as, the step variable, the step method, etc.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>

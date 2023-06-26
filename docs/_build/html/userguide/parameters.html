@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -196,25 +196,25 @@
            <div itemprop="articleBody">
             
   <div class="section" id="work-with-parameters">
-<h1>Work with parameters<a class="headerlink" href="#work-with-parameters" title="Permalink to this headline">¶</a></h1>
+<h1>Work with parameters<a class="headerlink" href="#work-with-parameters" title="Permalink to this heading">¶</a></h1>
 <p><em>Circuit parameters</em> are symbolic variables used in element expressions. There are two ways of assigning values or expressions to these parameters:</p>
 <ol class="arabic simple">
-<li>In the netlist using the SPICE ‘.PARAM’ directives.</li>
-<li>From the python using the instruction.defPar() method.</li>
+<li><p>In the netlist using the SPICE ‘.PARAM’ directives.</p></li>
+<li><p>From the python using the instruction.defPar() method.</p></li>
 </ol>
 <p>When SLiCAP is working in numeric simulation mode, parameter and expressions values will recursively be substituted into element expressions.</p>
 <p>The sections show parameter related topics:</p>
 <ol class="arabic simple">
-<li><a class="reference internal" href="#pardefs"><span class="std std-ref">Get all circuit parameters</span></a>; including parameters without definition</li>
-<li><a class="reference internal" href="#parvals"><span class="std std-ref">Get all parameter definitions</span></a></li>
-<li><a class="reference internal" href="#delpar"><span class="std std-ref">Delete a parameter definition</span></a></li>
-<li><a class="reference internal" href="#defpar"><span class="std std-ref">Assign a value or an expression to a parameter</span></a></li>
-<li><a class="reference internal" href="#defpars"><span class="std std-ref">Assign values or expressions to multiple parameters</span></a></li>
-<li><a class="reference internal" href="#getpar"><span class="std std-ref">Get the definition or the numeric value of a parameter</span></a></li>
-<li><a class="reference internal" href="#getpars"><span class="std std-ref">Get the definitions or the numeric values of multiple parameters</span></a></li>
+<li><p><a class="reference internal" href="#pardefs"><span class="std std-ref">Get all circuit parameters</span></a>; including parameters without definition</p></li>
+<li><p><a class="reference internal" href="#parvals"><span class="std std-ref">Get all parameter definitions</span></a></p></li>
+<li><p><a class="reference internal" href="#delpar"><span class="std std-ref">Delete a parameter definition</span></a></p></li>
+<li><p><a class="reference internal" href="#defpar"><span class="std std-ref">Assign a value or an expression to a parameter</span></a></p></li>
+<li><p><a class="reference internal" href="#defpars"><span class="std std-ref">Assign values or expressions to multiple parameters</span></a></p></li>
+<li><p><a class="reference internal" href="#getpar"><span class="std std-ref">Get the definition or the numeric value of a parameter</span></a></p></li>
+<li><p><a class="reference internal" href="#getpars"><span class="std std-ref">Get the definitions or the numeric values of multiple parameters</span></a></p></li>
 </ol>
 <div class="section" id="get-all-circuit-parameters">
-<span id="pardefs"></span><h2>Get all circuit parameters<a class="headerlink" href="#get-all-circuit-parameters" title="Permalink to this headline">¶</a></h2>
+<span id="pardefs"></span><h2>Get all circuit parameters<a class="headerlink" href="#get-all-circuit-parameters" title="Permalink to this heading">¶</a></h2>
 <p>A list with all circuit parameters can be obtained as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -229,7 +229,7 @@
 </div>
 </div>
 <div class="section" id="get-all-parameter-definitions">
-<span id="parvals"></span><h2>Get all parameter definitions<a class="headerlink" href="#get-all-parameter-definitions" title="Permalink to this headline">¶</a></h2>
+<span id="parvals"></span><h2>Get all parameter definitions<a class="headerlink" href="#get-all-parameter-definitions" title="Permalink to this heading">¶</a></h2>
 <p>A dictionary with key-value pairs of all circuit parameter definitions can be obtained as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -244,7 +244,7 @@
 </div>
 </div>
 <div class="section" id="delete-a-parameter-definition">
-<span id="delpar"></span><h2>Delete a parameter definition<a class="headerlink" href="#delete-a-parameter-definition" title="Permalink to this headline">¶</a></h2>
+<span id="delpar"></span><h2>Delete a parameter definition<a class="headerlink" href="#delete-a-parameter-definition" title="Permalink to this heading">¶</a></h2>
 <p>You can delete a parameter definition using the method <strong>SLiCAPinstruction.instruction.delPar(*args)</strong>. This method does not delete the circuit parameter itself: it only clears its definition so that it can be used as a symbolic variable in numeric simulations.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -262,7 +262,7 @@
 </div>
 </div>
 <div class="section" id="assign-a-value-or-an-expression-to-a-parameter">
-<span id="defpar"></span><h2>Assign a value or an expression to a parameter<a class="headerlink" href="#assign-a-value-or-an-expression-to-a-parameter" title="Permalink to this headline">¶</a></h2>
+<span id="defpar"></span><h2>Assign a value or an expression to a parameter<a class="headerlink" href="#assign-a-value-or-an-expression-to-a-parameter" title="Permalink to this heading">¶</a></h2>
 <p>The method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong> sets the value of a parameter.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -279,7 +279,7 @@
 </div>
 </div>
 <div class="section" id="assign-values-or-expressions-to-multiple-parameters">
-<span id="defpars"></span><h2>Assign values or expressions to multiple parameters<a class="headerlink" href="#assign-values-or-expressions-to-multiple-parameters" title="Permalink to this headline">¶</a></h2>
+<span id="defpars"></span><h2>Assign values or expressions to multiple parameters<a class="headerlink" href="#assign-values-or-expressions-to-multiple-parameters" title="Permalink to this heading">¶</a></h2>
 <p>Multiple parameters can be assigned by passing a dictionary with key-value pairs of parameters as argument of the method <strong>SLiCAPinstruction.instruction.defPar(*args)</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -295,7 +295,7 @@
 </div>
 </div>
 <div class="section" id="get-the-definition-or-the-numeric-value-of-a-parameter">
-<span id="getpar"></span><h2>Get the definition or the numeric value of a parameter<a class="headerlink" href="#get-the-definition-or-the-numeric-value-of-a-parameter" title="Permalink to this headline">¶</a></h2>
+<span id="getpar"></span><h2>Get the definition or the numeric value of a parameter<a class="headerlink" href="#get-the-definition-or-the-numeric-value-of-a-parameter" title="Permalink to this heading">¶</a></h2>
 <p>The method <strong>SLiCAPinstruction.instruction.getParValue(*args)</strong> returns the value of a parameter. If the simulation type (SLiCAPinstruction.instruction.simType) has been set to ‘symbolic’ it returns the symbolic definition of the parameter. If the simulation type has been set to ‘numeric’ it returns its value after recursive substitution of all parameter definitions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -318,7 +318,7 @@
 </div>
 </div>
 <div class="section" id="get-the-definitions-or-the-numeric-values-of-multiple-parameters">
-<span id="getpars"></span><h2>Get the definitions or the numeric values of multiple parameters<a class="headerlink" href="#get-the-definitions-or-the-numeric-values-of-multiple-parameters" title="Permalink to this headline">¶</a></h2>
+<span id="getpars"></span><h2>Get the definitions or the numeric values of multiple parameters<a class="headerlink" href="#get-the-definitions-or-the-numeric-values-of-multiple-parameters" title="Permalink to this heading">¶</a></h2>
 <p>If the argument of the method <strong>SLiCAPinstruction.instruction.getParValues(*args)</strong> is a list with parameter names, this method returns a dict with key-value pairs of those parameters. If the simulation type (SLiCAPinstruction.instruction.simType) has been set to ‘symbolic’ it returns the symbolic definitions. If the simulation type has been set to ‘numeric’ it returns the values after recursive substitution of all parameter definitions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>

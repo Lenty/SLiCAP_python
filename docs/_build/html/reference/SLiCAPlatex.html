@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -187,565 +187,491 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-SLiCAP.SLiCAPlatex.SLiCAPlatex">
-<span id="slicaplatex-py"></span><h1>SLiCAPlatex.py<a class="headerlink" href="#module-SLiCAP.SLiCAPlatex.SLiCAPlatex" title="Permalink to this headline">¶</a></h1>
+<span id="slicaplatex-py"></span><h1>SLiCAPlatex.py<a class="headerlink" href="#module-SLiCAP.SLiCAPlatex.SLiCAPlatex" title="Permalink to this heading">¶</a></h1>
 <p>Created on Sat Jun 10 17:24:17 2023</p>
 <p>&#64;author: anton</p>
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.TEXcreateCSVtable">
-<code class="descname">TEXcreateCSVtable</code><span class="sig-paren">(</span><em>headerList</em>, <em>linesList</em>, <em>alignstring</em>, <em>unitpos=None</em>, <em>caption=''</em>, <em>label=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.TEXcreateCSVtable" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.TEXcreateCSVtable">
+<span class="sig-name descname"><span class="pre">TEXcreateCSVtable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headerList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linesList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignstring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.TEXcreateCSVtable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.</p>
 <p>A label can be given as reference and a caption can be added.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>headerList</strong> (<em>list with strings</em>) – List with column headers.</li>
-<li><strong>linesList</strong> (<em>list</em>) – List with lists of table data for each table row</li>
-<li><strong>alignstring</strong> (<em>str</em>) – LaTeX table align string</li>
-<li><strong>unitpos</strong> (<em>int</em><em>, </em><em>str</em>) – Position of column with units (will be typesetted with mathrm)</li>
-<li><strong>caption</strong> (<em>str</em>) – Table caption, defauls to ‘’</li>
-<li><strong>label</strong> (<em>str</em>) – Table reference label</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headerList</strong> (<em>list with strings</em>) – List with column headers.</p></li>
+<li><p><strong>linesList</strong> (<em>list</em>) – List with lists of table data for each table row</p></li>
+<li><p><strong>alignstring</strong> (<em>str</em>) – LaTeX table align string</p></li>
+<li><p><strong>unitpos</strong> (<em>int</em><em>, </em><em>str</em>) – Position of column with units (will be typesetted with mathrm)</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Table caption, defauls to ‘’</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Table reference label</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.coeffsTransfer2TEX">
-<code class="descname">coeffsTransfer2TEX</code><span class="sig-paren">(</span><em>transferCoeffs</em>, <em>label=''</em>, <em>append2caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.coeffsTransfer2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.coeffsTransfer2TEX">
+<span class="sig-name descname"><span class="pre">coeffsTransfer2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transferCoeffs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.coeffsTransfer2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX
 document.</p>
 <p>The table comprises the normalized coefficients of the numerator and
 the denominator as listed in transferCoeffs.</p>
 <p>The normalization factor (Gain) is added to the caption.</p>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>transferCoeffs</strong> (<em>list</em>) – <p>List with:</p>
-<ol class="arabic">
-<li>gain</li>
-<li>list with numerator coefficients</li>
-<li>list with denominator coefficients</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transferCoeffs</strong> (<em>list</em>) – <p>List with:</p>
+<ol class="arabic simple">
+<li><p>gain</p></li>
+<li><p>list with numerator coefficients</p></li>
+<li><p>list with denominator coefficients</p></li>
 </ol>
 <p>Can be obtained with coeffsTransfer()</p>
-</li>
-<li><strong>label</strong> (<em>str</em>) – Reference lable for this table</li>
-<li><strong>append2caption</strong> (<em>str</em>) – String that will be appended to the caption.</li>
+</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference lable for this table</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – String that will be appended to the caption.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">RST snippet to be included in a ReStructuredText document.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>RST snippet to be included in a ReStructuredText document.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.dcvarContribs2TEX">
-<code class="descname">dcvarContribs2TEX</code><span class="sig-paren">(</span><em>resultObject</em>, <em>append2caption=''</em>, <em>label=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.dcvarContribs2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.dcvarContribs2TEX">
+<span class="sig-name descname"><span class="pre">dcvarContribs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.dcvarContribs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.</p>
 <p>The table comprises the values of the dcvar sources and their contributions
 to the detector-referred dc variance and the source-referred dc variance. 
 The latter only if a signal source has been specified.</p>
 <p>The caption reads ‘DC variance contributions ‘&lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</li>
-<li><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</li>
-<li><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
-Defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+Defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.elementData2TEX">
-<code class="descname">elementData2TEX</code><span class="sig-paren">(</span><em>circuitObject</em>, <em>label=''</em>, <em>append2caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.elementData2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.elementData2TEX">
+<span class="sig-name descname"><span class="pre">elementData2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuitObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.elementData2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
 The table comprises the data of all elements of the expanded nelist of
 &lt;circuitObject&gt;.</p>
 <p>The caption reads ‘Expanded netlist of: &lt;circuitObject.title&gt;. &lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</li>
-<li><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</li>
-<li><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
-Defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+Defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEX">
-<code class="descname">eqn2TEX</code><span class="sig-paren">(</span><em>LHS</em>, <em>RHS</em>, <em>units=''</em>, <em>label=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEX">
+<span class="sig-name descname"><span class="pre">eqn2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LHS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RHS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a LaTeX snippet of a displayed equation with dimension and reference
 label.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>RHS</strong> (<em>str</em><em>, </em><em>sympy.Expression</em><em>, or </em><em>sympy.Symbol</em>) – Right hand side of the equation.</li>
-<li><strong>LHS</strong> (<em>str</em><em>, </em><em>sympy.Expression</em><em>, or </em><em>sympy.Symbol</em>) – Left hand side of the equation.</li>
-<li><strong>units</strong> (<em>str</em>) – Dimension</li>
-<li><strong>label</strong> (<em>str</em>) – Reference label</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RHS</strong> (<em>str</em><em>, </em><em>sympy.Expression</em><em>, or </em><em>sympy.Symbol</em>) – Right hand side of the equation.</p></li>
+<li><p><strong>LHS</strong> (<em>str</em><em>, </em><em>sympy.Expression</em><em>, or </em><em>sympy.Symbol</em>) – Left hand side of the equation.</p></li>
+<li><p><strong>units</strong> (<em>str</em>) – Dimension</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference label</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEXinline">
-<code class="descname">eqn2TEXinline</code><span class="sig-paren">(</span><em>LHS</em>, <em>RHS</em>, <em>units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEXinline" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEXinline">
+<span class="sig-name descname"><span class="pre">eqn2TEXinline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LHS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RHS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.eqn2TEXinline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a LaTeX snippet for inline subsitution of an equation in a LaTeX document.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>LHS</strong> (<em>sympy.Expression</em><em>, </em><em>str</em>) – Left hand side of the equation.</li>
-<li><strong>RHS</strong> (<em>sympy.Expression</em><em>, </em><em>str</em>) – Right hand side of the equation.</li>
-<li><strong>units</strong> (<em>str</em>) – units or dimension, defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>LHS</strong> (<em>sympy.Expression</em><em>, </em><em>str</em>) – Left hand side of the equation.</p></li>
+<li><p><strong>RHS</strong> (<em>sympy.Expression</em><em>, </em><em>str</em>) – Right hand side of the equation.</p></li>
+<li><p><strong>units</strong> (<em>str</em>) – units or dimension, defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet for inline substitution</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet for inline substitution</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.expr2TEX">
-<code class="descname">expr2TEX</code><span class="sig-paren">(</span><em>expr</em>, <em>units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.expr2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.expr2TEX">
+<span class="sig-name descname"><span class="pre">expr2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.expr2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a LaTeX snippet for inline subsitution of an expression in a LaTeX document.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> (<em>sympy.Expression</em>) – sympy expression for inline substitution.</li>
-<li><strong>units</strong> (<em>str</em>) – units or dimension, defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>sympy.Expression</em>) – sympy expression for inline substitution.</p></li>
+<li><p><strong>units</strong> (<em>str</em>) – units or dimension, defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet for inline substitution</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet for inline substitution</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.matrices2TEX">
-<code class="descname">matrices2TEX</code><span class="sig-paren">(</span><em>Iv</em>, <em>M</em>, <em>Dv</em>, <em>label=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.matrices2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.matrices2TEX">
+<span class="sig-name descname"><span class="pre">matrices2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Iv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.matrices2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a LaTeX snippet of the matrix equation Iv = M.Dv,</p>
 <p>A label can be given for reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>Iv</strong> (<em>sympy.Matrix</em>) – (n x 1) matrix with independent variables.</li>
-<li><strong>M</strong> (<em>sympy.Matrix</em>) – (n x n) matrix.</li>
-<li><strong>Dv</strong> (<em>sympy.Matrix</em>) – (n x 1) matrix with dependent variables.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Iv</strong> (<em>sympy.Matrix</em>) – (n x 1) matrix with independent variables.</p></li>
+<li><p><strong>M</strong> (<em>sympy.Matrix</em>) – (n x n) matrix.</p></li>
+<li><p><strong>Dv</strong> (<em>sympy.Matrix</em>) – (n x 1) matrix with dependent variables.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet of the matrix equation.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet of the matrix equation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.netlist2TEX">
-<code class="descname">netlist2TEX</code><span class="sig-paren">(</span><em>netlistFile</em>, <em>lineRange=None</em>, <em>firstNumber=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.netlist2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.netlist2TEX">
+<span class="sig-name descname"><span class="pre">netlist2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlistFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firstNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.netlist2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a SLiCAP netlist into a LaTeX string that can be included in
 a LaTeX document and returns this string.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>netlistFile</strong> – Name of the netlist file that resides in the 
-ini.circuitPath directory</li>
-<li><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
-to None (display all lines)</li>
-<li><strong>firstNumber</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>str</em>) – Number of the first line to be displayed</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netlistFile</strong> – Name of the netlist file that resides in the 
+ini.circuitPath directory</p></li>
+<li><p><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
+to None (display all lines)</p></li>
+<li><p><strong>firstNumber</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>str</em>) – Number of the first line to be displayed</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.noiseContribs2TEX">
-<code class="descname">noiseContribs2TEX</code><span class="sig-paren">(</span><em>resultObject</em>, <em>label=''</em>, <em>append2caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.noiseContribs2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.noiseContribs2TEX">
+<span class="sig-name descname"><span class="pre">noiseContribs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.noiseContribs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.</p>
 <p>The table comprises the values of the noise sources and their contributions
 to the detector-referred noise and the source-referred noise. The latter 
 only if a signal source has been specified.</p>
 <p>The caption reads ‘Noise contributions. ‘&lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</li>
-<li><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</li>
-<li><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
-Defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+Defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.numRoots2TEX">
-<code class="descname">numRoots2TEX</code><span class="sig-paren">(</span><em>roots</em>, <em>Hz</em>, <em>pz</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.numRoots2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.numRoots2TEX">
+<span class="sig-name descname"><span class="pre">numRoots2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roots</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.numRoots2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of lists with row data for the creation of a LaTeX table 
 with numeric poles or zeros.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>roots</strong> (<em>List with</em><em> (</em><em>complex</em><em>) </em><em>numbers</em>) – List with numeric roots</li>
-<li><strong>Hz</strong> (<em>Bool</em>) – True if frequencies must be displayed in Hz, False for rad/s.</li>
-<li><strong>pz</strong> (<em>str</em>) – Identifier prefix: ‘p’ ofr poles ‘z’ for zeros.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roots</strong> (<em>List with</em><em> (</em><em>complex</em><em>) </em><em>numbers</em>) – List with numeric roots</p></li>
+<li><p><strong>Hz</strong> (<em>Bool</em>) – True if frequencies must be displayed in Hz, False for rad/s.</p></li>
+<li><p><strong>pz</strong> (<em>str</em>) – Identifier prefix: ‘p’ ofr poles ‘z’ for zeros.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of lists with data of poles or zeros</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists with data of poles or zeros</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.parDefs2TEX">
-<code class="descname">parDefs2TEX</code><span class="sig-paren">(</span><em>circuitObject</em>, <em>label=''</em>, <em>append2caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.parDefs2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.parDefs2TEX">
+<span class="sig-name descname"><span class="pre">parDefs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuitObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.parDefs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
 The table comprises the parameter definitions of &lt;circuitObject&gt;.</p>
 <p>The caption reads ‘Parameter defnitions in: : &lt;circuitObject.title&gt;. &lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</li>
-<li><strong>label</strong> – Reference to this table, defaults to ‘’</li>
-<li><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
-Defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
+<li><p><strong>label</strong> – Reference to this table, defaults to ‘’</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+Defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.params2TEX">
-<code class="descname">params2TEX</code><span class="sig-paren">(</span><em>circuitObject</em>, <em>label=''</em>, <em>append2caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.params2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.params2TEX">
+<span class="sig-name descname"><span class="pre">params2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuitObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.params2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
 The table comprises a column with names of undefined parameters of &lt;circuitObject&gt;.</p>
 <p>The caption reads ‘Undefined parameters in: : &lt;circuitObject.title&gt;. &lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</li>
-<li><strong>label</strong> – Reference to this table, defaults to ‘’</li>
-<li><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
-Defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
+<li><p><strong>label</strong> – Reference to this table, defaults to ‘’</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+Defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.pz2TEX">
-<code class="descname">pz2TEX</code><span class="sig-paren">(</span><em>resultObject</em>, <em>label=''</em>, <em>append2caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.pz2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.pz2TEX">
+<span class="sig-name descname"><span class="pre">pz2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.pz2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and return a LaTeX table with poles, zeros, or poles and zeros that
 can be included in a LaTeX document. If the data type is ‘pz’ the zero-
 frequency value of the gain will be displayed in the caption of the table.</p>
 <p>The caption reads as follows:</p>
 <ul class="simple">
-<li>data type = ‘poles’: ‘Poles of: &lt;resultObject.gainType&gt;. &lt;append2caption&gt;’</li>
-<li>data type = ‘zeros’: ‘Zeros of: &lt;resultObject.gainType&gt;. &lt;append2caption&gt;’</li>
-<li>data type = ‘pz’: ‘Poles and zeros of: &lt;resultObject.gainType&gt;; DC value = &lt;resultObject,DCvalue&gt;. &lt;append2caption&gt;.’</li>
+<li><p>data type = ‘poles’: ‘Poles of: &lt;resultObject.gainType&gt;. &lt;append2caption&gt;’</p></li>
+<li><p>data type = ‘zeros’: ‘Zeros of: &lt;resultObject.gainType&gt;. &lt;append2caption&gt;’</p></li>
+<li><p>data type = ‘pz’: ‘Poles and zeros of: &lt;resultObject.gainType&gt;; DC value = &lt;resultObject,DCvalue&gt;. &lt;append2caption&gt;.’</p></li>
 </ul>
 <p>A label can be given as reference.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</li>
-<li><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
-Defaults to ‘’</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+Defaults to ‘’</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.save2TEXinline">
-<code class="descname">save2TEXinline</code><span class="sig-paren">(</span><em>vardict</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.save2TEXinline" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.save2TEXinline">
+<span class="sig-name descname"><span class="pre">save2TEXinline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vardict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.save2TEXinline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the key-value pairs of ‘vardict’ in the CSV file:</p>
 <p>&lt;ini.latexPath&gt;SLiCAPdata/TEXsubstitutions.tex</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vardict</strong> (<em>dict</em>) – Dictionary with inline LaTeX subsitutions</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">NoneType</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vardict</strong> (<em>dict</em>) – Dictionary with inline LaTeX subsitutions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NoneType</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.saveTEX">
-<code class="descname">saveTEX</code><span class="sig-paren">(</span><em>TEX</em>, <em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.saveTEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.saveTEX">
+<span class="sig-name descname"><span class="pre">saveTEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TEX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.saveTEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves a LaTeX snippet for inclusion in a LaTeX file into:</p>
 <p>&lt;ini.latexPath&gt;SLiCAdata/&lt;fileName&gt;.tex
 :param TEX: LaTeX snippet.
 :type TEX: str</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fileName</strong> (<em>str</em>) – File name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">NoneType</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fileName</strong> (<em>str</em>) – File name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NoneType</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.slicap2TEX">
-<code class="descname">slicap2TEX</code><span class="sig-paren">(</span><em>scriptFile</em>, <em>firstLine=None</em>, <em>lineRange=None</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.slicap2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.slicap2TEX">
+<span class="sig-name descname"><span class="pre">slicap2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scriptFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firstLine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.slicap2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a SLiCAP script file into a LaTeX string that can be included in
 a LaTeX document and returns this string.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>scriptFile</strong> (<em>str</em>) – Name of the script file that resides in the 
-ini.projectPath directory</li>
-<li><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
-to None (display all lines)</li>
-<li><strong>firstNumber</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>str</em>) – Number of the first line to be displayed</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scriptFile</strong> (<em>str</em>) – Name of the script file that resides in the 
+ini.projectPath directory</p></li>
+<li><p><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
+to None (display all lines)</p></li>
+<li><p><strong>firstNumber</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>str</em>) – Number of the first line to be displayed</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.specs2TEX">
-<code class="descname">specs2TEX</code><span class="sig-paren">(</span><em>specs</em>, <em>specType</em>, <em>label=''</em>, <em>caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.specs2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.specs2TEX">
+<span class="sig-name descname"><span class="pre">specs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.specs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table with specifications that can be included
 in a LaTeX document.</p>
 <p>If a list with specification types is provided, it creates tables 
 for specified types only. By default, tables for all types will be created.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>specs</strong> (<em>list</em>) – List with spec items.</li>
-<li><strong>specType</strong> (<em>str</em>) – Type of specification.</li>
-<li><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’.</li>
-<li><strong>caption</strong> (<em>str</em>) – Caption of the table, defaults to ‘’.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>specs</strong> (<em>list</em>) – List with spec items.</p></li>
+<li><p><strong>specType</strong> (<em>str</em>) – Type of specification.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’.</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Caption of the table, defaults to ‘’.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">LaTeX snippet to be included in a LaTeX document.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LaTeX snippet to be included in a LaTeX document.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.stepArray2TEX">
-<code class="descname">stepArray2TEX</code><span class="sig-paren">(</span><em>stepVars</em>, <em>stepArray</em>, <em>label=''</em>, <em>caption=''</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.stepArray2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.stepArray2TEX">
+<span class="sig-name descname"><span class="pre">stepArray2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stepVars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stepArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.stepArray2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.</p>
 <p>The table shows the step variables and their values as defined for array-type
 stepping of instructions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>stepVars</strong> (<em>List</em>) – List with step variables for array type stepping 
-(SLiCAPinstruction.instruction.stepVars)</li>
-<li><strong>stepArray</strong> (<em>list</em>) – List of lists: (SLiCAPinstruction.instruction.stepArray)</li>
-<li><strong>label</strong> (<em>str</em>) – Reference lable for this table</li>
-<li><strong>caption</strong> (<em>str</em>) – Table caption</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stepVars</strong> (<em>List</em>) – List with step variables for array type stepping 
+(SLiCAPinstruction.instruction.stepVars)</p></li>
+<li><p><strong>stepArray</strong> (<em>list</em>) – List of lists: (SLiCAPinstruction.instruction.stepArray)</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Reference lable for this table</p></li>
+<li><p><strong>caption</strong> (<em>str</em>) – Table caption</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TEX: LaTeX table snippet.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TEX: LaTeX table snippet.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAPlatex.SLiCAPlatex.symRoots2TEX">
-<code class="descname">symRoots2TEX</code><span class="sig-paren">(</span><em>roots</em>, <em>Hz</em>, <em>pz</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.symRoots2TEX" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.symRoots2TEX">
+<span class="sig-name descname"><span class="pre">symRoots2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roots</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.symRoots2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of lists with row data for the creation of a LaTeX table 
 with symbolic poles or zeros.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>roots</strong> (<em>List with sympy expressions</em>) – List with symbolic roots</li>
-<li><strong>Hz</strong> (<em>Bool</em>) – True if frequencies must be displayed in Hz, False for rad/s.</li>
-<li><strong>pz</strong> (<em>str</em>) – Identifier prefix: ‘p’ ofr poles ‘z’ for zeros.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roots</strong> (<em>List with sympy expressions</em>) – List with symbolic roots</p></li>
+<li><p><strong>Hz</strong> (<em>Bool</em>) – True if frequencies must be displayed in Hz, False for rad/s.</p></li>
+<li><p><strong>pz</strong> (<em>str</em>) – Identifier prefix: ‘p’ ofr poles ‘z’ for zeros.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of lists with data of poles or zeros</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists with data of poles or zeros</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -203,29 +204,29 @@
            <div itemprop="articleBody">
             
   <div class="section" id="create-plots">
-<h1>Create plots<a class="headerlink" href="#create-plots" title="Permalink to this headline">¶</a></h1>
+<h1>Create plots<a class="headerlink" href="#create-plots" title="Permalink to this heading">¶</a></h1>
 <p>SLiCAP provides some plot functions that facilitate easy plotting of graphs from execution results with automatic determination of colors, markers, plot legends, and axis labels.</p>
 <p>Plot functions are collected in the SLiCAP module <a class="reference external" href="../reference/SLiCAPplots.html">SLiCAPplots.py</a>.</p>
 <p>SLiCAP plots are hierarchically structured:</p>
 <ul class="simple">
-<li>A <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.figure">figure</a> object is the main object that can be plotted using its <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method.</li>
-<li>The figure’s <code class="docutils literal notranslate"><span class="pre">.axis</span></code> attribute is a list of lists with <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.axis">axis</a> objects for one row, from left to right.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">.traces</span></code> attribute of each <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.axis">axis</a> object is a list with <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.trace">trace</a> objects that will be plotted the axis. Trace xdata, ydata, lables, colors, markers, etc, are all attributes of a <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.trace">trace</a> object.</li>
+<li><p>A <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.figure">figure</a> object is the main object that can be plotted using its <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method.</p></li>
+<li><p>The figure’s <code class="docutils literal notranslate"><span class="pre">.axis</span></code> attribute is a list of lists with <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.axis">axis</a> objects for one row, from left to right.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">.traces</span></code> attribute of each <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.axis">axis</a> object is a list with <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.trace">trace</a> objects that will be plotted the axis. Trace xdata, ydata, lables, colors, markers, etc, are all attributes of a <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.trace">trace</a> object.</p></li>
 </ul>
 <p>SLiCAP built-in figures are single-axis figures.</p>
 <ul>
-<li><p class="first"><a class="reference internal" href="#id3"><span class="std std-ref">Plots with a swept x-variable</span></a></p>
+<li><p><a class="reference internal" href="#id3"><span class="std std-ref">Plots with a swept x-variable</span></a></p>
 <p>The function <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.plotSweep">plotSweep()</a> displays traces from expressions with one symbolic variable. It can be used for plotting time-domain responses, frequency-domain responses, and arbitrary single-variable functions.</p>
 </li>
-<li><p class="first"><a class="reference internal" href="#id6"><span class="std std-ref">Pole-zero and root-locus plots</span></a></p>
+<li><p><a class="reference internal" href="#id6"><span class="std std-ref">Pole-zero and root-locus plots</span></a></p>
 <p>The function <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.plotPZ">plotPZ()</a> displays X-Y scatter plots. These plots are configured for plotting the results of pole-zero analysis.</p>
 </li>
-<li><p class="first"><a class="reference internal" href="#plotxy"><span class="std std-ref">X-Y plots</span></a></p>
+<li><p><a class="reference internal" href="#plotxy"><span class="std std-ref">X-Y plots</span></a></p>
 <p>The function <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.plot">plot()</a> generates X-Y line plots from a dictionary with traces. Such dictionaries can be generated from data from other applications, such as, LTspice, SImetrix, NGspice, or Cadence, or from <code class="docutils literal notranslate"><span class="pre">.csv</span></code> files (see <a class="reference internal" href="#extdata"><span class="std std-ref">Plot data from other applications</span></a>).</p>
 </li>
 </ul>
 <div class="section" id="plots-with-a-swept-x-variable">
-<span id="id3"></span><h2>Plots with a swept x-variable<a class="headerlink" href="#plots-with-a-swept-x-variable" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Plots with a swept x-variable<a class="headerlink" href="#plots-with-a-swept-x-variable" title="Permalink to this heading">¶</a></h2>
 <p>Below a few examples using <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.plotSweep">plotSweep()</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -261,12 +262,12 @@
 </pre></div>
 </div>
 <img alt="../_images/RCstep.svg" src="../_images/RCstep.svg" /><div class="section" id="stepping-parameters">
-<h3>Stepping parameters<a class="headerlink" href="#stepping-parameters" title="Permalink to this headline">¶</a></h3>
+<h3>Stepping parameters<a class="headerlink" href="#stepping-parameters" title="Permalink to this heading">¶</a></h3>
 <p>If a stepped-parameter instruction is executed, multiple traces will be plotted on the axis, one for each step value. The legend will show the step variable and the step variable and its value.</p>
 <p>For array type stepping the legend text will be <code class="docutils literal notranslate"><span class="pre">run:</span> <span class="pre">&lt;i&gt;</span></code> where the number <code class="docutils literal notranslate"><span class="pre">i</span></code> indicates the i-th step using the i-th value for each step parameter.</p>
 </div>
 <div class="section" id="sweeping-parameters">
-<h3>Sweeping parameters<a class="headerlink" href="#sweeping-parameters" title="Permalink to this headline">¶</a></h3>
+<h3>Sweeping parameters<a class="headerlink" href="#sweeping-parameters" title="Permalink to this heading">¶</a></h3>
 <p>Cicuit parameters can be assigned a numeric value or a function of other parameters. In the case of a single-variable function it can be plotted with the <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.plotSweep">plotSweep()</a> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -278,7 +279,7 @@
 </div>
 </div>
 <div class="section" id="pole-zero-and-root-locus-plots">
-<span id="id6"></span><h2>Pole-zero and root-locus plots<a class="headerlink" href="#pole-zero-and-root-locus-plots" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>Pole-zero and root-locus plots<a class="headerlink" href="#pole-zero-and-root-locus-plots" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>         <span class="c1"># Create an instance of an instruction object</span>
@@ -296,19 +297,21 @@
 </pre></div>
 </div>
 <img alt="../_images/PZ.svg" src="../_images/PZ.svg" /><div class="section" id="stepping-parameters-and-root-locus-plots">
-<h3>Stepping parameters and root locus plots<a class="headerlink" href="#stepping-parameters-and-root-locus-plots" title="Permalink to this headline">¶</a></h3>
+<h3>Stepping parameters and root locus plots<a class="headerlink" href="#stepping-parameters-and-root-locus-plots" title="Permalink to this heading">¶</a></h3>
 <p>SLiCAP can plot the poles and zeros while stepping parameters. A root-locus plot in SLiCAP is essensially a stepped-parameter analysis with the data type set to ‘poles’. The formatting of the stepped pole-zero plots is as follows:</p>
 <ul class="simple">
-<li>Data type ‘poles’ or ‘pz’<ul>
-<li>marker for each pole, first step: <span class="math notranslate nohighlight">\(\times\)</span></li>
-<li>marker for each pole, last step: <span class="math notranslate nohighlight">\(+\)</span></li>
-<li>marker for each pole, each step: <span class="math notranslate nohighlight">\(\bullet\)</span></li>
+<li><p>Data type ‘poles’ or ‘pz’</p>
+<ul>
+<li><p>marker for each pole, first step: <span class="math notranslate nohighlight">\(\times\)</span></p></li>
+<li><p>marker for each pole, last step: <span class="math notranslate nohighlight">\(+\)</span></p></li>
+<li><p>marker for each pole, each step: <span class="math notranslate nohighlight">\(\bullet\)</span></p></li>
 </ul>
 </li>
-<li>Data type ‘zeros’ or ‘pz’<ul>
-<li>marker for each zero, first step: <span class="math notranslate nohighlight">\(\circ\)</span></li>
-<li>marker for each zero, last step:  <span class="math notranslate nohighlight">\(\Box\)</span></li>
-<li>marker for each zero, each step: <span class="math notranslate nohighlight">\(\bullet\)</span></li>
+<li><p>Data type ‘zeros’ or ‘pz’</p>
+<ul>
+<li><p>marker for each zero, first step: <span class="math notranslate nohighlight">\(\circ\)</span></p></li>
+<li><p>marker for each zero, last step:  <span class="math notranslate nohighlight">\(\Box\)</span></p></li>
+<li><p>marker for each zero, each step: <span class="math notranslate nohighlight">\(\bullet\)</span></p></li>
 </ul>
 </li>
 </ul>
@@ -316,12 +319,12 @@
 </div>
 </div>
 <div class="section" id="x-y-plots">
-<span id="plotxy"></span><h2>X-Y plots<a class="headerlink" href="#x-y-plots" title="Permalink to this headline">¶</a></h2>
+<span id="plotxy"></span><h2>X-Y plots<a class="headerlink" href="#x-y-plots" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="plot-data-from-other-applications">
-<span id="extdata"></span><h2>Plot data from other applications<a class="headerlink" href="#plot-data-from-other-applications" title="Permalink to this headline">¶</a></h2>
+<span id="extdata"></span><h2>Plot data from other applications<a class="headerlink" href="#plot-data-from-other-applications" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="add-traces-to-a-figure">
-<h3>Add traces to a figure<a class="headerlink" href="#add-traces-to-a-figure" title="Permalink to this headline">¶</a></h3>
+<h3>Add traces to a figure<a class="headerlink" href="#add-traces-to-a-figure" title="Permalink to this heading">¶</a></h3>
 <p>The function <a class="reference external" href="../reference/SLiCAPplots.html#SLiCAP.SLiCAPplots.SLiCAPplots.traces2fig">traces2fig()</a> adds traces to a figure.</p>
 </div>
 </div>

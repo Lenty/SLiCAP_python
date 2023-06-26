@@ -1264,7 +1264,6 @@ def makeMaxMatrices(instr, result):
     """
     # Create the MNA matrix
     result.M, result.Dv = makeMatrices(instr)
-    
     # Create vecor with independent variables
     # Iv = [0 for i in range(len(instr.depVars()))]
     Iv = [0 for i in range(result.M.shape[0])]
@@ -1308,10 +1307,14 @@ def makeMaxMatrices(instr, result):
                         result.Iv[pos] = 1
                     else:
                         # differential input
-                        result.Iv[pos] = (-1)**i/ns
+                        result.Iv[pos] = ((-1)**i)/ns
     else:
         result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'value', numeric = instr.numeric)
     if instr.convType != None:
+        # Adapt instr.ParDefs for balancing
+        if instr.removePairSubName:
+            instr = pairParDefs(instr)
+        # Convert the matrices
         result = convertMatrices(instr, result)
     return result
 
@@ -1333,9 +1336,6 @@ def makeSubsDict(instr):
                 instr.parDefs[key] = instr.circuit.parDefs[key]
     else:
         instr.parDefs = instr.circuit.parDefs
-    # Adapt instr.ParDefs for balancing
-    if instr.convType != None and instr.removePairSubName:
-        instr = pairParDefs(instr)
     return instr
 
 def parseMaxResult(result, indepVars, maxResult):
@@ -1670,6 +1670,7 @@ def pairVariables(instr):
     :rtype: tuple
     """
     depVars = [var for var in instr.circuit.depVars]
+    indepVars = [var for var in instr.circuit.indepVars]
     paired = []
     pairs = []
     unPaired = []
@@ -1708,7 +1709,7 @@ def pairVariables(instr):
                     depVars.remove(var)
             else:
                 depVars.remove(var)
-    cmVars += unPaired
+        cmVars += unPaired
     return pairs, unPaired, dmVars, cmVars
   
 def getSubMatrices(result, dimDm, dimCm, convType):

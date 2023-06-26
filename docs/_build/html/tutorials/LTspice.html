@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -183,90 +183,84 @@
            <div itemprop="articleBody">
             
   <div class="section" id="slicap-schematic-capture-with-ltspice">
-<h1>SLiCAP schematic capture with LTspice<a class="headerlink" href="#slicap-schematic-capture-with-ltspice" title="Permalink to this headline">¶</a></h1>
+<h1>SLiCAP schematic capture with LTspice<a class="headerlink" href="#slicap-schematic-capture-with-ltspice" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="install-and-configure-ltspice-for-schematic-capture">
-<h2>Install and configure LTspice for schematic capture<a class="headerlink" href="#install-and-configure-ltspice-for-schematic-capture" title="Permalink to this headline">¶</a></h2>
+<h2>Install and configure LTspice for schematic capture<a class="headerlink" href="#install-and-configure-ltspice-for-schematic-capture" title="Permalink to this heading">¶</a></h2>
 <p>If you want to use LTspice as schematic capture program you also need to install and/or configure LTspice as schematic capture program for SLiCAP. To this end you need to:</p>
 <ol class="arabic">
-<li><p class="first">Install the latest version of <a class="reference external" href="http://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">LTspice</a></p>
-</li>
-<li><p class="first">Start LTspice</p>
-</li>
-<li><p class="first">On the menu bar click <em>Tools &gt; Control Panel</em>. This will bring up the LTspice control panel:</p>
+<li><p>Install the latest version of <a class="reference external" href="http://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">LTspice</a></p></li>
+<li><p>Start LTspice</p></li>
+<li><p>On the menu bar click <em>Tools &gt; Control Panel</em>. This will bring up the LTspice control panel:</p>
 <img alt="../_images/LTspiceControlPanel.png" src="../_images/LTspiceControlPanel.png" />
 </li>
-<li><p class="first">On this control panel select the <em>Netlist Options</em> tab and select the options as shown below:</p>
+<li><p>On this control panel select the <em>Netlist Options</em> tab and select the options as shown below:</p>
 <img alt="../_images/LTspiceControlPanelNetlistOptions.png" src="../_images/LTspiceControlPanelNetlistOptions.png" />
 </li>
-<li><p class="first">Then select the <em>Sym. &amp; Lib. Search Paths</em> tab and enter the full path to the “LTspice” subdirectory of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
+<li><p>Then select the <em>Sym. &amp; Lib. Search Paths</em> tab and enter the full path to the “LTspice” subdirectory of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
 <img alt="../_images/LTspiceControlPanelSymbolPath.png" src="../_images/LTspiceControlPanelSymbolPath.png" />
 </li>
-<li><p class="first">Then select the <em>Drafting Options</em> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
+<li><p>Then select the <em>Drafting Options</em> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
 <img alt="../_images/LTspiceControlPanelFontSettings.png" src="../_images/LTspiceControlPanelFontSettings.png" />
 </li>
 </ol>
 </div>
 <div class="section" id="draw-the-circuit-in-ltspice">
-<h2>Draw the circuit in LTspice<a class="headerlink" href="#draw-the-circuit-in-ltspice" title="Permalink to this headline">¶</a></h2>
+<h2>Draw the circuit in LTspice<a class="headerlink" href="#draw-the-circuit-in-ltspice" title="Permalink to this heading">¶</a></h2>
 <p>Knowledge of drawing circuits with LTspice is assumed.</p>
 <ol class="arabic">
-<li><p class="first">Open LTspice and select <em>File &gt; New Schematic</em> from the menu bar. Place a component on the schematic by clicking the AND gate symbol on the tool bar or by pressing the “F2” key (default Hot Keys setting). This will bring up the <em>Select Component Symbol</em> menu. On this menu select the directory with the SLiCAP symbols from <em>Top Directory</em> drop-down select box, as shown below:</p>
+<li><p>Open LTspice and select <em>File &gt; New Schematic</em> from the menu bar. Place a component on the schematic by clicking the AND gate symbol on the tool bar or by pressing the “F2” key (default Hot Keys setting). This will bring up the <em>Select Component Symbol</em> menu. On this menu select the directory with the SLiCAP symbols from <em>Top Directory</em> drop-down select box, as shown below:</p>
 <img alt="../_images/LTspiceSelectSLiCAPcomponent.png" src="../_images/LTspiceSelectSLiCAPcomponent.png" />
 <p>All SLiCAP symbol names start with “SL”!</p>
 </li>
-<li><p class="first">Place an independent voltage source “SLV”, a resistor “SLR” and a capacitor “SLC” and create the circuit depicted below:</p>
+<li><p>Place an independent voltage source “SLV”, a resistor “SLR” and a capacitor “SLC” and create the circuit depicted below:</p>
 <a class="reference internal image-reference" href="../_images/myFirstRCnetwork_asc.png"><img alt="../_images/myFirstRCnetwork_asc.png" src="../_images/myFirstRCnetwork_asc.png" style="width: 400px;" /></a>
 <p>Please note:</p>
 <ol class="arabic simple">
-<li>The node of interconnection of the resistor and the capacitor is labeled as <em>out</em>. Later we need to refer to this node. SLiCAP will name the voltage at this node <em>V_out</em>.</li>
-<li>A default ground symbol (node <em>0</em>) has been used.</li>
-<li>The use of the spice directive <em>.param</em>: it defines symbolic or numeric values of parameters.</li>
+<li><p>The node of interconnection of the resistor and the capacitor is labeled as <em>out</em>. Later we need to refer to this node. SLiCAP will name the voltage at this node <em>V_out</em>.</p></li>
+<li><p>A default ground symbol (node <em>0</em>) has been used.</p></li>
+<li><p>The use of the spice directive <em>.param</em>: it defines symbolic or numeric values of parameters.</p></li>
 </ol>
 </li>
-<li><p class="first">Save the circuit <em>myFirstRCnetwork.asc</em> in the project directory.</p>
-</li>
-<li><p class="first">If you want to display the circuit on a SLiCAP output html page, you need to create an image file of it that can be rendered by a browser. A <em>.png</em> file is a good candidate. You can generate a PNG from a screen dump with a graphic file editor (Paint, Gimp, Photoshop, etc.). Here we assume that the graphic file <em>myFirstRCnetwork_asc.png</em> has been saved in the project directory. It is shown above.</p>
-</li>
+<li><p>Save the circuit <em>myFirstRCnetwork.asc</em> in the project directory.</p></li>
+<li><p>If you want to display the circuit on a SLiCAP output html page, you need to create an image file of it that can be rendered by a browser. A <em>.png</em> file is a good candidate. You can generate a PNG from a screen dump with a graphic file editor (Paint, Gimp, Photoshop, etc.). Here we assume that the graphic file <em>myFirstRCnetwork_asc.png</em> has been saved in the project directory. It is shown above.</p></li>
 </ol>
 </div>
 <div class="section" id="create-a-slicap-netlist-from-an-ltspice-schematic-file">
-<h2>Create a SLiCAP netlist from an LTspice schematic file<a class="headerlink" href="#create-a-slicap-netlist-from-an-ltspice-schematic-file" title="Permalink to this headline">¶</a></h2>
+<h2>Create a SLiCAP netlist from an LTspice schematic file<a class="headerlink" href="#create-a-slicap-netlist-from-an-ltspice-schematic-file" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="use-the-python-instruction-makenetlist">
-<h3>Use the python instruction makeNetlist()<a class="headerlink" href="#use-the-python-instruction-makenetlist" title="Permalink to this headline">¶</a></h3>
+<h3>Use the python instruction makeNetlist()<a class="headerlink" href="#use-the-python-instruction-makenetlist" title="Permalink to this heading">¶</a></h3>
 <p>A netlist from an LTspice ‘.asc’ schematic file can be generated from within the python environment using the command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="o">&lt;</span><span class="n">fileName</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">makeNetlist</span><span class="p">(</span><span class="o">&lt;</span><span class="n">fileName</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Where ‘fileName’ is the name of the LTspice schematic file (including the ‘.asc’ file extension) and ‘title’ is the title of your circuit. Place it between double quotes (“) if you use space(s) or characters other than letters. Do not start your title with an asterix: ‘*’.</p>
 <p>The makeNetlist() command calls LTspice in batch mode (subprocess) to create the netlist and then adds the title to it.</p>
 </div>
 <div class="section" id="manual-creation-of-a-netlist">
-<h3>Manual creation of a netlist<a class="headerlink" href="#manual-creation-of-a-netlist" title="Permalink to this headline">¶</a></h3>
+<h3>Manual creation of a netlist<a class="headerlink" href="#manual-creation-of-a-netlist" title="Permalink to this heading">¶</a></h3>
 <p>If for some reason the makeNelist() command does not work, you can manually create a SLiCAP netlist.</p>
 <ol class="arabic">
-<li><p class="first">Open the schematic file in LTspice.</p>
-</li>
-<li><p class="first">On the LTspice task bar select View: and on this View menu select: SPICE Netlist</p>
+<li><p>Open the schematic file in LTspice.</p></li>
+<li><p>On the LTspice task bar select View: and on this View menu select: SPICE Netlist</p>
 <img alt="../_images/makeNetlist-1.png" src="../_images/makeNetlist-1.png" />
 </li>
-<li><p class="first">This will display the netlist.</p>
+<li><p>This will display the netlist.</p>
 <img alt="../_images/makeNetlist-2.png" src="../_images/makeNetlist-2.png" />
 </li>
-<li><p class="first">In this netlist window right-click your mouse and select: Edit as Independent Netlist</p>
+<li><p>In this netlist window right-click your mouse and select: Edit as Independent Netlist</p>
 <img alt="../_images/makeNetlist-3.png" src="../_images/makeNetlist-3.png" />
 </li>
-<li><p class="first">This will bring up the <em>Save</em> window. It will display the contents of the directory of the <em>.asc</em> file of which you are generating the netlist. Save your netlist as a <em>.cir</em> netlist file.</p>
+<li><p>This will bring up the <em>Save</em> window. It will display the contents of the directory of the <em>.asc</em> file of which you are generating the netlist. Save your netlist as a <em>.cir</em> netlist file.</p>
 <img alt="../_images/makeNetlist-4.png" src="../_images/makeNetlist-4.png" />
 </li>
-<li><p class="first">After the netlist file has been saved it will be displayed in a new tab</p>
+<li><p>After the netlist file has been saved it will be displayed in a new tab</p>
 <img alt="../_images/makeNetlist-5.png" src="../_images/makeNetlist-5.png" />
 </li>
-<li><p class="first">Edit the title or add one:</p>
+<li><p>Edit the title or add one:</p>
 <p>The first line of the file is the title of your circuit. It should not start with an asterix: ‘*’. Place it between double quotes (“) if you use space(s) or characters other than letters.</p>
 <img alt="../_images/makeNetlist-6.png" src="../_images/makeNetlist-6.png" />
 </li>
-<li><p class="first">Save the netlist file.</p>
-</li>
+<li><p>Save the netlist file.</p></li>
 </ol>
 </div>
 </div>

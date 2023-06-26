@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -194,23 +194,23 @@
            <div itemprop="articleBody">
             
   <div class="section" id="define-a-circuit">
-<h1>Define a circuit<a class="headerlink" href="#define-a-circuit" title="Permalink to this headline">¶</a></h1>
+<h1>Define a circuit<a class="headerlink" href="#define-a-circuit" title="Permalink to this heading">¶</a></h1>
 <p>SLiCAP requires a SPICE-like netlist of a circuit as input. It converts a hierarchical netlist into matrix equations with the aid of the ‘Modified Nodal Analysis’ method.</p>
 <p>You can generate a netlist from a schematic drawing program, or by entering it manually in an ASCII editor.</p>
 <p>Netlist generation for SLiCAP is supported for schematics created with:</p>
 <ol class="arabic simple">
-<li><em>gSchem</em> using the corresponding SLiCAP symbol library and the ‘gnet-spice-noqsi’ netlist plugin</li>
-<li><em>LTSPICE</em> using the corresponding SLiCAP symbol library</li>
+<li><p><em>gSchem</em> using the corresponding SLiCAP symbol library and the ‘gnet-spice-noqsi’ netlist plugin</p></li>
+<li><p><em>LTSPICE</em> using the corresponding SLiCAP symbol library</p></li>
 </ol>
 <div class="section" id="create-a-circuit-netlist">
-<h2>Create a circuit netlist<a class="headerlink" href="#create-a-circuit-netlist" title="Permalink to this headline">¶</a></h2>
+<h2>Create a circuit netlist<a class="headerlink" href="#create-a-circuit-netlist" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="differences-between-spice-and-slicap-netlist">
-<h3>Differences between SPICE and SLiCAP netlist<a class="headerlink" href="#differences-between-spice-and-slicap-netlist" title="Permalink to this headline">¶</a></h3>
+<h3>Differences between SPICE and SLiCAP netlist<a class="headerlink" href="#differences-between-spice-and-slicap-netlist" title="Permalink to this heading">¶</a></h3>
 <p>Many schematic capture programs can generate Spice netlist from schematics. However, the netlist syntax for SLiCAP slightly differs from the standard SPICE syntax. The differences are listed in the section <a class="reference external" href="../syntax/netlist.html">SLiCAP netlist syntax</a>. For this reason, the netlist syntax associated with built-in schematic symbols of schematic capture packages needs to be adapted to generate correct SLiCAP netlists.</p>
 <p>SLiCAP schematic symbols for LTspice, gschem, and lepton-eda are available in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code>, <code class="docutils literal notranslate"><span class="pre">gSchem/symbols/</span></code>, and <code class="docutils literal notranslate"><span class="pre">lepton-eda/symbols/</span></code> directories in the user install path (default <code class="docutils literal notranslate"><span class="pre">~/SLiCAP</span></code>).</p>
 </div>
 <div class="section" id="automatic-generation-of-a-netlist">
-<h3>Automatic generation of a netlist<a class="headerlink" href="#automatic-generation-of-a-netlist" title="Permalink to this headline">¶</a></h3>
+<h3>Automatic generation of a netlist<a class="headerlink" href="#automatic-generation-of-a-netlist" title="Permalink to this heading">¶</a></h3>
 <p>SLiCAP can create netlists from schematics created with LTspice (MSWindows, Linux), gSchem (MSWindows, Linux, MAC), and lepton-eda (Linux, MAC).</p>
 <p>Below the syntax for generation of the netlist file <code class="docutils literal notranslate"><span class="pre">myCircuit.cir</span></code> from the ‘gSchem’ schematic file <code class="docutils literal notranslate"><span class="pre">myCircuit.sch</span></code> or from the ‘LTspice’ schematic file <code class="docutils literal notranslate"><span class="pre">myCircuit.asc</span></code> in the project directory. The title of the circuit needs to be added separately. It will be placed at the beginning of the netlist file and used in the table of contents of html reports.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Netlist generation from LTspice schematic files:</span>

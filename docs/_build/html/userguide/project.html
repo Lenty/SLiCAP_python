@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -236,7 +236,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="initialize-a-slicap-project">
-<h1>Initialize a SLiCAP project<a class="headerlink" href="#initialize-a-slicap-project" title="Permalink to this headline">¶</a></h1>
+<h1>Initialize a SLiCAP project<a class="headerlink" href="#initialize-a-slicap-project" title="Permalink to this heading">¶</a></h1>
 <p>You start SLiCAP by importing of the scripts and initialization of a python project:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span> <span class="c1"># This imports the SLiCAP scripts</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My SLiCAP project&#39;</span><span class="p">)</span> <span class="c1"># default PORT for socket communication with maxima CAS.</span>
@@ -251,7 +251,7 @@
 </div>
 <p>Below the output generated after executing <code class="docutils literal notranslate"><span class="pre">myFisrtRCnetwork.py</span></code> in the folder <code class="docutils literal notranslate"><span class="pre">~/SLiCAP/examples/myFirstRCnetwork/</span></code> under Linux:</p>
 <blockquote>
-<div>HOST………….. : 127.0.0.1
+<div><p>HOST………….. : 127.0.0.1
 Hz……………. : True
 Laplace……….. : s
 MaximaMatrixDim… : 25
@@ -297,271 +297,273 @@ sphinxPath…….. : ~/SLiCAP/examples/myFirstRCnetwork/sphinx/
 stepFunction…… : True
 tableFileType….. : csv
 txtPath……….. : ~/SLiCAP/examples/myFirstRCnetwork/txt/
-userPath………. : ~/SLiCAP</div></blockquote>
+userPath………. : ~/SLiCAP</p>
+</div></blockquote>
 <p>Below the meaning of the variables.</p>
 <div class="section" id="host">
-<h2>HOST<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h2>
+<h2>HOST<a class="headerlink" href="#host" title="Permalink to this heading">¶</a></h2>
 <p>Loop back IP address for socket operation of Maxima CAS.</p>
 <p><strong>Default value</strong> is ‘127.0.0.1’</p>
 </div>
 <div class="section" id="hz">
-<h2>Hz<a class="headerlink" href="#hz" title="Permalink to this headline">¶</a></h2>
+<h2>Hz<a class="headerlink" href="#hz" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li>True:<ul>
-<li>The functions: findServoBandwidth(), listPZ and pz2html will return/display poles and zeros in [Hz].</li>
-<li>Frequency domain plots will have the frequency scale in [Hz].</li>
-<li>Pole-zero plots will have the frequency scale in [Hz].</li>
+<li><p>True:</p>
+<ul class="simple">
+<li><p>The functions: findServoBandwidth(), listPZ and pz2html will return/display poles and zeros in [Hz].</p></li>
+<li><p>Frequency domain plots will have the frequency scale in [Hz].</p></li>
+<li><p>Pole-zero plots will have the frequency scale in [Hz].</p></li>
 </ul>
 </li>
-<li>False: the functions: findServoBandwidth(), listPZ and pz2html will return/display poles and zeros in [rad/s].</li>
+<li><p>False: the functions: findServoBandwidth(), listPZ and pz2html will return/display poles and zeros in [rad/s].</p></li>
 </ol>
 <p><strong>Default value</strong> is <em>True</em></p>
 <p>Execution results of poles and zeros analysis are always in [rad/s].</p>
 <p>Noise spectra always have the frequency scale in [Hz].</p>
 </div>
 <div class="section" id="laplace">
-<h2>Laplace<a class="headerlink" href="#laplace" title="Permalink to this headline">¶</a></h2>
+<h2>Laplace<a class="headerlink" href="#laplace" title="Permalink to this heading">¶</a></h2>
 <p>Sympy symbol that will be used as Laplace variable.</p>
 <p><strong>Default value</strong> is <em>sympy.Symbol(‘s’)</em></p>
 </div>
 <div class="section" id="maximamatrixdim">
-<h2>MaximaMatrixDim<a class="headerlink" href="#maximamatrixdim" title="Permalink to this headline">¶</a></h2>
+<h2>MaximaMatrixDim<a class="headerlink" href="#maximamatrixdim" title="Permalink to this heading">¶</a></h2>
 <p>Maximum number of rows or columns of the MNA matrix for which <em>maxima CAS</em> will use the <em>Gentleman-Johnson</em> method for determination of the determinant. Above this number <em>maxima CAS</em> is forced to use <em>recursive expansion of minors</em>.</p>
 <p><strong>Default value</strong> is 25</p>
 </div>
 <div class="section" id="maximatimeout">
-<h2>MaximaTimeOut<a class="headerlink" href="#maximatimeout" title="Permalink to this headline">¶</a></h2>
+<h2>MaximaTimeOut<a class="headerlink" href="#maximatimeout" title="Permalink to this heading">¶</a></h2>
 <p>Many symbolic and numeric math functions are performed by <em>maxima CAS</em>. Currently the python subprocess module is used for this purpose. If for some reason <em>maxima CAS</em> required input that cannot be passed to this subprocess, the execution of this subprocess is times out after <code class="docutils literal notranslate"><span class="pre">MaximaTimeOut</span></code> seconds.</p>
 <p><strong>Default value</strong> is 5 seconds</p>
 </div>
 <div class="section" id="port">
-<h2>PORT<a class="headerlink" href="#port" title="Permalink to this headline">¶</a></h2>
+<h2>PORT<a class="headerlink" href="#port" title="Permalink to this heading">¶</a></h2>
 <p>Port number for socket communication with maxima. Can be set at the initialization of a project (&gt; 8000).</p>
 <p><strong>Default value</strong> is 81153</p>
 </div>
 <div class="section" id="assumeposmaxvars">
-<h2>assumePosMaxVars<a class="headerlink" href="#assumeposmaxvars" title="Permalink to this headline">¶</a></h2>
+<h2>assumePosMaxVars<a class="headerlink" href="#assumeposmaxvars" title="Permalink to this heading">¶</a></h2>
 <p>If true, symbols (except the Laplace variable) passed to maxima are assumed to be positive real numbers. If false, maxima may return questions during evaluation of integrals, limits and/or powers.</p>
 <p><strong>Default value</strong> is <em>True</em></p>
 </div>
 <div class="section" id="circuitpath">
-<h2>circuitPath<a class="headerlink" href="#circuitpath" title="Permalink to this headline">¶</a></h2>
+<h2>circuitPath<a class="headerlink" href="#circuitpath" title="Permalink to this heading">¶</a></h2>
 <p>Search path for schematic files and netlist files.</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 <p>It will be used by:</p>
 <ol class="arabic simple">
-<li>SLiCAPinstruction.instruction.checkCircuit(&lt;netlist file name&gt;)</li>
-<li>SLiCAPinstruction.instruction.setCircuit(&lt;netlist file name&gt;)</li>
-<li>SLiCAPprotos.circuit.checkCircuit(&lt;netlist file name&gt;)</li>
-<li>SLiCAP.makeNetlist(&lt;schematics file name&gt;, &lt;circuit title&gt;)</li>
-<li>SLiCAPhtml.netlist2html(&lt;netlist file name&gt;)</li>
+<li><p>SLiCAPinstruction.instruction.checkCircuit(&lt;netlist file name&gt;)</p></li>
+<li><p>SLiCAPinstruction.instruction.setCircuit(&lt;netlist file name&gt;)</p></li>
+<li><p>SLiCAPprotos.circuit.checkCircuit(&lt;netlist file name&gt;)</p></li>
+<li><p>SLiCAP.makeNetlist(&lt;schematics file name&gt;, &lt;circuit title&gt;)</p></li>
+<li><p>SLiCAPhtml.netlist2html(&lt;netlist file name&gt;)</p></li>
 </ol>
 </div>
 <div class="section" id="csvpath">
-<h2>csvPath<a class="headerlink" href="#csvpath" title="Permalink to this headline">¶</a></h2>
+<h2>csvPath<a class="headerlink" href="#csvpath" title="Permalink to this heading">¶</a></h2>
 <p>Search path for csv files.</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 <p>It will be used by:</p>
 <ol class="arabic simple">
-<li>SLiCAP_html.csv2html(&lt;csv file name&gt;)</li>
-<li>SLiCAP_plots.csv2traces(&lt;csv file name&gt;)</li>
+<li><p>SLiCAP_html.csv2html(&lt;csv file name&gt;)</p></li>
+<li><p>SLiCAP_plots.csv2traces(&lt;csv file name&gt;)</p></li>
 </ol>
 </div>
 <div class="section" id="defaultcolors">
-<h2>defaultColors<a class="headerlink" href="#defaultcolors" title="Permalink to this headline">¶</a></h2>
+<h2>defaultColors<a class="headerlink" href="#defaultcolors" title="Permalink to this heading">¶</a></h2>
 <p>List with matplotlib color names that will be used for plotting multiple graphs on one axis.</p>
 <p><strong>Default value</strong> is [‘r’, ‘b’, ‘g’, ‘c’, ‘m’, ‘y’, ‘k’].</p>
 </div>
 <div class="section" id="defaultlib">
-<h2>defaultLib<a class="headerlink" href="#defaultlib" title="Permalink to this headline">¶</a></h2>
+<h2>defaultLib<a class="headerlink" href="#defaultlib" title="Permalink to this heading">¶</a></h2>
 <p>Search path for system library files with SPICE definitions of sub circuits and models.</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
 <div class="section" id="defaultmarkers">
-<h2>defaultMarkers<a class="headerlink" href="#defaultmarkers" title="Permalink to this headline">¶</a></h2>
+<h2>defaultMarkers<a class="headerlink" href="#defaultmarkers" title="Permalink to this heading">¶</a></h2>
 <p>List with matplotlib marker names to be used in plots.</p>
 <p><strong>Default value</strong> is: [‘’]</p>
 </div>
 <div class="section" id="disp">
-<h2>disp<a class="headerlink" href="#disp" title="Permalink to this headline">¶</a></h2>
+<h2>disp<a class="headerlink" href="#disp" title="Permalink to this heading">¶</a></h2>
 <p>Number of digits for displaying floats on html pages.</p>
 <p><strong>Default value</strong> is: 4</p>
 </div>
 <div class="section" id="docpath">
-<h2>docPath<a class="headerlink" href="#docpath" title="Permalink to this headline">¶</a></h2>
+<h2>docPath<a class="headerlink" href="#docpath" title="Permalink to this heading">¶</a></h2>
 <p>Path to the SLiCAP html documentation</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
 <div class="section" id="figureaxisheight">
-<h2>figureAxisHeight<a class="headerlink" href="#figureaxisheight" title="Permalink to this headline">¶</a></h2>
+<h2>figureAxisHeight<a class="headerlink" href="#figureaxisheight" title="Permalink to this heading">¶</a></h2>
 <p>Height of a figure object (depends on DPI).</p>
 <p><strong>Default value</strong> is 5</p>
 </div>
 <div class="section" id="figureaxiswidth">
-<h2>figureAxisWidth<a class="headerlink" href="#figureaxiswidth" title="Permalink to this headline">¶</a></h2>
+<h2>figureAxisWidth<a class="headerlink" href="#figureaxiswidth" title="Permalink to this heading">¶</a></h2>
 <p>Width of a figure object (depends on DPI).</p>
 <p><strong>Default value</strong> is 7</p>
 </div>
 <div class="section" id="figurefiletype">
-<h2>figureFileType<a class="headerlink" href="#figurefiletype" title="Permalink to this headline">¶</a></h2>
+<h2>figureFileType<a class="headerlink" href="#figurefiletype" title="Permalink to this heading">¶</a></h2>
 <p>File type for saving matplotlib figures (graphs).</p>
 <p><strong>Default value</strong> is <em>svg</em> (scalable vector graphics).</p>
 </div>
 <div class="section" id="frequency">
-<h2>frequency<a class="headerlink" href="#frequency" title="Permalink to this headline">¶</a></h2>
+<h2>frequency<a class="headerlink" href="#frequency" title="Permalink to this heading">¶</a></h2>
 <p>Sympy symbol used for frequency.</p>
 <p><strong>Default value</strong> is <em>sympy.Symbol(‘f’)</em>.</p>
 </div>
 <div class="section" id="gaincolors">
-<h2>gainColors<a class="headerlink" href="#gaincolors" title="Permalink to this headline">¶</a></h2>
+<h2>gainColors<a class="headerlink" href="#gaincolors" title="Permalink to this heading">¶</a></h2>
 <p>Dictionary with gain types and associated colors for plotting.</p>
 <p><strong>Default value</strong> is <em>{‘gain’: ‘b’, ‘asymptotic’: ‘r’, ‘loopgain’: ‘k’, ‘direct’: ‘g’, ‘servo’: ‘m’, ‘vi’: ‘c’}</em>.</p>
 </div>
 <div class="section" id="htmlindex">
-<h2>htmlIndex<a class="headerlink" href="#htmlindex" title="Permalink to this headline">¶</a></h2>
+<h2>htmlIndex<a class="headerlink" href="#htmlindex" title="Permalink to this heading">¶</a></h2>
 <p>Active html index page. Links to new pages created with <em>htmlPage()</em> will be placed on this page.</p>
 <p><strong>Default value</strong> directly after initialization of a project is <em>index.html</em>.</p>
 </div>
 <div class="section" id="htmllabels-keys">
-<h2>htmlLabels.keys()<a class="headerlink" href="#htmllabels-keys" title="Permalink to this headline">¶</a></h2>
+<h2>htmlLabels.keys()<a class="headerlink" href="#htmllabels-keys" title="Permalink to this heading">¶</a></h2>
 <p>Keys of the dictionary with html labels that have been defined in this project.</p>
 <p><strong>Default value</strong> is [].</p>
 </div>
 <div class="section" id="htmlpage">
-<h2>htmlPage<a class="headerlink" href="#htmlpage" title="Permalink to this headline">¶</a></h2>
+<h2>htmlPage<a class="headerlink" href="#htmlpage" title="Permalink to this heading">¶</a></h2>
 <p>Active html page to which html output will be written.</p>
 <p><strong>Default value</strong> is ‘’.</p>
 </div>
 <div class="section" id="htmlpages">
-<h2>htmlPages<a class="headerlink" href="#htmlpages" title="Permalink to this headline">¶</a></h2>
+<h2>htmlPages<a class="headerlink" href="#htmlpages" title="Permalink to this heading">¶</a></h2>
 <p>List with html pages created in this project.</p>
 <p><strong>Default value</strong> directly after initialization of a project is [‘index.html’].</p>
 </div>
 <div class="section" id="htmlpath">
-<h2>htmlPath<a class="headerlink" href="#htmlpath" title="Permalink to this headline">¶</a></h2>
+<h2>htmlPath<a class="headerlink" href="#htmlpath" title="Permalink to this heading">¶</a></h2>
 <p>Path to the html output generated by this project.</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 </div>
 <div class="section" id="htmlprefix">
-<h2>htmlPrefix<a class="headerlink" href="#htmlprefix" title="Permalink to this headline">¶</a></h2>
+<h2>htmlPrefix<a class="headerlink" href="#htmlprefix" title="Permalink to this heading">¶</a></h2>
 <p>Prefix that will be added to the html page file names. This string consists of the netlist file name + ‘_’.</p>
 <p><strong>Default value</strong> directly after initialization of a project is ‘’.</p>
 </div>
 <div class="section" id="imgpath">
-<h2>imgPath<a class="headerlink" href="#imgpath" title="Permalink to this headline">¶</a></h2>
+<h2>imgPath<a class="headerlink" href="#imgpath" title="Permalink to this heading">¶</a></h2>
 <p>Search path for img2html().</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 </div>
 <div class="section" id="installpath">
-<h2>installPath<a class="headerlink" href="#installpath" title="Permalink to this headline">¶</a></h2>
+<h2>installPath<a class="headerlink" href="#installpath" title="Permalink to this heading">¶</a></h2>
 <p>SLiCAP install path.</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
 <div class="section" id="lambdifytool">
-<h2>lambdifyTool<a class="headerlink" href="#lambdifytool" title="Permalink to this headline">¶</a></h2>
+<h2>lambdifyTool<a class="headerlink" href="#lambdifytool" title="Permalink to this heading">¶</a></h2>
 <p>Tool for conversion of multivariate symbolic expressions to multivariate numeric functions.</p>
 <p><strong>Default value</strong> “numpy”</p>
 </div>
 <div class="section" id="lastupdate">
-<h2>lastUpdate<a class="headerlink" href="#lastupdate" title="Permalink to this headline">¶</a></h2>
+<h2>lastUpdate<a class="headerlink" href="#lastupdate" title="Permalink to this heading">¶</a></h2>
 <p>Last date/time of execution of the project.</p>
 <p><strong>Default value</strong> is the date time directly after initialization of the project.</p>
 </div>
 <div class="section" id="latexpath">
-<h2>latexPath<a class="headerlink" href="#latexpath" title="Permalink to this headline">¶</a></h2>
+<h2>latexPath<a class="headerlink" href="#latexpath" title="Permalink to this heading">¶</a></h2>
 <p>Path for exporting LaTeX output (not used in current version).</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 </div>
 <div class="section" id="legendloc">
-<h2>legendLoc<a class="headerlink" href="#legendloc" title="Permalink to this headline">¶</a></h2>
+<h2>legendLoc<a class="headerlink" href="#legendloc" title="Permalink to this heading">¶</a></h2>
 <p>Location of legend on plots.</p>
 <p><strong>Default value</strong> is <em>best</em>.</p>
 </div>
 <div class="section" id="librarypath">
-<h2>libraryPath<a class="headerlink" href="#librarypath" title="Permalink to this headline">¶</a></h2>
+<h2>libraryPath<a class="headerlink" href="#librarypath" title="Permalink to this heading">¶</a></h2>
 <p>Path to user libraries with definitions of sub circuits and models.</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 </div>
 <div class="section" id="ltspice">
-<h2>ltspice<a class="headerlink" href="#ltspice" title="Permalink to this headline">¶</a></h2>
+<h2>ltspice<a class="headerlink" href="#ltspice" title="Permalink to this heading">¶</a></h2>
 <p>Path to LTspice executable (required for makeNetlist().</p>
 <p><strong>Default value</strong> is automatically determined during installation.</p>
 </div>
 <div class="section" id="mathml">
-<h2>mathml<a class="headerlink" href="#mathml" title="Permalink to this headline">¶</a></h2>
+<h2>mathml<a class="headerlink" href="#mathml" title="Permalink to this heading">¶</a></h2>
 <p>Setting for math output in html pages (not yet implemented)</p>
 <p><strong>Default value</strong> is <em>False</em>.</p>
 </div>
 <div class="section" id="mathmlpath">
-<h2>mathmlPath<a class="headerlink" href="#mathmlpath" title="Permalink to this headline">¶</a></h2>
+<h2>mathmlPath<a class="headerlink" href="#mathmlpath" title="Permalink to this heading">¶</a></h2>
 <p>Path for exporting mathml output (not used in current version).</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 </div>
 <div class="section" id="maxrecsubst">
-<h2>maxRecSubst<a class="headerlink" href="#maxrecsubst" title="Permalink to this headline">¶</a></h2>
+<h2>maxRecSubst<a class="headerlink" href="#maxrecsubst" title="Permalink to this heading">¶</a></h2>
 <p>Setting for maximum number of recursisve substitutions.</p>
 <p><strong>Default value</strong> is 12.</p>
 </div>
 <div class="section" id="maxima">
-<h2>maxima<a class="headerlink" href="#maxima" title="Permalink to this headline">¶</a></h2>
+<h2>maxima<a class="headerlink" href="#maxima" title="Permalink to this heading">¶</a></h2>
 <p>Command for running maxima CAS.</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
 <div class="section" id="netlist">
-<h2>netlist<a class="headerlink" href="#netlist" title="Permalink to this headline">¶</a></h2>
+<h2>netlist<a class="headerlink" href="#netlist" title="Permalink to this heading">¶</a></h2>
 <p>Command for generating a netlist from a <em>‘.sch’</em> schematic file.</p>
 <p><strong>Default value</strong> is determined during installation.</p>
 </div>
 <div class="section" id="normalize">
-<h2>normalize<a class="headerlink" href="#normalize" title="Permalink to this headline">¶</a></h2>
+<h2>normalize<a class="headerlink" href="#normalize" title="Permalink to this heading">¶</a></h2>
 <p>Setting for normalization of rational functions. If <em>True</em>, the coefficient of the lowest order of the denominator will be normalized to unity.</p>
 <p><strong>Default value</strong> True</p>
 </div>
 <div class="section" id="notebook">
-<h2>notebook<a class="headerlink" href="#notebook" title="Permalink to this headline">¶</a></h2>
+<h2>notebook<a class="headerlink" href="#notebook" title="Permalink to this heading">¶</a></h2>
 <p>Will be set to <em>True</em> if SLiCAP runs from an ipython environment (some additional scripts will be loaded).</p>
 <p><strong>Default value</strong> is <em>False</em>.</p>
 </div>
 <div class="section" id="plotfontsize">
-<h2>plotFontSize<a class="headerlink" href="#plotfontsize" title="Permalink to this headline">¶</a></h2>
+<h2>plotFontSize<a class="headerlink" href="#plotfontsize" title="Permalink to this heading">¶</a></h2>
 <p>Font size used in plots.</p>
 <p><strong>Default value</strong> is 12.</p>
 </div>
 <div class="section" id="projectpath">
-<h2>projectPath<a class="headerlink" href="#projectpath" title="Permalink to this headline">¶</a></h2>
+<h2>projectPath<a class="headerlink" href="#projectpath" title="Permalink to this heading">¶</a></h2>
 <p>Path to the project files for the current project.</p>
 <p><strong>Default value</strong> is determined during the initialization of a project.</p>
 </div>
 <div class="section" id="socket">
-<h2>socket<a class="headerlink" href="#socket" title="Permalink to this headline">¶</a></h2>
+<h2>socket<a class="headerlink" href="#socket" title="Permalink to this heading">¶</a></h2>
 <p>True for Maxima CAS socket communication. False for Maxima CAS subprocess communication.</p>
 <p><strong>Default value</strong> is <em>True</em>.</p>
 </div>
 <div class="section" id="stepfunction">
-<h2>stepFunction<a class="headerlink" href="#stepfunction" title="Permalink to this headline">¶</a></h2>
+<h2>stepFunction<a class="headerlink" href="#stepfunction" title="Permalink to this heading">¶</a></h2>
 <p>Setting for parameter stepping.</p>
 <ol class="arabic">
-<li><p class="first">True</p>
+<li><p>True</p>
 <p>The determinant of a matrix is calculated using symbolic step variable(s).</p>
 </li>
-<li><p class="first">False</p>
+<li><p>False</p>
 <p>Numeric values of step variable(s) are substituted in the matrices before calculation of the determinant. This can be faster if many step variables are used.</p>
 </li>
 </ol>
 <p><strong>Default value</strong> is <em>True</em>.</p>
 </div>
 <div class="section" id="tablefiletype">
-<h2>tableFileType<a class="headerlink" href="#tablefiletype" title="Permalink to this headline">¶</a></h2>
+<h2>tableFileType<a class="headerlink" href="#tablefiletype" title="Permalink to this heading">¶</a></h2>
 <p>File extension for <em>comma seperated value</em> table files.</p>
 <p><strong>Default value</strong> is <em>csv</em>.</p>
 </div>
 <div class="section" id="txtpath">
-<h2>txtPath<a class="headerlink" href="#txtpath" title="Permalink to this headline">¶</a></h2>
+<h2>txtPath<a class="headerlink" href="#txtpath" title="Permalink to this heading">¶</a></h2>
 <p>Search path for importing text files with <em>text2html()</em>.</p>
 <p><strong>Default value</strong> is defined in <em>SLiCAPconfig.py</em> in the project directory.</p>
 </div>
 <div class="section" id="userpath">
-<h2>userPath<a class="headerlink" href="#userpath" title="Permalink to this headline">¶</a></h2>
+<h2>userPath<a class="headerlink" href="#userpath" title="Permalink to this heading">¶</a></h2>
 <p>Install path for libraries and documentation.</p>
 <p><strong>Default value</strong> is <em>~/SLiCAP</em>.</p>
 </div>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -192,15 +192,15 @@
            <div itemprop="articleBody">
             
   <div class="section" id="design-of-dynamic-behavior">
-<h1>Design of dynamic behavior<a class="headerlink" href="#design-of-dynamic-behavior" title="Permalink to this headline">¶</a></h1>
+<h1>Design of dynamic behavior<a class="headerlink" href="#design-of-dynamic-behavior" title="Permalink to this heading">¶</a></h1>
 <p>SLiCAP has a number of built-in scripts to support circuit designers with the analysis and design of the dynamic behavior of electronic circuits. Brief descriptions of the implemented functions have been listed below.</p>
 <div class="section" id="obtain-the-coefficients-of-a-laplace-rational">
-<h2>Obtain the coefficients of a Laplace rational<a class="headerlink" href="#obtain-the-coefficients-of-a-laplace-rational" title="Permalink to this headline">¶</a></h2>
+<h2>Obtain the coefficients of a Laplace rational<a class="headerlink" href="#obtain-the-coefficients-of-a-laplace-rational" title="Permalink to this heading">¶</a></h2>
 <p>The function <a class="reference external" href="../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.coeffsTransfer">coefsTransfer()</a> returns a tuple with:</p>
 <ul class="simple">
-<li>The gain</li>
-<li>A list of coefficients of the Laplace variable of the numerator in ascending order</li>
-<li>A list of coefficients of the Laplace variable of the denominator in ascending order</li>
+<li><p>The gain</p></li>
+<li><p>A list of coefficients of the Laplace variable of the numerator in ascending order</p></li>
+<li><p>A list of coefficients of the Laplace variable of the denominator in ascending order</p></li>
 </ul>
 <p>All coefficients have been normalized to obtain unity for the coefficient of the lowest order of the denominator. The gain is then defined as the ratio of the coefficients of the lowest order of the numerator and the denominator. Both lists carry the coefficients in ascending order.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -216,7 +216,7 @@
 </div>
 </div>
 <div class="section" id="determine-circuit-parameters-from-a-prototype-transfer">
-<h2>Determine circuit parameters from a prototype transfer<a class="headerlink" href="#determine-circuit-parameters-from-a-prototype-transfer" title="Permalink to this headline">¶</a></h2>
+<h2>Determine circuit parameters from a prototype transfer<a class="headerlink" href="#determine-circuit-parameters-from-a-prototype-transfer" title="Permalink to this heading">¶</a></h2>
 <p>The function <a class="reference external" href="../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.equateCoeffs">equateCoeffs()</a> can be used to find values of circuit elements such that the dynamic transfer of that circuit equals that of a prototype. This function is is particularly useful for the design of passive and active filters.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">proto_transfer</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s1">&#39;0.3*(1/(1+s*0.6))&#39;</span><span class="p">)</span>
@@ -233,14 +233,14 @@
 </div>
 </div>
 <div class="section" id="estimate-the-bandwith-and-system-order-of-a-negative-feedback-circuit">
-<h2>Estimate the bandwith and system order of a negative-feedback circuit<a class="headerlink" href="#estimate-the-bandwith-and-system-order-of-a-negative-feedback-circuit" title="Permalink to this headline">¶</a></h2>
+<h2>Estimate the bandwith and system order of a negative-feedback circuit<a class="headerlink" href="#estimate-the-bandwith-and-system-order-of-a-negative-feedback-circuit" title="Permalink to this heading">¶</a></h2>
 <p>The function <a class="reference external" href="../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth">findServoBandwidth()</a> facilitates the design of the small-signal bandwidth of negative feedback amplifiers.</p>
 <p>With the loop gain reference variable properly selected, the dynamic behavior of a negative feedback amplifier is the product its ideal gain and the servo function. The servo function is determined by the loop gain. If the loop gain reaches infinity, the servo fuction approaches unity. The bandwidth of the servo functions is a measure for the frequency range over which the gain of a negative feedback system approaches its ideal gain.</p>
 <p>The function <a class="reference external" href="../reference/SLiCAPmath.html#SLiCAP.SLiCAPmath.SLiCAPmath.findServoBandwidth">findServoBandwidth()</a> determines the unity gain frequencies of the asymptotes of the magnitude characteristic of the loop gain. It assumes a single passband, low-pass, band-pass or high-pass behavior of the servo function. This means that there are maximally two unity gain frequencies of the loop gain. The function returns:</p>
 <ul class="simple">
-<li>The frequencies of intersection of the asymptoties of the magnitude characteristic of the loop gain and unity</li>
-<li>The order (slope) at these frequencies</li>
-<li>The maximum asymptotic value of the magnitude of the loop gain and its first frequency of occurence.</li>
+<li><p>The frequencies of intersection of the asymptoties of the magnitude characteristic of the loop gain and unity</p></li>
+<li><p>The order (slope) at these frequencies</p></li>
+<li><p>The maximum asymptotic value of the magnitude of the loop gain and its first frequency of occurence.</p></li>
 </ul>
 <p>The function argument can be obtained from the execution of an instruction with the data type set to <em>laplace</em> and its gain type set to <em>loopgain</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -254,9 +254,9 @@
 </div>
 <p>Hence, the servo function has a first-order low-frequency cut-off at about 1.6krad/s (254.65 Hz) and a first-order high-frequency cut-off at about 125krad/s (19.8944 kHz). The mid-band of the loop gain equals -2.5 at 4000rad/s (636.62Hz]. The result for this situation has been shown <a class="reference internal" href="#below">below</a>.</p>
 <blockquote id="below">
-<div><div class="figure" id="id2">
+<div><div class="figure align-default" id="id2">
 <a class="reference internal image-reference" href="../_images/BWexample.svg"><img alt="Estimation of the bandwidth of the servo function from the asymptotes of the magnitude characteristic of the loop gain" src="../_images/BWexample.svg" width="800" /></a>
-<p class="caption"><span class="caption-text">Estimation of the bandwidth of the servo function from the asymptotes of the magnitude characteristic of the loop gain</span></p>
+<p class="caption"><span class="caption-text">Estimation of the bandwidth of the servo function from the asymptotes of the magnitude characteristic of the loop gain</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>

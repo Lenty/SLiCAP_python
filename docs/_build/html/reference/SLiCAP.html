@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -187,99 +187,91 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-SLiCAP.SLiCAP">
-<span id="slicap-py"></span><h1>SLiCAP.py<a class="headerlink" href="#module-SLiCAP.SLiCAP" title="Permalink to this headline">¶</a></h1>
+<span id="slicap-py"></span><h1>SLiCAP.py<a class="headerlink" href="#module-SLiCAP.SLiCAP" title="Permalink to this heading">¶</a></h1>
 <p>Main module for running SLiCAP from a console or from within a Python IDE.</p>
 <p>When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.</p>
-<dl class="class">
-<dt id="SLiCAP.SLiCAP.SLiCAPproject">
-<em class="property">class </em><code class="descname">SLiCAPproject</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.SLiCAPproject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SLiCAPproject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prototype of a SLiCAPproject.</p>
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAP.SLiCAPproject.author">
-<code class="descname">author</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject.author" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.SLiCAPproject.author">
+<span class="sig-name descname"><span class="pre">author</span></span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject.author" title="Permalink to this definition">¶</a></dt>
 <dd><p>SLiCAPproject.author (str) Will be updated by running:
 SLiCAPproject.initProject(&lt;name&gt;)</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAP.SLiCAPproject.lastUpdate">
-<code class="descname">lastUpdate</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject.lastUpdate" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.SLiCAPproject.lastUpdate">
+<span class="sig-name descname"><span class="pre">lastUpdate</span></span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject.lastUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>SLiCAPproject.lastUpdate (datetime.datetime) will be updated by
 running: SLiCAPproject.initProject(&lt;name&gt;)</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="SLiCAP.SLiCAP.SLiCAPproject.name">
-<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject.name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.SLiCAPproject.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#SLiCAP.SLiCAP.SLiCAPproject.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>SLiCAPproject.name (str) is the name of the project. It will appear
 on the main html index page</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAP.initProject">
-<code class="descname">initProject</code><span class="sig-paren">(</span><em>name</em>, <em>port=53118</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.initProject">
+<span class="sig-name descname"><span class="pre">initProject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">53118</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a SLiCAP project.</p>
 <ul class="simple">
-<li>Copies the directory structure from the templates subdirectory to the
-project directory in the case it has not yet been created.</li>
-<li>Creates index.html in the html directory with the project name in the
-title bar</li>
-<li>Compiles the system libraries</li>
-<li>Creates or updates ‘SLiCAPconfig.py’ in the project directory</li>
-<li>Creates instance of SLiCAPproject object</li>
+<li><p>Copies the directory structure from the templates subdirectory to the
+project directory in the case it has not yet been created.</p></li>
+<li><p>Creates index.html in the html directory with the project name in the
+title bar</p></li>
+<li><p>Compiles the system libraries</p></li>
+<li><p>Creates or updates ‘SLiCAPconfig.py’ in the project directory</p></li>
+<li><p>Creates instance of SLiCAPproject object</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<em>str</em>) – Name of the project will be passed to an instance of the
-SLiCAPproject object.</li>
-<li><strong>port</strong> (<em>int</em>) – Port number for communication with maxima CAS (&gt; 8000).</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the project will be passed to an instance of the
+SLiCAPproject object.</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – Port number for communication with maxima CAS (&gt; 8000).</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">SLiCAPproject</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#SLiCAP.SLiCAP.SLiCAPproject" title="SLiCAP.SLiCAP.SLiCAPproject">SLiCAP.SLiCAPproject</a></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my first SLiCAP project&#39;</span><span class="p">)</span>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>SLiCAPproject</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#SLiCAP.SLiCAP.SLiCAPproject" title="SLiCAP.SLiCAP.SLiCAPproject">SLiCAP.SLiCAPproject</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;my first SLiCAP project&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">prj</span><span class="o">.</span><span class="n">author</span>
 <span class="go">anton</span>
 </pre></div>
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="SLiCAP.SLiCAP.makeNetlist">
-<code class="descname">makeNetlist</code><span class="sig-paren">(</span><em>fileName</em>, <em>cirTitle</em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.makeNetlist" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.makeNetlist">
+<span class="sig-name descname"><span class="pre">makeNetlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cirTitle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.makeNetlist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a netlist from a schematic file generated with LTspice or gschem.</p>
 <ul class="simple">
-<li>LTspice: ‘.asc’ file</li>
-<li>gschem: ‘.sch’ file</li>
+<li><p>LTspice: ‘.asc’ file</p></li>
+<li><p>gschem: ‘.sch’ file</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fileName</strong> (<em>str</em>) – Name of the file, relative to <strong>ini.circuitPath</strong></li>
-<li><strong>cirTitle</strong> (<em>str</em>) – Title of the schematic.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fileName</strong> (<em>str</em>) – Name of the file, relative to <strong>ini.circuitPath</strong></p></li>
+<li><p><strong>cirTitle</strong> (<em>str</em>) – Title of the schematic.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

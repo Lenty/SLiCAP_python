@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -214,25 +215,24 @@
            <div itemprop="articleBody">
             
   <div class="section" id="generate-html-reports">
-<h1>Generate HTML reports<a class="headerlink" href="#generate-html-reports" title="Permalink to this headline">¶</a></h1>
+<h1>Generate HTML reports<a class="headerlink" href="#generate-html-reports" title="Permalink to this heading">¶</a></h1>
 <p>Writing design documentation is often something that needs to be done after the design work has been finished. By then, all kinds of information needs to be collected and structured in a document, while in many cases new projects are already taking most of the time. This undesirable but almost always inevitable practice can be prevented if the design work goes hand in hand with generation of the design documents. SLiCAP supports this with the generation of web-based design documentation in which figures, tables, expressions and ASCII files can be updated while running SLiCAP-MATLAB scripts. In this way, presentations and documentation can be kept up-to-date with the actual state of the design.</p>
 <p>SLiCAP distinguishes two types of html pages:</p>
 <ul>
-<li><p class="first">index pages: used for displaying tables of contents with links to other pages</p>
+<li><p>index pages: used for displaying tables of contents with links to other pages</p>
 <p>The attribute <em>ini.htmlIndex</em> is the name of the active index page</p>
 </li>
-<li><p class="first">data pages: used for displaying all kinds of design data, such as, tables, equations, text, graphs, images, etc.</p>
+<li><p>data pages: used for displaying all kinds of design data, such as, tables, equations, text, graphs, images, etc.</p>
 <p>The attribute <em>ini.htmlPage</em> is the name of the active data page.</p>
 </li>
-<li><p class="first">A list with the names of all the html pages is stored in <em>ini.htmlPages</em></p>
-</li>
+<li><p>A list with the names of all the html pages is stored in <em>ini.htmlPages</em></p></li>
 </ul>
 <p>Detailed information about all html functions can be found in the module reference <a class="reference external" href="../reference/SLiCAPhtml.html">SLiCAPhtml.py</a>.</p>
 <div class="section" id="html-site-structure">
-<span id="html"></span><h2>HTML site structure<a class="headerlink" href="#html-site-structure" title="Permalink to this headline">¶</a></h2>
+<span id="html"></span><h2>HTML site structure<a class="headerlink" href="#html-site-structure" title="Permalink to this heading">¶</a></h2>
 <p>The structure of the project web site that can be generated with SLiCAP will be discussed below.</p>
 <div class="section" id="main-index-html">
-<h3>Main Index.html<a class="headerlink" href="#main-index-html" title="Permalink to this headline">¶</a></h3>
+<h3>Main Index.html<a class="headerlink" href="#main-index-html" title="Permalink to this heading">¶</a></h3>
 <p>Initialization of a project generates an <em>index.html</em> file in the <em>html/</em> project subdirectory. This file will hold the main table of contents of your project. Each time you check a circuit netlist that resides in the project directory, a list entry will be generated in this index file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -244,7 +244,7 @@
 </div>
 </div>
 <div class="section" id="circuit-index-file">
-<h3>Circuit index file<a class="headerlink" href="#circuit-index-file" title="Permalink to this headline">¶</a></h3>
+<h3>Circuit index file<a class="headerlink" href="#circuit-index-file" title="Permalink to this heading">¶</a></h3>
 <p>With the checking of a circuit, a circuit index page is generated:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prj</span> <span class="o">=</span> <span class="n">initProject</span><span class="p">(</span><span class="s1">&#39;My first RC network&#39;</span><span class="p">)</span> <span class="c1"># Initialize a SLiCAP project</span>
@@ -263,7 +263,7 @@
 </div>
 </div>
 <div class="section" id="start-a-new-html-page">
-<h2>Start a new html page<a class="headerlink" href="#start-a-new-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Start a new html page<a class="headerlink" href="#start-a-new-html-page" title="Permalink to this heading">¶</a></h2>
 <p>It is a good practice to start a new html (data) page after checking the circuit, this prevents output to be writen to index files which would mess up the table of contents.</p>
 <p>A new html data page can be created by evoking the command <em>htmlPage(&lt; pageTitle &gt;)</em>, in which <em>pageTitle</em> is the title of the new page (without .html file extension). After creation this new page is automatically assigned as active html data page. With the creation of a data page, a link to this data page is placed on the active index page.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">SLiCAP</span> <span class="kn">import</span> <span class="o">*</span>
@@ -291,7 +291,7 @@
 <p>After the creation this new index page, a link to this page is placed on the active index page. Subsequently, the new index page is assigned as new index page.</p>
 </div>
 <div class="section" id="place-a-header-on-an-html-page">
-<h2>Place a header on an HTML page<a class="headerlink" href="#place-a-header-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place a header on an HTML page<a class="headerlink" href="#place-a-header-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>You can place headers (level 2 and level 3) on the active HTML page and (optionally) assign a label to a header.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">head2html</span><span class="p">(</span><span class="s2">&quot;heading 2&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;my header 2 label&#39;</span><span class="p">)</span>
 
@@ -304,7 +304,7 @@
 </div>
 </div>
 <div class="section" id="place-text-on-an-html-page">
-<h2>Place text on an HTML page<a class="headerlink" href="#place-text-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place text on an HTML page<a class="headerlink" href="#place-text-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text2html</span><span class="p">(</span><span class="s2">&quot;This is some text including $\LaTeX$ code.&quot;</span><span class="p">)</span>
 
 <span class="go">&#39;&lt;p&gt;This is some text including $\LaTeX$ code.&lt;/p&gt;&#39;</span>
@@ -312,7 +312,7 @@
 </div>
 </div>
 <div class="section" id="place-a-text-file-on-an-html-page">
-<h2>Place a text file on an HTML page<a class="headerlink" href="#place-a-text-file-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place a text file on an HTML page<a class="headerlink" href="#place-a-text-file-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>You can place the contents of a text file, including html code and <span class="math notranslate nohighlight">\(\LaTeX\)</span> code on the active HTML file with the instruction:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file2html</span><span class="p">(</span><span class="s2">&quot;myIntroduction.txt&quot;</span><span class="p">)</span>
 </pre></div>
@@ -321,7 +321,7 @@
 <p>This function returns the contents of the file in string format.</p>
 </div>
 <div class="section" id="place-an-image-on-an-html-page">
-<h2>Place an image on an HTML page<a class="headerlink" href="#place-an-image-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place an image on an HTML page<a class="headerlink" href="#place-an-image-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>You can place an image on the active HTML page and assign a caption and a label to it.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img2html</span><span class="p">(</span><span class="s2">&quot;myCircuit.svg&quot;</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Schematic diagram of my circuit&quot;</span><span class="p">,</span> <span class="s2">&quot;label=&quot;</span><span class="n">myCircuitLabel</span><span class="s2">&quot;)</span>
 
@@ -334,7 +334,7 @@
 <p>This function returns the path to the image file in string format.</p>
 </div>
 <div class="section" id="place-the-netlist-of-a-circuit-on-an-html-page">
-<h2>Place the netlist of a circuit on an HTML page<a class="headerlink" href="#place-the-netlist-of-a-circuit-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the netlist of a circuit on an HTML page<a class="headerlink" href="#place-the-netlist-of-a-circuit-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>You can place the netlist of the circuit as pre formatted text (fixed width font) on the active HTML page and add a label to it.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">netlist2html</span><span class="p">(</span><span class="s2">&quot;myFirstRCnetwork.cir&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;netlistLabel&quot;</span><span class="p">)</span>
 
@@ -352,7 +352,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-flattened-circuit-data-on-an-html-page">
-<h2>Place the flattened circuit data on an HTML page<a class="headerlink" href="#place-the-flattened-circuit-data-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the flattened circuit data on an HTML page<a class="headerlink" href="#place-the-flattened-circuit-data-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>SLiCAP uses an expanded circuit for analysis. In this circuit, elements of built-in sub circuit models, such as, operational amplifiers and semiconductor devices, as well as elements of user-defined sub circuits are added and connected to the main circuit. All elements of the expanded (flattened) circuit with their nodes, references and parameters can be displayed on the active HTML page using one command:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s2">&quot;myFirstRCnetwork.cir&quot;</span><span class="p">)</span>
@@ -363,7 +363,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-all-parameters-on-an-html-page">
-<h2>Place all parameters on an HTML page<a class="headerlink" href="#place-all-parameters-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place all parameters on an HTML page<a class="headerlink" href="#place-all-parameters-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>You can list all parameters used in expressions of circuit elements and in parameter definitions on the active HTML page. The instruction <em>params2html(&lt;instruction.circuit&gt;)</em> will list all parameters with their definition and their value after recursive substitution of all parameters, including the global parameters that are used. It will also list the undefined parameters.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s2">&quot;myFirstRCnetwork.cir&quot;</span><span class="p">)</span>
@@ -375,7 +375,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-an-expression-on-an-html-page">
-<h2>Place an expression on an HTML page<a class="headerlink" href="#place-an-expression-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place an expression on an HTML page<a class="headerlink" href="#place-an-expression-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s2">&quot;R_DC/(1+s*tau)&quot;</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expr2html</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">Omega&#39;</span><span class="p">)</span>
@@ -386,7 +386,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-an-equation-on-an-html-page">
-<h2>Place an equation on an HTML page<a class="headerlink" href="#place-an-equation-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place an equation on an HTML page<a class="headerlink" href="#place-an-equation-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lhs</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;Z_t&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rhs</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="s2">&quot;R_DC/(1+s*tau)&quot;</span><span class="p">)</span>
 
@@ -401,7 +401,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-circuit-s-matrix-equation-on-an-html-page">
-<h2>Place the circuit’s matrix equation on an HTML page<a class="headerlink" href="#place-the-circuit-s-matrix-equation-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the circuit’s matrix equation on an HTML page<a class="headerlink" href="#place-the-circuit-s-matrix-equation-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setCircuit</span><span class="p">(</span><span class="s1">&#39;myFirstRCnetwork&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span><span class="o">.</span><span class="n">setSimType</span><span class="p">(</span><span class="s2">&quot;symbolic&quot;</span><span class="p">)</span>
@@ -415,7 +415,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-a-plot-on-an-html-page">
-<h2>Place a plot on an HTML page<a class="headerlink" href="#place-a-plot-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place a plot on an HTML page<a class="headerlink" href="#place-a-plot-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference external" href="plots.html">plots.html</a> for details on plotting.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig2html</span><span class="p">(</span><span class="n">myFigure</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;myLabel&#39;</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;Caption of this figure&#39;</span><span class="p">)</span>
 </pre></div>
@@ -423,7 +423,7 @@
 <p>This function returns the path to the image file in string format.</p>
 </div>
 <div class="section" id="place-a-csv-table-on-an-html-page">
-<h2>Place a csv table on an HTML page<a class="headerlink" href="#place-a-csv-table-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place a csv table on an HTML page<a class="headerlink" href="#place-a-csv-table-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>The following code displays a csv file <em>‘specifications.csv’</em> in table format on the active HTML page.</p>
 <p>By default, the csv file should be located in the <em>/csv</em> sub directory in your project folder. You can change the path to this file in the file <em>‘SLiCAPconfig.py’</em> in the project folder.</p>
 <p><span class="math notranslate nohighlight">\(\LaTeX\)</span> code in the cells of this csv file will be rendered properly.</p>
@@ -433,7 +433,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-results-of-a-noise-analysis-on-an-html-page">
-<h2>Place the results of a noise analysis on an HTML page<a class="headerlink" href="#place-the-results-of-a-noise-analysis-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the results of a noise analysis on an HTML page<a class="headerlink" href="#place-the-results-of-a-noise-analysis-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference external" href="noise.html">noise.html</a> for details on noise analysis.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define all required attributes for noise analysis</span>
@@ -446,7 +446,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-results-of-a-dcvar-analysis-on-an-html-page">
-<h2>Place the results of a dcvar analysis on an HTML page<a class="headerlink" href="#place-the-results-of-a-dcvar-analysis-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the results of a dcvar analysis on an HTML page<a class="headerlink" href="#place-the-results-of-a-dcvar-analysis-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference external" href="dcvar.html">dcvar.html</a> for details on dcvar analysis.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instr</span> <span class="o">=</span> <span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define all required attributes for dcvar analysis</span>
@@ -459,7 +459,7 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-results-of-a-pole-zero-analysis-on-an-html-page">
-<h2>Place the results of a pole-zero analysis on an HTML page<a class="headerlink" href="#place-the-results-of-a-pole-zero-analysis-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the results of a pole-zero analysis on an HTML page<a class="headerlink" href="#place-the-results-of-a-pole-zero-analysis-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference external" href="pz.html">pz.html</a> for details on pole-zero analysis.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pz2html</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">labeltext</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
@@ -467,28 +467,28 @@
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-coefficients-of-a-laplace-transfer-function-on-an-html-page">
-<h2>Place the coefficients of a Laplace transfer function on an HTML page<a class="headerlink" href="#place-the-coefficients-of-a-laplace-transfer-function-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the coefficients of a Laplace transfer function on an HTML page<a class="headerlink" href="#place-the-coefficients-of-a-laplace-transfer-function-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coeffsTransfer2html</span><span class="p">(</span><span class="n">transferCoeffs</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">labelText</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-a-link-to-an-html-object-on-an-html-page">
-<h2>Place a link to an HTML object on an HTML page<a class="headerlink" href="#place-a-link-to-an-html-object-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place a link to an HTML object on an HTML page<a class="headerlink" href="#place-a-link-to-an-html-object-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">href</span><span class="p">(</span><span class="s1">&#39;myLink&#39;</span><span class="p">,</span> <span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-all-links-to-html-objects-on-an-html-page">
-<h2>Place all links to HTML objects on an HTML page<a class="headerlink" href="#place-all-links-to-html-objects-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place all links to HTML objects on an HTML page<a class="headerlink" href="#place-all-links-to-html-objects-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">links2html</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>This function returns the code placed on the active HTML page.</p>
 </div>
 <div class="section" id="place-the-step-data-for-array-stepping-on-an-html-page">
-<h2>Place the step data for array stepping on an HTML page<a class="headerlink" href="#place-the-step-data-for-array-stepping-on-an-html-page" title="Permalink to this headline">¶</a></h2>
+<h2>Place the step data for array stepping on an HTML page<a class="headerlink" href="#place-the-step-data-for-array-stepping-on-an-html-page" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stepArray2html</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">stepVars</span><span class="p">,</span> <span class="n">instr</span><span class="o">.</span><span class="n">stepArray</span><span class="p">)</span>
 </pre></div>
 </div>

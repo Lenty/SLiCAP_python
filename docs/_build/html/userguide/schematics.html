@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -194,34 +194,33 @@
            <div itemprop="articleBody">
             
   <div class="section" id="schematic-capture">
-<h1>Schematic capture<a class="headerlink" href="#schematic-capture" title="Permalink to this headline">¶</a></h1>
+<h1>Schematic capture<a class="headerlink" href="#schematic-capture" title="Permalink to this heading">¶</a></h1>
 <p>SLiCAP accepts SPICE-like netlists as input. Many schematic capture programs can be configured to generate such netlists. SLiCAP comes with symbol libraries for <em>LTspice</em>, <em>gSchem</em> and its fork <em>lepton-eda</em>.</p>
 <p>The syntax that should be used for composing SLiCAP netlists is described in the <a class="reference external" href="../syntax/netlist.html#devices-and-built-in-models">Device Models</a> section.</p>
 <div class="section" id="ltspice">
-<h2>LTspice<a class="headerlink" href="#ltspice" title="Permalink to this headline">¶</a></h2>
+<h2>LTspice<a class="headerlink" href="#ltspice" title="Permalink to this heading">¶</a></h2>
 <p><strong>LTspice</strong> can be used for netlist generation. LTspice works with Windows and Linux (under Wine). A version for MAC is also available. The MAC version of LTspice differs from the windows version and netlist generation from within the SLiCAP (python) environment for this version is not supported. Netlists can also be generated manually. Go to <a class="reference external" href="http://www.linear.com/designtools/software">LTspice</a> for the latest version.</p>
 <p>For an overview of SLiCAP symbols for LTspice, please view the <a class="reference external" href="../syntax/schematics.html#LTSpice">LTSpice</a> section.</p>
 <p><strong>Configure LTspice for use with SLiCAP</strong></p>
 <p>SLiCAP circuits should be made with SLiCAP symbols (and not with the default LTspice symbols). LTspice symbols for SLiCAP are placed in the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <ol class="arabic">
-<li><p class="first">Start LTspice</p>
+<li><p>Start LTspice</p></li>
+<li><p>On the menu bar click <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Control</span> <span class="pre">Panel</span></code>. This will bring up the LTspice control panel:</p>
+<img alt="../_images/LTspiceControlPanel.png" src="../_images/LTspiceControlPanel.png" />
 </li>
-<li><p class="first">On the menu bar click <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Control</span> <span class="pre">Panel</span></code>. This will bring up the LTspice control panel:</p>
-<img alt="../_images/LTspiceControlPanel1.png" src="../_images/LTspiceControlPanel1.png" />
+<li><p>On this control panel select the <code class="docutils literal notranslate"><span class="pre">Netlist</span> <span class="pre">Options</span></code> tab and select the options as shown below:</p>
+<img alt="../_images/LTspiceControlPanelNetlistOptions.png" src="../_images/LTspiceControlPanelNetlistOptions.png" />
 </li>
-<li><p class="first">On this control panel select the <code class="docutils literal notranslate"><span class="pre">Netlist</span> <span class="pre">Options</span></code> tab and select the options as shown below:</p>
-<img alt="../_images/LTspiceControlPanelNetlistOptions1.png" src="../_images/LTspiceControlPanelNetlistOptions1.png" />
+<li><p>Then select the <code class="docutils literal notranslate"><span class="pre">Sym.</span> <span class="pre">&amp;</span> <span class="pre">Lib.</span> <span class="pre">Search</span> <span class="pre">Paths</span></code> tab and enter the full path to the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
+<img alt="../_images/LTspiceControlPanelSymbolPath.png" src="../_images/LTspiceControlPanelSymbolPath.png" />
 </li>
-<li><p class="first">Then select the <code class="docutils literal notranslate"><span class="pre">Sym.</span> <span class="pre">&amp;</span> <span class="pre">Lib.</span> <span class="pre">Search</span> <span class="pre">Paths</span></code> tab and enter the full path to the <code class="docutils literal notranslate"><span class="pre">LTspice/</span></code> folder of your SLiCAP install path. This directory contains all the SLiCAP symbol definitions (‘.asy’ files) for LTspice:</p>
-<img alt="../_images/LTspiceControlPanelSymbolPath1.png" src="../_images/LTspiceControlPanelSymbolPath1.png" />
-</li>
-<li><p class="first">Then select the <code class="docutils literal notranslate"><span class="pre">Drafting</span> <span class="pre">Options</span></code> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
-<img alt="../_images/LTspiceControlPanelFontSettings1.png" src="../_images/LTspiceControlPanelFontSettings1.png" />
+<li><p>Then select the <code class="docutils literal notranslate"><span class="pre">Drafting</span> <span class="pre">Options</span></code> tab and change the font size and deselect the “Bold” checkbox as shown below. If you want, you can also select different colors for your schematics.</p>
+<img alt="../_images/LTspiceControlPanelFontSettings.png" src="../_images/LTspiceControlPanelFontSettings.png" />
 </li>
 </ol>
 </div>
 <div class="section" id="gschem">
-<h2>Gschem<a class="headerlink" href="#gschem" title="Permalink to this headline">¶</a></h2>
+<h2>Gschem<a class="headerlink" href="#gschem" title="Permalink to this heading">¶</a></h2>
 <p>The open source <strong>gschem</strong> package can also be used in conjunction with SLiCAP. SLiCAP symbols for gschem are included in the <code class="docutils literal notranslate"><span class="pre">gSchem/symbol/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>For an overview of SLiCAP symbols for gSchem, please view the <a class="reference external" href="../syntax/schematics.html#gSchem">gSchem</a> section.</p>
 <p>The <strong>gnet-spice-noqsi</strong> spice netlister should be used for netlist generation. SLiCAP has a built-in instruction for netlist generation with gschem and this netlister.</p>
@@ -257,7 +256,7 @@
 <p>Be sure you save these two files <code class="docutils literal notranslate"><span class="pre">gafrc</span></code> and <code class="docutils literal notranslate"><span class="pre">gschemrc</span></code> without any file extension.</p>
 </div>
 <div class="section" id="lepton-eda">
-<h2>Lepton-eda<a class="headerlink" href="#lepton-eda" title="Permalink to this headline">¶</a></h2>
+<h2>Lepton-eda<a class="headerlink" href="#lepton-eda" title="Permalink to this heading">¶</a></h2>
 <p>Lepton-eda is a fork of geda-gaf. Please visit <a class="reference external" href="https://github.com/lepton-eda/lepton-eda">https://github.com/lepton-eda/lepton-eda</a> for more information.</p>
 <p>SLiCAP symbols for lepton-eda are included in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/</span></code> folder in the SLiCAP main library path that you have selected during installation.</p>
 <p>For an overview of SLiCAP symbols for lepton-eda, please view the <a class="reference external" href="../syntax/schematics.html#gSchem">gSchem</a> section in the help file.</p>
@@ -275,13 +274,13 @@
 <p>The spice netlister for lepton-eda can be found in the <code class="docutils literal notranslate"><span class="pre">lepton-eda/gnet-spice-noqsi-master/</span></code> folder in the SLiCAP main library path that you have selected during installation. An install script is provided.</p>
 <p>For compact node names (important for use in symbolic expressions) you need to reconfigure the default <em>net name prefix</em>.</p>
 <p>This is how it should be done under Ubuntu-based Linux systems:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">lepton</span><span class="o">-</span><span class="n">cli</span> <span class="n">config</span> <span class="o">--</span><span class="n">system</span> <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo lepton-cli config --system <span class="s2">&quot;netlist&quot;</span> <span class="s2">&quot;default-net-name&quot;</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
 <p>The install script for the netlister also executes this command.</p>
 </div>
 <div class="section" id="display-schematics-on-html-pages">
-<h2>Display schematics on html pages<a class="headerlink" href="#display-schematics-on-html-pages" title="Permalink to this headline">¶</a></h2>
+<h2>Display schematics on html pages<a class="headerlink" href="#display-schematics-on-html-pages" title="Permalink to this heading">¶</a></h2>
 <p>With <strong>LTspice</strong> you can print schematics to a .PDF file using a PDF printer.</p>
 <p>With <strong>gschem</strong> running under <strong>MSwindows</strong> you can write your schematic file to a .PDF file.</p>
 <p>For proper display of schematics on html pages these .PDF files need to be be converted to .SVG files, you can use <a class="reference external" href="https://github.com/jalios/pdf2svg-windows">pdf2svg</a> or <a class="reference external" href="https://www.pdftron.com/documentation/cli/download/windows/">pdf2svg</a> for this purpose. Under Linux and Mac OS you can install ‘psd2svg’ from the package manager.</p>
@@ -291,7 +290,7 @@
 <p>With <strong>lepton-eda</strong> running under <strong>Linux</strong> you can print to pdf or svg.</p>
 </div>
 <div class="section" id="inkscape-svg-editor">
-<h2>Inkscape .svg editor<a class="headerlink" href="#inkscape-svg-editor" title="Permalink to this headline">¶</a></h2>
+<h2>Inkscape .svg editor<a class="headerlink" href="#inkscape-svg-editor" title="Permalink to this heading">¶</a></h2>
 <p>When printing a schematic from LTspice with a PDF printer, the full path of the file will be listed at the bottom of the page. After the .PDF file has been converted into a .SVG file (see above), you can use <strong>inkscape</strong> to edit this SVG file and delete the footer.</p>
 <p>Inkscape runs under Windows, Linux and Mac OS. Inkscape versions can be downloaded from: <a class="reference external" href="https://inkscape.org/release/inkscape-1.0.1/">inkscape.org</a>.</p>
 <p>If you import PDF files with Inkscape use the import settings <em>Poppler/Cairo import</em>. With this selection, fonts will be converted to <em>Bezier curves</em>.</p>

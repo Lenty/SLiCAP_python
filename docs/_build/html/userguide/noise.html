@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -30,11 +30,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -194,16 +195,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="noise">
-<h1>Noise<a class="headerlink" href="#noise" title="Permalink to this headline">¶</a></h1>
+<h1>Noise<a class="headerlink" href="#noise" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>SLiCAP can be used to determine:</p>
 <ol class="arabic simple">
-<li>Source-referred and detector-referred noise spectral densities in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span>.</li>
-<li>Individual contributions of noise sources to the source-referred and detector-reffered noise spectra</li>
-<li>Detector-referred noise spectrum after correlated double sampling</li>
-<li>Source-referred and detector-referred RMS noise</li>
-<li>Design limits (show stopper values) for all kinds of noise sources</li>
+<li><p>Source-referred and detector-referred noise spectral densities in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span>.</p></li>
+<li><p>Individual contributions of noise sources to the source-referred and detector-reffered noise spectra</p></li>
+<li><p>Detector-referred noise spectrum after correlated double sampling</p></li>
+<li><p>Source-referred and detector-referred RMS noise</p></li>
+<li><p>Design limits (show stopper values) for all kinds of noise sources</p></li>
 </ol>
 <p>All of the above can be performed symbolically or numerically.</p>
 <p>Noise of resistors is modelled by setting their noise temperature attribute <em>‘noisetemp’</em> to a nonzero value or expression. Flicker noise in resistors can be modeled by setting both the noise temperature attribute <em>‘noisetemp’</em>, and the corner frequency of the <span class="math notranslate nohighlight">\(\frac{1}{f}\)</span> noise <em>‘noiseflow’</em> to a nonzero value or expression.</p>
@@ -227,15 +228,15 @@ INR1 N1 N2 value=0 noise={4*k*T*R*(1*f_ell/f)} ; Noise current associated with R
 </pre></div>
 </div>
 <div class="note admonition">
-<p class="first admonition-title">Built-in variables</p>
+<p class="admonition-title">Built-in variables</p>
 <p>k = 1.38E-23 J/K and T=300 K are built-in variables</p>
-<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span> <span class="c1"># is by default used for the frequency in [Hz].</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ini</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span> <span class="c1"># is by default used for the frequency in [Hz].</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="define-a-noise-analysis">
-<h2>Define a noise analysis<a class="headerlink" href="#define-a-noise-analysis" title="Permalink to this headline">¶</a></h2>
+<h2>Define a noise analysis<a class="headerlink" href="#define-a-noise-analysis" title="Permalink to this heading">¶</a></h2>
 <p>Noise analysis requires the data type <em>‘noise’</em> and the gain type <em>‘vi’</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span><span class="o">=</span><span class="n">instruction</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">i1</span><span class="o">.</span><span class="n">setGainType</span><span class="p">(</span><span class="s1">&#39;vi&#39;</span><span class="p">)</span>
@@ -244,14 +245,15 @@ INR1 N1 N2 value=0 noise={4*k*T*R*(1*f_ell/f)} ; Noise current associated with R
 </div>
 </div>
 <div class="section" id="noise-analysis-results">
-<h2>Noise analysis results<a class="headerlink" href="#noise-analysis-results" title="Permalink to this headline">¶</a></h2>
+<h2>Noise analysis results<a class="headerlink" href="#noise-analysis-results" title="Permalink to this heading">¶</a></h2>
 <p>Noise analysis provides the following results:</p>
 <ol class="arabic simple">
-<li>Detector-referred noise spectrum (output noise) in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></li>
-<li>Contributions of all noise sources to the detector-referred noise spectrum in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></li>
-<li>If a source has been defined:<ol class="arabic">
-<li>Source-referred noise spectrum in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></li>
-<li>Contributions of all noise sources to the source-referred noise spectrum in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></li>
+<li><p>Detector-referred noise spectrum (output noise) in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></p></li>
+<li><p>Contributions of all noise sources to the detector-referred noise spectrum in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></p></li>
+<li><p>If a source has been defined:</p>
+<ol class="arabic simple">
+<li><p>Source-referred noise spectrum in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></p></li>
+<li><p>Contributions of all noise sources to the source-referred noise spectrum in <span class="math notranslate nohighlight">\(\left[ \frac{V^2}{Hz}\right]\)</span> or in <span class="math notranslate nohighlight">\(\left[ \frac{A^2}{Hz}\right]\)</span></p></li>
 </ol>
 </li>
 </ol>
@@ -284,7 +286,7 @@ INR1 N1 N2 value=0 noise={4*k*T*R*(1*f_ell/f)} ; Noise current associated with R
 </div>
 </div>
 <div class="section" id="rms-noise">
-<h2>RMS noise<a class="headerlink" href="#rms-noise" title="Permalink to this headline">¶</a></h2>
+<h2>RMS noise<a class="headerlink" href="#rms-noise" title="Permalink to this heading">¶</a></h2>
 <p>SLiCAP has a buil-in function for determination of the RMS noise, for a given noise spectrum and frequency range:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f_min</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;f_min&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f_max</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;f_max&#39;</span><span class="p">)</span>
@@ -293,12 +295,12 @@ INR1 N1 N2 value=0 noise={4*k*T*R*(1*f_ell/f)} ; Noise current associated with R
 </pre></div>
 </div>
 <div class="warning admonition">
-<p class="first admonition-title">Warning</p>
-<p class="last">Symbolic integration may fail if the frequency dependency of the spectra becomes too complex.</p>
+<p class="admonition-title">Warning</p>
+<p>Symbolic integration may fail if the frequency dependency of the spectra becomes too complex.</p>
 </div>
 </div>
 <div class="section" id="noise-tutorials">
-<h2>Noise tutorials<a class="headerlink" href="#noise-tutorials" title="Permalink to this headline">¶</a></h2>
+<h2>Noise tutorials<a class="headerlink" href="#noise-tutorials" title="Permalink to this heading">¶</a></h2>
 <p>See: <a class="reference external" href="../tutorials/SLiCAPtutorials.html">Tutorials section</a></p>
 </div>
 </div>
