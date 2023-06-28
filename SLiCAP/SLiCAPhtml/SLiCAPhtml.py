@@ -592,9 +592,6 @@ def matrices2html(instrObj, label = '', labelText = ''):
     if instrObj.errors != 0:
         print("Errors found during execution.")
         return ''
-    elif instrObj.dataType != 'matrix':
-        print("Error: expected dataType 'matrix' for 'matrices2html()', got: '{0}'.".format(instrObj.dataType))
-        return ''
     html = ''
     try:
         (Iv, M, Dv) = (instrObj.Iv, instrObj.M, instrObj.Dv)

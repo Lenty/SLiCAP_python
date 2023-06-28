@@ -1266,10 +1266,9 @@ def makeMaxMatrices(instr, result):
     result.M, result.Dv = makeMatrices(instr)
     # Create vecor with independent variables
     # Iv = [0 for i in range(len(instr.depVars()))]
-    Iv = [0 for i in range(result.M.shape[0])]
-    
+    Iv = [0 for i in range(result.M.shape[0])]  
     result.Iv = sp.Matrix(Iv)
-    gainTypes = ['gain', 'asymptotic', 'direct']
+    transferTypes = ['gain', 'asymptotic', 'direct']
     if instr.gainType == 'vi':
         if instr.dataType == "noise" or instr.dataType == "dcvar":
             result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'id', numeric = instr.numeric)
@@ -1277,18 +1276,19 @@ def makeMaxMatrices(instr, result):
             result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'dc', numeric = instr.numeric)
         else:
             result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'value', numeric = instr.numeric)
-    elif instr.gainType in gainTypes:
+    elif instr.gainType in transferTypes:
         if instr.source != [None, None]:
             if instr.source[0] == None or instr.source[1] == None:
                 ns = 1
             else:
-                ns = 2
+                ns = 2    
         for i in range(len(instr.source)):
             if instr.source[i] != None:
                 if instr.source[i][0].upper() == 'I':
                     nodeP, nodeN = instr.circuit.elements[instr.source[i]].nodes
                     if nodeP != '0':
                         pos = instr.depVars().index('V_' + nodeP)
+                        
                         if instr.convType == 'cc' or instr.convType == 'cd':
                             result.Iv[pos] -= 1/ns
                         else:
@@ -1296,6 +1296,7 @@ def makeMaxMatrices(instr, result):
                             result.Iv[pos] -= (-1)**i
                     if nodeN != '0':
                         pos = instr.depVars().index('V_' + nodeN)
+                        
                         if instr.convType == 'cc' or instr.convType == 'cd':
                             result.Iv[pos] += 1/ns
                         else:
@@ -1303,13 +1304,12 @@ def makeMaxMatrices(instr, result):
                             result.Iv[pos] += (-1)**i
                 elif instr.source[i][0].upper() == 'V':
                     pos = instr.depVars().index('I_' + instr.source[i])
+                    
                     if instr.convType == 'cc' or instr.convType == 'cd':
                         result.Iv[pos] = 1
                     else:
                         # differential input
                         result.Iv[pos] = ((-1)**i)/ns
-    else:
-        result.Iv = makeSrcVector(instr.circuit, instr.parDefs, 'all', value = 'value', numeric = instr.numeric)
     if instr.convType != None:
         # Adapt instr.ParDefs for balancing
         if instr.removePairSubName:

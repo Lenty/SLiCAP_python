@@ -1579,7 +1579,10 @@ class instruction(object):
                         self.errors += 1
                         print("Error: dataType '{0}' not available for gainType: '{1}'.".format(self.dataType, self.gainType))
                 elif self.gainType != 'loopgain':
-                    if self.dataType == 'laplace':
+                    if self.dataType == 'matrix':
+                        # need nothing
+                        pass
+                    elif self.dataType == 'laplace':
                         # need source and detector
                         self.checkDetector()
                         self.checkSource()

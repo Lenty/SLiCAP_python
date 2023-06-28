@@ -1271,23 +1271,26 @@ def roundN(expr, numeric=False):
         expr = sp.Float(expr, ini.disp)
     elif numeric:
         expr = sp.N(rational2float(expr), ini.disp)
-    else:
-        try:
-            expr   = expr.xreplace({n : sp.Float(n, ini.disp) for n in expr.atoms(sp.Float)})
-            expr   = expr.xreplace({n : sp.Float(rational2float(n), ini.disp) for n in expr.atoms(sp.Rational)})
-            ints   = expr.atoms(sp.Integer)
-            floats = expr.atoms(sp.Float)
-            maxInt = 10**ini.disp # Maximum integer to be displayed within display accuracy
-            for flt in floats:
-                # Remove '.0' for integer numbers smaller than 10^ini.disp
-                intNumber = sp.Integer(flt)
-                if intNumber == flt and sp.Abs(flt) < maxInt:
-                    expr = expr.xreplace({flt: intNumber})
-            for integer in ints:
-                if sp.Abs(integer) >= maxInt:
-                    expr = expr.xreplace({integer: sp.Float(integer, ini.disp)})
-        except AttributeError:
-            pass
+    # Clean-up the expression
+    try:
+        # Round floats
+        expr   = expr.xreplace({n : sp.Float(n, ini.disp) for n in expr.atoms(sp.Float)})
+        # Convert rationals to floats
+        expr   = expr.xreplace({n : sp.Float(rational2float(n), ini.disp) for n in expr.atoms(sp.Rational)})
+        # Maximum integer to be displayed for given display accuracy
+        maxInt = 10**ini.disp 
+        # Remove '.0' for integer numbers smaller than maxInt
+        floats = expr.atoms(sp.Float)
+        for flt in floats:
+            intNumber = sp.Integer(flt)
+            if intNumber == flt and sp.Abs(flt) < maxInt:
+                expr = expr.xreplace({flt: intNumber})
+        # Replace integers > maxInt with floats
+        ints   = expr.atoms(sp.Integer)
+        for integer in ints:
+            if sp.Abs(integer) >= maxInt:
+                expr = expr.xreplace({integer: sp.Float(integer, ini.disp)})
+    except: AttributeError
     return expr
 
 if __name__ == "__main__":
