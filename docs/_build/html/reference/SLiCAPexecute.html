@@ -271,6 +271,22 @@ and differential-mode quantities.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.correctDMcurrentResult">
+<span class="sig-name descname"><span class="pre">correctDMcurrentResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.correctDMcurrentResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>In cases of a differential-mode current detector the numerator of the 
+differential output current, or its associated transfer must be divided by 
+two I_diff = (I_P - I_N)/2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.createConversionMatrices">
 <span class="sig-name descname"><span class="pre">createConversionMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.createConversionMatrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the matrax for a base transformation from nodal voltages and branche
