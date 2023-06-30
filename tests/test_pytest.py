@@ -9,7 +9,7 @@ import os
 
 def test_pytest():
     assert 4==4
-    
+
 def test_CSresnoise():
     ini.installPath = os.getcwd() + '/'
     ini.projectPath = ini.installPath + 'files/examples/CSstage/'
@@ -31,14 +31,14 @@ def test_CSresnoise():
     IC      = i1.getParValue('IC_X1')
     IC_CRIT = i1.getParValue('IC_CRIT_X1')
     I_D     = I_D*IC_CRIT/IC
-    
+
     i1.circuit.defPar('ID', I_D)
     R_N   = i1.getParValue('R_N_X1')
     R_s   = i1.getParValue('R_s')
     f_T   = i1.getParValue('f_T_X1')
     g_m   = i1.getParValue('g_m_X1')
     Width = i1.getParValue('W')
-    
+
     i1.setSource('V1')
     i1.setDetector('V_out')
     i1.setGainType('vi')
@@ -46,11 +46,11 @@ def test_CSresnoise():
     i1.setSimType('numeric')
     noise_result = i1.execute()
     # plotSweep('Inoise', 'Source-referred noise spectrum', noise_result, 1e8, 1e11, 100, funcType = 'inoise', show=False)
-    
+
     # Calculate the noise figure at critical inversion and the given width
     tot_inoise      = rmsNoise(noise_result, 'inoise', 1e9, 5e9)
     tot_inoise_src  = rmsNoise(noise_result, 'inoise', 1e9, 5e9, source = noise_result.source)
-    
+
     NF              = 20*sp.log(tot_inoise/tot_inoise_src)/sp.log(10)
     print(NF)
     shifted = int(NF*1000)
@@ -79,18 +79,6 @@ def test_lex2():
     print('\nnumber of errors =', lexer.errCount, '\n')
     #Add assert statement
 
-def test_matrix():
-        s = ini.Laplace
-        MNA = matrix([[5.0e-12*s + 0.01, 0, 0, -5.0e-12*s - 0.01, 0, 0, 0, 0, 1],
-                      [0, 1.98e-11*s + 0.0001, -1.2e-11*s, -1.8e-12*s - 1.0e-5, 0, 0, 0, 0, 0],
-                      [0, -1.2e-11*s, 2.8e-11*s + 0.001, 0, -1.0e-11*s - 0.001, 0, 0, -1, 0],
-                      [-5.0e-12*s - 0.01, -1.8e-12*s - 1.0e-5, 0, 1.0068e-9*s + 0.01101, 0, 0, 1, 0, 0],
-                      [0, 0, -1.0e-11*s - 0.001, 0, 1.0e-11*s + 0.001, 1, 0, 1, 0],
-                      [0, 0, 0, 0, 1, 0, 0, 0, 0],
-                      [0, 0, 0, 1, 0, 0, -1.0e-6*s, -3.1623e-11*s, 0],
-                      [0, 0, -1, 0, 1, 0, -3.1623e-11*s, -1.0e-9*s, 0],
-                      [2.048e-20*s**3 + 2.688e-11*s**2 + 0.0016*s + 1, 0, 0, 0, 0, 0, 0, 0, 0]])
-        print(MNA.determinant())
 
 def test_yacc():
     ini.installPath = os.getcwd() + '/'
@@ -186,4 +174,3 @@ def test_python_maxima():
     proto_transfer = sp.sympify('A/(1+s*tau)')
     circuit_component_values = equateCoeffs(proto_transfer, circuit_transfer, noSolve=['A','tau'], numeric=False)
     print(circuit_component_values)
-
