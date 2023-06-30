@@ -1591,7 +1591,9 @@ def convertMatrices(instr, result):
                     newParam = sp.Symbol(parName[:-lenExt])
                     substDict[param] = newParam           
         result.M = result.M.subs(substDict)
-        result.Iv = result.Iv.subs(substDict)
+        # Sources are uncorrelated in the case of noise and dcvar:
+        if instr.dataType != 'noise' and instr.dataType != 'dcvar':
+            result.Iv = result.Iv.subs(substDict)
     result.Dv = sp.Matrix(dmVars + cmVars)
     result.M  = A*result.M*A.transpose()
     result.Iv = A*result.Iv
@@ -1670,7 +1672,6 @@ def pairVariables(instr):
     :rtype: tuple
     """
     depVars = [var for var in instr.circuit.depVars]
-    indepVars = [var for var in instr.circuit.indepVars]
     paired = []
     pairs = []
     unPaired = []
@@ -1680,21 +1681,26 @@ def pairVariables(instr):
     if sub1 != None and sub2 != None:
         l_sub1 = len(sub1)
         l_sub2 = len(sub2)
-        
         while len(depVars) != 0:
             var = depVars[0]
             if var != 'V_0':
                 paired = False
+                """
+                if instr.dataType == 'noise' and var[0:3] == "I_V":
+                    unPaired.append(var)   
+                    depVars.remove(var)
+                else:
+                """
                 if var[-l_sub1:] == sub1:
                     pairedVar = var[0:-l_sub1] + sub2
                     if pairedVar in depVars:
-                        pairs.append((var, pairedVar))
                         paired = True
+                        pairs.append((var, pairedVar))
                 elif var[-l_sub2:] == sub2:
                     pairedVar = var[0:-l_sub2] + sub1
                     if pairedVar in depVars:
-                        pairs.append((pairedVar, var))
                         paired = True
+                        pairs.append((pairedVar, var))
                 if paired:
                     depVars.remove(var)
                     depVars.remove(pairedVar)

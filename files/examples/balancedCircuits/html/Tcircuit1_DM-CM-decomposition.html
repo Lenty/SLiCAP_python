@@ -11,12 +11,12 @@
 <h3>Gain type: vi</h3>
 <h3>Matrix equation:</h3>
 \begin{equation}
-\left[\begin{matrix}0\\I_{B}\\I_{A}\end{matrix}\right]=\left[\begin{matrix}\frac{1}{R_{c}} + \frac{1}{R_{b}} + \frac{1}{R_{a}} & - \frac{1}{R_{b}} & - \frac{1}{R_{a}}\\- \frac{1}{R_{b}} & \frac{1}{R_{b}} & 0\\- \frac{1}{R_{a}} & 0 & \frac{1}{R_{a}}\end{matrix}\right]\cdot\left[\begin{matrix}V_{C}\\V_{inN}\\V_{inP}\end{matrix}\right]
+\left[\begin{matrix}0\\I_{B}\\I_{A}\end{matrix}\right]=\left[\begin{matrix}\frac{1}{R_{c}} + \frac{2}{R_{a}} & - \frac{1}{R_{a}} & - \frac{1}{R_{a}}\\- \frac{1}{R_{a}} & \frac{1}{R_{a}} & 0\\- \frac{1}{R_{a}} & 0 & \frac{1}{R_{a}}\end{matrix}\right]\cdot\left[\begin{matrix}V_{C}\\V_{inN}\\V_{inP}\end{matrix}\right]
 \end{equation}
 <h3>Gain type: gain</h3>
 <h3>Matrix equation:</h3>
 \begin{equation}
-\left[\begin{matrix}0\\-1\\1\end{matrix}\right]=\left[\begin{matrix}\frac{1}{R_{c}} + \frac{1}{R_{b}} + \frac{1}{R_{a}} & - \frac{1}{R_{b}} & - \frac{1}{R_{a}}\\- \frac{1}{R_{b}} & \frac{1}{R_{b}} & 0\\- \frac{1}{R_{a}} & 0 & \frac{1}{R_{a}}\end{matrix}\right]\cdot\left[\begin{matrix}V_{C}\\V_{inN}\\V_{inP}\end{matrix}\right]
+\left[\begin{matrix}0\\-1\\1\end{matrix}\right]=\left[\begin{matrix}\frac{1}{R_{c}} + \frac{2}{R_{a}} & - \frac{1}{R_{a}} & - \frac{1}{R_{a}}\\- \frac{1}{R_{a}} & \frac{1}{R_{a}} & 0\\- \frac{1}{R_{a}} & 0 & \frac{1}{R_{a}}\end{matrix}\right]\cdot\left[\begin{matrix}V_{C}\\V_{inN}\\V_{inP}\end{matrix}\right]
 \end{equation}
 <h2>DM-CM matrix equation</h2>
 <h3>Gain type: vi</h3>
@@ -62,5 +62,5 @@ Z_{cm}=0.5 R_{a} + R_{c}
 <p>Go to <a href="Tcircuit1_index.html">Tcircuit1_index</a></p>
 <p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.5.0 &copy 2009-2023 SLiCAP development team</p>
 <p>For documentation, examples, support, updates and courses please visit: <a href="https://analog-electronics.tudelft.nl">analog-electronics.tudelft.nl</a></p>
-<p>Last project update: 2023-06-28 14:26:44</p>
+<p>Last project update: 2023-06-30 11:33:21</p>
 </div></body></html>

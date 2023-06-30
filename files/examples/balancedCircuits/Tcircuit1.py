@@ -21,7 +21,8 @@ netlist2html(fileName + ".cir")
 elementData2html(i1.circuit)
 params2html(i1.circuit)
 
-i1.setSource(['I1', 'I2'])
+i1.setSimType('symbolic')
+i1.setSource(['I1P', 'I1N'])
 
 htmlPage("DM-CM decomposition")
 # Define the decomposition
@@ -40,7 +41,6 @@ matrices2html(result)
 
 head2html("DM-CM matrix equation")
 head3html("Gain type: vi")
-i1.defPar("R_b", "R_a")
 i1.setPairExt(['P', 'N'])
 i1.setConvType('all') 
 i1.setGainType("vi")
@@ -84,13 +84,33 @@ head3html("Gain type: gain")
 matrices2html(result)
 eqn2html("Z_cm", result.laplace)
 
+htmlPage("Noise Analysis")
+head2html("Differential detector")
+i1.setConvType(None)
+i1.setGainType("vi")
+i1.setDataType("noise")
+i1.setDetector(['V_inP', 'V_inN'])
+noiseResult = i1.execute()
+noise2html(noiseResult)
+DMonoise = noiseResult.onoise
+DMinoise = noiseResult.inoise
+
 htmlPage("DM Noise analysis")
+i1.setConvType('dd') 
 i1.setDetector('V_in_D')
 i1.setGainType("vi")
 i1.setDataType("noise")
-i1.setConvType('dd') 
 noiseResult = i1.execute()
+matrices2html(noiseResult)
 noise2html(noiseResult)
+if noiseResult.onoise == DMonoise:
+    print('DMonoise OK!')
+else:
+    print('DMonoise NOT OK!')
+if noiseResult.onoise == DMonoise:
+    print('DMinoise OK!')
+else:
+    print('DMinoise NOT OK!')
 
 htmlPage("CM Noise analysis")
 i1.setDetector('V_in_C')
@@ -98,4 +118,5 @@ i1.setGainType("vi")
 i1.setDataType("noise")
 i1.setConvType('cc') 
 noiseResult = i1.execute()
+matrices2html(noiseResult)
 noise2html(noiseResult)
