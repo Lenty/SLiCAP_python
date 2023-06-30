@@ -7,7 +7,39 @@ When working with Jupyter notebooks the main imort module is SLiCAPnotebook.py.
 It will import SLiCAP.py and some extra modules for displaying LaTeX, SVG and
 RST in the Jupyter notebooks.
 """
+
+import os
+import shutil
+
 from SLiCAP.SLiCAPdesignData import *
+
+
+def makeDir(dirName):
+    """
+    Create the directory 'dirName' if it does not yet exist.
+
+    :param dirName: Name of the ditectory.
+    :type dirName: str
+    """
+    # FIXME: existence check might not be necessary when using makedirs()
+    # See: https://docs.python.org/3/library/os.html#os.makedirs
+    if not os.path.exists(dirName):
+        os.makedirs(dirName)
+
+
+def copyNotOverwrite(src, dest):
+    """
+    Copy the file 'src' to 'dest' if the latter does not exist.
+
+    :param src: Name of the source file.
+    :type src: str
+
+    :param dest: Name of the desitination file.
+    :type dest: str
+    """
+    if not os.path.exists(dest):
+        shutil.copy2(src, dest)
+
 
 try:
     __IPYTHON__
@@ -56,10 +88,10 @@ def initProject(name, port=ini.PORT):
     :param name: Name of the project will be passed to an instance of the
                  SLiCAPproject object.
     :type name: str
-    
+
     :param port: Port number for communication with maxima CAS (> 8000).
     :type port: int
-    
+
     :return:     SLiCAPproject
     :rtype:      SLiCAP.SLiCAPproject
 
@@ -143,18 +175,18 @@ def initProject(name, port=ini.PORT):
         # Create the libraries
     if len(SLiCAPCIRCUITS) == 0:
         makeLibraries()
-    return prj    
+    return prj
 
 def makeNetlist(fileName, cirTitle):
     """
     Creates a netlist from a schematic file generated with LTspice or gschem.
-    
+
     - LTspice: '.asc' file
     - gschem: '.sch' file
-    
+
     :param fileName: Name of the file, relative to **ini.circuitPath**
     :type fileName: str
-    
+
     :param cirTitle: Title of the schematic.
     :type cirTitle: str
     """
@@ -168,7 +200,7 @@ def makeNetlist(fileName, cirTitle):
         if fileType == 'asc':
             file = os.path.abspath(baseFileName + '.asc')
             print(file)
-            if platform.system() == 'Windows':    
+            if platform.system() == 'Windows':
                 file = file.replace('\\','\\\\')
                 subprocess.run([ini.ltspice, '-netlist', file])
             else:
@@ -186,13 +218,13 @@ def makeNetlist(fileName, cirTitle):
             outputfile = os.path.abspath(baseFileName + '.net')
             inputfile = os.path.abspath(baseFileName + '.sch')
             print('input: ',inputfile, ' output: ', outputfile)
-            if platform.system() != 'Windows':    
+            if platform.system() != 'Windows':
                 try:
                     subprocess.run(['lepton-netlist', '-g', 'spice-noqsi', '-o', outputfile, inputfile])
                 except:
                     print("Could not generate netlist using Lepton-eda")
             try:
-                if platform.system() == 'Windows':    
+                if platform.system() == 'Windows':
                     outputfile = outputfile.replace('\\','\\\\')
                     inputfile = inputfile.replace('\\','\\\\')
                 subprocess.run(['gnetlist', '-q', '-g', 'spice-noqsi', '-o', outputfile, inputfile])
