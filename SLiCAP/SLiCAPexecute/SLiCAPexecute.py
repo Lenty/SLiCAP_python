@@ -226,7 +226,8 @@ def doNumer(instr, result):
         else:
             result = doMaxInstr(instr, result)
         result.numer = result.numer[0]
-        result.numer = sp.simplify(result.numer)
+        result.numer = sp.simplify(result.numer)   
+    result = correctDMcurrentResult(instr, result)
     return result
 
 def doDenom(instr, result):
@@ -316,6 +317,7 @@ def doLaplace(instr, result):
             result.laplace = result.laplace[0]
         result.laplace =sp.simplify(result.laplace)
         result.numer, result.denom = sp.fraction(result.laplace)
+    result = correctDMcurrentResult(instr, result)
     return result
 
 def doLoopGainServo(instr, result):
@@ -588,6 +590,7 @@ def doNoise(instr, result):
                 del(result.onoiseTerms[key])
                 if instr.source != [None, None]:
                     del(result.inoiseTerms[key])
+    result = correctDMcurrentResult(instr, result)
     return result
 
 def doDCvar(instr, result):
@@ -657,9 +660,41 @@ def doDCvar(instr, result):
                 del(result.ovarTerms[key])
                 if instr.source != [None, None]:
                     del(result.ivarTerms[key])
-        delDCvarSources(instr)
+        delDCvarSources(instr)      
+    result = correctDMcurrentResult(instr, result)
     return result
 
+def correctDMcurrentResult(instr, result):
+    """
+    In cases of a differential-mode current detector the numerator of the 
+    differential output current, or its associated transfer must be divided by 
+    two I_diff = (I_P - I_N)/2
+    
+    :param instr: **instruction()** object that holds instruction data.
+    :type instr: :class:`instruction()`
+
+    :param result: **allResults()** object that holds instruction results
+    :type result: :class:`allResult()`
+    """
+    if instr.convType == None and instr.gainType != 'loopgain' and instr.gainType != 'servo' and instr.detector[0] != None and instr.detector[1] != None:
+        if instr.detector[0][0] == 'I':
+            if instr.dataType == 'dcvar':
+                result.ovar = result.ovar/4
+                for term in result.ovarTerms:
+                    result.ovarTerms[term] = result.ovarTerms[term]/4
+            elif instr.dataType == 'noise':
+                result.onoise = result.onoise/4
+                for term in result.onoiseTerms:
+                    result.onoiseTerms[term] = result.onoiseTerms[term]/4
+            elif instr.dataType == 'laplace':
+                result.laplace = result.laplace/2
+                result.numer = result.numer/2
+            elif instr.dataType == 'numer':
+                result.numer = result.numer/2
+            elif instr.dataType == 'dc':
+                result.dc = result.dc/2
+    return result
+    
 def addDCvarSources(instr, dcSolution):
     """
     Adds the dcvar sources of resistors to instr.circuit for dataType: 'dcvar'.
