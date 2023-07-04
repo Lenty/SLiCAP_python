@@ -5,6 +5,7 @@ SLiCAP module with HTML functions.
 
 This module is imported by SLiCAPyacc.py
 """
+import shutil
 
 from SLiCAP.SLiCAPplots import *
 
@@ -464,7 +465,7 @@ def img2html(fileName, width, label = '', caption = ''):
         ini.htmlLabels[label] = newlabel
         label = '<a id="' + label + '"></a>'
     try:
-        cp(ini.imgPath + fileName, ini.htmlPath + 'img/' + fileName)
+        shutil.copy2(ini.imgPath + fileName, ini.htmlPath + 'img/' + fileName)
     except:
         print("Error: could not copy: '{0}'.".format(fileName))
     html = '<figure>{0}<img src="img/{1}" alt="{2}" style="width:{3}px">\n'.format(label, fileName, caption, width)
@@ -637,7 +638,7 @@ def pz2html(instObj, label = '', labelText = ''):
         return html
     elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
         print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '{0}'.".format(instObj.dataType))
-        return html 
+        return html
     elif instObj.step == True :
         print("Error: parameter stepping not implemented for 'pz2html()'.")
         return html
@@ -909,7 +910,7 @@ def coeffsTransfer2html(transferCoeffs, label = '', labelText = ''):
 def stepArray2html(stepVars, stepArray):
     """
     Displays the step array on the active HTML page.
-    
+
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
@@ -948,7 +949,7 @@ def fig2html(figureObject, width, label = '', caption = ''):
     html += '</figure>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     try:
-        cp(ini.imgPath + figureObject.fileName, ini.htmlPath + 'img/' + figureObject.fileName)
+        shutil.copy2(ini.imgPath + figureObject.fileName, ini.htmlPath + 'img/' + figureObject.fileName)
     except:
         print("Error: could not copy: '{0}'.".format(ini.imgPath + figureObject.fileName))
     return ini.htmlPath + 'img/' + figureObject.fileName
@@ -956,7 +957,7 @@ def fig2html(figureObject, width, label = '', caption = ''):
 def file2html(fileName):
     """
     Writes the contents of a file to the active html page.
-    
+
     :param fileName: Name of the file (relative to ini.textPath)
     :type fileName: str
     :return: html code
@@ -990,15 +991,15 @@ def href(label, fileName = ''):
 def links2html():
     """
     Returns the HTML code for placing links to all labeled HTML objects.
-    
+
     Links will be grouped as follows:
-        
+
     #. Links to headings
     #. Links to circuit data and imported tables
     #. Links to figures
     #. Links to equations
     #. Links to analysis results (from noise2html, pz2html, etc.)
-    
+
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
@@ -1038,10 +1039,10 @@ def links2html():
 def htmlLink(address, text):
     """
     Returns the html code for placing a link on an html page with *text2html()*.
-    
+
     :param address: link address
     :type address: str
-    
+
     :return: html code
     :rtype: str
     """
@@ -1056,7 +1057,7 @@ def htmlParValue(instr, parName):
 
     :param instr: Instruction that holds the parameter definition
     :type instr: SLiCAPinstruction.instruction
-    
+
     :param parName: Name of the parameter
     :type parName: string
 
@@ -1073,7 +1074,7 @@ def htmlElValue(instr, elName):
 
     :param instr: Instruction that holds the parameter definition
     :type instr: SLiCAPinstruction.instruction
-    
+
     :param elName: Element identifier
     :type elName: string
 
