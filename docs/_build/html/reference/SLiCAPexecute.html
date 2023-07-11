@@ -273,8 +273,8 @@ and differential-mode quantities.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.correctDMcurrentResult">
 <span class="sig-name descname"><span class="pre">correctDMcurrentResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.correctDMcurrentResult" title="Permalink to this definition">¶</a></dt>
-<dd><p>In cases of a differential-mode current detector the numerator of the 
-differential output current, or its associated transfer must be divided by 
+<dd><p>In cases of a differential-mode current detector the numerator of the
+differential output current, or its associated transfer must be divided by
 two I_diff = (I_P - I_N)/2</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -332,7 +332,7 @@ currents to common-mode and differential-mode equivalents.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.delDCvarSources">
 <span class="sig-name descname"><span class="pre">delDCvarSources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.delDCvarSources" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the dcVar sources from instr.circuit, added by executing this 
+<dd><p>Deletes the dcVar sources from instr.circuit, added by executing this
 instruction with dataType: ‘dcvar’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -350,7 +350,7 @@ instruction with dataType: ‘dcvar’.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.delResNoiseSources">
 <span class="sig-name descname"><span class="pre">delResNoiseSources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.delResNoiseSources" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the noise sources from instr.circuit, added by executing this 
+<dd><p>Deletes the noise sources from instr.circuit, added by executing this
 instruction with dataType: ‘noise’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -497,7 +497,7 @@ cases of parameter stepping, this attribute is a list with numerators.</p>
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doLoopGainServo">
 <span class="sig-name descname"><span class="pre">doLoopGainServo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLoopGainServo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Laplace expression of the loop gain of the asymptotic-gain
-feedback model, or of the ‘servo function’ as defined by Montagne. 
+feedback model, or of the ‘servo function’ as defined by Montagne.
 The calculation uses the return difference, as defined by Bode (1945).</p>
 <p>The results are stored in the following attributes of the return object:</p>
 <blockquote>
@@ -529,7 +529,7 @@ of laplace expressions if parameter stepping is applied.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMatrix">
 <span class="sig-name descname"><span class="pre">doMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the MNA matrix and the vector with dependent and independent 
+<dd><p>Calculates the MNA matrix and the vector with dependent and independent
 variables, based on the conversion type:</p>
 <ul class="simple">
 <li><p>instr.convType == None: The basic MNA equation</p></li>
@@ -544,7 +544,7 @@ reprsentation</p></li>
 </ul>
 <p>The results are stored in the following attributes of the result object:</p>
 <ul class="simple">
-<li><p>.Iv: Vector with independent variables (independent voltage and current 
+<li><p>.Iv: Vector with independent variables (independent voltage and current
 sources)</p></li>
 <li><p>.Dv: Vector with dependent variables (nodal voltages and branch currents)</p></li>
 <li><p>.M: Matrix: Iv=M*Dv</p></li>
@@ -582,7 +582,7 @@ sources)</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxIlt">
 <span class="sig-name descname"><span class="pre">doMaxIlt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">laplaceRational</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxIlt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the inverse Laplace Transform of <em>laplaceRational</em> using 
+<dd><p>Calculates the inverse Laplace Transform of <em>laplaceRational</em> using
 Maxima CAS.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -597,7 +597,7 @@ Maxima CAS.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxInstr">
 <span class="sig-name descname"><span class="pre">doMaxInstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxInstr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes an instruction with Maxima CAS and updates <em>result</em> with the 
+<dd><p>Executes an instruction with Maxima CAS and updates <em>result</em> with the
 instruction results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -647,7 +647,7 @@ the servo function; depeding on the gain type.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer">
 <span class="sig-name descname"><span class="pre">doNumer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the numerator of a transfer function, or of the Laplace Transform 
+<dd><p>Returns the numerator of a transfer function, or of the Laplace Transform
 of a detector voltage or current.</p>
 <p>The result will be stored in the <strong>.numer</strong> attribute of the resturn object. In
 cases of parameter stepping, this attribute is a list with numerators.</p>
@@ -698,7 +698,7 @@ cases of parameter stepping, this attribute is a list with numerators.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve">
 <span class="sig-name descname"><span class="pre">doSolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Solves the network: calculates the Laplace transform of all dependent 
+<dd><p>Solves the network: calculates the Laplace transform of all dependent
 variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -713,7 +713,7 @@ variables.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doStep">
 <span class="sig-name descname"><span class="pre">doStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the unit step response of the circuit. This is the inverse 
+<dd><p>Calculates the unit step response of the circuit. This is the inverse
 Laplace transform of the source-detector transfer divided by the Laplace
 variable.</p>
 <p>First it calculates the Laplace transform of the source-detector transfer
@@ -778,7 +778,7 @@ result object.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.findBaseNames">
 <span class="sig-name descname"><span class="pre">findBaseNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.findBaseNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list with base names of paired elements. The base name is the 
+<dd><p>Returns a list with base names of paired elements. The base name is the
 element identifier without the pairing extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -801,7 +801,7 @@ type: convType.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>result</strong> – instruction results of which the matrix attributes M, Iv, 
+<li><p><strong>result</strong> – instruction results of which the matrix attributes M, Iv,
 and Dv have been set.</p></li>
 <li><p><strong>dimDm</strong> (<em>str</em>) – Number of differential-mode variables</p></li>
 <li><p><strong>dimCm</strong> (<em>str</em>) – Number of common-mode variables</p></li>
@@ -872,14 +872,14 @@ variables that corresponds with the negative detector</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxMatrices">
 <span class="sig-name descname"><span class="pre">makeMaxMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxMatrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an allResults() object of which the following attributes have been 
+<dd><p>Returns an allResults() object of which the following attributes have been
 updated:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>M  = MNA matrix</p></li>
-<li><p>Iv = Vector with independent variables (voltages and current of 
+<li><p>Iv = Vector with independent variables (voltages and current of
 independent voltage and current sources, repectively)</p></li>
-<li><p>Dv = Vector with dependent variables (unknown nodal voltages and 
+<li><p>Dv = Vector with dependent variables (unknown nodal voltages and
 branch currents)</p></li>
 </ul>
 </div></blockquote>

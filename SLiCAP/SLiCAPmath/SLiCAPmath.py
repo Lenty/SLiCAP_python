@@ -9,19 +9,19 @@ from SLiCAP.SLiCAPpythonMaxima import *
 
 def det(M):
     """
-    Returns the determinant of a square matrix 'M' calculated using recursive 
+    Returns the determinant of a square matrix 'M' calculated using recursive
     minor expansion (Laplace expansion).
     For large matrices with symbolic entries, this is faster than the built-in
-    sympy.Matrix.det() method. 
-    
+    sympy.Matrix.det() method.
+
     :param M: Sympy matrix
     :type M: sympy.Matrix
-    
+
     :return: Determinant of 'M'
     :rtype:  sympy.Expr
-    
+
     :Example:
-        
+
     >>> dim = 6
     >>> M = sp.zeros(dim, dim)
     >>> for i in range(dim):
@@ -112,17 +112,17 @@ def coeffsTransfer(rational, variable=ini.Laplace, normalize='lowest'):
 
     :param rational: Rational function of the variable.
     :type rational: sympy.Expr
-    
+
     :param variable: Variable of the rational function
     :type variable: sympy.Symbol
-    
-    :param normalize: Normalization method: 
-        
-                   - "highest": the coefficients of the highest order of 
+
+    :param normalize: Normalization method:
+
+                   - "highest": the coefficients of the highest order of
                      <variable> of the denominator will be noramalized to unity.
-                   - "lowest": the coefficients of the lowest order of 
+                   - "lowest": the coefficients of the lowest order of
                      <variable> of the denominator will be noramalized to unity.
-                     
+
     :type normalize: str
 
     :return: Tuple with gain and two lists: [gain, numerCoeffs, denomCoeffs]
@@ -174,17 +174,17 @@ def normalizeRational(rational, var=ini.Laplace, method='lowest'):
 
     :param Rational: Rational function of the variable.
     :type Rational: sympy.Expr
-    
+
     :param variable: Variable of the rational function
     :type variable: sympy.Symbol
-    
-    :param method: Normalization method: 
-        
-                   - "highest": the coefficients of the highest order of 
+
+    :param method: Normalization method:
+
+                   - "highest": the coefficients of the highest order of
                      <variable> of the denominator will be noramalized to unity.
-                   - "lowest": the coefficients of the lowest order of 
+                   - "lowest": the coefficients of the lowest order of
                      <variable> of the denominator will be noramalized to unity.
-                     
+
     :type method: str
 
     :return:  Normalized rational function of the variable.
@@ -243,16 +243,16 @@ def cancelPZ(poles, zeros):
 def gainValue(numer, denom):
     """
     Returns the zero frequency (s=0) value of numer/denom.
-    
+
     :param numer: Numerator of a rational function of the Laplace variable
     :type numer:  sympy.Expr
-    
+
     :param denom: Denominator of a rational function of the Laplace variable
     :type denom:  sympy.Expr
-    
+
     :return:      zero frequency (s=0) value of numer/denom.
     :rtype:       sympy.Expr
-    """    
+    """
     numer = sp.simplify(numer)
     denom = sp.simplify(denom)
     numerValue = numer.subs(ini.Laplace, 0)
@@ -285,7 +285,7 @@ def findServoBandwidth(loopgainRational):
              - mbv: mid-band value of the loopgain (highest value at order = zero)
              - mbf: lowest freqency of mbv
     :rtype: dict
-    """  
+    """
     numer, denom    = sp.fraction(sp.N(loopgainRational))
     numer           = sp.expand(sp.collect(numer.evalf(), ini.Laplace))
     denom           = sp.expand(sp.collect(denom.evalf(), ini.Laplace))
@@ -535,7 +535,7 @@ def clearAssumptions(expr, params = 'all'):
     :return: Expression with redefined variables.
     :rtype: sympy.Expr, sympy.Symbol
     """
-    
+
     if type(params) == list:
         for i in range(len(params)):
             expr = expr.xreplace({sp.Symbol(params[i], positive = True): sp.Symbol(params[i])})
@@ -612,16 +612,16 @@ def phaseMargin(LaplaceExpr):
 def makeNumData(yFunc, xVar, x):
     """
     Returns a list of values y, where y[i] = yFunc(x[i]).
-    
+
     :param yFunc: Function
     :type yFunc: sympy.Expr
-    
+
     :param xVar: Variable that needs to be substituted in *yFunc*
     :type xVar: sympy.Symbol
-    
+
     :param x: List with values of x
     :type x: list
-                   
+
     :return: list with y values: y[i] = yFunc(x[i]).
     :rtype:  list
     """
@@ -702,7 +702,7 @@ def dBmagFunc_f(LaplaceExpr, f):
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
     result = makeNumData(20*sp.log(sp.Abs(sp.N(data)), 10), ini.frequency, f)
     return result
-    
+
 def phaseFunc_f(LaplaceExpr, f):
     """
     Calculates the phase angle at the real frequency f (Fourier) from the
@@ -857,21 +857,21 @@ def phase_f(LaplaceExpr):
         data = LaplaceExpr.xreplace({ini.Laplace: sp.I*ini.frequency})
         phase = sp.arg(sp.N(data))
     return phase
-    
+
 def doCDSint(noiseResult, tau, f_min, f_max):
     """
-    Returns the integral from ini.frequency = f_min to ini.frequency = f_max, 
+    Returns the integral from ini.frequency = f_min to ini.frequency = f_max,
     of a noise spectrum after multiplying it with (2*sin(pi*ini.frequency*tau))^2
-    
+
     :param noiseResult: sympy expression of a noise density spectrum in V^2/Hz or A^2/Hz
     :type noiseResult: sympy.Expr, sympy.Symbol, int or float
     :param tau: Time between two samples
-    :type tau: sympy.Expr, sympy.Symbol, int or float    
+    :type tau: sympy.Expr, sympy.Symbol, int or float
     :param f_min: Lower limit of the integral
-    :type f_min: sympy.Expr, sympy.Symbol, int or float   
+    :type f_min: sympy.Expr, sympy.Symbol, int or float
     :param f_max: Upper limit of the integral
     :type f_max: sympy.Expr, sympy.Symbol, int or float
-    
+
     :return: integral of the spectrum from f_min to f_max after corelated double sampling
     :rtype: sympy.Expr, sympy.Symbol, int or float
     """
@@ -884,12 +884,12 @@ def doCDSint(noiseResult, tau, f_min, f_max):
 def doCDS(noiseResult, tau):
     """
     Returns noiseResult after multiplying it with (2*sin(pi*ini.frequency*tau))^2
-    
+
     :param noiseResult: sympy expression of a noise density spectrum in V^2/Hz or A^2/Hz
     :type noiseResult: sympy.Expr, sympy.Symbol, int or float
     :param tau: Time between two samples
     :type tau: sympy.Expr, sympy.Symbol, int or float
-    
+
     :return: noiseResult*(2*sin(pi*ini.frequency*tau))^2
     :rtype: sympy.Expr, sympy.Symbol, int or float
     """
@@ -898,15 +898,15 @@ def doCDS(noiseResult, tau):
 def routh(charPoly, eps=sp.Symbol('epsilon')):
     """
     Returns the Routh array of a polynomial of the Laplace variable (ini.Laplace).
-    
+
     :param charPoly: Expression that can be written as a polynomial of the Laplace variable (ini.Laplace).
     :type charPoly:  sympy.Expr
     :param eps:      Symbolic variable used to indicate marginal stability. Use a symbol that is not present in *charPoly*.
     :type eps:       sympy.Symbol
-    
+
     :return: Routh array
     :rtype:  sympy.Matrix
-    
+
     :Example:
 
     >>> # ini.Laplace = sp.Symbol('s')
@@ -927,7 +927,7 @@ def routh(charPoly, eps=sp.Symbol('epsilon')):
     for i in range(dim):
         # First row with even orders
         M[0,i] = coeffs[2*i]
-        # Second row with odd orders 
+        # Second row with odd orders
         # Zero at the last position if the highest order is even
         if 2*i+1 < orders:
             M[1,i] = coeffs[2*i+1]
@@ -958,7 +958,7 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
     Their numerators should be polynomials of the Laplace variable of equal
     order and their denominators should be polynomials of the Laplace variable
     of equal order.
-    
+
     :param protoType: Prototype rational expression of the Laplace variable
     :type protoType: sympy.Expr
     :param transfer:
@@ -1035,22 +1035,22 @@ def equateCoeffs(protoType, transfer, noSolve = [], numeric=True):
 def step2PeriodicPulse(ft, t_pulse, t_period, n_periods):
     """
     Converts a step response in a periodic pulse response. Works with symbolic
-    and numeric time functions. 
-    
+    and numeric time functions.
+
     For evaluation of numeric values, use the SLiCAP function: makeNumData().
-    
+
     :param ft: Time function f(t)
     :type ft: sympy.Expr
-    
+
     :param t_pulse: Pulse width
     :type t_pulse: int, float
-    
+
     :param t_period: Pulse period
     :type t_period: int, float
-    
+
     :param n_periods: Number of pulses
     :typen_periods: int, float
-    
+
     :return: modified time function
     :rtype: sympy.Expr
     """
@@ -1073,12 +1073,12 @@ def step2PeriodicPulse(ft, t_pulse, t_period, n_periods):
 
 def butterworthPoly(n):
     """
-    Returns a narmalized Butterworth polynomial of the n-th order of the 
+    Returns a narmalized Butterworth polynomial of the n-th order of the
     Laplace variable.
-    
+
     :param n: order
     :type n: int
-    
+
     :return: Butterworth polynomial of the n-th order of the Laplace variable
     :rtype: sympy.Expression
     """
@@ -1098,12 +1098,12 @@ def butterworthPoly(n):
 
 def besselPoly(n):
     """
-    Returns a normalized Bessel polynomial of the n-th order of the Laplace 
+    Returns a normalized Bessel polynomial of the n-th order of the Laplace
     variable.
-    
+
     :param n: order
     :type n: int
-    
+
     :return: Bessel polynomial of the n-th order of the Laplace variable
     :rtype: sympy.Expression
     """
@@ -1112,14 +1112,16 @@ def besselPoly(n):
     for k in range(n+1):
         B_s += (sp.factorial(2*n-k)/((2**(n-k))*sp.factorial(k)*sp.factorial(n-k)))*s**k
     B_s = sp.simplify(B_s/B_s.subs(s,0))
-    return(B_s)     
+    return(B_s)
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     """
     Calculates the RMS source-referred noise or detector-referred noise,
-    or the contribution of a specific noise source to it.
+    or the contribution of a specific noise source or a collection od sources
+    to it.
 
-    :param noiseResult: Results of the execution of an instruction with data type 'noise'.
+    :param noiseResult: Results of the execution of an instruction with data
+                        type 'noise'.
     :type noiseResult: SLiCAPprotos.allResults
 
     :param noise: 'inoise' or 'onoise' for source-referred noise or detector-
@@ -1132,19 +1134,23 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     :param fmax: Upper limit of the frequency range in Hz.
     :type fmax: str, int, float, sp.Symbol
 
-    :param source: 'all' or refDes (ID) of a noise source of which the
-                contribution to the RMS noise needs to be evaluated. Only
-                IDs of current of voltage sources with a nonzero value
-                for 'noise' are accepted.
+    :param source: refDes (ID) or list with IDs of noise sources
+                of which the contribution to the RMS noise needs to be
+                evaluated. Only IDs of current of voltage sources with a
+                nonzero value for 'noise' are accepted.
+    :type source: str, list
+
     :return: RMS noise over the frequency interval.
 
             - An expression or value if parameter stepping of the instruction is disabled.
             - A list with expressions or values if parameter stepping of the instruction is enabled.
-    :rtype: int, float, sympy.Expr, list
+    :rtype: int, float, sympy.Expr
     """
-    if type(source)==list:
-        source = source[0]
     errors = 0
+    if type(source) != list:
+        sources = [source]
+    else:
+        sources = source
     numlimits = False
     if fmin == None or fmax == None:
         print("Error in frequency range specification.")
@@ -1154,14 +1160,14 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     if fMi != None:
         # Numeric value for fmin
         fmin = fMi
-    if fMa != None: 
+    if fMa != None:
         # Numeric value for fmax
         fmax = fMa
-    if fMi != None and  fMa != None and fmin >= fmax:
+    if fMi != None and fMa != None and fmin >= fmax:
         # Numeric values for fmin and fmax but fmin >= fmax
         print("Error in frequency range specification.")
         errors += 1
-    elif fMi != None and  fMa != None and fmax > fmin:
+    elif fMi != None and fMa != None and fmax > fmin:
         # Numeric values for fmin and fmax and fmax >= fmin
         numlimits = True
     elif noiseResult.dataType != 'noise':
@@ -1169,65 +1175,73 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         errors += 1
     if errors == 0:
         keys = list(noiseResult.onoiseTerms.keys())
+        noiseData = []
         if noise == 'inoise':
-            if source == None:
-                noiseData = noiseResult.inoise
-            elif source in keys:
-                noiseData = noiseResult.inoiseTerms[source]
+            if len(sources) == 1 and sources[0] == None:
+                noiseData.append(noiseResult.inoise)
             else:
-                print("Error: unknown noise source: '{0}'.".format(source))
-                errors += 1
+                for src in sources:
+                    if src != None:
+                        if src in keys:
+                            noiseData.append(noiseResult.inoiseTerms[src])
+                        else:
+                            print("Error: unknown noise source: '{0}'.".format(src))
+                            errors += 1
         elif noise == 'onoise':
-            if source == None:
-                noiseData = noiseResult.onoise
-            elif source in keys:
-                noiseData = noiseResult.onoiseTerms[source]
-            else:
-                print("Error: unknown noise source: '{0}'.".format(source))
-                errors += 1
+            if len(sources) == 1 and sources[0] == None:
+                noiseData.append(noiseResult.inoise)
+                for src in sources:
+                    if src != None:
+                        if src in keys:
+                            noiseData.append(noiseResult.onoiseTerms[src])
+                        else:
+                            print("Error: unknown noise source: '{0}'.".format(src))
+                            errors += 1
         else:
             print("Error: unknown noise type: '{0}'.".format(noise))
             errors += 1
         if errors == 0:
-            if type(noiseData) != list:
-                noiseData = [noiseData]
-            rms = []
             for i in range(len(noiseData)):
-                params = list(sp.N(noiseData[i]).atoms(sp.Symbol))
-                if len(params) == 0 or ini.frequency not in params:
-                    # Frequency-independent spectrum, multiply with (fmax-fmin)
-                    print("Integration by multiplication.")
-                    rms.append(sp.sqrt(noiseData[i]*(fmax-fmin)))
-                elif len(params) == 1 and numlimits:
-                    # Numeric frequency-dependent spectrum, use numeric integration
-                    print("Integration by numpy.")
-                    noise_spectrum = sp.lambdify(ini.frequency, noiseData[i])
-                    rms.append(sp.sqrt(integrate.quad(noise_spectrum, fmin, fmax)[0]))
-                else:
-                    # Symbolic integration performed by maxima (no warranty)
-                    print("Trying symbolic integration by Maxima CAS.")
-                    result = maxIntegrate(noiseData[i], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)
-                    if result == sp.Symbol("Error"):
-                        # Try sympy integration (no questions asked)
-                        print("Trying symbolic integration by sympy.")
-                        result = sp.integrate(noiseData[i], (ini.frequency, fmin, fmax))
-                    rms.append(sp.sqrt(result))
-            rms = np.array(rms)
+                if type(noiseData[i]) != list:
+                    noiseData[i] = [noiseData[i]]
+                rms = []
+                for j in range(len(noiseData[i])):
+                    rms2 = 0
+                    params = list(sp.N(noiseData[i][j]).atoms(sp.Symbol))
+                    if len(params) == 0 or ini.frequency not in params:
+                        # Frequency-independent spectrum, multiply with (fmax-fmin)
+                        print("Integration by multiplication.")
+                        rms2 += noiseData[i][j]*(fmax-fmin)
+                    elif len(params) == 1 and numlimits:
+                        # Numeric frequency-dependent spectrum, use numeric integration
+                        print("Integration by numpy.")
+                        noise_spectrum = sp.lambdify(ini.frequency, noiseData[i][j])
+                        rms2 += integrate.quad(noise_spectrum, fmin, fmax)[0]
+                    else:
+                        # Symbolic integration performed by maxima (no warranty)
+                        print("Trying symbolic integration by Maxima CAS.")
+                        result = maxIntegrate(noiseData[i][j], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)
+                        if result == sp.Symbol("Error"):
+                            # Try sympy integration (no questions asked)
+                            print("Trying symbolic integration by sympy.")
+                            result = sp.integrate(noiseData[i][j], (ini.frequency, fmin, fmax))
+                        rms2 += result
+                rms.append(sp.sqrt(rms2))
             if len(rms) == 1:
                 rms = rms[0]
             return rms
-        
+
 def PdBm2V(p, r):
     """
     Returns the RMS value of the voltage that generates *p* dBm power
     in a resistor with resistance *r*.
-    
+
     :param p: Power in dBm
     :type p:  sympy.Symbol, sympy.Expression, int, or float
-    
+
     :param r: Resistance
     :type r:  sympy.Symbol, sympy.Expression, int, or float
-    
+
     :return: voltage
     :rtype: sympy.Expression
     """
@@ -1252,7 +1266,7 @@ def rational2float(expr):
     """
     Converts rational numbers in expr into floats.
 
-    :param expr: Sympy expression in which rational numbers need to be 
+    :param expr: Sympy expression in which rational numbers need to be
                  converterd intoc floats.
     :type expr: sympy.Expression
 
@@ -1278,7 +1292,7 @@ def roundN(expr, numeric=False):
         # Convert rationals to floats
         expr   = expr.xreplace({n : sp.Float(rational2float(n), ini.disp) for n in expr.atoms(sp.Rational)})
         # Maximum integer to be displayed for given display accuracy
-        maxInt = 10**ini.disp 
+        maxInt = 10**ini.disp
         # Remove '.0' for integer numbers smaller than maxInt
         floats = expr.atoms(sp.Float)
         for flt in floats:
@@ -1301,7 +1315,7 @@ if __name__ == "__main__":
     loopgain         = loopgain_numer/loopgain_denom
     servo_info       = findServoBandwidth(loopgain)
     print(servo_info)
-    
+
     k = sp.Symbol('k')
     charPoly = s**4+2*s**3+(3+k)*s**2+(1+k)*s+(1+k)
     #charPoly = 10 + 11*s +4*s**2 + 2*s**3 + 2*s**4 + s**5
@@ -1310,13 +1324,13 @@ if __name__ == "__main__":
     #roots = numRoots(charPoly, ini.Laplace)
     eps = sp.Symbol('epsilon')
     print(routh(charPoly, eps))
-    
+
     numer    = sp.sympify('f+b*s+c*s^2')
     denom    = sp.sympify('a+b*s+c*s^2+d*s^3')
     rational = normalizeRational(numer/denom)
-    gain     = gainValue(numer, denom)   
+    gain     = gainValue(numer, denom)
     print(gain)
-    
+
     M = sp.sympify('Matrix([[0, 0, 0, 0, 0, 1.00000000000000, 0], [0, -2.00000000000000, 0, 0, 1.0*g_m1, 1.0*g_m1, 0], [0, 0, -2.00000000000000, 1.0*g_m2, -1.0*g_m2, 0, 0], [0, 1.00000000000000, 0, 0.5*c_i2*s + 0.5/r_o1, -0.5*c_i2*s + 0.5/r_o1, 0, 0], [0, 1.00000000000000, -1.00000000000000, -0.5*c_i2*s + 0.5/r_o1, 0.5*c_i1*s + 0.5*c_i2*s + 0.5/r_o2 + 0.5/r_o1 + 1.0/R, 0.5*c_i1*s, -0.5/r_o2], [1.00000000000000, 0, 0, 0, 0.5*c_i1*s, 0.5*c_i1*s, 0], [0, 0, 1.00000000000000, 0, -0.5/r_o2, 0, 0.5/r_o2 + 1.0/R_L]])')
     #M = sp.sympify('Matrix([[0, 1, -1, 0, 0], [1, 1/R_GND + 1/R_1, 0, 0, -1/R_1], [-1, 0, 1/R_1, -1/R_1, 0], [0, 0, -1/R_1, 1/R_2 + 1/R_1, -1/R_2], [0, -1/R_1, 0, -1/R_2, 1/R_2 + 1/R_1]])')
     t1 = time()
@@ -1327,57 +1341,57 @@ if __name__ == "__main__":
     """
     print(t2-t1)
     s=sp.Symbol('s')
-    M = sp.Matrix([[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000333333333333333, 0, 0, 0, 0, -0.000333333333333333, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4e-5, 0.000706666666666667, 0, 0, -0.000666666666666667, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000555555555555556, 0, 0, -0.000100000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000655555555555556, 0, 0], 
-                [0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.2e-10*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.2e-10*s + 3.003013003003, 0, 0, -3.00300300300300, 0, 0, 0, 0, 0, -1.00000000000000e-5, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.00000000000000e-5, 0, 0, 0, 0, 0, -0.000666666666666667, 0, 0, 0, 0, 0.000706666666666667, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0.000201493500000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000201493500000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000294117647058824, 0, 0, 0, 0, 0, -0.000146842878120411, 0, 0, -0.000100000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000540960525179235, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.8e-10*s, 0, 0, 0, 0, 0, 0, -1.8e-10*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000959053493580912, -0.000769230769230769, 0, -0.000189822724350142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000e-5, 0, 0, 1.0e-12*s + 0.10001, -1.0e-12*s, 0, 0, -0.100000000000000, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000140000000000000, -4.00000000000000e-5, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.606838377466989, -0.000100016484285603, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000e-5, 0, 0, 0, 0, 0, 0, 0, 0, 0.000110000000000000, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.00300300300300, 0, -1.0e-12*s, 1.0e-12*s + 3.003003003003, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+    M = sp.Matrix([[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000333333333333333, 0, 0, 0, 0, -0.000333333333333333, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4e-5, 0.000706666666666667, 0, 0, -0.000666666666666667, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000555555555555556, 0, 0, -0.000100000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000655555555555556, 0, 0],
+                [0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.2e-10*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.2e-10*s + 3.003013003003, 0, 0, -3.00300300300300, 0, 0, 0, 0, 0, -1.00000000000000e-5, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.00000000000000e-5, 0, 0, 0, 0, 0, -0.000666666666666667, 0, 0, 0, 0, 0.000706666666666667, 0],
+                [0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0.000201493500000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000201493500000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000294117647058824, 0, 0, 0, 0, 0, -0.000146842878120411, 0, 0, -0.000100000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000540960525179235, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.8e-10*s, 0, 0, 0, 0, 0, 0, -1.8e-10*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000959053493580912, -0.000769230769230769, 0, -0.000189822724350142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000e-5, 0, 0, 1.0e-12*s + 0.10001, -1.0e-12*s, 0, 0, -0.100000000000000, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000140000000000000, -4.00000000000000e-5, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.606838377466989, -0.000100016484285603, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000e-5, 0, 0, 0, 0, 0, 0, 0, 0, 0.000110000000000000, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.00300300300300, 0, -1.0e-12*s, 1.0e-12*s + 3.003003003003, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000201493500000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.9e-8*s + 0.0002014935, 0, 0, 0, -3.9e-8*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.002*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.100000000000000, 0, 0, 0, 0.100000000000000, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.002*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.100000000000000, 0, 0, 0, 0.100000000000000, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000769230769230769, 2.2e-10*s + 0.00119668174962293, 0, 0, 0, 0, 0, 0, -0.000133333333333333, 0, 0, -2.2e-10*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000294117647058824, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000769230769230769, 2.2e-10*s + 0.00119668174962293, 0, 0, 0, 0, 0, 0, -0.000133333333333333, 0, 0, -2.2e-10*s, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000294117647058824, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000189822724350142, 0, 0, 0.000367792651548851, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000133333333333333, 0, 0, 0, 0, 0, 0, 4.7e-10*s + 0.000133333333333333, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.8e-10*s, 0, -0.000333333333333333, -3.9e-8*s, 0, 0, 0, 3.918e-8*s + 0.000888888888888889, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000555555555555556, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.8e-10*s, 0, -0.000333333333333333, -3.9e-8*s, 0, 0, 0, 3.918e-8*s + 0.000888888888888889, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000555555555555556, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.00000000000000],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000100016484285603, 0.000393702240526425, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000146842878120411, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000110000000000000, 0, 0, -1.00000000000000e-5, 0, 0, 0, 0, 0, 0, 0, -0.000100000000000000, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000140000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000100000000000000, -4.00000000000000e-5, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000666666666666667, 0, -0.00465116279069767, 0.00531782945736434, 0, 0, 0, 0, 0], 
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000100016484285603, 0.000393702240526425, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000146842878120411, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000110000000000000, 0, 0, -1.00000000000000e-5, 0, 0, 0, 0, 0, 0, 0, -0.000100000000000000, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.000140000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000100000000000000, -4.00000000000000e-5, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.00000000000000, 1.00000000000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.000666666666666667, 0, -0.00465116279069767, 0.00531782945736434, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.00531782945736434, -0.00465116279069767, 0, 0, 0, -0.000666666666666667, 0]])
     t1 = time()
     D = det(M)

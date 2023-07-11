@@ -257,7 +257,7 @@ Laplace variable, have been redefined as real.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.besselPoly">
 <span class="sig-name descname"><span class="pre">besselPoly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.besselPoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a normalized Bessel polynomial of the n-th order of the Laplace 
+<dd><p>Returns a normalized Bessel polynomial of the n-th order of the Laplace
 variable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -275,7 +275,7 @@ variable.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.butterworthPoly">
 <span class="sig-name descname"><span class="pre">butterworthPoly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.butterworthPoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a narmalized Butterworth polynomial of the n-th order of the 
+<dd><p>Returns a narmalized Butterworth polynomial of the n-th order of the
 Laplace variable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -383,9 +383,9 @@ numerator and of the denominator of ‘rational’.</p>
 <li><p><strong>variable</strong> (<em>sympy.Symbol</em>) – Variable of the rational function</p></li>
 <li><p><strong>normalize</strong> (<em>str</em>) – <p>Normalization method:</p>
 <ul>
-<li><p>”highest”: the coefficients of the highest order of 
+<li><p>”highest”: the coefficients of the highest order of
 &lt;variable&gt; of the denominator will be noramalized to unity.</p></li>
-<li><p>”lowest”: the coefficients of the lowest order of 
+<li><p>”lowest”: the coefficients of the lowest order of
 &lt;variable&gt; of the denominator will be noramalized to unity.</p></li>
 </ul>
 </p></li>
@@ -467,7 +467,7 @@ at the specified frequencies.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.det">
 <span class="sig-name descname"><span class="pre">det</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.det" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the determinant of a square matrix ‘M’ calculated using recursive 
+<dd><p>Returns the determinant of a square matrix ‘M’ calculated using recursive
 minor expansion (Laplace expansion).
 For large matrices with symbolic entries, this is faster than the built-in
 sympy.Matrix.det() method.</p>
@@ -528,7 +528,7 @@ sympy.Matrix.det() method.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.doCDSint">
 <span class="sig-name descname"><span class="pre">doCDSint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noiseResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.doCDSint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the integral from ini.frequency = f_min to ini.frequency = f_max, 
+<dd><p>Returns the integral from ini.frequency = f_min to ini.frequency = f_max,
 of a noise spectrum after multiplying it with (2*sin(pi*ini.frequency*tau))^2</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -774,9 +774,9 @@ sp.I*ini.frequency.</p>
 <li><p><strong>variable</strong> (<em>sympy.Symbol</em>) – Variable of the rational function</p></li>
 <li><p><strong>method</strong> (<em>str</em>) – <p>Normalization method:</p>
 <ul>
-<li><p>”highest”: the coefficients of the highest order of 
+<li><p>”highest”: the coefficients of the highest order of
 &lt;variable&gt; of the denominator will be noramalized to unity.</p></li>
-<li><p>”lowest”: the coefficients of the lowest order of 
+<li><p>”lowest”: the coefficients of the lowest order of
 &lt;variable&gt; of the denominator will be noramalized to unity.</p></li>
 </ul>
 </p></li>
@@ -917,7 +917,7 @@ sp.I*ini.frequency.</p>
 <dd><p>Converts rational numbers in expr into floats.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>expr</strong> (<em>sympy.Expression</em>) – Sympy expression in which rational numbers need to be 
+<dd class="field-odd"><p><strong>expr</strong> (<em>sympy.Expression</em>) – Sympy expression in which rational numbers need to be
 converterd intoc floats.</p>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -933,19 +933,21 @@ converterd intoc floats.</p>
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise">
 <span class="sig-name descname"><span class="pre">rmsNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noiseResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the RMS source-referred noise or detector-referred noise,
-or the contribution of a specific noise source to it.</p>
+or the contribution of a specific noise source or a collection od sources
+to it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>noiseResult</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults"><em>SLiCAPprotos.allResults</em></a>) – Results of the execution of an instruction with data type ‘noise’.</p></li>
+<li><p><strong>noiseResult</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults"><em>SLiCAPprotos.allResults</em></a>) – Results of the execution of an instruction with data
+type ‘noise’.</p></li>
 <li><p><strong>noise</strong> – ‘inoise’ or ‘onoise’ for source-referred noise or detector-
 referred noise, respectively.</p></li>
 <li><p><strong>fmin</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Lower limit of the frequency range in Hz.</p></li>
 <li><p><strong>fmax</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – Upper limit of the frequency range in Hz.</p></li>
-<li><p><strong>source</strong> – ‘all’ or refDes (ID) of a noise source of which the
-contribution to the RMS noise needs to be evaluated. Only
-IDs of current of voltage sources with a nonzero value
-for ‘noise’ are accepted.</p></li>
+<li><p><strong>source</strong> (<em>str</em><em>, </em><em>list</em>) – refDes (ID) or list with IDs of noise sources
+of which the contribution to the RMS noise needs to be
+evaluated. Only IDs of current of voltage sources with a
+nonzero value for ‘noise’ are accepted.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -957,7 +959,7 @@ for ‘noise’ are accepted.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int, float, sympy.Expr, list</p>
+<dd class="field-odd"><p>int, float, sympy.Expr</p>
 </dd>
 </dl>
 </dd></dl>

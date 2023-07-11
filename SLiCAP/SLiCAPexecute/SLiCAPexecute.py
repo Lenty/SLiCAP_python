@@ -10,10 +10,10 @@ from SLiCAP.SLiCAPyacc import *
 def createResultObject(instr):
     """
     Returns an instance of the *allResults* object with the instruction data copied to it.
-    
+
     :param instr: SLiCAP instruction object.
     :type instr: SLiCAPinstruction.instruction
-    
+
     :return: result
     :rtype: SLiCAPprotos.allResults object
     """
@@ -46,7 +46,7 @@ def createResultObject(instr):
         # Make a deep copy of the detector list
         result.detector       = [detector for detector in instr.detector]
     else:
-        result.detector = instr.detector 
+        result.detector = instr.detector
     result.lgRef          = instr.lgRef
     result.circuit        = instr.circuit
     result.errors         = instr.errors
@@ -60,7 +60,7 @@ def createResultObject(instr):
         result.parDefs = {}
         for key in list(instr.parDefs.keys()):
             result.parDefs[key] = instr.parDefs[key]
-    return result   
+    return result
 
 def makeMaxDetPos(instr, result):
     """
@@ -81,7 +81,7 @@ def makeMaxDetPos(instr, result):
 
     :return type: tuple
     """
-    
+
     detectors = [str(var) for var in list(result.Dv)]
     detP, detN = result.detector
     if detP != None:
@@ -112,13 +112,13 @@ def doInstruction(instr):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: Result of the execution of the instruction.
     :rtype: SLiCAPprotos.allResults()
     """
     if instr.errors == 0:
         result = createResultObject(instr)
-        instr = makeSubsDict(instr)  
+        instr = makeSubsDict(instr)
         oldLGrefElements = []
         for i in range(len(instr.lgRef)):
             if instr.lgRef[i] != None:
@@ -135,10 +135,10 @@ def doInstruction(instr):
                     instr.lgValue[i] = instr.circuit.elements[instr.lgRef[i]].params['value']
                     if instr.gainType == 'direct':
                         instr.circuit.elements[instr.lgRef[i]].params['value'] = sp.N(0)
-                    else:    
+                    else:
                         instr.circuit.elements[instr.lgRef[i]].params['value'] = sp.Symbol("_LGREF_" + str(i+1))
         if instr.dataType == 'numer':
-            result = doNumer(instr, result)            
+            result = doNumer(instr, result)
         elif instr.dataType == 'denom':
             result = doDenom(instr, result)
         elif result.dataType == 'laplace':
@@ -178,7 +178,7 @@ def doInstruction(instr):
             for i in range(len(instr.lgRef)):
                 if instr.lgRef[i] != None:
                     instr.circuit.elements[instr.lgRef[i]] = oldLGrefElements[i]
-            instr.circuit = updateCirData(instr.circuit) 
+            instr.circuit = updateCirData(instr.circuit)
         elif instr.gainType == 'direct' or instr.gainType == 'loopgain' or instr.gainType == 'servo':
             for i in range(len(instr.lgRef)):
                 if instr.lgRef[i] != None:
@@ -187,9 +187,9 @@ def doInstruction(instr):
 
 def doNumer(instr, result):
     """
-    Returns the numerator of a transfer function, or of the Laplace Transform 
+    Returns the numerator of a transfer function, or of the Laplace Transform
     of a detector voltage or current.
-    
+
     The result will be stored in the **.numer** attribute of the resturn object. In
     cases of parameter stepping, this attribute is a list with numerators.
 
@@ -198,7 +198,7 @@ def doNumer(instr, result):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: Result of the execution of the instruction.
     :rtype: SLiCAPprotos.allResults()
     """
@@ -226,7 +226,7 @@ def doNumer(instr, result):
         else:
             result = doMaxInstr(instr, result)
         result.numer = result.numer[0]
-        result.numer = sp.simplify(result.numer)   
+        result.numer = sp.simplify(result.numer)
     result = correctDMcurrentResult(instr, result)
     return result
 
@@ -234,7 +234,7 @@ def doDenom(instr, result):
     """
     Returns the denominator of a transfer function, or of the Laplace Transform
     of a detector voltage or current.
-    
+
     The result will be stored in the **.denom** attribute of the resturn object. In
     cases of parameter stepping, this attribute is a list with numerators.
 
@@ -243,7 +243,7 @@ def doDenom(instr, result):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: Result of the execution of the instruction.
     :rtype: SLiCAPprotos.allResults()
     """
@@ -277,7 +277,7 @@ def doDenom(instr, result):
 def doLaplace(instr, result):
     """
     Returns a transfer function, or the Laplace Transform of a detector voltage or current.
-    
+
     The result will be stored in the **.laplace** attribute of the resturn object. In
     cases of parameter stepping, this attribute is a list with numerators.
 
@@ -286,7 +286,7 @@ def doLaplace(instr, result):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: Result of the execution of the instruction.
     :rtype: SLiCAPprotos.allResults()
     """
@@ -312,7 +312,7 @@ def doLaplace(instr, result):
     else:
         if instr.gainType == 'loopgain' or instr.gainType == 'servo':
             result.laplace = doLoopGainServo(instr, result)
-        else:    
+        else:
             result = doMaxInstr(instr, result)
             result.laplace = result.laplace[0]
         result.laplace =sp.simplify(result.laplace)
@@ -323,11 +323,11 @@ def doLaplace(instr, result):
 def doLoopGainServo(instr, result):
     """
     Returns the Laplace expression of the loop gain of the asymptotic-gain
-    feedback model, or of the 'servo function' as defined by Montagne. 
+    feedback model, or of the 'servo function' as defined by Montagne.
     The calculation uses the return difference, as defined by Bode (1945).
-    
+
     The results are stored in the following attributes of the return object:
-        
+
         - **.numer**: the numerator of the loop gain or the servo fucntion or a list
           of numerators if parameter stepping is applied.
         - **.denom**: the denominator of the loop gain or the servo fucntion or a list
@@ -340,11 +340,11 @@ def doLoopGainServo(instr, result):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-  
+
     :return: Result of the execution of the instruction.
     :rtype: SLiCAPprotos.allResults()
     """
-    
+
     num, den = doMaxLoopGainServo(instr, result)
     if instr.numeric:
         num = sp.N(num)
@@ -364,12 +364,12 @@ def doMaxLoopGainServo(instr, result):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: numer, denom
     :rtype: tuple with two sympy expressions
     """
     makeMaxMatrices(instr, result)
-    M = python2maxima(result.M)
+    Matrix_ = python2maxima(result.M)
     if instr.lgValue[0] != None:
         if instr.numeric:
             lg1 = fullSubs(instr.lgValue[0], instr.parDefs)
@@ -385,10 +385,10 @@ def doMaxLoopGainServo(instr, result):
     else:
         lg2 = None
     if instr.gainType == 'loopgain':
-        maxResult = doMaxFunction('doLoopGain', [M, lg1, lg2])
+        maxResult = doMaxFunction('doLoopGain', [Matrix_, lg1, lg2])
         numer, denom = sp.fraction(maxResult)
     elif instr.gainType == 'servo':
-        numer, denom = sp.fraction(doMaxFunction('doServo', [M, lg1, lg2]))  
+        numer, denom = sp.fraction(doMaxFunction('doServo', [Matrix_, lg1, lg2]))
     return numer, denom
 
 def doPoles(instr, result):
@@ -408,7 +408,7 @@ def doPoles(instr, result):
         for poly in result.denom:
             result.poles.append(numRoots(poly, ini.Laplace))
         instr.dataType = "poles"
-        result.dataType = "poles"               
+        result.dataType = "poles"
     else:
         variables = list(result.denom.atoms(sp.Symbol))
         if len(variables) == 1 and variables[0] == ini.Laplace:
@@ -426,7 +426,7 @@ def doPoles(instr, result):
 def doZeros(instr, result):
     """
     Adds the result of a zeros analysis to result.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -440,7 +440,7 @@ def doZeros(instr, result):
         for poly in result.numer:
             result.zeros.append(numRoots(poly, ini.Laplace))
         instr.dataType = "zeros"
-        result.dataType = "zeros" 
+        result.dataType = "zeros"
     else:
         variables = list(result.numer.atoms(sp.Symbol))
         if len(variables) == 1 and variables[0] == ini.Laplace:
@@ -458,7 +458,7 @@ def doZeros(instr, result):
 def doPZ(instr, result):
     """
     Adds the result of a pole-zero analysis to result.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -491,7 +491,7 @@ def doPZ(instr, result):
                 result.poles[-1], result.zeros[-1] = cancelPZ(result.poles[-1], result.zeros[-1])
             except:
                 pass
-            result.DCvalue.append(gainValue(numer, denom))        
+            result.DCvalue.append(gainValue(numer, denom))
     else:
         numer, denom = sp.fraction(normalizeRational(result.laplace))
         variables = list(numer.atoms(sp.Symbol))
@@ -518,7 +518,7 @@ def doPZ(instr, result):
             result.poles, result.zeros = cancelPZ(result.poles, result.zeros)
         except:
             pass
-        result.DCvalue = gainValue(numer, denom)  
+        result.DCvalue = gainValue(numer, denom)
     instr.dataType = 'pz'
     result.dataType = 'pz'
     return result
@@ -574,14 +574,14 @@ def doNoise(instr, result):
                     instr.parDefs[stepVars[j]]=instr.stepDict[stepVars[j]][i]
                 if instr.source != [None, None]:
                     result = calcNumer(instr, result)
-                result = doMaxInstr(instr, result)   
+                result = doMaxInstr(instr, result)
     else:
         if instr.source != [None, None]:
             result = calcNumer(instr, result)
         result = doMaxInstr(instr, result)
         result.onoise = result.onoise[0]
         result.inoise = result.inoise[0]
-        for key in list(result.onoiseTerms.keys()):          
+        for key in list(result.onoiseTerms.keys()):
             if len(result.onoiseTerms[key]) > 0:
                 result.onoiseTerms[key] = result.onoiseTerms[key][0]
                 if instr.source != [None, None]:
@@ -596,7 +596,7 @@ def doNoise(instr, result):
 def doDCvar(instr, result):
     """
     Adds the result of a dcvar analysis to result.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -639,7 +639,7 @@ def doDCvar(instr, result):
                 addDCvarSources(instr, result.dcSolve)
                 result = doMaxInstr(instr, result)
                 delDCvarSources(instr)
-    else:    
+    else:
         instr.dataType = 'dcsolve'
         result.dataType = 'dcsolve'
         result.dcSolve = doMaxInstr(instr, result).dcSolve[0]
@@ -647,7 +647,7 @@ def doDCvar(instr, result):
         result.dataType = 'dcvar'
         if instr.source != [None, None]:
             result = calcNumer(instr, result)
-        addDCvarSources(instr, result.dcSolve)       
+        addDCvarSources(instr, result.dcSolve)
         result = doMaxInstr(instr, result)
         result.ovar = result.ovar[0]
         result.ivar = result.ivar[0]
@@ -660,16 +660,16 @@ def doDCvar(instr, result):
                 del(result.ovarTerms[key])
                 if instr.source != [None, None]:
                     del(result.ivarTerms[key])
-        delDCvarSources(instr)      
+        delDCvarSources(instr)
     result = correctDMcurrentResult(instr, result)
     return result
 
 def correctDMcurrentResult(instr, result):
     """
-    In cases of a differential-mode current detector the numerator of the 
-    differential output current, or its associated transfer must be divided by 
+    In cases of a differential-mode current detector the numerator of the
+    differential output current, or its associated transfer must be divided by
     two I_diff = (I_P - I_N)/2
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -694,26 +694,26 @@ def correctDMcurrentResult(instr, result):
             elif instr.dataType == 'dc':
                 result.dc = result.dc/2
     return result
-    
+
 def addDCvarSources(instr, dcSolution):
     """
     Adds the dcvar sources of resistors to instr.circuit for dataType: 'dcvar'.
 
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :param dcSolution: DC solution of the network obtained from execution of
                        this instruction with dataType: 'dcsolve'
-                       
+
     :type dcSolution: sympy.Matrix
-    
+
     :return: updated instruction object
     :rtype: :class`SLiCAPinstruction.instruction`
-    """   
+    """
     for el in list(instr.circuit.elements.keys()):
         if 'dcvar' in list(instr.circuit.elements[el].params.keys()):
             DCcurrent = 0
-            refDes = instr.circuit.elements[el].refDes     
+            refDes = instr.circuit.elements[el].refDes
             if instr.circuit.elements[el].model == 'r':
                 pos = instr.depVars().index('I_' + refDes)
                 DCcurrent = dcSolution[pos]
@@ -722,7 +722,7 @@ def addDCvarSources(instr, dcSolution):
                 if nodeP != '0':
                     posP = instr.depVars().index('V_' + nodeP)
                     Vpos = dcSolution[posP]
-                else: 
+                else:
                     Vpos = 0
                 if nodeN != '0':
                     posN = instr.depVars().index('V_' + nodeN)
@@ -747,12 +747,12 @@ def addDCvarSources(instr, dcSolution):
 
 def delDCvarSources(instr):
     """
-    Deletes the dcVar sources from instr.circuit, added by executing this 
+    Deletes the dcVar sources from instr.circuit, added by executing this
     instruction with dataType: 'dcvar'.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :return: updated instruction object
     :rtype: :class`SLiCAPinstruction.instruction`
     """
@@ -771,10 +771,10 @@ def delDCvarSources(instr):
 def addResNoiseSources(instr):
     """
     Adds the noise sources of resistors to instr.circuit for dataType: 'noise'.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :return: updated instruction object
     :rtype: :class:`SLiCAPinstruction.instruction`
     """
@@ -801,8 +801,8 @@ def addResNoiseSources(instr):
                     instr.circuit.elements[noiseCurrent.refDes] = noiseCurrent
                     instr.circuit.indepVars.append(noiseCurrent.refDes)
     # Add the global parameters k and T to the circuit parameter definitions
-    Boltzmann = sp.Symbol('k')   
-    Temp      = sp.Symbol('T')         
+    Boltzmann = sp.Symbol('k')
+    Temp      = sp.Symbol('T')
     if Boltzmann not in list(instr.circuit.parDefs.keys()):
         instr.circuit.parDefs[Boltzmann] = SLiCAPPARAMS['k']
     if Temp not in list(instr.circuit.parDefs.keys()):
@@ -811,12 +811,12 @@ def addResNoiseSources(instr):
 
 def delResNoiseSources(instr):
     """
-    Deletes the noise sources from instr.circuit, added by executing this 
+    Deletes the noise sources from instr.circuit, added by executing this
     instruction with dataType: 'noise'.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :return: updated instruction object
     :rtype: :class:`SLiCAPinstruction.instruction`
     """
@@ -836,9 +836,9 @@ def doDC(instr, result):
     """
     Calculates the DC response at the detector using the parameter 'dc' of
     independent sources as input.
-    
+
     The result will be stored in the .dc attribute of the result object.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
     """
@@ -861,15 +861,15 @@ def doDC(instr, result):
 def doImpulse(instr, result):
     """
     Calculates the inverse Laplace transform of the source-detector transfer.
-    
+
     First it calculates the Laplace transform of the sou-detector transfer
     and subsequently the inverse Laplace Transform.
-    
+
     The Laplace Transform of the source-detector transfer will be stored in the
     .laplace attribute of the result object.
-    
+
     The result will be stored in the .impulse attribute of the result object.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -893,16 +893,16 @@ def doImpulse(instr, result):
 
 def doStep(instr, result):
     """
-    Calculates the unit step response of the circuit. This is the inverse 
+    Calculates the unit step response of the circuit. This is the inverse
     Laplace transform of the source-detector transfer divided by the Laplace
     variable.
-    
+
     First it calculates the Laplace transform of the source-detector transfer
     and subsequently the inverse Laplace Transform.
-    
+
     The Laplace Transform of the source-detector transfer will be stored in the
     .laplace attribute of the result object.
-    
+
     The unit step response will be stored in the .stepResp  attribute of the
     result object.
 
@@ -930,7 +930,7 @@ def doStep(instr, result):
 def doTime(instr, result):
     """
     Calculated the inverse Laplace transform of the detector voltage or current.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -944,7 +944,7 @@ def doTime(instr, result):
         result.time = []
         for laplaceResult in result.laplace:
             laplaceResult = normalizeRational(laplaceResult, ini.Laplace)
-            
+
             result.time.append(doMaxIlt(laplaceResult))
     else:
         laplaceResult = normalizeRational(result.laplace, ini.Laplace)
@@ -955,9 +955,9 @@ def doTime(instr, result):
 
 def doSolve(instr, result):
     """
-    Solves the network: calculates the Laplace transform of all dependent 
+    Solves the network: calculates the Laplace transform of all dependent
     variables.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -983,10 +983,10 @@ def doDCsolve(instr, result):
     """
     Finds the DC solution of the network using the .dc attribute of independent
     sources as inputs.
-    
+
     The DC solution will be stored in the .dcSolve attribute of the result
     object.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -1010,10 +1010,10 @@ def doDCsolve(instr, result):
 
 def doTimeSolve(instr, result):
     """
-    Calculates the time-domain solution of the circuit. 
-    
+    Calculates the time-domain solution of the circuit.
+
     The result will be stored in the .timeSolve attribute of the result object.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -1037,9 +1037,9 @@ def doTimeSolve(instr, result):
 
 def doMatrix(instr, result):
     """
-    Calculates the MNA matrix and the vector with dependent and independent 
+    Calculates the MNA matrix and the vector with dependent and independent
     variables, based on the conversion type:
-        
+
     - instr.convType == None: The basic MNA equation
     - instr.convType == 'all': The basic equation on a basis of common-mode and
       differential-mode variables
@@ -1049,14 +1049,14 @@ def doMatrix(instr, result):
       reprsentation
     - instr.convType == 'dc': The common-mode to differential-mode conversion
       reprsentation
-     
+
     The results are stored in the following attributes of the result object:
-    
-    - .Iv: Vector with independent variables (independent voltage and current 
+
+    - .Iv: Vector with independent variables (independent voltage and current
       sources)
     - .Dv: Vector with dependent variables (nodal voltages and branch currents)
     - .M: Matrix: Iv=M*Dv
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -1065,12 +1065,12 @@ def doMatrix(instr, result):
     """
     result = makeMaxMatrices(instr, result)
     return result
-    
+
 def doMaxIlt(laplaceRational):
     """
-    Calculates the inverse Laplace Transform of *laplaceRational* using 
+    Calculates the inverse Laplace Transform of *laplaceRational* using
     Maxima CAS.
-    
+
     :param laplaceRational: Sympy rational function of the Laplace variable.
     :type laplaceRational: Sympy.Expr
 
@@ -1086,14 +1086,14 @@ def doMaxIlt(laplaceRational):
         maxInstr = 'string(newIlt(' + python2maxima(laplaceRational) + ',s,t));'
         result = maxEval(maxInstr)
         try:
-            result = sp.sympify(result) 
+            result = sp.sympify(result)
         except:
             print("Error: could not evaluate the Inverse Laplace Transform")
     elif len(varList) > 1 and ini.Laplace in varList:
         maxInstr = 'string(ilt(' + python2maxima(laplaceRational) + ',s,t));'
         result = maxEval(maxInstr)
         try:
-            result = sp.sympify(result) 
+            result = sp.sympify(result)
         except:
             print("Error: could not evaluate the Inverse Laplace Transform")
     else:
@@ -1105,9 +1105,9 @@ def doMaxIlt(laplaceRational):
 
 def doMaxInstr(instr, result):
     """
-    Executes an instruction with Maxima CAS and updates *result* with the 
+    Executes an instruction with Maxima CAS and updates *result* with the
     instruction results.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -1116,19 +1116,19 @@ def doMaxInstr(instr, result):
     """
     maxInstr, result = makeMaxInstr(instr, result)      # Create the maxima instruction
     maxResult = maxEval(maxInstr)                       # Execute the maxima instruction results
-    result = parseMaxResult(result, instr.circuit.indepVars, maxResult) # Convert maxima results into SLiCAP results     
+    result = parseMaxResult(result, instr.circuit.indepVars, maxResult) # Convert maxima results into SLiCAP results
     return result
 
 def doMaxFunction(funcName, args):
     """
     Calls a Maxima CAS function and executes it with the given arguments *args*.
-    
+
     :param funcName: Name of the function to be executed.
     :type funcName: str
-    
+
     :param args: List with function arguments
     :type args: list
-    
+
     :return: Sympy expression (execution result)
     :rtype: Sympy.Expr
     """
@@ -1143,52 +1143,52 @@ def doMaxFunction(funcName, args):
 def makeMaxInstr(instr, result):
     """
     Creates the Maxima CAS input for execution of the instruction.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: tuple with Input for Maxima CAS and result object.
     :rtype: tuple with str and :class:`allResult()`
     """
     if instr.dataType == 'numer':
-        result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result)  
-        maxInstr = 'M : ' + python2maxima(result.M) + '$'
-        maxInstr += 'detCols: [' + str(detP) + ',' + str(detN) + ']$'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doNumer(M,detCols, Iv)', instr.numeric )   
-    elif instr.dataType == 'denom': 
-        result = makeMaxMatrices(instr, result) 
-        maxInstr = 'M:' + python2maxima(result.M) + '$'
-        maxInstr += maxString('doDet(M)', instr.numeric )  
+        result = makeMaxMatrices(instr, result)
+        detP, detN = makeMaxDetPos(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols_: [' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += 'Iv_: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doNumer(Matrix_,detCols_, Iv_)', instr.numeric )
+    elif instr.dataType == 'denom':
+        result = makeMaxMatrices(instr, result)
+        maxInstr = 'Matrix_:' + python2maxima(result.M) + '$'
+        maxInstr += maxString('doDet(Matrix_)', instr.numeric )
     elif instr.dataType == 'laplace':
-        result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result)  
-        maxInstr = 'M : ' + python2maxima(result.M) + '$'
-        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doLaplace(M,detCols,Iv)', instr.numeric)
+        result = makeMaxMatrices(instr, result)
+        detP, detN = makeMaxDetPos(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols_:[' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += 'Iv_: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doLaplace(Matrix_,detCols_,Iv_)', instr.numeric)
     elif instr.dataType == 'dc':
-        result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result) 
-        maxInstr = 'M : ' + python2maxima(result.M.subs(ini.Laplace, 0)) + '$'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.subs(ini.Laplace, 0).transpose()) + '$'
-        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
-        maxInstr += maxString('doLaplace(M,detCols,Iv)', instr.numeric)
+        result = makeMaxMatrices(instr, result)
+        detP, detN = makeMaxDetPos(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M.subs(ini.Laplace, 0)) + '$'
+        maxInstr += 'Iv_: ' + python2maxima(result.Iv.subs(ini.Laplace, 0).transpose()) + '$'
+        maxInstr += 'detCol_:[' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += maxString('doLaplace(Matrix_,detCols_,Iv_)', instr.numeric)
     elif instr.dataType == 'noise':
-        result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result)   
-        maxInstr = 'M: ' + python2maxima(result.M) + '$'
-        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
+        result = makeMaxMatrices(instr, result)
+        detP, detN = makeMaxDetPos(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols_:[' + str(detP) + ',' + str(detN) + ']$'
         if instr.source != [None, None] and result.numer[0] !=0:
-            maxInstr += 'n: ' + python2maxima(result.numer[0]) + '$'
+            maxInstr += 'numer_: ' + python2maxima(result.numer[0]) + '$'
         else:
-            maxInstr += 'n:false$'
-        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += 'sources:['        
+            maxInstr += 'numer_:false$'
+        maxInstr += 'Iv_:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += 'sources_:['
         for name in instr.circuit.indepVars:
             if 'noise' in list(instr.circuit.elements[name].params.keys()):
                 value = instr.circuit.elements[name].params['noise']
@@ -1199,18 +1199,18 @@ def makeMaxInstr(instr, result):
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
         maxInstr += ']$'
-        maxInstr += maxString('doNoise(M,n,detCols,Iv,sources)', instr.numeric)
+        maxInstr += maxString('doNoise(Matrix_,numer_,detCols_,Iv_,sources_)', instr.numeric)
     elif instr.dataType == 'dcvar':
-        result = makeMaxMatrices(instr, result) 
-        detP, detN = makeMaxDetPos(instr, result)   
-        maxInstr = 'M: ' + python2maxima(result.M) + '$'
-        maxInstr += 'detCols:[' + str(detP) + ',' + str(detN) + ']$'
+        result = makeMaxMatrices(instr, result)
+        detP, detN = makeMaxDetPos(instr, result)
+        maxInstr = 'Matrix_' + python2maxima(result.M) + '$'
+        maxInstr += 'detCols_:[' + str(detP) + ',' + str(detN) + ']$'
         if instr.source != [None, None] and result.numer[0] !=0:
-            maxInstr += 'n:' + python2maxima(result.numer[0]) + '$'
+            maxInstr += 'numer_:' + python2maxima(result.numer[0]) + '$'
         else:
-            maxInstr += 'n:false$'
-        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose().subs(ini.Laplace, 0)) + '$'
-        maxInstr += 'sources:['
+            maxInstr += 'numer_:false$'
+        maxInstr += 'Iv_:' + python2maxima(result.Iv.transpose().subs(ini.Laplace, 0)) + '$'
+        maxInstr += 'sources_:['
         for name in instr.circuit.indepVars:
             if 'dcvar' in list(instr.circuit.elements[name].params.keys()):
                 value = instr.circuit.elements[name].params['dcvar']
@@ -1221,53 +1221,53 @@ def makeMaxInstr(instr, result):
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
         maxInstr += ']$'
-        maxInstr += maxString('doDCvar(M,n,detCols,Iv,sources)', instr.numeric)
+        maxInstr += maxString('doDCvar(Matrix_,numer_,detCols_,Iv_,sources_)', instr.numeric)
     elif instr.dataType == 'solve':
-        result = makeMaxMatrices(instr, result)   
-        maxInstr = 'M : ' + python2maxima(result.M) + '$'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doSolve(M,Iv)', instr.numeric)
+        result = makeMaxMatrices(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv_: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolve(Matrix_,Iv_)', instr.numeric)
     elif instr.dataType == 'dcsolve':
-        result = makeMaxMatrices(instr, result)     
-        maxInstr = 'M : ' + python2maxima(result.M) + '$'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doSolveDC(M,Iv)', instr.numeric)
+        result = makeMaxMatrices(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv_: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolveDC(Matrix_,Iv_)', instr.numeric)
     elif instr.dataType == 'timesolve':
-        result = makeMaxMatrices(instr, result) 
-        maxInstr = 'M : ' + python2maxima(result.M) + '$'
-        maxInstr += 'Iv: ' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doSolveTime(M,Iv)', instr.numeric)
+        result = makeMaxMatrices(instr, result)
+        maxInstr = 'Matrix_: ' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv_: ' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolveTime(Matrix_,Iv_)', instr.numeric)
     elif instr.dataType == "poles":
-        maxInstr = 'expr: ' + python2maxima(result.denom) + '$'
-        maxInstr += maxString('findRoots(expr)', instr.numeric)
+        maxInstr = 'expr_: ' + python2maxima(result.denom) + '$'
+        maxInstr += maxString('findRoots(expr_)', instr.numeric)
     elif instr.dataType == "zeros":
-        maxInstr = 'expr: ' + python2maxima(result.numer) + '$'
-        maxInstr += maxString('findRoots(expr)', instr.numeric)
+        maxInstr = 'expr_: ' + python2maxima(result.numer) + '$'
+        maxInstr += maxString('findRoots(expr_)', instr.numeric)
     elif instr.dataType == "solve":
-        result = makeMaxMatrices(instr, result) 
-        maxInstr = 'M :' + python2maxima(result.M) + '$'
-        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doSolve(M,Iv)', instr.numeric)
+        result = makeMaxMatrices(instr, result)
+        maxInstr = 'Matrix_:' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv_:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolve(Matrix_,Iv_)', instr.numeric)
     elif instr.dataType == "dcsolve":
-        result = makeMaxMatrices(instr, result) 
-        maxInstr = 'M :' + python2maxima(result.M) + '$'
-        maxInstr += 'Iv:' + python2maxima(result.Iv.transpose()) + '$'
-        maxInstr += maxString('doSolveDC(M,Iv)', instr.numeric)
-        print("Error: no Maxima CAS function implemented for this data type.")     
+        result = makeMaxMatrices(instr, result)
+        maxInstr = 'Matrix_:' + python2maxima(result.M) + '$'
+        maxInstr += 'Iv_:' + python2maxima(result.Iv.transpose()) + '$'
+        maxInstr += maxString('doSolveDC(Matrix_,Iv_)', instr.numeric)
+        print("Error: no Maxima CAS function implemented for this data type.")
     return (maxInstr, result)
 
 def maxString(maxInstr, numeric):
     """
     Returns the instruction for maxima with either symbolic or numeric output.
-    
+
     :param maxInstr: Function to be evaluated by maxima CAS.
     :type maxInstr: str
-    
+
     :param numeric: True if the result must be converted to 'big float', else
                     False.
-    
+
     :type numeric: Bool
-    
+
     :return: Maxima instruction for string output.
     :rtype: str.
     """
@@ -1279,13 +1279,13 @@ def maxString(maxInstr, numeric):
 
 def makeMaxMatrices(instr, result):
     """
-    Returns an allResults() object of which the following attributes have been 
+    Returns an allResults() object of which the following attributes have been
     updated:
-        
+
         - M  = MNA matrix
-        - Iv = Vector with independent variables (voltages and current of 
+        - Iv = Vector with independent variables (voltages and current of
           independent voltage and current sources, repectively)
-        - Dv = Vector with dependent variables (unknown nodal voltages and 
+        - Dv = Vector with dependent variables (unknown nodal voltages and
           branch currents)
 
     :param instr: **instruction()** object that holds instruction data.
@@ -1293,7 +1293,7 @@ def makeMaxMatrices(instr, result):
 
     :param result: **allResults()** object that holds instruction results
     :type result: :class:`allResult()`
-    
+
     :return: result object with updated attributes Iv, M, and Dv:
     :rtype: SLiCAPprotos.allResults
     """
@@ -1301,7 +1301,7 @@ def makeMaxMatrices(instr, result):
     result.M, result.Dv = makeMatrices(instr)
     # Create vecor with independent variables
     # Iv = [0 for i in range(len(instr.depVars()))]
-    Iv = [0 for i in range(result.M.shape[0])]  
+    Iv = [0 for i in range(result.M.shape[0])]
     result.Iv = sp.Matrix(Iv)
     transferTypes = ['gain', 'asymptotic', 'direct']
     if instr.gainType == 'vi':
@@ -1316,14 +1316,14 @@ def makeMaxMatrices(instr, result):
             if instr.source[0] == None or instr.source[1] == None:
                 ns = 1
             else:
-                ns = 2    
+                ns = 2
         for i in range(len(instr.source)):
             if instr.source[i] != None:
                 if instr.source[i][0].upper() == 'I':
                     nodeP, nodeN = instr.circuit.elements[instr.source[i]].nodes
                     if nodeP != '0':
                         pos = instr.depVars().index('V_' + nodeP)
-                        
+
                         if instr.convType == 'cc' or instr.convType == 'cd':
                             result.Iv[pos] -= 1/ns
                         else:
@@ -1331,7 +1331,7 @@ def makeMaxMatrices(instr, result):
                             result.Iv[pos] -= (-1)**i
                     if nodeN != '0':
                         pos = instr.depVars().index('V_' + nodeN)
-                        
+
                         if instr.convType == 'cc' or instr.convType == 'cd':
                             result.Iv[pos] += 1/ns
                         else:
@@ -1339,7 +1339,7 @@ def makeMaxMatrices(instr, result):
                             result.Iv[pos] += (-1)**i
                 elif instr.source[i][0].upper() == 'V':
                     pos = instr.depVars().index('I_' + instr.source[i])
-                    
+
                     if instr.convType == 'cc' or instr.convType == 'cd':
                         result.Iv[pos] = 1
                     else:
@@ -1360,7 +1360,7 @@ def makeSubsDict(instr):
 
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :return: Updated instruction object
     :rtype: :class`SLiCAPinstruction.instruction()`
     """
@@ -1376,13 +1376,13 @@ def makeSubsDict(instr):
 def parseMaxResult(result, indepVars, maxResult):
     """
     Adds Maxima CAS execution results to the result object.
-    
+
     :param result: Result object to which the results must be added
     :type result: :class`SLiCAPprotos.allResults()`
-    
+
     :param inDepVars: Names of independent variables
     :type inDepVars: List of str
-    
+
     :param maxResult: Maxima CAS  execution result.
     :type maxResult: Sympy.Expr
     """
@@ -1515,16 +1515,16 @@ def stepFunctions(stepDict, function):
     return functions
 
 # Functions for converting the MNA matrix anf the vecors with independent and
-# dependent variables into equivalent common-mode and differential-mode variables.    
+# dependent variables into equivalent common-mode and differential-mode variables.
 
 def findBaseNames(instr):
     """
-    Returns a list with base names of paired elements. The base name is the 
+    Returns a list with base names of paired elements. The base name is the
     element identifier without the pairing extension.
-    
+
     :param instr: instruction with circuit and pairing extensions
     :type instr: SLiCAPinstruction.instruction()
-    
+
     :return: base IDs
     :rtype: list
     """
@@ -1554,10 +1554,10 @@ def pairParDefs(instr):
     """
     Removes the pair extension from paired parameters in both keys and values in
     instr.parDefs.
-    
+
     :param instr: instruction with circuit and pairing extensions
     :type instr: SLiCAPinstruction.instruction()
-    
+
     :return: instr
     :rtupe: SLiCAPinstruction.instruction()
     """
@@ -1592,20 +1592,20 @@ def pairParDefs(instr):
 def convertMatrices(instr, result):
     """
     Converts the result attributes M, Iv and Dv into those of equivalent
-    common-mode or differential mode circuits. 
-    
+    common-mode or differential mode circuits.
+
     If instruction.removePairSubName == True, it also removes the pair extensions
     from paired parameters.
-    
+
     The conversion type is defined by the attribute instr.convType it can be:
-        
+
         - 'dd' Diferential-mode transfer
         - 'cc' Common-mode transfer
         - 'dc' Differential-mode to common-mode conversion
         - 'cd' Common-mode to differential-mode conversion
         - 'all' The complete vectors with redefined and re-arranged common-mode
           and differential-mode quantities.
-          
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
 
@@ -1617,14 +1617,14 @@ def convertMatrices(instr, result):
         baseIDs = findBaseNames(instr)
         lenExt  = len(instr.pairExt[0])
         params = list(set(list(result.M.atoms(sp.Symbol)) + list(result.Iv.atoms(sp.Symbol))))
-        substDict = {}   
+        substDict = {}
         for param in params:
             parName = str(param)
             nameParts = parName.split('_')
             if len(nameParts[-1]) > lenExt:
                 if nameParts[-1][-lenExt:] in instr.pairExt and nameParts[-1][:-lenExt] in baseIDs:
                     newParam = sp.Symbol(parName[:-lenExt])
-                    substDict[param] = newParam           
+                    substDict[param] = newParam
         result.M = result.M.subs(substDict)
         # Sources are uncorrelated in the case of noise and dcvar:
         if instr.dataType != 'noise' and instr.dataType != 'dcvar':
@@ -1636,23 +1636,23 @@ def convertMatrices(instr, result):
     dimCm = dimDm + len(unPaired)
     result = getSubMatrices(result, dimDm, dimCm, instr.convType)
     return result
-    
+
 def createConversionMatrices(instr):
     """
     Creates the matrax for a base transformation from nodal voltages and branche
     currents to common-mode and differential-mode equivalents.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :return: pairs, unPaired, dmVars, cmVars, A
-    
+
              - pairs: a list with tuples with paired variables
              - unPaired: a list with unpaired variables
              - dmVars: a list with differential-mode variables
              - cmVars: a list with common mode variables
              - A: the base transformation matrix
-             
+
     :rtype: tuple
     """
     pairs, unPaired, dmVars, cmVars = pairVariables(instr)
@@ -1684,26 +1684,26 @@ def createConversionMatrices(instr):
         # Unpaired variable, no transformation
         col = depVars.index(unPaired[i])
         row = 2*n  + i
-        A[row, col] = 1 
+        A[row, col] = 1
     return pairs, unPaired, dmVars, cmVars, A
 
 def pairVariables(instr):
-    """  
+    """
     Combines nodal voltages and branche currents in pairs of variables that
     can be resolved in common-mode, and differential-mode variables.
-    
+
     Pairing is defined by the instr.pairedVars and instr.pairedCircuits.
-    
+
     :param instr: **instruction()** object that holds instruction data.
     :type instr: :class:`instruction()`
-    
+
     :return: pairs, unPaired, dmVars, cmVars
-    
+
              - pairs: a list with tuples with paired variables
              - unPaired: a list with unpaired variables
              - dmVars: a list with differential-mode variables
              - cmVars: a list with common mode variables
-             
+
     :rtype: tuple
     """
     depVars = [var for var in instr.circuit.depVars]
@@ -1722,7 +1722,7 @@ def pairVariables(instr):
                 paired = False
                 """
                 if instr.dataType == 'noise' and var[0:3] == "I_V":
-                    unPaired.append(var)   
+                    unPaired.append(var)
                     depVars.remove(var)
                 else:
                 """
@@ -1746,30 +1746,30 @@ def pairVariables(instr):
                     dmVars.append(baseName + 'D')
                     cmVars.append(baseName + 'C')
                 else:
-                    unPaired.append(var)   
+                    unPaired.append(var)
                     depVars.remove(var)
             else:
                 depVars.remove(var)
         cmVars += unPaired
     return pairs, unPaired, dmVars, cmVars
-  
+
 def getSubMatrices(result, dimDm, dimCm, convType):
     """
     Updates the attributes M, Iv, and Dv of result according to the conversion
     type: convType.
-    
-    :param result: instruction results of which the matrix attributes M, Iv, 
+
+    :param result: instruction results of which the matrix attributes M, Iv,
                    and Dv have been set.
-    
+
     :param dimDm: Number of differential-mode variables
     :type dimDm: str
-    
+
     :param dimCm: Number of common-mode variables
     :type dimCm: str
-    
+
     :param convType: Conversion type, can be 'dd', 'dc', 'cd', 'cc' and 'all'.
     :type convType: str
-    
+
     :result: updated instruction result
     :rtype: :class: SLiCAP.allResults()
     """

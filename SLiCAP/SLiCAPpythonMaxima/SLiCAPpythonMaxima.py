@@ -39,7 +39,7 @@ class maximaHandler():
         os.system(self.maxima + ' -s ' + str(self.PORT))
 
     @start_new_thread
-    def startMaxima(self):     
+    def startMaxima(self):
         thread = Thread(target = self.runMaxima)
         thread.start()
 
@@ -53,7 +53,7 @@ class maximaHandler():
             # Release mutex such that other functions can grab the connection
             self.mut.release()
             self.active = True
-            while(self.active):    
+            while(self.active):
                 sleep(1)
             print("Shutting down Maxima CAS.")
         thread.join()
@@ -108,13 +108,13 @@ class maximaHandler():
                     output = "ERROR"
                     print(receive_data)
                     print("""
-Error in Maxima instruction! 
-                          
+Error in Maxima instruction!
+
 Known causes:
 
 - syntax error
-- invalid answer to a question  
-- symbolic indices  
+- invalid answer to a question
+- symbolic indices
 - divide by zero
 - determinant of a non-square matrix
 """)
@@ -139,9 +139,9 @@ Known causes:
         >>> maxEval("result:ilt(1/(s^2 + a^2), s, t);")
         'sin(a*t)/a'
         """
-        
+
         #print(maxExpr)
-        
+
         result = self.parseMaxima(maxExpr)
         return result
 
@@ -251,10 +251,10 @@ def python2maxima(expr):
 def sign2signum(expr):
     """
     Performs a non-overlapping replacement of sign(expr) with signum(expr)
-    
+
     :param expr: text string
     :type expr: str
-    
+
     :return: expr
     :rtype: str
     """
@@ -263,10 +263,10 @@ def sign2signum(expr):
 def signum2sign(expr):
     """
     Performs a non-overlapping replacement of signum(expr) with sign(expr)
-    
+
     :param expr: text string
     :type expr: str
-    
+
     :return: expr
     :rtype: str
     """
@@ -297,7 +297,7 @@ def maxima2python(expr):
         expr = new_expr
         new_expr = signum2sign(new_expr)
     return expr
-    
+
 def maxEval(maxExpr):
     """
     Evaluates the expression 'maxExpr' with Maxima CAS and returns the result.
@@ -333,7 +333,7 @@ def maxEval(maxExpr):
         except BaseException:
             exc_type, value, exc_traceback = sys.exc_info()
             print('\n', value)
-            print("""\nMaxima CAS calculation failed or timed out. A time-out occurs if Maxima requires additional input, or if Maxima CAS requires more time. 
+            print("""\nMaxima CAS calculation failed or timed out. A time-out occurs if Maxima requires additional input, or if Maxima CAS requires more time.
 The latter case can be solved by increasing the time limit using the command: 'ini.MaximaTimeOut=nnn', where nnn is the number of seconds.\n""")
             result = output
             result = maxima2python(result)
@@ -343,14 +343,14 @@ def startMaxima():
     ini.maximaHandler = maximaHandler(port=ini.PORT, host=ini.HOST, maxima=ini.maxima, timeout=0.05)
     ini.maximaHandler.startMaxima()
     checkMaxima()
-    
+
 def restartMaxima():
     if ini.maximaHandler != None:
         ini.maximaHandler.restartMaxima()
         checkMaxima()
     else:
         startMaxima()
-    
+
 def checkMaxima():
     result = ini.maximaHandler.maxEval('stringdisp:true$string(1-1);')
     try:
@@ -369,7 +369,7 @@ def checkMaxima():
         print('\n', value)
         print("Maxima CAS client is NOT active, switched to subprocess communication.")
         ini.socket = False
-    
+
 if __name__ == '__main__':
     ini.socket = True
     startMaxima()
