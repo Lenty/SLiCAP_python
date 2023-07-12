@@ -1163,13 +1163,14 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     if fMa != None:
         # Numeric value for fmax
         fmax = fMa
-    if fMi != None and fMa != None and fmin >= fmax:
-        # Numeric values for fmin and fmax but fmin >= fmax
-        print("Error in frequency range specification.")
-        errors += 1
-    elif fMi != None and fMa != None and fmax > fmin:
-        # Numeric values for fmin and fmax and fmax >= fmin
-        numlimits = True
+    if fMi != None and fMa != None:
+        if fMi >= fMa:
+            # Numeric values for fmin and fmax but fmin >= fmax
+            print("Error in frequency range specification.")
+            errors += 1
+        elif fMa > fMi:
+            # Numeric values for fmin and fmax and fmax >= fmin
+            numlimits = True
     elif noiseResult.dataType != 'noise':
         print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
         errors += 1
@@ -1189,7 +1190,8 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
                             errors += 1
         elif noise == 'onoise':
             if len(sources) == 1 and sources[0] == None:
-                noiseData.append(noiseResult.inoise)
+                noiseData.append(noiseResult.onoise)
+            else:
                 for src in sources:
                     if src != None:
                         if src in keys:
@@ -1200,11 +1202,11 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         else:
             print("Error: unknown noise type: '{0}'.".format(noise))
             errors += 1
+        rms = []
         if errors == 0:
             for i in range(len(noiseData)):
                 if type(noiseData[i]) != list:
                     noiseData[i] = [noiseData[i]]
-                rms = []
                 for j in range(len(noiseData[i])):
                     rms2 = 0
                     params = list(sp.N(noiseData[i][j]).atoms(sp.Symbol))
@@ -1226,7 +1228,7 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
                             print("Trying symbolic integration by sympy.")
                             result = sp.integrate(noiseData[i][j], (ini.frequency, fmin, fmax))
                         rms2 += result
-                rms.append(sp.sqrt(rms2))
+                rms.append(sp.sqrt(sp.expand(rms2)))
             if len(rms) == 1:
                 rms = rms[0]
             return rms
