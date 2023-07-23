@@ -292,6 +292,8 @@ def maxima2python(expr):
     expr = re.sub(r'%pi','pi', expr)
     # Convert Maxima matrix to sympy matrix:
     expr = re.sub(r'matrix\(\[(.*)\]\)', r'Matrix([[\1]])', expr)
+    # Convert Maxima dot product notation:
+    expr = re.sub(r' . ',' * ', expr)
     new_expr = signum2sign(expr)
     while new_expr != expr:
         expr = new_expr
