@@ -1,0 +1,10 @@
+params2subckt
+X1 1 1 0 0 myQ
+
+.subckt myQ c b e s betaAC = {beta_AC}
+Q1 c b e s QV gm = {g_m} gpi = {g_m/betaAC}
+.param g_m = 0.01
+.ends
+
+.param beta_AC = 100
+.end

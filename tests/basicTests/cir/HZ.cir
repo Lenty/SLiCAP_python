@@ -1,0 +1,7 @@
+HZ.cir
+HZ1 1 2 3 4 myH
+R1 1 4 {R_1}
+R2 2 3 {R_1}
+R4 1 0 {R_GND}
+.model myH HZ value={A_z*(1+s*tau_z)/(1+s*tau_p)} zo={R*(1+s*tau_zz)/(1+s*tau_zp)}
+.end

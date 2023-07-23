@@ -1,0 +1,6 @@
+noiseTest
+V1 1 0 V noise={4*k*T*R_s}
+R1 1 2 R value={R_s} noisetemp=0
+R2 2 3 R value={R_se} noisetemp={T} noiseflow={f_ell} dcvar=0
+.param f_ell=100 R_se=1k R_s=500
+.end

@@ -1,0 +1,25 @@
+hierarchy
+
+V1 1 0 1
+R1 1 2 {Rs}
+R2 3 0 {R_ell}
+
+X1 2 0 3 amp A={A_v}
+
+.subckt amp in gnd out A={A} 
+* A is parameter in subcircuit and can be taken as input
+x1 in gnd 1 gnd singleStageAmp B={sqrt(A)}
+x2 1 gnd out gnd singleStageAmp B={sqrt(A)}
+
+.subckt singleStageAmp in gnd out gnd B=2
+* AB is parameter of subcircuit and can be taken as input
+E1 in gnd out gnd myE value={B}
+.param B = {B}
+.model myE E value={gain}
+.ends
+
+.param B = 2 ; not used, overruled by the calling element
+.ends
+
+.param A_v=10
+.end

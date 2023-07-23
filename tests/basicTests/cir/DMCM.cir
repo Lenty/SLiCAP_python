@@ -1,0 +1,14 @@
+DMCM
+ViP inP 0 {V_c+V_d/2}
+ViN inN 0 {V_c-V_d/2}
+R1 inP n1P {R_s/2}
+R2 inN n1N {R_s/2}
+C1 n1P n2P {C_i}
+C2 n1N n2N {C_i}
+R3 n2N n2P {2*R_g}
+R4 n3P n3N {2*R_ell}
+G1P n3P n2P n1P n2P {g_m}
+G1N n3N n2N n1N n2N {g_m}
+R5 n3P n2P {R_o}
+R6 n3N n2N {R_o}
+.end

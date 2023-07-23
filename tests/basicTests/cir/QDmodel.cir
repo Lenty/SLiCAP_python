@@ -1,0 +1,5 @@
+QDmodel
+V1 1 0 {V_s}
+X1 2 0 1 0 BJTD IC=1m VCE=1
+I1 2 0 {I_o}
+.end

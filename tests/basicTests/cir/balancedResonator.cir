@@ -1,0 +1,12 @@
+"Balanced resonator"
+I1 0 inP 0
+I2 0 inN 0
+L1 inN tap {L_d/2}
+L2 tap inP {L_d/2}
+k1 L1 L2 {K}
+C1 inP inN {C_d}
+R1 inP inN {R_d}
+L3 tap 0 {L_c}
+C2 tap 0 {C_c}
+R2 tap 0 {R_c}
+.end
