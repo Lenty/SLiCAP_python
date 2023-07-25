@@ -459,36 +459,26 @@ class element(object):
         """
         Name (*str*) of the model of the element.
         """
-class device(object):
+
+
+@dataclass(frozen=True)
+class Device:
     """
     Prototype for devices that can be used in SLiCAP.
+
+    ID: ID of the device, e.g. 'V' for voltage source. Defaults to ''.
+    nNodes: Number (*int*) of nodes of the device. Defaults to 0.
+    nRefs: Number (*int*) of reference designators of referenced devices.
+    value: (*bool*) True if model or value is required. Defaults to True.
+    models: (*list*) with names (*str*) of valid models for the device.
     """
 
-    def __init__(self):
-        self.ID     = ''
-        """
-        ID of the device, e.g. 'V' for voltage source. Defaults to ''.
-        """
+    ID: str = ""
+    nNodes: int = 0
+    nRefs: int = 0
+    value: bool = True
+    models: list[str] = field(default_factory=list)
 
-        self.nNodes     = 0
-        """
-        Number (*int*) of nodes of the device. Defaults to 0.
-        """
-
-        self.nRefs      = 0
-        """
-        Number (*int*) of reference designators of referenced devices.
-        Defaults to 0.
-        """
-
-        self.value      = True
-        """
-        (*bool*) True if model or value is required. Defaults to True.
-        """
-        self.models     = []
-        """
-        (*list*) with names (*str*) of valid models for the device.
-        """
 
 @dataclass(frozen=True)
 class Model:
@@ -741,158 +731,62 @@ def initAll():
 
     # Generate the dictionary with SLiCAP devices
     # Capacitor
-    newDev                  = device()
-    newDev.ID               = 'C'
-    newDev.nNodes           = 2
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['C']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["C"] = Device("C", 2, 0, True, ["C"])
+
     # Diode
-    newDev                  = device()
-    newDev.ID               = 'D'
-    newDev.nNodes           = 2
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['D']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["D"] = Device("D", 2, 0, True, ["D"])
+
     # VCVS
-    newDev                  = device()
-    newDev.ID               = 'E'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['E', 'EZ']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["E"] = Device("E", 4, 0, True, ["E", "EZ"])
+
     # CCCS
-    newDev                  = device()
-    newDev.ID               = 'F'
-    newDev.nNodes           = 4 # 4 if independent input voltage source
-    newDev.nRefs            = 0 # 0 if independent input voltage source
-    newDev.value            = True
-    newDev.models           = ['F']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["F"] = Device("F", 4, 0, True, ["F"])
+
     # VCCS
-    newDev                  = device()
-    newDev.ID               = 'G'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['G', 'g']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["G"] = Device("G", 4, 0, True, ["G", "g"])
+
     # CCVS
-    newDev                  = device()
-    newDev.ID               = 'H'
-    newDev.nNodes           = 4 # 4 if independent input voltage source
-    newDev.nRefs            = 0 # 4 if independent input voltage source
-    newDev.value            = True
-    newDev.models           = ['H', 'HZ']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["H"] = Device("H", 4, 0, True, ["H", "HZ"])
+
     # Independent current source
-    newDev                  = device()
-    newDev.ID               = 'I'
-    newDev.nNodes           = 2
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['I']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["I"] = Device("I", 2, 0, True, ["I"])
+
     # JFET
-    newDev                  = device()
-    newDev.ID               = 'J'
-    newDev.nNodes           = 3
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['J']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["J"] = Device("J", 3, 0, True, ["J"])
+
     # Coupling factor
-    newDev                  = device()
-    newDev.ID               = 'K'
-    newDev.nNodes           = 0
-    newDev.nRefs            = 2
-    newDev.value            = True
-    newDev.models           = ['K']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["K"] = Device("K", 0, 2, True, ["K"])
+
     # Inductor
-    newDev                  = device()
-    newDev.ID               = 'L'
-    newDev.nNodes           = 2
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['L']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["L"] = Device("L", 2, 0, True, ["L"])
+
     # MOSFET
-    newDev                  = device()
-    newDev.ID               = 'M'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['M', 'MD']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["M"] = Device("M", 4, 0, True, ["M", "MD"])
+
     # Nullor
-    newDev                  = device()
-    newDev.ID               = 'N'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = False
-    newDev.models           = ['N']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["N"] = Device("N", 4, 0, False, ["N"])
+
     # Operational amplifier
-    newDev                  = device()
-    newDev.ID               = 'O'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['OC', 'OV']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["O"] = Device("O", 4, 0, True, ["OC", "OV"])
+
     # BJT
-    newDev                  = device()
-    newDev.ID               = 'Q'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['QV', 'QD', 'QL']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["Q"] = Device("Q", 4, 0, True, ["QV", "QD", "QL"])
+
     # Resistor
-    newDev                  = device()
-    newDev.ID               = 'R'
-    newDev.nNodes           = 2
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['R', 'r']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["R"] = Device("R", 2, 0, True, ["R", "r"])
+
     # Ideal transformer
-    newDev                  = device()
-    newDev.ID               = 'T'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['T']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["T"] = Device("T", 4, 0, True, ["T"])
+
     # Independent voltage source
-    newDev                  = device()
-    newDev.ID               = 'V'
-    newDev.nNodes           = 2
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['V']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["V"] = Device("V", 2, 0, True, ["V"])
+
     # Gyrator
-    newDev                  = device()
-    newDev.ID               = 'W'
-    newDev.nNodes           = 4
-    newDev.nRefs            = 0
-    newDev.value            = True
-    newDev.models           = ['W']
-    DEVICES[newDev.ID]  = newDev
+    DEVICES["W"] = Device("W", 4, 0, True, ["W"])
+
     # Sub circuit
-    newDev                  = device()
-    newDev.ID               = 'X'
-    newDev.nNodes           = -1   # More than two nodes!
-    newDev.nRefs            = 0
-    newDev.value            = None # Only model name
-    newDev.models           = []   # No models
-    DEVICES[newDev.ID]  = newDev
-    return
+    DEVICES["X"] = Device("X", -1, 0, None, [])
+
 
 class allResults(object):
     """
