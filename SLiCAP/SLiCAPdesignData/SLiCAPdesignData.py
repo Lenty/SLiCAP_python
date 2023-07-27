@@ -9,34 +9,34 @@ from SLiCAP.SLiCAPinstruction import *
 
 class specItem(object):
     """
-    Class for specification items. These are parameter definitions with 
-    descriptions that can be assigned to the circuit. 
+    Class for specification items. These are parameter definitions with
+    descriptions that can be assigned to the circuit.
     Specification items must have:
-    
+
     - A unique symbol (their parameter name)
     - A spectype defintion, such as 'functional', 'environment', 'design', etc.
     - Maximally one value, assigned to either minValue, typValue or maxValue
-    
+
     """
     def __init__(self, symbol, description='', minValue='', typValue='', maxValue='', units='', specType=''):
         """
         Initializes the instance of this class and checks the syntax.
-        
+
         :param symbol: Symbol of this specification item (must be unique)
         :type symbol: sympy.Symbo
-        
+
         :param description: Description of this specification item. Defaults to ''.
         :type description: str
-        
+
         :param minValue: Minimum value of this specification item. Defaults to ''.
         :type minValue: str, int, float, sympy.Expr, sympy.Symbol
-        
+
         :param typValue: Typical value of this specification item. Defaults to ''.
         :type minValue: str, int, float, sympy.Expr, sympy.Symbol
-        
+
         :param maxValue: Maximum value of this specification item. Defaults to ''.
         :type minValue: str, int, float, sympy.Expr, sympy.Symbol
-        
+
         :param units: Units of thi specitem
         :type units: str, sympy.Expr, sympy.Symbol
         """
@@ -48,11 +48,11 @@ class specItem(object):
         self.units       = units
         self.spectype    = specType
         self.update()
-        
+
     def update(self):
         """
-        Checks the syntax and updates the attributes of this specitem. 
-        
+        Checks the syntax and updates the attributes of this specitem.
+
         :return: None
         :rtype: NoneType
         """
@@ -66,12 +66,12 @@ class specItem(object):
             self.maxValue = checkExpression(self.maxValue,)
         if self.units != '':
             self.units = sp.sympify(str(self.units)) # TODO a SLiCAP function: checkUnits!
-        
+
     def csvLine(self):
         """
         Creates a comma separated output line for this spec item. Commas in the
         description are replaced with their html code '&#44;'.
-        
+
         :return: csv code of this specitem
         :rtype: str
         """
@@ -85,12 +85,12 @@ class specItem(object):
             csv  += str(self.minValue) + ','
         else:
             csv  += ','
-        # typValue    
+        # typValue
         if self.typValue != None:
             csv  += str(self.typValue) + ','
         else:
             csv  += ','
-        # maxValue    
+        # maxValue
         if self.maxValue != None:
             csv  += str(self.maxValue) + ','
         else:
@@ -103,11 +103,11 @@ class specItem(object):
         # spectype
         csv      += self.specType + '\n'
         return csv
-            
+
     def htmlLine(self):
         """
-        Creates an html output line for this spec item. 
-        
+        Creates an html output line for this spec item.
+
         :return: html code of this specitem
         :rtype: str
         """
@@ -120,12 +120,12 @@ class specItem(object):
             html += '<td></td>'
         else:
             html += '<td class="left">$' + sp.latex(roundN(self.minValue)) + '$</td>' # minValue
-        # typValue    
+        # typValue
         if type(self.typValue) == str:
             html += '<td></td>'
         else:
             html += '<td class="left">$' + sp.latex(roundN(self.typValue)) + '$</td>' # typValue
-        # maxValue    
+        # maxValue
         if type(self.maxValue) == str:
             html += '<td></td>'
         else:
@@ -136,11 +136,11 @@ class specItem(object):
         else:
             html += '<td class="left">$\\mathrm{' + sp.latex(self.units) + '}$</td></tr>\n'       # Units
         return html
-    
+
     def specLine(self):
         """
         Creates an output line for this spec item (used with latex and rst reports)
-        
+
         :return: list with: symbol, description, minValue, typValue, maxValue, units
         :rtype: list
         """
@@ -148,40 +148,40 @@ class specItem(object):
         line     = [self.symbol]
         # description
         line .append(self.description)
-        
+
         # minValue
         if type(self.minValue) == str:
-            line .append(',')
+            line .append(' ')
         else:
             line .append(self.minValue)
-            
-        # typValue    
+
+        # typValue
         if type(self.typValue) == str:
-            line .append(',')
+            line .append(' ')
         else:
-            line .append(typValue)
-            
-        # maxValue    
+            line .append(self.typValue)
+
+        # maxValue
         if type(self.maxValue) == str:
-            line .append(',')
+            line .append(' ')
         else:
             line .append(self.maxValue)
-            
+
         # units
         if type(self.units) == str:
-            line .append(',')
+            line .append(' ')
         else:
             line .append(self.units)
-        return line         
+        return line
 
 def specList2dict(specList):
     """
-    Creates a dict with spec items. the parameter name is used as key. Also 
+    Creates a dict with spec items. the parameter name is used as key. Also
     checks for unique parameter names.
-    
+
     :param specList: List with spec items
     :type specList: List
-    
+
     :return: dictionary with specification items
     :rtype: dict
     """
@@ -198,12 +198,12 @@ def specList2dict(specList):
 def specs2csv(specList, fileName):
     """
     Saves the list with spec items as a CSV file.
-    
+
     :param specList: List with spec items
     :type specList: list
 
     :return: None
-    :rtype: NoneType    
+    :rtype: NoneType
 
     """
     dictWithSpecs = specList2dict(specList)
@@ -213,15 +213,15 @@ def specs2csv(specList, fileName):
         item = dictWithSpecs[spec]
         f.write(item.csvLine())
     f.close()
-    
+
 def csv2specs(csvFile):
     """
     Reads the CSV file with specifications and converts it into a list with
     specitems.
-    
+
     :param csvFile: name of the CSV file in the directory 'ini.csvPath'
     :type csvFile: str
-    
+
     :return: Lit with specification items
     :rtype: list
     """
@@ -242,10 +242,10 @@ def specs2circuit(specList, instr):
 
     :param specList: List with spec items
     :type specList: list
-    
+
     :param instr: instruction to which the parameters definitions will be added
     :type instr: SLiCAPinstruction.instruction
-    
+
     :return: None
     :rtype: NoneType
     """
@@ -265,16 +265,16 @@ def specs2circuit(specList, instr):
 def specs2html(specs, types=[]):
     """
     Places the contents of a dictionary with specifications on the active html
-    page. If a list of specification types is provided, it creates tables 
+    page. If a list of specification types is provided, it creates tables
     for specified types only. By default, tables for all types will be created.
-    
-    :param specs: List with spec items. 
+
+    :param specs: List with spec items.
     :type specs:  list
-    
+
     :param types: List with specification types to be placed on the html page,
                   defaults to [].
     :type types: str
-    
+
     :return: html code
     :rtype: str
     """

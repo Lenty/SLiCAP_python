@@ -5,28 +5,29 @@ Created on Sat Jun 10 17:24:17 2023
 
 @author: anton
 """
-from SLiCAP.SLiCAPdesignData import specList2dict
-from SLiCAP.SLiCAPhtml import roundN
-from SLiCAP.SLiCAPmath import fullSubs
+from SLiCAP.SLiCAPmath import fullSubs, roundN
 from SLiCAP import ini
 import sympy as sp
+
+# Public functions for generating snippets that can be stored as LaTeX files
+# to be included by other LaTeX files.
 
 def netlist2TEX(netlistFile, lineRange=None, firstNumber=None):
     """
     Converts a SLiCAP netlist into a LaTeX string that can be included in
     a LaTeX document and returns this string.
-    
-    :param netlistFile: Name of the netlist file that resides in the 
-                        ini.circuit directory
+
+    :param netlistFile: Name of the netlist file that resides in the
+                        ini.circuitPath directory
     :type netListFile: str
-    
+
     :param lineRange: Range of lines to be displayed; e.g. '1-7,10,12'. Defaults
                       to None (display all lines)
     :type lineRange: str
-    
+
     :param firstNumber: Number of the first line to be displayed
     :type firstNumber: int, float, str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -43,22 +44,22 @@ def elementData2TEX(circuitObject, label='', append2caption=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
     The table comprises the data of all elements of the expanded nelist of
-    <circuitObject>. 
-    
-    The caption reads 'Expanded netlist of: <circuitObject.title>. <append2caption>. 
-    
+    <circuitObject>.
+
+    The caption reads 'Expanded netlist of: <circuitObject.title>. <append2caption>.
+
     A label can be given as reference.
-    
+
     :param circuitObject: SLiCAP circuit object.
     :type circuitObject: SLiCAP.SLiCAPprotos.circuit
-    
+
     :param label: Reference to this table, defaults to ''
-    :type param: str
-    
-    :param append2caption: Test string that will be appended to the caption, 
+    :type label: str
+
+    :param append2caption: Test string that will be appended to the caption,
                            Defaults to ''
     :type append2caption: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -66,14 +67,14 @@ def elementData2TEX(circuitObject, label='', append2caption=''):
     alignstring= '[c]{lllllll}'
     linesList   = []
     for key in circuitObject.elements.keys():
-        el = circuitObject.elements[key] 
+        el = circuitObject.elements[key]
         line = [key]
         lineItem = ''
         nodes = ''
         for node in el.nodes:
             lineItem += node + ' '
         line.append(lineItem)
-        
+
         lineItem = ''
         for ref in el.refs:
             lineItem += ref + ' '
@@ -104,22 +105,22 @@ def elementData2TEX(circuitObject, label='', append2caption=''):
 def parDefs2TEX(circuitObject, label='', append2caption=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
-    The table comprises the parameter definitions of <circuitObject>. 
-    
-    The caption reads 'Parameter defnitions in: : <circuitObject.title>. <append2caption>. 
-    
+    The table comprises the parameter definitions of <circuitObject>.
+
+    The caption reads 'Parameter defnitions in: : <circuitObject.title>. <append2caption>.
+
     A label can be given as reference.
-    
+
     :param circuitObject: SLiCAP circuit object.
     :type circuitObject: SLiCAP.SLiCAPprotos.circuit
-    
+
     :param label: Reference to this table, defaults to ''
     :type param: str
-    
-    :param append2caption: Test string that will be appended to the caption, 
+
+    :param append2caption: Test string that will be appended to the caption,
                            Defaults to ''
     :type append2caption: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -132,34 +133,34 @@ def parDefs2TEX(circuitObject, label='', append2caption=''):
         alignstring = '[c]{llr}'
         TEX = ''
         for parName in circuitObject.parDefs.keys():
-            line = [parName, 
-                circuitObject.parDefs[parName], 
+            line = [parName,
+                circuitObject.parDefs[parName],
                 fullSubs(circuitObject.parDefs[parName], circuitObject.parDefs)]
             linesList.append(line)
-        TEX += TEXcreateCSVtable(headerList, linesList, alignstring, label=label, caption=caption) 
+        TEX += TEXcreateCSVtable(headerList, linesList, alignstring, label=label, caption=caption)
     else:
-        TEX = "{\\textbf{No parameter definitions in: " +  circuitObject.title + '}}\n\n'        
+        TEX = "{\\textbf{No parameter definitions in: " +  circuitObject.title + '}}\n\n'
     return TEX
 
 def params2TEX(circuitObject, label='', append2caption = ''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
-    The table comprises a column with names of undefined parameters of <circuitObject>. 
-    
-    The caption reads 'Undefined parameters in: : <circuitObject.title>. <append2caption>. 
-    
+    The table comprises a column with names of undefined parameters of <circuitObject>.
+
+    The caption reads 'Undefined parameters in: : <circuitObject.title>. <append2caption>.
+
     A label can be given as reference.
-    
+
     :param circuitObject: SLiCAP circuit object.
     :type circuitObject: SLiCAP.SLiCAPprotos.circuit
-    
+
     :param label: Reference to this table, defaults to ''
     :type param: str
-    
-    :param append2caption: Test string that will be appended to the caption, 
+
+    :param append2caption: Test string that will be appended to the caption,
                            Defaults to ''
     :type append2caption: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -173,9 +174,9 @@ def params2TEX(circuitObject, label='', append2caption = ''):
         linesList   = []
         for parName in circuitObject.params:
             lineList.append([parName])
-        TEX += TEXcreateCSVtable(headerList, linesList, alignstring, label=label, caption=caption) 
+        TEX += TEXcreateCSVtable(headerList, linesList, alignstring, label=label, caption=caption)
     else:
-        TEX = '{\\textbf{No undefined parameters in: ' +  circuitObject.title + '}}\n\n'                          
+        TEX = '{\\textbf{No undefined parameters in: ' +  circuitObject.title + '}}\n\n'
     return TEX
 
 def pz2TEX(resultObject, label='', append2caption=''):
@@ -183,25 +184,25 @@ def pz2TEX(resultObject, label='', append2caption=''):
     Creates and return a LaTeX table with poles, zeros, or poles and zeros that
     can be included in a LaTeX document. If the data type is 'pz' the zero-
     frequency value of the gain will be displayed in the caption of the table.
-    
+
     The caption reads as follows:
-        
+
     - data type = 'poles': 'Poles of: <resultObject.gainType>. <append2caption>'
     - data type = 'zeros': 'Zeros of: <resultObject.gainType>. <append2caption>'
     - data type = 'pz': 'Poles and zeros of: <resultObject.gainType>; DC value = <resultObject,DCvalue>. <append2caption>.'
-    
+
     A label can be given as reference.
-        
-    :param specs: List with spec items. 
-    :type specs:  list
-    
-    :param types: List with specification types to be placed on the html page,
-                  defaults to [].
-    :type types: str
-    
+
+    :param label: Reference to this table, defaults to ''
+    :type label: str
+
+    :param append2caption: Test string that will be appended to the caption,
+                           Defaults to ''
+    :type append2caption: str
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
-    
+
     """
     if resultObject.errors != 0:
         print("pz2TEX: Errors found in instruction.")
@@ -219,20 +220,20 @@ def pz2TEX(resultObject, label='', append2caption=''):
             if ini.Hz == True:
                 headerList = ['\\#', 'Re [Hz]', 'Im [Hz]', 'f [Hz]', 'Q']
             else:
-                headerList = ['\\#', 'Re [rad/s]', 'Im [rad/s]', '$\\omega$ [rad/s]', 'Q']  
+                headerList = ['\\#', 'Re [rad/s]', 'Im [rad/s]', '$\\omega$ [rad/s]', 'Q']
         else:
             alignstring = '[c]{ll}'
             if ini.Hz == True:
                 headerList = ['\\#', 'f [Hz]']
             else:
                 headerList = ['\\#', '$\\omega$ [rad/s]']
-        linesList = []        
+        linesList = []
         if len(resultObject.poles) != 0:
             name = 'Poles of: ' + resultObject.gainType
             if resultObject.simType == 'numeric':
                 linesList += numRoots2TEX(resultObject.poles, ini.Hz, 'p')
             else:
-                linesList = symRoots2TEX(resultObject.poles, ini.Hz, 'p')            
+                linesList = symRoots2TEX(resultObject.poles, ini.Hz, 'p')
         if len(resultObject.zeros) != 0:
             if resultObject.dataType == 'pz':
                 linesList += [' ']
@@ -254,25 +255,25 @@ def pz2TEX(resultObject, label='', append2caption=''):
 def noiseContribs2TEX(resultObject, label='', append2caption=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
-    
+
     The table comprises the values of the noise sources and their contributions
-    to the detector-referred noise and the source-referred noise. The latter 
+    to the detector-referred noise and the source-referred noise. The latter
     only if a signal source has been specified.
-    
-    The caption reads 'Noise contributions. '<append2caption>. 
-    
+
+    The caption reads 'Noise contributions. '<append2caption>.
+
     A label can be given as reference.
-    
+
     :param resultObject: SLiCAP execution result object.
     :type resultObject: SLiCAP.SLiCAPprotos.allResults
-    
+
     :param label: Reference to this table, defaults to ''
-    :type param: str
-    
-    :param append2caption: Test string that will be appended to the caption, 
+    :type label: str
+
+    :param append2caption: Test string that will be appended to the caption,
                            Defaults to ''
     :type append2caption: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -307,25 +308,25 @@ def noiseContribs2TEX(resultObject, label='', append2caption=''):
 def dcvarContribs2TEX(resultObject, append2caption='', label=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
-    
+
     The table comprises the values of the dcvar sources and their contributions
-    to the detector-referred dc variance and the source-referred dc variance. 
+    to the detector-referred dc variance and the source-referred dc variance.
     The latter only if a signal source has been specified.
-    
-    The caption reads 'DC variance contributions '<append2caption>. 
-    
+
+    The caption reads 'DC variance contributions '<append2caption>.
+
     A label can be given as reference.
-    
+
     :param resultObject: SLiCAP execution result object.
     :type resultObject: SLiCAP.SLiCAPprotos.allResults
-    
+
     :param label: Reference to this table, defaults to ''
-    :type param: str
-    
-    :param append2caption: Test string that will be appended to the caption, 
+    :type label: str
+
+    :param append2caption: Test string that will be appended to the caption,
                            Defaults to ''
     :type append2caption: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -360,23 +361,23 @@ def dcvarContribs2TEX(resultObject, append2caption='', label=''):
 def specs2TEX(specs, specType, label='', caption=''):
     """
     Creates and returns a LaTeX table with specifications that can be included
-    in a LaTeX document. 
-    
-    If a list with specification types is provided, it creates tables 
+    in a LaTeX document.
+
+    If a list with specification types is provided, it creates tables
     for specified types only. By default, tables for all types will be created.
-    
-    :param specs: List with spec items. 
+
+    :param specs: List with spec items.
     :type specs:  list
-    
+
     :param specType: Type of specification.
-    :type types: str
-    
+    :type specType: str
+
     :param label: Reference to this table, defaults to ''.
-    :type param: str
-    
+    :type label: str
+
     :param caption: Caption of the table, defaults to ''.
     :type caption: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document.
     :rtype: str
     """
@@ -385,7 +386,7 @@ def specs2TEX(specs, specType, label='', caption=''):
     alignstring = '[c]{llrrrl}'
     for specItem in specs:
         if specItem.specType.lower()==specType.lower():
-            linesList.append(specItem.specLine)
+            linesList.append(specItem.specLine())
     if len(linesList) > 0:
         TEX = TEXcreateCSVtable(headerList, linesList, alignstring, unitpos=5, caption=caption, label=label) + '\n'
     else:
@@ -396,19 +397,19 @@ def eqn2TEX(LHS, RHS, units='', label=''):
     """
     Returns a LaTeX snippet of a displayed equation with dimension and reference
     label.
-  
+
     :param RHS: Right hand side of the equation.
     :type RHS: str, sympy.Expression, or sympy.Symbol
-  
+
     :param LHS: Left hand side of the equation.
     :type LHS: str, sympy.Expression, or sympy.Symbol
-    
+
     :param units: Dimension
     :type units: str
-    
+
     :param label: Reference label
     :type label: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -433,18 +434,18 @@ def eqn2TEX(LHS, RHS, units='', label=''):
 def matrices2TEX(Iv, M, Dv, label=''):
     """
     Returns a LaTeX snippet of the matrix equation Iv = M.Dv,
-    
+
     A label can be given for reference.
-    
+
     :param Iv: (n x 1) matrix with independent variables.
     :type Iv: sympy.Matrix
-    
+
     :param M: (n x n) matrix.
     :type M: sympy.Matrix
-    
+
     :param Dv: (n x 1) matrix with dependent variables.
     :type Dv: sympy.Matrix
-    
+
     :return: LaTeX snippet of the matrix equation.
     :rtype: str
     """
@@ -458,23 +459,23 @@ def matrices2TEX(Iv, M, Dv, label=''):
 def stepArray2TEX(stepVars, stepArray, label='', caption=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
-    
+
     The table shows the step variables and their values as defined for array-type
     stepping of instructions.
-    
-    :param stepVars: List with step variables for array type stepping 
+
+    :param stepVars: List with step variables for array type stepping
                      (SLiCAPinstruction.instruction.stepVars)
     :type stepVars: List
-        
+
     :param stepArray: List of lists: (SLiCAPinstruction.instruction.stepArray)
     :type stepArray: list
-        
+
     :param label: Reference lable for this table
     :type label: str
-    
+
     :param caption: Table caption
     :type caption: str
-    
+
     :return: TEX: LaTeX table snippet.
     :rtype: str
     """
@@ -498,30 +499,30 @@ def coeffsTransfer2TEX(transferCoeffs, label = '', append2caption=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX
     document.
-    
+
     The table comprises the normalized coefficients of the numerator and
     the denominator as listed in transferCoeffs.
 
     The normalization factor (Gain) is added to the caption.
-    
+
     A label can be given as reference.
-    
+
     :param transferCoeffs: List with:
-                       
+
                        #. gain
                        #. list with numerator coefficients
                        #. list with denominator coefficients
-                       
+
                        Can be obtained with coeffsTransfer()
-                           
-    :type transferCoeffs: List
-        
+
+    :type transferCoeffs: list
+
     :param label: Reference lable for this table
     :type label: str
-    
+
     :param append2caption: String that will be appended to the caption.
-    :type caption: str
-    
+    :type append2caption: str
+
     :return: RST snippet to be included in a ReStructuredText document.
     :rtype: str
     """
@@ -538,23 +539,23 @@ def coeffsTransfer2TEX(transferCoeffs, label = '', append2caption=''):
     caption += append2caption
     TEX = TEXcreateCSVtable(headerList, linesList, alignstring, label=label, caption=caption)
     return TEX
-    
+
 def slicap2TEX(scriptFile, firstLine=None, lineRange=None):
     """
     Converts a SLiCAP script file into a LaTeX string that can be included in
     a LaTeX document and returns this string.
-    
-    :param netlistFile: Name of the netlist file that resides in the 
-                        ini.circuit directory
-    :type netListFile: str
-    
+
+    :param scriptFile: Name of the script file that resides in the
+                        ini.projectPath directory
+    :type scriptFile: str
+
     :param lineRange: Range of lines to be displayed; e.g. '1-7,10,12'. Defaults
                       to None (display all lines)
     :type lineRange: str
-    
+
     :param firstNumber: Number of the first line to be displayed
     :type firstNumber: int, float, str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
@@ -567,7 +568,7 @@ def slicap2TEX(scriptFile, firstLine=None, lineRange=None):
     TEX += ']{' + ini.projectPath + scriptFile + '}\n\n'
     return TEX
 
-# Functions for generating snippets to be put in a dictionary for inline 
+# Public functions for generating snippets to be put in a dictionary for inline
 # substitutions in a TEX file.
 
 def expr2TEX(expr, units=''):
@@ -576,10 +577,10 @@ def expr2TEX(expr, units=''):
 
     :param expr: sympy expression for inline substitution.
     :type expr: sympy.Expression
-    
+
     :param units: units or dimension, defaults to ''
     :type units: str
-    
+
     :return: LaTeX snippet for inline substitution
     :rtype: str
     """
@@ -603,10 +604,10 @@ def eqn2TEXinline(LHS, RHS, units=''):
 
     :param RHS: Right hand side of the equation.
     :type RHS: sympy.Expression, str
-    
+
     :param units: units or dimension, defaults to ''
     :type units: str
-    
+
     :return: LaTeX snippet for inline substitution
     :rtype: str
     """
@@ -628,12 +629,12 @@ def eqn2TEXinline(LHS, RHS, units=''):
 def save2TEXinline(vardict):
     """
     Saves the key-value pairs of 'vardict' in the CSV file:
-        
+
     <ini.latexPath>SLiCAPdata/TEXsubstitutions.tex
-    
+
     :param vardict: Dictionary with inline LaTeX subsitutions
     :type vardict: dict
-    
+
     :return: None
     :rtype: NoneType
     """
@@ -641,7 +642,7 @@ def save2TEXinline(vardict):
     for key in vardict.keys():
         TEX += key + ', ' + vardict[key] + '\n'
     saveTEX(TEX, 'TEXsubstitutions')
-    
+
 def saveTEX(TEX, fileName):
     """
     Saves a LaTeX snippet for inclusion in a LaTeX file into:
@@ -649,10 +650,10 @@ def saveTEX(TEX, fileName):
     <ini.latexPath>SLiCAdata/<fileName>.tex
     :param TEX: LaTeX snippet.
     :type TEX: str
-    
+
     :param fileName: File name
     :type fileName: str
-    
+
     :return: None
     :rtype: NoneType
     """
@@ -661,57 +662,57 @@ def saveTEX(TEX, fileName):
     f.close()
 
 # Non-public functions for creating table snippets
-    
+
 def TEXcreateCSVtable(headerList, linesList, alignstring, unitpos=None, caption='', label=''):
     """
     Creates and returns a LaTeX table snippet that can be included in a LaTeX document.
-    
+
     A label can be given as reference and a caption can be added.
-    
+
     :param headerList: List with column headers.
     :type headerList: list with strings
-    
+
     :param linesList: List with lists of table data for each table row
-    :type param: list with lists. One list with table data for each row.
-    
+    :type linesList: list
+
     :param alignstring: LaTeX table align string
     :type alignstring: str
-    
+
     :param unitpos: Position of column with units (will be typesetted with mathrm)
     :type unitpos: int, str
-    
+
     :param caption: Table caption, defauls to ''
     :type caption: str
-    
+
     :param label: Table reference label
     :type label: str
-    
+
     :return: LaTeX snippet to be included in a LaTeX document
     :rtype: str
     """
     TEX =  '\\begin{table}[h]\n\centering\n'
     TEX += '\\begin{tabular}' + alignstring + '\n'
-    for item in headerList:
-        if type(item) == str:
-            TEX += '\\textbf{' + item + '} & '
+    for field in headerList:
+        if type(field) == str:
+            TEX += '\\textbf{' + field + '} & '
         else:
-            TEX += '$\\symbf{' + sp.latex(roundN(item)) + '}$ & '
+            TEX += '$\\symbf{' + sp.latex(roundN(field)) + '}$ & '
     TEX = TEX[:-2] + '\\\\ \n'
     j = 0
     for line in linesList:
         i = 0
         if not j%2:
             TEX += '\\rowcolor{myyellow}\n'
-        for item in line:
-            if type(item) == str:
-                if item != '':
-                    TEX +=  '\\small{' + item.replace('_', '\\_') + '} &'
+        for field in line:
+            if type(field) == str:
+                if field != '':
+                    TEX +=  '\\small{' + field.replace('_', '\\_') + '} &'
                 else:
                     TEX += ' &'
             elif unitpos != None and i == int(unitpos):
-                TEX += '$\\mathrm{' + sp.latex(item) + '}$ &'
+                TEX += '$\\mathrm{' + sp.latex(field) + '}$ &'
             else:
-                TEX += '$' + sp.latex(roundN(sp.N(item))) + '$ &'
+                TEX += '$' + sp.latex(roundN(sp.N(field))) + '$ &'
             i += 1
         TEX = TEX[:-2] + ' \\\\ \n'
         j += 1
@@ -722,23 +723,23 @@ def TEXcreateCSVtable(headerList, linesList, alignstring, unitpos=None, caption=
         TEX += '\\label{' + label + '}\n'
     TEX += '\\end{table}\n\n'
     return TEX
-    
+
 def numRoots2TEX(roots, Hz, pz):
     """
-    Returns a list of lists with row data for the creation of a LaTeX table 
+    Returns a list of lists with row data for the creation of a LaTeX table
     with numeric poles or zeros.
 
     :param roots: List with numeric roots
     :type roots: List with (complex) numbers
-    
+
     :param Hz: True if frequencies must be displayed in Hz, False for rad/s.
     :type Hz: Bool
-    
+
     :param pz: Identifier prefix: 'p' ofr poles 'z' for zeros.
     :type pz: str
-    
+
     :return: List of lists with data of poles or zeros
-    :rtype: List of lists
+    :rtype: list
     """
     lineList = []
     i = 0
@@ -761,20 +762,20 @@ def numRoots2TEX(roots, Hz, pz):
 
 def symRoots2TEX(roots, Hz, pz):
     """
-    Returns a list of lists with row data for the creation of a LaTeX table 
+    Returns a list of lists with row data for the creation of a LaTeX table
     with symbolic poles or zeros.
 
     :param roots: List with symbolic roots
     :type roots: List with sympy expressions
-    
+
     :param Hz: True if frequencies must be displayed in Hz, False for rad/s.
     :type Hz: Bool
-    
+
     :param pz: Identifier prefix: 'p' ofr poles 'z' for zeros.
     :type pz: str
-    
+
     :return: List of lists with data of poles or zeros
-    :rtype: List of lists
+    :rtype: list
     """
     lineList = []
     i = 0
