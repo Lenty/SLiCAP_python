@@ -254,7 +254,7 @@ the denominator as listed in transferCoeffs.</p>
 <span class="sig-name descname"><span class="pre">dcvarContribs2RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPrst.SLiCAPrst.dcvarContribs2RST" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns an RST table snippet that can be included in a ReStructuredText document.</p>
 <p>The table comprises the values of the dcvar sources and their contributions
-to the detector-referred DC variance and the source-referred DC variance. The latter 
+to the detector-referred DC variance and the source-referred DC variance. The latter
 only if a signal source has been specified.</p>
 <p>The caption reads ‘Source contributions. ‘&lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
@@ -263,7 +263,7 @@ only if a signal source has been specified.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 <li><p><strong>position</strong> (<em>int</em>) – Number of spaces indention from the left margin, defaults to 0</p></li>
 </ul>
@@ -289,7 +289,7 @@ The table comprises the data of all elements of the expanded nelist of &lt;circu
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 <li><p><strong>position</strong> (<em>int</em>) – Number of spaces indention from the left margin, defaults to 0</p></li>
 </ul>
@@ -418,7 +418,7 @@ a ReStructuredText document and returns this string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>netlistFile</strong> – Name of the netlist file that resides in the 
+<li><p><strong>netlistFile</strong> – Name of the netlist file that resides in the
 ini.circuitPath directory</p></li>
 <li><p><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
 to None (display all lines)</p></li>
@@ -440,7 +440,7 @@ to None (display all lines)</p></li>
 <span class="sig-name descname"><span class="pre">noiseContribs2RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPrst.SLiCAPrst.noiseContribs2RST" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns an RST table snippet that can be included in a ReStructuredText document.</p>
 <p>The table comprises the values of the noise sources and their contributions
-to the detector-referred noise and the source-referred noise. The latter 
+to the detector-referred noise and the source-referred noise. The latter
 only if a signal source has been specified.</p>
 <p>The caption reads ‘Noise contributions. ‘&lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
@@ -449,7 +449,7 @@ only if a signal source has been specified.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 <li><p><strong>position</strong> (<em>int</em>) – Number of spaces indention from the left margin, defaults to 0</p></li>
 </ul>
@@ -466,7 +466,7 @@ Defaults to ‘’</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPrst.SLiCAPrst.numRoots2RST">
 <span class="sig-name descname"><span class="pre">numRoots2RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roots</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPrst.SLiCAPrst.numRoots2RST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of lists with row data for the creation of an RST table 
+<dd><p>Returns a list of lists with row data for the creation of an RST table
 with numeric poles or zeros.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -497,7 +497,7 @@ The table comprises the parameter definitions of &lt;circuitObject&gt;.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 <li><p><strong>position</strong> (<em>int</em>) – Number of spaces indention from the left margin, defaults to 0</p></li>
 </ul>
@@ -523,7 +523,7 @@ The table comprises a column with names of undefined parameters of &lt;circuitOb
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 <li><p><strong>position</strong> (<em>int</em>) – Number of spaces indention from the left margin, defaults to 0</p></li>
 </ul>
@@ -554,7 +554,7 @@ frequency value of the gain will be displayed in the caption of the table.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 <li><p><strong>position</strong> (<em>int</em>) – Number of spaces indention from the left margin, defaults to 0</p></li>
 </ul>
@@ -615,7 +615,7 @@ a ReStructuredText document and returns this string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scriptFile</strong> (<em>str</em>) – Name of the script file that resides in the 
+<li><p><strong>scriptFile</strong> (<em>str</em>) – Name of the script file that resides in the
 ini.projectPath directory</p></li>
 <li><p><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
 to None (display all lines)</p></li>
@@ -664,7 +664,7 @@ stepping of instructions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>stepVars</strong> (<em>List</em>) – List with step variables for array type stepping 
+<li><p><strong>stepVars</strong> (<em>List</em>) – List with step variables for array type stepping
 (SLiCAPinstruction.instruction.stepVars)</p></li>
 <li><p><strong>stepArray</strong> (<em>list</em>) – List of lists: (SLiCAPinstruction.instruction.stepArray)</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference lable for this table</p></li>
@@ -684,7 +684,7 @@ stepping of instructions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPrst.SLiCAPrst.symRoots2RST">
 <span class="sig-name descname"><span class="pre">symRoots2RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roots</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPrst.SLiCAPrst.symRoots2RST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of lists with row data for the creation of an RST table 
+<dd><p>Returns a list of lists with row data for the creation of an RST table
 with symbolic poles or zeros.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

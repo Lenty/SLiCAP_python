@@ -506,6 +506,27 @@ sympy.Matrix.det() method.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.diff_n">
+<span class="sig-name descname"><span class="pre">diff_n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.diff_n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the n-th order derivative d^n/dx^n of expr(x).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>sympy.Expr</em>) – Input expression</p></li>
+<li><p><strong>x</strong> (<em>sympy.Symbol</em>) – Variable for differentiation</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Order of differentiation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>d^n/dx^n of expr(x)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.doCDS">
 <span class="sig-name descname"><span class="pre">doCDS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noiseResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.doCDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns noiseResult after multiplying it with (2*sin(pi*ini.frequency*tau))^2</p>
@@ -685,6 +706,23 @@ parameter definitions into ‘valExpr’.</p>
 <dd class="field-odd"><p>sympy.Expr</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.ilt">
+<span class="sig-name descname"><span class="pre">ilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.ilt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Inverse Laplace Transform f(t) of a rational expression F(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>Sympy expression</em><em> or </em><em>str</em>) – Rational function of the Laplace variable F(s).</p></li>
+<li><p><strong>s</strong> (<em>sympy.Symbol</em>) – Laplace variable</p></li>
+<li><p><strong>t</strong> (<em>sympy.Symbol</em>) – time variable</p></li>
+</ul>
+</dd>
+</dl>
+<p>return: Inverse Laplace Transform f(t)
+:rtype: sympy.Expr</p>
 </dd></dl>
 
 <dl class="py function">
@@ -967,8 +1005,19 @@ nonzero value for ‘noise’ are accepted.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.roundN">
 <span class="sig-name descname"><span class="pre">roundN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.roundN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rounds all floaat and rational atoms in an expression to ini.disp digits,
+<dd><p>Rounds all float and rational atoms in an expression to ini.disp digits,
 and converts integers into floats if their number of digits exceeds ini.disp</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expr</strong> (<em>sympy.Expr</em>) – Input expression</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>modified expression</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

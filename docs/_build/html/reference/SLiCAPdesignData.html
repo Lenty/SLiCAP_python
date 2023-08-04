@@ -210,14 +210,14 @@ specitems.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specItem">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">specItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for specification items. These are parameter definitions with 
-descriptions that can be assigned to the circuit. 
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">specItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for specification items. These are parameter definitions with
+descriptions that can be assigned to the circuit.
 Specification items must have:</p>
 <ul class="simple">
 <li><p>A unique symbol (their parameter name)</p></li>
 <li><p>A spectype defintion, such as ‘functional’, ‘environment’, ‘design’, etc.</p></li>
-<li><p>Maximally one value, assigned to either minValue, typValue or maxValue</p></li>
+<li><p>A value</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specItem.csvLine">
@@ -254,7 +254,7 @@ description are replaced with their html code ‘&amp;#44;’.</p>
 <dd><p>Creates an output line for this spec item (used with latex and rst reports)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list with: symbol, description, minValue, typValue, maxValue, units</p>
+<dd class="field-odd"><p>list with: symbol, description, value, units</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>list</p>
@@ -281,7 +281,7 @@ description are replaced with their html code ‘&amp;#44;’.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specList2dict">
 <span class="sig-name descname"><span class="pre">specList2dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specList2dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a dict with spec items. the parameter name is used as key. Also 
+<dd><p>Creates a dict with spec items. the parameter name is used as key. Also
 checks for unique parameter names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -337,7 +337,7 @@ checks for unique parameter names.</p>
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specs2html">
 <span class="sig-name descname"><span class="pre">specs2html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPdesignData.SLiCAPdesignData.specs2html" title="Permalink to this definition">¶</a></dt>
 <dd><p>Places the contents of a dictionary with specifications on the active html
-page. If a list of specification types is provided, it creates tables 
+page. If a list of specification types is provided, it creates tables
 for specified types only. By default, tables for all types will be created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

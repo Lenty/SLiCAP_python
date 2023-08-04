@@ -253,7 +253,7 @@ the denominator as listed in transferCoeffs.</p>
 <span class="sig-name descname"><span class="pre">dcvarContribs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.dcvarContribs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.</p>
 <p>The table comprises the values of the dcvar sources and their contributions
-to the detector-referred dc variance and the source-referred dc variance. 
+to the detector-referred dc variance and the source-referred dc variance.
 The latter only if a signal source has been specified.</p>
 <p>The caption reads ‘DC variance contributions ‘&lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
@@ -262,7 +262,7 @@ The latter only if a signal source has been specified.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 </ul>
 </dd>
@@ -288,7 +288,7 @@ The table comprises the data of all elements of the expanded nelist of
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 </ul>
 </dd>
@@ -395,7 +395,7 @@ a LaTeX document and returns this string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>netlistFile</strong> – Name of the netlist file that resides in the 
+<li><p><strong>netlistFile</strong> – Name of the netlist file that resides in the
 ini.circuitPath directory</p></li>
 <li><p><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
 to None (display all lines)</p></li>
@@ -416,7 +416,7 @@ to None (display all lines)</p></li>
 <span class="sig-name descname"><span class="pre">noiseContribs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultObject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append2caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.noiseContribs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table snippet that can be included in a LaTeX document.</p>
 <p>The table comprises the values of the noise sources and their contributions
-to the detector-referred noise and the source-referred noise. The latter 
+to the detector-referred noise and the source-referred noise. The latter
 only if a signal source has been specified.</p>
 <p>The caption reads ‘Noise contributions. ‘&lt;append2caption&gt;.</p>
 <p>A label can be given as reference.</p>
@@ -425,7 +425,7 @@ only if a signal source has been specified.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resultObject</strong> (<em>SLiCAP.SLiCAPprotos.allResults</em>) – SLiCAP execution result object.</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 </ul>
 </dd>
@@ -441,7 +441,7 @@ Defaults to ‘’</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.numRoots2TEX">
 <span class="sig-name descname"><span class="pre">numRoots2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roots</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.numRoots2TEX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of lists with row data for the creation of a LaTeX table 
+<dd><p>Returns a list of lists with row data for the creation of a LaTeX table
 with numeric poles or zeros.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -472,7 +472,7 @@ The table comprises the parameter definitions of &lt;circuitObject&gt;.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
 <li><p><strong>label</strong> – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 </ul>
 </dd>
@@ -497,7 +497,7 @@ The table comprises a column with names of undefined parameters of &lt;circuitOb
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuitObject</strong> (<em>SLiCAP.SLiCAPprotos.circuit</em>) – SLiCAP circuit object.</p></li>
 <li><p><strong>label</strong> – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 </ul>
 </dd>
@@ -527,7 +527,7 @@ frequency value of the gain will be displayed in the caption of the table.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>label</strong> (<em>str</em>) – Reference to this table, defaults to ‘’</p></li>
-<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption, 
+<li><p><strong>append2caption</strong> (<em>str</em>) – Test string that will be appended to the caption,
 Defaults to ‘’</p></li>
 </ul>
 </dd>
@@ -586,7 +586,7 @@ a LaTeX document and returns this string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scriptFile</strong> (<em>str</em>) – Name of the script file that resides in the 
+<li><p><strong>scriptFile</strong> (<em>str</em>) – Name of the script file that resides in the
 ini.projectPath directory</p></li>
 <li><p><strong>lineRange</strong> (<em>str</em>) – Range of lines to be displayed; e.g. ‘1-7,10,12’. Defaults
 to None (display all lines)</p></li>
@@ -607,7 +607,7 @@ to None (display all lines)</p></li>
 <span class="sig-name descname"><span class="pre">specs2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.specs2TEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a LaTeX table with specifications that can be included
 in a LaTeX document.</p>
-<p>If a list with specification types is provided, it creates tables 
+<p>If a list with specification types is provided, it creates tables
 for specified types only. By default, tables for all types will be created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -636,7 +636,7 @@ stepping of instructions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>stepVars</strong> (<em>List</em>) – List with step variables for array type stepping 
+<li><p><strong>stepVars</strong> (<em>List</em>) – List with step variables for array type stepping
 (SLiCAPinstruction.instruction.stepVars)</p></li>
 <li><p><strong>stepArray</strong> (<em>list</em>) – List of lists: (SLiCAPinstruction.instruction.stepArray)</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – Reference lable for this table</p></li>
@@ -655,7 +655,7 @@ stepping of instructions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPlatex.SLiCAPlatex.symRoots2TEX">
 <span class="sig-name descname"><span class="pre">symRoots2TEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roots</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPlatex.SLiCAPlatex.symRoots2TEX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of lists with row data for the creation of a LaTeX table 
+<dd><p>Returns a list of lists with row data for the creation of a LaTeX table
 with symbolic poles or zeros.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
