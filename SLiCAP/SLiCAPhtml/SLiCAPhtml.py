@@ -102,7 +102,7 @@ def HTMLfoot(indexFile):
     idx = ini.htmlIndex.split('.')[0]
     html = '\n<div id="footnote">\n'
     html += '<p>Go to <a href="' + ini.htmlIndex + '">' + idx + '</a></p>\n'
-    html += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.5.0 &copy 2009-2023 SLiCAP development team</p>\n'
+    html += '<p>SLiCAP: Symbolic Linear Circuit Analysis Program, Version 1.6.0 &copy 2009-2023 SLiCAP development team</p>\n'
     html += '<p>For documentation, examples, support, updates and courses please visit: <a href="https://analog-electronics.tudelft.nl">analog-electronics.tudelft.nl</a></p>\n'
     html += '<p>Last project update: %s</p>\n'%(ini.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"))
     html += '</div></body></html>'
@@ -637,7 +637,7 @@ def pz2html(instObj, label = '', labelText = ''):
         return html
     elif instObj.dataType != 'poles' and instObj.dataType != 'zeros' and instObj.dataType != 'pz':
         print("Error: 'pz2html()' expected dataType: 'poles', 'zeros', or 'pz', got: '{0}'.".format(instObj.dataType))
-        return html 
+        return html
     elif instObj.step == True :
         print("Error: parameter stepping not implemented for 'pz2html()'.")
         return html
@@ -909,7 +909,7 @@ def coeffsTransfer2html(transferCoeffs, label = '', labelText = ''):
 def stepArray2html(stepVars, stepArray):
     """
     Displays the step array on the active HTML page.
-    
+
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
@@ -956,7 +956,7 @@ def fig2html(figureObject, width, label = '', caption = ''):
 def file2html(fileName):
     """
     Writes the contents of a file to the active html page.
-    
+
     :param fileName: Name of the file (relative to ini.textPath)
     :type fileName: str
     :return: html code
@@ -990,15 +990,15 @@ def href(label, fileName = ''):
 def links2html():
     """
     Returns the HTML code for placing links to all labeled HTML objects.
-    
+
     Links will be grouped as follows:
-        
+
     #. Links to headings
     #. Links to circuit data and imported tables
     #. Links to figures
     #. Links to equations
     #. Links to analysis results (from noise2html, pz2html, etc.)
-    
+
     :return: html: HTML string that will be placed on the page.
     :rtype: str
     """
@@ -1038,10 +1038,10 @@ def links2html():
 def htmlLink(address, text):
     """
     Returns the html code for placing a link on an html page with *text2html()*.
-    
+
     :param address: link address
     :type address: str
-    
+
     :return: html code
     :rtype: str
     """
@@ -1056,7 +1056,7 @@ def htmlParValue(instr, parName):
 
     :param instr: Instruction that holds the parameter definition
     :type instr: SLiCAPinstruction.instruction
-    
+
     :param parName: Name of the parameter
     :type parName: string
 
@@ -1073,7 +1073,7 @@ def htmlElValue(instr, elName):
 
     :param instr: Instruction that holds the parameter definition
     :type instr: SLiCAPinstruction.instruction
-    
+
     :param elName: Element identifier
     :type elName: string
 

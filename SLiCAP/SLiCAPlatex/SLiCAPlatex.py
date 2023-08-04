@@ -382,13 +382,13 @@ def specs2TEX(specs, specType, label='', caption=''):
     :rtype: str
     """
     linesList   = []
-    headerList  = ["Name", "Description", "minValue", "typValue", "maxValue", "units"]
-    alignstring = '[c]{llrrrl}'
+    alignstring = '[c]{llrl}'
+    headerList  = ["name", "description", "value", "units"]
     for specItem in specs:
         if specItem.specType.lower()==specType.lower():
             linesList.append(specItem.specLine())
     if len(linesList) > 0:
-        TEX = TEXcreateCSVtable(headerList, linesList, alignstring, unitpos=5, caption=caption, label=label) + '\n'
+        TEX = TEXcreateCSVtable(headerList, linesList, alignstring, unitpos=3, caption=caption, label=label) + '\n'
     else:
         TEX =  "\\textbf{Found no specifications of type: " + specType + ".}\n\n"
     return TEX

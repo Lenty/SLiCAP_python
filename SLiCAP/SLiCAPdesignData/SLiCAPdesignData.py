@@ -15,10 +15,10 @@ class specItem(object):
 
     - A unique symbol (their parameter name)
     - A spectype defintion, such as 'functional', 'environment', 'design', etc.
-    - Maximally one value, assigned to either minValue, typValue or maxValue
+    - A value
 
     """
-    def __init__(self, symbol, description='', minValue='', typValue='', maxValue='', units='', specType=''):
+    def __init__(self, symbol, description='', value='', units='', specType=''):
         """
         Initializes the instance of this class and checks the syntax.
 
@@ -28,23 +28,15 @@ class specItem(object):
         :param description: Description of this specification item. Defaults to ''.
         :type description: str
 
-        :param minValue: Minimum value of this specification item. Defaults to ''.
-        :type minValue: str, int, float, sympy.Expr, sympy.Symbol
-
-        :param typValue: Typical value of this specification item. Defaults to ''.
-        :type minValue: str, int, float, sympy.Expr, sympy.Symbol
-
-        :param maxValue: Maximum value of this specification item. Defaults to ''.
-        :type minValue: str, int, float, sympy.Expr, sympy.Symbol
+        :param value: Value of this specification item. Defaults to ''.
+        :type value: str, int, float, sympy.Expr, sympy.Symbol
 
         :param units: Units of thi specitem
         :type units: str, sympy.Expr, sympy.Symbol
         """
         self.symbol      = symbol
         self.description = description
-        self.minValue    = minValue
-        self.typValue    = typValue
-        self.maxValue    = maxValue
+        self.value       = value
         self.units       = units
         self.spectype    = specType
         self.update()
@@ -58,12 +50,8 @@ class specItem(object):
         """
         self.specType    = str(self.spectype).lower()
         self.symbol      = sp.Symbol(str(self.symbol))
-        if self.minValue != '':
-            self.minValue = checkExpression(self.minValue)
-        if self.typValue != '':
-            self.typValue = checkExpression(self.typValue)
-        if self.maxValue != '':
-            self.maxValue = checkExpression(self.maxValue,)
+        if self.value != '':
+            self.value = checkExpression(self.value)
         if self.units != '':
             self.units = sp.sympify(str(self.units)) # TODO a SLiCAP function: checkUnits!
 
@@ -80,19 +68,9 @@ class specItem(object):
         # description
         description = self.description.replace(',', '&#44;')
         csv      += description + ','
-        # minValue
-        if self.minValue != None:
-            csv  += str(self.minValue) + ','
-        else:
-            csv  += ','
-        # typValue
-        if self.typValue != None:
-            csv  += str(self.typValue) + ','
-        else:
-            csv  += ','
-        # maxValue
-        if self.maxValue != None:
-            csv  += str(self.maxValue) + ','
+        # value
+        if self.value != None:
+            csv  += str(self.value) + ','
         else:
             csv  += ','
         # units
@@ -115,21 +93,11 @@ class specItem(object):
         html     = '<td class="left">$' + sp.latex(self.symbol) + '$</td>'
         # description
         html     += '<td class="left">' + self.description + '</td>'
-        # minValue
-        if type(self.minValue) == str:
+        # value
+        if type(self.value) == str:
             html += '<td></td>'
         else:
-            html += '<td class="left">$' + sp.latex(roundN(self.minValue)) + '$</td>' # minValue
-        # typValue
-        if type(self.typValue) == str:
-            html += '<td></td>'
-        else:
-            html += '<td class="left">$' + sp.latex(roundN(self.typValue)) + '$</td>' # typValue
-        # maxValue
-        if type(self.maxValue) == str:
-            html += '<td></td>'
-        else:
-            html += '<td class="left">$' + sp.latex(roundN(self.maxValue)) + '$</td>' # maxValue
+            html += '<td class="left">$' + sp.latex(roundN(self.value)) + '$</td>' # value
         # units
         if type(self.units) == str:
             html += '<td></td></tr>\n'
@@ -141,7 +109,7 @@ class specItem(object):
         """
         Creates an output line for this spec item (used with latex and rst reports)
 
-        :return: list with: symbol, description, minValue, typValue, maxValue, units
+        :return: list with: symbol, description, value, units
         :rtype: list
         """
         # symbol
@@ -149,27 +117,15 @@ class specItem(object):
         # description
         line .append(self.description)
 
-        # minValue
-        if type(self.minValue) == str:
-            line .append(' ')
+        # value
+        if type(self.value) == str:
+            line .append('')
         else:
-            line .append(self.minValue)
-
-        # typValue
-        if type(self.typValue) == str:
-            line .append(' ')
-        else:
-            line .append(self.typValue)
-
-        # maxValue
-        if type(self.maxValue) == str:
-            line .append(' ')
-        else:
-            line .append(self.maxValue)
+            line .append(self.value)
 
         # units
         if type(self.units) == str:
-            line .append(' ')
+            line .append('')
         else:
             line .append(self.units)
         return line
@@ -208,7 +164,7 @@ def specs2csv(specList, fileName):
     """
     dictWithSpecs = specList2dict(specList)
     f = open(ini.csvPath + fileName, 'w')
-    f.write("symbol, description, min, typ, max, units, type\n")
+    f.write("symbol, description, value, units, type\n")
     for spec in list(dictWithSpecs.keys()):
         item = dictWithSpecs[spec]
         f.write(item.csvLine())
@@ -231,7 +187,7 @@ def csv2specs(csvFile):
     specList = []
     for i in range(1, len(lines)):
         args = lines[i].strip().split(',')
-        newSpecItem = specItem(args[0], args[1], args[2], args[3], args[4], args[5], args[6])
+        newSpecItem = specItem(args[0], args[1], args[2], args[3], args[4])
         newSpecItem.description = newSpecItem.description.replace('&#44;',',')
         specList.append(newSpecItem)
     return specList
@@ -250,14 +206,8 @@ def specs2circuit(specList, instr):
     :rtype: NoneType
     """
     for item in specList:
-        if item.minValue != '':
-            value = item.minValue
-        elif item.typValue != '':
-            value = item.typValue
-        elif item.maxValue != '':
-            value = item.maxValue
-        if value != '':
-            instr.defPar(item.symbol, value)
+        if item.value != '':
+            instr.defPar(item.symbol, item.value)
 
 # Below should move to SLiCAPhtml.py, but required different import scheme because
 # of specList2dict().
@@ -286,7 +236,7 @@ def specs2html(specs, types=[]):
         if dictWithSpecs[key].specType not in list(html.keys()):
             html[dictWithSpecs[key].specType] =  '<h3>' + dictWithSpecs[key].specType + ' specification</h3>\n'
             html[dictWithSpecs[key].specType] += '<table><a id="table_' + dictWithSpecs[key].specType + '"></a><caption>Table ' + dictWithSpecs[key].specType + ' specification </caption>'
-            html[dictWithSpecs[key].specType] += '<tr><th class="left">symbol</th><th class="left">description</th><th class="left">min</th><th class="left">typ</th><th class="left">max</th><th class="left">units</th></tr>\n'
+            html[dictWithSpecs[key].specType] += '<tr><th class="left">symbol</th><th class="left">description</th><th class="left">value</th><th class="left">units</th></tr>\n'
             html[dictWithSpecs[key].specType] += dictWithSpecs[key].htmlLine()
         else:
             html[dictWithSpecs[key].specType] += dictWithSpecs[key].htmlLine()

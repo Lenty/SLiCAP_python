@@ -386,7 +386,7 @@ def specs2RST(specs, specType='', label='', caption='', position=0):
     :rtype: str
     """
     linesList  = []
-    headerList = ["Name", "Description", "minValue", "typValue", "maxValue", "units"]
+    headerList = ["Name", "Description", "value", "units"]
     for specItem in specs:
         if specItem.specType.lower()==specType.lower():
             linesList.append(specItem.specLine())
