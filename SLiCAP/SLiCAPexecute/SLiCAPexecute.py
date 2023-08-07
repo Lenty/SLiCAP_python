@@ -1193,9 +1193,9 @@ def makeMaxInstr(instr, result):
             if 'noise' in list(instr.circuit.elements[name].params.keys()):
                 value = instr.circuit.elements[name].params['noise']
                 if instr.numeric == True:
-                    value = fullSubs(value, instr.parDefs)
+                    value = sp.N(fullSubs(value, instr.parDefs))
                 result.snoiseTerms[name] = value
-                maxInstr += name + '=' + str(value) + ','
+                maxInstr += name + '=' + python2maxima(value) + ','
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
         maxInstr += ']$'
@@ -1216,8 +1216,8 @@ def makeMaxInstr(instr, result):
                 value = instr.circuit.elements[name].params['dcvar']
                 result.svarTerms[name] = value
                 if instr.numeric == True:
-                    value = fullSubs(value, instr.parDefs)
-                maxInstr += name + '=' + str(value) + ','
+                    value = sp.N(fullSubs(value, instr.parDefs))
+                maxInstr += name + '=' + python2maxima(value) + ','
         if maxInstr[-1] == ',':
             maxInstr = maxInstr[0:-1]
         maxInstr += ']$'
