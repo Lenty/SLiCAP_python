@@ -1203,7 +1203,7 @@ def makeMaxInstr(instr, result):
     elif instr.dataType == 'dcvar':
         result = makeMaxMatrices(instr, result)
         detP, detN = makeMaxDetPos(instr, result)
-        maxInstr = 'Matrix_' + python2maxima(result.M) + '$'
+        maxInstr = 'Matrix_:' + python2maxima(result.M) + '$'
         maxInstr += 'detCols_:[' + str(detP) + ',' + str(detN) + ']$'
         if instr.source != [None, None] and result.numer[0] !=0:
             maxInstr += 'numer_:' + python2maxima(result.numer[0]) + '$'
