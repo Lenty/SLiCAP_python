@@ -6,6 +6,8 @@ SLiCAP module with basic SLiCAP classes and functions.
 Imported by the module **SLiCAPmatrices.py**.
 """
 
+from dataclasses import dataclass, field
+
 from SLiCAP.SLiCAPmath import *
 
 # Globals used by this script and by SLiCAPyacc.py:
@@ -142,12 +144,12 @@ class circuit(object):
             - Gxxx, model = 'G', output port: 'Io_Gxxx'
             - Hxxx, input port: 'Ii_Hxxx', output port: 'Io_xxx'
         """
-        
+
         self.controlled = []
         """
         (*list*) with reference designators (*str*) of controlled sources.
         """
-        
+
         self.varIndex   = {}
         """
         (*dict*) with key-value pairs:
@@ -157,7 +159,7 @@ class circuit(object):
           before elemination of the row anmd column associated with the
           reference node '0'.
         """
-        
+
     def delPar(self, parName):
         """
         Deletes a parameter definition and updates the list
@@ -318,7 +320,7 @@ class circuit(object):
             print("Error: parameter '{0}' has not been defined.".format(str(parNames)))
             parValue = None
         return parValue
-    
+
     def updateParams(self):
         """
         Updates self.params (list with undefined parameters) after modification
@@ -347,44 +349,44 @@ class circuit(object):
                 undefined.append(par)
         self.params = undefined
         return
-        
+
     def getElementValue(self, elementID, param, numeric):
         """
         Returns the value or expression of one or more circuit elements.
-        
-        If instruction.numeric == True it will perform a full recursive 
+
+        If instruction.numeric == True it will perform a full recursive
         substitution of all circuit parameter definitions.
-        
-        This method is called by instruction.circuit.getElementValue() with 
+
+        This method is called by instruction.circuit.getElementValue() with
         keyword arg numeric = True if instruction.simType is set to 'numeric'.
-        
+
         :param elementID: name(s) of the element(s)
-        :type elementID: str, list 
-        
+        :type elementID: str, list
+
         :param param: name of the parameter (equal for all elements):
-            
+
                       - 'value': Laplace value
                       - 'dc': DC value (independent sources only)
                       - 'noise': Noise spectral density (independent sources only)
                       - 'dcvar': DC variance (independent sources only)
-                      
+
         :type param: str
-        
+
         :return: if type(parNames) == list:
-            
-                 return value = dict with key-value pairs: key (*sympy.core.symbol.Symbol*): 
-                 name of the parameter, value (*int, float, sympy expression*): 
+
+                 return value = dict with key-value pairs: key (*sympy.core.symbol.Symbol*):
+                 name of the parameter, value (*int, float, sympy expression*):
                  value of the parameter
-                 
+
                  else:
                  value or expression
-                 
+
         :rtype: dict, float, int, sympy.Expr
-        
+
         :Example:
-         
+
         >>> # Create an instance if a SLiCAP instruction
-        >>> my_instr = instruction()  
+        >>> my_instr = instruction()
         >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Obtain the numeric value of 'R1' and 'C1':
@@ -488,36 +490,27 @@ class device(object):
         (*list*) with names (*str*) of valid models for the device.
         """
 
-class model(object):
+@dataclass(frozen=True)
+class Model:
     """
-    Protpotype for element models that can be used in SLiCAP.
-    """
+    Prototype for element models that can be used in SLiCAP.
 
-    def __init__(self):
-        self.name       = ''
-        """
-        Name (*str*) of the model.
-        """
-
-        self.stamp      = True
-        """
-        (*bool*) True if model has associated matrix stamp,
+    name: Name (*str*) of the model.
+    stamp: (*bool*) True if model has associated matrix stamp,
         False if it requires expansion.
-        """
-
-        self.depVars    = []
-        """
-        (*list*) with names of dependent variables to be used in the vector
-        with dependent variables.
-        """
-        self.params     = {}
-        """
-        (*dict*) with key-value pairs:
-
-        - key (*str*): Name  of the model parameter
-        - value (*bool*): True if the Laplace variable is allowed in the
+    depVars: (*list*) with names of dependent variables to be used in the
+        vector with dependent variables.
+    params: (*dict*) with key-value pairs:
+    - key (*str*): Name  of the model parameter.
+    - value (*bool*): True if the Laplace variable is allowed in the
           expression for this parameter, else False.
-        """
+    """
+
+    name: str = ""
+    stamp: bool = True
+    depVars: list[str] = field(default_factory=list)
+    params: dict[str, bool] = field(default_factory=dict)
+
 
 class modelDef(object):
     """
@@ -550,178 +543,201 @@ def initAll():
 
     # Generate the dictionary with SLiCAP models
     # Capacitor
-    newModel                = model()
-    newModel.name           = 'C'
-    newModel.stamp          = True
-    newModel.depVars        = []
-    newModel.params         = {'value': False, 'vinit': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["C"] = Model("C", True, [], {"value": False, "vinit": False})
+
     # Diode
-    newModel                = model()
-    newModel.name           = 'D'
-    newModel.stamp          = False
-    newModel.params         = {'rs': False, 'cd': False, 'gd': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["D"] = Model("D", False, [], {"rs": False, "cd": False, "gd": False})
+
     # VCVS
-    newModel                = model()
-    newModel.name           = 'E'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io']
-    newModel.params         = {'value': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["E"] = Model("E", True, ["Io"], {"value": True})
+
     # VCVS with series impedance
-    newModel                = model()
-    newModel.name           = 'EZ'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io']
-    newModel.params         = {'value': True, 'zo': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["EZ"] = Model("EZ", True, ["Io"], {"value": True, "zo": True})
+
     # CCCS
-    newModel                = model()
-    newModel.name           = 'F'
-    newModel.stamp          = True
-    newModel.depVars        = ['Ii']
-    newModel.params         = {'value': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["F"] = Model("F", True, ["Ii"], {"value": True})
+
     # VCCS
-    newModel                = model()
-    newModel.name           = 'G'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io']
-    newModel.params         = {'value': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["G"] = Model("G", True, ["Io"], {"value": True})
+
     # VCCS no Laplace
-    newModel                = model()
-    newModel.name           = 'g'
-    newModel.stamp          = True
-    newModel.depVars        = []
-    newModel.params         = {'value': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["g"] = Model("g", True, [], {"value": False})
+
     # CCVS
-    newModel                = model()
-    newModel.name           = 'H'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io', 'Ii']
-    newModel.params         = {'value': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["H"] = Model("H", True, ["Io", "Ii"], {"value": True})
+
     # CCVS with source impedance
-    newModel                = model()
-    newModel.name           = 'HZ'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io', 'Ii']
-    newModel.params         = {'value': True, 'zo': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["HZ"] = Model("HZ", True, ["Io", "Ii"], {"value": True, "zo": True})
+
     # Independent current source
-    newModel                = model()
-    newModel.name           = 'I'
-    newModel.stamp          = True
-    newModel.depVars        = []
-    newModel.params         = {'value': True, 'dc': False, 'dcvar': False, 'noise': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["I"] = Model(
+        "I", True, [], {"value": True, "dc": False, "dcvar": False, "noise": False}
+    )
+
     # JFET
-    newModel                = model()
-    newModel.name           = 'J'
-    newModel.stamp          = False
-    newModel.params         = {'cgs': False, 'cdg': False, 'gm': False, 'go': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["J"] = Model(
+        "J", False, [], {"cgs": False, "cdg": False, "gm": False, "go": False}
+    )
+
     # Coupling factor
-    newModel                = model()
-    newModel.name           = 'K'
-    newModel.stamp          = True
-    newModel.depVars        = []
-    newModel.params         = {'value': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["K"] = Model("K", True, [], {"value": False})
+
     # Inductor
-    newModel                = model()
-    newModel.name           = 'L'
-    newModel.stamp          = True
-    newModel.depVars        = ['I']
-    newModel.params         = {'value': False, 'iinit': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["L"] = Model("L", True, ["I"], {"value": False, "iinit": False})
+
     # MOSFET
-    newModel                = model()
-    newModel.name           = 'M'
-    newModel.stamp          = False
-    newModel.params         = {'cgs': False, 'cdg': False, 'cdb': False, 'csb': False, 'cgb': False, 'gm': False, 'gb': False, 'go': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["M"] = Model(
+        "M",
+        False,
+        [],
+        {
+            "cgs": False,
+            "cdg": False,
+            "cdb": False,
+            "csb": False,
+            "cgb": False,
+            "gm": False,
+            "gb": False,
+            "go": False,
+        },
+    )
+
     # MOS differential pair
-    newModel                = model()
-    newModel.name           = 'MD'
-    newModel.stamp          = False
-    newModel.params         = {'cgg': False, 'cdg': False, 'cdd': False, 'gm': False, 'go': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["MD"] = Model(
+        "MD",
+        False,
+        [],
+        {
+            "cgg": False,
+            "cdg": False,
+            "cdd": False,
+            "gm": False,
+            "go": False,
+        },
+    )
+
     # Nullor
-    newModel                = model()
-    newModel.name           = 'N'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io']
-    newModel.params         = {}
-    MODELS[newModel.name]   = newModel
+    MODELS["N"] = Model("N", True, ["Io"], {})
+
     # Current feedback operational amplifier
-    newModel                = model()
-    newModel.name           = 'OC'
-    newModel.stamp          = False
-    newModel.params         = {'cp': False, 'gp': False, 'cpn': False, 'gpn': False, 'gm': False, 'zt': True, 'zo': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["OC"] = Model(
+        "OC",
+        False,
+        [],
+        {
+            "cp": False,
+            "gp": False,
+            "cpn": False,
+            "gpn": False,
+            "gm": False,
+            "zt": True,
+            "zo": True,
+        },
+    )
+
     # Voltage feedback operational amplifier
-    newModel                = model()
-    newModel.name           = 'OV'
-    newModel.stamp          = False
-    newModel.params         = {'cd': False, 'cc': False, 'gd': False, 'gc': False, 'av': True, 'zo': True}
-    MODELS[newModel.name]   = newModel
+    MODELS["OV"] = Model(
+        "OV",
+        False,
+        [],
+        {
+            "cd": False,
+            "cc": False,
+            "gd": False,
+            "gc": False,
+            "av": True,
+            "zo": True,
+        },
+    )
+
     # Vertical BJT
-    newModel                = model()
-    newModel.name           = 'QV'
-    newModel.stamp          = False
-    newModel.params         = {'cpi': False, 'cbc': False, 'cbx': False, 'cs': False, 'gpi': False, 'gm': False, 'gbc': False, 'go': False, 'rb': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["QV"] = Model(
+        "QV",
+        False,
+        [],
+        {
+            "cpi": False,
+            "cbc": False,
+            "cbx": False,
+            "cs": False,
+            "gpi": False,
+            "gm": False,
+            "gbc": False,
+            "go": False,
+            "rb": False,
+        },
+    )
+
     # Lateral BJT
-    newModel                = model()
-    newModel.name           = 'QL'
-    newModel.stamp          = False
-    newModel.params         = {'cpi': False, 'cbc': False, 'cbx': False, 'cs': False, 'gpi': False, 'gm': False, 'gbc': False, 'go': False, 'rb': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["QL"] = Model(
+        "QL",
+        False,
+        [],
+        {
+            "cpi": False,
+            "cbc": False,
+            "cbx": False,
+            "cs": False,
+            "gpi": False,
+            "gm": False,
+            "gbc": False,
+            "go": False,
+            "rb": False,
+        },
+    )
+
     # BJT differential pair
-    newModel                = model()
-    newModel.name           = 'QD'
-    newModel.stamp          = False
-    newModel.params         = {'cbb': False, 'cbc': False, 'gbb': False, 'gm': False, 'gcc': False, 'gbc': False, 'rb': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["QD"] = Model(
+        "QD",
+        False,
+        [],
+        {
+            "cbb": False,
+            "cbc": False,
+            "gbb": False,
+            "gm": False,
+            "gcc": False,
+            "gbc": False,
+            "rb": False,
+        },
+    )
+
     # Resistor (resistance cannot be zero)
-    newModel                = model()
-    newModel.name           = 'R'
-    newModel.stamp          = True
-    newModel.depVars        = []
-    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False}
-    MODELS[newModel.name]   = newModel
+    MODELS["R"] = Model(
+        "R",
+        True,
+        [],
+        {
+            "value": False,
+            "dcvar": False,
+            "noisetemp": False,
+            "noiseflow": False,
+        },
+    )
+
     # Resistor (resistance can be zero)
-    newModel                = model()
-    newModel.name           = 'r'
-    newModel.stamp          = True
-    newModel.depVars        = ['I']
-    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False}
-    MODELS[newModel.name]   = newModel
+    MODELS["r"] = Model(
+        "r",
+        True,
+        ["I"],
+        {
+            "value": False,
+            "dcvar": False,
+            "noisetemp": False,
+            "noiseflow": False,
+        },
+    )
+
     # Ideal transformer
-    newModel                = model()
-    newModel.name           = 'T'
-    newModel.stamp          = True
-    newModel.depVars        = ['Io']
-    newModel.params         = {'value': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["T"] = Model("T", True, ["Io"], {"value": False})
+
     # Independent voltage source
-    newModel                = model()
-    newModel.name           = 'V'
-    newModel.stamp          = True
-    newModel.depVars        = ['I']
-    newModel.params         = {'value': True, 'dc': False, 'dcvar': False, 'noise': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["V"] = Model(
+        "V", True, ["I"], {"value": True, "dc": False, "dcvar": False, "noise": False}
+    )
+
     # Gyrator
-    newModel                = model()
-    newModel.name           = 'W'
-    newModel.stamp          = True
-    newModel.depVars        = []
-    newModel.params         = {'value': False}
-    MODELS[newModel.name]   = newModel
+    MODELS["W"] = Model("W", True, [], {"value": False})
 
     # Generate the dictionary with SLiCAP devices
     # Capacitor
@@ -880,7 +896,7 @@ def initAll():
 
 class allResults(object):
     """
-    Return  structure for results, has attributes with 
+    Return  structure for results, has attributes with
     instruction data and execution results.
     """
     def __init__(self):
@@ -931,7 +947,7 @@ class allResults(object):
         """
         DC solution of the network.
         """
-        
+
         self.timeSolve   = []
         """
         Time-domain solution of the network.
@@ -975,7 +991,7 @@ class allResults(object):
         """
         MNA matrix.
         """
-        
+
         self.A           = None
         """
         Base conversion matrix.
@@ -1113,17 +1129,17 @@ class allResults(object):
 
         self.stepList = []
         """
-        List with values for step method 'list'.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        List with values for step method 'list'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be a deep copy.
         """
 
         self.stepArray = []
         """
-        Array (*list of lists*) with values for step method array. 
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Array (*list of lists*) with values for step method array.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be a deep copy.
         """
 
@@ -1153,10 +1169,10 @@ class allResults(object):
 
         self.circuit = None
         """
-        Circuit (*SLiCAPprotos.circuit*) used for this instruction.  
-        
-        Will be copied from **SLiCAPinstruction.instruction.circuit** at the 
-        start of the execution of the instruction. This instance will not be a 
+        Circuit (*SLiCAPprotos.circuit*) used for this instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction.circuit** at the
+        start of the execution of the instruction. This instance will not be a
         deep copy.
         """
 
@@ -1204,36 +1220,36 @@ class allResults(object):
         """
         Label to be used in plots.
         """
-        
+
         self.parDefs = None
         """
-        Parameter definitions for the instruction.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Parameter definitions for the instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
         self.pairedVars   = None
         """
-        Extension of paired nodes and branches for base transformation of the circuit.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Extension of paired nodes and branches for base transformation of the circuit.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
         self.pairedCircuits = None
         """
-        Identifiers of paired subcircuits for base transformation of the circuit.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Identifiers of paired subcircuits for base transformation of the circuit.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
         self.removePairSubName = False
         """
         Setting for changing the parameter names of paired subcircuits.
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
-        
+
     def depVars(self):
         """
         Returns the list of detecors available AFTER execution of an instruction.
