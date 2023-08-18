@@ -5,6 +5,7 @@ SLiCAP module with HTML functions.
 
 This module is imported by SLiCAPyacc.py
 """
+import shutil
 
 from SLiCAP.SLiCAPplots import *
 
@@ -464,7 +465,7 @@ def img2html(fileName, width, label = '', caption = ''):
         ini.htmlLabels[label] = newlabel
         label = '<a id="' + label + '"></a>'
     try:
-        cp(ini.imgPath + fileName, ini.htmlPath + 'img/' + fileName)
+        shutil.copy2(ini.imgPath + fileName, ini.htmlPath + 'img/' + fileName)
     except:
         print("Error: could not copy: '{0}'.".format(fileName))
     html = '<figure>{0}<img src="img/{1}" alt="{2}" style="width:{3}px">\n'.format(label, fileName, caption, width)
@@ -948,7 +949,7 @@ def fig2html(figureObject, width, label = '', caption = ''):
     html += '</figure>\n'
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     try:
-        cp(ini.imgPath + figureObject.fileName, ini.htmlPath + 'img/' + figureObject.fileName)
+        shutil.copy2(ini.imgPath + figureObject.fileName, ini.htmlPath + 'img/' + figureObject.fileName)
     except:
         print("Error: could not copy: '{0}'.".format(ini.imgPath + figureObject.fileName))
     return ini.htmlPath + 'img/' + figureObject.fileName
