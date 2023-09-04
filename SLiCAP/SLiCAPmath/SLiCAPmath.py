@@ -1339,8 +1339,13 @@ def ilt(expr, s, t):
         num, den = sp.simplify(sp.sympify(expr)).as_numer_denom()
     if inv_laplace == None:
         inv_laplace = 0
-        polyden = sp.poly(den, s)
-        rootDict = sp.roots(polyden)
+        polyNum = sp.Poly(num, s)
+        polyDen = sp.Poly(den, s)
+        denCoeffs = polyDen.all_coeffs()
+        numCoeffs = polyNum.all_coeffs()
+        numCoeffs = [numCoeff/sp.Poly.LC(polyDen) for numCoeff in numCoeffs]
+        num = sp.Poly(numCoeffs, s)
+        rootDict = sp.roots(polyDen)
         roots = rootDict.keys()
         for root in roots:
             # get root multiplicity

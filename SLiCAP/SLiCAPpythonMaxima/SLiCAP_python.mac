@@ -131,16 +131,22 @@ Arguments:      expr_: Laplace polynomial
 Returns:        List with roots of a Laplace polynomial
 Description:    Calculates the roots of a Laplace polynomial
 ============================================================================================================= */
-findRoots(expr_) :=
-block
-(
-[i, lof_],
+findRoots(expr_) := block([i, j, lof_, m_, result_],
+results_ : [],
 lof_ : listofvars(expr_),
-if length(lof_) = 1 and lof_[1]=s then result: allroots(bfloat(expr_))
-else result_: solve(expr_, s),
-for i from 1 thru length(result_) do
-result_[i] : rhs(result_[i]),
-return(result_)
+if length(lof_) = 1 and lof_[1]=s then (
+    result_: allroots(bfloat(expr_)),
+    for i from 1 thru length(result_) do
+        results_: append(results_, [rhs(result_[i])])
+    )
+else (
+    result_: solve(expr_, s),
+    m_: multiplicities,
+    for i from 1 thru length(m_) do
+        for j from 1 thru m_[i] do
+            results_: append(results_, [rhs(result_[i])])
+        ),
+return(results_)
 )$
 
 /* =============================================================================================================
