@@ -1176,7 +1176,7 @@ def makeMaxInstr(instr, result):
         detP, detN = makeMaxDetPos(instr, result)
         maxInstr = 'Matrix_: ' + python2maxima(result.M.subs(ini.Laplace, 0)) + '$'
         maxInstr += 'Iv_: ' + python2maxima(result.Iv.subs(ini.Laplace, 0).transpose()) + '$'
-        maxInstr += 'detCol_:[' + str(detP) + ',' + str(detN) + ']$'
+        maxInstr += 'detCols_:[' + str(detP) + ',' + str(detN) + ']$'
         maxInstr += maxString('doLaplace(Matrix_,detCols_,Iv_)', instr.numeric)
     elif instr.dataType == 'noise':
         result = makeMaxMatrices(instr, result)
