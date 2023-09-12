@@ -137,32 +137,31 @@ def coeffsTransfer(rational, variable=ini.Laplace, normalize='lowest'):
 
     :rtype: tuple
     """
-    numer, denom = sp.fraction(rational)
-    coeffsNumer = polyCoeffs(numer, variable)
-    coeffsDenom = polyCoeffs(denom, variable)
-    if normalize == 'lowest':
-        # find index coefficient of the lowsest order of the numerator
-        idxN = 0
-        while idxN > -len(coeffsNumer):
-            idxN -= 1
-            if coeffsNumer[idxN] != 0:
-                break
-        # find index coefficient of the lowsest order of the denominator
-        idxD = 0
-        while idxD > -len(coeffsDenom):
-            idxD -= 1
-            if coeffsDenom[idxD] != 0:
-                break
-        gain = sp.simplify(coeffsNumer[idxN]/coeffsDenom[idxD])
-        coeffsNumer = [sp.simplify(coeffsNumer[i]/coeffsNumer[idxN]) for i in range(len(coeffsNumer))]
-        coeffsDenom = [sp.simplify(coeffsDenom[i]/coeffsDenom[idxD]) for i in range(len(coeffsDenom))]
-    elif normalize == 'highest':
-        gain = sp.simplify(coeffsNumer[0]/coeffsDenom[0])
-        coeffsNumer = [sp.simplify(coeffsNumer[i]/coeffsNumer[0]) for i in range(len(coeffsNumer))]
-        coeffsDenom = [sp.simplify(coeffsDenom[i]/coeffsDenom[0]) for i in range(len(coeffsDenom))]
-    coeffsNumer.reverse()
-    coeffsDenom.reverse()
-    return (gain, coeffsNumer, coeffsDenom)
+    if rational != 0:
+        num, den = rational.as_numer_denom()
+        try:
+            numPoly = sp.Poly(sp.expand(num), variable)
+            denPoly = sp.Poly(sp.expand(den), variable)
+            if normalize == 'lowest':
+                gainNum = sp.Poly.EC(numPoly)
+                gainDen = sp.Poly.EC(denPoly)
+            elif normalize == 'highest':
+                gainNum = sp.Poly.LC(numPoly)
+                gainDen = sp.Poly.LC(denPoly)
+            numCoeffs=numPoly.all_coeffs()
+            denCoeffs=denPoly.all_coeffs()
+            gain=sp.simplify(gainNum/gainDen)
+            numCoeffs = list(reversed([sp.simplify(numCoeffs[i]/gainNum) for i in range(len(numCoeffs))]))
+            denCoeffs = list(reversed([sp.simplify(denCoeffs[i]/gainDen) for i in range(len(denCoeffs))]))
+        except sp.PolynomialError:
+            gain = sp.simplify(rational)
+            numCoeffs = []
+            denCoeffs = []
+    else:
+        gain = 0
+        numCoeffs = [0]
+        denCoeffs = [1]
+    return (gain, numCoeffs, denCoeffs)
 
 def normalizeRational(rational, var=ini.Laplace, method='lowest'):
     """
@@ -1113,7 +1112,7 @@ def besselPoly(n):
     B_s = sp.simplify(B_s/B_s.subs(s,0))
     return(B_s)
 
-def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
+def rmsNoise(noiseResult, noise, fmin, fmax, source=None, CDS=False, tau=None):
     """
     Calculates the RMS source-referred noise or detector-referred noise,
     or the contribution of a specific noise source or a collection od sources
@@ -1139,6 +1138,14 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
                 nonzero value for 'noise' are accepted.
     :type source: str, list
 
+    :param CDS: True if correlated double sampling is required, defaults to False
+                If True parameter 'tau' must be given a nonzero finite value
+                (can be symbolic)
+    :type CDS: Bool
+
+    :param tau: CDS delay time
+    :type tau: str, int, float, sp.Symbol
+
     :return: RMS noise over the frequency interval.
 
             - An expression or value if parameter stepping of the instruction is disabled.
@@ -1154,6 +1161,16 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
     if fmin == None or fmax == None:
         print("Error in frequency range specification.")
         errors += 1
+    if CDS:
+        if tau == None:
+            print("Error: rmsNoise() with CDS=True requires a nonzero finite value for 'tau'.")
+            errors += 1
+        else:
+            try:
+                tau = sp.sympify(str(tau))
+            except sp.SympifyError:
+                print("Error in expression: rmsNoise( ... , tau =", tau, ").")
+                errors += 1
     fMi = checkNumber(fmin)
     fMa = checkNumber(fmax)
     if fMi != None:
@@ -1174,63 +1191,57 @@ def rmsNoise(noiseResult, noise, fmin, fmax, source = None):
         print("Error: expected dataType noise, got: '{0}'.".format(noiseResult.dataType))
         errors += 1
     if errors == 0:
-        keys = list(noiseResult.onoiseTerms.keys())
-        noiseData = []
-        if noise == 'inoise':
-            if len(sources) == 1 and sources[0] == None:
-                noiseData.append(noiseResult.inoise)
-            else:
-                for src in sources:
-                    if src != None:
-                        if src in keys:
-                            noiseData.append(noiseResult.inoiseTerms[src])
-                        else:
-                            print("Error: unknown noise source: '{0}'.".format(src))
-                            errors += 1
-        elif noise == 'onoise':
-            if len(sources) == 1 and sources[0] == None:
-                noiseData.append(noiseResult.onoise)
-            else:
-                for src in sources:
-                    if src != None:
-                        if src in keys:
-                            noiseData.append(noiseResult.onoiseTerms[src])
-                        else:
-                            print("Error: unknown noise source: '{0}'.".format(src))
-                            errors += 1
+        names = list(noiseResult.snoiseTerms.keys())
+        if len(sources) == 1 and sources[0] == None:
+            noiseSources = [name for name in names]
         else:
-            print("Error: unknown noise type: '{0}'.".format(noise))
-            errors += 1
-        rms = []
-        if errors == 0:
-            for i in range(len(noiseData)):
-                if type(noiseData[i]) != list:
-                    noiseData[i] = [noiseData[i]]
-                for j in range(len(noiseData[i])):
-                    rms2 = 0
-                    params = list(sp.N(noiseData[i][j]).atoms(sp.Symbol))
+            # Check sources names and add if correct
+            noiseSources = []
+            for src in sources:
+                if src in names:
+                    noiseSources.append(src)
+                elif src != None:
+                    print("Error: unknown noise source: '{0}'.".format(src))
+                    errors += 1
+        if noise == 'onoise':
+            noiseData = noiseResult.onoiseTerms
+        elif noise == 'inoise':
+            noiseData = noiseResult.inoiseTerms
+    rms = []
+    if errors == 0:
+        numSteps = 1
+        if type(noiseResult.onoise) == list:
+            numSteps = len(noiseResult.onoise)
+        for i in range(numSteps):
+            var_i = 0
+            for src in noiseSources:
+                if type(noiseData[src]) != list:
+                    data = noiseData[src]
+                else:
+                    data = noiseData[src][i]
+                if CDS:
+                    var_i += doCDSint(data, tau, fmin, fmax)
+                else:
+                    params = sp.N(data).atoms(sp.Symbol)
                     if len(params) == 0 or ini.frequency not in params:
                         # Frequency-independent spectrum, multiply with (fmax-fmin)
-                        print("Integration by multiplication.")
-                        rms2 += noiseData[i][j]*(fmax-fmin)
-                    elif len(params) == 1 and numlimits:
+                        var_i += data * (fmax - fmin)
+                    elif len(params) == 1 and ini.frequency in params and numlimits:
                         # Numeric frequency-dependent spectrum, use numeric integration
-                        print("Integration by numpy.")
-                        noise_spectrum = sp.lambdify(ini.frequency, noiseData[i][j])
-                        rms2 += integrate.quad(noise_spectrum, fmin, fmax)[0]
+                        noise_spectrum = sp.lambdify(ini.frequency, sp.N(data))
+                        var_i += quad(noise_spectrum, fmin, fmax)[0]
                     else:
-                        # Symbolic integration performed by maxima (no warranty)
-                        print("Trying symbolic integration by Maxima CAS.")
-                        result = maxIntegrate(noiseData[i][j], ini.frequency, start=fmin, stop=fmax, numeric=noiseResult.simType)
-                        if result == sp.Symbol("Error"):
-                            # Try sympy integration (no questions asked)
-                            print("Trying symbolic integration by sympy.")
-                            result = sp.integrate(noiseData[i][j], (ini.frequency, fmin, fmax))
-                        rms2 += result
-                rms.append(sp.sqrt(sp.expand(rms2)))
-            if len(rms) == 1:
-                rms = rms[0]
-            return rms
+                        # Try sympy integration
+                        func = assumePosParams(data)
+                        result = sp.integrate(func, (assumePosParams(ini.frequency), fmin, fmax))
+                        var_i += clearAssumptions(result)
+            if noiseResult.simType == 'numeric':
+                rms.append(sp.N(sp.sqrt(sp.expand(var_i))))
+            else:
+                rms.append(sp.sqrt(sp.expand(var_i)))
+    if len(rms) == 1:
+        rms = rms[0]
+    return rms
 
 def PdBm2V(p, r):
     """
@@ -1260,7 +1271,10 @@ def float2rational(expr):
     :return: expression in which floats have been replaced with rational numbers.
     :rtype:  sympy.Expression
     """
-    expr = expr.xreplace({n : sp.Rational(n) for n in expr.atoms(sp.Float)})
+    try:
+        expr = expr.xreplace({n: sp.Rational(n) for n in expr.atoms(sp.Float)})
+    except AttributeError:
+        pass
     return expr
 
 def rational2float(expr):
@@ -1274,7 +1288,10 @@ def rational2float(expr):
     :return: expression in which rational numbers have been replaced with floats.
     :rtype:  sympy.Expression
     """
-    expr = expr.xreplace({n : sp.Float(n) for n in expr.atoms(sp.Rational)})
+    try:
+        expr = expr.xreplace({n: sp.Float(n, ini.disp) for n in expr.atoms(sp.Rational)})
+    except AttributeError:
+        pass
     return expr
 
 def roundN(expr, numeric=False):
@@ -1288,30 +1305,35 @@ def roundN(expr, numeric=False):
     :return: modified expression
     :rtype: sympy.Expr
     """
-    if type(expr) == int or type(expr) == float:
-        expr = sp.Float(expr, ini.disp)
-    elif numeric:
-        expr = sp.N(rational2float(expr), ini.disp)
+    if not isinstance(expr, sp.core.Basic):
+        try:
+            expr = sp.sympify(str(expr))
+        except sp.SympifyError:
+            print("Error in expression:", expr)
+            return None
+    if numeric:
+        expr = sp.N(expr, ini.disp)
+    else:
+        # Convert rationals into floats
+        expr = rational2float(expr)
     # Clean-up the expression
     try:
-        # Round floats
-        expr   = expr.xreplace({n : sp.Float(n, ini.disp) for n in expr.atoms(sp.Float)})
-        # Convert rationals to floats
-        expr   = expr.xreplace({n : sp.Float(rational2float(n), ini.disp) for n in expr.atoms(sp.Rational)})
-        # Maximum integer to be displayed for given display accuracy
+        # Round floats to display accuracy
+        expr = expr.xreplace({n : sp.Float(n, ini.disp) for n in expr.atoms(sp.Float)})
+        # Convert floats to int if they can be displayed as such
         maxInt = 10**ini.disp
-        # Remove '.0' for integer numbers smaller than maxInt
         floats = expr.atoms(sp.Float)
         for flt in floats:
             intNumber = sp.Integer(flt)
             if intNumber == flt and sp.Abs(flt) < maxInt:
                 expr = expr.xreplace({flt: intNumber})
-        # Replace integers > maxInt with floats
-        ints   = expr.atoms(sp.Integer)
+        # Replace large integers with floats
+        ints = expr.atoms(sp.Integer)
         for integer in ints:
             if sp.Abs(integer) >= maxInt:
                 expr = expr.xreplace({integer: sp.Float(integer, ini.disp)})
-    except: AttributeError
+    except AttributeError:
+        pass
     return expr
 
 def ilt(expr, s, t):

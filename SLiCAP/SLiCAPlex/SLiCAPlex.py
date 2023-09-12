@@ -111,12 +111,17 @@ def t_EXPR(t):
     out += t.value[pos:-1]
     t.value = out
     try:
-        t.value = sp.sympify(out)
-    except BaseException:
+        t.value = sp.sympify(out, rational=True)
+    except TypeError:
         exc_type, value, exc_traceback = sys.exc_info()
         print('\n', value)
+        printError("Error in expression.", get_input_line(t), find_column(t))
         lexer.errCount += 1
-        printError("Error in expression:", t)
+    except sp.SympifyError:
+        exc_type, value, exc_traceback = sys.exc_info()
+        print('\n', value)
+        printError("Error in expression.", get_input_line(t), find_column(t))
+        lexer.errCount += 1
     return t
 
 def t_SCI(t):
