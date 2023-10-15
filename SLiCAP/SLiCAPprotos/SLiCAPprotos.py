@@ -142,12 +142,12 @@ class circuit(object):
             - Gxxx, model = 'G', output port: 'Io_Gxxx'
             - Hxxx, input port: 'Ii_Hxxx', output port: 'Io_xxx'
         """
-        
+
         self.controlled = []
         """
         (*list*) with reference designators (*str*) of controlled sources.
         """
-        
+
         self.varIndex   = {}
         """
         (*dict*) with key-value pairs:
@@ -157,7 +157,7 @@ class circuit(object):
           before elemination of the row anmd column associated with the
           reference node '0'.
         """
-        
+
     def delPar(self, parName):
         """
         Deletes a parameter definition and updates the list
@@ -318,7 +318,7 @@ class circuit(object):
             print("Error: parameter '{0}' has not been defined.".format(str(parNames)))
             parValue = None
         return parValue
-    
+
     def updateParams(self):
         """
         Updates self.params (list with undefined parameters) after modification
@@ -347,44 +347,44 @@ class circuit(object):
                 undefined.append(par)
         self.params = undefined
         return
-        
+
     def getElementValue(self, elementID, param, numeric):
         """
         Returns the value or expression of one or more circuit elements.
-        
-        If instruction.numeric == True it will perform a full recursive 
+
+        If instruction.numeric == True it will perform a full recursive
         substitution of all circuit parameter definitions.
-        
-        This method is called by instruction.circuit.getElementValue() with 
+
+        This method is called by instruction.circuit.getElementValue() with
         keyword arg numeric = True if instruction.simType is set to 'numeric'.
-        
+
         :param elementID: name(s) of the element(s)
-        :type elementID: str, list 
-        
+        :type elementID: str, list
+
         :param param: name of the parameter (equal for all elements):
-            
+
                       - 'value': Laplace value
                       - 'dc': DC value (independent sources only)
                       - 'noise': Noise spectral density (independent sources only)
                       - 'dcvar': DC variance (independent sources only)
-                      
+
         :type param: str
-        
+
         :return: if type(parNames) == list:
-            
-                 return value = dict with key-value pairs: key (*sympy.core.symbol.Symbol*): 
-                 name of the parameter, value (*int, float, sympy expression*): 
+
+                 return value = dict with key-value pairs: key (*sympy.core.symbol.Symbol*):
+                 name of the parameter, value (*int, float, sympy expression*):
                  value of the parameter
-                 
+
                  else:
                  value or expression
-                 
+
         :rtype: dict, float, int, sympy.Expr
-        
+
         :Example:
-         
+
         >>> # Create an instance if a SLiCAP instruction
-        >>> my_instr = instruction()  
+        >>> my_instr = instruction()
         >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Obtain the numeric value of 'R1' and 'C1':
@@ -692,14 +692,14 @@ def initAll():
     newModel.name           = 'R'
     newModel.stamp          = True
     newModel.depVars        = []
-    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False}
+    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False, 'dcvarlot': False}
     MODELS[newModel.name]   = newModel
     # Resistor (resistance can be zero)
     newModel                = model()
     newModel.name           = 'r'
     newModel.stamp          = True
     newModel.depVars        = ['I']
-    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False}
+    newModel.params         = {'value': False, 'dcvar': False, 'noisetemp': False, 'noiseflow' :False, 'dcvarlot': False}
     MODELS[newModel.name]   = newModel
     # Ideal transformer
     newModel                = model()
@@ -880,7 +880,7 @@ def initAll():
 
 class allResults(object):
     """
-    Return  structure for results, has attributes with 
+    Return  structure for results, has attributes with
     instruction data and execution results.
     """
     def __init__(self):
@@ -931,7 +931,7 @@ class allResults(object):
         """
         DC solution of the network.
         """
-        
+
         self.timeSolve   = []
         """
         Time-domain solution of the network.
@@ -975,7 +975,7 @@ class allResults(object):
         """
         MNA matrix.
         """
-        
+
         self.A           = None
         """
         Base conversion matrix.
@@ -1113,17 +1113,17 @@ class allResults(object):
 
         self.stepList = []
         """
-        List with values for step method 'list'.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        List with values for step method 'list'.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be a deep copy.
         """
 
         self.stepArray = []
         """
-        Array (*list of lists*) with values for step method array. 
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Array (*list of lists*) with values for step method array.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be a deep copy.
         """
 
@@ -1153,10 +1153,10 @@ class allResults(object):
 
         self.circuit = None
         """
-        Circuit (*SLiCAPprotos.circuit*) used for this instruction.  
-        
-        Will be copied from **SLiCAPinstruction.instruction.circuit** at the 
-        start of the execution of the instruction. This instance will not be a 
+        Circuit (*SLiCAPprotos.circuit*) used for this instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction.circuit** at the
+        start of the execution of the instruction. This instance will not be a
         deep copy.
         """
 
@@ -1204,36 +1204,36 @@ class allResults(object):
         """
         Label to be used in plots.
         """
-        
+
         self.parDefs = None
         """
-        Parameter definitions for the instruction.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Parameter definitions for the instruction.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
         self.pairedVars   = None
         """
-        Extension of paired nodes and branches for base transformation of the circuit.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Extension of paired nodes and branches for base transformation of the circuit.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
         self.pairedCircuits = None
         """
-        Identifiers of paired subcircuits for base transformation of the circuit.  
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+        Identifiers of paired subcircuits for base transformation of the circuit.
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
         self.removePairSubName = False
         """
         Setting for changing the parameter names of paired subcircuits.
-        
-        Will be copied from **SLiCAPinstruction.instruction** at the start of 
+
+        Will be copied from **SLiCAPinstruction.instruction** at the start of
         the execution of the instruction. This instance will be e deep copy.
         """
-        
+
     def depVars(self):
         """
         Returns the list of detecors available AFTER execution of an instruction.

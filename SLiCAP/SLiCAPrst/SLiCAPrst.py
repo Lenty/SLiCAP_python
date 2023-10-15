@@ -5,9 +5,7 @@ Created on Sat Jun 10 17:14:37 2023
 
 @author: anton
 """
-from SLiCAP.SLiCAPmath import fullSubs, roundN
-from SLiCAP import ini
-import sympy as sp
+from SLiCAP.SLiCAPlatex import*
 from shutil import copyfile
 
 # Public functions for generating snippets that can be stored as RST files
