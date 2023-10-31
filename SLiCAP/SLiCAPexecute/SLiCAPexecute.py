@@ -1620,7 +1620,7 @@ def pairParDefs(instr):
     # perform substitutions
     for param in list(newParDefs.keys()):
         # In parameter names
-        newParDefs[param].subs(substDict)
+        newParDefs[param] = newParDefs[param].subs(substDict)
     instr.parDefs = newParDefs
     return instr
 
