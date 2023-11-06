@@ -9,6 +9,7 @@ RST in the Jupyter notebooks.
 """
 
 from SLiCAP.SLiCAPlatex import *
+from SLiCAP.SLiCAPngspice import MOS, ngspice2traces
 
 try:
     __IPYTHON__

@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPplots.html">SLiCAPplots.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPpythonMaxima.html">SLiCAPpythonMaxima.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPmatrices.html">SLiCAPmatrices.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPngspice.html">SLiCAPngspice.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPprotos.html">SLiCAPprotos.py</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAPmath.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlex.html">SLiCAPlex.py</a></li>
@@ -969,7 +970,7 @@ converterd intoc floats.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise">
-<span class="sig-name descname"><span class="pre">rmsNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noiseResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rmsNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noiseResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmath.SLiCAPmath.rmsNoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the RMS source-referred noise or detector-referred noise,
 or the contribution of a specific noise source or a collection od sources
 to it.</p>
@@ -986,6 +987,10 @@ referred noise, respectively.</p></li>
 of which the contribution to the RMS noise needs to be
 evaluated. Only IDs of current of voltage sources with a
 nonzero value for ‘noise’ are accepted.</p></li>
+<li><p><strong>CDS</strong> (<em>Bool</em>) – True if correlated double sampling is required, defaults to False
+If True parameter ‘tau’ must be given a nonzero finite value
+(can be symbolic)</p></li>
+<li><p><strong>tau</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>sp.Symbol</em>) – CDS delay time</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
