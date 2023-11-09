@@ -36,7 +36,7 @@ from time import time, sleep
 from datetime import datetime
 plt.ioff() # Turn off the interactive mode for plotting
 # Increase width for display of numpy arrays:
-np.set_printoptions(edgeitems=30, linewidth=1000, 
+np.set_printoptions(edgeitems=30, linewidth=1000,
     formatter=dict(float=lambda x: "%11.4e" % x))
 
 def _selftest_maxima():
@@ -58,13 +58,13 @@ def _selftest_maxima():
         try:
             result = subprocess.run(['maxima', '--very-quiet', '-batch-string', maxInput], capture_output=True, timeout=3, text=True).stdout.split('\n')
 
-        
+
         except BaseException:
             exc_type, value, exc_traceback = sys.exc_info()
             print('\n', value)
             print("Not able to run the maxima command, verify maxima is installed by typing 'maxima' in the command line.")
             print("In case maxima is not installed, use your package manager to install it (f.e. 'sudo apt install maxima').")
-    
+
     result = [i for i in result if i] # Added due to variability of trailing '\n'
     result = result[-1]
     if int(result) == 2:
@@ -72,7 +72,7 @@ def _selftest_maxima():
     else:
         print("Something went wrong when testing Maxima, please re-run the installer and try to start maxima first by itself.")
 
-    
+
 def _check_version():
     """
     Checks the version with the latest version from Git
@@ -86,8 +86,8 @@ def _check_version():
         print("A new version of SLiCAP is available, please get it from 'https://github.com/Lenty/SLiCAP_python'.")
     else:
         print("SLiCAP Version matches with the latest release of SLiCAP on github.")
-        
-    
+
+
 def _get_latest_version():
     """
     Gets the SLiCAP version from Github (only possible when repository is public
@@ -127,6 +127,10 @@ class settings(object):
        - imgPath           : Directory with images for HTML output
        - defaultLib        : Directory with SLiCAP basic library files
        - docPath           : Directory with html documentation
+       - ngspiceCMD        : Command to start ngspice
+
+                             MSWindows : "~\\Spice64\\bin\\ngspice.exe""
+                             Linux     : "ngspice"
 
     #. active HTML pages and active HTMLfile prefix
 
@@ -172,7 +176,7 @@ class settings(object):
        - MaximaTimeOut     : Maximum calculation time for Maxima
        - assumePosMaxVars  : Assume postive parameters in Maxima expressions
        - lambdifyTool      : "numpy" or "mpmath"; latter one in case of overflow
-         
+
     #. Display settings
 
        - disp              : Number of digits for displaying floats on html pages
@@ -208,46 +212,46 @@ class settings(object):
     #. Maxima command setting (only required for MSWindows)
 
        - maxima: command to start maxima under MSWindows
-       
+
     #. Maxima execution method:
-        
-       - socket: 
-         
+
+       - socket:
+
          - True : maxima runs in a socket (passes maxima messages)
          - False : maxima runs as a subprocess (ignores maxima messages)
-         
+
        - HOST = 127.0.0.1 : Standard loopback interface address (localhost)
-       
+
        - PORT = 53118     : Port to listen on (non-privileged ports are > 1023)
-       
+
        - maximaHandler    : Maxima client process handler
-                 
+
     """
     def __init__(self):
         """
         Initializes the start-up values of the global parameters.
         """
-        
+
         self.installPath        = None
         """
         Installation path of SLiCAP (*str*), defaults to None.
         """
-        
+
         self.userPath        = None
         """
         User path of SLiCAP (*str*), defaults to None.
         """
-        
+
         self.defaultLib         = None
         """
         Default library path of SLiCAP (*str*), defaults to None.
         """
-        
+
         self.docPath            = None
         """
         Path with HTML documentation (*str*), defaults to None.
         """
-        
+
         self.projectPath        = None
         """
         Project path (*str*), will be set by **SLiCAP.initProject()**;  defaults to None.
@@ -282,7 +286,7 @@ class settings(object):
         """
         Path (*str*) for saving latex files, will be set by **SLiCAP.initProject()**;  defaults to None.
         """
-        
+
         self.sphinxPath         = None
         """
         Path (*str*) for saving sphinx files, will be set by **SLiCAP.initProject()**;  defaults to None.
@@ -296,6 +300,11 @@ class settings(object):
         self.imgPath            = None
         """
         Path (*str*), to image files will be set by **SLiCAP.initProject()**;  defaults to None.
+        """
+
+        self.ngspiceCMD         = "ngspice"
+        """
+        Command (str) to start ngspice'
         """
 
         self.htmlIndex          = None
@@ -341,7 +350,7 @@ class settings(object):
          - False: Step variables are substituted directly into the matrix.
            This method faster for large circuits, or for stepped instructions
            with multiple step variables.
-           
+
          """
 
         self.maxRecSubst        = 12
@@ -371,7 +380,7 @@ class settings(object):
         Symbol (*sympy.core.symbol.Symbol*) used for the Laplace variable.
         Defaults to sp.Symbol('s').
         """
-        
+
         self.frequency          = sp.Symbol('f')
         """
         Symbol (*sympy.core.symbol.Symbol*) used for frequency.
@@ -460,18 +469,18 @@ class settings(object):
         Maximum time in seconds (*int*) for subprocess to run Maxima. Defaults
         to 60.
         """
-        
+
         self.lambdifyTool       = "numpy"
         """
         Tool to be used for sympy.lamddify, can be "numpy" for fast calculation
         in case of overflow warning choose "mpmath"
         """
-        
+
         self.MaximaMatrixDim    = 25
         """
         Maximum size of sa square matrix to be passed to maxima.
         """
-        
+
         self.assumePosMaxVars   = True
         """
         Assume positive parameters in Maxima expressions. In many cases this
@@ -497,27 +506,27 @@ class settings(object):
 
         This variable is set during installation.
         """
-        
+
         self.socket             = True
         """
         Setting for maxima operation method.
         """
-        
-        self.HOST               = "127.0.0.1" 
+
+        self.HOST               = "127.0.0.1"
         """
         Standard loopback interface address (localhost)
         """
-        
+
         self.PORT               = 53118
         """
         Port to listen on (non-privileged ports are > 1023)
         """
-        
+
         self.maximaHandler      = None
         """
         Maxima client process handler will be activated at start-up
         """
-        
+
         self.netlist            = None
         """
         gschem or lepton-schematic command for generating a netlist.
