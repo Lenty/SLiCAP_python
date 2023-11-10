@@ -19,7 +19,7 @@ from shutil import copy
 if platform.system() == 'Windows':
     import win32api
 
-INSTALLVERSION="1.6.0"
+INSTALLVERSION="1.7.0"
 
 class InstallWrapper(install):
     """
