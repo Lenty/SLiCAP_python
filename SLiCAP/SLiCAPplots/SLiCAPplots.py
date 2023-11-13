@@ -194,16 +194,16 @@ class axis(object):
         Scale factor (*str*) for the y-scale; e.g. M for 1E6. Defaults to ''.
         """
         return
-    
+
     def makeTraceDict(self):
         """
         Returns a dict with data of all the traces on the axis.
 
         :return: dictionary with key-value pairs:
-            
+
                  - key: *str* label of the trace
                  - value: *SLiCAPplots.trace* trace object
-                 
+
         :rtype: dict
         """
         traceDict = {}
@@ -357,7 +357,7 @@ class figure(object):
             plt.show()
         plt.close(fig)
         return
-        
+
 def defaultsPlot():
     """
     Applies default settings for plots.
@@ -459,7 +459,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
 
     :param xUnits: Units of the x axis variable.
     :type xUnits: str
-    
+
     :param xLim: Limits for the x-axis scale: [<xmin>, <xmax>]
     :type xLim: list
 
@@ -470,17 +470,17 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                      'time', 'onoise', 'inoise' or 'param'.
     :type funcType: str
 
-    :param yVar: if funcType = param, yVar should be the name of a circuit 
-                 parameter or list with names of circuit parameters. In other 
+    :param yVar: if funcType = param, yVar should be the name of a circuit
+                 parameter or list with names of circuit parameters. In other
                  cases yVar should be 'auto'.
     :type yVar: str, list
-    
+
     :param yScale: Scale factor of the y axis variable.
     :type yScale: str
 
     :param yUnits: Units of the y axis variable.
     :type yUnits: str
-    
+
     :param yLim: Limits for the y-axis scale: [<ymin>, <ymax>]
     :type yLim: list
 
@@ -493,7 +493,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
 
     :param show: If 'True' the plot will be shown in the workspace.
     :type show: bool
-    
+
     :return: fig
     :rtype: SLiCAPplots.figure
     """
@@ -731,7 +731,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             yData = result.inoise
                         y = makeNumData(normalizeRational(yData, ini.frequency), ini.frequency, x)
                         newTrace = trace([x, y])
-                        newTrace.label = funcType
+                        newTrace.label = funcType + result.detLabel
                         ax.traces.append(newTrace)
                     elif noiseSources == 'all':
                         for srcName in keys:
@@ -743,7 +743,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                             noiseTrace = trace([x, y])
                             noiseTrace.color = ini.defaultColors[colNum % numColors]
                             colNum += 1
-                            noiseTrace.label = funcType + ': ' + srcName
+                            noiseTrace.label = funcType + ': ' + srcName + result.detLabel
                             ax.traces.append(noiseTrace)
                     elif noiseSources in keys:
                         if funcType == 'onoise':
@@ -754,7 +754,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                         noiseTrace = trace([x, y])
                         noiseTrace.color = ini.defaultColors[colNum % numColors]
                         colNum += 1
-                        noiseTrace.label = funcType + ': ' + noiseSources
+                        noiseTrace.label = funcType + ': ' + noiseSources + result.detLabel
                         ax.traces.append(noiseTrace)
                     elif type(noiseSources) == list:
                         for srcName in noiseSources:
@@ -767,7 +767,7 @@ def plotSweep(fileName, title, results, sweepStart, sweepStop, sweepNum, sweepVa
                                 noiseTrace = trace([x, y])
                                 noiseTrace.color = ini.defaultColors[colNum % numColors]
                                 colNum += 1
-                                noiseTrace.label = funcType + ': ' + srcName
+                                noiseTrace.label = funcType + ': ' + srcName + result.detLabel
                                 ax.traces.append(noiseTrace)
                     else:
                         print("Error: cannot understand 'sources={0}'.".format(str(sources)))
@@ -1153,17 +1153,17 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
     :type axisType: str
 
     :param plotData: dictionary with key-value pairs or dictionary with traces
-    
+
                      - key: *str* label for the trace
-                     - value: 
-                         
+                     - value:
+
                        #. *list* [<xData>, <yData>]
-                     
+
                           - xData: *list*: x values
                           - yData: *list*: y values
-                          
+
                        #. *SLiCAPplots.trace* object
-                       
+
     :type plotData: dict, SLiCAPplots.trace
 
     :param xName: Name of the variable to be plotted along the x axis. Defaults to ''.
@@ -1174,7 +1174,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
 
     :param xUnits: Units of the x axis variable. Defaults to ''.
     :type xUnits: str
-    
+
     :param xLim: Limits for the x-axis scale: [<xmin>, <xmax>]
     :type xLim: list
 
@@ -1186,7 +1186,7 @@ def plot(fileName, title, axisType, plotData, xName = '', xScale = '', xUnits = 
 
     :param yUnits: Units of the y axis variable. Defaults to ''.
     :type yUnits: str
-    
+
     :param yLim: Limits for the y-axis scale: [<ymin>, <ymax>]
     :type yLim: list
 
@@ -1358,47 +1358,47 @@ def stepParams(results, xVar, yVar, sVar, sweepList):
                 except:
                     xValues = [g.subs(sp.Symbol(sVar), sweepList[i]) for i in range(len(sweepList))]
             else:
-                xValues = sweepList  
+                xValues = sweepList
     return (xValues, yValues)
-                                     
+
 def traces2fig(traceDict, figObject, axis = [0, 0]):
     """
     Adds traces generated from another application to an existing figure.
-    
+
     :param traceDict: Dictionary with key-value pairs:
-        
+
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :type traceDict: dict
-    
+
     :param figObject: figure object to which the traces must be added
     :type figObject: SLiCAPplots.figure
-    
+
     :param axis: List with x position and y position of the axis to which the
                  traces must be added. Defaults to [0, 0]
     :type axis: list
-    
+
     :return: Updated figure object
     :rtype: SLiCAPplots.figure
     """
     for label in list(traceDict.keys()):
-        figObject.axes[axis[0]][axis[0]].traces.append(traceDict[label])    
+        figObject.axes[axis[0]][axis[0]].traces.append(traceDict[label])
     return figObject
 
 def LTspiceData2Traces(txtFile):
     """
     Generates a dictionary with traces (key = label, value = trace object) from
     LTspice plot data (saved as .txt file).
-    
+
     :param txtFile: Name of the text file stored in the ini.txtPath directory
     :type txtFile: str
-    
+
     :return: Dictionary with key-value pairs:
-        
+
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :rtype: dict
     """
     try:
@@ -1449,29 +1449,29 @@ def LTspiceData2Traces(txtFile):
 
 def LTspiceAC2SLiCAPtraces(fileName, dB=False, color='c'):
     """
-    This function converts the results of a single-run LTspice AC analysis 
+    This function converts the results of a single-run LTspice AC analysis
     into two traces (mag, phase) that can be added to SLiCAP plots.
     Stepping is not (yet) supported.
-    
-    :param fileName: Name of the file. The file should be located in 
+
+    :param fileName: Name of the file. The file should be located in
                      the ditectory given in *ini.txtPath*.
     :type fileName:  str
-    
+
     :param dB: True if the trace magnitude should be in dB, else False.
                Default value = False
     :type dB: bool
-    
+
     :param color: Matplotlib color name. Valid names can be found at:
                   https://matplotlib.org/stable/gallery/color/named_colors.html
                   Default value is cyan (c); this does not correspond with one
                   of the standard gain colors of the asymptotic-gain model.
     :type color:  str
-    
+
     :return: a list with two trace dicts, magnitude and phase, respectively.
     :rtype: list
-    
+
     :Example:
-        
+
     >>> LTmag, LTphase = LTspiceAC2SLiCAPtraces('LTspiceACdata.txt')
     """
     try:
@@ -1483,7 +1483,7 @@ def LTspiceAC2SLiCAPtraces(fileName, dB=False, color='c'):
         lines = []
     freqs = []
     mag   = []
-    phase = [] 
+    phase = []
     for i in range(len(lines)):
         if i != 0:
             line = lines[i].split()
@@ -1515,22 +1515,22 @@ def csv2traces(csvFile):
     """
     Generates a dictionary with traces (key = label, value = trace object) from
     data from a csv file. The CSV file should have the following structure:
-        
-    x0_label, y0_label, x1_label, y1_label, ... 
+
+    x0_label, y0_label, x1_label, y1_label, ...
     x0_0    , y0_0    , x1_0    , y1_0    , ...
     x0_1    , y0_1    , x1_1    , y1_1    , ...
     ...     , ...     , ...     , ...     , ...
 
     The traces will be named  with their y label.
-    
+
     :param csvFile: name of the csv file (in the ini.csvPath directory)
     :type csvFile: str
-    
+
     :return: dictionary with key-value pairs:
-        
+
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :rtype: dict
     """
     try:
@@ -1580,18 +1580,18 @@ def Cadence2traces(csvFile, absx = False, logx = False, absy = False, logy = Fal
     :param logy: if 'True', it applies the logarithm in base 10 (log10) function to the dependent variable data (yData)
     :type logy: bool
     :param selection: if:
-        
+
                       - selection=['all']: Selects all traces in the dictionary and does not replace any label
                       - selection=['all',("Var1","Variable"),("Var2","Variable2")]: selects all traces and replaces all character strings mentioned in the first element of the tuples (e.g. "Var1" and "Var2") with the strings in the second element of the tuples ("Variable" and "Variable2").
                       - selection=[('Var1 (SweepVar=1e-06) Y',"New Label"),('Var2 (SweepVar=1e-06) Y',"")]: selects only the traces that are explicitly mentioned in the first element of the tuple (e.g. 'Var1 (SweepVar=1e-06) Y' and 'Var2 (SweepVar=1e-06) Y') and replaces its label with the second element of the tuple unless it is "".
-    
+
     :type selection: list of tuples
     :param assignID: if 'True', it generates an ID for each processed trace to avoid overwriting when merging dictionaries.
     :type assignID: bool
     :return: dictionary with key-value pairs:
              - key: *str*: label of the trace
              - value: *SLiCAPplots.trace* trace object
-             
+
     :rtype: dict
     """
     try:
@@ -1693,13 +1693,13 @@ def Cadence2traces(csvFile, absx = False, logx = False, absy = False, logy = Fal
 def addTraces(figObj, traceDict):
     """
     Adds the traces in the dictionary 'traceDict' to the figure object 'figObj'.
-    
+
     :param figObj: SLiCAP figure object to which the traces will be added.
     :type csvFile: SLiCAP figure object
-    
+
     :param traceDict: dictionary with traces (result from csv2traces)
     :type traceDict: dict
-    
+
     :return: updated figure object (traces addad)
     :rtype: SLiCAP figure object
     """
