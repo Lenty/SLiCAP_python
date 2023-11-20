@@ -189,21 +189,15 @@ def normalizeRational(rational, var=ini.Laplace, method='lowest'):
     :return:  Normalized rational function of the variable.
     :rtype: sympy.Expr
     """
-    num, den = rational.as_numer_denom()
-    num = sp.collect(sp.expand(num), var)
-    den = sp.collect(sp.expand(den), var)
-    rational = num/den
-    if var in list(sp.N(rational).atoms(sp.Symbol)):
-        # Exception will be raised for non positive integer powers of variable.
-        # Then, we just pass the rational without normaling it.
-        try:
-            gain, coeffsNumer, coeffsDenom = coeffsTransfer(rational, variable=var, normalize=method)
-            coeffsNumer.reverse()
-            coeffsDenom.reverse()
-            rational = gain*(sp.Poly(coeffsNumer, var)/sp.Poly(coeffsDenom, var))
-        except BaseException:
-            exc_type, value, exc_traceback = sys.exc_info()
-            print('\n', value)
+    gain, numCoeffs, denCoeffs = coeffsTransfer(rational, variable=var, normalize=method)
+    if len(numCoeffs) and len(denCoeffs):
+        numCoeffs = list(reversed(numCoeffs))
+        denCoeffs = list(reversed(denCoeffs))
+        num = sp.Poly(numCoeffs, var).as_expr()
+        den = sp.Poly(denCoeffs, var).as_expr()
+        rational = gain*num/den
+    else:
+        rational = gain
     return rational
 
 def cancelPZ(poles, zeros):
