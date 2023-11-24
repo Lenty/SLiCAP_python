@@ -275,8 +275,12 @@ class MOS(object):
         self.errors['cbd'] = ((self.params['cbd']-self.params['cdb'])/(self.params['cbd']+self.params['cdb']))
 
     def getSv_inoise(self, ID, VD, VS, VB, fmin, fmax, numDec):
-        self.params = {}
-        self.step   = None
+        self.modelDef = None
+        self.parDefs  = None
+        self.params   = {}
+        self.errors   = {}
+        self.params   = {}
+        self.step     = False
         self.getOPid(ID, VD, VS, VB, sqrt(fmin*fmax))
         VGS = self.params['v(vgs)']
         if self.dev[0].lower() == 'p':
