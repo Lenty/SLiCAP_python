@@ -187,8 +187,235 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="slicappythonmaxima-py">
-<h1>SLiCAPpythonMaxima.py<a class="headerlink" href="#slicappythonmaxima-py" title="Permalink to this heading">¶</a></h1>
+  <div class="section" id="module-SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima">
+<span id="slicappythonmaxima-py"></span><h1>SLiCAPpythonMaxima.py<a class="headerlink" href="#module-SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima" title="Permalink to this heading">¶</a></h1>
+<p>SLiCAP module with symbolic math functions executed by maxima CAS.</p>
+<p>Imported by the module <strong>SLiCAPplots.py</strong>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.checkMaxima">
+<span class="sig-name descname"><span class="pre">checkMaxima</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.checkMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval">
+<span class="sig-name descname"><span class="pre">maxEval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxExpr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxEval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>maxExpr</strong> (<em>str</em>) – Expression in Maxima format to be evaluated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String that can be converted into a sympy expression.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
+<span class="go">&#39;sin(a*t)/a&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate">
+<span class="sig-name descname"><span class="pre">maxIntegrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxIntegrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates definite or indefinite integral of ‘expr’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>sympy.Expr</em>) – Integrand</p></li>
+<li><p><strong>var</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Integration variable</p></li>
+<li><p><strong>start</strong> (<em>Bool</em><em>, </em><em>int float</em><em>, </em><em>sympy.Expr</em>) – Lower limit of the integral.</p></li>
+<li><p><strong>stop</strong> (<em>Bool</em><em>, </em><em>int float</em><em>, </em><em>sympy.Expr</em>) – Upper limit of the integral.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Integral</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit">
+<span class="sig-name descname"><span class="pre">maxLimit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxLimit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the limit of an expression for ‘var’ approaches ‘val’ from ‘pm’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expr</strong> (<em>sympy.Expr</em><em>, </em><em>str</em>) – Expression of which the limit must be evaluated.</p></li>
+<li><p><strong>var</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em>) – Variable that should approach the limit value.</p></li>
+<li><p><strong>val</strong> (<em>sympy.Symbol</em><em>, </em><em>str</em><em>, </em><em>sp.Expr</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Limit value of the variable.</p></li>
+<li><p><strong>pm</strong> (<em>str</em>) – Direction: ‘plus’ or ‘minus’</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – True will force Maxima to use (big) floats for numeric
+values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Calculated limit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Expr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxima2python">
+<span class="sig-name descname"><span class="pre">maxima2python</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maxima2python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a maxima expression into string that can be converted into a sympy expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expr</strong> (<em>str</em>) – maxima expression</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sympy compatible expression</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maximaHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxima</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.active">
+<span class="sig-name descname"><span class="pre">active</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.active" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse">
+<span class="sig-name descname"><span class="pre">getResponse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.getResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.maxEval">
+<span class="sig-name descname"><span class="pre">maxEval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxExpr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.maxEval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the expression ‘maxExpr’ with Maxima CAS and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>maxExpr</strong> (<em>str</em>) – Expression in Maxima format to be evaluated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String that can be converted into a sympy expression.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxEval</span><span class="p">(</span><span class="s2">&quot;result:ilt(1/(s^2 + a^2), s, t);&quot;</span><span class="p">)</span>
+<span class="go">&#39;sin(a*t)/a&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.mut">
+<span class="sig-name descname"><span class="pre">mut</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;unlocked</span> <span class="pre">_thread.lock</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.mut" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.parseMaxima">
+<span class="sig-name descname"><span class="pre">parseMaxima</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxInstr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.parseMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.restartMaxima">
+<span class="sig-name descname"><span class="pre">restartMaxima</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.restartMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.runMaxima">
+<span class="sig-name descname"><span class="pre">runMaxima</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.runMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.startMaxima">
+<span class="sig-name descname"><span class="pre">startMaxima</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.maximaHandler.startMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.python2maxima">
+<span class="sig-name descname"><span class="pre">python2maxima</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.python2maxima" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a sympy expression into a Maxima expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expr</strong> (<em>sympy.Ex</em>) – sympy expression</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>maxima expression</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.restartMaxima">
+<span class="sig-name descname"><span class="pre">restartMaxima</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.restartMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sign2signum">
+<span class="sig-name descname"><span class="pre">sign2signum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.sign2signum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a non-overlapping replacement of sign(expr) with signum(expr)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expr</strong> (<em>str</em>) – text string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>expr</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.signum2sign">
+<span class="sig-name descname"><span class="pre">signum2sign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.signum2sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a non-overlapping replacement of signum(expr) with sign(expr)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expr</strong> (<em>str</em>) – text string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>expr</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima">
+<span class="sig-name descname"><span class="pre">startMaxima</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.startMaxima" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.start_new_thread">
+<span class="sig-name descname"><span class="pre">start_new_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.start_new_thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.wait_until">
+<span class="sig-name descname"><span class="pre">wait_until</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">somepredicate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPpythonMaxima.SLiCAPpythonMaxima.wait_until" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
