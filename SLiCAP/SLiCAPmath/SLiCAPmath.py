@@ -1396,6 +1396,34 @@ def diff_n(expr, x, n):
         n -= 1
     return expr
 
+def nonPolyCoeffs(expr, var):
+        """
+        Returns a dictionary with coefficients of negative and positive powers
+        of var.
+
+        :param var: Variable of which the coefficients will be returned
+        :type var: sympy.Symbol
+        
+        :return: Dict with key-value pairs:
+            
+                 - key: order of the variable
+                 - value: coefficient of that order
+        """
+        error = True
+        i=0
+        while error:
+            try:
+                p=sp.Poly(expr*var**i, var)
+                error=False
+            except sp.PolynomialError:
+                i += 1
+        coeffDict = {}
+        coeffs = p.all_coeffs()
+        coeffs.reverse()
+        for j in range(len(coeffs)):
+            coeffDict[j-i] = coeffs[j]
+        return(coeffDict)
+
 if __name__ == "__main__":
     from time import time
 

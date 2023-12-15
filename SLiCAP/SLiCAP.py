@@ -174,7 +174,7 @@ def makeNetlist(fileName, cirTitle):
                 file = file.replace('\\','\\\\')
                 subprocess.run([ini.ltspice, '-netlist', file])
             else:
-                subprocess.run(['wine', ini.ltspice, '-wine', '-netlist', file])
+                subprocess.run(['wine', ini.ltspice, '-wine', '-netlist', file]], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
             try:
                 f = open(baseFileName + '.net', 'r')
                 netlistLines = ['"' + cirTitle + '"\n'] + f.readlines()
@@ -210,6 +210,30 @@ def makeNetlist(fileName, cirTitle):
             except:
                 print("Error: could not open: '{0}'.".format(baseFileName + '.net'))
     return
+
+def runLTspice(fileName):
+    """
+    Runs LTspice netlist (.cir) file.
+
+    :param fileName: Name of the circuit (.cir) file, relative to the
+                     project directory (cir/<myCircuit>.cir)
+    :type fileName: str
+
+    :return: None
+    :rtype: Nonetype
+    """
+    if not os.path.isfile(fileName):
+        print("Error: could not open: '%s'."%(fileName))
+        return
+    else:
+        fileNameParts = fileName.split('.')
+        fileType = fileNameParts[-1].lower()
+        if fileType == 'cir':
+            if platform.system() == 'Windows':
+                fileName = fileName.replace('\\','\\\\')
+                subprocess.run([ini.ltspice, '-b', fileName])
+            else:
+                subprocess.run(['wine', ini.ltspice, '-b', '-wine', fileName], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
 if __name__ == '__main__':
     """
