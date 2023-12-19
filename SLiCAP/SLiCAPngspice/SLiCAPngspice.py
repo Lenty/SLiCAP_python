@@ -110,11 +110,11 @@ class MOS(object):
         txt += '.param select = 0\n\n'
         txt += '%s\n\n'%(self.lib)
         # MOS with voltage feedback loop for creating the gate-source voltage
-        txt += '%s d1 g1 s1 b1 %s W={W} L={L} M={M}\n'%(self.refDes + '_OP', self.dev)
+        txt += 'M1_OP d1 g1 s1 b1 %s W={W} L={L} M={M}\n'%(self.dev)
         # LOOP and DC voltages
         txt += 'V5 s1 0 {VS}\nV6 b1 0 {VB}\nV7 d1 1 {VD}\nE1 g1 d1 1 0 1k\nI1 0 1 {ID}\n'
         # MOS for parameter measurement
-        txt += '%s d2 g2 s2 b2 %s W={W} L={L} M={M}\n'%(self.refDes, self.dev)
+        txt += 'M1 d2 g2 s2 b2 %s W={W} L={L} M={M}\n'%(self.dev)
         # VGS copy
         txt += 'E2 g2 2 g1 0 1\n'
         f = open('cir/MOS_OP_I.cir', 'r')
@@ -191,8 +191,8 @@ class MOS(object):
         f.write(txt)
         f.close()
         system(ini.ngspiceCMD + ' -b MOS_OP.cir -o MOS_OP.log')
-        #remove('MOS_OP.cir')
-        #remove('MOS_OP.log')
+        remove('MOS_OP.cir')
+        remove('MOS_OP.log')
         self._getParams()
         self._makeParDefs()
         self._makeModelDef()
@@ -275,12 +275,8 @@ class MOS(object):
         self.errors['cbd'] = ((self.params['cbd']-self.params['cdb'])/(self.params['cbd']+self.params['cdb']))
 
     def getSv_inoise(self, ID, VD, VS, VB, fmin, fmax, numDec):
-        self.modelDef = None
-        self.parDefs  = None
-        self.params   = {}
-        self.errors   = {}
-        self.params   = {}
-        self.step     = False
+        self.params = {}
+        self.step   = None
         self.getOPid(ID, VD, VS, VB, sqrt(fmin*fmax))
         VGS = self.params['v(vgs)']
         if self.dev[0].lower() == 'p':
