@@ -1104,6 +1104,13 @@ def besselPoly(n):
     for k in range(n+1):
         B_s += (sp.factorial(2*n-k)/((2**(n-k))*sp.factorial(k)*sp.factorial(n-k)))*s**k
     B_s = sp.simplify(B_s/B_s.subs(s,0))
+
+    # Find normalized 3 dB frequency
+    w = sp.Symbol('w', real=True)
+    B_w = sp.Abs(B_s.subs(s, sp.I*w))**2
+    func = sp.lambdify(w, B_w - 2)
+    w3dB = float2rational(fsolve(func, 1)[0])
+    B_s = B_s.subs(s, s*w3dB)
     return(B_s)
 
 def rmsNoise(noiseResult, noise, fmin, fmax, source=None, CDS=False, tau=None):
@@ -1266,7 +1273,7 @@ def float2rational(expr):
     :rtype:  sympy.Expression
     """
     try:
-        expr = expr.xreplace({n: sp.Rational(n) for n in expr.atoms(sp.Float)})
+        expr = expr.xreplace({n: sp.Rational(str(n)) for n in expr.atoms(sp.Float)})
     except AttributeError:
         pass
     return expr
@@ -1403,9 +1410,9 @@ def nonPolyCoeffs(expr, var):
 
         :param var: Variable of which the coefficients will be returned
         :type var: sympy.Symbol
-        
+
         :return: Dict with key-value pairs:
-            
+
                  - key: order of the variable
                  - value: coefficient of that order
         """
