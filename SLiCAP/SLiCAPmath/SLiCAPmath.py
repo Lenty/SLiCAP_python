@@ -196,8 +196,6 @@ def normalizeRational(rational, var=ini.Laplace, method='lowest'):
         num = sp.Poly(numCoeffs, var).as_expr()
         den = sp.Poly(denCoeffs, var).as_expr()
         rational = gain*num/den
-    else:
-        rational = gain
     return rational
 
 def cancelPZ(poles, zeros):
@@ -286,30 +284,38 @@ def findServoBandwidth(loopgainRational):
     numPoles              = len(poles)
     numZeros              = len(zeros)
     numCornerFreqs        = numPoles + numZeros
-    gain, coeffsN,coeffsD = coeffsTransfer(sp.expand(loopgainRational))
+    gain, coeffsN,coeffsD = coeffsTransfer(loopgainRational)
     coeffsN               = np.array(coeffsN)
     coeffsD               = np.array(coeffsD)
     firstNonZeroN         = np.argmax(coeffsN != 0)
     firstNonZeroD         = np.argmax(coeffsD != 0)
-    freqsOrders           = np.zeros((numCornerFreqs, 2))
-    order                 = firstNonZeroN - firstNonZeroD
-    value                 = np.abs(gain)
+    freqsOrders           = np.zeros((numCornerFreqs, 2), dtype='float64')
+    order                 = int(firstNonZeroN - firstNonZeroD)
+    value                 = np.abs(float(gain))
     fcorner               = 0
     result = {}
     if order == 0:
         if value > 1:
             result['mbv'] = value
             result['mbf'] = 0
+            result['lpf'] = None
+            result['lpo'] = None
+            result['hpf'] = None
+            result['hpo'] = None
     elif order < 0:
         result['mbv'] = sp.oo
         result['mbf'] = 0
+        result['lpf'] = value**(-1/order)
+        result['lpo'] = order
+        result['hpf'] = None
+        result['hpo'] = None
     elif order > 0:
-        result['mbv'] = 0
-        result['mbf'] = 0
-    result['lpf'] = None
-    result['lpo'] = None
-    result['hpf'] = None
-    result['hpo'] = None
+        result['mbv'] = None
+        result['mbf'] = None
+        result['lpf'] = None
+        result['lpo'] = None
+        result['hpf'] = None
+        result['hpo'] = None
     for i in range(numZeros):
         freqsOrders[i, 0] = np.abs(zeros[i])
         freqsOrders[i, 1] = 1
@@ -320,8 +326,8 @@ def findServoBandwidth(loopgainRational):
     freqsOrders = freqsOrders[freqsOrders[:,0].argsort()]
     for i in range(numCornerFreqs):
         if freqsOrders[i, 0] != 0:
-            new_fcorner  = freqsOrders[i, 0]
-            new_order    = order + freqsOrders[i, 1]
+            new_fcorner  = float(freqsOrders[i, 0])
+            new_order    = int(order + freqsOrders[i, 1])
             # Determine new value at corner frequency
             if order == 0:
                 new_value = value
@@ -339,10 +345,10 @@ def findServoBandwidth(loopgainRational):
                 # high-pass intersection
                 result['hpf'] = fcorner * value **(-1/order)
                 result['hpo'] = order
-            if new_value > 1:
-                if new_value > result['mbv']:
-                    result['mbv'] = new_value
-                    result['mbf'] = new_fcorner
+            if new_value > 1 and (result['mbv'] == None or new_value > result['mbv']):
+                # A new or larger midband value
+                result['mbv'] = new_value
+                result['mbf'] = new_fcorner
             value    = new_value
             order    = new_order
             fcorner  = new_fcorner
