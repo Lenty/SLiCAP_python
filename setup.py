@@ -19,7 +19,7 @@ from shutil import copy
 if platform.system() == 'Windows':
     import win32api
 
-INSTALLVERSION="1.7.0"
+INSTALLVERSION="1.8.0"
 
 class InstallWrapper(install):
     """
@@ -57,7 +57,7 @@ class InstallWrapper(install):
             Linux -     test is the 'maxima' command is callable from the command line
             MacOS -     test is the 'maxima' command is callable from the command line
         """
-        
+
         self._maxima_cmd = " "
         print("Acquiring Maxima Command")
         if platform.system() == 'Windows':
@@ -66,7 +66,7 @@ class InstallWrapper(install):
                 self._maxima_cmd = maxima_path
         else:
             self._maxima_cmd ="maxima"
-            
+
         maxInput = '1+1;'
         result = 0
         if platform.system() == 'Windows':
@@ -155,7 +155,7 @@ class InstallWrapper(install):
         """
         print("Generating the configuration file")
         fileloc = os.path.join("SLiCAPtemplate.py")
-        filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")       
+        filetarg = os.path.join("SLiCAP", "SLiCAPsetting", "SLiCAPsetting.py")
         if os.path.isfile(fileloc):
             print("Found template file: ", fileloc)
             fi = open(fileloc, 'r')
@@ -172,7 +172,7 @@ class InstallWrapper(install):
             fi.write(txt)
             fi.close()
         print("Created config file: ", filetarg)
-        
+
     def _find_maxima_windows(self):
         """
         Searches for the maxima command under windows. If found it sets
