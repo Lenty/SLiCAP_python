@@ -109,15 +109,15 @@ class instruction(object):
 
         See **instruction.setStepArray(<stepArray>)** for specification of *instruction.stepArray*.
         """
-        
+
         self.stepDict = {}
         """
         Dictionary with key-value pairs:
-        
+
         key:   name of a step parameter (*sympy.Symbol*)
         value: list with values for this parameter
         """
-        
+
         self.source = [None, None]
         """
         Refdes of the signal source (independent v or i source).
@@ -137,19 +137,19 @@ class instruction(object):
         Extensions used to indicate paired nodes or elements.
         Default is: [None, None].
         """
-        
+
         self.removePairSubName = True
         """
         If True, the subcircuit ID extension will be removed from parameters in
         expressions of paired elements in sub circuits. Defaults to True.
-        
+
         :note: Warning: this may result in undesired behavior if global parameters
                carry the name of parameters in paired sub circuits.
         """
 
         self.lgRef = [None, None]
         """
-        Refdes of the controlled source(s) that is (are) assigned as loop gain 
+        Refdes of the controlled source(s) that is (are) assigned as loop gain
         reference. A second controlled source is required for decomposition
         of circuits in common-mode and differential-mode equivalents.
 
@@ -158,11 +158,11 @@ class instruction(object):
         """
 
         self.lgValue = [None, None]
-        """ 
-        Value of the loopgain reference will be stored during execution of the 
+        """
+        Value of the loopgain reference will be stored during execution of the
         instruction.
         """
-        
+
         self.circuit = None
         """
         Circuit (*SLiCAPprotos.circuit*) used for this instruction. Can be
@@ -223,8 +223,8 @@ class instruction(object):
         """
         Name for the detector quantity to be used in expressions or plots
         (automatically determined in **instruction.checkDetector()**).
-        """       
-        
+        """
+
         self.label = ''
         """
         Label to be used in plots.
@@ -332,7 +332,7 @@ class instruction(object):
             print("Error: argument type must be type 'str'.")
             self.errors += 1
         return
-    
+
     def setConvType(self, convType):
         """
         Defines the circuit conversion type for the instruction.
@@ -360,27 +360,27 @@ class instruction(object):
         else:
             self.convType = None
         return
-    
+
     def setPairExt(self, pairExt):
         """
         Defines the extension to element or node IDs for DM and CM pairs.
 
-        :param pairExt: list with extensions for paired nodes. 
+        :param pairExt: list with extensions for paired nodes.
 
         :type pairExt: list
         """
         if self.checkPairExt(pairExt) == 0:
             self.pairExt = pairExt
         return
-    
+
     def checkPairExt(self, pairExt):
         """
         Check the list with extensions of paired nodes.
-        
+
         :param varPairs: list with extensions of paired nodes.
-        
+
         :type varPairs: list
-        
+
         :return: number of errors
         :rtype: int
         """
@@ -397,27 +397,27 @@ class instruction(object):
         if errors == 0:
             self.pairExt =  pairExt
         return errors
-    
+
     def setPairedCircuits(self, cirPairs):
         """
         Defines the paired subcircuits for matrix conversion.
 
-        :param varPairs: list with tuples of names (str) of subcircuits 
+        :param varPairs: list with tuples of names (str) of subcircuits
                          that must be considered pairs.
         :type varPairs: tuple
         """
         if self.checkPairedCircuits(cirPairs) == 0:
             self.pairedCircuits = cirPairs
         return
-    
+
     def checkPairedCircuits(self, circuitPairs):
         """
         Check the list with names of with paired subcircuits.
-        
+
         :param cirPairs: list with refDes of two subcircuits
-        
+
         :type varPairs: list
-        
+
         :return: number of errors
         :rtype: int
         """
@@ -1007,7 +1007,7 @@ class instruction(object):
                     print("Error: missing source definition.")
             elif self.source[i] != None and self.source[i] not in self.indepVars():
                 self.errors += 1
-                print("Error: unkown source: '{0}'.".format(self.source[i]))  
+                print("Error: unkown source: '{0}'.".format(self.source[i]))
             elif self.source[i] != None:
                 if i == 0:
                     self.srcUnits = self.source[i][0].upper()
@@ -1057,7 +1057,7 @@ class instruction(object):
         >>> my_instr.setDetector(['V_N001', 'V_out'])
         >>> # Current through `V1':
         >>> my_instr.setDetector('I_V1')
-        
+
         :note:
 
         The voltage 'V_0' at the reference node '0' equals zero.
@@ -1101,7 +1101,7 @@ class instruction(object):
             elif detP == detN:
                 self.errors += 1
                 print("Error: two detectors must be of the same type.")
-                
+
             if self.errors == 0 and self.convType == None:
                 if detP != None and detP not in self.depVars():
                     self.errors += 1
@@ -1111,7 +1111,7 @@ class instruction(object):
                     self.errors += 1
                     print("Error: unkown detector: '{0}'.".format(detN))
                     print("Available detectors:", str(self.depVars()))
-            
+
             if self.errors == 0:
                 for lgRef in self.lgRef:
                     if lgRef != None:
@@ -1225,7 +1225,7 @@ class instruction(object):
         >>> my_instr.defPar('R', '2k')
         >>> # Or:
         >>> my_instr.defPar('R', 2e3)
-        
+
         """
         self.circuit.defPar(str(parName), parValue)
         return
@@ -1250,7 +1250,7 @@ class instruction(object):
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Define the value of 'R' as 2000 and 'C' as 5e-12:
         >>> my_instr.defPars({'R': '2k', 'C': '5p'})
-        
+
         """
         # define multiple parameters.
         self.circuit.defPars(parDict)
@@ -1295,46 +1295,46 @@ class instruction(object):
         else:
             self.numeric = False
         return self.circuit.getParValue(parName, self.numeric)
-    
+
     def getElementValue(self, elementID, param = 'value'):
         """
         Returns the value or expression of one or more circuit elements.
-        
-        If instruction.numeric == True it will perform a full recursive 
+
+        If instruction.numeric == True it will perform a full recursive
         substitution of all circuit parameter definitions.
-        
+
         This method calls instruction.circuit.getElementValue() with
         numeric = True if instruction.simType is set to 'numeric'.
-        
+
         :param elementID: name(s) of the element(s)
-        :type elementID: str, list 
-        
+        :type elementID: str, list
+
         :param param: name of the parameter (equal for all elements):
-            
+
                       - 'value': Laplace value
                       - 'dc': DC value (independent sources only)
                       - 'noise': Noise spectral density (independent sources only)
                       - 'dcvar': DC variance (independent sources only)
-                      
+
                       Defaults to 'value'.
-                      
+
         :type param: str
-        
+
         :return: if type(param) == list:
-            
-                 return value = dict with key-value pairs: key (*sympy.Symbol*): 
-                 name of the parameter, value (*int, float, sympy expression*): 
+
+                 return value = dict with key-value pairs: key (*sympy.Symbol*):
+                 name of the parameter, value (*int, float, sympy expression*):
                  value of the parameter
-                 
+
                  else:
                  value or expression
-                 
+
         :rtype: dict, float, int, sympy.Expr
-        
+
         :Example:
-         
+
         >>> # Create an instance if a SLiCAP instruction
-        >>> my_instr = instruction()  
+        >>> my_instr = instruction()
         >>> # Create my_instr.circuit from the netlist 'myFirstRCnetwork.cir'
         >>> my_instr.setCircuit('myFirstRCnetwork.cir')
         >>> # Obtain the numeric value of 'R1' and 'C1':
@@ -1429,6 +1429,13 @@ class instruction(object):
         >>> # instruction:
         >>> my_instr.setCircuit('my_circuit.cir')
         """
+        # Reset parser user data
+        CIRCUITNAMES    = []
+        CIRCUITS        = {}
+        USERLIBS        = []
+        USERMODELS      = {}
+        USERCIRCUITS    = {}
+        USERPARAMS      = {}
         self.circuit = checkCircuit(fileName)
         return
 
@@ -1448,7 +1455,7 @@ class instruction(object):
             self.errors += 1
             print("Error: not SLiCAP a circuit object for this instruction.")
         return
-    
+
     def checkNumeric(self):
         """
         Checks if the simulation type is set to 'numeric'. This is required for
@@ -1672,38 +1679,38 @@ class instruction(object):
             print("Errors found. Instruction will not be executed.")
             return(allResults())
         else:
-            return doInstruction(self)  
-        
+            return doInstruction(self)
+
     def useMatrixConversion(self, method=None):
         """
         Converts the basis of the MNA matrices. Execution of the instruction
         will be performed with this matrix conversion.
-        
+
         Built-in conversion conversion methods are:
-        
+
         - None  : No conversion, MNA matrix equation (default)
         - DM    : Differential-mode transfer
         - CM    : Common-mode transfer
         - DMCM  : Differential-mode to common-mode transfer
         - CMDM  : Common-mode to differential-mode transfer
-        
+
         :param method: Conversion method can be one of the above.
         :type method: str
-        
+
         :return: None
         :rType: NoneType
         """
         METHODS = [None, 'DM', 'CM', 'DMCM', 'CMDM', 'ALL' ]
         if method in methods:
             self.conversionMethod = method
-            
+
 def listPZ(pzResult):
     """
     Prints lists with poles and zeros.
-    
+
     :param pzResult: SLiCAP execution results of pole-zero analysis.
     :type pzResult: SLiCAPprotos.allResults
-    
+
     :return: None
     :rtype: NoneType
     """
@@ -1724,12 +1731,12 @@ def listPZ(pzResult):
                     realPart = sp.re(poles[i])/2/np.pi
                     imagPart = sp.im(poles[i])/2/np.pi
                     frequency = sp.sqrt(realPart**2 + imagPart**2)
-        
+
                     if imagPart != 0:
                         Q = np.abs(frequency/2/realPart)
                         print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, float(realPart), float(imagPart), float(frequency), Q))
                     else:
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, float(realPart), 0.0, float(frequency)))  
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, float(realPart), 0.0, float(frequency)))
 
             else:
                 print('\nFound no poles.')
@@ -1743,14 +1750,14 @@ def listPZ(pzResult):
                     realPart = sp.re(zeros[i])/2/np.pi
                     imagPart = sp.im(zeros[i])/2/np.pi
                     frequency = sp.sqrt(realPart**2 + imagPart**2)
-        
+
                     if imagPart != 0:
                         Q = np.abs(frequency/2/realPart)
                         print("{:2} {:15.2e} {:15.2e} {:15.2e} {:9.2e}".format(i, float(realPart), float(imagPart), float(frequency), Q))
                     else:
-                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, float(realPart), 0.0, float(frequency)))  
+                        print("{:2} {:15.2e} {:15.2e} {:15.2e}".format(i, float(realPart), 0.0, float(frequency)))
             else:
-                print('\nFound no zeros.') 
+                print('\nFound no zeros.')
     else:
         print('\nlistPZ() does not support parameter stepping.')
     print('\n')
