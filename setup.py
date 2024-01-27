@@ -4,8 +4,8 @@ Created on Tue Sep 29 09:28:49 2020
 
 @author: luc_e
 
-Modified by Anton 1June 11 2023:
-Updated to version 1.7.0
+Modified by Anton January 27 2024:
+Updated to version 1.8.0
 """
 
 import os, shutil
