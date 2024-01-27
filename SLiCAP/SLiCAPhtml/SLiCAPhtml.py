@@ -677,7 +677,7 @@ def pz2html(instObj, label = '', labelText = ''):
         unitsI = 'Im [rad/s]'
         unitsS = '[rad/s]'
     if len(poles) > 0 and instObj.dataType == 'poles' or instObj.dataType == 'pz':
-        if _checkNumeric(poles):
+        if checkNumeric(poles):
             html += '<table><tr><th>pole</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
             for i in range(len(poles)):
                 p = poles[i]
@@ -710,7 +710,7 @@ def pz2html(instObj, label = '', labelText = ''):
     elif instObj.dataType == 'poles' or instObj.dataType == 'pz':
         html += '<p>No poles found.</p>\n'
     if len(zeros) > 0 and instObj.dataType == 'zeros' or instObj.dataType == 'pz':
-        if _checkNumeric(zeros):
+        if checkNumeric(zeros):
             html += '<table><tr><th>zero</th><th>' + unitsR + '</th><th>' + unitsI + '</th><th>' + unitsM + '</th><th>Q</th></tr>\n'
             for i in range(len(zeros)):
                 z = zeros[i]
@@ -745,13 +745,13 @@ def pz2html(instObj, label = '', labelText = ''):
     insertHTML(ini.htmlPath + ini.htmlPage, html)
     return html
 
-def _checkNumeric(exprList):
+def checkNumeric(exprList):
     """
-    Returns True is all entries in the list 'exprList' are numeric.
+    Returns True if all entries in the list 'exprList' are numeric.
 
     :param exprList; List with numbers and/or expressions
     :type exprList: list
-    
+
     :return: True is all entries in 'exprList' are numeric.
     :rtype: Bool
     """

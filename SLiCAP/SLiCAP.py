@@ -142,9 +142,18 @@ def initProject(name, port=ini.PORT):
         restartMaxima()
     # Create the HTML project index file
     startHTML(name)
-        # Create the libraries
-    if len(SLiCAPCIRCUITS) == 0:
-        makeLibraries()
+    # Reset parser data
+    CIRCUITNAMES    = []
+    CIRCUITS        = {}
+    SLiCAPLIBS      = ['SLiCAP.lib', 'SLiCAPmodels.lib']
+    SLiCAPMODELS    = {}
+    SLiCAPPARAMS    = {}
+    SLiCAPCIRCUITS  = {}
+    USERLIBS        = []
+    USERMODELS      = {}
+    USERCIRCUITS    = {}
+    USERPARAMS      = {}
+    makeLibraries()
     return prj
 
 def makeNetlist(fileName, cirTitle):

@@ -214,9 +214,9 @@ def pz2TEX(resultObject, label='', append2caption=''):
     else:
         TEX = ''
         if len(resultObject.poles) != 0:
-            numericPoles = _checkNumeric(resultObject.poles)
+            numericPoles = checkNumeric(resultObject.poles)
         if len(resultObject.zeros) != 0:
-            numericZeros = _checkNumeric(resultObject.zeros)
+            numericZeros = checkNumeric(resultObject.zeros)
         if numericPoles and numericZeros:
             numeric = True
         else:

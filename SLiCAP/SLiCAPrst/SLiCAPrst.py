@@ -220,13 +220,13 @@ def pz2RST(resultObject, label = '', append2caption='', position=0):
     else:
         if resultObject.dataType == 'poles':
             name = 'Poles of: ' + resultObject.gainType + '. ' + append2caption
-            numeric = _checkNumeric(resultObject.poles)
+            numeric = checkNumeric(resultObject.poles)
         elif resultObject.dataType == 'zeros':
             name = 'Zeros of: ' + resultObject.gainType + '. ' + append2caption
-            numeric = _checkNumeric(resultObject.zeros)
+            numeric = checkNumeric(resultObject.zeros)
         elif resultObject.dataType == 'pz':
             name = 'Poles and zeros of: ' + resultObject.gainType + '. DC gain = :math:`' + sp.latex(roundN(resultObject.DCvalue)) + '`. ' + append2caption
-            numeric = _checkNumeric(resultObject.poles) and _checkNumeric(resultObject.zeros)
+            numeric = checkNumeric(resultObject.poles) and checkNumeric(resultObject.zeros)
         if numeric:
             if ini.Hz == True:
                 headerList = ['#', 'Re [Hz]', 'Im [Hz]', ':math:`f` [Hz]', 'Q']
