@@ -15,7 +15,7 @@ Default parameters:
 >>> LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist'      # Command for netlist generation with LTspice
 >>> NETLIST     = 'lepton-netlist -g spice-noqsi'   # Command for netlist generation with gschem or lepton-eda
 """
-VERSION     = '1.7.0'
+VERSION     = '1.8.0'
 SYSINSTALL  = r' '
 USERPATH    = r'/home/anton/SLiCAP'
 LIBCOREPATH = r'/home/anton/SLiCAP/lib'
