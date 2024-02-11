@@ -10,6 +10,7 @@ RST in the Jupyter notebooks.
 
 from SLiCAP.SLiCAPlatex import *
 from SLiCAP.SLiCAPngspice import MOS, ngspice2traces
+from SLiCAP.SLiCAPkicad import *
 
 try:
     __IPYTHON__

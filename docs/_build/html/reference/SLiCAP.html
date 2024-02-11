@@ -98,6 +98,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="SLiCAPreference.html">SLiCAP reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPnotebook.html">SLiCAPnotebook.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPlatex.html">SLiCAPlatex.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLiCAPkicad.html">SLiCAPlkicad.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPrst.html">SLiCAPrst.py</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SLiCAP.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLiCAPdesignData.html">SLiCAPdesignData.py</a></li>
@@ -221,8 +222,22 @@ on the main html index page</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.copyNotOverwrite">
+<span class="sig-name descname"><span class="pre">copyNotOverwrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.copyNotOverwrite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies the file ‘src’ to ‘dest’ if the latter one does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> (<em>str</em>) – Name of the source file.</p></li>
+<li><p><strong>dest</strong> (<em>str</em>) – Name of the desitination file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SLiCAP.SLiCAP.initProject">
-<span class="sig-name descname"><span class="pre">initProject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">53118</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initProject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.initProject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes a SLiCAP project.</p>
 <ul class="simple">
 <li><p>Copies the directory structure from the templates subdirectory to the
@@ -255,6 +270,17 @@ SLiCAPproject object.</p></li>
 <span class="go">anton</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAP.makeDir">
+<span class="sig-name descname"><span class="pre">makeDir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAP.makeDir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the directory ‘dirName’ if it does not yet exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dirName</strong> (<em>str</em>) – Name of the ditectory.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

@@ -15,6 +15,7 @@ SLiCAP comprises the following (sub) modules:
    
    SLiCAPnotebook
    SLiCAPlatex
+   SLiCAPkicad
    SLiCAPrst
    SLiCAP
    SLiCAPdesignData

@@ -12,19 +12,29 @@ t1=time()
 
 prj = initProject('My first RC network') # Sets all the paths and creates the HTML main index page.
 
-baseFileName = 'myFirstRCnetwork'
-fileName = baseFileName + '.cir'
-#schematicFile = baseFileName + '.asc'
+fileName = "myFirstRCnetwork"
+
+# KiCAD
+#parseKiCADnetlist(fileName + ".kicad_sch")
+#KiCADsch2svg(fileName + ".kicad_sch")
+
+# LTspice
+#schematicFile = FileName + '.asc'
 #makeNetlist(schematicFile, 'My first RC network')
-i1 = instruction()                       # Creates an instance of an instruction object
-i1.setCircuit(fileName)                  # Checks and defines the local circuit object and
-                                         # sets the index page to the circuit index page
+
+# gSchem or lepton-eda
+#schematicFile = FileName + '.sch'
+#makeNetlist(schematicFile, 'My first RC network')
+
+i1 = instruction()                  # Creates an instance of an instruction object
+i1.setCircuit(fileName + ".cir")    # Checks and defines the local circuit object and
+                                    # sets the index page to the circuit index page
 # We will generate a HTML report (not from within Jupyter). Let us first create an empty HTML page:
 htmlPage('Circuit data')
 # Put a header on this page and display the circuit diagram on it.
 head2html('Circuit diagram')
-img2html('myFirstRCnetwork.svg', 250, caption = 'Circuit diagram of the RC network.', label = 'figRCnetwork')
-netlist2html(fileName, label = 'netlist') # This displays the netlist
+img2html(fileName + '.svg', 250, caption = 'Circuit diagram of the RC network.', label = 'figRCnetwork')
+netlist2html(fileName + ".cir", label = 'netlist') # This displays the netlist
 elementData2html(i1.circuit, label = 'elementData') # This shows the data of the expanded netlist
 params2html(i1.circuit, label = 'params') # This displays the circuit parameters
 # Let us define an instruction to display the symbolic MNA matrix equation.
@@ -40,7 +50,7 @@ htmlPage('Matrix equations')
 # Let us put some explaining text in the report:
 text2html('The MNA matrix equation for the RC network is:')
 matrices2html(MNA, label = 'MNA', labelText = 'MNA equation of the network')
-# The variables in this equation are available in the variable that holds 
+# The variables in this equation are available in the variable that holds
 # the result of the execution:
 #
 # 1. The vector 'Iv' with independent variables:
@@ -59,7 +69,7 @@ i1.setSource('V1')   # 'V1' is the identifier of the independent source that we 
 i1.setDetector('V_out') # 'V_out' is the voltage at node 'out' with respect to ground (node '0')
 # The transfer from source to load is called 'gain'. Later we will discuss more transfer types.
 i1.setGainType('gain')
-# The data that we would like to obtain is the Laplace transfer of the gain. SLiCAP has many different 
+# The data that we would like to obtain is the Laplace transfer of the gain. SLiCAP has many different
 # data types. The data type for an instruction is also an attribute of the instruction object:
 i1.setDataType('laplace')
 # SLiCAP performs symbolic calculations, even when the data is numeric. In those case SLiCAP calculates
@@ -84,24 +94,24 @@ print(ini.Laplace)
 # 4. (group) delay plots versus frequency
 # For plotting we need numeric values:
 i1.setSimType('numeric')
-numGain = i1.execute() 
+numGain = i1.execute()
 # We will create a new HTML page for the plots
 htmlPage('Plots')
 head2html('Frequency domain plots')
-figMag = plotSweep('RCmag', 'Magnitude characteristic', numGain, 10, '100k', 100, yUnits = '-', show = True)
+figMag = plotSweep('RCmag', 'Magnitude characteristic', numGain, 10, '100k', 100, yUnits = '-', show = False)
 # This will put the figure on the HTML page with a width of 800 pixels, a caption and a label:
 fig2html(figMag, 600, caption = 'Magnitude characteristic of the RC network.', label = 'figMag')
-figPol = plotSweep('RCpolar', 'Polar plot', numGain, 10, '100k', 100, axisType = 'polar', show = True)
+figPol = plotSweep('RCpolar', 'Polar plot', numGain, 10, '100k', 100, axisType = 'polar', show = False)
 fig2html(figPol, 600, caption = 'Polar plot of the transfer of the RC network.', label = 'figPolar')
-figdBmag = plotSweep('RCdBmag', 'dB magnitude characteristic', numGain, 10, '100k', 100, funcType = 'dBmag', show = True)
+figdBmag = plotSweep('RCdBmag', 'dB magnitude characteristic', numGain, 10, '100k', 100, funcType = 'dBmag', show = False)
 fig2html(figdBmag, 600, caption = 'dB Magnitude characteristic of the RC network.', label = 'figdBmag')
-figPhase = plotSweep('RCphase', 'Phase characteristic', numGain, 10, '100k', 100, funcType = 'phase', show = True)
+figPhase = plotSweep('RCphase', 'Phase characteristic', numGain, 10, '100k', 100, funcType = 'phase', show = False)
 fig2html(figPhase, 600, caption = 'Phase characteristic of the RC network.', label = 'figPhase')
 # We will display the delay in 'us'
 figDelay = plotSweep('RCdelay', 'Group delay characteristic', numGain, 10, '100k', 100, yScale = 'u', funcType = 'delay')
 fig2html(figDelay, 600, caption = 'Group delay characteristic of the RC network.', label = 'figDelay')
 # With data type: 'pz' we can calculate the DC value of the gain and the poles and the zeros.
-# Symbolic pole-zero analysis is supported for relatively simple networks. 
+# Symbolic pole-zero analysis is supported for relatively simple networks.
 # Maxima is used as symbolic solver.
 i1.setDataType('pz')
 i1.setSimType('symbolic')
@@ -119,7 +129,7 @@ figPZ = plotPZ('PZ', 'Poles and zeros of the RC network', pzGain)
 # We will redefine the figure object 'figPZ'
 figPZ = plotPZ('PZ', 'Poles and zeros of the RC network', pzGain, xmin = -1.9, xmax = 0.1, ymin = -1, ymax = 1, xscale = 'k', yscale = 'k')
 fig2html(figPZ, 600, caption = 'Poles and zeros of the RC network.', label = 'figPZ');
-# The data types 'poles' and 'zeros' can be used to calculate the poles and the zeros separately. 
+# The data types 'poles' and 'zeros' can be used to calculate the poles and the zeros separately.
 # The difference with data type 'pz' is that the latter one cancels poles and zeros that coincide
 # withing the display accuracy (ini.disp) and calculated the zero-frequency value of the transfer.
 # Displaying the result of all three data types gives you the DC gain and the non observable poles.
@@ -129,9 +139,9 @@ fig2html(figPZ, 600, caption = 'Poles and zeros of the RC network.', label = 'fi
 # the transfer function (impulse response) or the transfer function multiplied with 1/ini.Laplace.
 i1.setDataType('step')
 numStep = i1.execute()
-figStep = plotSweep('step', 'Unit step response', numStep, 0, 1, 50, sweepScale='m', show = True)
+figStep = plotSweep('step', 'Unit step response', numStep, 0, 1, 50, sweepScale='m', show = False)
 # Let us put this plot on the page with the plots. You can get a list with page names by typing: 'ini.htmlPages'
-ini.htmlPage = 'My-First-RC-network_Plots.html'
+ini.htmlPage = 'myFirstRCnetwork_Plots.html'
 head2html('Time domain plots')
 fig2html(figStep, 600, caption = 'Unit step response of the RC network.', label = 'figStep')
 # Symbolic pole-zero analysis and symbolic inverse Laplace calculations are
