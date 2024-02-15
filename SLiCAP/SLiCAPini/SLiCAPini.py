@@ -128,6 +128,8 @@ class settings(object):
        - defaultLib        : Directory with SLiCAP basic library files
        - docPath           : Directory with html documentation
        - ngspiceCMD        : Command to start ngspice
+       - kicadPath         : KiCad install directory
+       - inkscapePath      : Inkscape install directory
 
                              MSWindows : "~\\Spice64\\bin\\ngspice.exe""
                              Linux     : "ngspice"
@@ -305,6 +307,16 @@ class settings(object):
         self.ngspiceCMD         = "ngspice"
         """
         Command (str) to start ngspice'
+        """
+
+        self.kicadPath            = ''
+        """
+        KiCad install directory;  defaults to ''.
+        """
+
+        self.inkscapePath            = ''
+        """
+        Inkscape install directory;  defaults to ''.
         """
 
         self.htmlIndex          = None

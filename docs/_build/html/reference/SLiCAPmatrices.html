@@ -188,8 +188,143 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="slicapmatrices-py">
-<h1>SLiCAPmatrices.py<a class="headerlink" href="#slicapmatrices-py" title="Permalink to this heading">¶</a></h1>
+  <div class="section" id="module-SLiCAP.SLiCAPmatrices.SLiCAPmatrices">
+<span id="slicapmatrices-py"></span><h1>SLiCAPmatrices.py<a class="headerlink" href="#module-SLiCAP.SLiCAPmatrices.SLiCAPmatrices" title="Permalink to this heading">¶</a></h1>
+<p>SLiCAP module for building the MNA matrix and the associated vectors.</p>
+<p>Imported by the module <strong>SLiCAPpythonMaxima.py</strong></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue">
+<span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parDefs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the symbolic or numeric value of a parameter of an element.</p>
+<p>This function is called by makeMatrices().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parm elmt</dt>
+<dd class="field-odd"><p>element object</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>param</strong> (<em>str</em>) – parameter of interest (‘value’, ‘noise’, ‘dc’ or ‘dcvar’)</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
+parameters to sympy floats</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<ul>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>value: sympy expresssion or numeric value of the element parameter</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>sympy.Expr, int, float, sympy.Float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues">
+<span class="sig-name descname"><span class="pre">getValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parDefs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.getValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the symbolic or numeric value of numerator and the denominator
+of a parameter of an element. This function is called by makeMatrices().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parm elmt</dt>
+<dd class="field-odd"><p>element object</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>param</strong> (<em>str</em>) – parameter of interest (‘value’, ‘noise’, ‘dc’ or ‘dcvar’)</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sp.N for converting
+parameters to sympy floats</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<ul>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Tuple with sympy expresssions or numeric values of the numerator
+and the denominator of the element parameter.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices">
+<span class="sig-name descname"><span class="pre">makeMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeMatrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the MNA matrix and the vector with dependent variables of a circuit.
+The entries in the matrix depend on the instruction type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</p></li>
+<li><p><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a><em>(</em><em>)</em>) – <p>SLiCAP instruction object</p>
+<ul>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple with two sympy matrices:</p>
+<ol class="arabic simple">
+<li><p>MNA matrix M</p></li>
+<li><p>Vector with dependent variables Dv</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector">
+<span class="sig-name descname"><span class="pre">makeSrcVector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parDefs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'id'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPmatrices.SLiCAPmatrices.makeSrcVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the vector with independent variables.
+The vector can be created for a single independent variable or for all.</p>
+<p>This can be used for determination of a transfer using Cramer’s rule.</p>
+<p>If a single variable is used, this vector and Cramer’s rule can be used as
+an alternative for calculation cofactors:</p>
+<p>The refDes of the independent variable (source) is substituted in the vecor
+with independent variables (value = ‘id’). This vector is then substituted
+in the detector col, of the MNA matrix.  After calculation of the
+determinant of this modified matrix, the result is divided by refDes.</p>
+<p>This method is used for determination of gain factors for noise sources
+and for DC variance sources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cir</strong> (<a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.circuit"><em>SLiCAPprotos.circuit</em></a>) – Circuit of which the matrices need to be returned.</p></li>
+<li><p><strong>parDefs</strong> (<em>dict</em>) – <p>Dict with key value pairs:</p>
+<ul>
+<li><p>key  : parameter name (sympy.Symbol)</p></li>
+<li><p>value: numeric value of sympy expression</p></li>
+</ul>
+</p></li>
+<li><p><strong>elid</strong> (<em>str</em>) – Refdes (ID) of a source to be included in this vector; ‘all’
+for all sources.</p></li>
+<li><p><strong>numeric</strong> (<em>bool</em>) – If True is uses full substitution and sympy.N for converting
+parameters to sympy floats</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Iv: vector with in dependent variables</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sympy.Matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

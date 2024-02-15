@@ -188,8 +188,825 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="slicapexecute-py">
-<h1>SLiCAPexecute.py<a class="headerlink" href="#slicapexecute-py" title="Permalink to this heading">¶</a></h1>
+  <div class="section" id="module-SLiCAP.SLiCAPexecute.SLiCAPexecute">
+<span id="slicapexecute-py"></span><h1>SLiCAPexecute.py<a class="headerlink" href="#module-SLiCAP.SLiCAPexecute.SLiCAPexecute" title="Permalink to this heading">¶</a></h1>
+<p>Created on Sat Aug  7 17:08:41 2021</p>
+<p>&#64;author: anton</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.addDCvarSources">
+<span class="sig-name descname"><span class="pre">addDCvarSources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcSolution</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.addDCvarSources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the dcvar sources of resistors to instr.circuit for dataType: ‘dcvar’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>dcSolution</strong> (<em>sympy.Matrix</em>) – DC solution of the network obtained from execution of
+this instruction with dataType: ‘dcsolve’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>updated instruction object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class`SLiCAPinstruction.instruction`</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.addResNoiseSources">
+<span class="sig-name descname"><span class="pre">addResNoiseSources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.addResNoiseSources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the noise sources of resistors to instr.circuit for dataType: ‘noise’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>updated instruction object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SLiCAPinstruction.instruction</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.calcNumer">
+<span class="sig-name descname"><span class="pre">calcNumer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.calcNumer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the numerator of the source-detector gain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.convertMatrices">
+<span class="sig-name descname"><span class="pre">convertMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.convertMatrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the result attributes M, Iv and Dv into those of equivalent
+common-mode or differential mode circuits.</p>
+<p>If instruction.removePairSubName == True, it also removes the pair extensions
+from paired parameters.</p>
+<p>The conversion type is defined by the attribute instr.convType it can be:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘dd’ Diferential-mode transfer</p></li>
+<li><p>‘cc’ Common-mode transfer</p></li>
+<li><p>‘dc’ Differential-mode to common-mode conversion</p></li>
+<li><p>‘cd’ Common-mode to differential-mode conversion</p></li>
+<li><p>‘all’ The complete vectors with redefined and re-arranged common-mode
+and differential-mode quantities.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.correctDMcurrentResult">
+<span class="sig-name descname"><span class="pre">correctDMcurrentResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.correctDMcurrentResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>In cases of a differential-mode current detector the numerator of the
+differential output current, or its associated transfer must be divided by
+two I_diff = (I_P - I_N)/2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.createConversionMatrices">
+<span class="sig-name descname"><span class="pre">createConversionMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.createConversionMatrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the matrax for a base transformation from nodal voltages and branche
+currents to common-mode and differential-mode equivalents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>pairs, unPaired, dmVars, cmVars, A</p>
+<ul class="simple">
+<li><p>pairs: a list with tuples with paired variables</p></li>
+<li><p>unPaired: a list with unpaired variables</p></li>
+<li><p>dmVars: a list with differential-mode variables</p></li>
+<li><p>cmVars: a list with common mode variables</p></li>
+<li><p>A: the base transformation matrix</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.createResultObject">
+<span class="sig-name descname"><span class="pre">createResultObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.createResultObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an instance of the <em>allResults</em> object with the instruction data copied to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a>) – SLiCAP instruction object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>SLiCAPprotos.allResults object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.delDCvarSources">
+<span class="sig-name descname"><span class="pre">delDCvarSources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.delDCvarSources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the dcVar sources from instr.circuit, added by executing this
+instruction with dataType: ‘dcvar’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>updated instruction object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class`SLiCAPinstruction.instruction`</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.delResNoiseSources">
+<span class="sig-name descname"><span class="pre">delResNoiseSources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.delResNoiseSources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the noise sources from instr.circuit, added by executing this
+instruction with dataType: ‘noise’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>updated instruction object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SLiCAPinstruction.instruction</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC">
+<span class="sig-name descname"><span class="pre">doDC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the DC response at the detector using the parameter ‘dc’ of
+independent sources as input.</p>
+<p>The result will be stored in the .dc attribute of the result object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCsolve">
+<span class="sig-name descname"><span class="pre">doDCsolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCsolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the DC solution of the network using the .dc attribute of independent
+sources as inputs.</p>
+<p>The DC solution will be stored in the .dcSolve attribute of the result
+object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar">
+<span class="sig-name descname"><span class="pre">doDCvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDCvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the result of a dcvar analysis to result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom">
+<span class="sig-name descname"><span class="pre">doDenom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doDenom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the denominator of a transfer function, or of the Laplace Transform
+of a detector voltage or current.</p>
+<p>The result will be stored in the <strong>.denom</strong> attribute of the resturn object. In
+cases of parameter stepping, this attribute is a list with numerators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of the execution of the instruction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doImpulse">
+<span class="sig-name descname"><span class="pre">doImpulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doImpulse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the inverse Laplace transform of the source-detector transfer.</p>
+<p>First it calculates the Laplace transform of the sou-detector transfer
+and subsequently the inverse Laplace Transform.</p>
+<p>The Laplace Transform of the source-detector transfer will be stored in the
+.laplace attribute of the result object.</p>
+<p>The result will be stored in the .impulse attribute of the result object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction">
+<span class="sig-name descname"><span class="pre">doInstruction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doInstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the instruction and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of the execution of the instruction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace">
+<span class="sig-name descname"><span class="pre">doLaplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLaplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a transfer function, or the Laplace Transform of a detector voltage or current.</p>
+<p>The result will be stored in the <strong>.laplace</strong> attribute of the resturn object. In
+cases of parameter stepping, this attribute is a list with numerators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of the execution of the instruction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doLoopGainServo">
+<span class="sig-name descname"><span class="pre">doLoopGainServo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doLoopGainServo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Laplace expression of the loop gain of the asymptotic-gain
+feedback model, or of the ‘servo function’ as defined by Montagne.
+The calculation uses the return difference, as defined by Bode (1945).</p>
+<p>The results are stored in the following attributes of the return object:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>.numer</strong>: the numerator of the loop gain or the servo fucntion or a list
+of numerators if parameter stepping is applied.</p></li>
+<li><p><strong>.denom</strong>: the denominator of the loop gain or the servo fucntion or a list
+of denominators if parameter stepping is applied.</p></li>
+<li><p><strong>.laplace</strong>: the loop gain or the servo fucntion or a list
+of laplace expressions if parameter stepping is applied.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of the execution of the instruction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMatrix">
+<span class="sig-name descname"><span class="pre">doMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the MNA matrix and the vector with dependent and independent
+variables, based on the conversion type:</p>
+<ul class="simple">
+<li><p>instr.convType == None: The basic MNA equation</p></li>
+<li><p>instr.convType == ‘all’: The basic equation on a basis of common-mode and
+differential-mode variables</p></li>
+<li><p>instr.convType == ‘dd’: The differential-mode equivalent representation</p></li>
+<li><p>instr.convType == ‘cc’: The common-mode equivalent representation</p></li>
+<li><p>instr.convType == ‘cd’: The differential-mode to common-mode conversion
+reprsentation</p></li>
+<li><p>instr.convType == ‘dc’: The common-mode to differential-mode conversion
+reprsentation</p></li>
+</ul>
+<p>The results are stored in the following attributes of the result object:</p>
+<ul class="simple">
+<li><p>.Iv: Vector with independent variables (independent voltage and current
+sources)</p></li>
+<li><p>.Dv: Vector with dependent variables (nodal voltages and branch currents)</p></li>
+<li><p>.M: Matrix: Iv=M*Dv</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxFunction">
+<span class="sig-name descname"><span class="pre">doMaxFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">funcName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls a Maxima CAS function and executes it with the given arguments <em>args</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>funcName</strong> (<em>str</em>) – Name of the function to be executed.</p></li>
+<li><p><strong>args</strong> (<em>list</em>) – List with function arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sympy expression (execution result)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sympy.Expr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxIlt">
+<span class="sig-name descname"><span class="pre">doMaxIlt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">laplaceRational</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxIlt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the inverse Laplace Transform of <em>laplaceRational</em> using
+Maxima CAS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>laplaceRational</strong> (<em>Sympy.Expr</em>) – Sympy rational function of the Laplace variable.</p></li>
+<li><p><strong>result</strong> (<em>Sympy.Expr</em>) – Inverse Laplace Transform of <em>laplaceRational</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxInstr">
+<span class="sig-name descname"><span class="pre">doMaxInstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxInstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes an instruction with Maxima CAS and updates <em>result</em> with the
+instruction results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxLoopGainServo">
+<span class="sig-name descname"><span class="pre">doMaxLoopGainServo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doMaxLoopGainServo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple with the numerator and the denominator of the loop gain or
+the servo function; depeding on the gain type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numer, denom</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple with two sympy expressions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise">
+<span class="sig-name descname"><span class="pre">doNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNoise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the result of a noise analysis to result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer">
+<span class="sig-name descname"><span class="pre">doNumer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doNumer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the numerator of a transfer function, or of the Laplace Transform
+of a detector voltage or current.</p>
+<p>The result will be stored in the <strong>.numer</strong> attribute of the resturn object. In
+cases of parameter stepping, this attribute is a list with numerators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of the execution of the instruction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ">
+<span class="sig-name descname"><span class="pre">doPZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the result of a pole-zero analysis to result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles">
+<span class="sig-name descname"><span class="pre">doPoles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doPoles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the result of a poles analysis to result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve">
+<span class="sig-name descname"><span class="pre">doSolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solves the network: calculates the Laplace transform of all dependent
+variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doStep">
+<span class="sig-name descname"><span class="pre">doStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the unit step response of the circuit. This is the inverse
+Laplace transform of the source-detector transfer divided by the Laplace
+variable.</p>
+<p>First it calculates the Laplace transform of the source-detector transfer
+and subsequently the inverse Laplace Transform.</p>
+<p>The Laplace Transform of the source-detector transfer will be stored in the
+.laplace attribute of the result object.</p>
+<p>The unit step response will be stored in the .stepResp  attribute of the
+result object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doTime">
+<span class="sig-name descname"><span class="pre">doTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculated the inverse Laplace transform of the detector voltage or current.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doTimeSolve">
+<span class="sig-name descname"><span class="pre">doTimeSolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doTimeSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the time-domain solution of the circuit.</p>
+<p>The result will be stored in the .timeSolve attribute of the result object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros">
+<span class="sig-name descname"><span class="pre">doZeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.doZeros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the result of a zeros analysis to result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.getSubMatrices">
+<span class="sig-name descname"><span class="pre">getSubMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimDm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimCm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.getSubMatrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the attributes M, Iv, and Dv of result according to the conversion
+type: convType.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> – instruction results of which the matrix attributes M, Iv,
+and Dv have been set.</p></li>
+<li><p><strong>dimDm</strong> (<em>str</em>) – Number of differential-mode variables</p></li>
+<li><p><strong>dimCm</strong> (<em>str</em>) – Number of common-mode variables</p></li>
+<li><p><strong>convType</strong> (<em>str</em>) – Conversion type, can be ‘dd’, ‘dc’, ‘cd’, ‘cc’ and ‘all’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Result</dt>
+<dd class="field-even"><p>updated instruction result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><dl class="field-list simple">
+<dt class="field-odd">class</dt>
+<dd class="field-odd"><p>SLiCAP.allResults()</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxDetPos">
+<span class="sig-name descname"><span class="pre">makeMaxDetPos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxDetPos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of the detector colum(s) for calculation of Cramer’s rule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple: (detP, detN):</p>
+<ul class="simple">
+<li><p>detP (<em>int, int</em>): number of the row of the vector with dependent
+variables that corresponds with the positive detector</p></li>
+<li><p>detN (<em>int, int</em>): number of the row of the vector with dependent
+variables that corresponds with the negative detector</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxInstr">
+<span class="sig-name descname"><span class="pre">makeMaxInstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxInstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the Maxima CAS input for execution of the instruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple with Input for Maxima CAS and result object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple with str and <code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxMatrices">
+<span class="sig-name descname"><span class="pre">makeMaxMatrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeMaxMatrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an allResults() object of which the following attributes have been
+updated:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>M  = MNA matrix</p></li>
+<li><p>Iv = Vector with independent variables (voltages and current of
+independent voltage and current sources, repectively)</p></li>
+<li><p>Dv = Vector with dependent variables (unknown nodal voltages and
+branch currents)</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p></li>
+<li><p><strong>result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">allResult()</span></code>) – <strong>allResults()</strong> object that holds instruction results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>result object with updated attributes Iv, M, and Dv:</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="SLiCAPprotos.html#SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults" title="SLiCAP.SLiCAPprotos.SLiCAPprotos.allResults">SLiCAPprotos.allResults</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSubsDict">
+<span class="sig-name descname"><span class="pre">makeSubsDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.makeSubsDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a substitution dictionary that does not contain the step parameters
+for the instruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Updated instruction object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class`SLiCAPinstruction.instruction()`</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.maxString">
+<span class="sig-name descname"><span class="pre">maxString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxInstr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.maxString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the instruction for maxima with either symbolic or numeric output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxInstr</strong> (<em>str</em>) – Function to be evaluated by maxima CAS.</p></li>
+<li><p><strong>numeric</strong> (<em>Bool</em>) – True if the result must be converted to ‘big float’, else
+False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Maxima instruction for string output.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.pairParDefs">
+<span class="sig-name descname"><span class="pre">pairParDefs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.pairParDefs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the pair extension from paired parameters in both keys and values in
+instr.parDefs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<a class="reference internal" href="SLiCAPinstruction.html#SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction" title="SLiCAP.SLiCAPinstruction.SLiCAPinstruction.instruction"><em>SLiCAPinstruction.instruction</em></a><em>(</em><em>)</em>) – instruction with circuit and pairing extensions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instr</p>
+</dd>
+<dt class="field-odd">Rtupe</dt>
+<dd class="field-odd"><p>SLiCAPinstruction.instruction()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.pairVariables">
+<span class="sig-name descname"><span class="pre">pairVariables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.pairVariables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines nodal voltages and branche currents in pairs of variables that
+can be resolved in common-mode, and differential-mode variables.</p>
+<p>Pairing is defined by the instr.pairedVars and instr.pairedCircuits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instr</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">instruction()</span></code>) – <strong>instruction()</strong> object that holds instruction data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>pairs, unPaired, dmVars, cmVars</p>
+<ul class="simple">
+<li><p>pairs: a list with tuples with paired variables</p></li>
+<li><p>unPaired: a list with unpaired variables</p></li>
+<li><p>dmVars: a list with differential-mode variables</p></li>
+<li><p>cmVars: a list with common mode variables</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.parseMaxResult">
+<span class="sig-name descname"><span class="pre">parseMaxResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indepVars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxResult</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.parseMaxResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds Maxima CAS execution results to the result object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<em>:class`SLiCAPprotos.allResults</em><em>(</em><em>)</em><em>`</em>) – Result object to which the results must be added</p></li>
+<li><p><strong>inDepVars</strong> (<em>List of str</em>) – Names of independent variables</p></li>
+<li><p><strong>maxResult</strong> (<em>Sympy.Expr</em>) – Maxima CAS  execution result.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions">
+<span class="sig-name descname"><span class="pre">stepFunctions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stepDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPexecute.SLiCAPexecute.stepFunctions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Substitutes values for step parameters in <em>function</em> and returns a list
+of functions with these substitutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stepDict</strong> (<em>Dictionary</em>) – Dictionary with key-value pair:
+key: step parameter name (<em>sympy.Symbol</em>)
+value: list with step values for this parameter.</p></li>
+<li><p><strong>function</strong> (<em>sympy.Expr</em>) – Function in which the parameters need to be substituted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with functions (<em>sympy.Expr</em>). The number of
+functions equals the number of steps. Function i equals
+the input function in which the step variable has been
+replaced with its i-th step value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

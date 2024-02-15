@@ -188,8 +188,130 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="slicapngspice-py">
-<h1>SLiCAPngspice.py<a class="headerlink" href="#slicapngspice-py" title="Permalink to this heading">¶</a></h1>
+  <div class="section" id="module-SLiCAP.SLiCAPngspice.SLiCAPngspice">
+<span id="slicapngspice-py"></span><h1>SLiCAPngspice.py<a class="headerlink" href="#module-SLiCAP.SLiCAPngspice.SLiCAPngspice" title="Permalink to this heading">¶</a></h1>
+<p>Created on Tue Jun 15 15:05:13 2021</p>
+<p>&#64;author: anton</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MOS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refDes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS" title="Permalink to this definition">¶</a></dt>
+<dd><p>MOS Transistor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refDes</strong> (<em>str</em>) – Reference designator used in SLiCAP circuit file</p></li>
+<li><p><strong>lib</strong> (<em>str</em>) – path to library file, absolute or relative to python script.</p></li>
+<li><p><strong>dev</strong> (<em>str</em>) – Device name (as in library)</p></li>
+</ul>
+</dd>
+</dl>
+<p>MOS attributes:</p>
+<ul class="simple">
+<li><p><em>self</em>.refDes = refDes</p></li>
+<li><p><em>self</em>.lib = lib</p></li>
+<li><p><em>self</em>.dev = dev</p></li>
+<li><p><em>self</em>.modelDef = Text string with SLiCAP model definition for this device</p></li>
+<li><p><em>self</em>.parDefs = Dictionary with SLiCAP parameter definitions for this device</p></li>
+<li><p><em>self</em>.params = Dictionary with names and values of parameters provided by ngspice</p></li>
+<li><p><em>self</em>.errors = Relative difference between forward and reverse parameter measurement</p></li>
+<li><p><em>self</em>.step   = Step data for VG or ID, defaults to False</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS.getOPid">
+<span class="sig-name descname"><span class="pre">getOPid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS.getOPid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns operating point information of the device with the drain
+current as (swept) independent variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W</strong> (<em>float</em>) – Width of the device in [m]</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the device in [m]</p></li>
+<li><p><strong>M</strong> (<em>int</em>) – Number of devices in parallel</p></li>
+<li><p><strong>ID</strong> (<em>float</em>) – Drain current [A]</p></li>
+<li><p><strong>VD</strong> (<em>float</em>) – Drain voltage with respect to ground in [V]</p></li>
+<li><p><strong>VS</strong> (<em>float</em>) – Source voltage with respect to ground in [V]</p></li>
+<li><p><strong>VB</strong> (<em>float</em>) – Bulk voltage with respect to ground in [V]</p></li>
+<li><p><strong>step</strong> – Step data for ID; list with start value, number of values
+and stop value. Defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS.getOPvg">
+<span class="sig-name descname"><span class="pre">getOPvg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">VG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS.getOPvg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns operating point information of the device with the gate
+voltage as (swept) independent variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W</strong> (<em>float</em>) – Width of the device in [m]</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the device in [m]</p></li>
+<li><p><strong>M</strong> (<em>int</em>) – Number of devices in parallel</p></li>
+<li><p><strong>VG</strong> (<em>float</em>) – Gate voltage with respect to ground in [V]</p></li>
+<li><p><strong>VD</strong> (<em>float</em>) – Drain voltage with respect to ground in [V]</p></li>
+<li><p><strong>VS</strong> (<em>float</em>) – Source voltage with respect to ground in [V]</p></li>
+<li><p><strong>VB</strong> (<em>float</em>) – Bulk voltage with respect to ground in [V]</p></li>
+<li><p><strong>step</strong> – Step data for VG; list with start value, number of values
+and stop value. Defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS.getSv_inoise">
+<span class="sig-name descname"><span class="pre">getSv_inoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numDec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPngspice.SLiCAPngspice.MOS.getSv_inoise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SLiCAP.SLiCAPngspice.SLiCAPngspice.ngspice2traces">
+<span class="sig-name descname"><span class="pre">ngspice2traces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cirFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simCmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namesDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stepCmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traceType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'magPhase'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SLiCAP.SLiCAPngspice.SLiCAPngspice.ngspice2traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dictionary with traces from an ngspice run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cirFile</strong> (<em>str</em>) – <p>Name of the circuit file withouit ‘.cir’ extension, located
+in the cir folder.</p>
+<p>The circuit file should not have a .end command, this will
+be added at the end of he control section.</p>
+</p></li>
+<li><p><strong>simCmd</strong> (<em>str</em>) – <p>ngspice instruction capable of generating plot data, such as,</p>
+<ul>
+<li><p>ac dec 20 1 10meg</p></li>
+<li><p>tran 1n 10u</p></li>
+<li><p>dc Source Vstart Vstop Vincr [ Source2 Vstart2 Vstop2 Vincr2 ]</p></li>
+<li><p>noise V(out) Vs dec 10 1 10meg 1</p></li>
+</ul>
+</p></li>
+<li><p><strong>stepCmd</strong> (<em>str</em><em>, </em><em>nonetype</em>) – <p>.stepCmd instruction or None if no stepping is performed:</p>
+<p>.stepCmd &lt;parname&gt; &lt;stepmethod&gt; &lt;firstvalue&gt; (&lt;lastvalue&gt; &lt;numberofvalues | listwithvalues&gt;)</p>
+<ul>
+<li><p>parname (<em>str</em>): name of the parameter (not a RefDes)</p></li>
+<li><p>stepmethod (<em>str</em>): lin, log or list</p></li>
+</ul>
+</p></li>
+<li><p><strong>namesDict</strong> (<em>dict</em>) – <p>Dictionary with key-value pairs:</p>
+<p>key: plot label (<em>str</em>)</p>
+<p>value: nodal voltage or brach current in ngspice notation</p>
+</p></li>
+<li><p><strong>traceType</strong> – <p>Type of traces for AC analysis or noise analysis:</p>
+<ul>
+<li><p>realImag</p></li>
+<li><p>magPhase</p></li>
+<li><p>dBmagPhase</p></li>
+<li><p>onoise</p></li>
+<li><p>inoise</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

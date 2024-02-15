@@ -357,7 +357,7 @@ def checkMaxima():
     result = ini.maximaHandler.maxEval('stringdisp:true$string(1-1);')
     try:
         if result == '0':
-            result = ini.maximaHandler.maxEval('load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$M:matrix([a,b],[c,d])$string(det(M));')
+            result = ini.maximaHandler.maxEval('load("' + ini.installPath + 'SLiCAPpythonMaxima/SLiCAP_python.mac")$M_:matrix([a,b],[c,d])$string(det(M_));kill(M_);')
             if result == 'a*d-b*c':
                 print("Maxima CAS client is active and functions have been uploaded.")
             else:
