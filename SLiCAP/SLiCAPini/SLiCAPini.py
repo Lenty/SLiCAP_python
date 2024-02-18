@@ -130,10 +130,12 @@ class settings(object):
 
     #. External programs
 
-       - LTspice           : LTspice command
+       - ltspice           : LTspice command
        - kicad             : KiCad command
        - inkscape          : Inkscape command
        - ngspice           : ngspice command
+       - gschem            : gnetlist command
+       - maxima            : maxima CAS command
 
     #. active HTML pages and active HTMLfile prefix
 
@@ -206,15 +208,6 @@ class settings(object):
 
        - notebook: True adapts HTML math return variables to markdown format
          required by Jupyter notebook
-
-    #. Netlister settings:
-
-       - ltspice : os command for batch netlist creation with LTspice
-       - netlist : os command for batch netlist creation with gschem or lepton-eda
-
-    #. Maxima command setting (only required for MSWindows)
-
-       - maxima: command to start maxima under MSWindows
 
     #. Maxima execution method:
 
@@ -305,36 +298,60 @@ class settings(object):
         Path (*str*), to image files will be set by **SLiCAP.initProject()**;  defaults to None.
         """
 
+        self.ltspice = None
+        """
+        Operating system command for batch generation of a netlist from an
+        LTspice circuit.
+
+        This variable is set during installation.
+        """
+
+        self.maxima             = None
+        """
+        MSWindows command for starting Maxima.
+
+        This variable is set during installation.
+        """
+
         self.ngspice            = ''
         """
         NGspice command; defaults to ''.
+
+        This variable is set during installation.
         """
 
         self.kicad              = ''
         """
         KiCad command; defaults to ''.
+
+        This variable is set during installation.
         """
 
         self.inkscape           = ''
         """
         Inkscape command; defaults to ''.
+
+        This variable is set during installation.
         """
 
         self.htmlIndex          = None
         """
         Name (*str*) of the active html index file.
-        Wiil be set by **SLiCAP.initProject()**. Defaults to: None.
+
+        Will be set by **SLiCAP.initProject()**. Defaults to: None.
         """
 
         self.htmlPage           = None
         """
         Name (*str*) of the active html file.
+
         Wiil be set by **SLiCAP.initProject()**. Defaults to: None.
         """
 
         self.htmlPrefix         = None
         """
         Name (*str*) of athe ctive html prefix (first part of the file name).
+
         Wiil be set by **SLiCAP.initProject()**. Defaults to: None.
         """
 
@@ -498,26 +515,6 @@ class settings(object):
         """
         Assume positive parameters in Maxima expressions. In many cases this
         prevents Maxima from asking questions about the sign of parameters.
-        """
-
-        self.ltspice = None
-        """
-        Operating system command prefix for batch generation of a netlist from an
-        LTspice circuit.
-
-        Defaults to *SLiCAPconfig.LTSPICE*
-
-        - Windows: 'C:/Program Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
-        - Linux (Wine): 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -netlist '
-
-        This variable is set during installation.
-        """
-
-        self.maxima             = None
-        """
-        MSWindows command for starting Maxima.
-
-        This variable is set during installation.
         """
 
         self.socket             = True

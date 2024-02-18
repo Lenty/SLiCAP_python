@@ -52,7 +52,7 @@ class InstallWrapper(install):
         self._set_install_location()
         self._gen_config_file()
         install.run(self)
-        
+
     def _find_installed_windows_software(self, package_list):
         """
         Searches for installed packages from the package list
@@ -128,11 +128,11 @@ class InstallWrapper(install):
                             if len(list(commands.keys())) == len(search_list):
                                 return commands
         return(commands)
-                            
+
     def _find_LTspice_wine(self):
         """
         Searches for LTspice under Linux or MacOS
-        
+
         Returns
         -------
         LTspice command
@@ -152,7 +152,7 @@ class InstallWrapper(install):
                             cmd = os.path.join(root,name,'ltspice.exe')
                         return cmd
         return 'None'
-        
+
     def _set_commands(self, package_list):
         """
         Sets the commands for external packages
@@ -163,7 +163,7 @@ class InstallWrapper(install):
             for package in package_list:
                 if package in commands.keys():
                     if package == 'LTspice':
-                        self._ltpice_cmd = commands[package]
+                        self._ltspice_cmd = commands[package]
                     elif package == 'Inkscape':
                         self._inkscape_cmd = commands[package]
                     elif package == 'KiCad':
@@ -173,7 +173,7 @@ class InstallWrapper(install):
                     elif package == 'gEDA':
                         self._gnetlist_cmd = commands[package]
                     elif package == 'NGspice':
-                        self._gnetlist_cmd = commands[package]
+                        self._ngspice_cmd = commands[package]
         elif pltfrm == 'Linux':
             self._ltspice_cmd  =  self._find_LTspice_wine()
             self._inkscape_cmd = 'inkscape'
