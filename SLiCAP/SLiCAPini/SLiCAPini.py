@@ -127,12 +127,13 @@ class settings(object):
        - imgPath           : Directory with images for HTML output
        - defaultLib        : Directory with SLiCAP basic library files
        - docPath           : Directory with html documentation
-       - ngspiceCMD        : Command to start ngspice
-       - kicadPath         : KiCad install directory
-       - inkscapePath      : Inkscape install directory
 
-                             MSWindows : "~\\Spice64\\bin\\ngspice.exe""
-                             Linux     : "ngspice"
+    #. External programs
+
+       - LTspice           : LTspice command
+       - kicad             : KiCad command
+       - inkscape          : Inkscape command
+       - ngspice           : ngspice command
 
     #. active HTML pages and active HTMLfile prefix
 
@@ -304,19 +305,19 @@ class settings(object):
         Path (*str*), to image files will be set by **SLiCAP.initProject()**;  defaults to None.
         """
 
-        self.ngspiceCMD         = "ngspice"
+        self.ngspice            = ''
         """
-        Command (str) to start ngspice'
-        """
-
-        self.kicadPath            = ''
-        """
-        KiCad install directory;  defaults to ''.
+        NGspice command; defaults to ''.
         """
 
-        self.inkscapePath            = ''
+        self.kicad              = ''
         """
-        Inkscape install directory;  defaults to ''.
+        KiCad command; defaults to ''.
+        """
+
+        self.inkscape           = ''
+        """
+        Inkscape command; defaults to ''.
         """
 
         self.htmlIndex          = None
@@ -617,6 +618,9 @@ class settings(object):
         self.imgPath          = projectPath + IMGPATH
         self.maxima           = MAXIMA
         self.ltspice          = LTSPICE
+        self.ngspice          = NGSPICE
+        self.kicad            = KICAD
+        self.inkscape         = INKSCAPE
         self.netlist          = NETLIST
         self.docPath          = DOCPATH
 

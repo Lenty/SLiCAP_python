@@ -13,6 +13,8 @@ Default parameters:
 >>> DOCPATH     = ''    # Documentation install path
 >>> MAXIMA      = ''    # Windows command for maxima
 >>> LTSPICE     = 'wine ~/.wine/drive_c/Program\ Files/LTC/LTspiceXVII/XVIIx64.exe -wine -netlist'      # Command for netlist generation with LTspice
+>>> KICAD       = ''    # Command for kicad-cli
+>>> INKSCAPE    = ''    # Command for Inkscape
 >>> NETLIST     = 'lepton-netlist -g spice-noqsi'   # Command for netlist generation with gschem or lepton-eda
 """
 VERSION     = '$VERSION'
@@ -22,4 +24,7 @@ LIBCOREPATH = r'$LIBCOREPATH'
 DOCPATH     = r'$DOCPATH'
 MAXIMA      = r'$MAXIMAPATH' # Windows command for maxima
 LTSPICE     = r'$LTSPICE' # Command for netlist generation with LTspice
+NGSPICE     = r'$NGSPICE' # Command for starting NGspice
+KICAD       = r'$KICAD' # Command for starting KiCad-cli
+INKSCAPE    = r'$INKSCAPE' # Command for starting Inkscape
 NETLIST     = 'lepton-netlist -g spice-noqsi' # Command for netlist generation with gschem or lepton-eda

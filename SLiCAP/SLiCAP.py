@@ -141,6 +141,7 @@ def initProject(name, port=ini.PORT):
         startMaxima()
     else:
         restartMaxima()
+    """
     if platform.system() == 'Windows':
         ini.kicadPath = 'C:\\Program Files\\KiCad\\7.0\\bin\\'
         ini.inkscapePath = 'C:\\Program Files\\Inkscape\\bin\\'
@@ -150,6 +151,7 @@ def initProject(name, port=ini.PORT):
     else:
         ini.kicadPath = '/Applications/KiCad/KiCad.app/Contents/MacOS/'
         ini.inkscapePath = ''
+    """
     # Create the HTML project index file
     startHTML(name)
     # Reset parser data
