@@ -1379,7 +1379,7 @@ def ilt(expr, s, t):
             # get root multiplicity
             n = rootDict[root]
             # build the function
-            fs = num*sp.exp(s*t)
+            fs = num.as_expr()*sp.exp(s*t)
             for rt in roots:
                 if rt != root:
                     fs /= (s-rt)**rootDict[rt]
