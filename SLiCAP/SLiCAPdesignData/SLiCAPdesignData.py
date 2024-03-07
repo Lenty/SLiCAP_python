@@ -48,7 +48,7 @@ class specItem(object):
         :return: None
         :rtype: NoneType
         """
-        self.specType    = str(self.spectype).lower()
+        self.specType    = str(self.spectype)
         self.symbol      = sp.Symbol(str(self.symbol))
         if self.value != '':
             self.value = checkExpression(self.value)

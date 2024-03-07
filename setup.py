@@ -88,10 +88,10 @@ class InstallWrapper(install):
                                         if os.path.exists(os.path.join(root,name,'XVIIx64.exe')):
                                             print("LTSpice command set as:", os.path.join(root,name,'XVIIx64.exe'))
                                             commands[package] = os.path.join(root,name,'XVIIx64.exe')
-                                        elif  os.path.exists(os.path.join(root,name,'LTspice.exe')):
+                                        elif os.path.exists(os.path.join(root,name,'LTspice.exe')):
                                             print("LTSpice command set as:", os.path.join(root,name,'LTspice.exe'))
                                             commands[package] = os.path.join(root,name,'LTspice.exe')
-                                        elif  os.path.exists(os.path.join(root,name,'ltspice.exe')):
+                                        elif os.path.exists(os.path.join(root,name,'ltspice.exe')):
                                             print("LTSpice command set as:", os.path.join(root,name,'ltspice.exe'))
                                             commands[package] = os.path.join(root,name,'ltspice.exe')
                                 if package == 'Inkscape':
