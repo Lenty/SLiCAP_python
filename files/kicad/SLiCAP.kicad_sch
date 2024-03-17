@@ -8304,7 +8304,7 @@
 		(fields_autoplaced yes)
 		(uuid "0eb7cbc5-bdea-4ecb-8cd4-7faba312f10f")
 		(property "Reference" "M?"
-			(at 245.11 27.559 0)
+			(at 245.11 26.7968 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8349,7 +8349,7 @@
 			)
 		)
 		(property "model" "M"
-			(at 245.11 30.099 0)
+			(at 245.11 29.3368 0)
 			(show_name yes)
 			(effects
 				(font
