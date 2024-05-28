@@ -4334,6 +4334,190 @@
 				)
 			)
 		)
+		(symbol "SLiCAP:O"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "O?"
+				(at 0.635 6.985 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" ""
+				(at 2.54 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Footprint" ""
+				(at 2.54 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 2.54 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "Operational amplifier"
+				(at 10.922 -6.096 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "model" "?"
+				(at 0.635 5.08 0)
+				(show_name)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(symbol "O_0_1"
+				(polyline
+					(pts
+						(xy 7.62 0) (xy 6.985 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "O_1_0"
+				(pin power_out line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "outP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 0 -6.985 90)
+					(length 2.54)
+					(name "outN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "O_1_1"
+				(polyline
+					(pts
+						(xy 6.985 0) (xy -5.08 7.62) (xy -5.08 -7.62) (xy 6.985 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(text "+"
+					(at -3.81 5.08 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "-"
+					(at -3.81 -5.08 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 5.08 0)
+					(length 2.54)
+					(name "inp"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -5.08 0)
+					(length 2.54)
+					(name "inN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "SLiCAP:O_dcvar"
 			(pin_numbers hide)
 			(pin_names
@@ -8311,7 +8495,7 @@
 				)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 239.395 29.21 0)
 			(effects
 				(font
@@ -8397,7 +8581,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 97.155 52.07 0)
 			(effects
 				(font
@@ -8506,7 +8690,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 219.71 67.31 0)
 			(effects
 				(font
@@ -8600,7 +8784,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 181.61 24.13 0)
 			(effects
 				(font
@@ -8882,7 +9066,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 257.81 67.31 0)
 			(effects
 				(font
@@ -8990,7 +9174,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 127 45.72 0)
 			(effects
 				(font
@@ -9302,7 +9486,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 27.94 71.755 0)
 			(effects
 				(font
@@ -9378,7 +9562,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 148.59 48.26 0)
 			(effects
 				(font
@@ -9554,7 +9738,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 114.935 67.31 0)
 			(effects
 				(font
@@ -9673,7 +9857,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 149.225 67.945 0)
 			(effects
 				(font
@@ -9826,7 +10010,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 44.45 33.02 0)
 			(effects
 				(font
@@ -9998,7 +10182,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 240.03 67.31 0)
 			(effects
 				(font
@@ -10547,7 +10731,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 40.64 48.895 0)
 			(effects
 				(font
@@ -10637,7 +10821,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 42.545 39.37 0)
 			(effects
 				(font
@@ -10767,7 +10951,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 187.325 67.31 0)
 			(effects
 				(font
@@ -10908,7 +11092,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 71.12 72.39 0)
 			(effects
 				(font
@@ -11222,7 +11406,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 163.195 43.18 0)
 			(effects
 				(font
@@ -11329,7 +11513,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 27.94 79.375 0)
 			(effects
 				(font
@@ -11405,7 +11589,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 256.54 24.13 0)
 			(effects
 				(font
@@ -11526,7 +11710,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 166.37 27.94 0)
 			(effects
 				(font
@@ -11586,6 +11770,93 @@
 			(project "SLiCAP"
 				(path "/6b41754a-da17-41c1-9041-09a8f3e32bb9"
 					(reference "J?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SLiCAP:O")
+		(at 179.07 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e7743afb-e00d-4f59-90ad-d2bc95135d53")
+		(property "Reference" "O1"
+			(at 180.34 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 181.61 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 181.61 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 181.61 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Operational amplifier"
+			(at 189.992 96.266 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "model" "?"
+			(at 180.34 80.01 0)
+			(show_name yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "279622b3-b950-4582-844b-6d437c69ac42")
+		)
+		(pin "4"
+			(uuid "cce058c0-abe1-4da9-aa36-cbbb1af23fcf")
+		)
+		(pin "3"
+			(uuid "aaa48368-84fa-41aa-86eb-6b6007db30b8")
+		)
+		(pin "2"
+			(uuid "10873b8e-23eb-4475-bc33-44ecf20a9b23")
+		)
+		(instances
+			(project "SLiCAP"
+				(path "/6b41754a-da17-41c1-9041-09a8f3e32bb9"
+					(reference "O1")
 					(unit 1)
 				)
 			)
@@ -11912,7 +12183,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "~"
 			(at 94.615 67.945 0)
 			(effects
 				(font
