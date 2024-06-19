@@ -11,10 +11,10 @@ WINDOW 0 16 -56 Left 2
 WINDOW 3 16 -39 Left 2
 WINDOW 123 16 -24 Left 2
 SYMATTR Value value=?
+SYMATTR Value2 iinit=0
 SYMATTR Prefix L
 SYMATTR Description inductor
 SYMATTR SpiceModel L
-SYMATTR Value2 iinit=0
 PIN 0 -80 NONE 0
 PINATTR PinName D
 PINATTR SpiceOrder 1
