@@ -259,7 +259,7 @@ def parseElement(line, circuitDict = CIRCUITS):
             nFields += 1
         if len(line) < nFields:
             printError("Error: incomplete element specification.", line[-1])
-            errrors += 1
+            errors += 1
         else:
             for i in range(nNodes):
                 pos = 1 + i
@@ -267,14 +267,14 @@ def parseElement(line, circuitDict = CIRCUITS):
                     newElement.nodes.append(line[pos].value)
                 else:
                     printError("Error: syntax error in node ID", line[pos])
-                    errrors += 1
+                    errors += 1
             for i in range(DEVICES[deviceType].nRefs):
                 pos = 1 + nNodes + i
                 if line[pos].type == "ID":
                     newElement.refs.append(line[pos].value)
                 else:
                     printError("Error: syntax error in device ID", line[pos])
-                    errrors += 1
+                    errors += 1
             pos = 1 + nNodes + nRefs
             if DEVICES[deviceType].value:
                 if line[pos].type == "ID":
@@ -290,10 +290,10 @@ def parseElement(line, circuitDict = CIRCUITS):
                         newElement.params['value'] = sp.N(line[pos].value)
                 elif line[pos].type == "PARDEF":
                     printError("Error: missing model definition", line[pos])
-                    errrors += 1
+                    errors += 1
                 else:
                     printError("Error: syntax error in model definition", line[pos])
-                    errrors += 1
+                    errors += 1
                 for i in range(len(line) - nFields):
                     pos = nFields + i
                     if line[pos].type == "PARDEF":
